@@ -1,10 +1,8 @@
-// import logo from './logo.svg';
 import './App.css';
 import {Canvas} from '@react-three/fiber';
 import { Suspense } from 'react';
 import Model from './TorqueLogo';
-import {OrbitControls, Environment} from '@react-three/drei';
-import { Camera } from 'three';
+import {OrbitControls,} from '@react-three/drei';
 
 
 
@@ -16,18 +14,14 @@ function App() {
         <Canvas>
           <Suspense fallback= {null}>
           <Model/>
+          <ambientLight intensity={1}/>
           <OrbitControls/>
-          {/* <mesh  scale={4}>
-          <boxGeometry/>
-          <meshStandardMaterial color="hotpink"/>
-          <ambientLight/>
-           </mesh> */}
           </Suspense> 
         </Canvas>
         </div>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1>
+          An Interactive 3d Learning Experience
+        </h1>
         <a
           className="App-link"
           href="https://reactjs.org"
