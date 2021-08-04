@@ -10,13 +10,13 @@ export default function Model(props) {
   const { nodes, materials, animations } = useGLTF('../torqueLogo.gltf')
   const { actions } = useAnimations(animations, group)
   useEffect(()=>{
-    actions.Spin.play();
+    
   })
   
   return (
     <group ref={group} {...props} dispose={null}>
-      <mesh scale={4} name="Torque_Logo_3d" geometry={nodes.Torque_Logo_3d.geometry} material={materials.SVGMat}/>
-    
+      <mesh onClick={(e)=>actions.Spin.play()} name="Torque_Logo_3d" geometry={nodes.Torque_Logo_3d.geometry} material={materials.SVGMat}/>
+       
       
     
     </group>
