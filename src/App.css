@@ -17,9 +17,33 @@ canvas {
   color: white;
 }
 
+.Bkick {
+  margin: 10px 0px;
+  padding: 5px;
+  font-size: 24px;
+  background: whitesmoke;
+  color: black;
+  border: 2px solid #808080;
+  border-radius: 12px;
+}
+.Bkick:hover {
+  font-size: 30px;
+  background: gainsboro;
+}
+
+.btn-container {
+  width: 500px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 75px;
+}
+
 .App-link {
   color: #ffffff;
 }
 h1 {
   color: aquamarine;
+  margin-bottom: 0%;
 }

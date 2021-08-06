@@ -6,7 +6,7 @@ import React, { useRef, useState } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 useGLTF.preload('../torqueLogo.gltf')
 
-export default function Model(props) {
+export default function TorqueLogo(props) {
   const group = useRef()
   const { nodes, materials, animations } = useGLTF('../torqueLogo.gltf')
   const { actions } = useAnimations(animations, group)  

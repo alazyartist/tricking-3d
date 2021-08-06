@@ -1,10 +1,11 @@
 import './App.css';
-import { TorqueT } from './TorqueT';
+import { Home } from './Home';
 
 function App() {
   return (
-    <TorqueT/>
+    <Home />
   );
 }
 
 export default App;
+ 
