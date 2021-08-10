@@ -1,49 +1,63 @@
 .App {
-  text-align: center;
+	text-align: center;
 }
 
 canvas {
-  min-height: 350px;
-  min-width: 500px;
+	min-height: 400px;
+	min-width: 600px;
 }
 .App-header {
-  background-color: #20add8;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+	background-color: #20add8;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
 }
 
-.Bkick {
-  margin: 10px 0px;
-  padding: 5px;
-  font-size: 24px;
-  background: whitesmoke;
-  color: black;
-  border: 2px solid #808080;
-  border-radius: 12px;
+.Btn {
+	margin: 10px 0px;
+	padding: 12px;
+	font-size: 24px;
+	background: whitesmoke;
+	color: black;
+	border: 2px solid #808080;
+	border-radius: 18px;
+	position: relative;
 }
-.Bkick:hover {
-  font-size: 30px;
-  background: gainsboro;
+.Btn:hover {
+	background: gainsboro;
+	position: relative;
+	overflow: hidden;
+	transform: scale(1.125);
+}
+.an1:hover {
+	background-color: hotpink;
+	position: relative;
+}
+.modelSelector:hover {
+	position: relative;
+	background-color: rgb(97, 19, 112);
+	color: whitesmoke;
 }
 
 .btn-container {
-  width: 500px;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  height: 75px;
+	width: 70%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	height: 20%;
 }
 
 .App-link {
-  color: #ffffff;
+	color: #ffffff;
 }
 h1 {
-  color: aquamarine;
-  margin-bottom: 0%;
+	color: aquamarine;
+	margin-top: 5px;
+	margin-bottom: 0%;
+	position: absolute;
+	top: 0;
 }
