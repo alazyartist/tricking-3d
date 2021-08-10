@@ -1,19 +1,26 @@
-import React, {useEffect, useState} from 'react'
-import './App.css'
+import React, { useEffect, useState } from "react";
+import "./App.css";
 
 export default function Button(props) {
-    const [isPlaying, setIsPlaying] = useState(props.isPlaying);
-    
-    const toggle = () => {setIsPlaying(!props.isPlaying)};
-    
-//useEffect
-    useEffect(() => {props.handlePlaying(isPlaying)
-            }, [props.handlePlaying, isPlaying, props])
+	//Button logic for animation playing
+	const [isPlaying, setIsPlaying] = useState(props.isPlaying);
+	const toggle = () => {
+		setIsPlaying(!props.isPlaying);
+		console.log("isPlaying " + isPlaying);
+	};
 
-    return (
-        <button className='Bkick' onClick={()=>{toggle()}}>
-            Play/Pause
-        </button>
-    )
+	//useEffect
+	useEffect(() => {
+		props.handlePlaying(isPlaying);
+	}, [props.handlePlaying, isPlaying, props]);
+	//Play Pause Button
+	return (
+		<button
+			className='Btn'
+			onClick={() => {
+				toggle();
+			}}>
+			Play/Pause
+		</button>
+	);
 }
-
