@@ -1,18 +1,19 @@
-import React from "react";
 import create from "zustand";
 
 export const useStore = create((set) => ({
-	animationsArray: ["bkick", "backflip", "corkscrew", "doublefull"],
-	modelValue: 0,
+	animationsArray: ["Bkick", "Backflip"],
+	modelValue: true,
+	isPlaying: false,
+	setIsPlaying: () => set((state) => ({ isPlaying: !state.isPlaying })),
 	aI: 0,
 	modelArray: [],
 	updateAnimationArray: () =>
-		set((state) => ({ animationsArray: state.animationsArray.push() })),
+		set((state) => ({
+			animationsArray: state.animationsArray,
+		})),
 	animationSelector: () =>
 		set((state) => ({
 			aI: (state.aI + 1) % state.animationsArray.length,
 		})),
-	//increasePopulation: () => set(state => ({ bears: state.bears + 1 })),
-
-	modelSelector: () => set((state) => ({ modelValue: state.modelValue + 1 })),
+	modelSelector: () => set((state) => ({ modelValue: !state.modelValue })),
 }));

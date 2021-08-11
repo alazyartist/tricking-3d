@@ -44,7 +44,7 @@ export default function AnimationSelectorButton(props) {
 	const currentAnimation = useStore((state) => arr[animationAi]);
 	const animationSwitch = useStore((state) => state.animationSelector);
 	console.log(animationSwitch);
-	console.log("arr" + arr.length);
+	console.log("arr " + arr.length);
 	return (
 		<div>
 			<button
