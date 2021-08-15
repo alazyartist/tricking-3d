@@ -14,15 +14,17 @@ export function Fred(props) {
 	const animationsArr = [actions.BKick, actions.Backflip];
 	const setAnimationsArray = useStore((state) => state.updateAnimationArray);
 	const aA = useStore((state) => state.animationsArray);
-	console.log(actions);
+	let aAu = [...animations];
+	// setAnimationsArray({ animationsArray: [...aAu] });
+	console.log(aA);
 
 	useEffect(() => {
 		isPlaying ? actions[names[aI]].play() : actions[names[aI]].stop();
 	});
 	useEffect(() => {
 		isPaused
-			? (actions[names[aI]].timeScale = 1)
-			: (actions[names[aI]].timeScale = 0);
+			? (actions[names[aI]].timeScale = 0)
+			: (actions[names[aI]].timeScale = 1);
 	});
 	// const modelValue = useStore((state) => state.modelValue);
 	// setAnimationsArray(animationsArr);
