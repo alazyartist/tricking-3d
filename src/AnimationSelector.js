@@ -11,7 +11,7 @@ export default function AnimationSelectorButton(props) {
 	const currentAnimation = useStore(
 		(state) => state.animationsArray[animationAi]
 	);
-	console.log(arr);
+	// console.log(arr);
 	return (
 		<div>
 			<button className='Btn an1' onClick={playSwitch}>

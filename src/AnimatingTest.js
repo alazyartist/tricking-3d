@@ -7,25 +7,31 @@ import { useStore } from "./store";
 export function Fred(props) {
 	const group = useRef();
 	const { nodes, materials, animations } = useGLTF("../AnimatingTest.gltf");
-	const { actions, names } = useAnimations(animations, group);
+	const { actions, names, mixer } = useAnimations(animations, group);
 	const aI = useStore((state) => state.aI);
 	const isPlaying = useStore((state) => state.isPlaying);
 	const isPaused = useStore((state) => state.isPaused);
 	const animationsArr = [actions.BKick, actions.Backflip];
 	const setAnimationsArray = useStore((state) => state.updateAnimationArray);
 	const aA = useStore((state) => state.animationsArray);
-	let aAu = [...animations];
-	// setAnimationsArray({ animationsArray: [...aAu] });
-	console.log(aA);
-
+	console.log(names[aI] + " Playing " + isPlaying + " Paused " + isPaused);
+	// let aAu =
+	// 	actions[names[aI]] !== undefined ? [actions[names[aI]]._clip.name] : [];
+	// // let aAu2 = aAu.length ? [...aAu] : [];
+	// useEffect(() => {
+	// 	setAnimationsArray({ animationsArray: [...aAu] });
+	// });
+	// console.log(actions[names[aI]]._clip.name);
+	// console.log(aAu2);
 	useEffect(() => {
-		isPlaying ? actions[names[aI]].play() : actions[names[aI]].stop();
-	});
+		mixer.stopAllAction();
+		isPlaying ? actions[names[aI]].play() : actions[names[aI]].reset();
+	}, [isPlaying, aI, actions]);
 	useEffect(() => {
 		isPaused
 			? (actions[names[aI]].timeScale = 0)
 			: (actions[names[aI]].timeScale = 1);
-	});
+	}, [isPaused, aI, actions]);
 	// const modelValue = useStore((state) => state.modelValue);
 	// setAnimationsArray(animationsArr);
 	// console.log("aA  " + aA);
@@ -53,6 +59,7 @@ export function Fred(props) {
 			<group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
 				<primitive object={nodes.mixamorig1Hips} />
 				<skinnedMesh
+					frustumCulled={false}
 					geometry={nodes.Fred.geometry}
 					material={materials.Fred}
 					skeleton={nodes.Fred.skeleton}
