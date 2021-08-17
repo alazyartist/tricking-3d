@@ -18,6 +18,10 @@ export function Home() {
 					<Canvas>
 						<Suspense fallback={null}>
 							<TorqueScene />
+							<gridHelper
+								args={[10, 10, `white`, `gray`]}
+								position={[0, 0, 0]}
+							/>
 						</Suspense>
 					</Canvas>
 				</div>

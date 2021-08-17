@@ -14,10 +14,9 @@ export function TorqueScene(props) {
 	//Scene Logic -- Switch Models to render: Fred or Torque Logo
 	if (modelSelector) {
 		return (
-			<PerspectiveCamera>
-				{" "}
-				position={[0, 1, 0]}
-				<Fred />
+			<PerspectiveCamera frustumCulled={false}>
+				position={[1, 0, 0]}
+				<Fred position={[-1, 0, 0]} rotation={[0, 20, 0]} />
 				<ambientLight intensity={0.2} />
 				<spotLight intensity={4} position={[0, -3, -3]} />
 				<Environment preset='park' />

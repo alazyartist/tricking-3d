@@ -5,7 +5,7 @@ export const useStore = create(
 	devtools((set) => ({
 		animationsArray: ["Backflip", "BKick"],
 		modelValue: true,
-		isPlaying: false,
+		isPlaying: true,
 		isPaused: true,
 		setIsPlaying: () => set((state) => ({ isPlaying: !state.isPlaying })),
 		setIsPaused: () => set((state) => ({ isPaused: !state.isPaused })),
@@ -18,6 +18,8 @@ export const useStore = create(
 		animationSelector: () =>
 			set((state) => ({
 				aI: (state.aI + 1) % state.animationsArray.length,
+				isPlaying: true,
+				isPaused: true,
 			})),
 		modelSelector: () => set((state) => ({ modelValue: !state.modelValue })),
 	}))
