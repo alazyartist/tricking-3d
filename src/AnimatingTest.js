@@ -6,15 +6,16 @@ import { useGLTF, useAnimations } from "@react-three/drei";
 import { useStore } from "./store";
 export function Fred(props) {
 	const group = useRef();
-	const { nodes, materials, animations } = useGLTF("../AnimatingTest.gltf");
+	const { nodes, materials, animations } = useGLTF("../AnimatingTestIdle.gltf");
 	const { actions, names, mixer } = useAnimations(animations, group);
 	const aI = useStore((state) => state.aI);
 	const isPlaying = useStore((state) => state.isPlaying);
 	const isPaused = useStore((state) => state.isPaused);
-	const animationsArr = [actions.BKick, actions.Backflip];
-	const setAnimationsArray = useStore((state) => state.updateAnimationArray);
-	const aA = useStore((state) => state.animationsArray);
+	// const animationsArr = [actions.BKick, actions.Backflip];
+	// const setAnimationsArray = useStore((state) => state.updateAnimationArray);
+	// const aA = useStore((state) => state.animationsArray);
 	console.log(names[aI] + " Playing " + isPlaying + " Paused " + isPaused);
+	console.log(nodes);
 	// let aAu =
 	// 	actions[names[aI]] !== undefined ? [actions[names[aI]]._clip.name] : [];
 	// // let aAu2 = aAu.length ? [...aAu] : [];
@@ -26,12 +27,12 @@ export function Fred(props) {
 	useEffect(() => {
 		mixer.stopAllAction();
 		isPlaying ? actions[names[aI]].play() : actions[names[aI]].reset();
-	}, [isPlaying, aI, actions]);
+	}, [isPlaying, aI, actions, names]);
 	useEffect(() => {
 		isPaused
 			? (actions[names[aI]].timeScale = 0)
 			: (actions[names[aI]].timeScale = 1);
-	}, [isPaused, aI, actions]);
+	}, [isPaused, aI, actions, names]);
 	// const modelValue = useStore((state) => state.modelValue);
 	// setAnimationsArray(animationsArr);
 	// console.log("aA  " + aA);

@@ -3,7 +3,16 @@ import { devtools } from "zustand/middleware";
 
 export const useStore = create(
 	devtools((set) => ({
-		animationsArray: ["Backflip", "BKick"],
+		animationsArray: [
+			"Au",
+			"BackFlip",
+			"BadRaiz",
+			"Cartwheel",
+			"FrontFlip",
+			"Helicoptero",
+			"Idle",
+			"RoundKick",
+		],
 		modelValue: true,
 		isPlaying: true,
 		isPaused: true,
@@ -12,7 +21,7 @@ export const useStore = create(
 		aI: 0,
 		modelArray: [],
 		updateAnimationArray: (value) =>
-			set((state) => ({
+			set(() => ({
 				animationsArray: [value],
 			})),
 		animationSelector: () =>
