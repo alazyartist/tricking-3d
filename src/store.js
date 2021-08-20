@@ -4,6 +4,7 @@ import { devtools } from "zustand/middleware";
 export const useStore = create(
 	devtools((set) => ({
 		animationsArray: [
+			//Uncomment Below Array and everything works fine. Not the solution desired.
 			"Au",
 			"BackFlip",
 			"BadRaiz",
@@ -21,8 +22,8 @@ export const useStore = create(
 		aI: 0,
 		modelArray: [],
 		updateAnimationArray: (value) =>
-			set(() => ({
-				animationsArray: [value],
+			set((state) => ({
+				animationsArray: [...state.animationsArray, value],
 			})),
 		animationSelector: () =>
 			set((state) => ({

@@ -12,19 +12,31 @@ export function Fred2(props) {
 		"./../AnimatingTestIdle.gltf"
 	);
 	const { actions, names, mixer } = useAnimations(animations, group);
+
 	//Use Store
 	const aI = useStore((state) => state.aI);
 	const isPlaying = useStore((state) => state.isPlaying);
 	const isPaused = useStore((state) => state.isPaused);
 	const setAnimationsArray = useStore((state) => state.updateAnimationArray);
+	const arr = useStore((state) => state.animationsArray);
+	// Put AnimationClip: name into an array of strings to be used in store
 	const updateArr = [...names];
-	useCallback(() => {
-		setAnimationsArray(...updateArr);
+	// TODO: SET animatations array in store to use ...names
+	// without rerendering infinte fucking times
+	//
+	// Have tried useMemo, useEffect, useCallback. none of them consitently get the values
+	// into the state.animationsArray without infinite rerenders
+	//
+	useEffect(() => {
+		// console.log([...updateArr]);
+		// WARNING!!! UNCOMMENT NEXT LINE AT OWN RISK: WILL RESULT IN INFINTE LOOP
+		// setAnimationsArray(...updateArr);
+		console.log(".....Fred2.....");
+		console.log(updateArr);
+		console.log(".............");
 	}, [updateArr]);
 
-	console.log([...updateArr]);
-
-	// Handle Animation
+	// Handle Animation Loop
 	useEffect(() => {
 		mixer.stopAllAction();
 		isPlaying ? actions[names[aI]].play() : actions[names[aI]].reset();

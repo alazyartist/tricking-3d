@@ -8,7 +8,7 @@ import { useStore } from "./store";
 import AnimationSelectorButton from "./AnimationSelector";
 
 export function Home() {
-	console.log(useStore((state) => state.animationsArray));
+	// console.log(useStore((state) => state.animationsArray));
 
 	//General Design Handled Here
 	return (
