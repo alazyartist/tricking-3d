@@ -4,7 +4,6 @@ import { Suspense } from "react";
 import { TorqueScene } from "./Scene";
 import Button from "./Button";
 import ModelSelector from "./ModelSelector";
-import { useStore } from "./store";
 import AnimationSelectorButton from "./AnimationSelector";
 
 export function Home() {

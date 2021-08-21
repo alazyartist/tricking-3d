@@ -3,17 +3,7 @@ import { devtools } from "zustand/middleware";
 
 export const useStore = create(
 	devtools((set) => ({
-		animationsArray: [
-			//Uncomment Below Array and everything works fine. Not the solution desired.
-			"Au",
-			"BackFlip",
-			"BadRaiz",
-			"Cartwheel",
-			"FrontFlip",
-			"Helicoptero",
-			"Idle",
-			"RoundKick",
-		],
+		animationsArray: [],
 		modelValue: true,
 		isPlaying: true,
 		isPaused: true,
@@ -22,8 +12,8 @@ export const useStore = create(
 		aI: 0,
 		modelArray: [],
 		updateAnimationArray: (value) =>
-			set((state) => ({
-				animationsArray: [...state.animationsArray, value],
+			set(() => ({
+				animationsArray: [...value],
 			})),
 		animationSelector: () =>
 			set((state) => ({
