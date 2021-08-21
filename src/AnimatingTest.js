@@ -11,48 +11,15 @@ export function Fred(props) {
 	const aI = useStore((state) => state.aI);
 	const isPlaying = useStore((state) => state.isPlaying);
 	const isPaused = useStore((state) => state.isPaused);
-	// const animationsArr = [actions.BKick, actions.Backflip];
-	// const setAnimationsArray = useStore((state) => state.updateAnimationArray);
-	// const aA = useStore((state) => state.animationsArray);
-	console.log(names[aI] + " Playing " + isPlaying + " Paused " + isPaused);
-	console.log(nodes);
-	// let aAu =
-	// 	actions[names[aI]] !== undefined ? [actions[names[aI]]._clip.name] : [];
-	// // let aAu2 = aAu.length ? [...aAu] : [];
-	// useEffect(() => {
-	// 	setAnimationsArray({ animationsArray: [...aAu] });
-	// });
-	// console.log(actions[names[aI]]._clip.name);
-	// console.log(aAu2);
 	useEffect(() => {
 		mixer.stopAllAction();
 		isPlaying ? actions[names[aI]].play() : actions[names[aI]].reset();
-	}, [isPlaying, aI, actions, names]);
+	}, [isPlaying, aI, actions, names, mixer]);
 	useEffect(() => {
 		isPaused
 			? (actions[names[aI]].timeScale = 0)
 			: (actions[names[aI]].timeScale = 1);
 	}, [isPaused, aI, actions, names]);
-	// const modelValue = useStore((state) => state.modelValue);
-	// setAnimationsArray(animationsArr);
-	// console.log("aA  " + aA);
-	// console.log("animations array ");
-	// console.log(actions?.names?.BKick?.play);
-	// console.log("^fred");
-	//AnimationPlayer
-	// if (aI == 0) {
-	// 	console.log(actions);
-	// 	if (actions !== undefined) {
-	// 		actions?.BKick?.reset().play();
-	// 	}
-	// isPlaying ? (actions?.BKick?.timeScale = 1) : (actions?.BKick?.timeScale = 0);
-	// } else if (aI == 1) {
-	// 	console.log(actions?.Backflip?.play);
-	// 	if (actions !== undefined) {
-	// 		actions?.Backflip?.reset().play();
-	// 	}
-
-	// }
 
 	//Fred
 	return (
