@@ -12,15 +12,11 @@ export function Home() {
 	//General Design Handled Here
 	return (
 		<div className='App'>
-			<div className='App-header'>
+			<div className='App-background'>
 				<div className='Canvas-container'>
 					<Canvas>
 						<Suspense fallback={null}>
 							<TorqueScene />
-							<gridHelper
-								args={[10, 10, `white`, `gray`]}
-								position={[0, 0, 0]}
-							/>
 						</Suspense>
 					</Canvas>
 				</div>
