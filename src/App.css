@@ -6,8 +6,8 @@ canvas {
 	min-height: 400px;
 	min-width: 600px;
 }
-.App-header {
-	background-color: #0c7eb3;
+.App-background {
+	background-color: #666666;
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;

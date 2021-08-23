@@ -4,30 +4,39 @@ import {
 	OrbitControls,
 	Environment,
 	PerspectiveCamera,
+	GizmoHelper,
+	GizmoViewport,
 } from "@react-three/drei";
 import TorqueLogo from "./TorqueLogo";
 // import { Fred } from "./AnimatingTest";
 import { Fred2 } from "./AnimatingTestIdle.js";
 import { useStore } from "./store";
-
+console.log(Fred2);
 export function TorqueScene(props) {
 	const modelSelector = useStore((state) => state.modelValue);
 	//Scene Logic -- Switch Models to render: Fred or Torque Logo
 	if (modelSelector) {
 		return (
-			<PerspectiveCamera>
+			<PerspectiveCamera position={[0, -2, 0]}>
 				{/* <Fred position={[-1, 0, 0]} rotation={[0, 20, 0]} /> */}
 				<Fred2 />
 
-				<ambientLight intensity={0.2} />
-				<spotLight intensity={4} position={[0, -3, -3]} />
+				<ambientLight intensity={0.8} />
+				<spotLight intensity={3} position={[0, -3, -3]} />
+				<spotLight intensity={2} position={[0, 5, 5]} />
 				<Environment preset='park' />
 				<OrbitControls />
+				<GizmoHelper alignment={"top-right"}>
+					<GizmoViewport
+						axisColors={["red", "green", "blue"]}
+						labelColor='white'
+					/>
+				</GizmoHelper>
 			</PerspectiveCamera>
 		);
 	} else {
 		return (
-			<PerspectiveCamera position={[0, 0, 1]}>
+			<PerspectiveCamera position={[0, -2, 1]}>
 				<TorqueLogo model={props.model} scale={2} />
 				<ambientLight intensity={1} />
 				<spotLight position={[0, -3, -3]} />
