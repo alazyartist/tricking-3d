@@ -20,6 +20,7 @@ export function Home() {
 						</Suspense>
 					</Canvas>
 				</div>
+				<div id='tweak'>{console.log("tweakpane div rendered")}</div>
 				<h1>An Interactive 3d Learning Experience</h1>
 				<div className='btn-container'>
 					<AnimationSelectorButton />

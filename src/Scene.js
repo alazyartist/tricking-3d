@@ -11,7 +11,7 @@ import TorqueLogo from "./TorqueLogo";
 // import { Fred } from "./AnimatingTest";
 import { Fred2 } from "./AnimatingTestIdle.js";
 import { useStore } from "./store";
-console.log(Fred2);
+
 export function TorqueScene(props) {
 	const modelSelector = useStore((state) => state.modelValue);
 	//Scene Logic -- Switch Models to render: Fred or Torque Logo
@@ -26,7 +26,7 @@ export function TorqueScene(props) {
 				<spotLight intensity={2} position={[0, 5, 5]} />
 				<Environment preset='park' />
 				<OrbitControls />
-				<GizmoHelper alignment={"top-right"}>
+				<GizmoHelper alignment={"bottom-left"}>
 					<GizmoViewport
 						axisColors={["red", "green", "blue"]}
 						labelColor='white'
