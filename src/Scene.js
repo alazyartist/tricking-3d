@@ -11,7 +11,6 @@ import TorqueLogo from "./TorqueLogo";
 // import { Fred } from "./AnimatingTest";
 import { Fred2 } from "./AnimatingTestIdle.js";
 import { useStore } from "./store";
-
 export function TorqueScene(props) {
 	const modelSelector = useStore((state) => state.modelValue);
 	//Scene Logic -- Switch Models to render: Fred or Torque Logo
