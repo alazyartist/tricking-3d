@@ -35,9 +35,7 @@ export function Fred2(props) {
 	);
 
 	// Handle Animation Loop
-	useEffect(() => {
-		console.log(mixer.time);
-	}, [mixer.time]);
+
 	useEffect(() => {
 		bounce
 			? actions[names[aI]].setLoop(THREE.LoopPingPong)
@@ -52,7 +50,7 @@ export function Fred2(props) {
 		actions[names[aI]].timeScale = timescale;
 	}, [timescale, aI, actions, names, mixer]);
 	useEffect(() => {
-		// mixer.stopAllAction();
+		mixer.stopAllAction();
 		isPlaying ? actions[names[aI]].play() : actions[names[aI]].reset();
 	}, [isPlaying, aI, actions, names, mixer]);
 	useEffect(() => {

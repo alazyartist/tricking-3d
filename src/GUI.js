@@ -12,11 +12,13 @@ export function Gui() {
 	const timescale = useStore((state) => state.timescale);
 	const setLoop = useStore((state) => state.setLoop);
 	const setBounce = useStore((state) => state.setBounce);
+	// const currentAnimation = useStore((state) => state.animationsArray);
 	//Tweakpane GUI Setup
 	const PARAMS = {
 		timescale: timescale,
 		play: isPlaying,
 		paused: isPaused,
+		// currentAnimation: currentAnimation,
 		// xyz: positionparam,
 	};
 	const guiRight = new Pane({
@@ -42,7 +44,6 @@ export function Gui() {
 			label: "buttongrid",
 		})
 		.on("click", (ev) => {
-			console.log(ev.index + "first");
 			//Play
 			if (ev.cell.title === "Start") {
 				setIsPlaying();
@@ -65,15 +66,13 @@ export function Gui() {
 			}
 			//Reverse
 			if (ev.cell.title === "Reverse") {
-				// setIsPaused(true);
+				setTimescale(-timescale);
 			}
-
-			console.log(ev.cell.title);
 		});
 	guiRight
 		.addInput(PARAMS, "timescale", {
 			label: "PlaybackSpeed",
-			min: 0,
+			min: -1,
 			max: 1,
 			step: 0.01,
 		})
@@ -82,4 +81,5 @@ export function Gui() {
 		});
 	guiRight.addMonitor(PARAMS, "play");
 	guiRight.addMonitor(PARAMS, "paused");
+	// guiRight.addMonitor(PARAMS, "currentAnimation");
 }

@@ -5,6 +5,7 @@ import { TorqueScene } from "./Scene";
 import Button from "./Button";
 import ModelSelector from "./ModelSelector";
 import AnimationSelectorButton from "./AnimationSelector";
+import { Gui } from "./GUI";
 
 export function Home() {
 	// console.log(useStore((state) => state.animationsArray));
@@ -20,7 +21,7 @@ export function Home() {
 						</Suspense>
 					</Canvas>
 				</div>
-				<div id='tweak'>{console.log("tweakpane div rendered")}</div>
+				<div id='tweak'></div>
 				<h1>An Interactive 3d Learning Experience</h1>
 				<div className='btn-container'>
 					<AnimationSelectorButton />
