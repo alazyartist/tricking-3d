@@ -28,5 +28,7 @@ export const useStore = create(
 				isPaused: true,
 			})),
 		modelSelector: () => set((state) => ({ modelValue: !state.modelValue })),
+		position: [],
+		setFredPosition: (value) => set(() => ({ position: [value] })),
 	}))
 );
