@@ -6,7 +6,7 @@ import Button from "./Button";
 import ModelSelector from "./ModelSelector";
 import AnimationSelectorButton from "./AnimationSelector";
 import { Gui } from "./GUI";
-
+import TrickInfo from "./TrickInfo";
 export function Home() {
 	// console.log(useStore((state) => state.animationsArray));
 
@@ -25,6 +25,7 @@ export function Home() {
 				<h1>An Interactive 3d Learning Experience</h1>
 				<div className='btn-container'>
 					<AnimationSelectorButton />
+					<TrickInfo className='Btn an1' />
 					<ModelSelector />
 					<Button />
 				</div>

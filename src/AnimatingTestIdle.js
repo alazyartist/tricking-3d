@@ -7,6 +7,7 @@ import { useGLTF, useAnimations } from "@react-three/drei";
 import { useStore } from "./store";
 import { Gui } from "./GUI";
 import * as THREE from "three";
+import { useFrame } from "@react-three/fiber";
 export function Fred2(props) {
 	//Renders TweakpaneGuiRight
 	Gui();
@@ -27,7 +28,7 @@ export function Fred2(props) {
 	const timescale = useStore((state) => state.timescale);
 	const loop = useStore((state) => state.loop);
 	const bounce = useStore((state) => state.bounce);
-
+	const setFredPosition = useStore((state) => state.setFredPosition);
 	//Solves Problem with infinte renders of Animations Array and successfully passes to store
 	useMemo(
 		() => Promise.resolve(names).then((results) => setAnimationsArray(results)),
@@ -59,7 +60,8 @@ export function Fred2(props) {
 			: (actions[names[aI]].timeScale = timescale);
 	}, [timescale, isPaused, aI, actions, names]);
 
-	// console.log(nodes.mixamorig1Hips.position);
+	console.log("fred" + group?.current?.position);
+	// useFrame(() => setFredPosition(group?.current?.position));
 	return (
 		<group ref={group} {...props} dispose={null}>
 			<primitive object={nodes.mixamorig1Hips} />
