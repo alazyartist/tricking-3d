@@ -10,7 +10,7 @@ export const useStore = create(
 		isPaused: false,
 		setIsPaused: () => set((state) => ({ isPaused: !state.isPaused })),
 		timescale: 1,
-		setTimescale: (value) => set((state) => ({ timescale: value })),
+		setTimescale: (value) => set(() => ({ timescale: value })),
 		loop: true,
 		setLoop: () => set((state) => ({ loop: !state.loop })),
 		bounce: true,

@@ -26,8 +26,8 @@ export function Home() {
 				<div className='btn-container'>
 					<AnimationSelectorButton />
 					<TrickInfo className='Btn an1' />
-					<ModelSelector />
-					<Button />
+					{/* <ModelSelector /> */}
+					{/* <Button /> */}
 				</div>
 				<a
 					className='App-link'
