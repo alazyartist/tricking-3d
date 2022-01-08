@@ -9,7 +9,7 @@ export default function TrickInfo() {
 	return (
 		<div>
 			<h2>{animationsArray[aI]}</h2>
-			<text>{TrickInformation[animationsArray[aI]]?.toString()}</text>
+			<p>{TrickInformation[animationsArray[aI]]?.toString()}</p>
 		</div>
 	);
 }

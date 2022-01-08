@@ -5,5 +5,6 @@ export const TrickInformation = {
 	//Typically takes off from two feet and has a range of potentials to
 	//variate into.`,
 	BadRaiz: `Sample Text for BadRaiz`,
-	Cartwheel: `Cartwheel Sample Text i wonder if i type more will it dissapear interesting not yet but at some pointim sure it will go away`,
+	Cartwheel: `Cartwheel Sample Text-24fps`,
+	Pop3: "Steve Teradas Pop3 - 240fps From Xsens Mocap Data",
 };

@@ -14,14 +14,15 @@ export function Gui() {
 	const setBounce = useStore((state) => state.setBounce);
 	const aI = useStore((state) => state.aI);
 	const animationsArray = useStore((state) => state.animationsArray);
-	// const currentAnimation = useStore((state) => state.animationsArray);
+	// const currentAnimation = useStore((state) => state.animationsArray[aI]);
 	//Tweakpane GUI Setup
 	let activeAnimimation = animationsArray[aI];
 	const PARAMS = {
 		timescale: timescale,
 		play: isPlaying,
 		paused: isPaused,
-		activeAnim: activeAnimimation,
+		// activeAnimation: activeAnimimation,
+		// currentAnim: animationsArray,
 		// currentAnimation: currentAnimation,
 		// xyz: positionparam,
 	};
@@ -85,6 +86,8 @@ export function Gui() {
 		});
 	guiRight.addMonitor(PARAMS, "play");
 	guiRight.addMonitor(PARAMS, "paused");
-	guiRight.addMonitor(PARAMS, "activeAnim");
+	// guiRight.addInput(PARAMS, "currentAnim", {
+	// options: { test: "test", test1: "test1" },
+	// guiRight.addMonitor(PARAMS, "activeAnimation");
 	// guiRight.addMonitor(PARAMS, "currentAnimation");
 }
