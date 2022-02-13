@@ -10,7 +10,7 @@ import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 export function Fred2(props) {
 	//Renders TweakpaneGuiRight
-	Gui();
+	// Gui();
 
 	const group = useRef();
 	const { nodes, materials, animations } = useGLTF(
