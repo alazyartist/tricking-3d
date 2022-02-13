@@ -8,7 +8,7 @@ An interactive learning tool aimed at abscracting some of the more complex nuanc
 
 ---
 
-**Pre-Alpha** _(WE ARE HERE)_ => Alpha => Beta => Beta 2.0 => Release
+Pre-Alpha => **Alpha** _(WE ARE HERE)_ => Beta => Beta 2.0 => Release
 
 ---
 
@@ -21,9 +21,11 @@ Prove the interactive animated model is possible and useful
 
 ---
 
-### **Alpha**
+### **Alpha** (WE ARE HERE)
 
 Updating Pre-Alpha to have a base of at least 16 animations (base 8 flips)+ (360 rotation Vatioations) with text information
+
+Using the XSENS Link Motion Capture System We will be capturing animation data for a list of initial tricks
 
 ---
 
@@ -48,11 +50,11 @@ Release of Initial Beta
 ### ToDo:
 
 - [x] Animated Model
-- [ ] Selectable Animations
-- [x] Timescale Settings
+- [x] Selectable Animations
+- [ ] Timescale Settings
 - [ ] Slider for Animation
 - [ ] Orthographic / Perspective Toggle
-- [ ] Trick Information Under Player
+- [x] Trick Information beside Player
 
 ## What is **Tricking**
 
