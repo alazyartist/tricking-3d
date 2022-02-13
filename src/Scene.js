@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import "./App.css";
 import {
 	OrbitControls,
 	Environment,

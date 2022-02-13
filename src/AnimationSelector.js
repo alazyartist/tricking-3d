@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import { useStore } from "./store";
 
 export default function AnimationSelectorButton(props) {
@@ -16,11 +15,15 @@ export default function AnimationSelectorButton(props) {
 	// );
 	return (
 		<div>
-			<button className='Btn an1' onClick={playSwitch}>
+			<button
+				className='p-3 m-2.5 rounded-xl bg-[whitesmoke] relative hover:bg-[gainsboro] hover:scale-105'
+				onClick={playSwitch}>
 				{currentAnimation}
 			</button>
 
-			<button className='Btn an2' onClick={animationSwitch}>
+			<button
+				className='p-3 m-2.5 rounded-xl bg-[whitesmoke] relative hover:bg-[gainsboro] hover:scale-105'
+				onClick={animationSwitch}>
 				{animationAi + 1}
 			</button>
 		</div>
