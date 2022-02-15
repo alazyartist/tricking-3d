@@ -9,10 +9,7 @@ export default function AnimationSelectorButton(props) {
 	const currentAnimation = useStore(
 		(state) => state.animationsArray[animationAi]
 	);
-	// console.log(
-	// 	"animation selector " +
-	// 		console.log(useStore((state) => state.animationsArray))
-	// );
+
 	return (
 		<div>
 			<button
