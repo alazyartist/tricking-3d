@@ -1,16 +1,11 @@
 import React from "react";
-import { useStore } from "../store/store";
-//TODO: Change button into a Media player
-//TODO: Add timescale slider
-export default function Button() {
-	const setIsPaused = useStore((state) => state.setIsPaused);
-	const isPaused = useStore((state) => state.isPaused);
-
+//Standard Button
+export function Button(props) {
 	return (
 		<button
-			className='rounded-xl bg-[whitesmoke] relative hover:bg-[gainsboro] hover:scale-105'
-			onClick={setIsPaused}>
-			{!isPaused ? "pause" : "play"}
+			className='align-center flex justify-center self-center rounded-xl bg-[whitesmoke] p-2 hover:scale-105 hover:bg-[gainsboro] '
+			onClick={props.f}>
+			{props.content}
 		</button>
 	);
 }

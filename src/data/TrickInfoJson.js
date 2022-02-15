@@ -7,4 +7,6 @@ export const TrickInformation = {
 	BadRaiz: `Sample Text for BadRaiz`,
 	Cartwheel: `Cartwheel Sample Text-24fps`,
 	Pop3: "Steve Teradas Pop3 - 240fps From Xsens Mocap Data",
+	BTwistRound:
+		"Butterfly Twist Round, a butterfly twist with a round kick variation",
 };
