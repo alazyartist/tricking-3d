@@ -9,17 +9,14 @@ import * as THREE from "three";
 
 export function Frank({ ...props }) {
 	const group = useRef();
-	const { nodes, materials, animations } = useGLTF("./Frank.gltf");
+	const { nodes, materials, animations } = useGLTF("/Frank.gltf");
 	const { actions, names, mixer } = useAnimations(animations, group);
+
 	//Use Store
 	const aI = useStore((state) => state.aI);
 	let isPlaying = useStore((state) => state.isPlaying);
 	let isPaused = useStore((state) => state.isPaused);
-	// const setIsPlaying = useStore((state) => state.setIsPlaying);
-	// const setIsPaused = useStore((state) => state.setIsPaused);
 	const setAnimationsArray = useStore((state) => state.updateAnimationArray);
-
-	// const currentAnimation = useStore((state) => state.animationsArray[aI]);
 	const timescale = useStore((state) => state.timescale);
 	const loop = useStore((state) => state.loop);
 	const bounce = useStore((state) => state.bounce);
