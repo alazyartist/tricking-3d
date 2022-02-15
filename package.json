@@ -13,6 +13,7 @@
     "glob-parent": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
     "react-scripts": "5.0.0",
     "three": "^0.131.1",
     "tweakpane": "^3.0.5",
@@ -46,6 +47,8 @@
   "devDependencies": {
     "autoprefixer": "^10.4.2",
     "postcss": "^8.4.6",
+    "prettier": "^2.5.1",
+    "prettier-plugin-tailwindcss": "^0.1.7",
     "tailwindcss": "^3.0.22"
   }
 }

@@ -1,6 +1,7 @@
 import { Pane } from "tweakpane";
 import * as EssentialsPlugin from "@tweakpane/plugin-essentials";
 import { useStore } from "../store/store";
+import react from "react";
 
 export function Gui() {
 	// const aI = useStore((state) => state.aI);

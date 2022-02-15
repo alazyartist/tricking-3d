@@ -1,11 +1,10 @@
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import { TorqueScene } from "../scenes/Scene";
-import Button from "../components/Button";
 import ModelSelector from "../components/ModelSelector";
 import AnimationSelectorButton from "../components/AnimationSelector";
-import { Gui } from "../components/GUI";
 import TrickInfo from "../components/TrickInfo";
+import Controller from "../components/Controller";
 export function Home() {
 	// console.log(useStore((state) => state.animationsArray));
 
@@ -14,19 +13,19 @@ export function Home() {
 		<div className='text-center '>
 			<div
 				id='App'
-				className='bg-[#666666] min-h-screen flex flex-col items-center text-3xl'>
+				className='flex min-h-screen flex-col items-center bg-[#666666] text-3xl'>
 				<div
 					id='tripanel'
 					className='flex flex-row items-center justify-around'>
 					<div
 						id='leftPane'
-						className='p-5 bg-gray-700 min-w-[300px] min-h-[500px] z-1'>
+						className='z-1 min-h-[500px] min-w-[300px] bg-gray-700 p-5'>
 						<AnimationSelectorButton />
 						<TrickInfo />
 					</div>
 
-					<div className='bg-gray-500 min-w-[50%] min-h-[500px]'>
-						<Canvas className='min-w-[50%] min-h-[500px]'>
+					<div className='min-h-[500px] min-w-[50%] bg-gray-500 '>
+						<Canvas className='min-h-[500px] min-w-[50%] resize'>
 							<Suspense fallback={null}>
 								<TorqueScene />
 							</Suspense>
@@ -34,19 +33,11 @@ export function Home() {
 					</div>
 					<div
 						id='rightPane'
-						className=' bg-gray-700 min-w-[300px] min-h-[500px] z-1 grid grid-cols-3 gap-2 p-2 justify-items-stretch justify-around'>
-						<Button />
-						<Button />
-						<Button />
-						<Button />
-						<Button />
-						<Button />
-						<Button />
-						<Button />
-						<Button />
+						className=' z-1 grid min-h-[500px] min-w-[300px] grid-cols-3 justify-around justify-items-stretch gap-2 bg-gray-700 p-2'>
+						<Controller />
 					</div>
 				</div>
-				<h1 className='text-red-400 absolute mt-1'>
+				<h1 className='absolute mt-1 text-red-400'>
 					An Interactive 3d Learning Experience
 				</h1>
 				<div id='btnContainer' className='flex flex-row'>

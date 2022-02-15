@@ -25,7 +25,7 @@ export const useStore = create(
 			set((state) => ({
 				aI: (state.aI + 1) % state.animationsArray.length,
 				isPlaying: true,
-				isPaused: true,
+				isPaused: false,
 			})),
 		modelSelector: () => set((state) => ({ modelValue: !state.modelValue })),
 		position: [],

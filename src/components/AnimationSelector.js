@@ -16,15 +16,15 @@ export default function AnimationSelectorButton(props) {
 	return (
 		<div>
 			<button
-				className='p-3 m-2.5 rounded-xl bg-[whitesmoke] relative hover:bg-[gainsboro] hover:scale-105'
+				className='m-2.5 rounded-xl bg-[whitesmoke] p-3 hover:scale-105 hover:bg-[gainsboro]'
 				onClick={playSwitch}>
-				{currentAnimation}
+				{animationAi + 1}
 			</button>
 
 			<button
-				className='p-3 m-2.5 rounded-xl bg-[whitesmoke] relative hover:bg-[gainsboro] hover:scale-105'
+				className='m-2.5 rounded-xl bg-[whitesmoke] p-3 hover:scale-105 hover:bg-[gainsboro]'
 				onClick={animationSwitch}>
-				{animationAi + 1}
+				{"Next Anim"}
 			</button>
 		</div>
 	);

@@ -27,6 +27,24 @@ Updating Pre-Alpha to have a base of at least 16 animations (base 8 flips)+ (360
 
 Using the XSENS Link Motion Capture System We will be capturing animation data for a list of initial tricks
 
+Including:
+
+```
+    backflip
+    frontflip
+    insideflip
+    outsideflip
+```
+
+```
+    gainer
+    webster
+    aerial
+    raiz
+    lotus
+    gms
+```
+
 ---
 
 ### **Working Beta**
@@ -77,3 +95,12 @@ Release of Initial Beta
 > exploration of the human body's potential for movement with only gravity and the practioner as variables.
 
 > a complex system made of simple paramaters that have been combined to create synergies of movement styles and types that can be labeled and reffered to
+
+# Installation Guide
+
+```bash
+git clone https://github.com/alazyartist/tricking-3d.git
+cd tricking-3d
+npm install
+npm start
+```
