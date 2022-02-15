@@ -8,8 +8,6 @@ import {
 } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import TorqueLogo from "../components/TorqueLogo";
-// import { Fred } from "./AnimatingTest";
-import { Fred2 } from "../animations/AnimatingTestIdle.js";
 import { Frank } from "../animations/Frank.js";
 import { useStore } from "../store/store";
 export function TorqueScene(props) {
@@ -19,12 +17,10 @@ export function TorqueScene(props) {
 	if (modelSelector) {
 		return (
 			<PerspectiveCamera makeDefualt position={[0, -2, 0]}>
-				{/* <Fred position={[-1, 0, 0]} rotation={[0, 20, 0]} /> */}
-				{/* <Fred2 /> */}
 				<Frank />
 
-				<ambientLight intensity={0.8} />
-				<spotLight intensity={3} position={[0, -3, -3]} />
+				<ambientLight intensity={0.4} />
+				<spotLight intensity={2} position={[0, -3, 3]} />
 				<spotLight intensity={2} position={[0, 5, 5]} />
 				<Environment preset='park' />
 				<OrbitControls />

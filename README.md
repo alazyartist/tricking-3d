@@ -45,6 +45,23 @@ Including:
     gms
 ```
 
+Currently have 12 Animations:
+
+```
+    BTwist
+    BtwistRound
+    BTwistShuriken
+    CorkDleg
+    CorkSwingCork
+    Cork Kerwood
+    Cork Posi
+    Raiz
+    Sideflip
+    TDR Cork
+    Touchdown Raiz
+    Webster
+```
+
 ---
 
 ### **Working Beta**

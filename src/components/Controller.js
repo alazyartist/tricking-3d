@@ -8,13 +8,16 @@ function Controller() {
 	const setBounce = useStore((state) => state.setBounce);
 	const isPaused = useStore((state) => state.isPaused);
 	const bounce = useStore((state) => state.bounce);
+	const setTimescale = useStore((state) => state.setTimescale);
+	const timescale = useStore((state) => state.timescale);
+	const animationsArray = useStore((state) => state.animationsArray);
 	return (
 		<>
 			<Button f={setIsPaused} content={!isPaused ? <FaPause /> : <FaPlay />} />
 			<Button f={setBounce} content={bounce ? "true" : "false"} />
 			<Button f={setIsPaused} content={!isPaused ? "Paused" : "Playing"} />
-			<Button />
-			<Button />
+			<Button content='Reverse' />
+			<Button content='FullSpeed' />
 			<Button />
 			<Button />
 			<Button />
