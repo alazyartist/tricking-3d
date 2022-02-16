@@ -27,6 +27,11 @@ export const useStore = create(
 				isPlaying: true,
 				isPaused: false,
 			})),
+		selectAnim: (value) =>
+			set(() => ({
+				currentAnim: value,
+			})),
+		currentAnim: "",
 		modelSelector: () => set((state) => ({ modelValue: !state.modelValue })),
 		position: [],
 		setFredPosition: (value) => set(() => ({ position: [value] })),

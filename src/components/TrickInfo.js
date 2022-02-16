@@ -7,9 +7,9 @@ export default function TrickInfo() {
 	const aI = useStore((state) => state.aI);
 
 	return (
-		<div className='m-4 grid grid-flow-row gap-2 place-content-start justify-items-start text-black align-middle '>
+		<div className='m-4 grid grid-flow-row place-content-start justify-items-start gap-2 align-middle text-slate-300 '>
 			<h2 className='text-xxl font-mono '>{animationsArray[aI]}</h2>
-			<p className='text-base font-mono'>
+			<p className='font-mono text-base'>
 				{TrickInformation[animationsArray[aI]]?.toString()}
 			</p>
 		</div>
