@@ -12,17 +12,14 @@ function Controller() {
 	const timescale = useStore((state) => state.timescale);
 	const animationsArray = useStore((state) => state.animationsArray);
 	return (
-		<>
+		<div className='z-50 grid min-w-[30%] grid-cols-3 justify-around justify-items-stretch gap-5 overflow-hidden'>
 			<Button f={setIsPaused} content={!isPaused ? <FaPause /> : <FaPlay />} />
-			<Button f={setBounce} content={bounce ? "true" : "false"} />
+			<Button f={setBounce} content={bounce ? "Bounce" : "Loop"} />
 			<Button f={setIsPaused} content={!isPaused ? "Paused" : "Playing"} />
 			<Button content='Reverse' />
-			<Button content='FullSpeed' />
-			<Button />
-			<Button />
-			<Button />
-			<Button />
-		</>
+			<Button content='Reverse' />
+			<Button f={setTimescale(1)} content='FullSpeed' />
+		</div>
 	);
 }
 

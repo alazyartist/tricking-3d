@@ -20,7 +20,7 @@ export function Frank({ ...props }) {
 	const timescale = useStore((state) => state.timescale);
 	const loop = useStore((state) => state.loop);
 	const bounce = useStore((state) => state.bounce);
-
+	const currentAnim = useStore((state) => state.currentAnim);
 	//Solves Problem with infinte renders of Animations Array and successfully passes to store
 	useMemo(
 		() => Promise.resolve(names).then((results) => setAnimationsArray(results)),
@@ -44,8 +44,8 @@ export function Frank({ ...props }) {
 	}, [timescale, aI, actions, names, mixer]);
 	useEffect(() => {
 		mixer.stopAllAction();
-		isPlaying ? actions[names[aI]].play() : actions[names[aI]].reset();
-	}, [isPlaying, aI, actions, names, mixer]);
+		isPlaying ? actions[currentAnim].play() : actions[currentAnim].reset();
+	}, [isPlaying, aI, actions, names, mixer, currentAnim]);
 	useEffect(() => {
 		isPaused
 			? (actions[names[aI]].timeScale = 0)
