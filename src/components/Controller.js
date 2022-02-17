@@ -12,7 +12,7 @@ function Controller() {
 	const timescale = useStore((state) => state.timescale);
 	const animationsArray = useStore((state) => state.animationsArray);
 	return (
-		<div className='z-50 grid min-w-[30%] grid-cols-3 justify-around justify-items-stretch gap-5 text-xl'>
+		<div className='z-[-5]text-xl z-50 grid min-w-[30%] grid-cols-3 justify-around justify-items-stretch gap-5'>
 			<Button f={setIsPaused} content={!isPaused ? <FaPause /> : <FaPlay />} />
 			<Button f={setBounce} content={bounce ? "Bounce" : "Loop"} />
 			<Button f={setIsPaused} content={isPaused ? "Paused" : "Playing"} />

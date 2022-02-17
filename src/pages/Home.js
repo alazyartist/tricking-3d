@@ -33,7 +33,7 @@ export function Home() {
 
 					<div
 						id='MiddlePane'
-						className=' z-100 fixed top-0 h-[500px] min-h-[500px] w-full justify-around bg-gray-500 md:relative md:order-2 md:min-h-screen md:min-w-[500px] '>
+						className=' z-1 fixed top-0 h-[500px] min-h-[500px] w-full justify-around bg-gray-500 md:relative md:order-2 md:min-h-screen md:min-w-[500px] '>
 						<Canvas className='  min-h-[500px] min-w-[500px] resize-x'>
 							<Suspense fallback={null}>
 								<TorqueScene />
@@ -49,7 +49,7 @@ export function Home() {
 					</div>
 				</div>
 
-				<h1 className='absolute top-0 text-center text-red-400 md:mt-2'>
+				<h1 className='fixed top-0 text-center text-red-400 md:mt-2'>
 					Tricking-3D
 				</h1>
 			</div>
