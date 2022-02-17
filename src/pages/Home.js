@@ -49,7 +49,7 @@ export function Home() {
 					</div>
 				</div>
 
-				<h1 className='fixed top-0 text-center text-red-400 md:mt-2'>
+				<h1 className='fixed top-0 text-center text-gray-800 md:mt-2'>
 					Tricking-3D
 				</h1>
 			</div>
