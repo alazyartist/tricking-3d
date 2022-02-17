@@ -22,7 +22,7 @@ export function TorqueScene(props) {
 				<ambientLight intensity={0.4} />
 				<spotLight intensity={2} position={[0, -3, 3]} />
 				<spotLight intensity={2} position={[0, 5, 5]} />
-				<Environment preset='park' />
+				{/* <Environment preset='park' /> */}
 				<OrbitControls />
 				<gridHelper args={[10, 10, `white`, `gray`]} position={[0, 0, 0]} />
 				<GizmoHelper alignment={"bottom-left"}>

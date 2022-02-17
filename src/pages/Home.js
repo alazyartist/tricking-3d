@@ -14,20 +14,26 @@ export function Home() {
 		<div className='text-center'>
 			<div
 				id='App'
-				className='flex min-h-screen flex-col items-center bg-[#666666] text-3xl'>
+				className='flex min-h-screen flex-col items-center bg-gray-700 text-3xl'>
 				<div
 					id='tripanel'
 					className=' flex w-full flex-col md:flex-row md:pr-6'>
 					<div
 						id='leftPane'
 						className='order-3 w-full bg-gray-700 p-5 md:order-1 md:mt-0 md:min-h-[500px] md:min-w-[30%]'>
-						<AnimationSelectorButton />
 						<TrickInfo />
+						<a
+							className=' text-sky-400'
+							href='https://torquetricking.com'
+							target='_blank'
+							rel='noopener noreferrer'>
+							Powered By Torque
+						</a>
 					</div>
 
 					<div
 						id='MiddlePane'
-						className=' z-100 fixed top-0 h-[500px] min-h-[500px] w-full justify-around bg-gray-500 md:relative md:order-2 md:min-w-[500px] '>
+						className=' z-100 fixed top-0 h-[500px] min-h-[500px] w-full justify-around bg-gray-500 md:relative md:order-2 md:min-h-screen md:min-w-[500px] '>
 						<Canvas className='  min-h-[500px] min-w-[500px] resize-x'>
 							<Suspense fallback={null}>
 								<TorqueScene />
@@ -43,20 +49,9 @@ export function Home() {
 					</div>
 				</div>
 
-				<div id='btnContainer' className='hidden flex-row md:flex '>
-					<ModelSelector />
-				</div>
-
 				<h1 className='absolute top-0 text-center text-red-400 md:mt-2'>
 					Tricking-3D
 				</h1>
-				<a
-					className='text-sky-400'
-					href='https://torquetricking.com'
-					target='_blank'
-					rel='noopener noreferrer'>
-					Powered By Torque
-				</a>
 			</div>
 		</div>
 	);

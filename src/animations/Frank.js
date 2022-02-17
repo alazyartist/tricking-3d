@@ -31,26 +31,26 @@ export function Frank({ ...props }) {
 
 	useEffect(() => {
 		bounce
-			? actions[names[aI]].setLoop(THREE.LoopPingPong)
-			: actions[names[aI]].setLoop(THREE.LoopRepeat);
-	}, [bounce, aI, actions, names, mixer]);
+			? actions[currentAnim].setLoop(THREE.LoopPingPong)
+			: actions[currentAnim].setLoop(THREE.LoopRepeat);
+	}, [bounce, aI, actions, names, mixer, currentAnim]);
 	useEffect(() => {
 		loop
-			? actions[names[aI]].setLoop(THREE.LoopRepeat)
-			: actions[names[aI]].setLoop(THREE.LoopOnce);
-	}, [loop, aI, actions, names, mixer]);
+			? actions[currentAnim].setLoop(THREE.LoopRepeat)
+			: actions[currentAnim].setLoop(THREE.LoopOnce);
+	}, [loop, aI, actions, names, mixer, currentAnim]);
 	useEffect(() => {
-		actions[names[aI]].timeScale = timescale;
-	}, [timescale, aI, actions, names, mixer]);
+		actions[currentAnim].timeScale = timescale;
+	}, [timescale, aI, actions, names, mixer, currentAnim]);
 	useEffect(() => {
 		mixer.stopAllAction();
 		isPlaying ? actions[currentAnim].play() : actions[currentAnim].reset();
 	}, [isPlaying, aI, actions, names, mixer, currentAnim]);
 	useEffect(() => {
 		isPaused
-			? (actions[names[aI]].timeScale = 0)
-			: (actions[names[aI]].timeScale = timescale);
-	}, [timescale, isPaused, aI, actions, names]);
+			? (actions[currentAnim].timeScale = 0)
+			: (actions[currentAnim].timeScale = timescale);
+	}, [timescale, isPaused, aI, actions, names, currentAnim]);
 
 	return (
 		<group ref={group} {...props} dispose={null}>
