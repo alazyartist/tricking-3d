@@ -5,6 +5,7 @@ import ModelSelector from "../components/ModelSelector";
 import AnimationSelectorButton from "../components/AnimationSelector";
 import TrickInfo from "../components/TrickInfo";
 import Controller from "../components/Controller";
+import Loader from "../components/Loader";
 import AnimationDropdown from "../components/AnimationDropdown.js";
 export function Home() {
 	// console.log(useStore((state) => state.animationsArray));
@@ -33,9 +34,9 @@ export function Home() {
 
 					<div
 						id='MiddlePane'
-						className=' z-1 fixed top-0 h-[500px] min-h-[500px] w-full justify-around bg-gray-500 md:relative md:order-2 md:min-h-screen md:min-w-[500px] '>
-						<Canvas className='  min-h-[500px] min-w-[500px] resize-x'>
-							<Suspense fallback={null}>
+						className=' z-1 fixed top-0 h-1/2 w-full justify-around bg-gray-500 md:relative md:order-2 md:min-h-screen md:min-w-[500px] '>
+						<Canvas className='  min-h-1/2 min-w-[500px] resize-x'>
+							<Suspense fallback={<Loader />}>
 								<TorqueScene />
 							</Suspense>
 						</Canvas>
@@ -43,7 +44,7 @@ export function Home() {
 
 					<div
 						id='rightPane'
-						className='  order-2 mt-[500px] min-w-[30%] bg-gray-700 p-2 md:mt-0'>
+						className='  order-2 mt-[400px] min-w-[30%] bg-gray-700 p-2 md:mt-0'>
 						<Controller />
 						<AnimationDropdown />
 					</div>

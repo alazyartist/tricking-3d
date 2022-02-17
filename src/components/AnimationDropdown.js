@@ -9,7 +9,7 @@ function AnimationDropdown(props) {
 				<a
 					href='#'
 					onClick={() => setOpen(!open)}
-					className='flex items-center justify-center text-center align-middle text-white'>
+					className='flex items-center justify-center text-center align-middle text-2xl text-white'>
 					<FaAngleDown />
 					Animations
 				</a>
@@ -30,7 +30,7 @@ function AnimationDropdown(props) {
 						return (
 							<a
 								href='#'
-								className='mt-2 mb-2 flex h-[50px] items-center justify-around rounded-xl bg-[whitesmoke] text-black hover:bg-[gainsboro]'
+								className='mt-2 mb-2 flex h-[50px] items-center justify-around rounded-xl bg-[whitesmoke] text-base text-black hover:bg-[gainsboro]'
 								onClick={() => addAnim(e)}
 								key={i}>
 								{e}
