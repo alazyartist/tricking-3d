@@ -9,9 +9,9 @@ function AnimationDropdown(props) {
 				<a
 					href='#'
 					onClick={() => setOpen(!open)}
-					className='flex items-center justify-center text-center align-middle'>
+					className='flex items-center justify-center text-center align-middle text-white'>
 					<FaAngleDown />
-					Anim
+					Animations
 				</a>
 
 				{open && props.children}
@@ -30,7 +30,7 @@ function AnimationDropdown(props) {
 						return (
 							<a
 								href='#'
-								className='flex h-[50px] items-center rounded-xl bg-white text-black'
+								className='mt-2 mb-2 flex h-[50px] items-center justify-around rounded-xl bg-[whitesmoke] text-black hover:bg-[gainsboro]'
 								onClick={() => addAnim(e)}
 								key={i}>
 								{e}
@@ -42,7 +42,9 @@ function AnimationDropdown(props) {
 		}
 
 		return (
-			<div className='top-[58px] basis-full gap-1 rounded-xl bg-sky-500 p-1'>
+			<div
+				id='dropdownDiv'
+				className='no-scrollbar relative top-[25px] max-h-40 basis-full overflow-y-auto rounded-xl border-[8px] border-gray-800 bg-gray-800 p-1 md:max-h-80'>
 				<>
 					<Animations></Animations>
 				</>
@@ -51,7 +53,7 @@ function AnimationDropdown(props) {
 	}
 
 	return (
-		<nav className='mt-10 rounded-xl bg-red-500 p-1'>
+		<nav className='mt-10 h-[50px] rounded-xl bg-gray-800 p-1'>
 			<ul className=' h-full w-full '>
 				<AnimDrop>
 					<Dropdown></Dropdown>
