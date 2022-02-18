@@ -5,28 +5,23 @@ function TimeSlider() {
 	let timescale = useStore((state) => state.timescale);
 	const setSlider = useStore((state) => state.setSlider);
 	const setTimescale = useStore((state) => state.setTimescale);
-	useEffect(() => {
-		const ele = document.querySelector(".buble");
-		if (ele) {
-			ele.style.left = `${Number(timeSlider / 4)}px}`;
-		}
-	});
+
 	useEffect(() => setTimescale(timeSlider), [timeSlider]);
 	useEffect(() => {
 		setSlider(timescale);
 	}, [timescale]);
 
 	return (
-		<div>
+		<div className='relative rounded-lg'>
 			<input
+				className={"my-5 w-full bg-transparent"}
 				type={"range"}
 				min={0}
-				max={100}
+				max={150}
 				step={0.1}
 				value={Math.abs(timeSlider * 100)}
 				onChange={(e) => setSlider(e.target.value / 100)}
 			/>
-			<div className='buble absolute'></div>
 		</div>
 	);
 }

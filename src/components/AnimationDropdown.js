@@ -53,7 +53,7 @@ function AnimationDropdown(props) {
 	}
 
 	return (
-		<nav className=' sticky top-0 mt-8 h-[50px] rounded-xl bg-gray-800 p-1'>
+		<nav id='nav' className='sticky h-[50px] rounded-xl bg-gray-800 p-1'>
 			<ul className=' h-full w-full '>
 				<AnimDrop>
 					<Dropdown></Dropdown>
