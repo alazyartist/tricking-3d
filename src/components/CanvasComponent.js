@@ -10,8 +10,8 @@ function CanvasComponent() {
 		mouseX = 0,
 		mouseY = 0;
 
-	const element = document.getElementById("Resizeable");
 	useEffect(() => {
+		const element = document.getElementById("Resizeable");
 		const button = document.getElementById("Draggable");
 
 		//Mousedown event to control scaling with scale() and to add mouseup event to stop scaling with stop()
@@ -77,7 +77,7 @@ function CanvasComponent() {
 			mouseX = e.touches[0].pageX;
 			mouseY = e.touches[0].pageY;
 		}
-
+		console.log(mouseX);
 		//Removes Mobile Scale
 		function removeScaleMobile() {
 			window.removeEventListener("touchmove", scaleMobile);
@@ -93,7 +93,7 @@ function CanvasComponent() {
 					<TorqueScene />
 				</Suspense>
 			</Canvas>
-			<div id='Draggable' className='h-[17px] w-full cursor-s-resize ' />
+			<div id='Draggable' className='h-[17px] cursor-s-resize ' />
 		</>
 	);
 }
