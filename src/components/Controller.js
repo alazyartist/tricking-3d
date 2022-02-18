@@ -17,7 +17,10 @@ function Controller() {
 			<Button f={setBounce} content={bounce ? "Bounce" : "Loop"} />
 			<Button f={setIsPaused} content={isPaused ? "Paused" : "Playing"} />
 			<Button f={() => setTimescale(-timescale)} content='Reverse' />
-			<Button f={() => setTimescale(0.5)} content='SlowMo' />
+			<Button
+				f={() => setTimescale(0.5 * timescale)}
+				content={`SlowMo ${Math.abs(Number.parseFloat(timescale).toFixed(2))}`}
+			/>
 			<Button f={() => setTimescale(1)} content='FullSpeed' />
 		</div>
 	);

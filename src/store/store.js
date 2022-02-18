@@ -35,5 +35,7 @@ export const useStore = create(
 		modelSelector: () => set((state) => ({ modelValue: !state.modelValue })),
 		position: [],
 		setFredPosition: (value) => set(() => ({ position: [value] })),
+		timeSlider: 1,
+		setSlider: (value) => set(() => ({ timeSlider: value })),
 	}))
 );

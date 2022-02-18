@@ -3,7 +3,7 @@ import React from "react";
 export function Button(props) {
 	return (
 		<button
-			className='flex justify-center self-stretch rounded-xl bg-[whitesmoke] p-2 hover:scale-105 hover:bg-[gainsboro] '
+			className='can-hover flex justify-center self-stretch rounded-xl bg-[whitesmoke] p-2   '
 			onClick={props.f}>
 			{props.content}
 		</button>

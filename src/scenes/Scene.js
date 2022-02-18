@@ -5,30 +5,48 @@ import {
 	PerspectiveCamera,
 	GizmoHelper,
 	GizmoViewport,
+	useHelper,
 } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import TorqueLogo from "../components/TorqueLogo";
 import { Frank } from "../animations/Frank.js";
 import { useStore } from "../store/store";
+import { SpotLightHelper } from "three";
 export function TorqueScene(props) {
 	const modelSelector = useStore((state) => state.modelValue);
 	//Scene Logic -- Switch Models to render: Fred or Torque Logo
-
+	const light = useRef();
+	const light2 = useRef();
+	// useHelper(light2, SpotLightHelper, "red");
+	// useHelper(light, SpotLightHelper, "cyan");
 	if (modelSelector) {
 		return (
 			<PerspectiveCamera makeDefualt position={[0, -2, 0]}>
 				<Frank />
 
-				<ambientLight intensity={0.4} />
-				<spotLight intensity={2} position={[0, -3, 3]} />
-				<spotLight intensity={2} position={[0, 5, 5]} />
-				{/* <Environment preset='park' /> */}
+				{/* <ambientLight intensity={0.1} /> */}
+				<spotLight
+					ref={light2}
+					color={"#FF0000"}
+					intensity={3}
+					position={[0, 2, 5]}
+				/>
+				<spotLight
+					ref={light}
+					color={"cyan"}
+					intensity={3}
+					position={[0, 2, -5]}
+				/>
+				<Environment preset='park' />
 				<OrbitControls />
-				<gridHelper args={[10, 10, `white`, `gray`]} position={[0, 0, 0]} />
+				<gridHelper
+					args={[10, 10, `black`, `gainsboro`]}
+					position={[0, 0, 0]}
+				/>
 				<GizmoHelper alignment={"bottom-left"}>
 					<GizmoViewport
 						axisColors={["red", "green", "blue"]}
-						labelColor='white'
+						labelColor='gainsboro'
 					/>
 				</GizmoHelper>
 			</PerspectiveCamera>
