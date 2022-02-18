@@ -1,12 +1,10 @@
-import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
-import { TorqueScene } from "../scenes/Scene";
 import ModelSelector from "../components/ModelSelector";
 import AnimationSelectorButton from "../components/AnimationSelector";
 import TrickInfo from "../components/TrickInfo";
 import Controller from "../components/Controller";
-import Loader from "../components/Loader";
 import AnimationDropdown from "../components/AnimationDropdown.js";
+import CanvasComponent from "../components/CanvasComponent";
+import TimeSlider from "../components/TimeSlider";
 export function Home() {
 	// console.log(useStore((state) => state.animationsArray));
 
@@ -16,9 +14,7 @@ export function Home() {
 			<div
 				id='App'
 				className='flex min-h-screen flex-col items-center bg-gray-700 text-3xl'>
-				<div
-					id='tripanel'
-					className=' flex w-full flex-col md:flex-row md:pr-6'>
+				<div id='tripanel' className=' flex w-full flex-col md:flex-row'>
 					<div
 						id='leftPane'
 						className='order-3 w-full bg-gray-700 p-5 md:order-1 md:mt-0 md:min-h-[500px] md:min-w-[30%]'>
@@ -34,18 +30,15 @@ export function Home() {
 
 					<div
 						id='MiddlePane'
-						className=' z-1 fixed top-0 h-1/2 w-full justify-around bg-gray-500 md:relative md:order-2 md:min-h-screen md:min-w-[500px] '>
-						<Canvas className='  min-h-1/2 min-w-[500px] resize-x'>
-							<Suspense fallback={<Loader />}>
-								<TorqueScene />
-							</Suspense>
-						</Canvas>
+						className=' z-100 sticky top-0 order-1 h-1/2 min-h-min w-full justify-around bg-gray-500 md:relative md:order-2 md:min-h-screen '>
+						<CanvasComponent />
 					</div>
 
 					<div
 						id='rightPane'
-						className='  order-2 mt-[400px] min-w-[30%] bg-gray-700 p-2 md:mt-0'>
+						className='  order-2 w-full bg-gray-700 p-2 md:mt-0'>
 						<Controller />
+						<TimeSlider />
 						<AnimationDropdown />
 					</div>
 				</div>
