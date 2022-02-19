@@ -86,8 +86,8 @@ Release of Initial Beta
 
 - [x] Animated Model
 - [x] Selectable Animations
-- [ ] Timescale Settings
-- [ ] Slider for Animation
+- [x] Timescale Settings
+- [x] Slider for Animation
 - [ ] Orthographic / Perspective Toggle
 - [x] Trick Information beside Player
 
