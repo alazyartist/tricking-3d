@@ -21,6 +21,8 @@ export function Frank({ ...props }) {
 	const loop = useStore((state) => state.loop);
 	const bounce = useStore((state) => state.bounce);
 	const currentAnim = useStore((state) => state.currentAnim);
+	const start = useStore((state) => state.start);
+	const end = useStore((state) => state.end);
 	//Solves Problem with infinte renders of Animations Array and successfully passes to store
 	useMemo(
 		() => Promise.resolve(names).then((results) => setAnimationsArray(results)),
@@ -41,16 +43,43 @@ export function Frank({ ...props }) {
 	}, [loop, aI, actions, names, mixer, currentAnim]);
 	useEffect(() => {
 		actions[currentAnim].timeScale = timescale;
-	}, [timescale, aI, actions, names, mixer, currentAnim]);
+	}, [timescale, actions, mixer, currentAnim]);
 	useEffect(() => {
-		mixer.stopAllAction();
-		isPlaying ? actions[currentAnim].play() : actions[currentAnim].reset();
-	}, [isPlaying, aI, actions, names, mixer, currentAnim]);
+		const duration = actions[currentAnim].getClip().duration;
+		const startHere = start * duration;
+		isPlaying
+			? actions[currentAnim].startAt(startHere)
+			: actions[currentAnim].stop();
+	}, [isPlaying, aI, actions, names, mixer, currentAnim, start]);
 	useEffect(() => {
 		isPaused
 			? (actions[currentAnim].timeScale = 0)
 			: (actions[currentAnim].timeScale = timescale);
 	}, [timescale, isPaused, aI, actions, names, currentAnim]);
+	// useEffect(() => {
+	// 	const duration = actions[currentAnim].getClip().duration;
+	// 	const startHere = start * duration;
+	// 	const endHere = end * duration;
+	// 	actions[currentAnim].getClip().trim(startHere, endHere);
+	// 	console.log("newTime", endHere - startHere);
+	// 	console.log("startHere", startHere);
+	// 	console.log("endHere", endHere);
+
+	// 	console.log("time", actions[currentAnim].time);
+	// 	console.log("duration", actions[currentAnim].getClip().duration);
+
+	// 	console.log("div", end - start);
+	// }, [start, end, currentAnim]);
+
+	useEffect(() => {
+		mixer.stopAllAction();
+	}, [currentAnim]);
+	useEffect(() => {
+		const duration = actions[currentAnim].getClip().duration;
+		const startHere = start * duration;
+		console.log("startHere", startHere);
+		actions[currentAnim].startAt(startHere).play();
+	}, [currentAnim, start]);
 
 	return (
 		<group ref={group} {...props} dispose={null}>

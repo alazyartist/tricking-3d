@@ -6,6 +6,7 @@ import AnimationDropdown from "../components/AnimationDropdown.js";
 import CanvasComponent from "../components/CanvasComponent";
 import TimeSlider from "../components/TimeSlider";
 import DurationSlider from "../components/DurationSlider";
+import { ReactComponent as HorizontalLogo } from "../data/HorizontalLogo.svg";
 export function Home() {
 	// console.log(useStore((state) => state.animationsArray));
 
@@ -18,20 +19,32 @@ export function Home() {
 				<div id='tripanel' className=' flex w-full flex-col md:flex-row'>
 					<div
 						id='leftPane'
-						className='order-3 w-full bg-gray-700 p-5 md:order-1 md:mt-0 md:min-h-[500px] md:min-w-[30%]'>
+						className='order-3 w-full bg-gray-700 p-5 
+						md:order-1 md:mt-0 md:min-h-[500px] md:min-w-[30%]
+						'>
 						<TrickInfo />
+						<h1 className='text-base text-red-500'>
+							Note: Under Active Development. <br />
+							WILL BREAK OFTEN
+						</h1>
 						<a
-							className=' text-sky-400'
+							className=' text-gray-500'
 							href='https://torquetricking.com'
 							target='_blank'
 							rel='noopener noreferrer'>
-							Powered By Torque
+							<div className='items-center justify-center rounded-xl bg-gray-800 p-2'>
+								Powered By
+								<HorizontalLogo
+									fill='dimgray'
+									className='items-center justify-center rounded-xl p-2'
+								/>
+							</div>
 						</a>
 					</div>
 
 					<div
 						id='MiddlePane'
-						className=' z-100 sticky top-0 order-1 h-1/2 min-h-min w-full justify-around bg-gray-500 md:relative md:order-2 md:min-h-screen '>
+						className=' z-100 sticky top-0 order-1 h-1/2 min-h-min w-full min-w-full max-w-full justify-around overflow-hidden bg-gray-500 md:relative md:order-2 md:min-h-screen md:min-w-fit '>
 						<CanvasComponent />
 					</div>
 

@@ -25,9 +25,6 @@ function DurationSlider() {
 		if (endRef.current) {
 			const minPercent = getPercent(start);
 			const maxPercent = getPercent(+endRef.current.value); // Preceding with '+' converts the value from type string to type number
-			console.log("range width", range.current.style.width);
-			console.log(minPercent, maxPercent);
-			console.log("start", start, "end", end);
 			if (range.current) {
 				range.current.style.left = `${minPercent}%`;
 				range.current.style.width = `${maxPercent - minPercent}%`;

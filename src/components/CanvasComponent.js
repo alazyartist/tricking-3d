@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import { TorqueScene } from "../scenes/Scene";
 import Loader from "../components/Loader";
-import { AiFillDownCircle } from "react-icons/ai";
+import { AiFillDownCircle, AiFillRightCircle } from "react-icons/ai";
 function CanvasComponent() {
 	const min = 54;
 	let initialWidth = 0,
@@ -86,20 +86,20 @@ function CanvasComponent() {
 	}, []);
 
 	return (
-		<>
+		<div className='md:flex'>
 			<Canvas
 				id='Resizeable'
-				className='z-1000 sticky min-h-[40] min-w-full md:min-h-screen md:min-w-[500px]'>
+				className='sticky z-[1000] min-h-[40] min-w-full max-w-full md:min-h-screen md:min-w-[500px]'>
 				<Suspense fallback={<Loader />}>
 					<TorqueScene />
 				</Suspense>
 			</Canvas>
 			<div
 				id='Draggable'
-				className='flex h-[30px] cursor-s-resize justify-center bg-gray-800 align-middle text-gray-500'>
+				className='flex h-[30px] cursor-s-resize justify-center bg-gray-800 align-middle text-gray-500 md:hidden'>
 				<AiFillDownCircle />
 			</div>
-		</>
+		</div>
 	);
 }
 
