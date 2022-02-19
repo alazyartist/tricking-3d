@@ -5,6 +5,7 @@ import Controller from "../components/Controller";
 import AnimationDropdown from "../components/AnimationDropdown.js";
 import CanvasComponent from "../components/CanvasComponent";
 import TimeSlider from "../components/TimeSlider";
+import DurationSlider from "../components/DurationSlider";
 export function Home() {
 	// console.log(useStore((state) => state.animationsArray));
 
@@ -39,6 +40,7 @@ export function Home() {
 						className='  order-2 w-full bg-gray-700 p-2 md:mt-0'>
 						<Controller />
 						<TimeSlider />
+						<DurationSlider />
 						<AnimationDropdown />
 					</div>
 				</div>
