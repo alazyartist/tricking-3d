@@ -44,13 +44,13 @@ export function Home() {
 
 					<div
 						id='MiddlePane'
-						className=' z-100 sticky top-0 order-1 h-1/2 min-h-min w-full min-w-full max-w-full justify-around overflow-hidden bg-gray-500 md:relative md:order-2 md:min-h-screen md:min-w-fit '>
+						className=' sticky top-0 z-[1000] order-1 h-1/2 min-h-min w-full min-w-full max-w-full justify-around overflow-hidden bg-gray-500 md:relative md:order-2 md:min-h-screen md:min-w-fit '>
 						<CanvasComponent />
 					</div>
 
 					<div
 						id='rightPane'
-						className='  order-2 w-full bg-gray-700 p-2 md:mt-0'>
+						className='  z-[1] order-2 w-full bg-gray-700 p-2 md:mt-0'>
 						<Controller />
 						<TimeSlider />
 						<DurationSlider />
