@@ -36,6 +36,10 @@ export const useStore = create(
 		position: [],
 		setFredPosition: (value) => set(() => ({ position: [value] })),
 		timeSlider: 1,
+		start: 0,
+		end: 1,
 		setSlider: (value) => set(() => ({ timeSlider: value })),
+		setSliderStart: (value) => set(() => ({ start: value })),
+		setSliderEnd: (value) => set(() => ({ end: value })),
 	}))
 );
