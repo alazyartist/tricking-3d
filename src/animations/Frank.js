@@ -49,7 +49,7 @@ export function Frank({ ...props }) {
 		const startHere = start * duration;
 		isPlaying
 			? actions[currentAnim].startAt(startHere)
-			: actions[currentAnim].stop();
+			: actions[currentAnim].halt();
 	}, [isPlaying, aI, actions, names, mixer, currentAnim, start]);
 	useEffect(() => {
 		isPaused
