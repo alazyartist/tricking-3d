@@ -12,7 +12,7 @@ function TimeSlider() {
 	}, [timescale]);
 
 	return (
-		<div className='relative rounded-lg'>
+		<div className='relative rounded-lg py-4'>
 			<input
 				className={"my-5 w-full bg-transparent"}
 				type={"range"}
