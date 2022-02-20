@@ -37,6 +37,10 @@
 	input[id="end"]::-webkit-slider-thumb {
 		@apply pointer-events-auto z-50 h-6 w-6 appearance-none rounded-lg bg-red-500;
 	}
+	/*End Playhead Draggable*/
+	input[id="playhead"]::-webkit-slider-thumb {
+		@apply pointer-events-auto z-50 h-6 w-1 appearance-none rounded-lg bg-white;
+	}
 	/*Start Thumb Track*/
 	input[id="start"]::-webkit-slider-runnable-track {
 		@apply pointer-events-none h-6 appearance-none rounded-lg;
