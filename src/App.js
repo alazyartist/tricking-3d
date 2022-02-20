@@ -15,7 +15,7 @@ function App() {
 export default App;
 
 //test
-//DEV BRANCH TEST SUCCESS
+//Master
 
 //set time out on the landing
 //
