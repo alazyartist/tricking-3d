@@ -11,6 +11,7 @@ function Landing(props) {
 	return (
 		<div>
 			<h2>Landing</h2>
+			<span>...</span>
 			{/* <PerspectiveCamera position={[0, -2, 1]}>
 				<TorqueLogo model={props.model} scale={2} />
 				<ambientLight intensity={1} />
