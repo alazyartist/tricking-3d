@@ -2,6 +2,8 @@
 
 An interactive learning tool aimed at abscracting some of the more complex nuances of the _**Tricking** Terminology_.
 
+A live version is available at [torquetricking.com/3d](http://torquetricking.com/3d/)
+
 ## Project Aim
 
 ### To create an **interactive tool** that showcases the terminology of the _**Tricking**_ world in a visual format.
@@ -138,7 +140,7 @@ after you've made your changes run:
 
 You can then create a pull request for your changes using DEV as base
 
-DEV <-- [new-branch-name]
+        DEV <-- [new-branch-name]
 
 If you have a branch that you deleted but is still showing origin/[branch name] run to clean the local repo:
 

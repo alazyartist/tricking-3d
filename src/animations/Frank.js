@@ -6,7 +6,8 @@ import React, { useRef, useEffect, useMemo } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { useStore } from "../store/store";
 import * as THREE from "three";
-import FrankAnim from '../data/Frank.gltf'
+import FrankAnim from "../data/Frank.gltf";
+import { AnimationUtils } from "three";
 
 export function Frank({ ...props }) {
 	const group = useRef();
@@ -24,6 +25,9 @@ export function Frank({ ...props }) {
 	const currentAnim = useStore((state) => state.currentAnim);
 	const start = useStore((state) => state.start);
 	const end = useStore((state) => state.end);
+	const setClipDuration = useStore((state) => state.setClipDuration);
+	const setCurrentTime = useStore((state) => state.setCurrentTime);
+
 	//Solves Problem with infinte renders of Animations Array and successfully passes to store
 	useMemo(
 		() => Promise.resolve(names).then((results) => setAnimationsArray(results)),
@@ -31,46 +35,60 @@ export function Frank({ ...props }) {
 	);
 
 	// Handle Animation Loop
-
+	//bounce
 	useEffect(() => {
 		bounce
 			? actions[currentAnim].setLoop(THREE.LoopPingPong)
 			: actions[currentAnim].setLoop(THREE.LoopRepeat);
 	}, [bounce, aI, actions, names, mixer, currentAnim]);
+	//loop
 	useEffect(() => {
 		loop
 			? actions[currentAnim].setLoop(THREE.LoopRepeat)
 			: actions[currentAnim].setLoop(THREE.LoopOnce);
 	}, [loop, aI, actions, names, mixer, currentAnim]);
+	//Timescale (SlowMo, FullSpeed, Timeslider) functionality
 	useEffect(() => {
 		actions[currentAnim].timeScale = timescale;
 	}, [timescale, actions, mixer, currentAnim]);
-	useEffect(() => {
-		const duration = actions[currentAnim].getClip().duration;
-		const startHere = start * duration;
-		isPlaying
-			? actions[currentAnim].startAt(startHere)
-			: actions[currentAnim].halt();
-	}, [isPlaying, aI, actions, names, mixer, currentAnim, start]);
+	// Play Pause functionality
 	useEffect(() => {
 		isPaused
 			? (actions[currentAnim].timeScale = 0)
 			: (actions[currentAnim].timeScale = timescale);
 	}, [timescale, isPaused, aI, actions, names, currentAnim]);
-	// useEffect(() => {
-	// 	const duration = actions[currentAnim].getClip().duration;
-	// 	const startHere = start * duration;
-	// 	const endHere = end * duration;
-	// 	actions[currentAnim].getClip().trim(startHere, endHere);
-	// 	console.log("newTime", endHere - startHere);
-	// 	console.log("startHere", startHere);
-	// 	console.log("endHere", endHere);
 
-	// 	console.log("time", actions[currentAnim].time);
-	// 	console.log("duration", actions[currentAnim].getClip().duration);
+	// Get Clip Duration and set .startAt time
+	useEffect(() => {
+		const duration = actions[currentAnim].getClip().duration;
+		const startHere = start * duration;
+		isPlaying
+			? actions[currentAnim].startAt(startHere)
+			: (actions[currentAnim].timescale = 0);
+	}, [isPlaying, aI, actions, names, mixer, currentAnim, start]);
 
-	// 	console.log("div", end - start);
-	// }, [start, end, currentAnim]);
+	useEffect(() => {
+		const clipDuration = actions[currentAnim].getClip().duration;
+		const startHere = start * 100 * clipDuration;
+		const endHere = end * 100 * clipDuration;
+		console.log();
+		const currentClip = actions[currentAnim].getClip();
+		const newClip = AnimationUtils.subclip(currentClip, startHere, endHere);
+		console.log("newClip", newClip);
+
+		console.log("newTime", endHere - startHere);
+		console.log("startHere", startHere);
+		console.log("endHere", endHere);
+
+		console.log("time", actions[currentAnim].time);
+		console.log("duration", actions[currentAnim].getClip().duration);
+		console.log("newDuration");
+		console.log("div", end - start);
+	}, [start, end, currentAnim]);
+	useEffect(() => {
+		setCurrentTime(actions[currentAnim].time);
+		setClipDuration(actions[currentAnim].getClip().duration);
+	}, [currentAnim, actions, actions.time, isPaused]);
 
 	useEffect(() => {
 		mixer.stopAllAction();
