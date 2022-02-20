@@ -16,6 +16,6 @@ export default App;
 
 //test
 //DEV PUSH CHECK
-
+// 8=D
 //set time out on the landing
 //
