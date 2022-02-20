@@ -1,5 +1,5 @@
-describe('My Test Suite', () => {
-  it('My Test Case', () => {
+describe('Testing..', () => {
+  it('[template test]', () => {
     expect(true).toEqual(true);
   });
 });
