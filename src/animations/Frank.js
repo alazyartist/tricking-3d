@@ -6,10 +6,11 @@ import React, { useRef, useEffect, useMemo } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { useStore } from "../store/store";
 import * as THREE from "three";
+import FrankAnim from '../data/Frank.gltf'
 
 export function Frank({ ...props }) {
 	const group = useRef();
-	const { nodes, materials, animations } = useGLTF("/Frank.gltf");
+	const { nodes, materials, animations } = useGLTF(FrankAnim);
 	const { actions, names, mixer } = useAnimations(animations, group);
 
 	//Use Store
