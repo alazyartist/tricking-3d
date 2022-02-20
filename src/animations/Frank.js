@@ -27,6 +27,11 @@ export function Frank({ ...props }) {
 	const end = useStore((state) => state.end);
 	const setClipDuration = useStore((state) => state.setClipDuration);
 	const setCurrentTime = useStore((state) => state.setCurrentTime);
+	const setSliderStart = useStore((state) => state.setSliderStart);
+	const setSliderEnd = useStore((state) => state.setSliderEnd);
+
+	useEffect(() => setSliderStart(start), [setSliderStart, start]);
+	useEffect(() => setSliderEnd(end), [setSliderEnd, end]);
 
 	//Solves Problem with infinte renders of Animations Array and successfully passes to store
 	useMemo(
@@ -63,32 +68,35 @@ export function Frank({ ...props }) {
 	useEffect(() => {
 		const duration = actions[currentAnim].getClip().duration;
 		const startHere = start * duration;
+
 		isPlaying
-			? actions[currentAnim].startAt(startHere)
-			: (actions[currentAnim].timescale = 0);
+			? mixer.setTime(100)
+			: mixer.setTime(100);
 	}, [isPlaying, aI, actions, names, mixer, currentAnim, start]);
 	useFrame(() => {
+    //console.log(mixer.time);
 		setCurrentTime(actions[currentAnim].time);
 	});
+
 	useEffect(() => {
 		const clipDuration = actions[currentAnim].getClip().duration;
 		const startHere = start * clipDuration;
 		const endHere = end * clipDuration;
-		console.log();
+		//console.log();
 		const currentClip = actions[currentAnim].getClip();
 		const newClip = AnimationUtils.subclip(currentClip, startHere, endHere);
-		console.log("newClip", newClip);
+		//console.log("newClip", newClip);
 
-		console.log("newTime", endHere - startHere);
-		console.log("startHere", startHere);
-		console.log("endHere", endHere);
-		console.log();
+		//console.log("newTime", endHere - startHere);
+		//console.log("startHere", startHere);
+		//console.log("endHere", endHere);
+		//console.log();
 
-		console.log("clock^");
-		console.log("time", actions[currentAnim].time);
-		console.log("duration", actions[currentAnim].getClip().duration);
-		console.log("newDuration");
-		console.log("div", end - start);
+		//console.log("clock^");
+		//console.log("time", actions[currentAnim].time);
+		//console.log("duration", actions[currentAnim].getClip().duration);
+		//console.log("newDuration");
+		//console.log("div", end - start);
 	}, [start, end, currentAnim]);
 	useEffect(() => {
 		setCurrentTime(actions[currentAnim].time);
@@ -101,7 +109,7 @@ export function Frank({ ...props }) {
 	useEffect(() => {
 		const duration = actions[currentAnim].getClip().duration;
 		const startHere = start * duration;
-		console.log("startHere", startHere);
+		//console.log("startHere", startHere);
 		actions[currentAnim].startAt(startHere).play();
 	}, [currentAnim, start]);
 
