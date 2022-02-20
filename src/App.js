@@ -6,8 +6,8 @@ function App () {
   return (
     <Routes>
       <Route path="*" element={<Home />} />
-      <Route path={'/3d'} element={<Landing />} />
-      <Route path={'*'} element={<Home />} />
+      <Route path={'/3d/home'} element={<Home />} />
+      <Route path={'/3d/landing'} element={<Landing />} />
     </Routes>
   );
 }
