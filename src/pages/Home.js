@@ -50,7 +50,7 @@ export function Home() {
 
 					<div
 						id='rightPane'
-						className='  z-[1] order-2 w-full bg-gray-700 p-2 md:mt-0'>
+						className='  z-[1] order-2 w-full bg-gray-700 p-[20px] md:mt-0'>
 						<Controller />
 						<TimeSlider />
 						<DurationSlider />

@@ -85,7 +85,7 @@ function DurationSlider() {
 				}}
 			/>
 
-			<div id='slider' className='flex text-base  '>
+			<div id='slider' className='mx-4 flex text-base'>
 				<div id='slider__track' className='z-1 absolute left-0 h-2' />
 				<div
 					ref={range}
