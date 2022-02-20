@@ -5,8 +5,9 @@ import Landing from './pages/Landing';
 function App () {
   return (
     <Routes>
+      <Route path="*" element={<Home />} />
       <Route path={'/3d'} element={<Landing />} />
-      <Route path={'/3d/home'} element={<Home />} />
+      <Route path={'*'} element={<Home />} />
     </Routes>
   );
 }
@@ -14,3 +15,6 @@ function App () {
 export default App;
 
 //test
+
+//set time out on the landing
+//
