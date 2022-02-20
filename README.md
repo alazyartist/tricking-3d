@@ -116,8 +116,32 @@ Release of Initial Beta
 # Installation Guide
 
 ```bash
-git clone https://github.com/alazyartist/tricking-3d.git
-cd tricking-3d
-npm install
-npm start
+    git clone https://github.com/alazyartist/tricking-3d.git
+    cd tricking-3d
+    npm install
+    npm start
+```
+
+## Development Guide
+
+If you would like to contribute to the project please do so by making separte branches:
+
+```bash
+    git checkout -b [new-branch-name]
+```
+
+after you've made your changes run:
+
+```bash
+    git push origin [new-branch-name]
+```
+
+You can then create a pull request for your changes using DEV as base
+
+DEV <-- [new-branch-name]
+
+If you have a branch that you deleted but is still showing origin/[branch name] run to clean the local repo:
+
+```bash
+git remote prune origin
 ```
