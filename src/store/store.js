@@ -41,5 +41,9 @@ export const useStore = create(
 		setSlider: (value) => set(() => ({ timeSlider: value })),
 		setSliderStart: (value) => set(() => ({ start: value })),
 		setSliderEnd: (value) => set(() => ({ end: value })),
+		setCurrentTime: (value) => set(() => ({ currentTime: value })),
+		setClipDuration: (value) => set(() => ({ clipDuration: value })),
+		currentTime: 0,
+		clipDuration: 0,
 	}))
 );
