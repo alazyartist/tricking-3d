@@ -23,7 +23,7 @@
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
-		"test": "react-scripts test",
+		"test": "jest --config ./jest.config.json",
 		"eject": "react-scripts eject"
 	},
 	"eslintConfig": {
@@ -46,6 +46,7 @@
 	},
 	"devDependencies": {
 		"autoprefixer": "^10.4.2",
+		"jest": "^27.5.1",
 		"postcss": "^8.4.6",
 		"prettier": "^2.5.1",
 		"prettier-plugin-tailwindcss": "^0.1.7",
