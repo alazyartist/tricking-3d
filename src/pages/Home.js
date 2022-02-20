@@ -1,11 +1,12 @@
-import ModelSelector from "../components/ModelSelector";
-import AnimationSelectorButton from "../components/AnimationSelector";
-import TrickInfo from "../components/TrickInfo";
-import Controller from "../components/Controller";
 import AnimationDropdown from "../components/AnimationDropdown.js";
+import AnimationSelectorButton from "../components/AnimationSelector";
 import CanvasComponent from "../components/CanvasComponent";
-import TimeSlider from "../components/TimeSlider";
+import Controller from "../components/Controller";
 import DurationSlider from "../components/DurationSlider";
+import ModelSelector from "../components/ModelSelector";
+import PlaybackSlider from "../components/PlaybackSlider";
+import TimeSlider from "../components/TimeSlider";
+import TrickInfo from "../components/TrickInfo";
 import { ReactComponent as HorizontalLogo } from "../data/HorizontalLogo.svg";
 export function Home() {
 	// console.log(useStore((state) => state.animationsArray));
@@ -52,6 +53,7 @@ export function Home() {
 						id='rightPane'
 						className='  z-[1] order-2 w-full bg-gray-700 p-[20px] md:mt-0'>
 						<Controller />
+            <PlaybackSlider />
 						<TimeSlider />
 						<DurationSlider />
 						<AnimationDropdown />
