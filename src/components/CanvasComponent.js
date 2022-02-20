@@ -86,7 +86,7 @@ function CanvasComponent() {
 	}, []);
 
 	return (
-		<div className='md:flex'>
+		<div className='sticky md:flex'>
 			<Canvas
 				id='Resizeable'
 				className='sticky z-[1000] min-h-[40] min-w-full max-w-full md:min-h-screen md:min-w-[500px]'>
@@ -96,7 +96,7 @@ function CanvasComponent() {
 			</Canvas>
 			<div
 				id='Draggable'
-				className='flex h-[30px] cursor-s-resize justify-center bg-gray-800 align-middle text-gray-500 md:hidden'>
+				className='sticky flex h-[30px] cursor-s-resize justify-center bg-gray-800 align-middle text-gray-500 md:hidden'>
 				<AiFillDownCircle />
 			</div>
 		</div>

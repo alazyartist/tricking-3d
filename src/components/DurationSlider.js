@@ -3,6 +3,9 @@ import { useStore } from "../store/store";
 function DurationSlider() {
 	let start = useStore((state) => state.start);
 	let end = useStore((state) => state.end);
+  let clipDuration = useStore((state) => state.clipDuration);
+  let currentTime  = useStore((state) => state.currentTime);
+
 	const setSliderStart = useStore((state) => state.setSliderStart);
 	const setSliderEnd = useStore((state) => state.setSliderEnd);
 
@@ -48,6 +51,15 @@ function DurationSlider() {
 		<div
 			id='Slider'
 			className=' relative z-0 flex h-[50px] w-full min-w-full items-center justify-center rounded-lg bg-transparent align-middle'>
+      <input 
+        className="z-[12] pointer-events-none absolute top-0 my-5 w-full bg-transparent"
+        type="range" 
+        id="playhead"
+				min={0}
+				max={clipDuration}
+        step={0.0001}
+        value={currentTime}
+      />
 			<input
 				className={
 					"z-3 pointer-events-none absolute top-0 my-5 w-full bg-transparent"
