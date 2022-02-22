@@ -36,12 +36,12 @@ function Landing (props) {
           <ol className="list-disc flex flex-col space-y-2">
             <li>
               <p className="text-xl">
-                Use one finger (emoji) to look around with camera.
+                Use ☝️ to look around with camera.
               </p>
             </li>
             <li>
               <p className="text-xl">
-                Use two fingers (emoji) to reposition camera.
+                Use ✌️ to reposition camera.
               </p>
             </li>
             <li>
