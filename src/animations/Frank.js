@@ -69,12 +69,10 @@ export function Frank({ ...props }) {
 		const duration = actions[currentAnim].getClip().duration;
 		const startHere = start * duration;
 
-		isPlaying
-			? mixer.setTime(100)
-			: mixer.setTime(100);
+		isPlaying ? mixer.setTime(100) : mixer.setTime(100);
 	}, [isPlaying, aI, actions, names, mixer, currentAnim, start]);
 	useFrame(() => {
-    //console.log(mixer.time);
+		//console.log(mixer.time);
 		setCurrentTime(actions[currentAnim].time);
 	});
 
@@ -111,6 +109,7 @@ export function Frank({ ...props }) {
 		const startHere = start * duration;
 		//console.log("startHere", startHere);
 		actions[currentAnim].startAt(startHere).play();
+		return actions[currentAnim].reset();
 	}, [currentAnim, start]);
 
 	return (
