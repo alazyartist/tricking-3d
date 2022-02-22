@@ -21,6 +21,10 @@ export const useStore = create(
 			set(() => ({
 				animationsArray: [...value],
 			})),
+		addToAnimationArray: (value) =>
+			set((state) => ({
+				animationsArray: [...state.animationsArray, value],
+			})),
 		animationSelector: () =>
 			set((state) => ({
 				aI: (state.aI + 1) % state.animationsArray.length,
