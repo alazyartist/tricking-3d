@@ -5,6 +5,7 @@ import { Button } from "../components/Button.js";
 
 function Controller() {
 	const setIsPaused = useStore((state) => state.setIsPaused);
+	const setIsPlaying = useStore((state) => state.setIsPaused);
 	const setBounce = useStore((state) => state.setBounce);
 	const isPaused = useStore((state) => state.isPaused);
 	const bounce = useStore((state) => state.bounce);
@@ -15,7 +16,7 @@ function Controller() {
 		<div className='z-[-5] grid grid-cols-3 justify-around justify-items-stretch gap-5 text-base'>
 			<Button f={setIsPaused} content={!isPaused ? <FaPause /> : <FaPlay />} />
 			<Button f={setBounce} content={bounce ? "Bounce" : "Loop"} />
-			<Button f={setIsPaused} content={isPaused ? "Paused" : "Playing"} />
+			<Button f={setIsPlaying} content={isPaused ? "Paused" : "Playing"} />
 			<Button f={() => setTimescale(-timescale)} content='Reverse' />
 			<Button
 				f={() => setTimescale(0.5 * timescale)}

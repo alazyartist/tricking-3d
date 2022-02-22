@@ -59,6 +59,7 @@ function DurationSlider() {
 				max={clipDuration}
 				step={0.0001}
 				value={currentTime}
+				readOnly
 			/>
 			<input
 				className={
