@@ -210,6 +210,8 @@ Release of Initial Beta
 
 ## Development Guide
 
+Some [component-name].js files have an accompanying [component-name].md to explain how to handle some the logic in the component.
+
 If you would like to contribute to the project please do so by making separte branches:
 
 ```bash
