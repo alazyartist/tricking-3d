@@ -9,7 +9,7 @@ React Three Fiber &#8602; Used to Write Declaritive Three.js
 Three.js &#8602; WebGl Abstraction Layer <br> &#8595;<br>
 WebGl &#8602; Handles on Screen Painting of Final Render
 
-## Model
+# Model
 
 We load in the models GLTF file and store it in the FrankAnim variable
 
@@ -17,27 +17,54 @@ We load in the models GLTF file and store it in the FrankAnim variable
 import FrankAnim from "../data/Frank.gltf";
 ```
 
-## Animation Logic
+# Animation Logic
 
-We create the ref group with useRef() to apply to our model in the return of our function
+We create the ref group with useRef() to apply to our model in the return of our function.<br><br>
+The animations are applied to the useRef group using the useAnimations(animations, ref) hook.
 
 ```js
 const group = useRef();
-```
-
-The animations are pulled in off of the [fbx-model-name].gltf and extracted into the animations variable using useGLTF(model) hook
-
-```js
 const { nodes, materials, animations } = useGLTF(FrankAnim);
 ```
 
-The animations are applied to the useRef group using the useAnimations(animations, ref) hook.
+And we extract actions, names, and mixer out of the animations object.
 
 ```js
 const { actions, names, mixer } = useAnimations(animations, group);
 ```
 
-We extract actions, names, and mixer out of the animations object.
+#### Store Logic
+
+Using Zustand for our store in store.js. We can bring in anything we need to update our model.
+
+```js
+import { useStore } from "../store/store";
+//Get Value
+const isPaused = useStore((state) => state.isPaused);
+// Set Value
+const setIsPaused = useStore((state) => state.setIsPaused);
+```
+
+#### Animation Logic
+
+We can then use these values to call updates to our animation actions in the mixer.
+
+```js
+function Frank({...props}){
+    //Store Logic
+    // Animation logic goes below
+        useEffect(() => {
+                isPaused
+                    ? (actions[currentAnim].timeScale = 0)
+                    : (actions[currentAnim].timeScale = timescale);
+            }, [timescale, isPaused, actions currentAnim]);
+        // Animation Logic goes above
+        return
+    )
+}
+```
+
+#
 
 ## Model Return
 
@@ -45,7 +72,9 @@ We return the model in a group with the ref={group} applied in the return of the
 
 ```js
 export function Frank({ ...props }) {
+	//Store Logic goes here
 	//Animation logic goes here
+
 	return (
 		<group ref={group} {...props} dispose={null}>
 			<group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
@@ -68,9 +97,9 @@ This component `<Frank />` can then be loaded into our scene which contains our 
 function TorqueScene(props) {
 	return (
 		<PerspectiveCamera makeDefualt position={[0, -2, 0]}>
-			//Model
+			{/*Model*/}
 			<Frank />
-			//Light
+			{/*Lights*/}
 			<ambientLight intensity={0.1} />
 			<spotLight
 				ref={light2}
@@ -84,9 +113,9 @@ function TorqueScene(props) {
 				intensity={3}
 				position={[0, 2, -5]}
 			/>
-			//HDR Environment Preset (affects lighting)
+			{/*HDR Environment Preset (affects lighting)*/}
 			<Environment preset='park' />
-			//Camera Controller
+			{/*Camera Controller*/}
 			<OrbitControls />
 		</PerspectiveCamera>
 	);
