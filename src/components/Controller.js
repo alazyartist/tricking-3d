@@ -11,7 +11,8 @@ function Controller() {
 	const bounce = useStore((state) => state.bounce);
 	const setTimescale = useStore((state) => state.setTimescale);
 	const timescale = useStore((state) => state.timescale);
-	const animationsArray = useStore((state) => state.animationsArray);
+	const trimToggle = useStore((state) => state.trimToggle);
+	const setTrimToggle = useStore((state) => state.setTrimToggle);
 	return (
 		<div className='z-[-5] grid grid-cols-3 justify-around justify-items-stretch gap-5 text-base'>
 			<Button f={setIsPaused} content={!isPaused ? <FaPause /> : <FaPlay />} />
@@ -23,6 +24,12 @@ function Controller() {
 				content={`SlowMo ${Math.abs(Number.parseFloat(timescale).toFixed(2))}`}
 			/>
 			<Button f={() => setTimescale(1)} content='FullSpeed' />
+			<input
+				className=' p-2'
+				type='checkbox'
+				value={trimToggle}
+				onClick={() => setTrimToggle()}
+			/>
 		</div>
 	);
 }
