@@ -21,7 +21,7 @@ export function TorqueScene(props) {
 	// useHelper(light, SpotLightHelper, "cyan");
 	if (modelSelector) {
 		return (
-			<PerspectiveCamera makeDefualt position={[0, -2, 0]}>
+			<PerspectiveCamera position={[0, -2, 0]}>
 				<Frank />
 
 				{/* <ambientLight intensity={0.1} /> */}

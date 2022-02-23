@@ -10,6 +10,9 @@
 	.resize-detail::-webkit-resizer {
 		background: red;
 	}
+	.checked {
+		@apply bg-red-500;
+	}
 	/*Remove base Styling for input sliders*/
 	input[type="range"] {
 		@apply appearance-none;
@@ -48,5 +51,16 @@
 	/*End Thumb Track*/
 	input[id="end"]::-webkit-slider-runnable-track {
 		@apply pointer-events-none h-6 appearance-none rounded-lg bg-transparent;
+	}
+	/* remove checkbox appearance*/
+	input[type="checkbox"] {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		@apply m-6 appearance-none items-center rounded-[50%] bg-gray-400 p-8;
+	}
+
+	/*trimToggle*/
+	input[type="checkbox"]:checked {
+		@apply m-6 appearance-none items-center rounded-full bg-green-500 p-8;
 	}
 }
