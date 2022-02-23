@@ -9,6 +9,7 @@ import { useStore } from "../store/store";
 import * as THREE from "three";
 import FrankAnim from "../data/Frank.gltf";
 import { AnimationUtils, Clock } from "three";
+
 export function Frank({ ...props }) {
 	const group = useRef();
 	const { nodes, materials, animations } = useGLTF(FrankAnim);
@@ -68,61 +69,38 @@ export function Frank({ ...props }) {
 	// Set Play Start uE
 	useEffect(() => {
 		isPlaying ? actions[currentAnim].play() : actions[currentAnim].play();
-	}, [isPlaying, aI, actions, names, mixer, currentAnim, start]);
+	}, [isPlaying, aI, actions, names, mixer, currentAnim, start, end]);
+
 	useFrame(() => {
-		//console.log(mixer.time);
+		const duration = actions[currentAnim].getClip().duration.toFixed(2);
+		let startHere = (start * duration).toFixed(2);
+		startHere = parseInt(startHere);
+		let endHere = (end * duration).toFixed(2);
+		endHere = parseInt(endHere);
+		let current = actions[currentAnim].time;
+
+		if (current > endHere) {
+			actions[currentAnim].time = startHere;
+		}
+
 		setCurrentTime(actions[currentAnim].time);
 	});
 
 	// Make Subclip uE
 	useEffect(() => {
-		const currentClip = actions[currentAnim].getClip();
-		const clipDuration = actions[currentAnim].getClip().duration;
-		const clipFrameLength = currentClip.tracks[0].times.length;
-		const startHere = start * clipFrameLength;
-		const endHere = end * clipFrameLength;
-		//console.log();
-
-		const currentMixer = actions[currentAnim].getMixer();
-		const newClip = AnimationUtils.subclip(
-			currentClip,
-			`${currentClip.name} Short`,
-			startHere,
-			endHere,
-			240
-		);
-
-		//NEED TO FIX NEW SUB CLIP ACTION
-
-		// currentMixer.clipAction(newClip, group);
-		// // console.log("existing action", currentMixer.existingAction(newClip));
-		// console.log("currentClip", currentClip);
-		// console.log("newClip", newClip);
-		// console.log("group", group);
-		// console.log("mixer", currentMixer);
-		// console.log("currentClip", currentClip.duration);
-		// console.log("newClip", newClip.duration);
-		// console.log("startHere", startHere);
-		// console.log("endHere", endHere);
-		// console.log(
-		// 	"testNumber",
-		// 	((endHere - startHere) * clipDuration) / clipFrameLength
-		// );
-		// return currentMixer.existingAction.stopAllAction();
-	}, [start, end, currentAnim]);
-	useEffect(() => {
 		setCurrentTime(actions[currentAnim].time);
 		setClipDuration(actions[currentAnim].getClip().duration);
 	}, [currentAnim, actions]);
+
 	//Resets Animations Player on Change of CurrentAnim
 	useEffect(() => {
 		mixer.stopAllAction();
 		actions[currentAnim].play();
 	}, [currentAnim]);
+
 	useEffect(() => {
 		const duration = actions[currentAnim].getClip().duration;
 		const startHere = start * duration;
-		//console.log("startHere", startHere);
 		actions[currentAnim].startAt(startHere);
 	}, [currentAnim, start]);
 
