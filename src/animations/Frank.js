@@ -16,8 +16,8 @@ export function Frank({ ...props }) {
 
 	//Use Store
 	const aI = useStore((state) => state.aI);
-	let isPlaying = useStore((state) => state.isPlaying);
-	let isPaused = useStore((state) => state.isPaused);
+	const isPlaying = useStore((state) => state.isPlaying);
+	const isPaused = useStore((state) => state.isPaused);
 	const setAnimationsArray = useStore((state) => state.updateAnimationArray);
 	const timescale = useStore((state) => state.timescale);
 	const loop = useStore((state) => state.loop);
@@ -30,6 +30,7 @@ export function Frank({ ...props }) {
 	const setSliderStart = useStore((state) => state.setSliderStart);
 	const setSliderEnd = useStore((state) => state.setSliderEnd);
 	const addToAnimationArray = useStore((state) => state.addToAnimationArray);
+
 	useEffect(() => setSliderStart(start), [setSliderStart, start]);
 	useEffect(() => setSliderEnd(end), [setSliderEnd, end]);
 
@@ -40,35 +41,32 @@ export function Frank({ ...props }) {
 	);
 
 	// Handle Animation Loop
-	//bounce
+	//bounce uE
 	useEffect(() => {
 		bounce
 			? actions[currentAnim].setLoop(THREE.LoopPingPong)
 			: actions[currentAnim].setLoop(THREE.LoopRepeat);
 	}, [bounce, aI, actions, names, mixer, currentAnim]);
-	//loop
+	//loop uE
 	useEffect(() => {
 		loop
 			? actions[currentAnim].setLoop(THREE.LoopRepeat)
 			: actions[currentAnim].setLoop(THREE.LoopOnce);
 	}, [loop, aI, actions, names, mixer, currentAnim]);
-	//Timescale (SlowMo, FullSpeed, Timeslider) functionality
+	//Timescale (SlowMo, FullSpeed, Timeslider) uE
 	useEffect(() => {
 		actions[currentAnim].timeScale = timescale;
 	}, [timescale, actions, mixer, currentAnim]);
 
-	// Play Pause functionality
+	// Play Pause uE
 	useEffect(() => {
 		isPaused
 			? (actions[currentAnim].timeScale = 0)
 			: (actions[currentAnim].timeScale = timescale);
 	}, [timescale, isPaused, aI, actions, names, currentAnim]);
 
-	// Get Clip Duration and set .startAt time
+	// Set Play Start uE
 	useEffect(() => {
-		const duration = actions[currentAnim].getClip().duration;
-		const startHere = start * duration;
-
 		isPlaying ? actions[currentAnim].play() : actions[currentAnim].play();
 	}, [isPlaying, aI, actions, names, mixer, currentAnim, start]);
 	useFrame(() => {
@@ -76,6 +74,7 @@ export function Frank({ ...props }) {
 		setCurrentTime(actions[currentAnim].time);
 	});
 
+	// Make Subclip uE
 	useEffect(() => {
 		const currentClip = actions[currentAnim].getClip();
 		const clipDuration = actions[currentAnim].getClip().duration;
@@ -92,20 +91,23 @@ export function Frank({ ...props }) {
 			endHere,
 			240
 		);
-		currentMixer.clipAction(newClip, group);
-		// console.log("existing action", currentMixer.existingAction(newClip));
+
+		//NEED TO FIX NEW SUB CLIP ACTION
+
+		// currentMixer.clipAction(newClip, group);
+		// // console.log("existing action", currentMixer.existingAction(newClip));
 		// console.log("currentClip", currentClip);
-		console.log("newClip", newClip);
-		console.log("group", group);
-		console.log("mixer", currentMixer);
-		console.log("currentClip", currentClip.duration);
-		console.log("newClip", newClip.duration);
-		console.log("startHere", startHere);
-		console.log("endHere", endHere);
-		console.log(
-			"testNumber",
-			((endHere - startHere) * clipDuration) / clipFrameLength
-		);
+		// console.log("newClip", newClip);
+		// console.log("group", group);
+		// console.log("mixer", currentMixer);
+		// console.log("currentClip", currentClip.duration);
+		// console.log("newClip", newClip.duration);
+		// console.log("startHere", startHere);
+		// console.log("endHere", endHere);
+		// console.log(
+		// 	"testNumber",
+		// 	((endHere - startHere) * clipDuration) / clipFrameLength
+		// );
 		// return currentMixer.existingAction.stopAllAction();
 	}, [start, end, currentAnim]);
 	useEffect(() => {
