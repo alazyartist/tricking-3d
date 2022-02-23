@@ -9,3 +9,14 @@ export function Button(props) {
 		</button>
 	);
 }
+
+export function TrimToggle(props) {
+	return (
+		<button
+			id='trimToggle'
+			className=' appearance-none items-center rounded-full '
+			onClick={props.f}>
+			{props.content}
+		</button>
+	);
+}
