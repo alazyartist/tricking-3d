@@ -16,21 +16,21 @@ export function Frank({ ...props }) {
 	const { actions, names, mixer } = useAnimations(animations, group);
 
 	//Use Store
-	const aI                  = useStore((s) => s.aI);
-	const bounce              = useStore((s) => s.bounce);
-	const currentAnim         = useStore((s) => s.currentAnim);
-	const end                 = useStore((s) => s.end);
-	const isPaused            = useStore((s) => s.isPaused);
-	const isPlaying           = useStore((s) => s.isPlaying);
-	const loop                = useStore((s) => s.loop);
-	const setAnimationsArray  = useStore((s) => s.updateAnimationArray);
-	const setClipDuration     = useStore((s) => s.setClipDuration);
-	const setCurrentTime      = useStore((s) => s.setCurrentTime);
-	const setSliderEnd        = useStore((s) => s.setSliderEnd);
-	const setSliderStart      = useStore((s) => s.setSliderStart);
-	const start               = useStore((s) => s.start);
-	const timescale           = useStore((s) => s.timescale);
-  const trimToggle          = useStore((s) => s.trimToggle);
+	const aI = useStore((s) => s.aI);
+	const bounce = useStore((s) => s.bounce);
+	const currentAnim = useStore((s) => s.currentAnim);
+	const end = useStore((s) => s.end);
+	const isPaused = useStore((s) => s.isPaused);
+	const isPlaying = useStore((s) => s.isPlaying);
+	const loop = useStore((s) => s.loop);
+	const setAnimationsArray = useStore((s) => s.updateAnimationArray);
+	const setClipDuration = useStore((s) => s.setClipDuration);
+	const setCurrentTime = useStore((s) => s.setCurrentTime);
+	const setSliderEnd = useStore((s) => s.setSliderEnd);
+	const setSliderStart = useStore((s) => s.setSliderStart);
+	const start = useStore((s) => s.start);
+	const timescale = useStore((s) => s.timescale);
+	const trimToggle = useStore((s) => s.trimToggle);
 
 	useEffect(() => setSliderStart(start), [setSliderStart, start]);
 	useEffect(() => setSliderEnd(end), [setSliderEnd, end]);
@@ -48,14 +48,14 @@ export function Frank({ ...props }) {
 			? actions[currentAnim].setLoop(THREE.LoopPingPong)
 			: actions[currentAnim].setLoop(THREE.LoopRepeat);
 	}, [bounce, aI, actions, names, mixer, currentAnim]);
-  
+
 	//loop uE
 	useEffect(() => {
 		loop
 			? actions[currentAnim].setLoop(THREE.LoopRepeat)
 			: actions[currentAnim].setLoop(THREE.LoopOnce);
 	}, [loop, aI, actions, names, mixer, currentAnim]);
-  
+
 	//Timescale (SlowMo, FullSpeed, Timeslider) uE
 	useEffect(() => {
 		actions[currentAnim].timeScale = timescale;
@@ -74,14 +74,14 @@ export function Frank({ ...props }) {
 	}, [isPlaying, aI, actions, names, mixer, currentAnim, start, end]);
 
 	useFrame(() => {
-		const duration  = actions[currentAnim].getClip().duration.toFixed(2);
-		let startHere   = (start * duration).toFixed(2);
-		    startHere   = parseInt(startHere);
-		let endHere     = (end * duration).toFixed(2);
-		    endHere     = parseInt(endHere);
-		let current     = actions[currentAnim].time;
+		const duration = actions[currentAnim].getClip().duration.toFixed(2);
+		let startHere = (start * duration).toFixed(2);
+		startHere = parseInt(startHere);
+		let endHere = (end * duration).toFixed(2);
+		endHere = parseInt(endHere);
+		let current = actions[currentAnim].time;
 
-		if (trimToggle && (current > endHere)) {
+		if (trimToggle && current > endHere) {
 			actions[currentAnim].time = startHere;
 		}
 		setCurrentTime(actions[currentAnim].time);
@@ -114,4 +114,4 @@ export function Frank({ ...props }) {
 	);
 }
 
-useGLTF.preload("/Frank.gltf");
+useGLTF.preload(FrankAnim);
