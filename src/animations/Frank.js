@@ -7,12 +7,14 @@ import { useGLTF, useAnimations } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useStore } from "../store/store";
 import * as THREE from "three";
-import FrankAnim from "../data/Frank.gltf";
+import FrankAnim from "../data/Frank-SA.gltf";
+import AnimsForFrank from "../data/Frank.gltf";
 import { AnimationUtils, Clock } from "three";
 
 export function Frank({ ...props }) {
 	const group = useRef();
-	const { nodes, materials, animations } = useGLTF(FrankAnim);
+	const { nodes, materials } = useGLTF(FrankAnim);
+	const { animations } = useGLTF(AnimsForFrank);
 	const { actions, names, mixer } = useAnimations(animations, group);
 
 	//Use Store
@@ -115,3 +117,4 @@ export function Frank({ ...props }) {
 }
 
 useGLTF.preload(FrankAnim);
+useGLTF.preload(AnimsForFrank);
