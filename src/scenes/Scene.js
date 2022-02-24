@@ -6,12 +6,14 @@ import {
 	GizmoHelper,
 	GizmoViewport,
 	useHelper,
+	Plane,
 } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import TorqueLogo from "../components/TorqueLogo";
 import { Frank } from "../animations/Frank.js";
 import { useStore } from "../store/store";
 import { SpotLightHelper } from "three";
+// import Model from "../animations/KerwoodCC3Tpose";
 export function TorqueScene(props) {
 	const modelSelector = useStore((state) => state.modelValue);
 	//Scene Logic -- Switch Models to render: Fred or Torque Logo
@@ -24,20 +26,21 @@ export function TorqueScene(props) {
 			<PerspectiveCamera position={[0, -2, 0]}>
 				<Frank />
 
-				{/* <ambientLight intensity={0.1} /> */}
+				{/* <Model /> */}
+				<ambientLight intensity={0.8} />
 				<spotLight
 					ref={light2}
-					color={"#FF0000"}
-					intensity={3}
+					color={"#f2f2f2"}
+					intensity={0.5}
 					position={[0, 2, 5]}
 				/>
 				<spotLight
 					ref={light}
-					color={"cyan"}
-					intensity={3}
+					color={"whitesmoke"}
+					intensity={0.5}
 					position={[0, 2, -5]}
 				/>
-				{/* <Environment preset='park' /> */}
+				<Environment preset='sunset' />
 				<OrbitControls />
 				<gridHelper
 					args={[10, 10, `black`, `gainsboro`]}

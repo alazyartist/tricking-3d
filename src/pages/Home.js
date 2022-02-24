@@ -23,7 +23,7 @@ export function Home() {
 						md:order-1 md:mt-0 md:min-h-[500px] md:min-w-[30%]
 						'>
 						<TrickInfo />
-						<h1 className='text-base text-red-500'>
+						<h1 className='text-base font-semibold text-red-500'>
 							Note: Under Active Development. <br />
 							WILL BREAK OFTEN
 						</h1>
@@ -44,17 +44,19 @@ export function Home() {
 
 					<div
 						id='MiddlePane'
-						className=' sticky top-0 z-[1000] order-1 h-1/2 min-h-min w-full min-w-full max-w-full justify-around overflow-hidden bg-gray-500 md:relative md:order-2 md:min-h-screen md:min-w-fit '>
+						className=' sticky top-0 z-[1000] order-1 h-1/2 min-h-min w-full min-w-full max-w-full justify-around overflow-hidden bg-zinc-700 md:relative md:order-2 md:min-h-screen md:min-w-fit '>
 						<CanvasComponent />
 					</div>
 
 					<div
 						id='rightPane'
 						className='  z-[1] order-2 w-full bg-gray-700 p-[20px] md:mt-0'>
+						<div className='py-6'>
+							<DurationSlider />
+						</div>
 						<Controller />
 
 						<TimeSlider />
-						<DurationSlider />
 						<AnimationDropdown />
 					</div>
 				</div>

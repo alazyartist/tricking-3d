@@ -50,7 +50,7 @@
 	}
 	/*End Thumb Track*/
 	input[id="end"]::-webkit-slider-runnable-track {
-		@apply pointer-events-none h-6 appearance-none rounded-lg bg-transparent;
+		@apply pointer-events-none appearance-none rounded-lg bg-transparent;
 	}
 	/* remove checkbox appearance*/
 	input[type="checkbox"] {
