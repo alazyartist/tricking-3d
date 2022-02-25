@@ -19,20 +19,20 @@ export function Home() {
 				<div id='tripanel' className=' flex w-full flex-col md:flex-row'>
 					<div
 						id='leftPane'
-						className='order-3 w-full bg-gray-700 p-5 
-						md:order-1 md:mt-0 md:min-h-[500px] md:min-w-[30%]
+						className='order-3 flex w-fit flex-col justify-between gap-4 bg-gray-700 p-5
+						md:order-1 md:mt-0 md:min-h-[500px]
 						'>
 						<TrickInfo />
-						<h1 className='text-base font-semibold text-red-500'>
+						<h1 className=' basis-[1/6] text-base font-semibold text-red-500'>
 							Note: Under Active Development. <br />
 							WILL BREAK OFTEN
 						</h1>
 						<a
-							className=' text-gray-500'
+							className='basis-[1/6] text-gray-500'
 							href='https://torquetricking.com'
 							target='_blank'
 							rel='noopener noreferrer'>
-							<div className='items-center justify-center rounded-xl bg-gray-800 p-2'>
+							<div className='item-end justify-center rounded-xl bg-gray-800 p-2'>
 								Powered By
 								<HorizontalLogo
 									fill='dimgray'
