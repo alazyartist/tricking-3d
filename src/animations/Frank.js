@@ -81,19 +81,11 @@ export function Frank({ ...props }) {
 			let endHere = parseFloat((end * duration).toFixed(2));
 			let current = parseFloat(actions[currentAnim].time);
 
-<<<<<<< HEAD
 			if (current.toFixed(1) >= endHere.toFixed(1)) {
 				actions[currentAnim].time = startHere;
 			}
 		}
 		setCurrentTime(actions[currentAnim].time);
-=======
-      if (current.toFixed(1) >= endHere.toFixed(1)) {
-        actions[currentAnim].time = startHere;
-      }
-    }
-    setCurrentTime(actions[currentAnim].time);
->>>>>>> ccfabf84afda21756b810ea319bcb56608db8890
 		setClipDuration(actions[currentAnim].getClip().duration);
 	});
 
