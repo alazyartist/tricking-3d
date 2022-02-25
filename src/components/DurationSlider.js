@@ -52,7 +52,6 @@ function DurationSlider() {
 	}, [end, getPercent]);
 
 	return (
-<<<<<<< Updated upstream
 		<div className='flex flex-row items-center gap-3 self-center'>
 			<div
 				id='Slider'
@@ -103,62 +102,10 @@ function DurationSlider() {
 						event.target.value = value.toString();
 					}}
 				/>
-=======
-		<div
-			id='Slider'
-			className=' relative z-0 flex h-[50px] w-full min-w-full items-center justify-center rounded-lg bg-transparent align-middle'>
-			<input
-				id='playhead'
-				className='pointer-events-none absolute top-0 z-[12] my-5 w-full bg-transparent'
-				type='range'
-				min={0}
-				max={clipDuration}
-				step={0.0001}
-				value={currentTime}
-				readOnly
-			/>
-			<input
-				id='start'
-				className={
-					"z-3 pointer-events-none absolute top-0 my-5 w-full bg-transparent"
-				}
-				type={"range"}
-				double={"true"}
-				ref={startRef}
-				min={0}
-				max={1}
-				step={0.01}
-				value={start}
-				onChange={(event) => {
-					const value = Math.max(+event.target.value, start - 1);
-					setSliderStart(value);
-					event.target.value = value.toString();
-				}}
-			/>
-			<input
-				id='end'
-				className={
-					" z-4 pointer-events-none absolute left-0 top-0 my-5 w-full bg-transparent"
-				}
-				type={"range"}
-				double={"true"}
-				ref={endRef}
-				min={0}
-				max={1}
-				value={end}
-				step={0.01}
-				onChange={(event) => {
-					const value = Math.min(+event.target.value, end + 1);
-					setSliderEnd(value);
-					event.target.value = value.toString();
-				}}
-			/>
->>>>>>> Stashed changes
 
 				<div id='slider' className='mx-4 flex text-base'>
 					<div id='slider__track' className='z-1 absolute left-0 h-2' />
 					<div
-<<<<<<< Updated upstream
 						ref={range}
 						id='slider__range'
 						className=' z-2 absolute h-2 bg-green-200'>
@@ -172,16 +119,6 @@ function DurationSlider() {
 							className='absolute top-[-40px] right-[-10px] z-50 rounded-lg bg-red-500 p-1'>
 							{Number.parseFloat(end * clipDuration).toFixed(2)}
 						</div>
-=======
-						id='slider__left-value'
-						className='opacity-50 z-60 absolute left-[-10px] top-[-40px] items-center justify-center rounded-lg bg-green-500 p-1'>
-						{Number.parseFloat(start * clipDuration).toFixed(2)}
-					</div>
-					<div
-						id='slider__right-value'
-						className='opacity-50 z-60 absolute top-[-40px] right-[-10px] rounded-lg bg-red-500 p-1'>
-						{Number.parseFloat(end * clipDuration).toFixed(2)}
->>>>>>> Stashed changes
 					</div>
 				</div>
 			</div>
