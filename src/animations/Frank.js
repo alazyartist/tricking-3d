@@ -73,17 +73,19 @@ export function Frank({ ...props }) {
 	}, [isPlaying, aI, actions, names, mixer, currentAnim, start, end]);
 
 	useFrame(() => {
-    if (!trimToggle) {
-      const duration  = parseFloat(actions[currentAnim].getClip().duration.toFixed(2));
-      let startHere   = parseFloat((start * duration).toFixed(2));
-      let endHere     = parseFloat((end * duration).toFixed(2));
-      let current     = parseFloat(actions[currentAnim].time);
+		if (!trimToggle) {
+			const duration = parseFloat(
+				actions[currentAnim].getClip().duration.toFixed(2)
+			);
+			let startHere = parseFloat((start * duration).toFixed(2));
+			let endHere = parseFloat((end * duration).toFixed(2));
+			let current = parseFloat(actions[currentAnim].time);
 
-      if (current.toFixed(2) >= endHere.toFixed(2)) {
-        actions[currentAnim].time = startHere;
-      }
-    }
-    setCurrentTime(actions[currentAnim].time);
+			if (current.toFixed(1) >= endHere.toFixed(1)) {
+				actions[currentAnim].time = startHere;
+			}
+		}
+		setCurrentTime(actions[currentAnim].time);
 		setClipDuration(actions[currentAnim].getClip().duration);
 	});
 
