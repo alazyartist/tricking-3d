@@ -34,9 +34,6 @@ export function Frank({ ...props }) {
 	const timescale = useStore((s) => s.timescale);
 	const trimToggle = useStore((s) => s.trimToggle);
 
-	useEffect(() => setSliderStart(start), [setSliderStart, start]);
-	useEffect(() => setSliderEnd(end), [setSliderEnd, end]);
-
 	//Solves Problem with infinte renders of Animations Array and successfully passes to store
 	useMemo(
 		() => Promise.resolve(names).then((results) => setAnimationsArray(results)),
@@ -77,25 +74,18 @@ export function Frank({ ...props }) {
 
 	useFrame(() => {
     if (!trimToggle) {
-      const duration  = actions[currentAnim].getClip().duration.toFixed(2);
-      let startHere   = (start * duration).toFixed(2);
-      startHere   = parseInt(startHere);
-      let endHere     = (end * duration).toFixed(2);
-      endHere     = parseInt(endHere);
-      let current     = actions[currentAnim].time;
+      const duration  = parseFloat(actions[currentAnim].getClip().duration.toFixed(2));
+      let startHere   = parseFloat((start * duration).toFixed(2));
+      let endHere     = parseFloat((end * duration).toFixed(2));
+      let current     = parseFloat(actions[currentAnim].time);
 
       if (current > endHere) {
         actions[currentAnim].time = startHere;
       }
     }
     setCurrentTime(actions[currentAnim].time);
-	});
-
-	// Make Subclip uE
-	useEffect(() => {
-		setCurrentTime(actions[currentAnim].time);
 		setClipDuration(actions[currentAnim].getClip().duration);
-	}, [currentAnim, actions]);
+	});
 
 	//Resets Animations Player on Change of CurrentAnim
 	useEffect(() => {
