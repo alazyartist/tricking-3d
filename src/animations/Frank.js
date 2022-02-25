@@ -76,6 +76,7 @@ export function Frank({ ...props }) {
 	}, [isPlaying, aI, actions, names, mixer, currentAnim, start, end]);
 
 	useFrame(() => {
+<<<<<<< Updated upstream
 		const duration = actions[currentAnim].getClip().duration.toFixed(2);
 		let startHere = (start * duration).toFixed(2);
 		startHere = parseInt(startHere);
@@ -87,6 +88,21 @@ export function Frank({ ...props }) {
 			actions[currentAnim].time = startHere;
 		}
 		setCurrentTime(actions[currentAnim].time);
+=======
+    if (!trimToggle) {
+      const duration  = actions[currentAnim].getClip().duration.toFixed(2);
+      let startHere   = (start * duration).toFixed(2);
+      startHere   = parseInt(startHere);
+      let endHere     = (end * duration).toFixed(2);
+      endHere     = parseInt(endHere);
+      let current     = actions[currentAnim].time;
+
+      if (current > endHere) {
+        actions[currentAnim].time = startHere;
+      }
+    }
+      setCurrentTime(actions[currentAnim].time);
+>>>>>>> Stashed changes
 	});
 
 	// Make Subclip uE

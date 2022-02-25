@@ -39,6 +39,20 @@ function Controller() {
 				/>
 				<Button f={() => setTimescale(1)} content='FullSpeed' />
 			</div>
+<<<<<<< Updated upstream
+=======
+			<TrimToggle
+				id='trimToggle'
+				content={
+					trimToggle ? (
+						<FaCheckCircle className='m-4 h-20 w-20 fill-gray-500' />
+					) : (
+						<FaCheckCircle className='m-4 h-20 w-20 fill-green-500' />
+					)
+				}
+				f={() => setTrimToggle()}
+			/>
+>>>>>>> Stashed changes
 		</>
 	);
 }
