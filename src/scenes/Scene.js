@@ -37,7 +37,7 @@ export function TorqueScene(props) {
 					intensity={3}
 					position={[0, 2, -5]}
 				/>
-				<Environment preset='park' />
+				{/* <Environment preset='park' /> */}
 				<OrbitControls />
 				<gridHelper
 					args={[10, 10, `black`, `gainsboro`]}

@@ -64,6 +64,90 @@ Currently have 12 Animations:
     Webster
 ```
 
+## Tricks To Be Added Soon:
+
+```
+540-Wrap
+540-Wrap9
+540Kick
+Aerial-pop
+Aerial
+BKick 2
+BKick
+Backflip
+Backflip2
+Backflip3
+Backflip4(best)
+Backhandspring
+Btwist
+Btwist2
+Btwist3
+C7kick_2
+CartDub 2
+CartDub
+CartOff
+CartWheel_BothDirections
+Cartwheel (Complete Landing) Swing 2
+Cartwheel (Complete Landing) Swing
+Cartwheel (Complete Landing) back to idle 2
+Cartwheel (Complete Landing) back to idle
+Cartwheel (Hyper Landing) 2
+Cartwheel (Hyper Landing)
+Cartwheel (Mega Landing) 2
+Cartwheel (Mega Landing) 3
+Cartwheel (Mega Landing)
+Cartwheel (Semi Landing) 2
+Cartwheel (Semi Landing)
+CartwheelPunch
+Cheat7Twist(raiz twist) 2
+Cheat7Twist(raiz twist)
+CheatSetup 2
+CheatSetup 3
+CheatSetup 4
+CheatSetup 5
+CheatSetup
+Double_Btwist
+FlashKick 2
+FlashKick
+Hook-MasterScoot
+Hook-WrapHook 2
+Hook-WrapHook
+Illusion_Twist
+Jstep 2
+Jstep 3
+Jstep 4
+Jstep 5 false start
+Jstep
+Kerwood_Backflip2
+MasterScoot
+MasterScoot2
+ReversaoScisso (sharp)
+ReversaoScissor
+RoundOff 2 (complete landing sequential)
+RoundOff 2 (complete landing)
+RoundOff
+Sailor Moon (horizontal
+Sailor MoonScissor
+SailorMoon(feet janky) 2
+SailorMoon(feet janky)
+Scoot 2
+Scoot 3 (best)
+Scoot-Valdez 2
+Scoot-Valdez
+Scoot
+SpinStep Powerful
+SpinStep
+StandingFull 2
+StandingFull
+Tornado_kick_
+TouchdownRaiz-DoubleCork 2
+TouchdownRaiz-DoubleCork
+TouchdownRaiz-Valdez 2
+TouchdownRaiz-Valdez
+WrapFull
+WrapFullSwing
+```
+
 ---
 
 ### **Working Beta**
@@ -125,6 +209,8 @@ Release of Initial Beta
 ```
 
 ## Development Guide
+
+Some [component-name].js files have an accompanying [component-name].md to explain how to handle some the logic in the component.
 
 If you would like to contribute to the project please do so by making separte branches:
 
