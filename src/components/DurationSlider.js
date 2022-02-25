@@ -126,9 +126,9 @@ function DurationSlider() {
 				id='trimToggle'
 				content={
 					trimToggle ? (
-						<FaCheckCircle className='h-8 w-8 fill-green-600' />
-					) : (
 						<FaCheckCircle className='h-8 w-8 fill-gray-500' />
+					) : (
+						<FaCheckCircle className='h-8 w-8 fill-green-600' />
 					)
 				}
 				f={() => setTrimToggle()}
