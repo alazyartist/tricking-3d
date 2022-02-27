@@ -9,7 +9,6 @@ import { useStore } from "../store/store";
 import * as THREE from "three";
 import FrankAnim from "../data/Frank-SA.gltf";
 import AnimsForFrank from "../data/Frank.gltf";
-import { AnimationUtils, Clock } from "three";
 
 export function Frank({ ...props }) {
 	const group = useRef();
@@ -28,8 +27,6 @@ export function Frank({ ...props }) {
 	const setAnimationsArray = useStore((s) => s.updateAnimationArray);
 	const setClipDuration = useStore((s) => s.setClipDuration);
 	const setCurrentTime = useStore((s) => s.setCurrentTime);
-	const setSliderEnd = useStore((s) => s.setSliderEnd);
-	const setSliderStart = useStore((s) => s.setSliderStart);
 	const start = useStore((s) => s.start);
 	const timescale = useStore((s) => s.timescale);
 	const trimToggle = useStore((s) => s.trimToggle);
@@ -72,6 +69,8 @@ export function Frank({ ...props }) {
 		isPlaying ? actions[currentAnim].play() : actions[currentAnim].play();
 	}, [isPlaying, aI, actions, names, mixer, currentAnim, start, end]);
 
+  // @TODO: Pull calculations out of useFrame()
+  // Apply Clip Duration
 	useFrame(() => {
 		if (!trimToggle) {
 			const duration = parseFloat(
