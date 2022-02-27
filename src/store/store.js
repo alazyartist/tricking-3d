@@ -2,7 +2,7 @@ import create from "zustand";
 import { devtools } from "zustand/middleware";
 
 export const useStore = create(
-	devtools((set) => ({
+	devtools((set, api) => ({
 		animationsArray: [],
 		modelValue: true,
 		isPlaying: true,
@@ -20,6 +20,10 @@ export const useStore = create(
 		updateAnimationArray: (value) =>
 			set(() => ({
 				animationsArray: [...value],
+			})),
+		addToAnimationArray: (value) =>
+			set((state) => ({
+				animationsArray: [...state.animationsArray, value],
 			})),
 		animationSelector: () =>
 			set((state) => ({
@@ -45,5 +49,7 @@ export const useStore = create(
 		setClipDuration: (value) => set(() => ({ clipDuration: value })),
 		currentTime: 0,
 		clipDuration: 0,
+		trimToggle: false,
+		setTrimToggle: () => set((state) => ({ trimToggle: !state.trimToggle })),
 	}))
 );
