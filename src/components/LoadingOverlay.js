@@ -1,17 +1,11 @@
 import React from 'react';
-import {OrbitControls, Environment, PerspectiveCamera} from '@react-three/drei';
-import TorqueLogo from '../components/TorqueLogo';
-import {useStore} from '../store/store';
 
-function Landing (props) {
+function LoadingOverlay({progress, setIsLoaderOpen}) {
   return (
-    <div
-      id="App"
-      className="flex min-h-screen h-full py-5 flex-col justify-center items-center space-y-10 bg-gray-900 text-white "
-    >
+    <div className="fixed h-[100%] w-[100%] z-[1001] flex flex-col justify-center items-center bg-gray-900 text-white pt-[15rem] pb-[7rem] overflow-scroll">
       {/**header card */}
       <div className="flex flex-col justify-center items-center gap-10 bg-slate-700
-	  w-full shadow-lg shadow-gray-800 rounded-md p-10 my-7">
+	  w-full shadow-lg shadow-gray-800 rounded-md py-10">
         <div>
           <p className="text-5xl font-medium">Tricking-3d</p>
         </div>
@@ -28,7 +22,7 @@ function Landing (props) {
         {/**instructions container */}
         <div className="flex flex-col justify-center items-center gap-10 bg-slate-700
 	  		w-10/12 sm:w-6/12 md:w-7/12 lg:w-6/12 xl:w-4/12 shadow-lg shadow-gray-800 
-			rounded-md p-10 h-[30rem]">
+              rounded-md p-10 h-[30rem]">
 
           <div>
             <p className="text-5xl font-medium">Instructions</p>
@@ -67,27 +61,27 @@ function Landing (props) {
           </ol>
 
         </div>
-
         {/**app loader container*/}
         <div className="flex flex-col justify-center items-center gap-10 bg-slate-700
 	  	w-10/12 sm:w-6/12 md:w-7/12 lg:w-6/12 xl:w-4/12 shadow-lg shadow-gray-800 
-		rounded-md p-10 h-[30rem]">
+          rounded-md p-10 h-[30rem]">
           <div>
-            <p className="text-4xl font-medium">App Loader Here</p>
+            <p className="text-4xl font-medium">{progress}%</p>
           </div>
+          {progress === 100 &&
+            <div>
+              <button
+                className="h-12 px-6 m-2 text-lg text-indigo-100 transition-colors duration-500 
+            bg-indigo-600 rounded-lg focus:shadow-outline hover:bg-indigo-700"
+                onClick={() => setIsLoaderOpen (false)}
+              >
+                <p className="text-large font-bold">Start</p>
+              </button>
+            </div>}
         </div>
       </div>
     </div>
   );
 }
-export default Landing;
 
-{
-  /* <PerspectiveCamera position={[0, -2, 1]}>
-				<TorqueLogo model={props.model} scale={2} />
-				<ambientLight intensity={1} />
-				<spotLight position={[0, -3, -3]} />
-				<Environment preset='park' />
-				<OrbitControls />
-			</PerspectiveCamera> */
-}
+export default LoadingOverlay;
