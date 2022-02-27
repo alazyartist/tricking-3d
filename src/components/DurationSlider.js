@@ -2,17 +2,29 @@ import React, { useEffect, useRef, useCallback } from "react";
 import { useStore } from "../store/store";
 import { TrimToggle } from "./Button";
 import { FaCheckCircle } from "react-icons/fa";
-function DurationSlider() {
-	let start = useStore((state) => state.start);
-	let end = useStore((state) => state.end);
-  let offsetBumper = .05;
-	let clipDuration = useStore((state) => state.clipDuration);
-	let currentTime = useStore((state) => state.currentTime);
 
-	const setSliderStart = useStore((state) => state.setSliderStart);
-	const setSliderEnd = useStore((state) => state.setSliderEnd);
-	const trimToggle = useStore((state) => state.trimToggle);
-	const setTrimToggle = useStore((state) => state.setTrimToggle);
+function DurationSlider() {
+  const clipDuration    = useStore((s) => s.clipDuration);
+  const currentTime     = useStore((s) => s.currentTime);
+  const end             = useStore((s) => s.end);
+  const setSliderEnd    = useStore((s) => s.setSliderEnd);
+  const setSliderStart  = useStore((s) => s.setSliderStart);
+  const setTrimToggle   = useStore((s) => s.setTrimToggle);
+  const start           = useStore((s) => s.start);
+  const trimToggle      = useStore((s) => s.trimToggle);
+  const setIsPaused     = useStore((s) => s.setIsPaused);
+  const setScrubbing    = useStore((s) => s.setScrubbing);
+
+	const startRef = useRef(null);
+	const endRef = useRef(null);
+	const range = useRef(null);
+	const getPercent = useCallback(
+		(value) =>
+			Math.round(value * 100 - (start * 100) / (end * 100 - start * 100 * 100)),
+		[start, end]
+	);
+
+  let offsetBumper  = .05;
 
   // Set Start Slider
 	useEffect(() => {
@@ -21,17 +33,6 @@ function DurationSlider() {
 	useEffect(() => {
     setSliderEnd(end);
   }, [setSliderEnd, end]);
-
-	const startRef = useRef(null);
-	const endRef = useRef(null);
-	const range = useRef(null);
-
-	// Convert to percentage
-	const getPercent = useCallback(
-		(value) =>
-			Math.round(value * 100 - (start * 100) / (end * 100 - start * 100 * 100)),
-		[start, end]
-	);
 
 	// Set width of the range to decrease from the left side
 	useEffect(() => {
@@ -92,6 +93,14 @@ function DurationSlider() {
             setSliderStart(value);
             event.target.value = value;
 					}}
+          onMouseDown ={(event) => { 
+            setScrubbing(1);
+            setIsPaused(true);
+          }}
+          onMouseUp = {(event) => { 
+            setScrubbing(0); 
+            setIsPaused(false);
+          }}
 				/>
 				<input
 					className={
@@ -113,6 +122,14 @@ function DurationSlider() {
             setSliderEnd(value);
             event.target.value = value.toString();
 					}}
+          onMouseDown = {(event) => { 
+            setScrubbing(2);  
+            setIsPaused(true);
+          }}
+          onMouseUp = {(event) => { 
+            setScrubbing(0); 
+            setIsPaused(false);
+          }}
 				/>
 
 				<div id='slider' className='mx-4 flex text-base'>
