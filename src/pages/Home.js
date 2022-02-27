@@ -23,9 +23,17 @@ export function Home () {
   return (
     <Fragment>
       {/**loading overlay, comment out if not needed for dev purposes */}
+<<<<<<< HEAD
       {isLoaderOpen 
         //&& <LoadingOverlay progress={progress} setIsLoaderOpen={setIsLoaderOpen} />
       }
+=======
+      {isLoaderOpen &&
+        <LoadingOverlay
+          progress={progress}
+          setIsLoaderOpen={setIsLoaderOpen}
+        />}
+>>>>>>> DEV
       <div className="text-center">
         <div
           id="App"

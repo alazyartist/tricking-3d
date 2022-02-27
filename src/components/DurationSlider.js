@@ -2,12 +2,19 @@ import React, { useEffect, useRef, useCallback } from "react";
 import { useStore } from "../store/store";
 import { TrimToggle } from "./Button";
 import { FaCheckCircle } from "react-icons/fa";
+<<<<<<< HEAD
 
 function DurationSlider() {
 	let clipDuration  = useStore((s) => s.clipDuration);
 	let currentTime   = useStore((s) => s.currentTime);
   let offsetBumper  = .05;
 
+=======
+
+function DurationSlider() {
+  const clipDuration    = useStore((s) => s.clipDuration);
+  const currentTime     = useStore((s) => s.currentTime);
+>>>>>>> DEV
   const end             = useStore((s) => s.end);
   const setSliderEnd    = useStore((s) => s.setSliderEnd);
   const setSliderStart  = useStore((s) => s.setSliderStart);
@@ -26,6 +33,11 @@ function DurationSlider() {
 		[start, end]
 	);
 
+<<<<<<< HEAD
+=======
+  let offsetBumper  = .05;
+
+>>>>>>> DEV
   // Set Start Slider
 	useEffect(() => {
     setSliderStart(start);
@@ -120,7 +132,11 @@ function DurationSlider() {
                 value = start+offsetBumper;
             }
             setSliderEnd(value);
+<<<<<<< HEAD
             event.target.value = value;
+=======
+            event.target.value = value.toString();
+>>>>>>> DEV
 					}}
           onMouseDown = {(event) => { 
             setScrubbing(2);  
