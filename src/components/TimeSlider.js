@@ -14,7 +14,7 @@ function TimeSlider() {
 	return (
 		<div className='relative rounded-lg py-4'>
 			<input
-				className={"my-5 w-full bg-transparent"}
+				className={"my-2 w-full bg-transparent"}
 				type={"range"}
 				min={0}
 				max={150}
