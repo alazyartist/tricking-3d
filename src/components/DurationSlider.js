@@ -2,38 +2,12 @@ import React, { useEffect, useRef, useCallback } from "react";
 import { useStore } from "../store/store";
 import { TrimToggle } from "./Button";
 import { FaCheckCircle } from "react-icons/fa";
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-function DurationSlider() {
-	let start = useStore((state) => state.start);
-	let end = useStore((state) => state.end);
-	let clipDuration = useStore((state) => state.clipDuration);
-	let currentTime = useStore((state) => state.currentTime);
-=======
->>>>>>> Stashed changes
 
 function DurationSlider() {
 	let clipDuration  = useStore((s) => s.clipDuration);
 	let currentTime   = useStore((s) => s.currentTime);
-	let end           = useStore((s) => s.end);
-	let start         = useStore((s) => s.start);
   let offsetBumper  = .05;
 
-<<<<<<< Updated upstream
-	useEffect(() => setSliderStart(start), [setSliderStart, start]);
-	useEffect(() => setSliderEnd(end), [setSliderEnd, end]);
-=======
-	const currentAnim     = useStore((s) => s.currentAnim);
-	const setSliderEnd    = useStore((s) => s.setSliderEnd);
-	const setSliderStart  = useStore((s) => s.setSliderStart);
-	const setTrimToggle   = useStore((s) => s.setTrimToggle);
-	const trimToggle      = useStore((s) => s.trimToggle);
->>>>>>> Stashed changes
-=======
-
-function DurationSlider() {
-  const clipDuration    = useStore((s) => s.clipDuration);
-  const currentTime     = useStore((s) => s.currentTime);
   const end             = useStore((s) => s.end);
   const setSliderEnd    = useStore((s) => s.setSliderEnd);
   const setSliderStart  = useStore((s) => s.setSliderStart);
@@ -42,7 +16,6 @@ function DurationSlider() {
   const trimToggle      = useStore((s) => s.trimToggle);
   const setIsPaused     = useStore((s) => s.setIsPaused);
   const setScrubbing    = useStore((s) => s.setScrubbing);
->>>>>>> 1c468eb48f769db78086139eaf7feacc728e60a6
 
 	const startRef = useRef(null);
 	const endRef = useRef(null);
@@ -53,11 +26,6 @@ function DurationSlider() {
 		[start, end]
 	);
 
-<<<<<<< HEAD
-=======
-  let offsetBumper  = .05;
-
->>>>>>> 1c468eb48f769db78086139eaf7feacc728e60a6
   // Set Start Slider
 	useEffect(() => {
     setSliderStart(start);
@@ -152,16 +120,8 @@ function DurationSlider() {
                 value = start+offsetBumper;
             }
             setSliderEnd(value);
-            event.target.value = value.toString();
+            event.target.value = value;
 					}}
-<<<<<<< HEAD
-          onMouseDown={(event) => {
-            console.log("End: Drag Start")
-            actions[currentAnim].timeScale = 0;
-          }}
-          onMouseUp={(event) => {
-            console.log("End: Drag End");
-=======
           onMouseDown = {(event) => { 
             setScrubbing(2);  
             setIsPaused(true);
@@ -169,7 +129,6 @@ function DurationSlider() {
           onMouseUp = {(event) => { 
             setScrubbing(0); 
             setIsPaused(false);
->>>>>>> 1c468eb48f769db78086139eaf7feacc728e60a6
           }}
 				/>
 
