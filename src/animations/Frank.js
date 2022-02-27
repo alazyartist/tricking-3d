@@ -7,31 +7,32 @@ import { useGLTF, useAnimations } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useStore } from "../store/store";
 import * as THREE from "three";
-import FrankAnim from "../data/Frank.gltf";
+import FrankAnim from "../data/Frank-SA.gltf";
+import AnimsForFrank from "../data/Frank.gltf";
 import { AnimationUtils, Clock } from "three";
+
 export function Frank({ ...props }) {
 	const group = useRef();
-	const { nodes, materials, animations } = useGLTF(FrankAnim);
+	const { nodes, materials } = useGLTF(FrankAnim);
+	const { animations } = useGLTF(AnimsForFrank);
 	const { actions, names, mixer } = useAnimations(animations, group);
 
 	//Use Store
-	const aI = useStore((state) => state.aI);
-	let isPlaying = useStore((state) => state.isPlaying);
-	let isPaused = useStore((state) => state.isPaused);
-	const setAnimationsArray = useStore((state) => state.updateAnimationArray);
-	const timescale = useStore((state) => state.timescale);
-	const loop = useStore((state) => state.loop);
-	const bounce = useStore((state) => state.bounce);
-	const currentAnim = useStore((state) => state.currentAnim);
-	const start = useStore((state) => state.start);
-	const end = useStore((state) => state.end);
-	const setClipDuration = useStore((state) => state.setClipDuration);
-	const setCurrentTime = useStore((state) => state.setCurrentTime);
-	const setSliderStart = useStore((state) => state.setSliderStart);
-	const setSliderEnd = useStore((state) => state.setSliderEnd);
-	const addToAnimationArray = useStore((state) => state.addToAnimationArray);
-	useEffect(() => setSliderStart(start), [setSliderStart, start]);
-	useEffect(() => setSliderEnd(end), [setSliderEnd, end]);
+	const aI = useStore((s) => s.aI);
+	const bounce = useStore((s) => s.bounce);
+	const currentAnim = useStore((s) => s.currentAnim);
+	const end = useStore((s) => s.end);
+	const isPaused = useStore((s) => s.isPaused);
+	const isPlaying = useStore((s) => s.isPlaying);
+	const loop = useStore((s) => s.loop);
+	const setAnimationsArray = useStore((s) => s.updateAnimationArray);
+	const setClipDuration = useStore((s) => s.setClipDuration);
+	const setCurrentTime = useStore((s) => s.setCurrentTime);
+	const setSliderEnd = useStore((s) => s.setSliderEnd);
+	const setSliderStart = useStore((s) => s.setSliderStart);
+	const start = useStore((s) => s.start);
+	const timescale = useStore((s) => s.timescale);
+	const trimToggle = useStore((s) => s.trimToggle);
 
 	//Solves Problem with infinte renders of Animations Array and successfully passes to store
 	useMemo(
@@ -40,89 +41,59 @@ export function Frank({ ...props }) {
 	);
 
 	// Handle Animation Loop
-	//bounce
+	//bounce uE
 	useEffect(() => {
 		bounce
 			? actions[currentAnim].setLoop(THREE.LoopPingPong)
 			: actions[currentAnim].setLoop(THREE.LoopRepeat);
 	}, [bounce, aI, actions, names, mixer, currentAnim]);
-	//loop
+
+	//loop uE
 	useEffect(() => {
 		loop
 			? actions[currentAnim].setLoop(THREE.LoopRepeat)
 			: actions[currentAnim].setLoop(THREE.LoopOnce);
 	}, [loop, aI, actions, names, mixer, currentAnim]);
-	//Timescale (SlowMo, FullSpeed, Timeslider) functionality
+
+	//Timescale (SlowMo, FullSpeed, Timeslider) uE
 	useEffect(() => {
 		actions[currentAnim].timeScale = timescale;
 	}, [timescale, actions, mixer, currentAnim]);
 
-	// Play Pause functionality
+	// Play Pause uE
 	useEffect(() => {
 		isPaused
 			? (actions[currentAnim].timeScale = 0)
 			: (actions[currentAnim].timeScale = timescale);
 	}, [timescale, isPaused, aI, actions, names, currentAnim]);
 
-	// Get Clip Duration and set .startAt time
+	// Set Play Start uE
 	useEffect(() => {
-		const duration = actions[currentAnim].getClip().duration;
-		const startHere = start * duration;
-
 		isPlaying ? actions[currentAnim].play() : actions[currentAnim].play();
-	}, [isPlaying, aI, actions, names, mixer, currentAnim, start]);
+	}, [isPlaying, aI, actions, names, mixer, currentAnim, start, end]);
+
 	useFrame(() => {
-		//console.log(mixer.time);
-		setCurrentTime(actions[currentAnim].time);
-	});
+		if (!trimToggle) {
+			const duration = parseFloat(
+				actions[currentAnim].getClip().duration.toFixed(2)
+			);
+			let startHere = parseFloat((start * duration).toFixed(2));
+			let endHere = parseFloat((end * duration).toFixed(2));
+			let current = parseFloat(actions[currentAnim].time);
 
-	useEffect(() => {
-		const currentClip = actions[currentAnim].getClip();
-		const clipDuration = actions[currentAnim].getClip().duration;
-		const clipFrameLength = currentClip.tracks[0].times.length;
-		const startHere = start * clipFrameLength;
-		const endHere = end * clipFrameLength;
-		//console.log();
-
-		const currentMixer = actions[currentAnim].getMixer();
-		const newClip = AnimationUtils.subclip(
-			currentClip,
-			`${currentClip.name} Short`,
-			startHere,
-			endHere,
-			240
-		);
-		currentMixer.clipAction(newClip, group);
-		// console.log("existing action", currentMixer.existingAction(newClip));
-		// console.log("currentClip", currentClip);
-		console.log("newClip", newClip);
-		console.log("group", group);
-		console.log("mixer", currentMixer);
-		console.log("currentClip", currentClip.duration);
-		console.log("newClip", newClip.duration);
-		console.log("startHere", startHere);
-		console.log("endHere", endHere);
-		console.log(
-			"testNumber",
-			((endHere - startHere) * clipDuration) / clipFrameLength
-		);
-		// return currentMixer.existingAction.stopAllAction();
-	}, [start, end, currentAnim]);
-	useEffect(() => {
+			if (current.toFixed(1) >= endHere.toFixed(1)) {
+				actions[currentAnim].time = startHere;
+			}
+		}
 		setCurrentTime(actions[currentAnim].time);
 		setClipDuration(actions[currentAnim].getClip().duration);
-	}, [currentAnim, actions]);
+	});
+
 	//Resets Animations Player on Change of CurrentAnim
 	useEffect(() => {
 		mixer.stopAllAction();
 		actions[currentAnim].play();
 	}, [currentAnim]);
-	useEffect(() => {
-		const duration = actions[currentAnim].getClip().duration;
-		const startHere = start * duration;
-		//console.log("startHere", startHere);
-		actions[currentAnim].startAt(startHere);
-	}, [currentAnim, start]);
 
 	return (
 		<group ref={group} {...props} dispose={null}>
@@ -139,4 +110,5 @@ export function Frank({ ...props }) {
 	);
 }
 
-useGLTF.preload("/Frank.gltf");
+useGLTF.preload(FrankAnim);
+useGLTF.preload(AnimsForFrank);
