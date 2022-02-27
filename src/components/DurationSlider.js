@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useCallback } from "react";
 import { useStore } from "../store/store";
 import { TrimToggle } from "./Button";
 import { FaCheckCircle } from "react-icons/fa";
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 function DurationSlider() {
 	let start = useStore((state) => state.start);
@@ -28,6 +29,20 @@ function DurationSlider() {
 	const setTrimToggle   = useStore((s) => s.setTrimToggle);
 	const trimToggle      = useStore((s) => s.trimToggle);
 >>>>>>> Stashed changes
+=======
+
+function DurationSlider() {
+  const clipDuration    = useStore((s) => s.clipDuration);
+  const currentTime     = useStore((s) => s.currentTime);
+  const end             = useStore((s) => s.end);
+  const setSliderEnd    = useStore((s) => s.setSliderEnd);
+  const setSliderStart  = useStore((s) => s.setSliderStart);
+  const setTrimToggle   = useStore((s) => s.setTrimToggle);
+  const start           = useStore((s) => s.start);
+  const trimToggle      = useStore((s) => s.trimToggle);
+  const setIsPaused     = useStore((s) => s.setIsPaused);
+  const setScrubbing    = useStore((s) => s.setScrubbing);
+>>>>>>> 1c468eb48f769db78086139eaf7feacc728e60a6
 
 	const startRef = useRef(null);
 	const endRef = useRef(null);
@@ -38,6 +53,11 @@ function DurationSlider() {
 		[start, end]
 	);
 
+<<<<<<< HEAD
+=======
+  let offsetBumper  = .05;
+
+>>>>>>> 1c468eb48f769db78086139eaf7feacc728e60a6
   // Set Start Slider
 	useEffect(() => {
     setSliderStart(start);
@@ -98,10 +118,21 @@ function DurationSlider() {
 					step={0.01}
 					value={start}
 					onChange={(event) => {
-						const value = Math.max(+event.target.value, start - 1);
-						setSliderStart(value);
-						event.target.value = value.toString();
+						let value = Math.max(+event.target.value, start - 1);
+            if (value > end-offsetBumper) {
+              value = end-offsetBumper;
+            }
+            setSliderStart(value);
+            event.target.value = value;
 					}}
+          onMouseDown ={(event) => { 
+            setScrubbing(1);
+            setIsPaused(true);
+          }}
+          onMouseUp = {(event) => { 
+            setScrubbing(0); 
+            setIsPaused(false);
+          }}
 				/>
 				<input
 					className={
@@ -116,16 +147,29 @@ function DurationSlider() {
 					value={end}
 					step={0.01}
 					onChange={(event) => {
-						const value = Math.min(+event.target.value, end + 1);
-						setSliderEnd(value);
-						event.target.value = value.toString();
+						let value = Math.min(+event.target.value, end + 1);
+            if (value < start+offsetBumper) {
+                value = start+offsetBumper;
+            }
+            setSliderEnd(value);
+            event.target.value = value.toString();
 					}}
+<<<<<<< HEAD
           onMouseDown={(event) => {
             console.log("End: Drag Start")
             actions[currentAnim].timeScale = 0;
           }}
           onMouseUp={(event) => {
             console.log("End: Drag End");
+=======
+          onMouseDown = {(event) => { 
+            setScrubbing(2);  
+            setIsPaused(true);
+          }}
+          onMouseUp = {(event) => { 
+            setScrubbing(0); 
+            setIsPaused(false);
+>>>>>>> 1c468eb48f769db78086139eaf7feacc728e60a6
           }}
 				/>
 

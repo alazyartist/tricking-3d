@@ -9,7 +9,6 @@ import { useStore } from "../store/store";
 import * as THREE from "three";
 import FrankAnim from "../data/Frank-SA.gltf";
 import AnimsForFrank from "../data/Frank.gltf";
-import { AnimationUtils, Clock } from "three";
 
 export function Frank({ ...props }) {
 	const group = useRef();
@@ -18,21 +17,20 @@ export function Frank({ ...props }) {
 	const { actions, names, mixer } = useAnimations(animations, group);
 
 	//Use Store
-	const aI = useStore((s) => s.aI);
-	const bounce = useStore((s) => s.bounce);
-	const currentAnim = useStore((s) => s.currentAnim);
-	const end = useStore((s) => s.end);
-	const isPaused = useStore((s) => s.isPaused);
-	const isPlaying = useStore((s) => s.isPlaying);
-	const loop = useStore((s) => s.loop);
-	const setAnimationsArray = useStore((s) => s.updateAnimationArray);
-	const setClipDuration = useStore((s) => s.setClipDuration);
-	const setCurrentTime = useStore((s) => s.setCurrentTime);
-	const setSliderEnd = useStore((s) => s.setSliderEnd);
-	const setSliderStart = useStore((s) => s.setSliderStart);
-	const start = useStore((s) => s.start);
-	const timescale = useStore((s) => s.timescale);
-	const trimToggle = useStore((s) => s.trimToggle);
+	const aI                  = useStore((s) => s.aI);
+	const bounce              = useStore((s) => s.bounce);
+	const currentAnim         = useStore((s) => s.currentAnim);
+	const end                 = useStore((s) => s.end);
+	const isPaused            = useStore((s) => s.isPaused);
+	const isPlaying           = useStore((s) => s.isPlaying);
+  const isScrubbing         = useStore((s) => s.isScrubbing);
+	const loop                = useStore((s) => s.loop);
+	const setAnimationsArray  = useStore((s) => s.updateAnimationArray);
+	const setClipDuration     = useStore((s) => s.setClipDuration);
+	const setCurrentTime      = useStore((s) => s.setCurrentTime);
+	const start               = useStore((s) => s.start);
+	const timescale           = useStore((s) => s.timescale);
+	const trimToggle          = useStore((s) => s.trimToggle);
 
 	//Solves Problem with infinte renders of Animations Array and successfully passes to store
 	useMemo(
@@ -72,8 +70,21 @@ export function Frank({ ...props }) {
 		isPlaying ? actions[currentAnim].play() : actions[currentAnim].play();
 	}, [isPlaying, aI, actions, names, mixer, currentAnim, start, end]);
 
+  // Scrub
+  useEffect (() => {
+    if (isScrubbing > 0) {
+			const duration = actions[currentAnim].getClip().duration.toFixed(2);
+      actions[currentAnim].time = 
+        (isScrubbing === 1) 
+        ? duration*start
+        : duration*end;
+    }
+  },[isScrubbing, start, end, actions, currentAnim]);
+
+  // @TODO: Pull calculations out of useFrame()
+  // Apply Clip Duration
 	useFrame(() => {
-		if (!trimToggle) {
+		if (!trimToggle && !isScrubbing) {
 			const duration = parseFloat(
 				actions[currentAnim].getClip().duration.toFixed(2)
 			);
