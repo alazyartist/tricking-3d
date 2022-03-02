@@ -30,8 +30,8 @@ export function TorqueScene(props) {
 			<PerspectiveCamera position={[0, -2, 0]}>
 				<Suspense fallback={<ModelLoader />}>
 					{/* <Frank /> */}
-					<Model />
-					{/* <Kerwood /> */}
+					{/* <Model /> */}
+					<Kerwood />
 				</Suspense>
 
 				{/* <Model /> */}
