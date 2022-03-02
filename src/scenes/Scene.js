@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { Suspense, useEffect, useRef } from "react";
 import {
 	OrbitControls,
 	Environment,
@@ -13,6 +13,10 @@ import TorqueLogo from "../components/TorqueLogo";
 import { Frank } from "../animations/Frank.js";
 import { useStore } from "../store/store";
 import { SpotLightHelper } from "three";
+import Loader from "../components/Loader";
+import ModelLoader from "../components/ModelLoader";
+import Kerwood from "../animations/AlexKerwood";
+import Model from "../animations/CC3Test";
 // import Model from "../animations/KerwoodCC3Tpose";
 export function TorqueScene(props) {
 	const modelSelector = useStore((state) => state.modelValue);
@@ -24,7 +28,11 @@ export function TorqueScene(props) {
 	if (modelSelector) {
 		return (
 			<PerspectiveCamera position={[0, -2, 0]}>
-				<Frank />
+				<Suspense fallback={<ModelLoader />}>
+					{/* <Frank /> */}
+					<Model />
+					{/* <Kerwood /> */}
+				</Suspense>
 
 				{/* <Model /> */}
 				<ambientLight intensity={0.8} />
