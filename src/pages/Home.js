@@ -22,7 +22,8 @@ export function Home() {
 						className='order-3 flex w-fit flex-col justify-between gap-4 bg-gray-700 p-5
 						md:order-1 md:mt-0 md:min-h-[500px]
 						'>
-						<TrickInfo />
+						{/* TODO: Uncomment TrickInfo after empty anims are handled */}
+						{/* <TrickInfo /> */}
 						<h1 className=' basis-[1/6] text-base font-semibold text-red-500'>
 							Note: Under Active Development. <br />
 							WILL BREAK OFTEN
