@@ -7,6 +7,7 @@ import ModelSelector from "../components/ModelSelector";
 import TimeSlider from "../components/TimeSlider";
 import TrickInfo from "../components/TrickInfo";
 import { ReactComponent as HorizontalLogo } from "../data/HorizontalLogo.svg";
+
 export function Home() {
 	// console.log(useStore((state) => state.animationsArray));
 

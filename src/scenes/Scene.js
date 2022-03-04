@@ -23,32 +23,32 @@ export function TorqueScene(props) {
 	//Scene Logic -- Switch Models to render: Fred or Torque Logo
 	const light = useRef();
 	const light2 = useRef();
-	// useHelper(light2, SpotLightHelper, "red");
-	// useHelper(light, SpotLightHelper, "cyan");
+	useHelper(light2, SpotLightHelper, "red");
+	useHelper(light, SpotLightHelper, "cyan");
 	if (modelSelector) {
 		return (
 			<PerspectiveCamera position={[0, -2, 0]}>
 				<Suspense fallback={<ModelLoader />}>
 					{/* <Frank /> */}
-					{/* <Model /> */}
-					<Kerwood />
+					<Model />
+					{/* <Kerwood /> */}
 				</Suspense>
 
 				{/* <Model /> */}
-				<ambientLight intensity={0.8} />
+				<ambientLight intensity={1.2} />
 				<spotLight
 					ref={light2}
-					color={"#f2f2f2"}
-					intensity={0.5}
+					color={"whitesmoke"}
+					intensity={0.4}
 					position={[0, 2, 5]}
 				/>
 				<spotLight
 					ref={light}
 					color={"whitesmoke"}
-					intensity={0.5}
+					intensity={0.04}
 					position={[0, 2, -5]}
 				/>
-				<Environment preset='sunset' />
+				{/* <Environment preset='park' /> */}
 				<OrbitControls />
 				<gridHelper
 					args={[10, 10, `black`, `gainsboro`]}
