@@ -24,7 +24,7 @@ export function Home() {
 		<Fragment>
 			{/**loading overlay, comment out if not needed for dev purposes */}
 			{isLoaderOpen 
-          //&& (<LoadingOverlay progress={progress} setIsLoaderOpen={setIsLoaderOpen} />)
+          && (<LoadingOverlay progress={progress} setIsLoaderOpen={setIsLoaderOpen} />)
       }
 			<div className='text-center'>
 				<div
