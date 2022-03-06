@@ -86,7 +86,9 @@ function CanvasComponent() {
 	}, []);
 
 	return (
-		<div className='sticky md:flex'>
+		<div 
+      id='convas-container'
+      className='sticky md:flex'>
 			<Canvas
 				id='Resizeable'
 				className='sticky z-[1000] min-h-[40] min-w-full md:min-h-screen md:min-w-[15%]'>
@@ -94,6 +96,10 @@ function CanvasComponent() {
 					<TorqueScene />
 				</Suspense>
 			</Canvas>
+
+      {/* @TODO: Do we need both of these? The two '.Draggable' div's
+                  I can comment out one or the other (not both) and it runs fine 
+                  Also, is the id here important? I don't see it being used anywhere else*/}
 			<div
 				id='Draggable'
 				className='sticky flex h-[30px] cursor-s-resize justify-center bg-gray-800 align-middle text-gray-500 md:hidden'>
