@@ -80,7 +80,6 @@ export function Home() {
 								<DurationSlider />
 							</div>
 							<Controller />
-
 							<TimeSlider />
 							<AnimationDropdown />
 						</div>

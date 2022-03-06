@@ -1,7 +1,7 @@
 import React from "react";
 import { useStore } from "../store/store.js";
 import { FaPlay, FaPause } from "react-icons/fa";
-import { Button } from "../components/Button.js";
+import { MediaButton } from "../components/Button.js";
 
 function Controller() {
 	const setIsPaused = useStore((state) => state.setIsPaused);
@@ -15,8 +15,12 @@ function Controller() {
   // Envoke Player Controller
 
 	return (
-    <div className='z-[-5] grid grid-cols-3 justify-around justify-items-stretch gap-5 text-base'>
-      <Button
+    <div 
+      id='controller-container'
+      className='z-[-5] grid grid-cols-3 justify-around justify-items-stretch gap-5 text-base'>
+
+      <MediaButton
+        id='play-pause-button'
         f={setIsPaused}
         content={
           !isPaused ? (
@@ -26,21 +30,36 @@ function Controller() {
           )
         }
       />
-      <Button f={setBounce} content={bounce ? "Bounce" : "Loop"} />
-      <Button f={setIsPlaying} content={isPaused ? "Paused" : "Playing"} />
-      <Button
+      <MediaButton 
+        id='bounce-button' 
+        f={setBounce} 
+        content={bounce ? "Bounce" : "Loop"} 
+      />
+      <MediaButton 
+        id='extra-play-pause-button TBR' 
+        f={setIsPlaying} 
+        content={isPaused ? "Paused" : "Playing"} 
+      />
+      <MediaButton
+        id='reverse-button' 
         f={() => setTimescale(-timescale)}
         content={timescale < 0 ? "esreveR" : "Reverse"}
       />
-      <Button
+      <MediaButton
+        id='reduce-speed-button'
         f={() => setTimescale(0.5 * timescale)}
         content={`SlowMo ${Math.abs(
           Number.parseFloat(timescale).toFixed(2)
         )}`}
       />
-      <Button f={() => setTimescale(1)} content='FullSpeed' />
+      <MediaButton 
+        id='full-speed-button' 
+        f={() => setTimescale(1)} 
+        content='FullSpeed' 
+      />
+
     </div>
-	);
+  );
 }
 
 export default Controller;
