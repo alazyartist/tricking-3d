@@ -35,7 +35,7 @@ export const useStore = create(
 			set(() => ({
 				currentAnim: value,
 			})),
-		currentAnim: "Scoot",
+		currentAnim: "Backflip",
 		modelSelector: () => set((state) => ({ modelValue: !state.modelValue })),
 		position: [],
 		setFredPosition: (value) => set(() => ({ position: [value] })),
