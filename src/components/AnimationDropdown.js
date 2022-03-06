@@ -21,7 +21,7 @@ function AnimationDropdown(props) {
 	function Dropdown() {
 		function Animations(props) {
 			const animationsArray = useStore((state) => state.animationsArray);
-			const addAnim = useStore((state) => state.selectAnim);
+			const selectAnim = useStore((state) => state.selectAnim);
 			const currentAnim = useStore((state) => state.currentAnim);
 			console.log("current", currentAnim);
 			return (
@@ -31,7 +31,7 @@ function AnimationDropdown(props) {
 							<a
 								id='item'
 								className='mt-2 mb-2 flex h-[50px] items-center justify-around rounded-xl bg-zinc-400 text-base font-black text-gray-800 hover:bg-[gainsboro]'
-								onClick={() => addAnim(e)}
+								onClick={() => selectAnim(e)}
 								key={i}>
 								{e}
 							</a>
@@ -51,7 +51,7 @@ function AnimationDropdown(props) {
 			</div>
 		);
 	}
-
+	//Returns Animated Dropdown and Children
 	return (
 		<nav id='nav' className='sticky h-[50px] rounded-xl bg-gray-800 p-1'>
 			<ul className=' h-full w-full '>
