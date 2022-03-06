@@ -85,10 +85,6 @@ export function Home() {
 						</div>
 					</div>
 
-          {/* @TODO: Is this being used? */}
-					<h1 className='fixed top-0 text-center text-gray-800 md:mt-2'>
-						Tricking-3D
-					</h1>
 				</div>
 			</div>
 		</Fragment>

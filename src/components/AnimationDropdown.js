@@ -7,13 +7,13 @@ function AnimationDropdown(props) {
 		const [open, setOpen] = useState(false);
 		return (
 			<li id='animations-dropdown-list'>
-				<a
+				<button
           id='animations-dropdown-link'
 					onClick={() => setOpen(!open)}
-					className=' flex items-center justify-center text-center align-middle text-2xl font-semibold text-zinc-300'>
+					className='w-full flex items-center justify-center text-center align-middle text-2xl font-semibold text-zinc-300'>
 					<FaAngleDown />
 					Animations
-				</a>
+				</button>
 
 				{open && props.children}
 			</li>

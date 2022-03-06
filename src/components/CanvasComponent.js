@@ -97,9 +97,6 @@ function CanvasComponent() {
 				</Suspense>
 			</Canvas>
 
-      {/* @TODO: Do we need both of these? The two '.Draggable' div's
-                  I can comment out one or the other (not both) and it runs fine 
-                  Also, is the id here important? I don't see it being used anywhere else*/}
 			<div
 				id='Draggable'
 				className='sticky flex h-[30px] cursor-s-resize justify-center bg-gray-800 align-middle text-gray-500 md:hidden'>
