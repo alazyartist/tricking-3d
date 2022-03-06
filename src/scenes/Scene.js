@@ -15,8 +15,7 @@ import { useStore } from "../store/store";
 import { SpotLightHelper } from "three";
 import Loader from "../components/Loader";
 import ModelLoader from "../components/ModelLoader";
-import Kerwood from "../animations/AlexKerwood";
-import Model from "../animations/CC3Test3";
+import AlexKerwood from "../animations/AlexKerwood";
 import AndrewKohrt from "../animations/AndrewKohrt";
 // import Model from "../animations/KerwoodCC3Tpose";
 export function TorqueScene(props) {
@@ -31,9 +30,8 @@ export function TorqueScene(props) {
 			<PerspectiveCamera position={[0, -2, 0]}>
 				<Suspense fallback={<ModelLoader />}>
 					{/* <Frank /> */}
-					{/* <Model scale={[0.01, 0.01, 0.01]} /> */}
-					<AndrewKohrt />
-					{/* <Kerwood /> */}
+					{/* <AndrewKohrt /> */}
+					<AlexKerwood />
 				</Suspense>
 
 				{/* <Model /> */}
