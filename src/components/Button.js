@@ -4,7 +4,20 @@ export function MediaButton(props) {
 	return (
 		<button
       id={props.id}
-			className='can-hover item-center flex justify-center self-stretch rounded-xl bg-zinc-400 p-2 font-black text-gray-800  '
+			className='
+        bg-zinc-400 
+        can-hover 
+        flex 
+        font-black 
+        h-[32px] 
+        item-center 
+        justify-center 
+        p-2 
+        rounded-xl 
+        self-stretch 
+        text-gray-800 
+        w-[32px] 
+        '
 			onClick={props.f}>
 			{props.content}
 		</button>

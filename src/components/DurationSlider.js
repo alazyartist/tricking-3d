@@ -61,7 +61,7 @@ function DurationSlider() {
 	return (
 		<div 
       id='duration-slider-container'
-      className='flex flex-row items-center gap-3 self-center'>
+      className='pt-0 flex flex-row items-center gap-3 self-center'>
 			<div
 				id='duration-slider'
 				className=' relative z-0 flex h-[50px] w-full items-center justify-center rounded-lg bg-transparent align-middle'>
@@ -136,12 +136,12 @@ function DurationSlider() {
             className=' z-2 absolute h-2 bg-green-200'>
             <div
               id='start-timestamp'
-              className='z-60 absolute left-[-10px] top-[-40px] items-center justify-center rounded-lg bg-green-500 p-1'>
+              className='z-60 absolute left-[-10px] top-[+20px] items-center justify-center rounded-lg bg-green-500 p-1'>
               {Number.parseFloat(start * clipDuration).toFixed(2)}
             </div>
 						<div
               id='end-timestamp'
-							className='absolute top-[-40px] right-[-10px] z-50 rounded-lg bg-red-500 p-1'>
+							className='absolute top-[+20px] right-[-10px] z-50 rounded-lg bg-red-500 p-1'>
 							{Number.parseFloat(end * clipDuration).toFixed(2)}
 						</div>
 					</div>
