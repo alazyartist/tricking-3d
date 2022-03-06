@@ -4,7 +4,7 @@ import { devtools } from "zustand/middleware";
 export const useStore = create(
 	devtools((set, api) => ({
 		animationsArray: [],
-		modelValue: true,
+		modelValue: "Frank",
 		isPlaying: true,
 		setIsPlaying: () => set((state) => ({ isPlaying: !state.isPlaying })),
 		isPaused: false,
@@ -16,7 +16,7 @@ export const useStore = create(
 		bounce: true,
 		setBounce: () => set((state) => ({ bounce: !state.bounce })),
 		aI: 0,
-		modelArray: [],
+		modelArray: ["Frank", "AlexKerwood", "AndrewKohrt"],
 		updateAnimationArray: (value) =>
 			set(() => ({
 				animationsArray: [...value],
@@ -36,7 +36,7 @@ export const useStore = create(
 				currentAnim: value,
 			})),
 		currentAnim: "Backflip",
-		modelSelector: () => set((state) => ({ modelValue: !state.modelValue })),
+		modelSelector: (value) => set(() => ({ modelValue: value })),
 		position: [],
 		setFredPosition: (value) => set(() => ({ position: [value] })),
 		timeSlider: 1,

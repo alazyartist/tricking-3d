@@ -26,10 +26,15 @@ export default function AlexKerwood({ ...props }) {
 	const start = useStore((s) => s.start);
 	const timescale = useStore((s) => s.timescale);
 	const trimToggle = useStore((s) => s.trimToggle);
+	const setCurrentAnim = useStore((s) => s.selectAnim);
 
 	//Solves Problem with infinte renders of Animations Array and successfully passes to store
 	useMemo(
-		() => Promise.resolve(names).then((results) => setAnimationsArray(results)),
+		() =>
+			Promise.resolve(names).then(
+				(results) => setAnimationsArray(results),
+				setCurrentAnim("Backflip")
+			),
 		[names, setAnimationsArray]
 	);
 
