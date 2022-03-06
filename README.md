@@ -47,7 +47,9 @@ Including:
     gms
 ```
 
-Currently have 12 Animations:
+## Currently have <b>163</b> Animations:
+
+#### Frank
 
 ```
     BTwist
@@ -64,7 +66,7 @@ Currently have 12 Animations:
     Webster
 ```
 
-## Tricks To Be Added Soon:
+#### Alex Kerwood
 
 ```
 540-Wrap
@@ -146,6 +148,85 @@ TouchdownRaiz-Valdez 2
 TouchdownRaiz-Valdez
 WrapFull
 WrapFullSwing
+```
+
+#### Andrew Kohrt
+
+```
+Andrew Kohrt
+Aerial GMS
+AppleJacks
+BS10 2
+BS10
+BS12 (better)
+BS12
+Backflip
+CartDub Swing Cork
+CartDub
+CartDubSwingNope 2
+CartDubSwingNope 3
+CartDubSwingNope
+CartDubfulDleg
+CartDubfull
+CartDubfullRound
+CartFullDlegTwist
+CartFullSnapu
+CartFullSwipe
+CartTrip 2
+CartTrip
+Cheat10
+Cheat7
+Cork Dleg
+Cork Swing CorkDleg
+Cork Swing SpinAround
+CorkRound
+CorkSnapu
+CorkSwingCork
+CorkSwingDub
+CorkX3
+DLeg
+Dleg 2
+Dub Swing Hookkick
+DubBtwist Recovery Aerial
+DubDub
+DubSwing CorkSnapFail
+DubSwing CorkSnapu
+FlowySnapu Combo
+GainerSwitchX3
+Gumbi SwingNothing
+Gumbi_Stepout
+Handspin
+Helicoptero 2
+Helicoptero
+Hook GMS
+Hook MasterScoot Cork 2
+Hook MasterScoot Cork
+HuricaneKick
+HuricankeKick 2
+Jackknife 2
+Jackknife
+Machines
+MasterScoot ShurikenCutter
+MasterScootCork Dleg
+Nike
+Parafuso Hook_Dance
+Parafuso
+ParafusuGyro
+Pop3 CartTwist
+Pop3 to Split
+Reversao 2
+Reversao
+Scoot DoubleCork
+Scoot Dub
+Scoot Twist
+Sidekick 2
+Sidekick
+Snapu
+SnapuToScootReady
+Tdr Box
+Tdr ShurikenCutter 2
+Tdr ShurikenCutter
+WebstertoNinja
 ```
 
 ---
