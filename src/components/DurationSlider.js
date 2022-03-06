@@ -59,30 +59,28 @@ function DurationSlider() {
 	}, [end, getPercent]);
 
 	return (
-		<div className='flex flex-row items-center gap-3 self-center'>
+		<div 
+      id='duration-slider-container'
+      className='flex flex-row items-center gap-3 self-center'>
 			<div
-				id='Slider'
+				id='duration-slider'
 				className=' relative z-0 flex h-[50px] w-full items-center justify-center rounded-lg bg-transparent align-middle'>
 				<input
+					id='playhead'
 					className='pointer-events-none absolute top-0 z-[12] my-5 w-full bg-transparent'
 					type='range'
-					id='playhead'
-					min={0}
-					max={clipDuration}
+					min={0} max={clipDuration}
 					step={0.0001}
 					value={currentTime}
 					readOnly
 				/>
 				<input
-					className={
-						"z-3 pointer-events-none absolute top-0 my-5 w-full bg-transparent"
-					}
+					id='start'
+					className={"z-3 pointer-events-none absolute top-0 my-5 w-full bg-transparent"}
 					type={"range"}
 					double={"true"}
-					id='start'
 					ref={startRef}
-					min={0}
-					max={1}
+					min={0} max={1}
 					step={0.01}
 					value={start}
 					onChange={(event) => {
@@ -103,15 +101,12 @@ function DurationSlider() {
 					}}
 				/>
 				<input
-					className={
-						" z-4 pointer-events-none absolute left-0 top-0 my-5 w-full bg-transparent"
-					}
+					id='end'
+					className={" z-4 pointer-events-none absolute left-0 top-0 my-5 w-full bg-transparent"}
 					type={"range"}
 					double={"true"}
-					id='end'
 					ref={endRef}
-					min={0}
-					max={1}
+					min={0} max={1}
 					value={end}
 					step={0.01}
 					onChange={(event) => {
@@ -132,19 +127,20 @@ function DurationSlider() {
 					}}
 				/>
 
-				<div id='slider' className='mx-4 flex text-base'>
-					<div id='slider__track' className='z-1 absolute left-0 h-2' />
-					<div
-						ref={range}
-						id='slider__range'
-						className=' z-2 absolute h-2 bg-green-200'>
+				<div 
+          id='duration-timestamp-container' 
+          className='mx-4 flex text-base'>
+          <div
+            id='timestamp-container'
+            ref={range}
+            className=' z-2 absolute h-2 bg-green-200'>
+            <div
+              id='start-timestamp'
+              className='z-60 absolute left-[-10px] top-[-40px] items-center justify-center rounded-lg bg-green-500 p-1'>
+              {Number.parseFloat(start * clipDuration).toFixed(2)}
+            </div>
 						<div
-							id='slider__left-value'
-							className='z-60 absolute left-[-10px] top-[-40px] items-center justify-center rounded-lg bg-green-500 p-1'>
-							{Number.parseFloat(start * clipDuration).toFixed(2)}
-						</div>
-						<div
-							id='slider__right-value'
+              id='end-timestamp'
 							className='absolute top-[-40px] right-[-10px] z-50 rounded-lg bg-red-500 p-1'>
 							{Number.parseFloat(end * clipDuration).toFixed(2)}
 						</div>
@@ -152,7 +148,7 @@ function DurationSlider() {
 				</div>
 			</div>
 			<TrimToggle
-				id='trimToggle'
+				id='trim-toggle-container'
 				content={
 					trimToggle ? (
 						<FaCheckCircle className='h-8 w-8 fill-gray-500' />
