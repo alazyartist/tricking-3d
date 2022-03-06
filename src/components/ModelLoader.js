@@ -11,7 +11,7 @@ function ModelLoader() {
 			<div className='flex flex-col'>
 				{Number.parseInt(progress).toFixed()}%
 				<div className='p-1 md:p-4'>
-					<TPose />
+					{/* <TPose /> */}
 					Model Being Prepared
 					<br /> {loaded} of {total}
 				</div>

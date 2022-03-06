@@ -16,26 +16,26 @@ import { SpotLightHelper } from "three";
 import Loader from "../components/Loader";
 import ModelLoader from "../components/ModelLoader";
 import Kerwood from "../animations/AlexKerwood";
-import Model from "../animations/CC3Test";
+import Model from "../animations/CC3Test3";
 // import Model from "../animations/KerwoodCC3Tpose";
 export function TorqueScene(props) {
 	const modelSelector = useStore((state) => state.modelValue);
 	//Scene Logic -- Switch Models to render: Fred or Torque Logo
 	const light = useRef();
 	const light2 = useRef();
-	useHelper(light2, SpotLightHelper, "red");
-	useHelper(light, SpotLightHelper, "cyan");
+	// useHelper(light2, SpotLightHelper, "red");
+	// useHelper(light, SpotLightHelper, "cyan");
 	if (modelSelector) {
 		return (
 			<PerspectiveCamera position={[0, -2, 0]}>
 				<Suspense fallback={<ModelLoader />}>
 					{/* <Frank /> */}
-					<Model />
+					<Model scale={[0.01, 0.01, 0.01]} />
 					{/* <Kerwood /> */}
 				</Suspense>
 
 				{/* <Model /> */}
-				<ambientLight intensity={1.2} />
+				<ambientLight intensity={0.7} />
 				<spotLight
 					ref={light2}
 					color={"whitesmoke"}
