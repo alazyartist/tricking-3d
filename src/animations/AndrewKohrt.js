@@ -3,11 +3,11 @@ import { useFrame } from "@react-three/fiber";
 import { useStore } from "../store/store";
 import * as THREE from "three";
 import { useGLTF, useAnimations } from "@react-three/drei";
-import CC3 from "../data/AndrewKohrt.gltf";
+import Kohrt from "../data/AndrewKohrt.gltf";
 
 export default function AndrewKohrt({ ...props }) {
 	const group = useRef();
-	const { nodes, materials, animations } = useGLTF(CC3);
+	const { nodes, materials, animations } = useGLTF(Kohrt);
 	const { actions, names, mixer } = useAnimations(animations, group);
 
 	//Use Store
