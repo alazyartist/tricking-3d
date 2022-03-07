@@ -17,10 +17,15 @@ function Controller() {
 	return (
     <div 
       id='controller-container'
-      className='z-[-5] grid grid-cols-3 justify-around justify-items-stretch gap-5 text-base'>
+      className='
+        text-sm
+        flex
+        justify-around
+      '>
 
       <MediaButton
         id='play-pause-button'
+        class='rounded'
         f={setIsPaused}
         content={
           !isPaused ? (
@@ -33,12 +38,7 @@ function Controller() {
       <MediaButton 
         id='bounce-button' 
         f={setBounce} 
-        content={bounce ? "Bounce" : "Loop"} 
-      />
-      <MediaButton 
-        id='extra-play-pause-button TBR' 
-        f={setIsPlaying} 
-        content={isPaused ? "Paused" : "Playing"} 
+        content={bounce ? "B" : "L"} 
       />
       <MediaButton
         id='reverse-button' 

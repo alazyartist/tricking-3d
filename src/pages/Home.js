@@ -77,20 +77,19 @@ export function Home () {
               <CanvasComponent />
             </div>
 
-            <div
-              id="right-panel"
-              className="  z-[1] order-2 w-full bg-gray-700 p-[20px] md:mt-0"
-            >
-              <div id="duration-slider-container" className="py-6">
-                <DurationSlider />
-              </div>
-              <Controller />
-              <TimeSlider />
-              <AnimationDropdown />
-            </div>
-          </div>
-        </div>
-      </div>
-    </Fragment>
-  );
+						<div
+							id='right-panel'
+              className='min-w-fit  z-[1] order-2 w-full bg-gray-700 p-[20px] md:mt-0'>
+              <div id='duration-slider-container'>
+								<DurationSlider />
+							</div>
+							<Controller />
+							<TimeSlider />
+							<AnimationDropdown />
+						</div>
+					</div>
+				</div>
+			</div>
+		</Fragment>
+	);
 }
