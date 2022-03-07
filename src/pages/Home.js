@@ -23,33 +23,31 @@ export function Home() {
 	return (
 		<Fragment>
 			{/**loading overlay, comment out if not needed for dev purposes */}
-			{isLoaderOpen 
-          //&& (<LoadingOverlay progress={progress} setIsLoaderOpen={setIsLoaderOpen} />)
-      }
-			<div 
-        id='Root-Container' 
-        className='text-center'>
+			{isLoaderOpen && (
+				<LoadingOverlay progress={progress} setIsLoaderOpen={setIsLoaderOpen} />
+			)}
+			<div id='Root-Container' className='text-center'>
 				<div
 					id='App'
 					className='flex min-h-screen flex-col items-center bg-gray-700 text-3xl'>
-
-					<div 
-            id='panel-container' 
-            className=' flex w-full flex-col md:flex-row'>
+					<div
+						id='panel-container'
+						className=' flex w-full flex-col md:flex-row'>
 						<div
 							id='left-panel'
 							className='order-3 flex w-fit flex-col justify-between gap-4 bg-gray-700 p-5
 						md:order-1 md:mt-0 md:min-h-[500px]
 						'>
-              {/* <TrickInfo /> */}
-							<h1 
-                id='notice-under-development' 
-                className=' basis-[1/6] text-base font-semibold text-red-500'>
+							{/* TODO: Uncomment TrickInfo after empty anims are handled */}
+							{/* <TrickInfo /> */}
+							<h1
+								id='notice-under-development'
+								className=' basis-[1/6] text-base font-semibold text-red-500'>
 								Note: Under Active Development. <br />
 								WILL BREAK OFTEN
 							</h1>
 							<a
-                id='logo-container'
+								id='logo-container'
 								className='basis-[1/6] text-gray-500'
 								href='https://torquetricking.com'
 								target='_blank'
@@ -57,8 +55,8 @@ export function Home() {
 								<div className='item-end justify-center rounded-xl bg-gray-800 p-2'>
 									Powered By
 									<HorizontalLogo
-                    id='torque-logo'
-                    fill='dimgray'
+										id='torque-logo'
+										fill='dimgray'
 										className='items-center justify-center rounded-xl p-2'
 									/>
 								</div>
@@ -82,7 +80,6 @@ export function Home() {
 							<AnimationDropdown />
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</Fragment>

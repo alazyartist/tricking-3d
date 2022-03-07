@@ -1,6 +1,6 @@
 export const TrickInformation = {
 	Au: `Au TEST TEXT. PLZ WRK`,
-	BackFlip: `A somersault performed in the air in the backward directionbout backflips.`,
+	Backflip: `A somersault performed in the air in the backward directionbout backflips.`,
 	BadRaiz: `Sample Text for BadRaiz`,
 	Cartwheel: `Cartwheel Sample Text-24fps`,
 	Pop3: "Steve Teradas Pop3 - 240fps From Xsens Mocap Data",
