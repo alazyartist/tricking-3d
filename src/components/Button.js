@@ -1,32 +1,37 @@
-import React from "react";
+import React from 'react';
 //Standard Button
-export function MediaButton(props) {
-	return (
-		<button
-      id={props.id}
-			className='
+export function MediaButton({id, isPlayPause, f, content}) {
+  return (
+    <button
+      id={id}
+      className={`
       w-full
       h-full
-        bg-zinc-400 
+        ${isPlayPause ? 'bg-slate-100 hover:bg-white' : 'bg-gray-700'}
         can-hover 
         flex items-center justify-center
-        h-[32px] 
+        h-[37px] 
         rounded-full
-        w-[32px] 
-        '
-			onClick={props.f}>
-			{props.content}
-		</button>
-	);
+        w-[37px]
+        text-slate-200 
+        font-bold
+        hover:text-white
+        `}
+      onClick={f}
+    >
+      {content}
+    </button>
+  );
 }
 
-export function TrimToggle(props) {
-	return (
-		<button
-			id='trim-toggle'
-			className=' appearance-none items-center rounded-full '
-			onClick={props.f}>
-			{props.content}
-		</button>
-	);
+export function TrimToggle({f, content}) {
+  return (
+    <button
+      id="trim-toggle"
+      className=" appearance-none items-center rounded-full "
+      onClick={f}
+    >
+      {content}
+    </button>
+  );
 }
