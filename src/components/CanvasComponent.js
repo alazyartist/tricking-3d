@@ -91,7 +91,7 @@ function CanvasComponent() {
       className='sticky md:flex'>
 			<Canvas
 				id='Resizeable'
-				className='sticky z-[1000] min-h-[40] min-w-full md:min-h-screen md:min-w-[15%]'>
+				className='sticky z-[1000] min-h-[40] min-w-full max-w-full md:min-h-screen md:min-w-[500px]'>
 				<Suspense fallback={<Loader />}>
 					<TorqueScene />
 				</Suspense>
@@ -101,11 +101,6 @@ function CanvasComponent() {
 				id='Draggable'
 				className='sticky flex h-[30px] cursor-s-resize justify-center bg-gray-800 align-middle text-gray-500 md:hidden'>
 				<AiFillDownCircle />
-			</div>
-			<div
-				id='Draggable'
-				className='sticky hidden min-h-full w-[30px] cursor-e-resize bg-red-500 text-gray-500 md:hidden '>
-				<AiFillRightCircle className='flex self-center' />
 			</div>
 		</div>
 	);

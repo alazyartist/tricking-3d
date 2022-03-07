@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { Suspense, useEffect, useRef } from "react";
 import {
 	OrbitControls,
 	Environment,
@@ -13,6 +13,10 @@ import TorqueLogo from "../components/TorqueLogo";
 import { Frank } from "../animations/Frank.js";
 import { useStore } from "../store/store";
 import { SpotLightHelper } from "three";
+import Loader from "../components/Loader";
+import ModelLoader from "../components/ModelLoader";
+import AlexKerwood from "../animations/AlexKerwood";
+import AndrewKohrt from "../animations/AndrewKohrt";
 // import Model from "../animations/KerwoodCC3Tpose";
 export function TorqueScene(props) {
 	const modelSelector = useStore((state) => state.modelValue);
@@ -24,23 +28,27 @@ export function TorqueScene(props) {
 	if (modelSelector) {
 		return (
 			<PerspectiveCamera position={[0, -2, 0]}>
-				<Frank />
+				<Suspense fallback={<ModelLoader />}>
+					{/* <Frank /> */}
+					<AndrewKohrt />
+					{/* <AlexKerwood /> */}
+				</Suspense>
 
 				{/* <Model /> */}
-				<ambientLight intensity={0.8} />
+				<ambientLight intensity={0.7} />
 				<spotLight
 					ref={light2}
-					color={"#f2f2f2"}
-					intensity={0.5}
+					color={"whitesmoke"}
+					intensity={0.4}
 					position={[0, 2, 5]}
 				/>
 				<spotLight
 					ref={light}
 					color={"whitesmoke"}
-					intensity={0.5}
+					intensity={0.04}
 					position={[0, 2, -5]}
 				/>
-				<Environment preset='sunset' />
+				{/* <Environment preset='park' /> */}
 				<OrbitControls />
 				<gridHelper
 					args={[10, 10, `black`, `gainsboro`]}
