@@ -17,10 +17,15 @@ function Controller() {
 	return (
     <div 
       id='controller-container'
-      className='z-[-5] grid grid-cols-5 align-middle justify-center gap-5 text-center text-sm'>
+      className='
+        text-sm
+        flex
+        justify-around
+      '>
 
       <MediaButton
         id='play-pause-button'
+        class='rounded'
         f={setIsPaused}
         content={
           !isPaused ? (

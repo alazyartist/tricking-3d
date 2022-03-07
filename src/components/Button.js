@@ -5,17 +5,13 @@ export function MediaButton(props) {
 		<button
       id={props.id}
 			className='
+      w-full
+      h-full
         bg-zinc-400 
         can-hover 
-        flex 
-        font-black 
+        flex items-center justify-center
         h-[32px] 
-        item-center 
-        justify-center 
-        p-2 
-        rounded-xl 
-        self-stretch 
-        text-gray-800 
+        rounded-full
         w-[32px] 
         '
 			onClick={props.f}>

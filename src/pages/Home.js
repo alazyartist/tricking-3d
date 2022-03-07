@@ -24,7 +24,7 @@ export function Home() {
 		<Fragment>
 			{/**loading overlay, comment out if not needed for dev purposes */}
 			{isLoaderOpen 
-          && (<LoadingOverlay progress={progress} setIsLoaderOpen={setIsLoaderOpen} />)
+          //&& (<LoadingOverlay progress={progress} setIsLoaderOpen={setIsLoaderOpen} />)
       }
 			<div 
         id='Root-Container' 
@@ -41,7 +41,7 @@ export function Home() {
 							className='order-3 flex w-fit flex-col justify-between gap-4 bg-gray-700 p-5
 						md:order-1 md:mt-0 md:min-h-[500px]
 						'>
-							<TrickInfo />
+              {/* <TrickInfo /> */}
 							<h1 
                 id='notice-under-development' 
                 className=' basis-[1/6] text-base font-semibold text-red-500'>
@@ -73,13 +73,11 @@ export function Home() {
 
 						<div
 							id='right-panel'
-							className='  z-[1] order-2 w-full bg-gray-700 p-[20px] md:mt-0'>
-							<Controller />
-							<div 
-                id='duration-slider-container'
-                className='py-6'>
+              className='min-w-fit  z-[1] order-2 w-full bg-gray-700 p-[20px] md:mt-0'>
+              <div id='duration-slider-container'>
 								<DurationSlider />
 							</div>
+							<Controller />
 							<TimeSlider />
 							<AnimationDropdown />
 						</div>
