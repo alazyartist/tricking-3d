@@ -61,13 +61,24 @@ function DurationSlider() {
 	return (
 		<div 
       id='duration-slider-container'
-      className='flex flex-row items-center gap-3 self-center'>
+      className='p-2 pt-0 items-center gap-3 self-center'>
+        <TrimToggle
+          id='trim-toggle-container'
+          content={
+            trimToggle ? (
+              <FaCheckCircle className='h-8 w-8 fill-gray-500' />
+            ) : (
+              <FaCheckCircle className='h-8 w-8 fill-green-600' />
+            )
+          }
+          f={() => setTrimToggle()}
+        />
 			<div
 				id='duration-slider'
 				className=' relative z-0 flex h-[50px] w-full items-center justify-center rounded-lg bg-transparent align-middle'>
 				<input
 					id='playhead'
-					className='pointer-events-none absolute top-0 z-[12] my-5 w-full bg-transparent'
+					className='p-0 pointer-events-none absolute top-0 z-[12] my-5 w-full bg-transparent'
 					type='range'
 					min={0} max={clipDuration}
 					step={0.0001}
@@ -136,28 +147,39 @@ function DurationSlider() {
             className=' z-2 absolute h-2 bg-green-200'>
             <div
               id='start-timestamp'
-              className='z-60 absolute left-[-10px] top-[-40px] items-center justify-center rounded-lg bg-green-500 p-1'>
+              className='
+                absolute 
+                bg-green-500 
+                h-[16px]
+                left-[-25px] 
+                rounded
+                text-slate-200
+                text-xs 
+                top-[-22px] 
+                w-[32px]
+                z-60 
+              '>
               {Number.parseFloat(start * clipDuration).toFixed(2)}
             </div>
 						<div
               id='end-timestamp'
-							className='absolute top-[-40px] right-[-10px] z-50 rounded-lg bg-red-500 p-1'>
+							className='
+                absolute 
+                bg-red-500 
+                h-[16px]
+                right-[-25px] 
+                rounded
+                text-slate-200
+                text-xs 
+                top-[-22px] 
+                w-[32px]
+                z-60 
+              '>
 							{Number.parseFloat(end * clipDuration).toFixed(2)}
 						</div>
 					</div>
 				</div>
 			</div>
-			<TrimToggle
-				id='trim-toggle-container'
-				content={
-					trimToggle ? (
-						<FaCheckCircle className='h-8 w-8 fill-gray-500' />
-					) : (
-						<FaCheckCircle className='h-8 w-8 fill-green-600' />
-					)
-				}
-				f={() => setTrimToggle()}
-			/>
 		</div>
 	);
 }
