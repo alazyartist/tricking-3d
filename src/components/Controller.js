@@ -1,8 +1,8 @@
 import React from 'react';
 import {useStore} from '../store/store.js';
 import {FaPlay, FaPause, FaStepBackward, FaStepForward} from 'react-icons/fa';
+import {MdSpeed} from 'react-icons/md';
 import {MediaButton} from '../components/Button.js';
-
 function Controller () {
   const setIsPaused = useStore (state => state.setIsPaused);
   const setIsPlaying = useStore (state => state.setIsPaused);
@@ -59,7 +59,14 @@ function Controller () {
       <MediaButton
         id="reduce-speed-button"
         f={() => setTimescale (0.5 * timescale)}
-        content={`SlowMo ${Math.abs (Number.parseFloat (timescale).toFixed (2))}`}
+        content={
+          <div className="relative">
+            <MdSpeed className="text-2xl" />
+            <span className="text-[.70rem] absolute top-5 inset-x-0.5 ">
+              {Math.abs (Number.parseFloat (timescale).toFixed (2))}
+            </span>
+          </div>
+        }
       />
       <MediaButton
         id="full-speed-button"
