@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(cors());
@@ -10,7 +10,9 @@ const corsOptions = {
 	origin: "http://localhost:3000",
 };
 
-const requestEndpoint = "https://torquetricking.com/3d/AlexKerwood.gltf";
+const requestEndpoint = "https://torquetricking.com/3d/AndrewKohrt.gltf";
+
+app.get("/gltf", cors(corsOptions), async (req, res) => {});
 
 app.get("/getData", cors(corsOptions), async (req, res) => {
 	const fetchOptions = {
@@ -22,5 +24,5 @@ app.get("/getData", cors(corsOptions), async (req, res) => {
 });
 
 app.listen(PORT, () =>
-	console.log(`I am listening on http://localhost:${PORT}`)
+	console.log(`I am watching for changes on http://localhost:${PORT}`)
 );

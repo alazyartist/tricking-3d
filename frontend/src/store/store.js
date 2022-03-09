@@ -25,29 +25,8 @@ export const useStore = create(
 		isScrubbing: 0, // 0: No, 1: Start, 2: End
 		loop: true,
 		setLoop: () => set((state) => ({ loop: !state.loop })),
-		bounce: true,
 		setBounce: () => set((state) => ({ bounce: !state.bounce })),
-		aI: 0,
 		modelArray: ["Frank", "AlexKerwood", "AndrewKohrt"],
-		updateAnimationArray: (value) =>
-			set(() => ({
-				animationsArray: [...value],
-			})),
-		addToAnimationArray: (value) =>
-			set((state) => ({
-				animationsArray: [...state.animationsArray, value],
-			})),
-		animationSelector: () =>
-			set((state) => ({
-				aI: (state.aI + 1) % state.animationsArray.length,
-				isPlaying: true,
-				isPaused: false,
-			})),
-		selectAnim: (value) =>
-			set(() => ({
-				currentAnim: value,
-			})),
-		currentAnim: "Backflip",
 		modelSelector: (value) => set(() => ({ modelValue: value })),
 		position: [],
 		selectAnim: (value) => set(() => ({ currentAnim: value })),

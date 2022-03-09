@@ -1,8 +1,9 @@
 {
 	"name": "tricking-3d",
 	"version": "0.1.0",
-	"homepage": "http://torquetricking.com/3d",
+	"homepage": "https://torquetricking.com/3d",
 	"private": true,
+	"proxy": "http://localhost:5000",
 	"dependencies": {
 		"@react-three/drei": "^7.3.1",
 		"@react-three/fiber": "^7.0.6",

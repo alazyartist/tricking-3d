@@ -7,11 +7,13 @@ import { useGLTF, useAnimations } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useStore } from "../store/store";
 import * as THREE from "three";
-import NakedFrank from "../data/Frank.gltf";
+// import NakedFrank from "../data/Frank.gltf";
 
 export function Frank({ ...props }) {
 	const group = useRef();
-	const { nodes, materials, animations } = useGLTF(NakedFrank);
+	const { nodes, materials, animations } = useGLTF(
+		"https://torquetricking.com/3d/Frank.gltf"
+	);
 	const { actions, names, mixer } = useAnimations(animations, group);
 
 	//Use Store
@@ -122,4 +124,4 @@ export function Frank({ ...props }) {
 	);
 }
 
-useGLTF.preload(NakedFrank);
+useGLTF.preload("https://torquetricking.com/3d/Frank.gltf");

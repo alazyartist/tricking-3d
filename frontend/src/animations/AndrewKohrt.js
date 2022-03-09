@@ -7,7 +7,9 @@ import Kohrt from "../data/AndrewKohrt.gltf";
 
 export default function AndrewKohrt({ ...props }) {
 	const group = useRef();
-	const { nodes, materials, animations } = useGLTF(Kohrt);
+	const { nodes, materials, animations } = useGLTF(
+		"https://torquetricking.com/3d/AndrewKohrt.gltf"
+	);
 	const { actions, names, mixer } = useAnimations(animations, group);
 
 	//Use Store
@@ -317,4 +319,4 @@ export default function AndrewKohrt({ ...props }) {
 	);
 }
 
-useGLTF.preload("/AndrewKohrt.gltf");
+useGLTF.preload("https://torquetricking.com/3d/AndrewKohrt.glb");

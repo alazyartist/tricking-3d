@@ -3,11 +3,13 @@ import { useFrame } from "@react-three/fiber";
 import { useStore } from "../store/store";
 import * as THREE from "three";
 import { useGLTF, useAnimations } from "@react-three/drei";
-import Kerwood from "../data/AlexKerwood.gltf";
+// import Kerwood from "../data/AlexKerwood.gltf";
 
 export default function AlexKerwood({ ...props }) {
 	const group = useRef();
-	const { nodes, materials, animations } = useGLTF(Kerwood);
+	const { nodes, materials, animations } = useGLTF(
+		"https://torquetricking.com/3d/AlexKerwood.gltf"
+	);
 	const { actions, names, mixer } = useAnimations(animations, group);
 
 	//Use Store
@@ -251,4 +253,4 @@ export default function AlexKerwood({ ...props }) {
 	);
 }
 
-useGLTF.preload("/AlexKerwood.gltf");
+useGLTF.preload("https://torquetricking.com/3d/AlexKerwood.gltf");
