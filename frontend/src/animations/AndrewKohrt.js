@@ -3,8 +3,6 @@ import { useFrame } from "@react-three/fiber";
 import { useStore } from "../store/store";
 import * as THREE from "three";
 import { useGLTF, useAnimations } from "@react-three/drei";
-import Kohrt from "../data/AndrewKohrt.gltf";
-
 export default function AndrewKohrt({ ...props }) {
 	const group = useRef();
 	const { nodes, materials, animations } = useGLTF(
@@ -35,7 +33,7 @@ export default function AndrewKohrt({ ...props }) {
 		() =>
 			Promise.resolve(names).then(
 				(results) => setAnimationsArray(results),
-				setCurrentAnim("Aerial GMS")
+				setCurrentAnim("Backflip")
 			),
 		[names, setAnimationsArray]
 	);
@@ -319,4 +317,4 @@ export default function AndrewKohrt({ ...props }) {
 	);
 }
 
-useGLTF.preload("https://torquetricking.com/3d/AndrewKohrt.glb");
+useGLTF.preload("https://torquetricking.com/3d/AndrewKohrt.gltf");

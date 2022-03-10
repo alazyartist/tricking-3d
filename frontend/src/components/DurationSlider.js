@@ -59,39 +59,43 @@ function DurationSlider() {
 	}, [end, getPercent]);
 
 	return (
-		<div 
-      id='duration-slider-container'
-      className='p-2 pt-0 items-center gap-3 self-center'>
-        <TrimToggle
-          id='trim-toggle-container'
-          content={
-            trimToggle ? (
-              <FaCheckCircle className='h-8 w-8 fill-gray-500' />
-            ) : (
-              <FaCheckCircle className='h-8 w-8 fill-green-600' />
-            )
-          }
-          f={() => setTrimToggle()}
-        />
+		<div
+			id='duration-slider-container'
+			className='items-center gap-3 self-center p-2 pt-0'>
+			<TrimToggle
+				id='trim-toggle-container'
+				content={
+					trimToggle ? (
+						<FaCheckCircle className='h-8 w-8 fill-gray-500' />
+					) : (
+						<FaCheckCircle className='h-8 w-8 fill-green-600' />
+					)
+				}
+				f={() => setTrimToggle()}
+			/>
 			<div
 				id='duration-slider'
 				className=' relative z-0 flex h-[50px] w-full items-center justify-center rounded-lg bg-transparent align-middle'>
 				<input
 					id='playhead'
-					className='p-0 pointer-events-none absolute top-0 z-[12] my-5 w-full bg-transparent'
+					className='pointer-events-none absolute top-0 z-[12] my-5 w-full bg-transparent p-0'
 					type='range'
-					min={0} max={clipDuration}
+					min={0}
+					max={clipDuration}
 					step={0.0001}
 					value={currentTime}
 					readOnly
 				/>
 				<input
 					id='start'
-					className={"z-3 pointer-events-none absolute top-0 my-5 w-full bg-transparent"}
+					className={
+						"z-3 pointer-events-none absolute top-0 my-5 w-full bg-transparent"
+					}
 					type={"range"}
 					double={"true"}
 					ref={startRef}
-					min={0} max={1}
+					min={0}
+					max={1}
 					step={0.01}
 					value={start}
 					onChange={(event) => {
@@ -113,11 +117,14 @@ function DurationSlider() {
 				/>
 				<input
 					id='end'
-					className={" z-4 pointer-events-none absolute left-0 top-0 my-5 w-full bg-transparent"}
+					className={
+						" z-4 pointer-events-none absolute left-0 top-0 my-5 w-full bg-transparent"
+					}
 					type={"range"}
 					double={"true"}
 					ref={endRef}
-					min={0} max={1}
+					min={0}
+					max={1}
 					value={end}
 					step={0.01}
 					onChange={(event) => {
@@ -138,42 +145,40 @@ function DurationSlider() {
 					}}
 				/>
 
-				<div 
-          id='duration-timestamp-container' 
-          className='mx-4 flex text-base'>
-          <div
-            id='timestamp-container'
-            ref={range}
-            className=' z-2 absolute h-2 bg-green-200'>
-            <div
-              id='start-timestamp'
-              className='
-                absolute 
-                bg-green-500 
-                h-[16px]
-                left-[-25px] 
-                rounded
-                text-slate-200
-                text-xs 
-                top-[-22px] 
-                w-[32px]
-                z-60 
-              '>
-              {Number.parseFloat(start * clipDuration).toFixed(2)}
-            </div>
+				<div id='duration-timestamp-container' className='mx-4 flex text-base'>
+					<div
+						id='timestamp-container'
+						ref={range}
+						className=' z-2 absolute h-2 bg-green-200'>
 						<div
-              id='end-timestamp'
+							id='start-timestamp'
 							className='
-                absolute 
-                bg-red-500 
-                h-[16px]
-                right-[-25px] 
-                rounded
-                text-slate-200
-                text-xs 
-                top-[-22px] 
-                w-[32px]
                 z-60 
+                absolute 
+                left-[-25px]
+                top-[-22px] 
+                h-[16px]
+                w-[32px]
+                rounded 
+                bg-green-500 
+                text-xs
+                text-slate-200 
+              '>
+							{Number.parseFloat(start * clipDuration).toFixed(2)}
+						</div>
+						<div
+							id='end-timestamp'
+							className='
+                z-60 
+                absolute 
+                right-[-25px]
+                top-[-22px] 
+                h-[16px]
+                w-[32px]
+                rounded 
+                bg-red-500 
+                text-xs
+                text-slate-200 
               '>
 							{Number.parseFloat(end * clipDuration).toFixed(2)}
 						</div>

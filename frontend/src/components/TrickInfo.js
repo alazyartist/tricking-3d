@@ -13,7 +13,7 @@ export default function TrickInfo() {
 				{currentAnim}
 			</h2>
 			<p id='trick-info' className='text-base font-light'>
-				{TrickInfoText.length > 1 ? TrickInfoText : "Info Will Be Added Soon"}
+				{TrickInfoText?.length > 1 ? TrickInfoText : "Info Will Be Added Soon"}
 			</p>
 		</div>
 	);

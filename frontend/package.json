@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"homepage": "https://torquetricking.com/3d",
 	"private": true,
-	"proxy": "http://localhost:5000",
+	"proxy": "http://localhost:3000",
 	"dependencies": {
 		"@react-three/drei": "^7.3.1",
 		"@react-three/fiber": "^7.0.6",
