@@ -35,14 +35,14 @@ export function Home() {
 						className=' flex w-full flex-col md:flex-row'>
 						<div
 							id='left-panel'
-							className='order-3 flex w-fit flex-col justify-between gap-4 bg-gray-700 p-5
+							className=' order-3 flex w-full flex-col justify-between gap-4 bg-gray-700 p-5
 						sm:w-[400px] md:order-1 md:mt-0 md:min-h-[500px]
 						'>
 							{/* TODO: Uncomment TrickInfo after empty anims are handled */}
 							<TrickInfo />
 							<h1
 								id='notice-under-development'
-								className=' basis-[1/6] text-base font-semibold text-red-500'>
+								className='place-item-center basis-[1/6] text-base font-semibold text-red-500'>
 								Note: Under Active Development. <br />
 								WILL BREAK OFTEN
 							</h1>
