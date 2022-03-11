@@ -77,6 +77,7 @@ export function Frank({ ...props }) {
 
 	// Scrub
 	useEffect(() => {
+    console.log("should be here");
 		if (isScrubbing > 0) {
 			const duration = actions[currentAnim].getClip().duration.toFixed(2);
 			actions[currentAnim].time =
