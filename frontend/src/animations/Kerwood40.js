@@ -29,6 +29,17 @@ export default function Kerwood40({ ...props }) {
 	const trimToggle = useStore((s) => s.trimToggle);
 	const setCurrentAnim = useStore((s) => s.selectAnim);
 	const activeModel = useStore((s) => s.activeModel);
+	const isScrubbing = useStore((s) => s.isScrubbing);
+
+	// Scrub
+	useEffect(() => {
+		if (isScrubbing > 0) {
+			const duration = actions[currentAnim].getClip().duration.toFixed(2);
+			actions[currentAnim].time =
+				isScrubbing === 1 ? duration * start : duration * end;
+		}
+	}, [isScrubbing, start, end, actions, currentAnim]);
+
 	//Solves Problem with infinte renders of Animations Array and successfully passes to store
 	useMemo(
 		() =>
