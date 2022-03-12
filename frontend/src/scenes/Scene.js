@@ -12,7 +12,7 @@ import { SpotLightHelper } from "three";
 import Loader from "../components/Loader";
 import ModelLoader from "../components/ModelLoader";
 import LoadActiveModel from "../components/ModelSelector";
-
+import SceneBackground from "../animations/SceneBackground";
 // import Model from "../animations/KerwoodCC3Tpose";
 export function TorqueScene(props) {
 	const light = useRef();
@@ -24,9 +24,9 @@ export function TorqueScene(props) {
 			<Suspense fallback={<ModelLoader />}>
 				<LoadActiveModel />
 			</Suspense>
-
+			<SceneBackground />
 			{/* <Model /> */}
-			<ambientLight intensity={0.7} />
+			<ambientLight intensity={0.3} />
 			<spotLight
 				ref={light2}
 				color={"whitesmoke"}
@@ -41,7 +41,7 @@ export function TorqueScene(props) {
 			/>
 			{/* <Environment preset='park' /> */}
 			<OrbitControls />
-			<gridHelper args={[10, 10, `black`, `gainsboro`]} position={[0, 0, 0]} />
+			{/* <gridHelper args={[10, 10, `black`, `gainsboro`]} position={[0, 0, 0]} /> */}
 			<GizmoHelper alignment={"bottom-left"}>
 				<GizmoViewport
 					axisColors={["red", "green", "blue"]}

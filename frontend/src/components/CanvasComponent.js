@@ -86,12 +86,10 @@ function CanvasComponent() {
 	}, []);
 
 	return (
-		<div 
-      id='convas-container'
-      className='sticky md:flex'>
+		<div id='convas-container' className='sticky md:flex'>
 			<Canvas
 				id='Resizeable'
-				className='sticky z-[1000] min-h-[40] min-w-full max-w-full md:min-h-screen md:min-w-[500px]'>
+				className='sticky top-0 z-[1000] max-h-[screen-60px] min-h-[40] min-w-full max-w-full md:min-h-screen md:min-w-[500px]'>
 				<Suspense fallback={<Loader />}>
 					<TorqueScene />
 				</Suspense>

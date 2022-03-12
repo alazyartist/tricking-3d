@@ -10,6 +10,7 @@ import { ReactComponent as HorizontalLogo } from "../data/HorizontalLogo.svg";
 import LoadingOverlay from "../components/LoadingOverlay.js";
 import { useProgress } from "@react-three/drei";
 import { Fragment, useState } from "react";
+import { FaDiscord } from "react-icons/fa";
 export function Home() {
 	const [isLoaderOpen, setIsLoaderOpen] = useState(true);
 	//open state for LoadingOverlay comp
@@ -46,6 +47,14 @@ export function Home() {
 								Note: Under Active Development. <br />
 								WILL BREAK OFTEN
 							</h1>
+							<h1 className='text-sm font-semibold text-gray-400'>
+								Join the discord to Give Feedback <br /> or Report Issues{" "}
+							</h1>
+							<a
+								className='place-self-center'
+								href='https://discord.gg/rEkMzdRJ'>
+								<FaDiscord className=' place-self-center rounded-full p-[4px] text-5xl text-indigo-400 hover:bg-gray-400 hover:text-indigo-700' />
+							</a>
 							<a
 								id='logo-container'
 								className='basis-[1/6] text-gray-500'
