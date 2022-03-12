@@ -7,7 +7,9 @@ import { useGLTF } from "@react-three/drei";
 
 export default function SceneBackground({ ...props }) {
 	const group = useRef();
-	const { nodes, materials } = useGLTF("/3d/SceneBackground.glb");
+	const { nodes, materials } = useGLTF(
+		"https://torquetricking.com/3d/SceneBackground.glb"
+	);
 	return (
 		<group ref={group} {...props} dispose={null}>
 			<group position={[0.32, 0.19, 0.93]} scale={0.99}>
@@ -86,4 +88,4 @@ export default function SceneBackground({ ...props }) {
 	);
 }
 
-useGLTF.preload("/3d/SceneBackground.glb");
+useGLTF.preload("https://torquetricking.com/3d/SceneBackground.glb");
