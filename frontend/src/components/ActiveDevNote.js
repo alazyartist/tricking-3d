@@ -3,12 +3,16 @@ import React from "react";
 function ActiveDevNote() {
 	return (
 		<>
-			<h1
+			<div
 				id='notice-under-development'
-				className='place-item-center basis-[1/6] text-base font-semibold text-red-500'>
-				Note: Under Active Development. <br />
-				WILL BREAK OFTEN
-			</h1>
+				className='absolute bottom-[120px] z-[1003] text-xs font-semibold text-red-300 opacity-80'>
+				<div className='flex w-screen '>
+					<h1 className='w-full text-center'>
+						Note: Under Active Development. <br />
+						WILL BREAK OFTEN
+					</h1>
+				</div>
+			</div>
 		</>
 	);
 }

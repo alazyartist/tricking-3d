@@ -42,7 +42,7 @@ export function TorqueScene(props) {
 			{/* <Environment preset='park' /> */}
 			<OrbitControls />
 			{/* <gridHelper args={[10, 10, `black`, `gainsboro`]} position={[0, 0, 0]} /> */}
-			<GizmoHelper alignment={"bottom-left"}>
+			<GizmoHelper alignment={"bottom-left"} margin={[60, 180]}>
 				<GizmoViewport
 					axisColors={["red", "green", "blue"]}
 					labelColor='gainsboro'

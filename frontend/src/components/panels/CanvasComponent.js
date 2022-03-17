@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
-import { TorqueScene } from "../scenes/Scene";
-import Loader from "../components/Loader";
+import { TorqueScene } from "../../scenes/Scene";
+import Loader from "../Loader";
 import { AiFillDownCircle, AiFillRightCircle } from "react-icons/ai";
-import ModelDropdown from "./ModelDropdown";
-import AnimationsDropwdown from "./AnimationsDropwdown";
 function CanvasComponent() {
 	const min = 54;
 	let initialWidth = 0,
@@ -89,16 +87,10 @@ function CanvasComponent() {
 
 	return (
 		<>
-			<div
-				id='dropdowns-div'
-				className='w-content absolute z-[1001] ml-3 mt-3 flex gap-3'>
-				<AnimationsDropwdown />
-				<ModelDropdown />
-			</div>
-			<div id='convas-container' className='sticky md:flex'>
+			<div id='canvas-container' className='sticky h-screen md:flex'>
 				<Canvas
 					id='Resizeable'
-					className='sticky top-0 z-[1000] max-h-[screen-60px] min-h-[40] min-w-full max-w-full md:min-h-screen md:min-w-[500px]'>
+					className='sticky top-0 z-[1000] min-h-[40] min-w-full max-w-full md:min-h-screen md:min-w-[500px]'>
 					<Suspense fallback={<Loader />}>
 						<TorqueScene />
 					</Suspense>

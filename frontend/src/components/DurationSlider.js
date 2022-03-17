@@ -61,8 +61,8 @@ function DurationSlider() {
 	return (
 		<div
 			id='duration-slider-container'
-			className='items-center gap-3 self-center p-2 pt-0'>
-			<TrimToggle
+			className='mb-1 items-center gap-3 self-center pt-0'>
+			{/* <TrimToggle
 				id='trim-toggle-container'
 				content={
 					trimToggle ? (
@@ -72,10 +72,10 @@ function DurationSlider() {
 					)
 				}
 				f={() => setTrimToggle()}
-			/>
+			/> */}
 			<div
 				id='duration-slider'
-				className=' relative z-0 flex h-[50px] w-full items-center justify-center rounded-lg bg-transparent align-middle'>
+				className=' relative z-0 flex h-[40px] w-full items-center justify-center rounded-lg bg-transparent align-middle'>
 				<input
 					id='playhead'
 					className='pointer-events-none absolute top-0 z-[12] my-5 w-full bg-transparent p-0'
@@ -149,7 +149,7 @@ function DurationSlider() {
 					<div
 						id='timestamp-container'
 						ref={range}
-						className=' z-2 absolute h-2 bg-green-200'>
+						className=' z-2 absolute h-2 '>
 						<div
 							id='start-timestamp'
 							className='

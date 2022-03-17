@@ -11,7 +11,7 @@ function RightPanelContent() {
 			<DurationSlider />
 			<Controller />
 			<TimeSlider />
-			<ModelDropdown className={"hidden"} />
+			<ModelDropdown />
 			<AnimationsDropdown />
 		</>
 	);

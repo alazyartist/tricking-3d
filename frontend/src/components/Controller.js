@@ -23,7 +23,7 @@ function Controller() {
 			className='
         flex
         justify-around
-        text-sm
+        pb-1 text-sm
       '>
 			<MediaButton
 				id='bounce-button'
