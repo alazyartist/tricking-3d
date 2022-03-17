@@ -4,6 +4,8 @@ import { Suspense } from "react";
 import { TorqueScene } from "../scenes/Scene";
 import Loader from "../components/Loader";
 import { AiFillDownCircle, AiFillRightCircle } from "react-icons/ai";
+import ModelDropdown from "./ModelDropdown";
+import AnimationsDropwdown from "./AnimationsDropwdown";
 function CanvasComponent() {
 	const min = 54;
 	let initialWidth = 0,
@@ -86,21 +88,29 @@ function CanvasComponent() {
 	}, []);
 
 	return (
-		<div id='convas-container' className='sticky md:flex'>
-			<Canvas
-				id='Resizeable'
-				className='sticky top-0 z-[1000] max-h-[screen-60px] min-h-[40] min-w-full max-w-full md:min-h-screen md:min-w-[500px]'>
-				<Suspense fallback={<Loader />}>
-					<TorqueScene />
-				</Suspense>
-			</Canvas>
-
+		<>
 			<div
-				id='Draggable'
-				className='sticky flex h-[30px] cursor-s-resize justify-center bg-gray-800 align-middle text-gray-500 md:hidden'>
-				<AiFillDownCircle />
+				id='dropdowns-div'
+				className='w-content absolute z-[1001] ml-3 mt-3 flex gap-3'>
+				<AnimationsDropwdown />
+				<ModelDropdown />
 			</div>
-		</div>
+			<div id='convas-container' className='sticky md:flex'>
+				<Canvas
+					id='Resizeable'
+					className='sticky top-0 z-[1000] max-h-[screen-60px] min-h-[40] min-w-full max-w-full md:min-h-screen md:min-w-[500px]'>
+					<Suspense fallback={<Loader />}>
+						<TorqueScene />
+					</Suspense>
+				</Canvas>
+
+				<div
+					id='Draggable'
+					className='sticky flex h-[30px] cursor-s-resize justify-center bg-gray-800 align-middle text-gray-500 md:hidden'>
+					<AiFillDownCircle />
+				</div>
+			</div>
+		</>
 	);
 }
 

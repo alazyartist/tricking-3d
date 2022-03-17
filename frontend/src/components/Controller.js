@@ -30,7 +30,7 @@ function Controller() {
 				f={setBounce}
 				content={
 					bounce ? (
-						<BiRevision className='fill-[gainsboro] fill-gray-300 text-2xl' />
+						<BiRevision className='fill-gray-300 text-2xl' />
 					) : (
 						<ImLoop className='text-xl text-[gainsboro]' />
 					)

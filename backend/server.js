@@ -5,14 +5,21 @@ import fetch from "node-fetch";
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-app.use(cors());
+app.use(cors(express.static("public", options)));
+
+const options = {};
 const corsOptions = {
 	origin: "http://localhost:3000",
 };
 
-const requestEndpoint = "https://torquetricking.com/3d/AndrewKohrt.gltf";
+const requestEndpoint = ``;
 
-app.get("/gltf", cors(corsOptions), async (req, res) => {});
+app.get("/glb", cors(corsOptions), async (req, res) => {
+	let andrew = "/public/Andrew.glb";
+	res.download(andrew, "AndrewTestAPIDOWNLOAD", (err) => {
+		console.log(err);
+	});
+});
 
 app.get("/getData", cors(corsOptions), async (req, res) => {
 	const fetchOptions = {
@@ -23,6 +30,10 @@ app.get("/getData", cors(corsOptions), async (req, res) => {
 	res.json(jsonResponse);
 });
 
-app.listen(PORT, () =>
-	console.log(`I am watching for changes on http://localhost:${PORT}`)
-);
+app.listen(PORT, (err) => {
+	if (err) {
+		console.log(`You broke it. Here's how:`, err);
+		return;
+	}
+	console.log(`I am watching for changes on http://localhost:${PORT}`);
+});
