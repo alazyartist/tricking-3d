@@ -12,33 +12,34 @@ function LoadingOverlay({ progress, setIsLoaderOpen }) {
 				</div>
 				<div />
 			</div>
-
-			<div
-				id='Welcome-message'
-				className='font-inter h-[30rem] w-10/12 items-center justify-center 
-	  	gap-10 rounded-md p-4 font-light sm:w-6/12
-          md:w-7/12 lg:w-6/12 xl:w-4/12'>
-				Welcome to <div className='inline font-bold'>Tricking-3D</div>. This is
-				one part of a larger project I have been working on for the better part
-				of the last few years.
-				<br />
-				<br /> It began as writing a book about Tricking.
-				<br />
-				<br /> Alongside that book I began creating some 2d graphics to go
-				alongside the written portion but something was missing. Once I realized
-				what it was I began learning how to build what I could picture in my
-				mind. <br />
-				<br />
-				With some help and after many sleepless nights I am happy to release the
-				early beta of Tricking-3d. I hope this will be a starting point for many
-				future projects.
+			<div id='welcome-container' className='items-center justify-center'>
+				<div
+					id='Welcome-message'
+					className='font-inter w-full items-center justify-center 
+				gap-10 rounded-md px-12 font-light sm:w-6/12
+				md:w-7/12 lg:w-6/12 xl:w-4/12'>
+					Welcome to <div className='inline font-bold'>Tricking-3D</div>. This
+					is one part of a larger project I have been working on for the better
+					part of the last few years.
+					<br />
+					<br /> It began as writing a book about Tricking.
+					<br />
+					<br /> Alongside that book I began creating some 2d graphics to go
+					alongside the written portion but something was missing. Once I
+					realized what it was I began learning how to build what I could
+					picture in my mind. <br />
+					<br />
+					With some help and after many sleepless nights I am happy to release
+					the early beta of Tricking-3d. I hope this will be a starting point
+					for many future projects.
+				</div>
 			</div>
 
 			{/**instr container */}
 			{/**instructions container */}
 			<div
 				id='instructions-container'
-				className='flex h-[30rem] w-10/12 flex-col items-center
+				className='flex w-10/12 flex-col items-center
 	  		justify-center gap-10 rounded-md p-10 sm:w-6/12
               md:w-7/12 lg:w-6/12 xl:w-4/12'>
 				<div>

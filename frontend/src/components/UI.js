@@ -21,7 +21,7 @@ function UI() {
 			<ActiveDevNote />
 			<div
 				id='controller'
-				className='absolute left-0 bottom-0 z-[1002] h-fit w-full bg-gray-800 bg-opacity-50 p-4'>
+				className='fixed left-0 bottom-0 z-[1002]  w-full bg-gray-800 bg-opacity-50 p-4'>
 				<DurationSlider />
 				<Controller />
 			</div>

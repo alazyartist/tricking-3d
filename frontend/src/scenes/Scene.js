@@ -20,7 +20,7 @@ export function TorqueScene(props) {
 	// useHelper(light2, SpotLightHelper, "red");
 	// useHelper(light, SpotLightHelper, "cyan");
 	return (
-		<PerspectiveCamera position={[0, -2, 0]}>
+		<PerspectiveCamera position={[0, -1, 0]}>
 			<Suspense fallback={<ModelLoader />}>
 				<LoadActiveModel />
 			</Suspense>
@@ -42,7 +42,7 @@ export function TorqueScene(props) {
 			{/* <Environment preset='park' /> */}
 			<OrbitControls />
 			{/* <gridHelper args={[10, 10, `black`, `gainsboro`]} position={[0, 0, 0]} /> */}
-			<GizmoHelper alignment={"bottom-left"} margin={[60, 180]}>
+			<GizmoHelper alignment={"bottom-left"} margin={[60, 220]}>
 				<GizmoViewport
 					axisColors={["red", "green", "blue"]}
 					labelColor='gainsboro'

@@ -5,7 +5,7 @@ function ActiveDevNote() {
 		<>
 			<div
 				id='notice-under-development'
-				className='absolute bottom-[120px] z-[1003] text-xs font-semibold text-red-300 opacity-80'>
+				className='absolute bottom-[27vh] z-[100] text-xs font-semibold text-red-300 opacity-80'>
 				<div className='flex w-screen '>
 					<h1 className='w-full text-center'>
 						Note: Under Active Development. <br />

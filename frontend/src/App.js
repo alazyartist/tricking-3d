@@ -1,11 +1,11 @@
 import { Home } from "./pages/Home";
 import { Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
-
+import { FullScreen } from "./pages/FullScreen";
 function App() {
 	return (
 		<Routes>
-			<Route path='*' element={<Home />} />
+			<Route path='*' element={<FullScreen />} />
 			<Route path={"/3d/home"} element={<Home />} />
 			<Route path={"/3d/landing"} element={<Landing />} />
 		</Routes>
