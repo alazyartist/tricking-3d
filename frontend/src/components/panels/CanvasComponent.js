@@ -4,12 +4,15 @@ import { Suspense } from "react";
 import { TorqueScene } from "../../scenes/Scene";
 import Loader from "../Loader";
 import { AiFillDownCircle, AiFillRightCircle } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+import { Box, Html } from "@react-three/drei";
 function CanvasComponent() {
 	const min = 54;
 	let initialWidth = 0,
 		initialHeight = 0,
 		mouseX = 0,
 		mouseY = 0;
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const element = document.getElementById("Resizeable");

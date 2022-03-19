@@ -13,6 +13,7 @@ import Loader from "../components/Loader";
 import ModelLoader from "../components/ModelLoader";
 import LoadActiveModel from "../components/ModelSelector";
 import SceneBackground from "../animations/SceneBackground";
+import { Outlet } from "react-router-dom";
 // import Model from "../animations/KerwoodCC3Tpose";
 export function TorqueScene(props) {
 	const light = useRef();

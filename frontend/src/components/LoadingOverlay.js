@@ -1,4 +1,7 @@
 import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
+import DiscordLink from "./DiscordLink";
+import Instructions from "./Instructions";
 
 function LoadingOverlay({ progress, setIsLoaderOpen }) {
 	return (
@@ -35,45 +38,6 @@ function LoadingOverlay({ progress, setIsLoaderOpen }) {
 				</div>
 			</div>
 
-			{/**instr container */}
-			{/**instructions container */}
-			<div
-				id='instructions-container'
-				className='flex w-10/12 flex-col items-center
-	  		justify-center gap-10 rounded-md p-10 sm:w-6/12
-              md:w-7/12 lg:w-6/12 xl:w-4/12'>
-				<div>
-					<p id='instuctions-header' className='text-5xl font-medium'>
-						Instructions
-					</p>
-				</div>
-				<ol className='flex list-disc flex-col space-y-2'>
-					<li>
-						<p className='text-xl'>Use ☝️ to look around with camera.</p>
-					</li>
-					<li>
-						<p className='text-xl'>Use ✌️ to reposition camera.</p>
-					</li>
-					<li>
-						<p className='text-xl'>
-							Select the animations from the dropdown to choose a new animation.
-						</p>
-					</li>
-					<li>
-						<p className='text-xl'>SlowMo slows speed by 0.5.</p>
-					</li>
-					<li>
-						<p className='text-xl'>Full speed resets speed to 1.</p>
-					</li>
-					<li>
-						<p className='text-xl'>
-							Reverse flips clip play direction - useful for isolating areas of
-							a trick.
-						</p>
-					</li>
-				</ol>
-			</div>
-
 			{/**loader container */}
 			<div
 				id='start-button-container'
@@ -87,13 +51,15 @@ function LoadingOverlay({ progress, setIsLoaderOpen }) {
 				)}
 				{progress === 100 && (
 					<div>
-						<button
-							id='start-button'
-							className='focus:shadow-outline m-2 h-12 rounded-lg bg-indigo-600 px-6 text-lg 
-            text-indigo-100 transition-colors duration-500 hover:bg-indigo-700'
-							onClick={() => setIsLoaderOpen(false)}>
-							<p className='text-large font-bold'>Start</p>
-						</button>
+						<Link to={"/3d/sandbox"}>
+							<button
+								id='start-button'
+								className='focus:shadow-outline m-2 h-12 rounded-lg bg-indigo-600 px-6 text-lg 
+							text-indigo-100 transition-colors duration-500 hover:bg-indigo-700'
+								onClick={() => setIsLoaderOpen(false)}>
+								<p className='text-large font-bold'>Start</p>
+							</button>
+						</Link>
 					</div>
 				)}
 				<div
@@ -106,11 +72,10 @@ function LoadingOverlay({ progress, setIsLoaderOpen }) {
 					<br />
 					<br />
 					Please have patience.
-					<br />
-					And report any issues
-					<br /> on our discord.
+					<DiscordLink />
 				</div>
 			</div>
+			<Instructions />
 		</div>
 	);
 }
