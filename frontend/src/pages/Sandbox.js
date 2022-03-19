@@ -20,8 +20,8 @@ export function Sandbox() {
 	const setModel = useStore((s) => s.setModel);
 	const setAnim = useStore((s) => s.selectAnim);
 	useMemo(() => {
-		setModel(model);
-		setAnim(trick);
+		model && setModel(model);
+		trick && setAnim(trick);
 	}, [model, trick]);
 
 	//canvas loading progress, async, will run on first render
