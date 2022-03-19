@@ -7,15 +7,16 @@ function ModelDropdown() {
 	const modelArray = useStore((state) => state.modelArray);
 	const setModel = useStore((state) => state.setModel);
 	const selectAnim = useStore((s) => s.selectAnim);
+	const currentAnim = useStore((s) => s.currentAnim);
 	const navigate = useNavigate();
 	return (
 		<Dropdown
 			buttonName={activeModel}
 			buttonMap={modelArray}
 			f={(e) => {
-				selectAnim("Backflip");
+				// selectAnim("Backflip");
 				setModel(e);
-				selectAnim("Backflip");
+				// selectAnim("Backflip");
 				navigate(`/3d/sandbox/${e}/Backflip`);
 			}}
 		/>

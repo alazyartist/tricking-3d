@@ -2,7 +2,7 @@ import CanvasComponent from "../components/panels/CanvasComponent";
 import ModelSelector from "../components/ModelSelector";
 import LoadingOverlay from "../components/LoadingOverlay.js";
 import { useProgress } from "@react-three/drei";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useStore } from "../store/store.js";
 import LeftPanelContent from "../components/panels/LeftPanelContent.js";
 import RightPanelContent from "../components/panels/RightPanelContent.js";
@@ -12,11 +12,19 @@ import AnimationsDropwdown from "../components/AnimationsDropwdown";
 import Controller from "../components/Controller";
 import UI from "../components/UI";
 import ShowHideToggle from "../components/ShowHideToggle";
-import { Outlet } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
 export function Sandbox() {
 	const showUI = useStore((s) => s.showUI);
-	//canvas loading progress, async, will run on first render
+	const { model, trick } = useParams();
+	const setModel = useStore((s) => s.setModel);
+	const setAnim = useStore((s) => s.selectAnim);
+	useMemo(() => {
+		setModel(model);
+		setAnim(trick);
+	}, [model, trick]);
 
+	//canvas loading progress, async, will run on first render
 	// console.log(useStore((state) => state.animationsArray));
 
 	//General Design Handled Here

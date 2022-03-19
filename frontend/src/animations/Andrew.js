@@ -42,11 +42,7 @@ export default function Andrew({ ...props }) {
 
 	//Solves Problem with infinte renders of Animations Array and successfully passes to store
 	useMemo(
-		() =>
-			Promise.resolve(names).then(
-				(results) => setAnimationsArray(results),
-				setCurrentAnim("Aerial GMS")
-			),
+		() => Promise.resolve(names).then((results) => setAnimationsArray(results)),
 		[names, setAnimationsArray]
 	);
 

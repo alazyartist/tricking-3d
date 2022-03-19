@@ -22,9 +22,9 @@ function App() {
 			/>
 			<Route path={"/3d"} element={<FullScreen />} />
 			<Route path={"/3d/sandbox"} element={<Sandbox />}>
-				{/* <Route path='/:model' element={<Sandbox />}>
-					<Route path='/:trick' element={<Sandbox />} />
-				</Route> */}
+				<Route path=':model'>
+					<Route path=':trick' element={<Sandbox />} />
+				</Route>
 			</Route>
 			<Route path={"/3d/landing"} element={<Landing />} />
 			<Route path={"/3d/test"} element={<TestPage />} />
