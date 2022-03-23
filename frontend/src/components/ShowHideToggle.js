@@ -1,5 +1,5 @@
 import React from "react";
-import { MediaButton } from "./Button";
+import { MediaButton } from "./reusable/Button";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 import { useStore } from "../store/store";
 function ShowHideToggle() {

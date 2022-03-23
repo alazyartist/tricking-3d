@@ -40,6 +40,8 @@ export const useStore = create(
 		setSliderEnd: (value) => set(() => ({ end: value })),
 		setSliderStart: (value) => set(() => ({ start: value })),
 		showUI: true,
+		showInfo: true,
+		setInfo: () => set((s) => ({ showInfo: !s.showInfo })),
 		setUI: () => set((s) => ({ showUI: !s.showUI })),
 		setTimescale: (value) => set(() => ({ timescale: value })),
 		setTrimToggle: () => set((state) => ({ trimToggle: !state.trimToggle })),

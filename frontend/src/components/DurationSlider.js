@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import { useStore } from "../store/store";
-import { TrimToggle } from "./Button";
+import { TrimToggle } from "./reusable/Button";
 import { FaCheckCircle } from "react-icons/fa";
 
 function DurationSlider() {

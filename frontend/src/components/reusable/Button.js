@@ -7,7 +7,7 @@ export function MediaButton({ id, isPlayPause, f, content }) {
 			className={`
       h-full
       w-full
-        ${isPlayPause ? "bg-slate-200 hover:bg-white" : "bg-transparent"}
+        ${isPlayPause ? "bg-zinc-300 hover:bg-white" : "bg-transparent"}
         can-hover 
         flex h-[37px] w-[37px]
         items-center 
