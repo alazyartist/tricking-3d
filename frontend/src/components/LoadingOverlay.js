@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import DiscordLink from "./DiscordLink";
+import DiscordLink from "./info/DiscordLink";
 import Instructions from "./Instructions";
 
 function LoadingOverlay({ progress, setIsLoaderOpen }) {

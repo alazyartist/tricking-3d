@@ -1,6 +1,6 @@
 import React from "react";
-import Dropdown from "./reusable/Dropdown";
-import { useStore } from "../store/store";
+import Dropdown from "../Dropdown";
+import { useStore } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 function ModelDropdown() {
 	const activeModel = useStore((state) => state.activeModel);

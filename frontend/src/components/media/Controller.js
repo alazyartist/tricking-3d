@@ -1,10 +1,10 @@
 import React from "react";
-import { useStore } from "../store/store.js";
+import { useStore } from "../../store/store.js";
 import { FaPlay, FaPause, FaStepBackward, FaStepForward } from "react-icons/fa";
 import { BiRevision } from "react-icons/bi";
 import { ImLoop } from "react-icons/im";
 import { MdSpeed, MdLoop } from "react-icons/md";
-import { MediaButton } from "./reusable/Button.js";
+import { MediaButton } from "./MediaButton.js";
 
 function Controller() {
 	const setIsPaused = useStore((state) => state.setIsPaused);

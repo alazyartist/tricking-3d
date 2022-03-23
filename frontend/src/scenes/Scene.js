@@ -9,9 +9,9 @@ import {
 	Plane,
 } from "@react-three/drei";
 import { SpotLightHelper } from "three";
-import Loader from "../components/Loader";
-import ModelLoader from "../components/ModelLoader";
-import LoadActiveModel from "../components/ModelSelector";
+import Loader from "../components/loaders/Loader";
+import ModelLoader from "../components/loaders/ModelLoader";
+import LoadActiveModel from "../components/media/ModelSelector";
 import SceneBackground from "../animations/SceneBackground";
 import { Outlet } from "react-router-dom";
 // import Model from "../animations/KerwoodCC3Tpose";

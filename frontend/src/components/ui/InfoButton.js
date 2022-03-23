@@ -1,5 +1,5 @@
 import React from "react";
-import { MediaButton } from "./Button";
+import { MediaButton } from "../media/MediaButton";
 import { useStore } from "../../store/store";
 import { MdInfo, MdInfoOutline } from "react-icons/md";
 function InfoButton() {

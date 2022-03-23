@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import Andrew from "../animations/Andrew";
-import { Frank } from "../animations/Frank";
-import Kerwood40 from "../animations/Kerwood40";
-import { useStore } from "../store/store";
+import Andrew from "../../animations/Andrew";
+import { Frank } from "../../animations/Frank";
+import Kerwood40 from "../../animations/Kerwood40";
+import { useStore } from "../../store/store";
 export default function LoadActiveModel(props) {
 	const activeModel = useStore((state) => state.activeModel);
 	console.log("ModelSelector", activeModel);

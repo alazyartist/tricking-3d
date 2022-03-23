@@ -1,9 +1,9 @@
 import React from "react";
-import Controller from "../Controller";
+import Controller from "../media/Controller";
 import DurationSlider from "../DurationSlider";
-import TimeSlider from "../TimeSlider";
-import AnimationsDropdown from "../AnimationsDropwdown";
-import ModelDropdown from "../ModelDropdown";
+import TimeSlider from "../ui/TimeSlider";
+import AnimationsDropdown from "../ui/AnimationsDropwdown";
+import ModelDropdown from "../ui/ModelDropdown";
 
 function RightPanelContent() {
 	return (

@@ -1,12 +1,12 @@
 import React from "react";
-import ActiveDevNote from "./ActiveDevNote";
+import ActiveDevNote from "../info/ActiveDevNote";
 import AnimationsDropwdown from "./AnimationsDropwdown";
-import Controller from "./Controller";
-import DurationSlider from "./DurationSlider";
+import Controller from "../media/Controller";
+import DurationSlider from "../DurationSlider";
 import ModelDropdown from "./ModelDropdown";
 import TimeSlider from "./TimeSlider";
 import { Link } from "react-router-dom";
-import InfoButton from "./reusable/InfoButton";
+import InfoButton from "./InfoButton";
 function UI() {
 	return (
 		<>

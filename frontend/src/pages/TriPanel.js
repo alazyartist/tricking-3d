@@ -1,5 +1,5 @@
 import CanvasComponent from "../components/panels/CanvasComponent";
-import ModelSelector from "../components/ModelSelector";
+import ModelSelector from "../components/media/ModelSelector";
 import LoadingOverlay from "../components/LoadingOverlay.js";
 import { useProgress } from "@react-three/drei";
 import { useState } from "react";
@@ -7,11 +7,11 @@ import { useStore } from "../store/store.js";
 import LeftPanelContent from "../components/panels/LeftPanelContent.js";
 import RightPanelContent from "../components/panels/RightPanelContent.js";
 
-import ModelDropdown from "../components/ModelDropdown";
-import AnimationsDropwdown from "../components/AnimationsDropwdown";
-import Controller from "../components/Controller";
-import UI from "../components/UI";
-import ShowHideToggle from "../components/ShowHideToggle";
+import ModelDropdown from "../components/ui/ModelDropdown";
+import AnimationsDropwdown from "../components/ui/AnimationsDropwdown";
+import Controller from "../components/media/Controller";
+import UI from "../components/ui/UI";
+import ShowHideToggle from "../components/ui/ShowHideToggle";
 export function Home() {
 	const [isLoaderOpen, setIsLoaderOpen] = useState(true);
 	//open state for LoadingOverlay comp

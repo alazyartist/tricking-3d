@@ -22,14 +22,3 @@ export function MediaButton({ id, isPlayPause, f, content }) {
 		</button>
 	);
 }
-
-export function TrimToggle({ f, content }) {
-	return (
-		<button
-			id='trim-toggle'
-			className=' appearance-none items-center rounded-full '
-			onClick={f}>
-			{content}
-		</button>
-	);
-}

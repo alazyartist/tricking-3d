@@ -1,5 +1,5 @@
 import CanvasComponent from "../components/panels/CanvasComponent";
-import ModelSelector from "../components/ModelSelector";
+import ModelSelector from "../components//media/ModelSelector";
 import LoadingOverlay from "../components/LoadingOverlay.js";
 import { useProgress } from "@react-three/drei";
 import { useCallback, useMemo, useState } from "react";
@@ -7,15 +7,15 @@ import { useStore } from "../store/store.js";
 import LeftPanelContent from "../components/panels/LeftPanelContent.js";
 import RightPanelContent from "../components/panels/RightPanelContent.js";
 import React from "react";
-import ModelDropdown from "../components/ModelDropdown";
-import AnimationsDropwdown from "../components/AnimationsDropwdown";
-import Controller from "../components/Controller";
-import UI from "../components/UI";
-import ShowHideToggle from "../components/ShowHideToggle";
+import ModelDropdown from "../components/ui/ModelDropdown";
+import AnimationsDropwdown from "../components/ui/AnimationsDropwdown";
+import Controller from "../components/media/Controller";
+import UI from "../components/ui/UI";
+import ShowHideToggle from "../components/ui/ShowHideToggle";
 import { useParams, useSearchParams } from "react-router-dom";
-import MinimalUI from "../components/MinimalUI";
-import InfoButton from "../components/reusable/InfoButton";
-import TrickInfo from "../components/TrickInfo";
+import MinimalUI from "../components/ui/MinimalUI";
+import InfoButton from "../components/ui/InfoButton";
+import TrickInfo from "../components/info/TrickInfo";
 
 export function Sandbox() {
 	const { model, trick } = useParams();

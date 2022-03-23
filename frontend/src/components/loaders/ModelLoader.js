@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactComponent as TPose } from "../data/TPose.svg";
+import { ReactComponent as TPose } from "../../data/TPose.svg";
 import { Html, useProgress } from "@react-three/drei";
 
 function ModelLoader() {

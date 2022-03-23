@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Routes, Route, Outlet } from "react-router-dom";
-import AnimationsDropwdown from "../components/AnimationsDropwdown";
+import AnimationsDropwdown from "../components/ui/AnimationsDropwdown";
 
 export function TestPage() {
 	return (

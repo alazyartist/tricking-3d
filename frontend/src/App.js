@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Landing from "./pages/Landing";
 import { FullScreen } from "./pages/FullScreen";
 import { TestPage } from "./pages/TestPage";
-import AnimationsDropwdown from "./components/AnimationsDropwdown";
+import AnimationsDropwdown from "./components/ui/AnimationsDropwdown";
 import Kerwood40 from "./animations/Kerwood40";
 import Andrew from "./animations/Andrew";
 import { Frank } from "./animations/Frank";

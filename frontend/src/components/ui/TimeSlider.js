@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useStore } from "../store/store";
+import { useStore } from "../../store/store";
 function TimeSlider() {
 	let timeSlider = useStore((state) => state.timeSlider);
 	let timescale = useStore((state) => state.timescale);
@@ -12,11 +12,9 @@ function TimeSlider() {
 	}, [timescale]);
 
 	return (
-		<div 
-      id='playback-speed-container'
-      className='relative rounded-lg py-4'>
+		<div id='playback-speed-container' className='relative rounded-lg py-4'>
 			<input
-        id='playback-speed-controller'
+				id='playback-speed-controller'
 				className={"my-2 w-full bg-transparent"}
 				type={"range"}
 				min={0}

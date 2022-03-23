@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactComponent as HorizontalLogo } from "../data/HorizontalLogo.svg";
+import { ReactComponent as HorizontalLogo } from "../../data/HorizontalLogo.svg";
 function PoweredByTorque() {
 	return (
 		<a

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { useStore } from "../store/store";
-import { TrickInformation } from "../data/TrickInfoJson";
+import { useStore } from "../../store/store";
+import { TrickInformation } from "../../data/TrickInfoJson";
 
 export default function TrickInfo() {
 	const setInfo = useStore((state) => state.setInfo);
