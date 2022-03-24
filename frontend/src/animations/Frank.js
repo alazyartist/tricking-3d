@@ -35,11 +35,7 @@ export function Frank({ ...props }) {
 	const activeModel = useStore((s) => s.activeModel);
 	//Solves Problem with infinte renders of Animations Array and successfully passes to store
 	useMemo(
-		() =>
-			Promise.resolve(names).then(
-				(results) => setAnimationsArray(results),
-				setCurrentAnim("BTwist")
-			),
+		() => Promise.resolve(names).then((results) => setAnimationsArray(results)),
 		[names, setAnimationsArray]
 	);
 
