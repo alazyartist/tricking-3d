@@ -1,0 +1,11 @@
+{
+	"scripts": {
+		"start": "cd frontend && npm run start",
+		"build": "cd frontend && npm run build",
+		"server": "cd backend && node server.js",
+		"spinup": "concurrently \"npm run start\" \"npm run server\""
+	},
+	"dependencies": {
+		"concurrently": "^7.0.0"
+	}
+}
