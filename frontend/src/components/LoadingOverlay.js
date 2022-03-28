@@ -15,11 +15,10 @@ function LoadingOverlay({ progress, setIsLoaderOpen }) {
 				</div>
 				<div />
 			</div>
-			<div id='welcome-container' className='items-center justify-center'>
+			<div id='welcome-container' className='flex place-content-center'>
 				<div
 					id='Welcome-message'
-					className='font-inter w-full items-center justify-center 
-				gap-10 rounded-md px-12 font-light sm:w-6/12
+					className='font-inter w-full items-center justify-center gap-10 self-center rounded-md px-12 font-light sm:w-6/12
 				md:w-7/12 lg:w-6/12 xl:w-4/12'>
 					Welcome to <div className='inline font-bold'>Tricking-3D</div>. This
 					is one part of a larger project I have been working on for the better

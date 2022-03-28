@@ -12,16 +12,16 @@ import { SpotLightHelper } from "three";
 import Loader from "../components/loaders/Loader";
 import ModelLoader from "../components/loaders/ModelLoader";
 import LoadActiveModel from "../components/media/ModelSelector";
-import SceneBackground from "../animations/SceneBackground";
+import SceneBackground from "./SceneBackground";
 import { Outlet } from "react-router-dom";
 // import Model from "../animations/KerwoodCC3Tpose";
-export function TorqueScene(props) {
+export function HomeScene(props) {
 	const light = useRef();
 	const light2 = useRef();
 	// useHelper(light2, SpotLightHelper, "red");
 	// useHelper(light, SpotLightHelper, "cyan");
 	return (
-		<PerspectiveCamera position={[0, -1, 0]}>
+		<PerspectiveCamera position={[-1, -1, 2]}>
 			<Suspense fallback={<ModelLoader />}>
 				<LoadActiveModel />
 			</Suspense>
@@ -41,14 +41,8 @@ export function TorqueScene(props) {
 				position={[0, 2, -5]}
 			/>
 			{/* <Environment preset='park' /> */}
-			<OrbitControls />
+			{/* <OrbitControls /> */}
 			{/* <gridHelper args={[10, 10, `black`, `gainsboro`]} position={[0, 0, 0]} /> */}
-			<GizmoHelper alignment={"bottom-left"} margin={[60, 220]}>
-				<GizmoViewport
-					axisColors={["red", "green", "blue"]}
-					labelColor='gainsboro'
-				/>
-			</GizmoHelper>
 		</PerspectiveCamera>
 	);
 }

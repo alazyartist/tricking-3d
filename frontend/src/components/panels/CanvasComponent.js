@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
-import { TorqueScene } from "../../scenes/Scene";
+import { TorqueScene } from "../../scenes/TorqueScene";
 import Loader from "../loaders/Loader";
 import { AiFillDownCircle, AiFillRightCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";

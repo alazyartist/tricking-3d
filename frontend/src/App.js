@@ -1,4 +1,4 @@
-import { Home } from "./pages/TriPanel";
+import Home from "./pages/Home";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Landing from "./pages/Landing";
 import { FullScreen } from "./pages/FullScreen";
@@ -8,18 +8,19 @@ import Kerwood40 from "./animations/Kerwood40";
 import Andrew from "./animations/Andrew";
 import { Frank } from "./animations/Frank";
 import CanvasComponent from "./components/panels/CanvasComponent";
-import { TorqueScene } from "./scenes/Scene";
+import { TorqueScene } from "./scenes/TorqueScene";
 import { Sandbox } from "./pages/Sandbox";
 function App() {
 	return (
 		<Routes>
-			<Route
+			{/* <Route
 				path='*'
 				element={
 					<Sandbox />
 					// <Navigate replace to='/3d/sandbox' />
 				}
-			/>
+			/> */}
+			<Route path={"/3d/home"} element={<Home />} />
 			<Route path={"/3d"} element={<FullScreen />} />
 			<Route path={"/3d/sandbox"} element={<Sandbox />}>
 				<Route path=':model'>

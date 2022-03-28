@@ -26,7 +26,7 @@ export default function TrickInfo() {
 			</div>
 			<div
 				id='trick-info-modal-bg'
-				className='absolute top-0 z-[-1] h-full w-full bg-zinc-300 bg-opacity-40'
+				className='absolute top-0 z-[-1] h-full w-full bg-zinc-300 bg-opacity-40 filter'
 				onClick={() => setInfo()}></div>
 		</div>
 	);
