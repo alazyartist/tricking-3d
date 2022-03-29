@@ -2,7 +2,7 @@ import React from "react";
 import ActiveDevNote from "../info/ActiveDevNote";
 import AnimationsDropwdown from "./AnimationsDropwdown";
 import Controller from "../media/Controller";
-import DurationSlider from "../DurationSlider";
+import DurationSlider from "./DurationSlider";
 import ModelDropdown from "./ModelDropdown";
 import TimeSlider from "./TimeSlider";
 import { Link } from "react-router-dom";
