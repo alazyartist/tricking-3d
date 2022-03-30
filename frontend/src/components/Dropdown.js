@@ -8,7 +8,7 @@ function Dropdown(props) {
 				<button
 					id='dropdown-link'
 					onClick={() => setOpen(!open)}
-					className='flex w-full items-center justify-center  text-center align-middle text-2xl font-semibold text-zinc-300 hover:text-gray-800'>
+					className='flex w-full items-center justify-center  text-center align-middle text-2xl font-semibold text-zinc-300 '>
 					<FaAngleDown className={"hover:fill-gray-600"} />
 					{props.name}
 				</button>
@@ -26,7 +26,7 @@ function Dropdown(props) {
 						return (
 							<button
 								id='dropdown-item'
-								className='font-inter mt-1 mb-2 flex h-fit w-full justify-center rounded-lg text-xl font-light text-zinc-200 hover:bg-slate-800'
+								className='font-inter mt-1 mb-2 flex h-fit w-full justify-center rounded-lg text-xl font-light text-zinc-200 hover:text-zinc-400'
 								onClick={() => {
 									props.f(e);
 									setOpen();
@@ -45,10 +45,10 @@ function Dropdown(props) {
 			<>
 				<div
 					id='dropdown-content-container'
-					className='no-scrollbar fixed top-16 left-[6vw] mt-2 h-fit w-fit overflow-y-auto rounded-xl  p-4 md:max-h-80'>
+					className='no-scrollbar fixed top-16 left-[6vw] mt-2 h-fit w-fit overflow-y-auto rounded-xl p-4 '>
 					<div
 						id='dropped-content'
-						className='left-[10vw] h-[75vh] w-[80vw] justify-center rounded-2xl  p-2'>
+						className='left-[10vw] h-[75vh] w-[80vw] justify-center rounded-2xl p-2 '>
 						<DroppedContent
 							buttonMap={props.buttonMap}
 							f={props.f}></DroppedContent>

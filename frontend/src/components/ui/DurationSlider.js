@@ -154,13 +154,13 @@ function DurationSlider() {
 							id='start-timestamp'
 							className='
                 z-60 
-                absolute 
-                left-[-25px]
-                top-[-22px] 
+                font-inter 
+                absolute
+                left-[-25px] 
+                top-[-22px]
                 h-[16px]
-                w-[32px]
-                rounded 
-                bg-green-500 
+                w-[32px] 
+            rounded 
                 text-xs
                 text-slate-200 
               '>
@@ -170,13 +170,14 @@ function DurationSlider() {
 							id='end-timestamp'
 							className='
                 z-60 
-                absolute 
-                right-[-25px]
-                top-[-22px] 
+                font-inter 
+                absolute
+                right-[-25px] 
+                top-[-22px]
                 h-[16px]
-                w-[32px]
+				w-[32px]
                 rounded 
-                bg-red-500 
+             
                 text-xs
                 text-slate-200 
               '>

@@ -9,8 +9,8 @@ function Home() {
 	return (
 		<div>
 			<Header />
-			<div className='flex h-screen w-screen flex-col place-items-center bg-slate-800'>
-				<div className='mt-[50px] w-2/6 rounded-lg bg-slate-500 text-center'>
+			<div className='flex h-screen w-screen flex-col place-items-center bg-zinc-900'>
+				<div className='mt-[50px] w-full text-center text-zinc-200'>
 					<h1>
 						Welcome to <div className='inline font-black'>Tricking-3D</div>
 					</h1>
@@ -21,7 +21,7 @@ function Home() {
 				<div
 					onClick={() => navigate("/3d/sandbox/")}
 					id='canvas-container'
-					className='m-5 h-[20vh] w-[60vw] rounded-2xl bg-zinc-800 md:h-[20vw] md:w-[40vw] '>
+					className='m-5 h-[20vh] w-[60vw] rounded-2xl bg-gray-800 md:h-[20vw] md:w-[40vw] '>
 					<Canvas className='rounded-2xl'>
 						<Suspense fallback={<Loader />}>
 							<HomeScene />
@@ -34,7 +34,7 @@ function Home() {
 						</h1>
 					</div>
 				</div>
-				<div className='flex w-full flex-col justify-center gap-5 bg-zinc-800 font-bold text-zinc-300'>
+				<div className='flex w-2/3 flex-col place-items-center justify-center gap-5 rounded-3xl bg-zinc-800 p-2 font-bold text-zinc-300'>
 					<div>Sandbox</div>
 					<div>Learn</div>
 					<div>Theory</div>

@@ -41,9 +41,9 @@ function Controller() {
 					f={() => setTimescale(-timescale)}
 					content={
 						timescale < 0 ? (
-							<MdLoop className='text-2xl text-green-300' />
+							<MdLoop className='text-2xl text-zinc-300' />
 						) : (
-							<MdLoop className='text-2xl text-red-300' />
+							<MdLoop className='text-2xl text-zinc-300' />
 						)
 					}
 				/>
@@ -81,7 +81,7 @@ function Controller() {
 					f={() => setTimescale(0.5 * timescale)}
 					content={
 						<div className='relative'>
-							<MdSpeed className='fill-red-100 text-2xl' />
+							<MdSpeed className='fill-zinc-300 text-2xl' />
 							<span className='absolute inset-x-0.5 top-6 text-[.9rem] '>
 								{Math.abs(Number.parseFloat(timescale).toFixed(2))}
 							</span>
@@ -91,7 +91,7 @@ function Controller() {
 				<MediaButton
 					id='full-speed-button'
 					f={() => setTimescale(1)}
-					content={<MdSpeed className='fill-green-100 text-2xl' />}
+					content={<MdSpeed className='fill-zinc-300 text-2xl' />}
 				/>
 			</div>
 		</div>

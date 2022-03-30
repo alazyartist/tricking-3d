@@ -16,9 +16,8 @@
 	}
 	/*Apply Custom Styling*/
 	input[type="range"]::-webkit-slider-runnable-track {
-		@apply pointer-events-auto h-3 w-6 appearance-none rounded-lg
-			bg-gray-800;
-		border-color: red;
+		@apply pointer-events-auto h-4 w-6 appearance-none rounded-lg bg-gray-800
+			align-middle;
 		border-radius: 30px;
 	}
 	input[type="range"]::-webkit-slider-thumb {
@@ -31,11 +30,11 @@
 	}
 	/*Start Thumb Draggable*/
 	input[id="start"]::-webkit-slider-thumb {
-		@apply pointer-events-auto z-50 h-4 w-3 appearance-none rounded-lg bg-green-500;
+		@apply pointer-events-auto z-50 h-4 w-3 appearance-none rounded-lg bg-zinc-400;
 	}
 	/*End Thumb Draggable*/
 	input[id="end"]::-webkit-slider-thumb {
-		@apply pointer-events-auto z-50 h-4 w-3 appearance-none rounded-lg bg-red-500;
+		@apply pointer-events-auto z-50 h-4 w-3 appearance-none rounded-lg bg-zinc-700;
 	}
 	/*End Playhead Draggable*/
 	input[id="playhead"]::-webkit-slider-thumb {
