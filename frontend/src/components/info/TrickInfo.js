@@ -17,7 +17,9 @@ export default function TrickInfo() {
 						className='justify-center text-3xl font-black '>
 						{currentAnim}
 					</h2>
-					<p id='trick-info' className='justify-center text-base font-light'>
+					<p
+						id='trick-info'
+						className='font-inter mt-4 w-[50vw] justify-center text-base font-light md:text-lg'>
 						{TrickInfoText?.length > 1
 							? TrickInfoText
 							: "Info Will Be Added Soon"}
