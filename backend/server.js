@@ -2,24 +2,17 @@ import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
 
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 const app = express();
 
-app.use(cors(express.static("public", options)));
-
 const options = {};
+app.use(cors());
+
 const corsOptions = {
 	origin: "http://localhost:3000",
 };
 
-const requestEndpoint = ``;
-
-app.get("/glb", cors(corsOptions), async (req, res) => {
-	let andrew = "/public/Andrew.glb";
-	res.download(andrew, "AndrewTestAPIDOWNLOAD", (err) => {
-		console.log(err);
-	});
-});
+const requestEndpoint = `https://jsonplaceholder.typicode.com/todos/`;
 
 app.get("/getData", cors(corsOptions), async (req, res) => {
 	const fetchOptions = {
@@ -29,11 +22,14 @@ app.get("/getData", cors(corsOptions), async (req, res) => {
 	const jsonResponse = await response.json();
 	res.json(jsonResponse);
 });
+import * as db from "./models/index.js";
 
-app.listen(PORT, (err) => {
-	if (err) {
-		console.log(`You broke it. Here's how:`, err);
-		return;
-	}
-	console.log(`I am watching for changes on http://localhost:${PORT}`);
+db.Sequelize.sync().then(() => {
+	app.listen(PORT, (err) => {
+		if (err) {
+			console.log(`You broke it. Here's how:`, err);
+			return;
+		}
+		console.log(`I am watching for changes on http://localhost:${PORT}`);
+	});
 });
