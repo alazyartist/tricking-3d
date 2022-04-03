@@ -1,25 +1,27 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Header from "./Header";
 import DiscordLink from "./info/DiscordLink";
+import PaypalDonate from "./info/PaypalDonate";
 import Instructions from "./Instructions";
 
 function LoadingOverlay({ progress, setIsLoaderOpen }) {
 	return (
 		<>
-			<div
+			{/* <div
 				className='flex h-fit w-full flex-col content-start
-	      justify-start bg-gray-900 py-6 px-5'>
+	      justify-start bg-zinc-900 py-6 px-5'>
 				<Link to='/3d/home'>
 					<h1 className='font-inter z-[1000] h-[47px] w-full rounded-b-xl border-none  bg-opacity-60 p-2 text-3xl font-bold text-zinc-300 '>
 						Tricking-3d
 					</h1>
 				</Link>
-			</div>
-			<div className='fixed z-[1001] flex h-[100%] w-[100%] flex-col items-center justify-start overflow-scroll bg-gray-900 pb-[7rem] text-white'>
+			</div> */}
+			<Header />
+			<div className='fixed z-20 flex h-[100%] w-[100%] flex-col items-center justify-start overflow-scroll bg-zinc-900 pb-[7rem] text-white'>
 				{/**top left header thing */}
 
-				<div id='welcome-container' className='flex place-content-center'>
+				<div id='welcome-container' className='mt-14 flex place-content-center'>
 					<div
 						id='Welcome-message'
 						className='font-inter w-full items-center justify-center gap-10 self-center rounded-md px-12 font-light sm:w-6/12
@@ -40,8 +42,10 @@ function LoadingOverlay({ progress, setIsLoaderOpen }) {
 						for many future projects.
 					</div>
 				</div>
-
 				{/**loader container */}
+				<h1 className='font-inter text-semibold mt-6 mb-[-1.5rem]'>
+					Please wait while we prep the sandbox...
+				</h1>
 				<div
 					id='start-button-container'
 					className='flex h-[30rem] w-10/12 flex-col items-center 
@@ -70,12 +74,18 @@ function LoadingOverlay({ progress, setIsLoaderOpen }) {
 						className='text-center text-base font-semibold text-slate-300'>
 						This app is currently in beta and
 						<br />
-						<div className='inline text-red-500'>WILL</div> break and glitch out
+						<span className='text-red-500'>WILL</span> break and glitch out
 						often.
 						<br />
 						<br />
 						Please have patience.
 						<DiscordLink />
+					</div>
+					<div>
+						<h1 className='font-inter m-2 text-base text-slate-300'>
+							Help Support Development
+						</h1>
+						<PaypalDonate />
 					</div>
 				</div>
 				<Instructions />

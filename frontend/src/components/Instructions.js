@@ -5,7 +5,7 @@ function Instructions() {
 		<div
 			id='instructions-container'
 			className='flex w-10/12 flex-col items-center
-          justify-center gap-10 rounded-md p-10 sm:w-6/12
+          justify-center gap-10 rounded-md p-4 sm:w-6/12
           md:w-7/12 lg:w-6/12 xl:w-4/12'>
 			<div>
 				<p id='instuctions-header' className='text-5xl font-medium'>

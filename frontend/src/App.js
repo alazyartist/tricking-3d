@@ -4,6 +4,10 @@ import Landing from "./pages/Landing";
 import { FullScreen } from "./pages/FullScreen";
 import { TestPage } from "./pages/TestPage";
 import { Sandbox } from "./pages/Sandbox";
+import Contribute from "./pages/Contribute";
+import DiscordLink from "./components/info/DiscordLink";
+import ComingSoon from "./components/ComingSoon";
+import InstructionsPage from "./pages/InstructionsPage";
 function App() {
 	return (
 		<>
@@ -22,8 +26,60 @@ function App() {
 						<Route path=':trick' element={<Sandbox />} />
 					</Route>
 				</Route>
+
+				<Route path={"/3d/comingsoon"} element={<ComingSoon />} />
+				<Route path={"/3d/contribute"} element={<Contribute />} />
+				<Route path={"/3d/instructions"} element={<InstructionsPage />} />
 				<Route path={"/3d/landing"} element={<Landing />} />
-				<Route path={"/3d/test"} element={<TestPage />} />
+				<Route path={"/3d/test"} element={<TestPage />}>
+					<Route
+						path={"testoutlet"}
+						element={
+							<div className=''>
+								<div className='rounded-xl bg-gray-900 text-center text-zinc-300'>
+									Test Outlet
+								</div>
+								<img
+									className='w-2/3 place-self-center rounded-3xl'
+									alt='some image'
+									src='https://source.unsplash.com/KwsSAotVIRc'
+									width='500'
+									heith='500'></img>
+							</div>
+						}
+					/>
+					<Route
+						path={"testoutlet2"}
+						element={
+							<div className='flex flex-col'>
+								<div className='rounded-xl bg-gray-900 text-center text-zinc-300'>
+									Test Outlet 2
+								</div>
+								<img
+									className='w-2/3 place-self-center rounded-3xl'
+									alt='some image'
+									src='https://source.unsplash.com/Geu-i5VvI1A'
+									height='500'
+									width='500'></img>
+							</div>
+						}
+					/>
+					<Route
+						path={"testoutlet3"}
+						element={
+							<div className='flex flex-col'>
+								<div className='rounded-xl bg-gray-900 text-center text-zinc-300'>
+									Test Outlet 3
+								</div>
+								<img
+									className='w-2/3 place-self-center rounded-3xl'
+									alt='some image'
+									src='https://source.unsplash.com/U2TjtLJe4Z0'
+									height='500'></img>
+							</div>
+						}
+					/>
+				</Route>
 			</Routes>
 		</>
 	);
