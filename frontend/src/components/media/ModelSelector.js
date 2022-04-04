@@ -5,7 +5,7 @@ import Kerwood40 from "../../animations/Kerwood40";
 import { useStore } from "../../store/store";
 export default function LoadActiveModel(props) {
 	const activeModel = useStore((state) => state.activeModel);
-	console.log("ModelSelector", activeModel);
+	// console.log("ModelSelector", activeModel);
 	if (activeModel === "Frank") {
 		return <Frank />;
 	} else if (activeModel === "Kerwood") {

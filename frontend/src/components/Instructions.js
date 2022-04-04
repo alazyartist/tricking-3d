@@ -5,14 +5,12 @@ function Instructions() {
 		<div
 			id='instructions-container'
 			className='flex w-10/12 flex-col items-center
-          justify-center gap-10 rounded-md p-10 sm:w-6/12
+          justify-center rounded-md p-4 sm:w-6/12
           md:w-7/12 lg:w-6/12 xl:w-4/12'>
-			<div>
-				<p id='instuctions-header' className='text-5xl font-medium'>
-					Instructions
-				</p>
+			<div className=' p-2 pt-0 font-inter text-3xl font-bold text-zinc-300'>
+				Instructions
 			</div>
-			<ol className='flex list-disc flex-col space-y-2'>
+			<ul className='flex list-disc flex-col space-y-2'>
 				<li>
 					<p className='text-xl'>Use ☝️ to look around with camera.</p>
 				</li>
@@ -36,7 +34,7 @@ function Instructions() {
 						trick.
 					</p>
 				</li>
-			</ol>
+			</ul>
 		</div>
 	);
 }

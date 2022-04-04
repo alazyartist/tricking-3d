@@ -72,7 +72,7 @@ export function Sandbox() {
 			<div id='Root-Container' className='fixed h-screen w-screen'>
 				<div
 					id='show-hide-container'
-					className='absolute top-[.8rem] right-4 z-[1005]'>
+					className='absolute top-[5.2rem] right-4 z-[1005] p-1'>
 					<ShowHideToggle />
 				</div>
 				{showUI && <UI />}
