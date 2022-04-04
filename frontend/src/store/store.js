@@ -19,6 +19,11 @@ export const useStore = create(
 		currentTime: 0,
 		end: 1,
 		modelValue: false,
+		areInstructionsOpen: false,
+		setInstructions: () =>
+			set((s) => ({
+				areInstructionsOpen: !s.areInstructionsOpen,
+			})),
 		activeModel: "Frank",
 		isPlaying: true,
 		setIsPlaying: () => set((state) => ({ isPlaying: !state.isPlaying })),

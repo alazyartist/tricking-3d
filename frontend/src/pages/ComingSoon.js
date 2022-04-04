@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import PaypalDonate from "../components/info/PaypalDonate";
 
 function ComingSoon() {
+	const navigate = useNavigate();
 	return (
 		<>
 			<h1 className='mt-14 p-4 text-center font-inter text-6xl text-zinc-300 md:text-9xl'>
@@ -18,6 +20,13 @@ function ComingSoon() {
 				</p>
 				<div className='rounded-xl bg-zinc-300'>
 					<PaypalDonate />
+				</div>
+			</div>
+			<div className='flex place-content-center place-items-center'>
+				<div
+					onClick={() => navigate(-1)}
+					className='flex w-[60vw] place-content-center place-items-center rounded-xl bg-gradient-to-b from-sky-500 to-sky-600 text-center font-inter font-bold text-zinc-300'>
+					Back to where I was
 				</div>
 			</div>
 		</>

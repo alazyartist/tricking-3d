@@ -17,6 +17,7 @@ import AppBackground from "./components/AppBackground";
 import Header from "./components/Header";
 import TheoryPage from "./pages/TheoryPage";
 import AdvancedStanceCircle from "./components/theory/AdvancedStanceCircle";
+import TheoryNavBar from "./components/theory/TheoryNavBar";
 
 function App() {
 	return (
@@ -24,13 +25,13 @@ function App() {
 			<AppBackground />
 			<Header />
 			<Routes>
-				{/* <Route
-				path='*'
-				element={
-					<Sandbox />
-					// <Navigate replace to='/3d/sandbox' />
-				}
-			/> */}
+				<Route
+					path='*'
+					element={
+						<ComingSoon />
+						// <Navigate replace to='/3d/sandbox' />
+					}
+				/>
 				<Route path={"/3d/home"} element={<Home />} />
 				<Route path={"/3d"} element={<FullScreen />} />
 				<Route path={"/3d/sandbox"} element={<Sandbox />}>
@@ -39,7 +40,8 @@ function App() {
 					</Route>
 				</Route>
 				<Route path={"/3d/theory"} element={<TheoryPage />}>
-					<Route path={"stance"} element={<AdvancedStanceCircle />} />
+					<Route path={"stances"} element={<AdvancedStanceCircle />} />
+					<Route index element={<TheoryNavBar />} />
 				</Route>
 				<Route path={"/3d/comingsoon"} element={<ComingSoon />} />
 				<Route path={"/3d/contribute"} element={<Contribute />}>

@@ -8,6 +8,7 @@ import TimeSlider from "./TimeSlider";
 import { Link } from "react-router-dom";
 import InfoButton from "./InfoButton";
 import Header from "../Header";
+import InstructionsModal from "../InstructionsModal";
 function UI() {
 	return (
 		<>
@@ -24,6 +25,7 @@ function UI() {
 				className='fixed left-0 bottom-0 z-[2] w-full bg-opacity-50 p-4  md:left-[10vw] md:w-[80vw] xl:left-[30vw] xl:w-[40vw]'>
 				<DurationSlider />
 				<Controller />
+				<InstructionsModal />
 			</div>
 		</>
 	);

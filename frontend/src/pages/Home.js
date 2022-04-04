@@ -22,7 +22,7 @@ function Home() {
 				<Link
 					to='/3d/sandbox/'
 					id='canvas-container'
-					className='m-5 h-[40vw] w-[90vw] rounded-2xl bg-zinc-900 md:h-[20vw] md:w-[40vw] '>
+					className='m-5 h-[40vw] w-[90vw] rounded-2xl bg-zinc-900 md:h-[40vw] md:w-[90vw] '>
 					<Canvas className='rounded-2xl'>
 						<Suspense fallback={<Loader />}>
 							<HomeScene />
@@ -46,7 +46,7 @@ function Home() {
 					<Link to='/3d/comingsoon'>
 						<div>Learn</div>
 					</Link>
-					<Link to='/3d/comingsoon'>
+					<Link to='/3d/theory'>
 						<div>Theory</div>
 					</Link>
 					<Link to='/3d/contribute'>
