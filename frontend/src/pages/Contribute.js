@@ -1,49 +1,34 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
+import AppBackground from "../components/AppBackground";
+import ContributeNavBar from "../components/contribute/ContributeNavBar";
+import DonateText from "../components/contribute/DonateText";
 import Header from "../components/Header";
 import PaypalDonate from "../components/info/PaypalDonate";
 function Contribute() {
 	return (
 		<>
 			<Header />
-			<div
-				id='background-div'
-				className='flex h-screen w-screen flex-col bg-gradient-to-b from-zinc-900 to-zinc-800'>
-				<div
-					id='content-container'
-					// flex place-items-center justify-center
-					className='m-4 mt-14 
-                    grid grid-cols-2
-                    gap-5 rounded-3xl bg-gradient-to-b from-emerald-600 to-emerald-300 p-2'>
-					{/* <div className='w-[40vw]'> */}
-					<div className='font-inter  p-2 text-center text-3xl font-bold text-zinc-200 '>
-						Design
-						<p className='rounded-md bg-zinc-300 p-4 text-left  text-base font-light text-zinc-800'>
-							Design:
-						</p>
-					</div>
-					<div className='font-inter p-2 text-center text-3xl font-bold text-zinc-200 '>
-						Code
-						<p className='rounded-md bg-zinc-300 p-4 text-left  text-base font-light text-zinc-800'>
-							Code:
-						</p>
-					</div>
-					<div className='font-inter p-2 text-center text-3xl font-bold text-zinc-200 '>
-						Marketing
-						<p className='rounded-md bg-zinc-300 p-4 text-left text-base font-light text-zinc-800'>
-							Marketing:
-						</p>
-					</div>
-					<div className='font-inter p-2 text-center text-3xl font-bold text-zinc-200 '>
-						Theory
-						<p className='rounded-md bg-zinc-300 p-4 text-left text-base font-light text-zinc-800'>
-							Theory:
-						</p>
-					</div>
-					<div className='col-span-2'>
-						<PaypalDonate />
-					</div>
-				</div>
+			<div className='mt-14 px-4 font-inter text-3xl font-bold text-zinc-300'>
+				I can help with...
 			</div>
+			<ContributeNavBar />
+			<div
+				id='outlet-container'
+				className='flex place-content-center place-items-center text-zinc-300'>
+				<Outlet />
+			</div>
+			<div
+				id='donate-flex'
+				className='m-4 flex flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-emerald-600 to-emerald-700 p-4'>
+				<div
+					id='donate-button-conatiner'
+					className='flex h-12 w-32 place-content-center rounded-xl bg-gradient-to-b from-emerald-400 to-emerald-300'>
+					<PaypalDonate />
+				</div>
+				<DonateText />
+			</div>
+			<AppBackground />
 		</>
 	);
 }

@@ -8,6 +8,10 @@ import Contribute from "./pages/Contribute";
 import DiscordLink from "./components/info/DiscordLink";
 import ComingSoon from "./components/ComingSoon";
 import InstructionsPage from "./pages/InstructionsPage";
+import Theory from "./components/contribute/Theory";
+import Marketing from "./components/contribute/Marketing";
+import Code from "./components/contribute/Code";
+import Design from "./components/contribute/Design";
 function App() {
 	return (
 		<>
@@ -26,11 +30,17 @@ function App() {
 						<Route path=':trick' element={<Sandbox />} />
 					</Route>
 				</Route>
-
 				<Route path={"/3d/comingsoon"} element={<ComingSoon />} />
-				<Route path={"/3d/contribute"} element={<Contribute />} />
+				<Route path={"/3d/contribute"} element={<Contribute />}>
+					<Route path={"design"} element={<Design />} />
+					<Route path={"code"} element={<Code />} />
+					<Route path={"marketing"} element={<Marketing />} />
+					<Route path={"theory"} element={<Theory />} />
+					<Route index element={<div>What can you help with?</div>} />
+				</Route>
 				<Route path={"/3d/instructions"} element={<InstructionsPage />} />
 				<Route path={"/3d/landing"} element={<Landing />} />
+
 				<Route path={"/3d/test"} element={<TestPage />}>
 					<Route
 						path={"testoutlet"}
