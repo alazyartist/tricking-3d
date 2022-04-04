@@ -6,15 +6,21 @@ import { TestPage } from "./pages/TestPage";
 import { Sandbox } from "./pages/Sandbox";
 import Contribute from "./pages/Contribute";
 import DiscordLink from "./components/info/DiscordLink";
-import ComingSoon from "./components/ComingSoon";
+import ComingSoon from "./pages/ComingSoon";
 import InstructionsPage from "./pages/InstructionsPage";
 import Theory from "./components/contribute/Theory";
 import Marketing from "./components/contribute/Marketing";
 import Code from "./components/contribute/Code";
 import Design from "./components/contribute/Design";
+import HelpWith3d from "./components/contribute/HelpWith3d";
+import AppBackground from "./components/AppBackground";
+import Header from "./components/Header";
+
 function App() {
 	return (
 		<>
+			<AppBackground />
+			<Header />
 			<Routes>
 				{/* <Route
 				path='*'
@@ -36,7 +42,11 @@ function App() {
 					<Route path={"code"} element={<Code />} />
 					<Route path={"marketing"} element={<Marketing />} />
 					<Route path={"theory"} element={<Theory />} />
-					<Route index element={<div>What can you help with?</div>} />
+					<Route path={"3d"} element={<HelpWith3d />} />
+					<Route
+						index
+						element={<div className='text-center'>What can you help with?</div>}
+					/>
 				</Route>
 				<Route path={"/3d/instructions"} element={<InstructionsPage />} />
 				<Route path={"/3d/landing"} element={<Landing />} />

@@ -26,7 +26,7 @@ function Dropdown(props) {
 						return (
 							<button
 								id='dropdown-item'
-								className='font-inter mt-1 mb-2 flex h-fit w-full justify-center rounded-lg text-xl font-light text-zinc-200 hover:text-zinc-400'
+								className='mt-1 mb-2 flex h-fit w-full justify-center rounded-lg font-inter text-xl font-light text-zinc-200 hover:text-zinc-400'
 								onClick={() => {
 									props.f(e);
 									setOpen();
@@ -48,7 +48,7 @@ function Dropdown(props) {
 					className='no-scrollbar fixed top-16 left-[6vw] mt-2 h-fit w-fit overflow-y-auto rounded-xl p-4 '>
 					<div
 						id='dropped-content'
-						className='left-[10vw] h-[75vh] w-[80vw] justify-center rounded-2xl p-2 '>
+						className='left-[10vw] h-[70vh] w-[80vw] justify-center rounded-2xl p-2 '>
 						<DroppedContent
 							buttonMap={props.buttonMap}
 							f={props.f}></DroppedContent>

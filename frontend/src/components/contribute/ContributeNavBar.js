@@ -17,36 +17,30 @@ function ContributeNavBar() {
 				to='design'
 				className={({ isActive }) => (isActive ? `${active}` : `${inactive}`)}>
 				Design
-				{/* <p className='rounded-md bg-zinc-300 p-4 text-left  text-base font-light text-zinc-800'>
-							Design:
-						</p> */}
 			</NavLink>
 			{/* CODE */}
 			<NavLink
 				to='code'
 				className={({ isActive }) => (isActive ? `${active}` : `${inactive}`)}>
 				Code
-				{/* <p className='rounded-md bg-zinc-300 p-4 text-left  text-base font-light text-zinc-800'>
-							Code:
-						</p> */}
 			</NavLink>
 			{/* Marketing */}
 			<NavLink
 				to='marketing'
 				className={({ isActive }) => (isActive ? `${active}` : `${inactive}`)}>
 				Marketing
-				{/* <p className='rounded-md bg-zinc-300 p-4 text-left text-base font-light text-zinc-800'>
-							Marketing:
-						</p> */}
 			</NavLink>
 			{/* Theory */}
 			<NavLink
 				to='theory'
 				className={({ isActive }) => (isActive ? `${active}` : `${inactive}`)}>
 				Theory
-				{/* <p className='rounded-md bg-zinc-300 p-4 text-left text-base font-light text-zinc-800'>
-							Theory:
-						</p> */}
+			</NavLink>
+			{/* 3d */}
+			<NavLink
+				to='3d'
+				className={({ isActive }) => (isActive ? `${active}` : `${inactive}`)}>
+				3d
 			</NavLink>
 		</div>
 	);
