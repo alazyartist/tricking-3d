@@ -15,6 +15,8 @@ import Design from "./components/contribute/Design";
 import HelpWith3d from "./components/contribute/HelpWith3d";
 import AppBackground from "./components/AppBackground";
 import Header from "./components/Header";
+import TheoryPage from "./pages/TheoryPage";
+import AdvancedStanceCircle from "./components/theory/AdvancedStanceCircle";
 
 function App() {
 	return (
@@ -35,6 +37,9 @@ function App() {
 					<Route path=':model'>
 						<Route path=':trick' element={<Sandbox />} />
 					</Route>
+				</Route>
+				<Route path={"/3d/theory"} element={<TheoryPage />}>
+					<Route path={"stance"} element={<AdvancedStanceCircle />} />
 				</Route>
 				<Route path={"/3d/comingsoon"} element={<ComingSoon />} />
 				<Route path={"/3d/contribute"} element={<Contribute />}>

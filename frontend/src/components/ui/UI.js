@@ -13,15 +13,15 @@ function UI() {
 		<>
 			<div
 				id='dropdowns-div'
-				className='max-h-750px absolute z-[1001] ml-3 mt-[45px] flex gap-3'>
-				<AnimationsDropwdown />
+				className='max-h-750px absolute z-20 ml-3 mt-[45px] flex gap-3'>
+				<AnimationsDropwdown className='z-30' />
 				<InfoButton />
-				<ModelDropdown />
+				<ModelDropdown className='z-40' />
 			</div>
 			<ActiveDevNote />
 			<div
 				id='controller'
-				className='fixed left-0 bottom-0 z-[1002] w-full bg-opacity-50 p-4  md:left-[10vw] md:w-[80vw] xl:left-[30vw] xl:w-[40vw]'>
+				className='fixed left-0 bottom-0 z-[2] w-full bg-opacity-50 p-4  md:left-[10vw] md:w-[80vw] xl:left-[30vw] xl:w-[40vw]'>
 				<DurationSlider />
 				<Controller />
 			</div>

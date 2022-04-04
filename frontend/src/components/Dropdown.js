@@ -48,7 +48,7 @@ function Dropdown(props) {
 					className='no-scrollbar fixed top-16 left-[6vw] mt-2 h-fit w-fit overflow-y-auto rounded-xl p-4 '>
 					<div
 						id='dropped-content'
-						className='left-[10vw] h-[70vh] w-[80vw] justify-center rounded-2xl p-2 '>
+						className='left-[10vw] h-[80vh] w-[80vw] justify-center rounded-2xl p-2 '>
 						<DroppedContent
 							buttonMap={props.buttonMap}
 							f={props.f}></DroppedContent>
