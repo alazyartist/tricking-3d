@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
+
+
 function Dropdown(props) {
 	const [open, setOpen] = useState(false);
 	function DropdownButton(props) {
@@ -45,7 +47,7 @@ function Dropdown(props) {
 			<>
 				<div
 					id='dropdown-content-container'
-					className='no-scrollbar fixed top-16 left-[6vw] mt-2 h-fit w-fit overflow-y-auto rounded-xl p-4 '>
+					className='no-scrollbar fixed top-16 left-[6vw] mt-2 h-fit w-fit overflow-y-auto rounded-xl p-4'>
 					<div
 						id='dropped-content'
 						className='left-[10vw] h-[80vh] w-[80vw] justify-center rounded-2xl p-2 '>
