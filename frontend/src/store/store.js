@@ -13,6 +13,8 @@ export const useStore = create(
 				isPaused: false,
 			})),
 		animationsArray: [],
+		stanceColor: "#ffffff",
+		setStanceColor: (value) => set(() => ({ stanceColor: value })),
 		bounce: true,
 		clipDuration: 0,
 		currentAnim: "Touchdown Raiz",

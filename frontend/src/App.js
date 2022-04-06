@@ -18,6 +18,7 @@ import Header from "./components/Header";
 import TheoryPage from "./pages/TheoryPage";
 import AdvancedStanceCircle from "./components/theory/AdvancedStanceCircle";
 import TheoryNavBar from "./components/theory/TheoryNavBar";
+import StanceInfo from "./components/theory/stances/StanceInfo";
 
 function App() {
 	return (
@@ -40,7 +41,40 @@ function App() {
 					</Route>
 				</Route>
 				<Route path={"/3d/theory"} element={<TheoryPage />}>
-					<Route path={"stances"} element={<AdvancedStanceCircle />} />
+					<Route path={"stances"} element={<AdvancedStanceCircle />}>
+						<Route
+							path={"FrontsideSemi"}
+							element={<StanceInfo stance='FrontsideSemi' />}
+						/>
+						<Route
+							path={"FrontsideMega"}
+							element={<StanceInfo stance='FrontsideMega' />}
+						/>
+						<Route
+							path={"InsideMega"}
+							element={<StanceInfo stance='InsideMega' />}
+						/>
+						<Route
+							path={"InsideHyper"}
+							element={<StanceInfo stance='InsideHyper' />}
+						/>
+						<Route
+							path={"BacksideHyper"}
+							element={<StanceInfo stance='BacksideHyper' />}
+						/>
+						<Route
+							path={"BacksideComplete"}
+							element={<StanceInfo stance='BacksideComplete' />}
+						/>
+						<Route
+							path={"OutsideComplete"}
+							element={<StanceInfo stance='OutsideComplete' />}
+						/>
+						<Route
+							path={"OutsideSemi"}
+							element={<StanceInfo stance='OutsideSemi' />}
+						/>
+					</Route>
 					<Route index element={<TheoryNavBar />} />
 				</Route>
 				<Route path={"/3d/comingsoon"} element={<ComingSoon />} />
