@@ -2,13 +2,12 @@ import React from 'react';
 import ActiveDevNote from '../info/ActiveDevNote';
 import Controller from '../media/Controller';
 import DurationSlider from './DurationSlider';
-import {Fragment} from 'react';
 import ModalNav from './ModalNav';
 
 function UI () {
 
   return (
-    <Fragment>
+    <>
       <ModalNav />
       <ActiveDevNote />
       <div
@@ -18,7 +17,7 @@ function UI () {
         <DurationSlider />
         <Controller />
       </div>
-    </Fragment>
+    </>
   );
 }
 
