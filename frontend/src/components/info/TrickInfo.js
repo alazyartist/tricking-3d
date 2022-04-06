@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useStore } from "../../store/store";
 import { TrickInformation } from "../../data/TrickInfoJson";
 
@@ -7,7 +7,7 @@ export default function TrickInfo() {
 	const currentAnim = useStore((state) => state.currentAnim);
 	const TrickInfoText = TrickInformation[currentAnim]?.toString();
 	return (
-		<div id='modal-conatiner' className='absolute z-20 h-full w-full '>
+		<div id='modal-conatiner' className='absolute z-20 h-full w-full '>	
 			<div id='trick-info-containers-reposition' className='relative top-20'>
 				<div
 					id='trick-info-container'
