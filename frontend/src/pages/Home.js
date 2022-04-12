@@ -15,7 +15,12 @@ function Home() {
 						Welcome to <div className='inline font-black'>Tricking-3D</div>
 					</h1>
 				</div>
-				<button className='m-2 rounded-3xl bg-indigo-600 px-2 py-0 font-inter font-semibold text-zinc-300'>
+				<button
+					onClick={() => {
+						navigate("/3d/learnmore");
+						console.log("learnmore");
+					}}
+					className='font-inter m-2 rounded-3xl bg-indigo-600 px-2 py-0 font-semibold text-zinc-300'>
 					Learn More
 				</button>
 

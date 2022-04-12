@@ -26,6 +26,7 @@ function AdvancedStanceCircle() {
 				onClick={(e) => {
 					e.target.id !== "Layer_1" && nav(e.target.id);
 					console.log(color[e.target.id]);
+					console.log(e.target.id);
 					setStanceColor(color[e.target.id]);
 				}}
 			/>

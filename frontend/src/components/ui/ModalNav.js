@@ -1,87 +1,89 @@
-import React, {useState} from 'react';
-import {MdInfo, MdInfoOutline} from 'react-icons/md';
-import {useStore} from '../../store/store';
-import TrickInfo from '../info/TrickInfo';
-import Animations from '../modal/Animations';
-import Models from '../modal/Models';
-import AnimationsDropwdown from './AnimationsDropwdown';
-import InfoButton from './InfoButton';
-import ModalWrapper from '../modal/ModalWrapper';
-import ModelDropdown from './ModelDropdown';
-import ModalButton from '../modal/ModalButton';
+import React, { useState } from "react";
+import { MdInfo, MdInfoOutline } from "react-icons/md";
+import { useStore } from "../../store/store";
+import TrickInfo from "../info/TrickInfo";
+import Animations from "../modal/Animations";
+import Models from "../modal/Models";
+import AnimationsDropwdown from "./AnimationsDropwdown";
+import InfoButton from "./InfoButton";
+import ModalWrapper from "../modal/ModalWrapper";
+import ModelDropdown from "./ModelDropdown";
+import ModalButton from "../modal/ModalButton";
 
 const ModalNav = () => {
-  //global states
-  const currentAnim = useStore (s => s.currentAnim);
-  const currentModel = useStore (s => s.activeModel);
+	//global states
+	const currentAnim = useStore((s) => s.currentAnim);
+	const currentModel = useStore((s) => s.activeModel);
 
-  //local states
-  const [open, setOpen] = useState (false);
-  const [activeView, setActiveView] = useState (0);
+	//local states
+	const [open, setOpen] = useState(false);
+	const [activeView, setActiveView] = useState(0);
 
-  function getViewContent (caseNum) {
-    switch (caseNum) {
-      case 0:
-        return <Animations />;
-      case 1:
-        return <TrickInfo />;
-      case 2:
-        return <Models />;
-      default:
-        return null;
-    }
-  } //takes care of rendering stateful logic when switching views
+	function getViewContent(caseNum) {
+		switch (caseNum) {
+			case 0:
+				return <Animations />;
+			case 1:
+				return <TrickInfo />;
+			case 2:
+				return <Models />;
+			default:
+				return null;
+		}
+	} //takes care of rendering stateful logic when switching views
 
-  const handleOpen = caseNum => {
-    setActiveView (caseNum);
-    setOpen (!open);
-  };
+	const handleOpen = (caseNum) => {
+		setActiveView(caseNum);
+		setOpen(!open);
+	};
 
-  const handleClose = () => {
-    setActiveView ();
-    setOpen (false);
-  };
+	const handleClose = () => {
+		setActiveView();
+		setOpen(false);
+	};
 
-  return (
-    <div
-      id="dropdowns-div"
-      className="max-h-750px absolute z-20 ml-3 mt-[45px] flex gap-3"
-    >
-      {/**original version w/ collisions */}
-      <AnimationsDropwdown />
+	return (
+		<div
+			id='dropdowns-div'
+			className='max-h-750px absolute z-20 ml-3 mt-[45px] flex gap-3'>
+			{/**original version w/ collisions */}
+			{/* <AnimationsDropwdown />
       <InfoButton />
-      <ModelDropdown className="z-40" />
+      <ModelDropdown className="z-40" /> */}
 
-      {/**new version w/o collisions */}
-      {/**animations button */}
-      <ModalButton
-        handleOpen={() => handleOpen (0)}
-        content={currentAnim}
-        isDropdown
-      />
-      {/**trickInfo button */}
-      <ModalButton
-        handleOpen={() => handleOpen (1)}
-        content={
-          activeView === 1
-            ? <MdInfo className="fill-zinc-300 text-3xl" />
-            : <MdInfoOutline className="fill-zinc-300 text-3xl" />
-        }
-        f={() => handleOpen (1)}
-      />
-      {/**models button*/}
-      <ModalButton
-        handleOpen={() => handleOpen (2)}
-        content={currentModel}
-        isDropdown
-      />
+			{/**new version w/o collisions */}
+			{/**animations button */}
+			<ModalButton
+				handleOpen={() => handleOpen(0)}
+				content={currentAnim}
+				isDropdown
+			/>
+			{/**trickInfo button */}
+			<ModalButton
+				handleOpen={() => handleOpen(1)}
+				content={
+					activeView === 1 ? (
+						<MdInfo className='fill-zinc-300 text-3xl' />
+					) : (
+						<MdInfoOutline className='fill-zinc-300 text-3xl' />
+					)
+				}
+				f={() => handleOpen(1)}
+			/>
+			{/**models button*/}
+			<ModalButton
+				handleOpen={() => handleOpen(2)}
+				content={currentModel}
+				isDropdown
+			/>
 
-      {open &&
-        <ModalWrapper handleClose={handleClose}>
-          {getViewContent (activeView)}
-        </ModalWrapper>}
-    </div>
-  );
+			{open && (
+				<ModalWrapper handleClose={handleClose}>
+					{getViewContent(activeView)}
+				</ModalWrapper>
+			)}
+		</div>
+	);
 };
 
 export default ModalNav;

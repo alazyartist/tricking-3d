@@ -5,7 +5,7 @@ function StanceInfo(props) {
 	const stanceColor = useStore((s) => s.stanceColor);
 	const color = {
 		BacksideComplete: "#7EE0FB",
-		OutsideComplete: "#75fbb3",
+		OutsideComplete: "#75FBB3",
 		OutsideSemi: "#2db36c",
 		FrontsideSemi: "#2b5ab3",
 		FrontsideMega: "#4171ca",
@@ -13,12 +13,16 @@ function StanceInfo(props) {
 		InsideHyper: "#5ed8c5",
 		BacksideHyper: "#6bcee9",
 	};
+
+	// let curColor = `bg-[#4171ca]`;
+	let curColor = `bg-[${color[props.stance]}]`;
+
+	console.log("Current Stance", props.stance);
+	console.log("Current Color", curColor);
 	return (
-		<div className='grid grid-cols-3 place-content-center place-items-center font-inter'>
+		<div className='font-inter grid grid-cols-3 place-content-center place-items-center'>
 			<div
-				className={`col-span-3 flex h-10 w-60 place-content-center place-items-center gap-2 rounded-md bg-[${
-					color[props.stance]
-				}] text-center text-2xl`}>
+				className={`col-span-3 flex h-10 w-60 place-content-center place-items-center gap-2 rounded-md ${curColor} text-center text-2xl`}>
 				{props.stance}
 			</div>
 			<div className='flex flex-col gap-2 p-2'>
