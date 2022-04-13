@@ -63,7 +63,7 @@ function Home() {
 						<div>Contribute</div>
 					</Link>
 				</div>
-				<div className='absolute bottom-8'>
+				<div className='bottom-8 py-8'>
 					<MultiDonateButton />
 				</div>
 			</div>
