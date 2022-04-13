@@ -20,6 +20,7 @@ import AdvancedStanceCircle from "./components/theory/AdvancedStanceCircle";
 import TheoryNavBar from "./components/theory/TheoryNavBar";
 import StanceInfo from "./components/theory/stances/StanceInfo";
 import LearnMore from "./pages/LearnMore";
+import AboutUs from "./pages/AboutUs";
 
 function App() {
 	return (
@@ -37,6 +38,7 @@ function App() {
 				<Route path={"/3d/home"} element={<Home />} />
 				<Route path={"/3d"} element={<FullScreen />} />
 				<Route path={"/3d/learnmore"} element={<LearnMore />} />
+				<Route path={"/3d/about"} element={<AboutUs />} />
 				<Route path={"/3d/sandbox"} element={<Sandbox />}>
 					<Route path=':model'>
 						<Route path=':trick' element={<Sandbox />} />

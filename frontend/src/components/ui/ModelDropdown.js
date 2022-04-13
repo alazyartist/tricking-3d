@@ -17,7 +17,7 @@ function ModelDropdown() {
 				// selectAnim("Backflip");
 				setModel(e);
 				// selectAnim("Backflip");
-				navigate(`/3d/sandbox/${e}/Backflip`);
+				navigate(`/3d/sandbox/${e}`);
 			}}
 		/>
 	);

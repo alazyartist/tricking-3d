@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from "./Header";
 import DiscordLink from "./info/DiscordLink";
+import MultiDonateButton from "./info/MultiDonateButton";
 import PaypalDonate from "./info/PaypalDonate";
 import Instructions from "./Instructions";
 
@@ -15,7 +16,7 @@ function LoadingOverlay({ progress, setIsLoaderOpen }) {
 				<div id='welcome-container' className='mt-14 flex place-content-center'>
 					<div
 						id='Welcome-message'
-						className='w-full items-center justify-center gap-10 self-center rounded-md px-12 font-inter font-light sm:w-6/12
+						className='font-inter w-full items-center justify-center gap-10 self-center rounded-md px-12 font-light sm:w-6/12
 				md:w-7/12 lg:w-6/12 xl:w-4/12'>
 						Welcome to <div className='inline font-bold'>Tricking-3D</div>. This
 						is one part of a larger project I have been working on for the
@@ -34,7 +35,7 @@ function LoadingOverlay({ progress, setIsLoaderOpen }) {
 					</div>
 				</div>
 				{/**loader container */}
-				<h1 className='text-semibold mt-6 mb-[-1.5rem] font-inter'>
+				<h1 className='text-semibold font-inter mt-6 mb-[-1.5rem]'>
 					Please wait while we prep the sandbox...
 				</h1>
 				<div
@@ -60,6 +61,12 @@ function LoadingOverlay({ progress, setIsLoaderOpen }) {
 							</Link>
 						</div>
 					)}
+					<div>
+						<h1 className='font-inter m-2 text-base text-slate-300'>
+							Help Support Development
+						</h1>
+						<MultiDonateButton />
+					</div>
 					<div
 						id='beta-warning'
 						className='text-center text-base font-semibold text-slate-300'>
@@ -72,14 +79,8 @@ function LoadingOverlay({ progress, setIsLoaderOpen }) {
 						Please have patience.
 						<DiscordLink />
 					</div>
-					<div>
-						<h1 className='m-2 font-inter text-base text-slate-300'>
-							Help Support Development
-						</h1>
-						<PaypalDonate />
-					</div>
 				</div>
-				<Instructions />
+				{/* <Instructions /> */}
 			</div>
 		</>
 	);

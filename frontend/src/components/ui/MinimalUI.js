@@ -13,11 +13,6 @@ function MinimalUI() {
 	const setTimescale = useStore((s) => s.setTimescale);
 	return (
 		<>
-			<Link to='/3d/test'>
-				<h1 className='font-inter absolute z-[1000] h-[47px] w-full rounded-b-xl border-none  bg-opacity-60 p-2 text-3xl font-bold text-zinc-300 '>
-					Tricking-3d
-				</h1>
-			</Link>
 			<div
 				id='minimal-ui-container'
 				className='absolute bottom-16 right-4 z-10 m-2 w-fit'>

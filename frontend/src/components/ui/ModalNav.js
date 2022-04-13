@@ -48,8 +48,8 @@ const ModalNav = () => {
 			className='max-h-750px absolute z-20 ml-3 mt-[45px] flex gap-3'>
 			{/**original version w/ collisions */}
 			{/* <AnimationsDropwdown />
-      <InfoButton />
-      <ModelDropdown className="z-40" /> */}
+      <InfoButton />*/}
+			{/* <ModelDropdown className='z-40' /> */}
 
 			{/**new version w/o collisions */}
 			{/**animations button */}

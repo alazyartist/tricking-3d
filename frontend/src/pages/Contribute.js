@@ -5,8 +5,8 @@ import DonateText from "../components/contribute/DonateText";
 function Contribute() {
 	return (
 		<>
-			<div className='sticky top-0 h-14 bg-zinc-900'></div>
-			<div className=' px-4 font-inter text-3xl font-bold text-zinc-300'>
+			<div id='sticky-header' className='sticky top-0 h-14 bg-zinc-900'></div>
+			<div className=' font-inter px-4 text-3xl font-bold text-zinc-300'>
 				I can help with...
 			</div>
 			<ContributeNavBar />

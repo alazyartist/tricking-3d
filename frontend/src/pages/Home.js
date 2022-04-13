@@ -3,6 +3,8 @@ import { Canvas } from "@react-three/fiber";
 import { HomeScene } from "../scenes/HomeScene";
 import Loader from "../components/loaders/Loader";
 import { useNavigate, Link } from "react-router-dom";
+import DonateText from "../components/contribute/DonateText";
+import MultiDonateButton from "../components/info/MultiDonateButton";
 function Home() {
 	const navigate = useNavigate();
 	return (
@@ -11,18 +13,15 @@ function Home() {
 				id='AppBackground-flex'
 				className='flex h-screen w-screen flex-col place-items-center'>
 				<div className='mt-14 w-full text-center text-zinc-200'>
-					<h1>
+					<h1 className='text-xl '>
 						Welcome to <div className='inline font-black'>Tricking-3D</div>
 					</h1>
 				</div>
-				<button
-					onClick={() => {
-						navigate("/3d/learnmore");
-						console.log("learnmore");
-					}}
+				<Link
+					to='/3d/learnmore'
 					className='font-inter m-2 rounded-3xl bg-indigo-600 px-2 py-0 font-semibold text-zinc-300'>
 					Learn More
-				</button>
+				</Link>
 
 				<Link
 					to='/3d/sandbox/'
@@ -48,15 +47,24 @@ function Home() {
 					<Link to='/3d/instructions'>
 						<div>Instructions</div>
 					</Link>
-					<Link to='/3d/comingsoon'>
-						<div>Learn</div>
+					<Link to='/3d/learnmore'>
+						<div>Learn More</div>
 					</Link>
+					<Link to='/3d/about'>
+						<div>About</div>
+					</Link>
+					{/* <Link to='/3d/comingsoon'>
+						<div>Learn</div>
+					</Link> */}
 					<Link to='/3d/theory'>
 						<div>Theory</div>
 					</Link>
 					<Link to='/3d/contribute'>
 						<div>Contribute</div>
 					</Link>
+				</div>
+				<div className='absolute bottom-8'>
+					<MultiDonateButton />
 				</div>
 			</div>
 		</div>

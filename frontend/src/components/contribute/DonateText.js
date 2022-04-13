@@ -1,5 +1,6 @@
 import React from "react";
-import PaypalDonate from "../info/PaypalDonate";
+
+import MultiDonateButton from "../info/MultiDonateButton";
 
 function DonateText() {
 	return (
@@ -15,11 +16,7 @@ function DonateText() {
 					<span className='font-extrabold'> free to use</span> for as long as
 					possible.
 				</div>
-				<div
-					id='donate-button-conatiner'
-					className='flex h-12 w-32 place-content-center rounded-xl bg-gradient-to-b from-emerald-400 to-emerald-300'>
-					<PaypalDonate />
-				</div>
+				<MultiDonateButton />
 			</div>
 			<div className='font-inter px-4 pb-2 text-sm font-light text-zinc-300'>
 				In order to do that there is some overhead that needs to be taken care
