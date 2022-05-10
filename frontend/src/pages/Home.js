@@ -26,7 +26,7 @@ function Home() {
 				<Link
 					to='/3d/sandbox/'
 					id='canvas-container'
-					className='m-5 h-[40vw] w-[90vw] rounded-2xl bg-zinc-900 md:h-[40vw] md:w-[90vw] '>
+					className='m-5 h-[40vw] w-[90vw] rounded-2xl bg-zinc-900 md:h-[40vh] md:w-[90vh] '>
 					<Canvas className='rounded-2xl'>
 						<Suspense fallback={<Loader />}>
 							<HomeScene />

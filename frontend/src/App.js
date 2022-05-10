@@ -21,7 +21,15 @@ import TheoryNavBar from "./components/theory/TheoryNavBar";
 import StanceInfo from "./components/theory/stances/StanceInfo";
 import LearnMore from "./pages/LearnMore";
 import AboutUs from "./pages/AboutUs";
-
+import TrickList from "./pages/TrickList";
+import AnatomyOfATrick from "./pages/Theory/AnatomyOfATrick";
+import Setups from "./pages/Theory/Setups";
+import Transitions from "./pages/Theory/Transitions";
+import Grabs from "./pages/Theory/Grabs";
+import Shapes from "./pages/Theory/Shapes";
+import Rotations from "./pages/Theory/Rotations";
+import Kicks from "./pages/Theory/Kicks";
+import Touchdowns from "./pages/Theory/Touchdowns";
 function App() {
 	return (
 		<>
@@ -45,6 +53,17 @@ function App() {
 					</Route>
 				</Route>
 				<Route path={"/3d/theory"} element={<TheoryPage />}>
+					<Route path={"tricklist"} element={<TrickList />} />
+					<Route path={"anatomy"} element={<AnatomyOfATrick />} />
+					<Route path={"setups"} element={<Setups />} />
+					<Route path={"transitions"} element={<Transitions />}>
+						<Route path='singular' element={<div>singluar</div>} />
+					</Route>
+					<Route path={"grabs"} element={<Grabs />} />
+					<Route path={"shapes"} element={<Shapes />} />
+					<Route path={"rotations"} element={<Rotations />} />
+					<Route path={"kicks"} element={<Kicks />} />
+					<Route path={"touchdowns"} element={<Touchdowns />} />
 					<Route path={"stances"} element={<AdvancedStanceCircle />}>
 						<Route
 							path={"FrontsideSemi"}

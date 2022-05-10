@@ -1,8 +1,8 @@
-const username = "tricking3d";
-const password = "3dtricking";
-const database = "tricking3d";
-const host = "107.180.0.111";
-const port = `3306`;
+const username = "root";
+const password = "tricking";
+const database = "tricking3d-test";
+const host = "localhost";
+const port = 3306;
 const dialect = "mysql";
 export const config = {
 	username,
