@@ -30,6 +30,10 @@ import Shapes from "./pages/Theory/Shapes";
 import Rotations from "./pages/Theory/Rotations";
 import Kicks from "./pages/Theory/Kicks";
 import Touchdowns from "./pages/Theory/Touchdowns";
+import Singular from "./components/theory/transitions/Singular";
+import Sequential from "./components/theory/transitions/Sequential";
+import Unified from "./components/theory/transitions/Unified";
+import All from "./components/theory/transitions/All";
 function App() {
 	return (
 		<>
@@ -57,7 +61,11 @@ function App() {
 					<Route path={"anatomy"} element={<AnatomyOfATrick />} />
 					<Route path={"setups"} element={<Setups />} />
 					<Route path={"transitions"} element={<Transitions />}>
-						<Route path='singular' element={<div>singluar</div>} />
+						<Route index element={<All />} />
+						<Route path='all' element={<All />} />
+						<Route path='singular' element={<Singular />} />
+						<Route path='sequential' element={<Sequential />} />
+						<Route path='unified' element={<Unified />} />
 					</Route>
 					<Route path={"grabs"} element={<Grabs />} />
 					<Route path={"shapes"} element={<Shapes />} />

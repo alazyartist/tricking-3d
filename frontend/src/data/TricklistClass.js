@@ -17,14 +17,14 @@ export class Trick {
 }
 
 export const stances = {
-	BacksideComplete: "",
-	OutsideComplete: "",
-	OutsideSemi: "",
-	FrontsideSemi: "",
-	FrontsideMega: "",
-	InsideMega: "",
-	InsideHyper: "",
-	BacksideHyper: "",
+	BacksideComplete: "BacksideComplete",
+	OutsideComplete: "OutsideComplete",
+	OutsideSemi: "OutsideSemi",
+	FrontsideSemi: "FrontsideSemi",
+	FrontsideMega: "FrontsideMega",
+	InsideMega: "InsideMega",
+	InsideHyper: "InsideHyper",
+	BacksideHyper: "BacksideHyper",
 };
 export const styles = {
 	singular: "",
@@ -81,3 +81,11 @@ export const shapes = {
 	Helicoptero: "helicoptero",
 	Cowboy: " grabing legs",
 };
+
+const cork = new Trick("cork");
+cork.base = "full";
+cork.landingStance = stances.BacksideComplete;
+cork.landingStyle = styles.sequential;
+cork.takeoffStyle = styles.singular;
+cork.takeoffStance = stances.BacksideComplete;
+console.log(cork);
