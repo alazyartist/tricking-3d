@@ -6,6 +6,7 @@ function Kicks() {
 	return (
 		<div className='text-zinc-300'>
 			<div className='py-2 text-2xl text-zinc-300'>Kicks</div>
+			<div className='py-2 text-2xl text-zinc-300'>Variatons</div>
 			{Object.keys(kicks).map((e, i) => (
 				<div id={i} className=' flex'>
 					<div className='pr-4 text-lg'>{`${e}:`}</div>

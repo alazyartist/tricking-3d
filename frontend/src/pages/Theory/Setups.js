@@ -1,16 +1,15 @@
 import React from "react";
+import { pureSetups } from "../../data/TricklistClass";
 
 function Setups() {
 	return (
 		<div className='font-inter mt-4 flex flex-col place-content-center place-items-center font-bold text-zinc-300'>
 			<div className='pb-4 text-xl text-white'>Pure Setups</div>
-			<div>J-Step</div>
-			<div>Euro-Step</div>
-			<div>K-Step</div>
-			<div>Cheat Step</div>
-			<div>Pivot</div>
-			<div>Spin Step</div>
-			<div>Skip Step</div>
+			{Object.keys(pureSetups).map((e, i) => (
+				<div className='flex' id={i}>
+					<div>{pureSetups[e]}</div>
+				</div>
+			))}
 
 			<div className='w-[60vw] pt-4'>
 				Setups are movements we perform in order to generate momentum and get
