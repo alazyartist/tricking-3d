@@ -110,7 +110,7 @@ export default function TrickListModel({ ...props }) {
 	// //Resets Animations Player on Change of CurrentAnim
 	useEffect(() => {
 		mixer.stopAllAction();
-		actions[currentAnim].play();
+		// actions[currentAnim].play();
 	}, [currentAnim, activeModel]);
 	return (
 		<group ref={group} {...props} dispose={null}>

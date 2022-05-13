@@ -1,11 +1,25 @@
+export class Base {
+	constructor(name, direction, stance) {
+		this.name = name;
+		this.base = true;
+		this.direction = direction;
+		this.stance = stance;
+		this.rotation = 0;
+		this.takeoffStance = "";
+		this.landingStance = "";
+		this.takeoffStyle = styles.unified;
+		this.landingStyle = styles.unified;
+	}
+}
+
 export class Trick {
-	constructor(name) {
+	constructor(name, base) {
 		this.name = name;
 		this.direction = "";
 		this.takeoffStance = "";
 		this.takeoffStyle = "";
 		this.base = "";
-		this.rotation = "";
+		this.rotation = 0;
 		this.kicks = "";
 		this.grabs = "";
 		this.shapes = "";
@@ -14,6 +28,8 @@ export class Trick {
 			kicks,
 			grabs,
 			shapes,
+			stances,
+			styles,
 		};
 		this.landingStance = "";
 		this.landingStyle = "";
@@ -21,14 +37,16 @@ export class Trick {
 	}
 }
 
-export class Base {
-	constructor(name, direction, stance) {
+export class Transition {
+	constructor(name) {
 		this.name = name;
-		this.direction = direction;
-		this.stance = stance;
+		this.landingStance = "";
+		this.landingStyle = "";
+		this.transitionType = "";
+		this.takeoffStance = "";
+		this.takeoffStyle = "";
 	}
 }
-
 export const directions = {
 	Backwards: "Traveling Backwards",
 	Forwards: "Traveling Forwards",
@@ -50,11 +68,12 @@ export const stances = {
 	BacksideHyper: "BacksideHyper",
 };
 export const styles = {
-	singular: "singular",
-	sequential: "sequential",
-	unified: "unified",
+	singular: "Singular",
+	sequential: "Sequential",
+	unified: "Unified",
 };
 export const rotations = {
+	zero: 0,
 	half: 180,
 	full: 360,
 	1.5: 540,
@@ -117,13 +136,7 @@ export const pureSetups = {
 	Spin: "Spin Step",
 	Skip: "Skip Step",
 };
-const backflip = new Trick("Backflip");
-backflip.base = "base";
-backflip.direction = directions.Backwards;
-backflip.takeoffStyle = styles.unified;
-backflip.landingStyle = styles.unified;
-backflip.landingStance = stances.BacksideComplete;
-backflip.takeoffStance = stances.BacksideComplete;
+const backflip = new Base("Backflip", directions.Backwards, stances.Backside);
 
 const frontflip = new Trick("Frontflip");
 frontflip.base = "base";
@@ -133,32 +146,34 @@ frontflip.takeoffStyle = styles.unified;
 frontflip.landingStance = stances.Frontside;
 frontflip.takeoffStance = stances.Frontside;
 
-const insideflip = new Trick("insideflip");
+const insideflip = new Trick("Insideflip");
 insideflip.base = "base";
+insideflip.rotation = rotations.zero;
 insideflip.direction = directions.Inside;
 insideflip.landingStyle = styles.unified;
 insideflip.takeoffStyle = styles.unified;
-insideflip.landingStance = stances.FrontsideMega;
-insideflip.takeoffStance = stances.FrontsideMega;
+insideflip.landingStance = stances.Inside;
+insideflip.takeoffStance = stances.Inside;
 
-const outsideflip = new Trick("outsideflip");
+const outsideflip = new Trick("Outsideflip");
 outsideflip.base = "base";
 outsideflip.direction = directions.Outside;
 outsideflip.landingStyle = styles.unified;
 outsideflip.takeoffStyle = styles.unified;
-outsideflip.landingStance = stances.FrontsideMega;
-outsideflip.takeoffStance = stances.FrontsideMega;
+outsideflip.landingStance = stances.Outside;
+outsideflip.takeoffStance = stances.Outside;
 
-const full = new Trick("full");
-full.base = backflip;
+const full = new Trick("full", frontflip);
+full.rotation = rotations.full;
 full.direction = directions.Backwards;
-full.landingStance = stances.BacksideComplete;
-full.takeoffStance = stances.BacksideComplete;
+full.landingStance = stances.Backside;
+full.takeoffStance = stances.Backside;
 full.landingStyle = styles.unified;
 full.takeoffStyle = styles.unified;
 
 const cork = new Trick("cork");
 cork.base = full;
+cork.rotation = rotations.full;
 cork.direction = full.direction;
 cork.landingStance = stances.BacksideComplete;
 cork.landingStyle = styles.sequential;
@@ -167,13 +182,20 @@ cork.takeoffStance = stances.BacksideComplete;
 
 const aerial = new Trick("Aerial");
 aerial.base = insideflip;
+aerial.rotation = rotations.zero;
 aerial.takeoffStance = stances.FrontsideMega;
 aerial.takeoffStyle = styles.sequential;
 aerial.direction = directions.Inside;
 aerial.landingStance = stances.BacksideHyper;
 aerial.landingStyle = styles.sequential;
 const doublecork = new Trick("doublecork");
-
+doublecork.base = backflip;
+doublecork.direction = directions.Backwards;
+doublecork.rotation = rotations.double;
+doublecork.landingStance = stances.BacksideComplete;
+doublecork.takeoffStance = stances.BacksideComplete;
+doublecork.landingStyle = styles.singular;
+doublecork.takeoffStyle = styles.singular;
 export const TrickListArr = [
 	aerial,
 	backflip,
