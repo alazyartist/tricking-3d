@@ -41,6 +41,7 @@ function TrickList() {
 					</div>
 				))}
 				<div>TrickMaker</div>
+				<div>ComboMaker</div>
 			</div>
 		</>
 	);

@@ -1,7 +1,7 @@
 export class Base {
 	constructor(name, direction, stance) {
 		this.name = name;
-		this.base = true;
+		this.base = "IsBaseClass";
 		this.direction = direction;
 		this.stance = stance;
 		this.rotation = 0;
@@ -14,6 +14,7 @@ export class Base {
 
 export class Trick {
 	constructor(name, base) {
+		this.base = base;
 		this.name = name;
 		this.touchdowns = "";
 		this.kicks = "";
@@ -138,7 +139,7 @@ const outsideflip = new Base(
 	stances.Outside
 );
 
-const full = new Trick("full", frontflip);
+const full = new Trick("full", backflip);
 full.rotation = rotations.full;
 full.direction = directions.Backwards;
 full.landingStance = stances.Backside;
@@ -146,8 +147,7 @@ full.takeoffStance = stances.Backside;
 full.landingStyle = styles.unified;
 full.takeoffStyle = styles.unified;
 
-const cork = new Trick("cork");
-cork.base = full;
+const cork = new Trick("cork", backflip);
 cork.rotation = rotations.full;
 cork.direction = full.direction;
 cork.landingStance = stances.BacksideComplete;
@@ -155,16 +155,15 @@ cork.landingStyle = styles.sequential;
 cork.takeoffStyle = styles.singular;
 cork.takeoffStance = stances.BacksideComplete;
 
-const aerial = new Trick("Aerial");
-aerial.base = insideflip;
+const aerial = new Trick("Aerial", insideflip);
 aerial.rotation = rotations.zero;
 aerial.takeoffStance = stances.FrontsideMega;
 aerial.takeoffStyle = styles.sequential;
 aerial.direction = directions.Inside;
 aerial.landingStance = stances.BacksideHyper;
 aerial.landingStyle = styles.sequential;
-const doublecork = new Trick("doublecork");
-doublecork.base = backflip;
+
+const doublecork = new Trick("doublecork", backflip);
 doublecork.direction = directions.Backwards;
 doublecork.rotation = rotations.double;
 doublecork.landingStance = stances.BacksideComplete;

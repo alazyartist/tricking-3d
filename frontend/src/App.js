@@ -34,6 +34,7 @@ import Singular from "./components/theory/transitions/Singular";
 import Sequential from "./components/theory/transitions/Sequential";
 import Unified from "./components/theory/transitions/Unified";
 import All from "./components/theory/transitions/All";
+import Yonder from "./pages/Yonder";
 function App() {
 	return (
 		<>
@@ -51,6 +52,7 @@ function App() {
 				<Route path={"/3d"} element={<FullScreen />} />
 				<Route path={"/3d/learnmore"} element={<LearnMore />} />
 				<Route path={"/3d/about"} element={<AboutUs />} />
+				<Route path={"/3d/yonder"} element={<Yonder />} />
 				<Route path={"/3d/sandbox"} element={<Sandbox />}>
 					<Route path=':model'>
 						<Route path=':trick' element={<Sandbox />} />

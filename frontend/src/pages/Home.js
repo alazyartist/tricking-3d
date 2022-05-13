@@ -63,6 +63,9 @@ function Home() {
 					<Link to='/3d/contribute'>
 						<div>Contribute</div>
 					</Link>
+					<Link to='/3d/yonder'>
+						<div>yonder</div>
+					</Link>
 				</div>
 				<div className='bottom-8 py-8'>
 					<MultiDonateButton />
