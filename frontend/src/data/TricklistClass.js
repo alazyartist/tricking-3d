@@ -5,8 +5,8 @@ export class Base {
 		this.direction = direction;
 		this.stance = stance;
 		this.rotation = 0;
-		this.takeoffStance = "";
-		this.landingStance = "";
+		this.takeoffStance = stance;
+		this.landingStance = stance;
 		this.takeoffStyle = styles.unified;
 		this.landingStyle = styles.unified;
 	}
@@ -15,11 +15,7 @@ export class Base {
 export class Trick {
 	constructor(name, base) {
 		this.name = name;
-		this.direction = "";
-		this.takeoffStance = "";
-		this.takeoffStyle = "";
-		this.base = "";
-		this.rotation = 0;
+		this.touchdowns = "";
 		this.kicks = "";
 		this.grabs = "";
 		this.shapes = "";
@@ -31,9 +27,6 @@ export class Trick {
 			stances,
 			styles,
 		};
-		this.landingStance = "";
-		this.landingStyle = "";
-		this.touchdowns = "";
 	}
 }
 
@@ -137,31 +130,13 @@ export const pureSetups = {
 	Skip: "Skip Step",
 };
 const backflip = new Base("Backflip", directions.Backwards, stances.Backside);
-
-const frontflip = new Trick("Frontflip");
-frontflip.base = "base";
-frontflip.direction = directions.Forwards;
-frontflip.landingStyle = styles.unified;
-frontflip.takeoffStyle = styles.unified;
-frontflip.landingStance = stances.Frontside;
-frontflip.takeoffStance = stances.Frontside;
-
-const insideflip = new Trick("Insideflip");
-insideflip.base = "base";
-insideflip.rotation = rotations.zero;
-insideflip.direction = directions.Inside;
-insideflip.landingStyle = styles.unified;
-insideflip.takeoffStyle = styles.unified;
-insideflip.landingStance = stances.Inside;
-insideflip.takeoffStance = stances.Inside;
-
-const outsideflip = new Trick("Outsideflip");
-outsideflip.base = "base";
-outsideflip.direction = directions.Outside;
-outsideflip.landingStyle = styles.unified;
-outsideflip.takeoffStyle = styles.unified;
-outsideflip.landingStance = stances.Outside;
-outsideflip.takeoffStance = stances.Outside;
+const frontflip = new Base("Frontflip", directions.Forwards, stances.Frontside);
+const insideflip = new Base("Insideflip", directions.Inside, stances.Inside);
+const outsideflip = new Base(
+	"Outsideflip",
+	directions.Outside,
+	stances.Outside
+);
 
 const full = new Trick("full", frontflip);
 full.rotation = rotations.full;
