@@ -15,7 +15,8 @@ function TheoryNavBar() {
 			<Link to='kicks'>Kicks</Link>
 			<Link to='grabs'>Grabs</Link>
 			<Link to='shapes'>Shapes</Link>
-			<Link to='tricklist'>Tricklist</Link>
+			<Link to='tricklist'>TrickList</Link>
+			<Link to='transitionlist'>TransitionList</Link>
 		</div>
 	);
 }

@@ -20,7 +20,7 @@ function StanceInfo(props) {
 	console.log("Current Stance", props.stance);
 	console.log("Current Color", curColor);
 	return (
-		<div className='font-inter grid grid-cols-3 place-content-center place-items-center'>
+		<div className='font-inter grid grid-cols-3 place-content-center place-items-center bg-zinc-300'>
 			<div
 				className={`col-span-3 flex h-10 w-60 place-content-center place-items-center gap-2 rounded-md ${curColor} text-center text-2xl`}>
 				{props.stance}

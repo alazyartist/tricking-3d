@@ -35,6 +35,7 @@ import Sequential from "./components/theory/transitions/Sequential";
 import Unified from "./components/theory/transitions/Unified";
 import All from "./components/theory/transitions/All";
 import Yonder from "./pages/Yonder";
+import { TransitionList } from "./pages/TransitionList";
 function App() {
 	return (
 		<>
@@ -59,6 +60,7 @@ function App() {
 					</Route>
 				</Route>
 				<Route path={"/3d/theory"} element={<TheoryPage />}>
+					<Route path={"transitionlist"} element={<TransitionList />} />
 					<Route path={"tricklist"} element={<TrickList />} />
 					<Route path={"anatomy"} element={<AnatomyOfATrick />} />
 					<Route path={"setups"} element={<Setups />} />

@@ -14,7 +14,7 @@ export default function TrickListModel({ ...props }) {
 	//Use Store
 	const aI = useStore((s) => s.aI);
 	const bounce = useStore((s) => s.bounce);
-	let currentAnim = "Aerial";
+	let currentAnim = "";
 	useEffect(() => {
 		if (names.includes(props.trick)) {
 			console.log("Names Includes", props.trick, currentAnim);
@@ -22,11 +22,10 @@ export default function TrickListModel({ ...props }) {
 			actions[props.trick].play();
 		} else {
 			mixer.stopAllAction();
-			// actions["Aerial"].play();
+			actions["Aerial"].play();
 		}
 	}, [props.trick]);
 
-	console.log("functionscope", currentAnim);
 	const end = useStore((s) => s.end);
 	const isPaused = useStore((s) => s.isPaused);
 	const isPlaying = useStore((s) => s.isPlaying);

@@ -16,6 +16,7 @@ import LoadActiveModel from "../components/media/ModelSelector";
 import SceneBackground from "./SceneBackground";
 import { Frank } from "../animations/Frank";
 import TrickListModel from "../animations/TrickListModel";
+import YonderSwitches from "../animations/YonderSwitches";
 
 // import Model from "../animations/KerwoodCC3Tpose";
 export function YonderScene(props) {
@@ -26,7 +27,7 @@ export function YonderScene(props) {
 	return (
 		<PerspectiveCamera position={[-2, -1.25, 2.3]}>
 			<Suspense fallback={<ModelLoader />}>
-				<TrickListModel trick={props.trick} />
+				<YonderSwitches />
 			</Suspense>
 			<Html>{props.trick}</Html>
 			{/* <SceneBackground /> */}
