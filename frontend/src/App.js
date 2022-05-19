@@ -36,6 +36,7 @@ import Unified from "./components/theory/transitions/Unified";
 import All from "./components/theory/transitions/All";
 import Yonder from "./pages/Yonder";
 import { TransitionList } from "./pages/TransitionList";
+import ComboMaker from "./components/theory/ComboMaker";
 function App() {
 	return (
 		<>
@@ -60,6 +61,7 @@ function App() {
 					</Route>
 				</Route>
 				<Route path={"/3d/theory"} element={<TheoryPage />}>
+					<Route path={"comboMaker"} element={<ComboMaker />} />
 					<Route path={"transitionlist"} element={<TransitionList />} />
 					<Route path={"tricklist"} element={<TrickList />} />
 					<Route path={"anatomy"} element={<AnatomyOfATrick />} />

@@ -60,7 +60,7 @@ function TrickList() {
 						</div>
 					</div>
 				))}
-				<TrickMaker />
+				{/* <TrickMaker /> */}
 				<ComboMaker />
 			</div>
 		</>
