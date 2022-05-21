@@ -26,9 +26,7 @@ export function YonderScene(props) {
 	// useHelper(light, SpotLightHelper, "cyan");
 	return (
 		<PerspectiveCamera position={[-2, -1.25, 2.3]}>
-			<Suspense fallback={<ModelLoader />}>
-				<YonderSwitches />
-			</Suspense>
+			<Suspense fallback={<ModelLoader />}>{/* <YonderSwitches /> */}</Suspense>
 			<Html>{props.trick}</Html>
 			{/* <SceneBackground /> */}
 			{/* <Model /> */}

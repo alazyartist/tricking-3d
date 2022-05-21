@@ -1,5 +1,5 @@
 import React from "react";
-import { grabs } from "../../data/TricklistClass";
+import { grabs } from "../../data/trickDataModel/TrickObjects";
 
 function Grabs() {
 	return (

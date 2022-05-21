@@ -1,6 +1,5 @@
 import React from "react";
-import { kicks } from "../../data/TricklistClass";
-
+import { kicks } from "../../data/trickDataModel/TrickObjects";
 function Kicks() {
 	console.log(Object.keys(kicks));
 	return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { rotations } from "../../data/TricklistClass";
+import { rotations } from "../../data/trickDataModel/TrickObjects";
 function Rotations() {
 	return (
 		<div className='text-zinc-300'>

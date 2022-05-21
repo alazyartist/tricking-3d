@@ -1,262 +1,27 @@
-export class Base {
-	constructor(name, direction, stance, fromLeg, toLeg, style) {
-		this.name = name;
-		this.direction = direction;
-		this.fromLeg = fromLeg || legs.Both;
-		this.toLeg = toLeg || legs.Both;
-		this.rotation = 0;
-		this.stance = stance;
+import {
+	Base,
+	Trick,
+	Stance,
+	Variation,
+	Transition,
+} from "./trickDataModel/TrickClasses";
 
-		this.takeoffStance = stance || stances.Backside;
-		this.landingStance = stance || stances.Backside;
-		this.takeoffStyle = style || styles.singular;
-		this.landingStyle = style || styles.singular;
-	}
-}
-
-export class Trick extends Base {
-	constructor(name, base, stance, style) {
-		super(
-			name,
-			base.direction,
-			base.stance,
-			base.fromLeg,
-			base.toLeg,
-			base.style
-		);
-		this.name = name;
-		this.base = base;
-		this.rotation = base.rotation;
-		this.direction = base.direction;
-		this.takeoffStance = stance || this.base.takeoffstance;
-		this.takeoffStyle = style || base.takeoffStyle;
-		this.landingStance = stance || this.base.landingStance;
-		this.landingStyle = style || this.base.landingstyle;
-		this.stance = this.takeoffStance || base.stance;
-		// this.variations = {
-		// 	rotations,
-		// 	kicks,
-		// 	grabs,
-		// 	shapes,
-		// 	stances,
-		// 	styles,
-		// };
-	}
-	getStance() {
-		return this.landingStance;
-	}
-}
-
-export class Transition {
-	constructor(name, fromStyle, toStyle, fromleg, toleg) {
-		this.name = name;
-		this.landingStance = stances.Any;
-		this.landingStyle = fromStyle;
-		this.transitionType = toStyle;
-		this.takeoffStance = stances.Any;
-		this.takeoffStyle = toStyle;
-		this.fromLeg = fromleg;
-		this.toLeg = toleg;
-		this.rotation = 0;
-	}
-}
-
-export class Variation {
-	constructor(name, { rotation, kicks, grabs, shapes, touchdowns, axis, pos }) {
-		this.name = name;
-		this.adjustRotation = rotation;
-		this.touchdowns = touchdowns;
-		this.kicks = kicks;
-		this.axis = axis;
-		this.grabs = grabs;
-		this.shapes = shapes;
-		this.pos = pos;
-	}
-}
-
-export class Stance {
-	constructor(name, trick) {
-		this.name = name;
-		this.trick = trick;
-		this.style = styles.singular;
-		this.leg = trick.fromLeg;
-		this.direction = trick.direction;
-	}
-	getTrick() {
-		return this.trick;
-	}
-}
-
-// legs, directions, positions, stanceOptions, stances,
-export const legs = {
-	L: "Left",
-	R: "Right",
-	LorR: "L or R",
-	Both: "Both",
-};
-
-export const directions = {
-	Backwards: "Backside: Traveling Backwards",
-	Forwards: "Frontside: Traveling Forwards",
-	Inside: "Inside: To the left",
-	Outside: "Outside: To The right",
-};
-export const positions = {
-	En: "Entrance",
-	B: "Begininng",
-	M: "Middle",
-	E: "End",
-	Ex: "Exit",
-};
-export const stanceOptions = {
-	BIFO: ["B", "I", "F", "O"],
-	CHMS: ["C", "H", "M", "S"],
-};
-export const stances = {
-	Backside: "Backside",
-	BacksideComplete: "BacksideComplete",
-	BacksideHyper: "BacksideHyper",
-	Inside: "Inside",
-	InsideMega: "InsideMega",
-	InsideHyper: "InsideHyper",
-	Frontside: "Frontside",
-	FrontsideSemi: "FrontsideSemi",
-	FrontsideMega: "FrontsideMega",
-	Outside: "Outside",
-	OutsideComplete: "OutsideComplete",
-	OutsideSemi: "OutsideSemi",
-};
-
-function BIFOCHMSSpread(arr1, arr2) {
-	let newArr = [];
-	let newUniqArr;
-	for (let i = 0; i < arr1.length; i++) {
-		for (let q = 0; q < arr2.length; q++) {
-			let val = `${arr1[i]}${arr2[q]}`;
-			if (val == "BS") {
-				val = "FS";
-			}
-			if (val == "BM") {
-				val = "FM";
-			}
-			if (val == "FC") {
-				val = "BC";
-			}
-			if (val == "FH") {
-				val = "BH";
-			}
-			newArr.push(val);
-			newUniqArr = [...new Set(newArr)];
-		}
-	}
-	return newUniqArr;
-}
-let any = BIFOCHMSSpread(stanceOptions.BIFO, stanceOptions.CHMS);
-stances.Any = [any];
-// stances.Any = "Any";
-
-//Singular Sequential, Unified, Styles, Rotations
-export const singular = {
-	"Reverse Pop": "Reverse Pop",
-	Swing: "Swing",
-	Misleg: "Misleg",
-	Rapid: "Rapid",
-	"Carry Through": "Carry Through",
-	Wrap: "Wrap",
-};
-
-export const sequential = {
-	Vanish: "Vanish",
-	Reversal: "Reversal",
-	Skip: "Skip Vanish",
-	"Skip Reversal": "Redirect",
-	Cheat: "Cheat",
-};
-export const unified = {
-	Punch: "Punch",
-	Pop: "Pop",
-	Bound: "Bound",
-};
-
-export const styles = {
-	singular: "Singular",
-	sequential: "Sequential",
-	unified: "Unified",
-	any: "Singular/Unified/Sequential",
-};
-
-export const transitions = { singular, sequential, unified };
-// Variations = rotations, kicks, grabs, touchdowns, shapes
-export const rotations = {
-	zero: 0,
-	half: 180,
-	full: 360,
-	1.5: 540,
-	double: 720,
-	2.5: 900,
-	triple: 1080,
-	3.5: 1260,
-	quad: 1440,
-};
-export const kicks = {
-	hook: "shuriken",
-	round: "swipe",
-	insideCrescent: "swipe",
-	outsideCrescent: "shuriken",
-	side: "dragonfly",
-	back: "hook",
-	front: "flash",
-	split: "crowdAwakener",
-	twist: "scissor",
-	hawkeye: "hawkeye",
-	axe: "axe",
-};
-export const grabs = {
-	rodeo: "both hands--both feet",
-	squirell: "one hand--one or both feet",
-	terada: "",
-	"tai fighter": "",
-	rocketboi: "",
-};
-export const touchdowns = {
-	touchdown: "left hand middle",
-	broken: " right hand middle",
-	"sailor moon": "right hand - entrance",
-	"venus moon": "left hand - entrance",
-};
-export const shapes = {
-	Pike: "legs together in L",
-	XOut: "making an X shape",
-	FigureFour: "making a 4 shape",
-	Tuck: "ball",
-	Layout: " | stretched out",
-	DonutBoy: " D shaped",
-	PeterPan: "peter pan",
-	IronMan: "iron man",
-	SuperMan: "super man",
-	CrowdAwakener: " split kick",
-	Sidewinder: "sidewinder",
-	Helicoptero: "helicoptero",
-	Cowboy: " grabing legs",
-};
-
-export const swings = {
-	backSwing: "backswing",
-	aerialSwing: "aerial:inside",
-	masterSwing: "master:inside",
-	frontSwing: "frontswing",
-	raizSwing: "raiz:outside",
-	lotusSwing: "lotus:outside",
-};
-export const pureSetups = {
-	"J-Step": "J-Step",
-	"Euro-Step": "Euro-Step",
-	"K-Step": "K-Step",
-	Cheat: "Cheat Step",
-	Pivot: "Pivot Step",
-	Spin: "Spin Step",
-	Skip: "Skip Step",
-};
+import {
+	legs,
+	directions,
+	stances,
+	rotations,
+	styles,
+	transitions,
+	positions,
+	kicks,
+	grabs,
+	shapes,
+	touchdowns,
+	swings,
+	pureSetups,
+	singular,
+} from "./trickDataModel/TrickObjects";
 
 //TrickFamily for Inverts
 //Both
@@ -381,33 +146,49 @@ const outsideflip = new Trick(
 	styles.unified
 );
 
-const full = new Trick("full", backflipB, stances.Backside, styles.unified);
+const full = new Trick("Full", backflipB, stances.Backside, styles.unified);
 full.rotation = rotations.full;
-full.direction = directions.Backwards;
-full.landingStance = stances.Backside;
-full.takeoffStance = stances.Backside;
-full.landingStyle = styles.unified;
-full.takeoffStyle = styles.unified;
+full.landingStance = stances.BacksideComplete;
+full.toLeg = legs.L;
 
-const cork = new Trick("cork", gainerL);
+const cork = new Trick(
+	"Cork",
+	gainerL,
+	stances.BacksideComplete,
+	styles.singular
+);
 cork.rotation = rotations.full;
-cork.direction = full.direction;
-cork.landingStance = stances.BacksideComplete;
-cork.landingStyle = styles.singular;
-cork.takeoffStyle = styles.singular;
-cork.takeoffStance = stances.BacksideComplete;
-cork.toLeg = legs.Both;
+
+cork.toLeg = legs.L;
 
 const aerial = new Trick("Aerial", aerialL);
-aerial.rotation = rotations.zero;
+// aerial.stance = stances.InsideMega;
+// aerial.rotation = rotations.zero;
 aerial.takeoffStance = stances.InsideMega;
-aerial.takeoffStyle = styles.singular;
-aerial.direction = directions.Inside;
-aerial.landingStance = stances.BacksideHyper;
-aerial.landingStyle = styles.singular;
-aerial.stance = stances.InsideMega;
+aerial.landingStance = stances.InsideHyper;
+// aerial.takeoffStyle = styles.singular;
+// aerial.direction = directions.Inside;
+// aerial.landingStyle = styles.singular;
+console.log(aerialL);
 
-const doublecork = new Trick("doublecork", gainerL);
+const atwist = new Trick(
+	"ATwist",
+	aerialL,
+	stances.InsideMega,
+	styles.singular
+);
+atwist.toLeg = legs.L;
+atwist.landingStance = stances.BacksideComplete;
+atwist.rotation = 270;
+const btwist = new Trick("BTwist", atwist, stances.InsideMega, styles.singular);
+btwist.landingStance = stances.BacksideComplete;
+
+const doublecork = new Trick(
+	"Doublecork",
+	cork,
+	"BacksideComplete",
+	styles.singular
+);
 doublecork.direction = directions.Backwards;
 doublecork.rotation = rotations.double;
 doublecork.landingStance = stances.BacksideComplete;
@@ -417,6 +198,19 @@ doublecork.takeoffStyle = styles.singular;
 doublecork.stance = stances.BacksideComplete;
 
 const gms = new Trick("GMS", gmsR, stances.InsideHyper, styles.singular);
+const gmTwist = new Trick(
+	"GMTwist",
+	gmsR,
+	stances.InsideHyper,
+	styles.singular
+);
+gmTwist.rotation = 270;
+gmTwist.landingStance = stances.BacksideComplete;
+gmTwist.toLeg = legs.L;
+const kroc = new Trick("Kroc", gainerR, stances.BacksideHyper, styles.singular);
+kroc.rotation = 360;
+kroc.landingStance = stances.BacksideComplete;
+kroc.toLeg = legs.L;
 
 const webster = new Trick(
 	"Webster",
@@ -450,11 +244,18 @@ const gainer = new Trick(
 	styles.singular
 );
 const badsideGainer = new Trick(
-	"Gainer",
+	"BadSideGainer",
 	gainerR,
 	stances.BacksideHyper,
 	styles.singular
 );
+const gainerSwitch = new Trick(
+	"GainerSwitch",
+	gainerL,
+	stances.BacksideComplete,
+	styles.singular
+);
+gainerSwitch.toLeg = legs.L;
 const corksnapu = new Trick(
 	"Corksnapu",
 	cork,
@@ -465,7 +266,7 @@ const corksnapu = new Trick(
 const cartwheel = new Trick(
 	"Cartwheel",
 	aerialL,
-	stances.FrontsideMega,
+	stances.InsideMega,
 	styles.singular
 );
 cartwheel.touchdowns = "Cart";
@@ -477,6 +278,7 @@ const touchdownRaiz = new Trick(
 	stances.OutsideSemi,
 	styles.singular
 );
+touchdownRaiz.landingStance = "BacksideComplete";
 touchdownRaiz.touchdowns = "Touchdown";
 
 export const TrickListArr = [
@@ -486,8 +288,13 @@ export const TrickListArr = [
 	outsideflip,
 	badsideGainer,
 	gainer,
+	gainerSwitch,
 	aerial,
+	atwist,
+	btwist,
 	gms,
+	gmTwist,
+	kroc,
 	webster,
 	badsideWebster,
 	raiz,
@@ -500,18 +307,53 @@ export const TrickListArr = [
 	doublecork,
 ];
 
-const pop = new Transition(
+const popL = new Transition(
 	"Pop",
 	styles.singular,
 	styles.unified,
-	legs.LorR,
+	legs.L,
 	legs.Both
+);
+const popR = new Transition(
+	"Pop",
+	styles.singular,
+	styles.unified,
+	legs.R,
+	legs.Both
+);
+const hopR = new Transition(
+	"Hop",
+	styles.singular,
+	styles.unified,
+	legs.R,
+	legs.R
+);
+const hopL = new Transition(
+	"Hop",
+	styles.singular,
+	styles.unified,
+	legs.L,
+	legs.L
 );
 const punch = new Transition(
 	"Punch",
 	styles.unified,
 	styles.unified,
 	legs.Both,
+	legs.Both
+);
+const punchL = new Transition(
+	"Punch",
+	styles.unified,
+	styles.unified,
+	legs.L,
+	legs.Both
+);
+const punchR = new Transition(
+	"Punch",
+	styles.unified,
+	styles.unified,
+	legs.R,
 	legs.Both
 );
 const bound = new Transition(
@@ -522,26 +364,33 @@ const bound = new Transition(
 	legs.Both
 );
 bound.landingStyle = styles.any;
-const swing = new Transition(
-	"Swing",
-	styles.singular,
-	styles.singular,
-	legs.LorR,
-	legs.LorR
-);
-const misleg = new Transition(
+const mislegR = new Transition(
 	"Misleg",
 	styles.singular,
 	styles.singular,
-	legs.LorR,
-	legs.LorR
+	legs.R,
+	legs.R
 );
-const vanish = new Transition(
+const mislegL = new Transition(
+	"Misleg",
+	styles.singular,
+	styles.singular,
+	legs.L,
+	legs.L
+);
+const vanishLtoR = new Transition(
 	"Vanish",
 	styles.singular,
 	styles.singular,
 	legs.L,
 	legs.R
+);
+const vanishRtoL = new Transition(
+	"Vanish",
+	styles.singular,
+	styles.singular,
+	legs.R,
+	legs.L
 );
 const reversal = new Transition(
 	"Reversal",
@@ -550,19 +399,33 @@ const reversal = new Transition(
 	legs.L,
 	legs.L
 );
-const reversePop = new Transition(
+const reversePopL = new Transition(
 	"Reverse Pop",
 	styles.unified,
 	styles.singular,
 	legs.Both,
 	legs.L
 );
-const rapid = new Transition(
+const reversePopR = new Transition(
+	"Reverse Pop",
+	styles.unified,
+	styles.singular,
+	legs.Both,
+	legs.R
+);
+const rapidL = new Transition(
 	"Rapid",
 	styles.singular,
 	styles.singular,
-	legs.LorR,
-	legs.LorR
+	legs.L,
+	legs.L
+);
+const rapidR = new Transition(
+	"Rapid",
+	styles.singular,
+	styles.singular,
+	legs.R,
+	legs.R
 );
 const carryThrough = new Transition(
 	"Carry Through",
@@ -571,30 +434,37 @@ const carryThrough = new Transition(
 	legs.LorR,
 	legs.LorR
 );
-const wrap = new Transition(
+const wrapR = new Transition(
 	"Wrap",
 	styles.singular,
 	styles.singular,
-	legs.LorR,
-	legs.LorR
+	legs.R,
+	legs.R
 );
-wrap.rotation = 180;
-const skipVanish = new Transition(
-	"Skip Vanish",
+wrapR.rotation = 180;
+const skipLtoR = new Transition(
+	"Skip",
 	styles.singular,
 	styles.singular,
-	legs.LorR,
-	legs.LorR
+	legs.L,
+	legs.R
+);
+const skipRtoL = new Transition(
+	"Skip",
+	styles.singular,
+	styles.singular,
+	legs.R,
+	legs.L
 );
 const cheatLtoR = new Transition(
-	"CheatLtoR",
+	"Cheat",
 	styles.singular,
 	styles.singular,
 	legs.L,
 	legs.R
 );
 const cheatRtoL = new Transition(
-	"CheatRtoL",
+	"Cheat",
 	styles.singular,
 	styles.singular,
 	legs.R,
@@ -602,95 +472,102 @@ const cheatRtoL = new Transition(
 );
 cheatRtoL.rotation = 180;
 cheatLtoR.rotation = 180;
-const redirect = new Transition(
-	"Redirect:SkipReversal",
+const redirectLtoR = new Transition(
+	"Redirect",
 	styles.singular,
 	styles.singular,
 	legs.L,
 	legs.R
 );
+const redirectRtoL = new Transition(
+	"Redirect",
+	styles.singular,
+	styles.singular,
+	legs.R,
+	legs.L
+);
 const swingLtoL = new Transition(
-	"SwingtoL",
+	"Swing",
 	styles.singular,
 	styles.singular,
 	legs.L,
 	legs.L
 );
 const swingRtoL = new Transition(
-	"SwingtoL",
+	"Swing",
 	styles.singular,
 	styles.singular,
 	legs.R,
 	legs.L
 );
 const swingLtoR = new Transition(
-	"SwingtoR",
+	"Swing",
 	styles.singular,
 	styles.singular,
 	legs.L,
 	legs.R
 );
 const swingRtoR = new Transition(
-	"SwingtoR",
+	"Swing",
 	styles.singular,
 	styles.singular,
 	legs.R,
 	legs.R
 );
+const bonelessL = new Transition(
+	"Boneless",
+	styles.unified,
+	styles.singular,
+	legs.Both,
+	legs.L
+);
+const bonelessR = new Transition(
+	"Boneless",
+	styles.unified,
+	styles.singular,
+	legs.Both,
+	legs.R
+);
+const jStep = new Transition(
+	"J-Step",
+	styles.unified,
+	styles.singular,
+	legs.Both,
+	legs.L
+);
 
-transitions.sequential["Skip Reversal"] = redirect;
+transitions.sequential["Skip Reversal"] = redirectLtoR;
 transitions.sequential.Cheat = cheatLtoR;
-transitions.singular.Wrap = wrap;
-transitions.sequential.Skip = skipVanish;
+transitions.singular.Wrap = wrapR;
+transitions.sequential.Skip = skipLtoR;
 transitions.singular["Carry Through"] = carryThrough;
-transitions.singular.Rapid = rapid;
-transitions.singular["Reverse Pop"] = reversePop;
+transitions.singular.Rapid = rapidR;
+transitions.singular["Reverse Pop"] = reversePopL;
 transitions.sequential.Reversal = reversal;
-transitions.sequential.Vanish = vanish;
-transitions.singular.Misleg = misleg;
-unified.Bound = bound;
-unified.Pop = pop;
-unified.Punch = punch;
-transitions.singular.Swing = swing;
+transitions.sequential.Vanish = vanishLtoR;
+transitions.singular.Misleg = mislegR;
+transitions.unified.Bound = bound;
+transitions.unified.Pop = popL;
+transitions.unified.Punch = punch;
+transitions.singular.Swing = swingLtoL;
+transitions.singular.Boneless = bonelessL;
 
 // newComboStateArr.length = 0;
-const backsideComplete = new Stance(stances.BacksideComplete, gainer);
-const backside = new Stance(stances.Backside, backflip);
-const frontside = new Stance(stances.Frontside, frontflip);
-const inside = new Stance(stances.Inside, insideflip);
-const outside = new Stance(stances.Outside, outsideflip);
-const backsideHyper = new Stance(stances.BacksideHyper, badsideGainer);
-const insideHyper = new Stance(stances.InsideHyper, gms);
-const insideMega = new Stance(stances.InsideMega, aerial);
-const outsideComplete = new Stance(stances.OutsideComplete, lotus);
-const outsideSemi = new Stance(stances.OutsideSemi, raiz);
-const frontsideSemi = new Stance(stances.FrontsideSemi, badsideWebster);
-const frontsideMega = new Stance(stances.FrontsideMega, webster);
+const backside = new Stance("Backside", backflip, styles.unified);
+const frontside = new Stance("Frontside", frontflip, styles.unified);
+const inside = new Stance("Inside", insideflip, styles.unified);
+const outside = new Stance("Outside", outsideflip, styles.unified);
+const backsideComplete = new Stance("BacksideComplete", gainer);
+const backsideHyper = new Stance("BacksideHyper", badsideGainer);
+const insideHyper = new Stance("InsideHyper", gms);
+const insideMega = new Stance("InsideMega", aerial);
+const outsideComplete = new Stance("OutsideComplete", lotus);
+const outsideSemi = new Stance("OutsideSemi", raiz);
+const frontsideSemi = new Stance("FrontsideSemi", badsideWebster);
+const frontsideMega = new Stance("FrontsideMega", webster);
 
-stances.Backside = backside;
-stances.Inside = inside;
-stances.Frontside = frontside;
-stances.Outside = outside;
-stances.BacksideComplete = backsideComplete;
-stances.BacksideHyper = backsideHyper;
-stances.InsideHyper = insideHyper;
-stances.InsideMega = insideMega;
-stances.OutsideComplete = outsideComplete;
-stances.OutsideSemi = outsideSemi;
-stances.FrontsideMega = frontsideMega;
-stances.FrontsideSemi = frontsideSemi;
+//Variation Declaration
 
-export const transArr = [];
-Object.keys(transitions).map((e) => {
-	Object.keys(transitions[e]).map((c) => transArr.push(transitions[e][c]));
-});
-transArr.push(cheatRtoL, swingLtoL, swingRtoL, swingRtoR, swingLtoR);
-console.table(transArr);
-
-export const stanceArr = [];
-Object.keys(stances).map((e) => {
-	stanceArr.push(stances[e]);
-});
 const swipe = new Variation("Swipe", { kicks: "Round", pos: positions.M });
 const round = new Variation("Round", { kicks: "Round", pos: positions.E });
 const flash = new Variation("Flash", { kicks: "Round", pos: positions.B });
@@ -714,19 +591,50 @@ const dragonfly = new Variation("Dragonfly", {
 	kicks: "Round",
 	pos: positions.En,
 });
-export const kickVariationsArr = [
-	dragonfly,
-	flash,
-	swipe,
-	round,
-	lateRound,
-	snapu,
-	hook,
-	shuriken,
-	lateHook,
-];
 
-const bases = [
+// Arrays
+export const transArr = [];
+Object.keys(transitions).map((e) => {
+	Object.keys(transitions[e]).map((c) => transArr.push(transitions[e][c]));
+});
+transArr.push(
+	cheatRtoL,
+	swingRtoL,
+	swingRtoR,
+	swingLtoR,
+	vanishRtoL,
+	popR,
+	redirectRtoL,
+	mislegL,
+	skipRtoL,
+	bonelessR,
+	hopR,
+	hopL,
+	punchR,
+	punchL,
+	reversePopR,
+	rapidL,
+	jStep
+);
+stances.Backside = backside;
+stances.Inside = inside;
+stances.Frontside = frontside;
+stances.Outside = outside;
+stances.BacksideComplete = backsideComplete;
+stances.BacksideHyper = backsideHyper;
+stances.InsideHyper = insideHyper;
+stances.InsideMega = insideMega;
+stances.OutsideComplete = outsideComplete;
+stances.OutsideSemi = outsideSemi;
+stances.FrontsideMega = frontsideMega;
+stances.FrontsideSemi = frontsideSemi;
+
+export const stanceArr = [];
+Object.keys(stances).map((e) => {
+	stanceArr.push(stances[e]);
+});
+
+const basesArr = [
 	backflipB,
 	insideflipB,
 	frontflipB,
@@ -740,12 +648,21 @@ const bases = [
 	raizR,
 	lotusL,
 ];
-// console.log("TRANSITIONS");
-// console.table(transitions.sequential);
-// console.table(transitions.singular);
-// console.table(transitions.unified);
-console.table(stanceArr);
-console.table(kickVariationsArr);
-console.table(TrickListArr);
-console.table(bases);
+
+export const kickVariationsArr = [
+	dragonfly,
+	flash,
+	swipe,
+	round,
+	lateRound,
+	snapu,
+	hook,
+	shuriken,
+	lateHook,
+];
+
+// console.table(stanceArr);
+// console.table(kickVariationsArr);
+// console.table(basesArr);
 console.table(stances);
+console.table(TrickListArr);

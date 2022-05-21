@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import {
 	stanceArr,
-	stances,
 	transArr,
 	TrickListArr,
 	kickVariationsArr,
+} from "../../data/TricklistClass";
+import {
 	rotations,
 	touchdowns,
 	grabs,
 	shapes,
-} from "../../data/TricklistClass";
+} from "../../data/trickDataModel/TrickObjects";
 let newCombo = [];
 function TrickMaker() {
 	const [combo, setcombo] = useState();

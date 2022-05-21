@@ -1,6 +1,5 @@
 import React from "react";
-import { pureSetups } from "../../data/TricklistClass";
-
+import { pureSetups } from "../../data/trickDataModel/TrickObjects";
 function Setups() {
 	return (
 		<div className='font-inter mt-4 flex flex-col place-content-center place-items-center font-bold text-zinc-300'>

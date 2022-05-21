@@ -1,6 +1,5 @@
 import React from "react";
-import { shapes } from "../../data/TricklistClass";
-
+import { shapes } from "../../data/trickDataModel/TrickObjects";
 function Shapes() {
 	return (
 		<div className='text-zinc-300'>

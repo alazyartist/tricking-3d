@@ -1,6 +1,5 @@
 import React from "react";
-import { touchdowns } from "../../data/TricklistClass";
-
+import { touchdowns } from "../../data/trickDataModel/TrickObjects";
 function Touchdowns() {
 	return (
 		<div className='text-zinc-300'>
