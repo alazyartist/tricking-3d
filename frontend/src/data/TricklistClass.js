@@ -536,23 +536,22 @@ const jStep = new Transition(
 	legs.L
 );
 
-transitions.sequential["Skip Reversal"] = redirectLtoR;
-transitions.sequential.Cheat = cheatLtoR;
-transitions.singular.Wrap = wrapR;
-transitions.sequential.Skip = skipLtoR;
-transitions.singular["Carry Through"] = carryThrough;
-transitions.singular.Rapid = rapidR;
-transitions.singular["Reverse Pop"] = reversePopL;
-transitions.sequential.Reversal = reversal;
-transitions.sequential.Vanish = vanishLtoR;
-transitions.singular.Misleg = mislegR;
-transitions.unified.Bound = bound;
-transitions.unified.Pop = popL;
-transitions.unified.Punch = punch;
-transitions.singular.Swing = swingLtoL;
-transitions.singular.Boneless = bonelessL;
+// transitions.singular.Misleg = mislegR;
+// transitions.sequential["Skip Reversal"] = redirectLtoR;
+// transitions.sequential.Cheat = cheatLtoR;
+// transitions.singular.Wrap = wrapR;
+// transitions.sequential.Skip = skipLtoR;
+// transitions.singular["Carry Through"] = carryThrough;
+// transitions.singular.Rapid = rapidR;
+// transitions.singular["Reverse Pop"] = reversePopL;
+// transitions.sequential.Reversal = reversal;
+// transitions.sequential.Vanish = vanishLtoR;
+// transitions.unified.Bound = bound;
+// transitions.unified.Pop = popL;
+// transitions.unified.Punch = punch;
+// transitions.singular.Swing = swingLtoL;
+// transitions.singular.Boneless = bonelessL;
 
-// newComboStateArr.length = 0;
 const backside = new Stance("Backside", backflip, styles.unified);
 const frontside = new Stance("Frontside", frontflip, styles.unified);
 const inside = new Stance("Inside", insideflip, styles.unified);
@@ -593,29 +592,40 @@ const dragonfly = new Variation("Dragonfly", {
 });
 
 // Arrays
-export const transArr = [];
-Object.keys(transitions).map((e) => {
-	Object.keys(transitions[e]).map((c) => transArr.push(transitions[e][c]));
-});
-transArr.push(
-	cheatRtoL,
+export const transArr = [
+	swingLtoL,
+	swingLtoR,
 	swingRtoL,
 	swingRtoR,
-	swingLtoR,
+	reversal,
+	vanishLtoR,
 	vanishRtoL,
-	popR,
-	redirectRtoL,
 	mislegL,
-	skipRtoL,
-	bonelessR,
+	mislegR,
+	rapidL,
+	rapidR,
 	hopR,
 	hopL,
-	punchR,
-	punchL,
+	skipLtoR,
+	skipRtoL,
+	redirectLtoR,
+	redirectRtoL,
+	cheatLtoR,
+	cheatRtoL,
+	carryThrough,
+	wrapR,
+	bonelessL,
+	bonelessR,
+	popL,
+	popR,
+	reversePopL,
 	reversePopR,
-	rapidL,
-	jStep
-);
+	punchL,
+	punchR,
+	punch,
+	bound,
+	jStep,
+];
 stances.Backside = backside;
 stances.Inside = inside;
 stances.Frontside = frontside;
