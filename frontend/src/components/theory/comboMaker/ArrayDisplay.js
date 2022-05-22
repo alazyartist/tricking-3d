@@ -12,30 +12,21 @@ function ArrayDisplay(props) {
 				className='place-self-center text-xl'>
 				{props.name}
 			</div>
-			<div className={` max-h-[500px] w-full overflow-y-auto`}>
+			<div className={`  w-full overflow-y-auto`}>
 				<div
 					className={`${
-						props.isCollapsable &&
-						isOpen &&
-						"absolute top-[250px] left-0 p-4  blur-md"
-					}bg-red-500 flex w-full flex-col place-content-center place-items-center`}>
-					<div
-						className={
-							isOpen &&
-							props.isCollapsable &&
-							` h-[60vh] w-[100vw]  bg-red-400 opacity-70`
-						}>
-						Test
-					</div>
-
+						props.isCollapsable && isOpen
+							? "absolute bottom-[10vh] left-0 z-[10] max-h-[60vh] place-content-center place-items-center overflow-y-auto p-4 "
+							: ""
+					} flex w-full flex-col place-items-center `}>
 					<div>{isEmpty && "Select Valid Stance"}</div>
 					{isOpen &&
 						props.arr.map((arrV, i) => (
 							<div
 								key={i}
 								className={`${
-									props.isCollapsable && "z-10"
-								} w-[40vw] place-self-center rounded-lg bg-zinc-600 p-1`}
+									props.isCollapsable ? "z-[20]" : ""
+								} w-fit rounded-lg bg-zinc-600 p-1`}
 								onClick={() => {
 									props.f(arrV);
 									props.isCollapsable && setOpen(!isOpen);
@@ -50,6 +41,12 @@ function ArrayDisplay(props) {
 						))}
 				</div>
 			</div>
+			<div
+				className={`${
+					props.isCollapsable &&
+					isOpen &&
+					"absolute bottom-[20vh] left-0 z-[1] h-[80vh] max-h-[50vh] place-content-center place-items-center overflow-y-auto bg-zinc-700 p-4 opacity-70 blur-md "
+				} flex  w-full flex-col place-items-center `}></div>
 		</div>
 	);
 }
