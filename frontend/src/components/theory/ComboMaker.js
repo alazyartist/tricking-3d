@@ -19,36 +19,47 @@ function ComboMaker() {
 	);
 	const [currentLeg, setCurrentLeg] = useState("Both");
 	const [isDelete, setIsDelete] = useState(false);
+
+
 	useEffect(() => {
+		//Stance Type Behavior
 		if (combo instanceof Stance) {
 			let comboTrick = combo.getTrick();
 			let comboStance = comboTrick.getStance();
 			let pivot = `Pivot to`;
+			//AutoAdd Pivot on stance change.
 			if (combo.direction !== currentDirection && newCombo.length && !isTrick) {
 				newCombo.push(pivot);
 			}
+			//update current state 
 			setCurrentStance(combo.name);
 			setCurrentDirection(combo.direction);
 			setIsTrick(false);
 		}
+		//Trick Type behavior
 		if (combo instanceof Trick) {
 			setCurrentStance(combo.getStance());
 			setIsTrick(true);
 		}
+		//Transition type behavior
 		if (combo instanceof Transition) {
 			setIsTrick(false);
 		}
-		newCombo = newCombo;
+
+		// Updates newCombo to be displayed
 		if (combo) {
 			setcombo(combo);
 			newCombo.push(combo);
 			setcombo("");
 		}
+
+		//Auto-Remove Pivot-to from newCombo when removing tricks
 		if (newCombo[newCombo.length - 1] == "Pivot to") {
 			setIsDelete(!isDelete);
 		}
 	}, [
 		combo,
+		currentDirection,
 		setcombo,
 		newCombo,
 		isTrick,
@@ -56,6 +67,8 @@ function ComboMaker() {
 		isDelete,
 		setIsDelete,
 	]);
+
+	//Ignore this.
 	useEffect(() => {
 		if (
 			stances[currentStance].direction == currentDirection &&
@@ -64,16 +77,16 @@ function ComboMaker() {
 			console.log("Don'tMatch");
 		}
 	}, [currentStance, currentDirection, currentLeg]);
-
+//Handle Delete from newCombo
 	useEffect(() => {
 		newCombo.pop();
-		setcombo();
+		setcombo("");
 	}, [isDelete, setIsDelete]);
-
-	const handleTrickAdd = (e) => {
+//OnClick handlers
+	function handleTrickAdd(e) {
 		setcombo(e);
 		setCurrentLeg(e.toLeg);
-	};
+	}
 	function handleStanceAdd(e) {
 		setCurrentStance(stances[e] ? stances[e]?.name : currentStance);
 		setCurrentLeg(e.getTrick().fromLeg);
@@ -99,6 +112,8 @@ function ComboMaker() {
 			}
 		}
 	}
+
+	//Filters
 	let filteredStances = stanceArr.filter(
 		(e) =>
 			(e.leg == currentLeg && !isTrick) ||
@@ -113,6 +128,8 @@ function ComboMaker() {
 			(!isEmpty && e.fromLeg == stances[currentStance]?.leg) ||
 			(isEmpty && e.fromLeg == currentLeg)
 	);
+
+
 	return (
 		<div className='max-w-[80vw]'>
 			<div
@@ -159,6 +176,7 @@ function ComboMaker() {
 					))}
 				</div>
 				<div id='arrayContainer' className='flex flex-col '>
+					{/* To Be REMOVED */}
 					<div id='debugControls'>
 						{/* Transitions Array
 					<div>Transitions</div>
@@ -213,7 +231,7 @@ function ComboMaker() {
 						))}
 					</div> */}
 					</div>
-
+{/* Current Options for Selection */}
 					<div className='flex flex-row gap-4 py-2'>
 						<ArrayDisplay
 							name={"SelectTransition"}
