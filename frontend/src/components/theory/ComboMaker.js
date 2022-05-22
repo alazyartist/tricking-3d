@@ -8,81 +8,30 @@ import {
 	Trick,
 } from "../../data/trickDataModel/TrickClasses";
 import ArrayDisplay from "./comboMaker/ArrayDisplay";
+import { useComboMakerStore } from "../../store/comboMakerStore";
+import CurrentStateInfo from "./comboMaker/CurrentStateInfo";
+import ResetButton from "./comboMaker/ResetButton";
+import NewComboDisplay from "./comboMaker/newComboDisplay";
+import useComboMaker from "./comboMaker/useComboMaker";
 
 let newCombo = [];
 function ComboMaker() {
 	const [combo, setcombo] = useState();
-	const [isTrick, setIsTrick] = useState(false);
-	const [currentStance, setCurrentStance] = useState("Frontside");
-	const [currentDirection, setCurrentDirection] = useState(
-		stances[currentStance].direction
-	);
-	const [currentLeg, setCurrentLeg] = useState("Both");
-	const [isDelete, setIsDelete] = useState(false);
 
-
-	useEffect(() => {
-		//Stance Type Behavior
-		if (combo instanceof Stance) {
-			let comboTrick = combo.getTrick();
-			let comboStance = comboTrick.getStance();
-			let pivot = `Pivot to`;
-			//AutoAdd Pivot on stance change.
-			if (combo.direction !== currentDirection && newCombo.length && !isTrick) {
-				newCombo.push(pivot);
-			}
-			//update current state 
-			setCurrentStance(combo.name);
-			setCurrentDirection(combo.direction);
-			setIsTrick(false);
-		}
-		//Trick Type behavior
-		if (combo instanceof Trick) {
-			setCurrentStance(combo.getStance());
-			setIsTrick(true);
-		}
-		//Transition type behavior
-		if (combo instanceof Transition) {
-			setIsTrick(false);
-		}
-
-		// Updates newCombo to be displayed
-		if (combo) {
-			setcombo(combo);
-			newCombo.push(combo);
-			setcombo("");
-		}
-
-		//Auto-Remove Pivot-to from newCombo when removing tricks
-		if (newCombo[newCombo.length - 1] == "Pivot to") {
-			setIsDelete(!isDelete);
-		}
-	}, [
-		combo,
+	const {
 		currentDirection,
-		setcombo,
-		newCombo,
-		isTrick,
+		currentLeg,
 		currentStance,
 		isDelete,
+		isTrick,
+		setCurrentLeg,
+		setCurrentStance,
+		setCurrentDirection,
 		setIsDelete,
-	]);
+		setIsTrick,
+	} = useComboMaker(combo, setcombo, newCombo);
 
-	//Ignore this.
-	useEffect(() => {
-		if (
-			stances[currentStance].direction == currentDirection &&
-			stances[currentStance].leg !== currentLeg
-		) {
-			console.log("Don'tMatch");
-		}
-	}, [currentStance, currentDirection, currentLeg]);
-//Handle Delete from newCombo
-	useEffect(() => {
-		newCombo.pop();
-		setcombo("");
-	}, [isDelete, setIsDelete]);
-//OnClick handlers
+	//OnClick handlers
 	function handleTrickAdd(e) {
 		setcombo(e);
 		setCurrentLeg(e.toLeg);
@@ -129,126 +78,52 @@ function ComboMaker() {
 			(isEmpty && e.fromLeg == currentLeg)
 	);
 
-
 	return (
-		<div className='max-w-[80vw]'>
+		<div className='w-[90vw]'>
 			<div
-				className='flex flex-col
-			 place-content-center place-items-center py-4 text-zinc-300'>
+				className='flex  h-[80vh]
+			 w-full flex-col place-content-center place-items-center rounded-lg bg-sky-500 p-2 text-zinc-300'>
 				<div className='text-2xl'>ComboMaker</div>
-				<div
-					id='ResetButton'
-					className='m-2 rounded-lg bg-rose-600 p-2 py-1 text-zinc-800'
-					onClick={() => resetTricklist()}>
-					Reset
-				</div>
-				<div
-					id='deleteLastElement'
-					className='m-2 rounded-lg bg-rose-600 p-2 py-1 text-zinc-800'
-					onClick={() => deleteLast()}>
-					Remove LastTrick
-				</div>
 				{/* CurrentState Display */}
-				<div
-					id='CurrentState'
-					className='absolute top-3 right-3 rounded-md bg-sky-300 p-4 text-zinc-700'>
-					<div id='CurrentStance'>{`Current Stance: ${currentStance}`}</div>
-					<div>{`From: ${
-						newCombo[newCombo.length - 2]?.name || "Pick another Trick"
-					}`}</div>
-					<div>{`To: ${
-						newCombo[newCombo.length - 1]?.name || "Pick A Trick"
-					}`}</div>
-					<div>{`Current direction: ${currentDirection}`}</div>
-					<div key={currentLeg + 1}>{`Current Leg: ${currentLeg}`}</div>
-				</div>
+				<CurrentStateInfo
+					newCombo={newCombo}
+					currentStance={currentStance}
+					currentLeg={currentLeg}
+					currentDirection={currentDirection}
+				/>
 				{/* Combo State Array */}
-				<div id='comboStateArr' className='flex flex-row flex-wrap p-2'>
-					{newCombo?.map((e, i) => (
-						<>
-							<div
-								key={i + e}
-								onClick={() => console.log(e.name)}
-								className='flex w-fit flex-row bg-zinc-700 p-2 pr-1 text-zinc-300'>
-								<div>{`${e?.name || e || "Nope"}`}</div>
-							</div>
-						</>
-					))}
-				</div>
-				<div id='arrayContainer' className='flex flex-col '>
-					{/* To Be REMOVED */}
-					<div id='debugControls'>
-						{/* Transitions Array
-					<div>Transitions</div>
-					<div
-						id='transitionsArr'
-						className='flex w-fit flex-row
-						 flex-wrap  place-content-center'>
-						{filteredTransitions.map((e, i) => (
-							<div
-								key={e.name + i}
-								className='w-fit bg-zinc-700 p-3 text-zinc-300'
-								onClick={() => {
-									setcombo(e);
-									setCurrentLeg(e.toLeg);
-								}}>
-								<div className='text-xl'>{`${e.name}`}</div>
-
-								<div className='text-sm'>{`To ${e.toLeg}`}</div>
-							</div>
-						))}
-					</div>
-					{/* Tricks Array 
-					<div>Tricks</div>
-					<div
-						id='tricklistArr'
-						className='flex w-fit flex-row
-						 flex-wrap  place-content-center'>
-						{filteredTricks.map((e, i) => (
-							<div
-								key={e.name + i}
-								className='w-fit bg-zinc-700 p-3 text-zinc-300'
-								onClick={() => {
-									setcombo(e);
-									setCurrentLeg(e.toLeg);
-								}}>{`${e.name}`}</div>
-						))}
-						</div>
-						<div>{isEmpty && "Select Valid Stance"}</div>
-					{/* Stances Array 
-					<div>Stances</div>
-					<div
-						id='stanceArr'
-						className='flex w-fit flex-row
-						 flex-wrap  place-content-center'>
-						{filteredStances.map((e, i) => (
-							<div
-								key={i}
-								className='w-fit bg-zinc-700 p-3 text-zinc-300'
-								onClick={(event) => handleStanceAdd(e)}>{`${
-								e?.name || e
-							}`}</div>
-						))}
-					</div> */}
-					</div>
-{/* Current Options for Selection */}
-					<div className='flex flex-row gap-4 py-2'>
+				<NewComboDisplay newCombo={newCombo} />
+				<div id='arrayContainer' className='flex w-full flex-col '>
+					{/* Current Options Array for Selection */}
+					<div className='flex flex-col gap-4 py-2'>
+						{/* FilteredTricks */}
 						<ArrayDisplay
-							name={"SelectTransition"}
-							arr={filteredTransitions}
-							f={(e) => handleTrickAdd(e)}></ArrayDisplay>
-						<ArrayDisplay
+							startOpen
 							isEmpty={isEmpty}
-							name={"SelectTrick"}
+							name={"Tricks"}
 							arr={filteredTricks}
 							f={(e) => handleTrickAdd(e)}></ArrayDisplay>
+						{/* FilteredTransitions */}
 						<ArrayDisplay
+							isCollapsable
+							name={"Select Transition"}
+							arr={filteredTransitions}
+							f={(e) => handleTrickAdd(e)}></ArrayDisplay>
+						{/* FilteredStances */}
+						<ArrayDisplay
+							isCollapsable
 							name={currentStance}
 							arr={filteredStances}
 							f={(e) => handleStanceAdd(e)}></ArrayDisplay>
 					</div>
-					<div className=' flex w-full place-content-center rounded bg-zinc-600'>
+					{/* <div className=' flex w-full place-content-center rounded bg-zinc-600'>
 						Timeline
+					</div> */}
+					<div className='fixed bottom-4 left-[20%] flex flex-row place-content-center place-items-center'>
+						<ResetButton
+							resetTricklist={resetTricklist}
+							deleteLast={deleteLast}
+						/>
 					</div>
 				</div>
 			</div>

@@ -165,10 +165,10 @@ const aerial = new Trick("Aerial", aerialL);
 // aerial.stance = stances.InsideMega;
 // aerial.rotation = rotations.zero;
 aerial.takeoffStance = stances.InsideMega;
-aerial.landingStance = stances.InsideHyper;
-// aerial.takeoffStyle = styles.singular;
+aerial.landingStance = "InsideHyper";
+aerial.takeoffStyle = styles.singular;
 // aerial.direction = directions.Inside;
-// aerial.landingStyle = styles.singular;
+aerial.landingStyle = styles.singular;
 console.log(aerialL);
 
 const atwist = new Trick(
@@ -243,6 +243,7 @@ const gainer = new Trick(
 	stances.BacksideComplete,
 	styles.singular
 );
+gainer.landingStance = "BacksideHyper";
 const badsideGainer = new Trick(
 	"BadSideGainer",
 	gainerR,
