@@ -45,8 +45,8 @@ function ArrayDisplay(props) {
 				className={`${
 					props.isCollapsable &&
 					isOpen &&
-					"absolute bottom-[20vh] left-0 z-[1] h-[80vh] max-h-[50vh] place-content-center place-items-center overflow-y-auto bg-zinc-700 p-4 opacity-70 blur-md "
-				} flex  w-full flex-col place-items-center `}></div>
+					"absolute bottom-0 left-0 z-[1] h-[100vh]  place-content-center place-items-center overflow-y-auto bg-zinc-700 p-4 opacity-80 blur-md "
+				} flex w-full flex-col place-items-center  `}></div>
 		</div>
 	);
 }

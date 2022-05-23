@@ -61,6 +61,17 @@ export class Transition {
 		this.toLeg = toleg;
 		this.rotation = 0;
 	}
+
+	getNewRotation(currentStance) {
+		if ((this.rotation = 0)) {
+			console.log("Im Zero Rotation Transition");
+		}
+		if ((this.rotation = 180)) {
+			let newRot = (stances[currentStance]?.getRotation() + 180) % 360;
+			console.log("newRotation", newRot, stances[currentStance]?.getRotation());
+			return newRot;
+		}
+	}
 }
 
 export class Variation {
@@ -77,12 +88,99 @@ export class Variation {
 }
 
 export class Stance {
-	constructor(name, trick, style) {
+	constructor(name, trick, style, rotation) {
 		this.name = name;
 		this.trick = trick;
 		this.style = style || styles.singular;
 		this.leg = trick.fromLeg;
 		this.direction = trick.direction;
+		this.stanceRotation = rotation || 0;
+	}
+	getRotation() {
+		return this.stanceRotation;
+	}
+	getNewStance(currentLeg) {
+		if (this.stanceRotation == 0 && currentLeg == "Both") {
+			let curRot = "Backside";
+			return curRot;
+		} else if (this.stanceRotation == 90 && currentLeg == "Both") {
+			let curRot = "Inside";
+			return curRot;
+		} else if (this.stanceRotation == 180 && currentLeg == "Both") {
+			let curRot = "Frontside";
+			return curRot;
+		} else if (this.stanceRotation == 270 && currentLeg == "Both") {
+			let curRot = "Outside";
+			return curRot;
+		}
+		if (this.stanceRotation == 0 && currentLeg == "Left") {
+			let curRot = "BacksideComplete";
+			return curRot;
+		} else if (this.stanceRotation == 90 && currentLeg == "Left") {
+			let curRot = "InsideMega";
+			return curRot;
+		} else if (this.stanceRotation == 180 && currentLeg == "Left") {
+			let curRot = "FrontsideMega";
+			return curRot;
+		} else if (this.stanceRotation == 270 && currentLeg == "Left") {
+			let curRot = "OutsideComplete";
+			return curRot;
+		}
+		if (this.stanceRotation == 0 && currentLeg == "Right") {
+			let curRot = "BacksideHyper";
+			return curRot;
+		} else if (this.stanceRotation == 90 && currentLeg == "Right") {
+			let curRot = "InsideHyper";
+			return curRot;
+		} else if (this.stanceRotation == 180 && currentLeg == "Right") {
+			let curRot = "FrontsideSemi";
+			return curRot;
+		} else if (this.stanceRotation == 270 && currentLeg == "Right") {
+			let curRot = "OutsideSemi";
+			return curRot;
+		}
+	}
+
+	getStanceByRotation(rotation, currentLeg) {
+		if (rotation == 0 && currentLeg == "Both") {
+			let curRot = "Backside";
+			return curRot;
+		} else if (rotation == 90 && currentLeg == "Both") {
+			let curRot = "Inside";
+			return curRot;
+		} else if (rotation == 180 && currentLeg == "Both") {
+			let curRot = "Frontside";
+			return curRot;
+		} else if (rotation == 270 && currentLeg == "Both") {
+			let curRot = "Outside";
+			return curRot;
+		}
+		if (rotation == 0 && currentLeg == "Left") {
+			let curRot = "BacksideComplete";
+			return curRot;
+		} else if (rotation == 90 && currentLeg == "Left") {
+			let curRot = "InsideMega";
+			return curRot;
+		} else if (rotation == 180 && currentLeg == "Left") {
+			let curRot = "FrontsideMega";
+			return curRot;
+		} else if (rotation == 270 && currentLeg == "Left") {
+			let curRot = "OutsideComplete";
+			return curRot;
+		}
+		if (rotation == 0 && currentLeg == "Right") {
+			let curRot = "BacksideHyper";
+			return curRot;
+		} else if (rotation == 90 && currentLeg == "Right") {
+			let curRot = "InsideHyper";
+			return curRot;
+		} else if (rotation == 180 && currentLeg == "Right") {
+			let curRot = "FrontsideSemi";
+			return curRot;
+		} else if (rotation == 270 && currentLeg == "Right") {
+			let curRot = "OutsideSemi";
+			return curRot;
+		}
 	}
 	getTrick() {
 		return this.trick;

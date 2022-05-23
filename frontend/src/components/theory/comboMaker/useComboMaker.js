@@ -5,11 +5,13 @@ import {
 	Trick,
 } from "../../../data/trickDataModel/TrickClasses";
 import { stances } from "../../../data/trickDataModel/TrickObjects";
+import { wrapR } from "../../../data/TricklistClass";
 import { useComboMakerStore } from "../../../store/comboMakerStore";
 
 function useComboMaker(combo, setcombo, newCombo) {
 	const [isDelete, setIsDelete] = useState(false);
 	const [isTrick, setIsTrick] = useState(false);
+	const [currentTransition, setCurrentTransition] = useState();
 	const currentStance = useComboMakerStore((s) => s.currentStance);
 	const setCurrentStance = useComboMakerStore((s) => s.setCurrentStance);
 	const currentDirection = useComboMakerStore((s) => s.currentDirection);
@@ -38,6 +40,21 @@ function useComboMaker(combo, setcombo, newCombo) {
 		//Transition type behavior
 		if (combo instanceof Transition) {
 			setIsTrick(false);
+			let newTransitionRot = currentTransition?.getNewRotation(currentStance);
+			setCurrentTransition(combo);
+			let newTransitionStance = stances[currentStance].getStanceByRotation(
+				newTransitionRot,
+				currentLeg
+			);
+			setCurrentStance(newTransitionStance);
+			console.log(
+				"Transition",
+				stances[currentStance].getStanceByRotation(
+					newTransitionRot,
+					currentLeg
+				),
+				newTransitionRot
+			);
 		}
 
 		// Updates newCombo to be displayed
@@ -66,8 +83,8 @@ function useComboMaker(combo, setcombo, newCombo) {
 		newCombo.pop();
 		setcombo("");
 	}, [isDelete, setIsDelete]);
-	//Ignore this.
-
+	//Sets Current State to be valid based on your selection.
+	setCurrentLeg(stances[currentStance]?.leg);
 	useEffect(() => {
 		if (
 			stances[currentStance].direction == currentDirection &&
@@ -75,8 +92,11 @@ function useComboMaker(combo, setcombo, newCombo) {
 		) {
 			console.log(stances[currentStance]);
 			console.log("Don'tMatch");
+			setCurrentStance(stances[currentStance].getNewStance(currentLeg));
 		}
-	}, [currentStance, currentDirection, currentLeg]);
+		setCurrentDirection(stances[currentStance].direction);
+		console.log(stances[currentStance].getNewStance(currentLeg));
+	}, [currentStance, currentLeg]);
 	return {
 		currentDirection,
 		currentLeg,
@@ -88,6 +108,7 @@ function useComboMaker(combo, setcombo, newCombo) {
 		setCurrentDirection,
 		setIsDelete,
 		setIsTrick,
+		currentTransition,
 	};
 }
 

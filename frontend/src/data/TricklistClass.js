@@ -435,7 +435,7 @@ const carryThrough = new Transition(
 	legs.LorR,
 	legs.LorR
 );
-const wrapR = new Transition(
+export const wrapR = new Transition(
 	"Wrap",
 	styles.singular,
 	styles.singular,
@@ -464,6 +464,7 @@ const cheatLtoR = new Transition(
 	legs.L,
 	legs.R
 );
+cheatLtoR.rotation = 180;
 const cheatRtoL = new Transition(
 	"Cheat",
 	styles.singular,
@@ -472,7 +473,6 @@ const cheatRtoL = new Transition(
 	legs.L
 );
 cheatRtoL.rotation = 180;
-cheatLtoR.rotation = 180;
 const redirectLtoR = new Transition(
 	"Redirect",
 	styles.singular,
@@ -553,18 +553,43 @@ const jStep = new Transition(
 // transitions.singular.Swing = swingLtoL;
 // transitions.singular.Boneless = bonelessL;
 
-const backside = new Stance("Backside", backflip, styles.unified);
-const frontside = new Stance("Frontside", frontflip, styles.unified);
-const inside = new Stance("Inside", insideflip, styles.unified);
-const outside = new Stance("Outside", outsideflip, styles.unified);
-const backsideComplete = new Stance("BacksideComplete", gainer);
-const backsideHyper = new Stance("BacksideHyper", badsideGainer);
-const insideHyper = new Stance("InsideHyper", gms);
-const insideMega = new Stance("InsideMega", aerial);
-const outsideComplete = new Stance("OutsideComplete", lotus);
-const outsideSemi = new Stance("OutsideSemi", raiz);
-const frontsideSemi = new Stance("FrontsideSemi", badsideWebster);
-const frontsideMega = new Stance("FrontsideMega", webster);
+const backside = new Stance("Backside", backflip, styles.unified, 0);
+const frontside = new Stance("Frontside", frontflip, styles.unified, 180);
+const inside = new Stance("Inside", insideflip, styles.unified, 90);
+const outside = new Stance("Outside", outsideflip, styles.unified, 270);
+const backsideComplete = new Stance(
+	"BacksideComplete",
+	gainer,
+	styles.singular,
+	0
+);
+const backsideHyper = new Stance(
+	"BacksideHyper",
+	badsideGainer,
+	styles.singular,
+	0
+);
+const insideHyper = new Stance("InsideHyper", gms, styles.singular, 90);
+const insideMega = new Stance("InsideMega", aerial, styles.singular, 90);
+const outsideComplete = new Stance(
+	"OutsideComplete",
+	lotus,
+	styles.singular,
+	270
+);
+const outsideSemi = new Stance("OutsideSemi", raiz, styles.singular, 270);
+const frontsideSemi = new Stance(
+	"FrontsideSemi",
+	badsideWebster,
+	styles.singular,
+	180
+);
+const frontsideMega = new Stance(
+	"FrontsideMega",
+	webster,
+	styles.singular,
+	180
+);
 
 //Variation Declaration
 
@@ -677,3 +702,4 @@ export const kickVariationsArr = [
 // console.table(basesArr);
 console.table(stances);
 console.table(TrickListArr);
+console.table(transArr);

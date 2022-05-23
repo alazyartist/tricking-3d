@@ -20,9 +20,9 @@ function AdvancedStanceCircle() {
 	};
 
 	return (
-		<div className='h-[80vh] w-[80vh]'>
+		<div className=' '>
 			<StanceCircleSelector
-				className='absolute h-[80vh] w-[80vh] opacity-0'
+				className='absolute   opacity-0'
 				onClick={(e) => {
 					e.target.id !== "Layer_1" && nav(e.target.id);
 					console.log(color[e.target.id]);

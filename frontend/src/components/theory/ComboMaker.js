@@ -13,6 +13,9 @@ import CurrentStateInfo from "./comboMaker/CurrentStateInfo";
 import ResetButton from "./comboMaker/ResetButton";
 import NewComboDisplay from "./comboMaker/newComboDisplay";
 import useComboMaker from "./comboMaker/useComboMaker";
+import AdvancedStanceCircle from "./AdvancedStanceCircle";
+import { ReactComponent as StanceCircle } from "../../data/AdvancedStancesSVG.svg";
+import StanceAnimationTest from "./stances/StanceAnimationTest";
 
 let newCombo = [];
 function ComboMaker() {
@@ -22,6 +25,7 @@ function ComboMaker() {
 		currentDirection,
 		currentLeg,
 		currentStance,
+		currentTransition,
 		isDelete,
 		isTrick,
 		setCurrentLeg,
@@ -77,13 +81,25 @@ function ComboMaker() {
 			(!isEmpty && e.fromLeg == stances[currentStance]?.leg) ||
 			(isEmpty && e.fromLeg == currentLeg)
 	);
-
+	let rotation = currentTransition?.getNewRotation(currentStance);
 	return (
-		<div className='w-[90vw]'>
+		<div className='h-[90vh] w-[90vw]'>
 			<div
-				className='flex  h-[80vh]
+				className=' flex
 			 w-full flex-col place-content-center place-items-center rounded-lg bg-sky-500 p-2 text-zinc-300'>
-				<div className='text-2xl'>ComboMaker</div>
+				<div className={"p-4"}>
+					<StanceAnimationTest currentStance={currentStance} />
+					{/* <StanceCircle className={`rotate-90`} /> */}
+				</div>
+				<div id='pageTitle' className='text-2xl'>
+					ComboMaker
+				</div>
+				<div
+					onClick={() =>
+						console.log(currentTransition?.getNewRotation(currentStance))
+					}>
+					TestButon
+				</div>
 				{/* CurrentState Display */}
 				<CurrentStateInfo
 					newCombo={newCombo}
