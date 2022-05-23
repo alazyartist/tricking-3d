@@ -83,10 +83,10 @@ function ComboMaker() {
 	);
 	let rotation = currentTransition?.getNewRotation(currentStance);
 	return (
-		<div className='h-[90vh] w-[90vw]'>
+		<div className='h-[80vh]  w-[90vw]'>
 			<div
-				className=' flex
-			 w-full flex-col place-content-center place-items-center rounded-lg bg-sky-500 p-2 text-zinc-300'>
+				className=' flex max-h-[650px] w-full
+			 flex-col place-content-center place-items-center overflow-y-auto rounded-lg bg-sky-500 p-2 text-zinc-300'>
 				<div className={"p-4"}>
 					<StanceAnimationTest currentStance={currentStance} />
 					{/* <StanceCircle className={`rotate-90`} /> */}
@@ -135,7 +135,7 @@ function ComboMaker() {
 					{/* <div className=' flex w-full place-content-center rounded bg-zinc-600'>
 						Timeline
 					</div> */}
-					<div className='fixed bottom-4 left-[20%] flex flex-row place-content-center place-items-center'>
+					<div className='fixed bottom-0 left-[20%] flex flex-row place-content-center place-items-center'>
 						<ResetButton
 							resetTricklist={resetTricklist}
 							deleteLast={deleteLast}

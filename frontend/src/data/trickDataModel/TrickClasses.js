@@ -61,13 +61,15 @@ export class Transition {
 		this.toLeg = toleg;
 		this.rotation = 0;
 	}
-
+	getRotation() {
+		return this.rotation;
+	}
 	getNewRotation(currentStance) {
-		if ((this.rotation = 0)) {
+		if (this.rotation == 0) {
 			console.log("Im Zero Rotation Transition");
-		}
-		if ((this.rotation = 180)) {
-			let newRot = (stances[currentStance]?.getRotation() + 180) % 360;
+			return this.rotation;
+		} else if (this.rotation == 180) {
+			let newRot = stances[currentStance]?.getRotation() + (180 % 360);
 			console.log("newRotation", newRot, stances[currentStance]?.getRotation());
 			return newRot;
 		}

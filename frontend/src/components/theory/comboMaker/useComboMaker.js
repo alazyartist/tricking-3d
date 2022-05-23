@@ -39,16 +39,17 @@ function useComboMaker(combo, setcombo, newCombo) {
 		}
 		//Transition type behavior
 		if (combo instanceof Transition) {
+			setCurrentTransition(combo);
 			setIsTrick(false);
 			let newTransitionRot = currentTransition?.getNewRotation(currentStance);
-			setCurrentTransition(combo);
+
 			let newTransitionStance = stances[currentStance].getStanceByRotation(
 				newTransitionRot,
 				currentLeg
 			);
 			setCurrentStance(newTransitionStance);
 			console.log(
-				"Transition",
+				"I Changed theTransition",
 				stances[currentStance].getStanceByRotation(
 					newTransitionRot,
 					currentLeg
@@ -84,18 +85,18 @@ function useComboMaker(combo, setcombo, newCombo) {
 		setcombo("");
 	}, [isDelete, setIsDelete]);
 	//Sets Current State to be valid based on your selection.
-	setCurrentLeg(stances[currentStance]?.leg);
+	// setCurrentLeg(stances[currentStance].leg);
 	useEffect(() => {
 		if (
-			stances[currentStance].direction == currentDirection &&
-			stances[currentStance].leg !== currentLeg
+			stances[currentStance]?.direction == currentDirection &&
+			stances[currentStance]?.leg !== currentLeg
 		) {
 			console.log(stances[currentStance]);
 			console.log("Don'tMatch");
 			setCurrentStance(stances[currentStance].getNewStance(currentLeg));
 		}
-		setCurrentDirection(stances[currentStance].direction);
-		console.log(stances[currentStance].getNewStance(currentLeg));
+		stances[currentStance] &&
+			setCurrentDirection(stances[currentStance]?.direction);
 	}, [currentStance, currentLeg]);
 	return {
 		currentDirection,

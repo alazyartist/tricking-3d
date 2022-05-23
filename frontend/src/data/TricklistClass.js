@@ -701,5 +701,5 @@ export const kickVariationsArr = [
 // console.table(kickVariationsArr);
 // console.table(basesArr);
 console.table(stances);
-console.table(TrickListArr);
 console.table(transArr);
+console.table(TrickListArr);

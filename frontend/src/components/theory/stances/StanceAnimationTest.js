@@ -11,6 +11,8 @@ function StanceAnimationTest({ currentStance }) {
 	const currentLeg = useComboMakerStore((s) => s.currentLeg);
 	const [lastRotation, setLastRotation] = useState();
 	let newRot = stances[currentStance]?.getRotation();
+
+	//Handles Rotation from outside to backside
 	useEffect(() => {
 		setLastRotation(newRot);
 		if (newRot == 0 && (lastRotation == 270 || lastRotation == 180)) {
@@ -20,7 +22,7 @@ function StanceAnimationTest({ currentStance }) {
 		console.log(newRot);
 	}, [newRot]);
 	const spring = useSpring({
-		from: { opacity: 0.5, rotate: 0 },
+		from: { opacity: 0, rotate: 0 },
 		to: { opacity: 1, rotate: lastRotation },
 		config: {
 			reset: true,
@@ -34,8 +36,10 @@ function StanceAnimationTest({ currentStance }) {
 				<StanceCircleSelector
 					className='absolute z-50 h-[70vw] w-[70vw] rotate-[-90deg] p-4 opacity-0'
 					onClick={(e) => {
-						e?.target?.id !== "Layer_1" && setCurrentStance(e.target.id);
-
+						if (e?.target?.id !== "Layer_1") {
+							setCurrentStance(e.target.id);
+							setCurrentLeg(stances[e.target.id].leg);
+						}
 						console.log(e.target.id, stances);
 					}}
 				/>

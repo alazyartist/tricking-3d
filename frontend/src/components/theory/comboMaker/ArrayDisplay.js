@@ -31,7 +31,7 @@ function ArrayDisplay(props) {
 									props.f(arrV);
 									props.isCollapsable && setOpen(!isOpen);
 								}}>
-								<div className='text-lg'> {arrV.name}</div>
+								<div className='text-sm'> {arrV.name}</div>
 								{arrV instanceof Transition && (
 									<div className='text-sm'>
 										{arrV?.toLeg && `to: ${arrV.toLeg}`}{" "}
@@ -42,6 +42,7 @@ function ArrayDisplay(props) {
 				</div>
 			</div>
 			<div
+				onClick={() => setOpen(!isOpen)}
 				className={`${
 					props.isCollapsable &&
 					isOpen &&
