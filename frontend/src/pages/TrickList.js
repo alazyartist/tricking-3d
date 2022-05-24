@@ -1,20 +1,51 @@
 import { Canvas } from "@react-three/fiber";
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import Loader from "../components/loaders/Loader";
 import { TrickListArr } from "../data/TricklistClass";
 import { TrickListScene } from "../scenes/TrickListScene";
 import { ReactComponent as AOAT } from "../data/AnatomyOfATrick.svg";
 import { Link } from "react-router-dom";
-import TrickMaker from "../components/theory/TrickMaker";
-import ComboMaker from "../components/theory/ComboMaker";
+import { useSprings, animated, useTransition, config } from "react-spring";
+import { TriangleStripDrawMode } from "three";
 function TrickList() {
+	const [filteredTricks, setFilteredTricks] = useState([]);
+	const handleFilter = (event) => {
+		const searchTerm = event.target.value;
+		console.log(searchTerm);
+		const newFilter = TrickListArr.filter((value) => {
+			// console.log(value);
+			return value.name.toLowerCase().includes(searchTerm.toLowerCase());
+		});
+		setFilteredTricks(newFilter);
+	};
+
+	const animatedFilter = useTransition(filteredTricks, {
+		from: { opacity: 0 },
+		enter: { opacity: 1 },
+		leave: { opacity: 0 },
+		config: {
+			reset: true,
+			duration: 700,
+			config: config.stiff,
+		},
+	});
+
 	return (
 		<>
 			<div className='sticky top-0 h-14 bg-zinc-900'></div>
 			<AOAT className='rounded-2xl bg-zinc-300' />
-			<div className='font-inter mt-4 flex flex-col place-content-center place-items-center font-bold text-white'>
-				{TrickListArr.map((e, i) => (
-					<div className='m-4 rounded-2xl bg-gradient-to-br from-sky-300 to-sky-400'>
+			<div className='font-inter mt-4 flex flex-col place-content-center place-items-center font-bold '>
+				<input
+					className='w-full rounded-3xl p-2'
+					type={"search"}
+					placeholder='Search for Tricks...'
+					onChange={handleFilter}
+				/>
+				{animatedFilter(({ opacity }, e) => (
+					<animated.div
+						style={{ opacity: opacity }}
+						key={e}
+						className='m-4 rounded-2xl bg-gradient-to-br from-sky-300 to-sky-400'>
 						<Link
 							to={`/3d/sandbox/Kerwood/${e.name}`}
 							className='flex-col p-2 text-2xl text-zinc-600'>
@@ -24,44 +55,24 @@ function TrickList() {
 							<div className='flex w-full place-content-center place-items-center md:w-[50%]'>
 								<Canvas className='rounded-2xl bg-zinc-800'>
 									<Suspense fallback={<Loader />}>
-										<TrickListScene trick={e.name} />
+										{/* <TrickListScene trick={e.name} /> */}
 									</Suspense>
 								</Canvas>
 							</div>
-							<div className='flex w-full flex-col text-zinc-600' id={i}>
-								<div className='pr-2'>{`TakeoffStance: ${e.takeoffStance}`}</div>
-								<div className='pr-2'>{`TakeoffStyle: ${e.takeoffStyle}`}</div>
-								<div className='pr-2'>{`Direction: ${e.direction}`}</div>
-								<div className='pr-2'>{`Family: ${
+							<div
+								className='flex w-full flex-col place-items-center text-zinc-600'
+								id={e}>
+								<div className=''>{`${e.takeoffStance}`}</div>
+								<div className=''>{`Travels: ${e.direction}`}</div>
+								<div className=''>{`Family: ${
 									e.base?.name || e.base || "no base found"
 								}`}</div>
-								<div className='pr-2'>{`Rotation: ${e.rotation}`}</div>
-								<div className='pr-2'>{`LandingStance: ${e.landingStance}`}</div>
-								<div className='pr-2'>{`LandingStyle: ${e.landingStyle}`}</div>
-								<table className='m-3 rounded-3xl bg-teal-400'>
-									<tr>
-										<td>Name</td>
-										<td>Rotation</td>
-										<td>TakeoffStance</td>
-										<td>TakeoffStyle</td>
-										<td>LandingStance</td>
-										<td>LandingStyle</td>
-									</tr>
-									<tr>
-										<td className='text-white'>{e.name}</td>
-										<td className='text-white'>{e.rotation}</td>
-										<td className='text-white'>{e.takeoffStance}</td>
-										<td className='text-white'>{e.takeoffStyle}</td>
-										<td className='text-white'>{e.landingStance}</td>
-										<td className='text-white'>{e.landingStyle}</td>
-									</tr>
-								</table>
+								<div className=''>{`Rotation: ${e.rotation}`}</div>
+								<div className=''>{`${e.landingStance}`}</div>
 							</div>
 						</div>
-					</div>
+					</animated.div>
 				))}
-				{/* <TrickMaker /> */}
-				<ComboMaker />
 			</div>
 		</>
 	);
