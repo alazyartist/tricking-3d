@@ -40,6 +40,7 @@ export function ArrayDisplay(props) {
 								} my-1 flex w-fit place-items-center rounded-lg bg-zinc-300 p-1`}
 								onClick={() => {
 									props.f(arrV);
+									console.log(arrV);
 									props.isCollapsable && setOpen(!isOpen);
 								}}>
 								<div

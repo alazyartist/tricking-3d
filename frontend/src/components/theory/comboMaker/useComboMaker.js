@@ -5,13 +5,13 @@ import {
 	Trick,
 } from "../../../data/trickDataModel/TrickClasses";
 import { stances } from "../../../data/trickDataModel/TrickObjects";
-import { wrapR } from "../../../data/TricklistClass";
+import { transArr, wrapR } from "../../../data/TricklistClass";
 import { useComboMakerStore } from "../../../store/comboMakerStore";
 
 function useComboMaker(combo, setcombo, newCombo) {
 	const [isDelete, setIsDelete] = useState(false);
 	const [isTrick, setIsTrick] = useState(false);
-	const [currentTransition, setCurrentTransition] = useState();
+	const [currentTransition, setCurrentTransition] = useState(transArr[0]);
 	const currentStance = useComboMakerStore((s) => s.currentStance);
 	const setCurrentStance = useComboMakerStore((s) => s.setCurrentStance);
 	const currentDirection = useComboMakerStore((s) => s.currentDirection);
@@ -42,7 +42,7 @@ function useComboMaker(combo, setcombo, newCombo) {
 			setCurrentTransition(combo);
 			setIsTrick(false);
 
-			let newTransitionRot = currentTransition?.getNewRotation(currentStance);
+			let newTransitionRot = currentTransition.getNewRotation(currentStance);
 
 			let newTransitionStance = stances[currentStance].getStanceByRotation(
 				newTransitionRot,

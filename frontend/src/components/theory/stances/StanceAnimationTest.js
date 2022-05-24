@@ -58,9 +58,10 @@ function StanceAnimationTest({ currentStance, isSmall, handleStanceAdd }) {
 					} rotate-[-90deg] rounded-full opacity-0`}
 					onClick={(e) => {
 						if (e?.target?.id !== "Layer_1") {
-							// setCurrentStance(e.target.id);
-							// setCurrentLeg(stances[e.target.id].leg);
+							setCurrentStance(e.target.id);
+							setCurrentLeg(stances[e.target.id].leg);
 							handleStanceAdd(stances[e.target.id]);
+							console.log(e);
 						}
 						console.log(e.target.id, stances);
 					}}
