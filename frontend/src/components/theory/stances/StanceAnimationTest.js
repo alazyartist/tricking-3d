@@ -5,7 +5,7 @@ import { stances } from "../../../data/trickDataModel/TrickObjects";
 import { ReactComponent as StanceCircleSelector } from "../../../data/AdvancedStancesSelector.svg";
 import { useComboMakerStore } from "../../../store/comboMakerStore";
 
-function StanceAnimationTest({ currentStance, isSmall }) {
+function StanceAnimationTest({ currentStance, isSmall, handleStanceAdd }) {
 	const setCurrentStance = useComboMakerStore((s) => s.setCurrentStance);
 	const setCurrentLeg = useComboMakerStore((s) => s.setCurrentLeg);
 	const currentLeg = useComboMakerStore((s) => s.currentLeg);
@@ -58,8 +58,9 @@ function StanceAnimationTest({ currentStance, isSmall }) {
 					} rotate-[-90deg] rounded-full opacity-0`}
 					onClick={(e) => {
 						if (e?.target?.id !== "Layer_1") {
-							setCurrentStance(e.target.id);
-							setCurrentLeg(stances[e.target.id].leg);
+							// setCurrentStance(e.target.id);
+							// setCurrentLeg(stances[e.target.id].leg);
+							handleStanceAdd(stances[e.target.id]);
 						}
 						console.log(e.target.id, stances);
 					}}

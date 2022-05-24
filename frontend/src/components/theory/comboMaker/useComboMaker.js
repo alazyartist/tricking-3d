@@ -42,26 +42,34 @@ function useComboMaker(combo, setcombo, newCombo) {
 			setCurrentTransition(combo);
 			setIsTrick(false);
 
-			if (combo.getRotation() > 0) {
-				let newTransitionRot = currentTransition?.getNewRotation(currentStance);
+			let newTransitionRot = currentTransition?.getNewRotation(currentStance);
 
-				let newTransitionStance = stances[currentStance].getStanceByRotation(
-					newTransitionRot,
-					currentLeg
-				);
-				console.log(
-					"I Changed the Transition from",
-					currentStance,
-					"to",
-					newTransitionStance,
-					currentLeg,
-					newTransitionRot
-				);
-				setCurrentStance(newTransitionStance);
-				setCurrentLeg(stances[newTransitionStance].leg);
-			}
+			let newTransitionStance = stances[currentStance].getStanceByRotation(
+				newTransitionRot,
+				currentLeg
+			);
+			console.log(
+				"I Changed the Transition from",
+				currentStance,
+				"to",
+				newTransitionStance,
+				currentLeg,
+				newTransitionRot
+			);
+			setCurrentStance(newTransitionStance);
+			setCurrentLeg(stances[newTransitionStance].leg);
 		}
+		if (
+			stances[currentStance]?.direction == currentDirection &&
+			stances[currentStance]?.leg !== currentLeg
+		) {
+			console.log(stances[currentStance]);
+			console.log("Don'tMatch");
+			// setCurrentStance(stances[currentStance].getNewStance(currentLeg));
+			// setCurrentLeg(stances[currentStance].leg);
 
+			// setCurrentDirection(stances[currentStance]?.direction);
+		}
 		// Updates newCombo to be displayed
 		if (combo) {
 			setcombo(combo);
@@ -89,20 +97,8 @@ function useComboMaker(combo, setcombo, newCombo) {
 		setcombo("");
 	}, [isDelete, setIsDelete]);
 	//Sets Current State to be valid based on your selection.
-	// setCurrentLeg(stances[currentStance].leg);
 
-	useEffect(() => {
-		if (
-			stances[currentStance]?.direction == currentDirection &&
-			stances[currentStance]?.leg !== currentLeg
-		) {
-			console.log(stances[currentStance]);
-			console.log("Don'tMatch");
-			setCurrentStance(stances[currentStance].getNewStance(currentLeg));
-
-			// setCurrentDirection(stances[currentStance]?.direction);
-		}
-	}, [currentStance, currentLeg]);
+	useEffect(() => {}, [currentStance, currentLeg]);
 	return {
 		currentDirection,
 		currentLeg,

@@ -11,14 +11,17 @@ export function ArrayDisplay(props) {
 	return (
 		<div
 			className={`flex w-full flex-col rounded-lg ${
-				props.bg && "bg-zinc-700"
+				props.bg && "bg-gradient-to-br from-sky-700 to-sky-600 "
 			} p-2`}>
 			<div
 				onClick={() => props.isCollapsable && setOpen(!isOpen)}
 				className='place-self-center text-xl'>
 				{props.name}
 			</div>
-			<div className={`w-full overflow-y-auto`}>
+			<div
+				className={`w-full ${
+					!props.isCollapsable && isOpen ? "h-[50vh]" : ""
+				} no-scrollbar overflow-y-auto`}>
 				<div
 					className={`${
 						props.isCollapsable && isOpen
@@ -31,13 +34,20 @@ export function ArrayDisplay(props) {
 							<div
 								key={i}
 								className={`${
-									props.isCollapsable ? "z-[50] text-zinc-800" : ""
-								} flex w-fit place-items-center rounded-lg bg-zinc-300 p-1 `}
+									props.isCollapsable
+										? "z-[50] text-zinc-800"
+										: "bg-opacity-20 text-zinc-300"
+								} my-1 flex w-fit place-items-center rounded-lg bg-zinc-300 p-1`}
 								onClick={() => {
 									props.f(arrV);
 									props.isCollapsable && setOpen(!isOpen);
 								}}>
-								<div className='text-sm text-zinc-800'> {arrV.name}</div>
+								<div
+									className={`text-sm ${
+										props.isCollapsable ? "text-zinc-800" : "text-zinc-300"
+									}`}>
+									{arrV.name}
+								</div>
 
 								{arrV instanceof Transition && (
 									<div className='flex p-1 text-sm'>

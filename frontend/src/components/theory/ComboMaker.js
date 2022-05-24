@@ -134,7 +134,11 @@ function ComboMaker() {
 								f={(e) => handleTrickAdd(e)}></ArrayDisplay>
 							{/* FilteredStances */}
 							<div className='h-40 w-40'>
-								<StanceAnimationTest isSmall currentStance={currentStance} />
+								<StanceAnimationTest
+									handleStanceAdd={handleStanceAdd}
+									isSmall
+									currentStance={currentStance}
+								/>
 							</div>
 							<div className=''>
 								<ArrayDisplay
