@@ -6,9 +6,8 @@ import { TrickListScene } from "../scenes/TrickListScene";
 import { ReactComponent as AOAT } from "../data/AnatomyOfATrick.svg";
 import { Link } from "react-router-dom";
 import { useSprings, animated, useTransition, config } from "react-spring";
-import { TriangleStripDrawMode } from "three";
 function TrickList() {
-	const [filteredTricks, setFilteredTricks] = useState([]);
+	const [filteredTricks, setFilteredTricks] = useState([...TrickListArr]);
 	const handleFilter = (event) => {
 		const searchTerm = event.target.value;
 		console.log(searchTerm);
@@ -44,7 +43,7 @@ function TrickList() {
 					<animated.div
 						style={{ opacity: opacity }}
 						key={e}
-						className='m-4 rounded-2xl bg-gradient-to-br from-sky-300 to-sky-400'>
+						className='m-4 rounded-2xl bg-gradient-to-br from-sky-300 to-sky-600'>
 						<Link
 							to={`/3d/sandbox/Kerwood/${e.name}`}
 							className='flex-col p-2 text-2xl text-zinc-600'>

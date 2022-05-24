@@ -11,12 +11,16 @@ function Transitions() {
 				<Link to='singular'>Singular</Link>
 				<Link to='sequential'>Sequential</Link>
 				<Link to='unified'>Unified</Link>
-				<div className='h-fit w-full rounded-md bg-zinc-500'>
+				<div className='my-2 flex h-[27vh] w-full flex-col overflow-y-auto rounded-md '>
 					<div>Transitions Array</div>
 					{transArr.map((e) => {
 						return (
-							<div className='flex gap-3'>
-								{Object.keys(e).map((key, i) => (
+							<div className=' my-2 flex flex-row gap-2 rounded-xl bg-zinc-500 bg-opacity-40 p-1'>
+								<div className='text-2xl'>{e.name}</div>
+								<div className='text-2xl'>{e.fromLeg}</div>
+								<div className='text-2xl'>{e.toLeg}</div>
+
+								{/* {Object.keys(e).map((key, i) => (
 									<table className='bg-zinc-400' id={i}>
 										<tr>
 											<td>{`${key}:`}</td>
@@ -25,7 +29,7 @@ function Transitions() {
 											<td>{e[key]}</td>
 										</tr>
 									</table>
-								))}
+								))} */}
 								{/* <div className='text-zinc-300'>{e?.name}</div>
 								<div className='text-zinc-300'>From:{e?.fromLeg}</div> */}
 							</div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { stanceArr, transArr, TrickListArr } from "../../data/TricklistClass";
 import { stances } from "../../data/trickDataModel/TrickObjects";
 
@@ -17,6 +17,9 @@ import AdvancedStanceCircle from "./AdvancedStanceCircle";
 import { ReactComponent as StanceCircle } from "../../data/AdvancedStancesSVG.svg";
 import StanceAnimationTest from "./stances/StanceAnimationTest";
 import TransitionButtons from "./comboMaker/TransitionButtons";
+import { Canvas } from "@react-three/fiber";
+import Loader from "../loaders/Loader";
+import { TrickListScene } from "../../scenes/TrickListScene";
 
 let newCombo = [];
 function ComboMaker() {
@@ -109,14 +112,21 @@ function ComboMaker() {
 						className={"flex w-full place-content-center place-items-center"}>
 						<StanceAnimationTest currentStance={currentStance} />
 					</div> */}
+					<div className='mt-2 h-[10rem] w-full rounded-xl bg-zinc-700'>
+						<Canvas>
+							<Suspense fallback={<Loader />}>
+								<TrickListScene />
+							</Suspense>
+						</Canvas>
+					</div>
 					{/* Combo State Array */}
 					<NewComboDisplay newCombo={newCombo} />
 					<div
 						id='arrayContainer'
-						className='grid grid-flow-row grid-cols-2 gap-2'>
+						className='grid h-[18rem] grid-flow-row grid-cols-2 gap-2 overflow-hidden overflow-y-auto'>
 						{/* Current Options Array for Selection */}
 						{/* FilteredTricks */}
-						<div className='flex w-full '>
+						<div className='flex w-full flex-col gap-2 '>
 							<ArrayDisplay
 								bg
 								startOpen
@@ -124,8 +134,17 @@ function ComboMaker() {
 								name={"Tricks"}
 								arr={filteredTricks}
 								f={(e) => handleTrickAdd(e)}></ArrayDisplay>
+							<div className=''>
+								<ArrayDisplay
+									bg
+									isCollapsable
+									isAnimated
+									name='Stances'
+									arr={filteredStances}
+									f={(e) => handleStanceAdd(e)}></ArrayDisplay>
+							</div>
 						</div>
-						<div className='flex flex-col gap-4 py-2'>
+						<div className='flex flex-col'>
 							{/* FilteredTransitions */}
 							<ArrayDisplay
 								isCollapsable
@@ -139,15 +158,6 @@ function ComboMaker() {
 									isSmall
 									currentStance={currentStance}
 								/>
-							</div>
-							<div className=''>
-								<ArrayDisplay
-									bg
-									isCollapsable
-									isAnimated
-									name='Stances'
-									arr={filteredStances}
-									f={(e) => handleStanceAdd(e)}></ArrayDisplay>
 							</div>
 						</div>
 						{/* <div className=' flex w-full place-content-center rounded bg-zinc-600'>

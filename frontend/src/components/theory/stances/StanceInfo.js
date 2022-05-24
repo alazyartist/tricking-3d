@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo } from "react";
+import { stances } from "../../../data/trickDataModel/TrickObjects";
 import { useStore } from "../../../store/store";
 import { stanceInfoText as stanceText } from "./stanceInfoText";
 function StanceInfo(props) {
@@ -13,26 +14,27 @@ function StanceInfo(props) {
 		InsideHyper: "#5ed8c5",
 		BacksideHyper: "#6bcee9",
 	};
-
+	let currentColor = `bg-[${color[props.stance]}]`;
 	// let curColor = `bg-[#4171ca]`;
-	let curColor = `bg-[${color[props.stance]}]`;
-
+	let curColor = `${color[props.stance]} `;
 	console.log("Current Stance", props.stance);
 	console.log("Current Color", curColor);
 	return (
-		<div className='font-inter grid grid-cols-3 place-content-center place-items-center bg-zinc-300'>
+		<div className='font-inter place-content-center place-items-center bg-zinc-300'>
 			<div
-				className={`col-span-3 flex h-10 w-60 place-content-center place-items-center gap-2 rounded-md ${curColor} text-center text-2xl`}>
+				className={`col-span-3 flex h-10 w-60 place-content-center place-items-center gap-2 rounded-md 
+				${currentColor}
+				text-center text-2xl`}>
 				{props.stance}
 			</div>
-			<div className='flex flex-col gap-2 p-2'>
-				<div className='text-light w-30 h-20 bg-sky-400 p-2'>
+			<div className='flex flex-row gap-2 p-2'>
+				<div className='text-light w-30 bg-sky-400 p-2'>
 					{stanceText[props.stance].Text}
 				</div>
-				<div className='text-light w-30 h-20 bg-emerald-400 p-2 '>
+				<div className='text-light w-30 bg-emerald-400 p-2 '>
 					{stanceText[props.stance].Direction}
 				</div>
-				<div className='text-light w-30 h-20 bg-teal-400 p-2 '>
+				<div className='text-light w-30  bg-teal-400 p-2 '>
 					Plant Foot: {stanceText[props.stance].Foot}
 				</div>
 			</div>

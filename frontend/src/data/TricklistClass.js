@@ -435,6 +435,7 @@ const carryThrough = new Transition(
 	legs.LorR,
 	legs.LorR
 );
+carryThrough.rotation = 180;
 export const wrapR = new Transition(
 	"Wrap",
 	styles.singular,
