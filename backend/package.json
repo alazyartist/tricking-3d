@@ -7,7 +7,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "nodemon server.js",
-		"dev": "nodemon --inspect-brk server.js"
+		"dev": "nodemon server.js"
 	},
 	"author": "@alazyarist",
 	"license": "ISC",
@@ -18,5 +18,8 @@
 		"node-fetch": "^3.2.2",
 		"nodemon": "^2.0.15",
 		"sequelize": "^6.17.0"
+	},
+	"devDependencies": {
+		"sequelize-cli": "^6.4.1"
 	}
 }

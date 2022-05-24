@@ -22,9 +22,11 @@ app.get("/getData", cors(corsOptions), async (req, res) => {
 	const jsonResponse = await response.json();
 	res.json(jsonResponse);
 });
-import * as db from "./models/index.js";
+import db from "./models/index.js";
+import { User } from "./models/Users.js";
 
-db.Sequelize.sync().then(() => {
+await db.sequelize.sync().then(() => {
+	console.log("Syncronized DB");
 	app.listen(PORT, (err) => {
 		if (err) {
 			console.log(`You broke it. Here's how:`, err);

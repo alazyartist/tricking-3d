@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 
-
 function Dropdown(props) {
 	const [open, setOpen] = useState(false);
 	function DropdownButton(props) {
@@ -10,7 +9,7 @@ function Dropdown(props) {
 				<button
 					id='dropdown-link'
 					onClick={() => setOpen(!open)}
-					className='flex w-full items-center justify-center  text-center align-middle text-2xl font-semibold text-zinc-300 '>
+					className='z-[-1] flex w-full items-center justify-center  text-center align-middle text-2xl font-semibold text-zinc-300 '>
 					<FaAngleDown className={"hover:fill-gray-600"} />
 					{props.name}
 				</button>
@@ -28,7 +27,7 @@ function Dropdown(props) {
 						return (
 							<button
 								id='dropdown-item'
-								className='mt-1 mb-2 flex h-fit w-full justify-center rounded-lg font-inter text-xl font-light text-zinc-200 hover:text-zinc-400'
+								className='font-inter z-10 mt-1 mb-2 flex h-fit w-full justify-center rounded-lg text-xl font-light text-zinc-200 hover:text-zinc-400'
 								onClick={() => {
 									props.f(e);
 									setOpen();
@@ -74,7 +73,7 @@ function Dropdown(props) {
 			{open && (
 				<div
 					id='trick-info-modal-bg'
-					className='fixed top-0 left-0 z-[-1] h-full w-full bg-zinc-800 bg-opacity-40 filter backdrop-blur-md'
+					className='fixed top-0 left-0 z-[1] h-full w-full bg-zinc-800 bg-opacity-20 filter backdrop-blur-md'
 					onClick={() => setOpen(!open)}></div>
 			)}
 		</>

@@ -5,6 +5,7 @@ import Loader from "../components/loaders/Loader";
 import { useNavigate, Link } from "react-router-dom";
 import DonateText from "../components/contribute/DonateText";
 import MultiDonateButton from "../components/info/MultiDonateButton";
+import { TorqueScene } from "../scenes/TorqueScene";
 function Home() {
 	const navigate = useNavigate();
 	return (
@@ -26,10 +27,10 @@ function Home() {
 				<Link
 					to='/3d/sandbox/'
 					id='canvas-container'
-					className='m-5 h-[40vw] w-[90vw] rounded-2xl bg-zinc-900 md:h-[40vw] md:w-[90vw] '>
+					className='m-5 h-[40vw] w-[90vw] rounded-2xl bg-zinc-900 md:h-[40vh] md:w-[90vh] '>
 					<Canvas className='rounded-2xl'>
 						<Suspense fallback={<Loader />}>
-							<HomeScene />
+							<TorqueScene />
 						</Suspense>
 					</Canvas>
 
@@ -61,6 +62,9 @@ function Home() {
 					</Link>
 					<Link to='/3d/contribute'>
 						<div>Contribute</div>
+					</Link>
+					<Link to='/3d/yonder'>
+						<div>yonder</div>
 					</Link>
 				</div>
 				<div className='bottom-8 py-8'>

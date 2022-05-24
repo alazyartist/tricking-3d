@@ -21,7 +21,22 @@ import TheoryNavBar from "./components/theory/TheoryNavBar";
 import StanceInfo from "./components/theory/stances/StanceInfo";
 import LearnMore from "./pages/LearnMore";
 import AboutUs from "./pages/AboutUs";
-
+import TrickList from "./pages/TrickList";
+import AnatomyOfATrick from "./pages/Theory/AnatomyOfATrick";
+import Setups from "./pages/Theory/Setups";
+import Transitions from "./pages/Theory/Transitions";
+import Grabs from "./pages/Theory/Grabs";
+import Shapes from "./pages/Theory/Shapes";
+import Rotations from "./pages/Theory/Rotations";
+import Kicks from "./pages/Theory/Kicks";
+import Touchdowns from "./pages/Theory/Touchdowns";
+import Singular from "./components/theory/transitions/Singular";
+import Sequential from "./components/theory/transitions/Sequential";
+import Unified from "./components/theory/transitions/Unified";
+import All from "./components/theory/transitions/All";
+import Yonder from "./pages/Yonder";
+import { TransitionList } from "./pages/TransitionList";
+import ComboMaker from "./components/theory/ComboMaker";
 function App() {
 	return (
 		<>
@@ -39,12 +54,37 @@ function App() {
 				<Route path={"/3d"} element={<FullScreen />} />
 				<Route path={"/3d/learnmore"} element={<LearnMore />} />
 				<Route path={"/3d/about"} element={<AboutUs />} />
+				<Route path={"/3d/yonder"} element={<Yonder />} />
 				<Route path={"/3d/sandbox"} element={<Sandbox />}>
 					<Route path=':model'>
 						<Route path=':trick' element={<Sandbox />} />
 					</Route>
 				</Route>
+				<Route
+					path={"/3d/comboMaker"}
+					element={
+						<div className='mt-14 flex place-content-center'>
+							<ComboMaker />
+						</div>
+					}
+				/>
 				<Route path={"/3d/theory"} element={<TheoryPage />}>
+					<Route path={"transitionlist"} element={<TransitionList />} />
+					<Route path={"tricklist"} element={<TrickList />} />
+					<Route path={"anatomy"} element={<AnatomyOfATrick />} />
+					<Route path={"setups"} element={<Setups />} />
+					<Route path={"transitions"} element={<Transitions />}>
+						<Route index element={<All />} />
+						<Route path='all' element={<All />} />
+						<Route path='singular' element={<Singular />} />
+						<Route path='sequential' element={<Sequential />} />
+						<Route path='unified' element={<Unified />} />
+					</Route>
+					<Route path={"grabs"} element={<Grabs />} />
+					<Route path={"shapes"} element={<Shapes />} />
+					<Route path={"rotations"} element={<Rotations />} />
+					<Route path={"kicks"} element={<Kicks />} />
+					<Route path={"touchdowns"} element={<Touchdowns />} />
 					<Route path={"stances"} element={<AdvancedStanceCircle />}>
 						<Route
 							path={"FrontsideSemi"}
