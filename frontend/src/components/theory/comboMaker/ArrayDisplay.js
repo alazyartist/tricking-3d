@@ -1,22 +1,28 @@
 import React, { useState } from "react";
-import { Transition } from "../../../data/trickDataModel/TrickClasses";
+import { Stance, Transition } from "../../../data/trickDataModel/TrickClasses";
+import { ReactComponent as LeftFoot } from "../../../data/ComboMakerSVG/Left.svg";
+import { ReactComponent as RightFoot } from "../../../data/ComboMakerSVG/Right.svg";
+import { ReactComponent as BothFoot } from "../../../data/ComboMakerSVG/Both.svg";
 
-function ArrayDisplay(props) {
+export function ArrayDisplay(props) {
 	let isEmpty = props.isEmpty;
 	const [isOpen, setOpen] = useState(props.startOpen);
 
 	return (
-		<div className='flex w-full flex-col rounded-lg bg-zinc-700 p-2'>
+		<div
+			className={`flex w-full flex-col rounded-lg ${
+				props.bg && "bg-zinc-700"
+			} p-2`}>
 			<div
 				onClick={() => props.isCollapsable && setOpen(!isOpen)}
 				className='place-self-center text-xl'>
 				{props.name}
 			</div>
-			<div className={`  w-full overflow-y-auto`}>
+			<div className={`w-full overflow-y-auto`}>
 				<div
 					className={`${
 						props.isCollapsable && isOpen
-							? "absolute bottom-[10vh] left-0 z-[10] max-h-[60vh] place-content-center place-items-center overflow-y-auto p-4 "
+							? "absolute top-[20vh] left-0 z-[10] max-h-[70vh] overflow-y-auto p-4 "
 							: ""
 					} flex w-full flex-col place-items-center `}>
 					<div>{isEmpty && "Select Valid Stance"}</div>
@@ -25,16 +31,24 @@ function ArrayDisplay(props) {
 							<div
 								key={i}
 								className={`${
-									props.isCollapsable ? "z-[20]" : ""
-								} w-fit rounded-lg bg-zinc-600 p-1`}
+									props.isCollapsable ? "z-[50] text-zinc-800" : ""
+								} flex w-fit place-items-center rounded-lg bg-zinc-300 p-1 `}
 								onClick={() => {
 									props.f(arrV);
 									props.isCollapsable && setOpen(!isOpen);
 								}}>
-								<div className='text-sm'> {arrV.name}</div>
+								<div className='text-sm text-zinc-800'> {arrV.name}</div>
+
 								{arrV instanceof Transition && (
-									<div className='text-sm'>
-										{arrV?.toLeg && `to: ${arrV.toLeg}`}{" "}
+									<div className='flex p-1 text-sm'>
+										{/* {arrV?.toLeg && `to: ${arrV.toLeg}`} */}
+										{arrV?.toLeg && whichLeg(arrV.toLeg)}
+									</div>
+								)}
+								{arrV instanceof Stance && (
+									<div className='flex p-1 text-sm'>
+										{/* {arrV?.toLeg && `to: ${arrV.toLeg}`} */}
+										{arrV?.leg && whichLeg(arrV.leg)}
 									</div>
 								)}
 							</div>
@@ -51,5 +65,32 @@ function ArrayDisplay(props) {
 		</div>
 	);
 }
-
+export function whichLeg(toLeg) {
+	switch (toLeg) {
+		case "Left": {
+			return (
+				<div className='h-10 w-10'>
+					<LeftFoot />
+				</div>
+			);
+		}
+		case "Right": {
+			return (
+				<div className='h-10 w-10'>
+					<RightFoot />
+				</div>
+			);
+		}
+		case "Both": {
+			return (
+				<div className='h-10 w-10'>
+					<BothFoot />
+				</div>
+			);
+		}
+		default:
+			console.log("it didnt work");
+	}
+	return;
+}
 export default ArrayDisplay;

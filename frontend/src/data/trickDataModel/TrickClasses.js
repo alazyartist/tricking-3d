@@ -69,7 +69,7 @@ export class Transition {
 			console.log("Im Zero Rotation Transition");
 			return this.rotation;
 		} else if (this.rotation == 180) {
-			let newRot = stances[currentStance]?.getRotation() + (180 % 360);
+			let newRot = (stances[currentStance]?.getRotation() + 180) % 360;
 			console.log("newRotation", newRot, stances[currentStance]?.getRotation());
 			return newRot;
 		}

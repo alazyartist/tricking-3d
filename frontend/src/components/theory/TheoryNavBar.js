@@ -17,7 +17,7 @@ function TheoryNavBar() {
 			<Link to='shapes'>Shapes</Link>
 			<Link to='tricklist'>TrickList</Link>
 			<Link to='transitionlist'>TransitionList</Link>
-			<Link to='comboMaker'>ComboMaker</Link>
+			<Link to='/3d/comboMaker'>ComboMaker</Link>
 		</div>
 	);
 }

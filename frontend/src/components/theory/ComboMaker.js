@@ -16,6 +16,7 @@ import useComboMaker from "./comboMaker/useComboMaker";
 import AdvancedStanceCircle from "./AdvancedStanceCircle";
 import { ReactComponent as StanceCircle } from "../../data/AdvancedStancesSVG.svg";
 import StanceAnimationTest from "./stances/StanceAnimationTest";
+import TransitionButtons from "./comboMaker/TransitionButtons";
 
 let newCombo = [];
 function ComboMaker() {
@@ -81,65 +82,79 @@ function ComboMaker() {
 			(!isEmpty && e.fromLeg == stances[currentStance]?.leg) ||
 			(isEmpty && e.fromLeg == currentLeg)
 	);
-	let rotation = currentTransition?.getNewRotation(currentStance);
+	// let rotation = currentTransition?.getNewRotation(currentStance);
 	return (
-		<div className='h-[80vh]  w-[90vw]'>
+		<div className='font-inter h-[80vh] w-[90vw]'>
+			<div id='pageTitle' className=' text-2xl font-bold text-zinc-400'>
+				ComboMaker
+			</div>
 			<div
-				className=' flex max-h-[650px] w-full
+				className=' flex h-[80vh] w-full
 			 flex-col place-content-center place-items-center overflow-y-auto rounded-lg bg-sky-500 p-2 text-zinc-300'>
-				<div className={"p-4"}>
-					<StanceAnimationTest currentStance={currentStance} />
-					{/* <StanceCircle className={`rotate-90`} /> */}
-				</div>
-				<div id='pageTitle' className='text-2xl'>
-					ComboMaker
-				</div>
-				<div
-					onClick={() =>
-						console.log(currentTransition?.getNewRotation(currentStance))
-					}>
-					TestButon
-				</div>
-				{/* CurrentState Display */}
-				<CurrentStateInfo
-					newCombo={newCombo}
-					currentStance={currentStance}
-					currentLeg={currentLeg}
-					currentDirection={currentDirection}
-				/>
-				{/* Combo State Array */}
-				<NewComboDisplay newCombo={newCombo} />
-				<div id='arrayContainer' className='flex w-full flex-col '>
-					{/* Current Options Array for Selection */}
-					<div className='flex flex-col gap-4 py-2'>
-						{/* FilteredTricks */}
-						<ArrayDisplay
-							startOpen
-							isEmpty={isEmpty}
-							name={"Tricks"}
-							arr={filteredTricks}
-							f={(e) => handleTrickAdd(e)}></ArrayDisplay>
-						{/* FilteredTransitions */}
-						<ArrayDisplay
-							isCollapsable
-							name={"Select Transition"}
-							arr={filteredTransitions}
-							f={(e) => handleTrickAdd(e)}></ArrayDisplay>
-						{/* FilteredStances */}
-						<ArrayDisplay
-							isCollapsable
-							name={currentStance}
-							arr={filteredStances}
-							f={(e) => handleStanceAdd(e)}></ArrayDisplay>
+				<div className=''>
+					<div>
+						{/* CurrentState Display */}
+						<div className=''>
+							<CurrentStateInfo
+								newCombo={newCombo}
+								currentStance={currentStance}
+								currentLeg={currentLeg}
+								currentDirection={currentDirection}
+							/>
+						</div>
 					</div>
-					{/* <div className=' flex w-full place-content-center rounded bg-zinc-600'>
+					{/* Stance Container */}
+					{/* <div
+						id='stanceContainer'
+						className={"flex w-full place-content-center place-items-center"}>
+						<StanceAnimationTest currentStance={currentStance} />
+					</div> */}
+					{/* Combo State Array */}
+					<NewComboDisplay newCombo={newCombo} />
+					<div
+						id='arrayContainer'
+						className='grid grid-flow-row grid-cols-2 gap-2'>
+						{/* Current Options Array for Selection */}
+						{/* FilteredTricks */}
+						<div className='flex w-full '>
+							<ArrayDisplay
+								bg
+								startOpen
+								isEmpty={isEmpty}
+								name={"Tricks"}
+								arr={filteredTricks}
+								f={(e) => handleTrickAdd(e)}></ArrayDisplay>
+						</div>
+						<div className='flex flex-col gap-4 py-2'>
+							{/* FilteredTransitions */}
+							<ArrayDisplay
+								isCollapsable
+								name={<TransitionButtons currentLeg={currentLeg} />}
+								arr={filteredTransitions}
+								f={(e) => handleTrickAdd(e)}></ArrayDisplay>
+							{/* FilteredStances */}
+							<div className='h-40 w-40'>
+								<StanceAnimationTest isSmall currentStance={currentStance} />
+							</div>
+							<div className=''>
+								<ArrayDisplay
+									bg
+									isCollapsable
+									isAnimated
+									name='Stances'
+									arr={filteredStances}
+									f={(e) => handleStanceAdd(e)}></ArrayDisplay>
+							</div>
+						</div>
+						{/* <div className=' flex w-full place-content-center rounded bg-zinc-600'>
 						Timeline
 					</div> */}
-					<div className='fixed bottom-0 left-[20%] flex flex-row place-content-center place-items-center'>
-						<ResetButton
-							resetTricklist={resetTricklist}
-							deleteLast={deleteLast}
-						/>
+						<div className='fixed bottom-0 left-[20%] flex flex-row place-content-center place-items-center'>
+							<ResetButton
+								resetTricklist={resetTricklist}
+								deleteLast={deleteLast}
+							/>
+						</div>
 					</div>
 				</div>
 			</div>

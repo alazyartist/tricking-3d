@@ -10,13 +10,15 @@ function CurrentStateInfo({
 	return (
 		<div
 			id='CurrentState'
-			className=' w-full rounded-md bg-sky-300 p-2 text-sm text-zinc-700'>
+			className={`${
+				isOpen && "absolute top-3 left-3 z-[1001] w-[94vw]"
+			}  w-full rounded-md bg-sky-300 p-2 text-sm text-zinc-700`}>
 			<div onClick={() => setIsOpen(!isOpen)} className=''>
 				{`${currentStance}`}
 			</div>
 
 			{isOpen && (
-				<div className=''>
+				<div onClick={() => setIsOpen(!isOpen)} className=''>
 					<div id='CurrentStance'>{`Current Stance: ${currentStance}`}</div>
 					<div>{`From: ${
 						newCombo[newCombo.length - 2]?.name || "Pick another Trick"

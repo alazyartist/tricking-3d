@@ -9,7 +9,7 @@ function NewComboDisplay({ newCombo }) {
 				<>
 					<div
 						key={i + e}
-						onClick={() => console.log(e.name)}
+						onClick={() => console.log(e)}
 						className='flex w-fit flex-row p-2 pr-0 text-zinc-300'>
 						<div>{`${e?.name || e || "Nope"}`}</div>
 					</div>

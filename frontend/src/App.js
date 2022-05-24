@@ -60,8 +60,15 @@ function App() {
 						<Route path=':trick' element={<Sandbox />} />
 					</Route>
 				</Route>
+				<Route
+					path={"/3d/comboMaker"}
+					element={
+						<div className='mt-14 flex place-content-center'>
+							<ComboMaker />
+						</div>
+					}
+				/>
 				<Route path={"/3d/theory"} element={<TheoryPage />}>
-					<Route path={"comboMaker"} element={<ComboMaker />} />
 					<Route path={"transitionlist"} element={<TransitionList />} />
 					<Route path={"tricklist"} element={<TrickList />} />
 					<Route path={"anatomy"} element={<AnatomyOfATrick />} />
