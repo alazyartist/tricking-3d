@@ -1,18 +1,48 @@
 import { Canvas } from "@react-three/fiber";
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import Loader from "../components/loaders/Loader";
 import { transArr } from "../data/TricklistClass";
 import { TrickListScene } from "../scenes/TrickListScene";
 import { ReactComponent as AOAT } from "../data/AnatomyOfATrick.svg";
 import { Link } from "react-router-dom";
+import { animated, config, useTransition } from "react-spring";
 export function TransitionList() {
+	const [filteredTricks, setFilteredTricks] = useState([...transArr]);
+	const handleFilter = (event) => {
+		const searchTerm = event.target.value;
+		console.log(searchTerm);
+		const newFilter = transArr.filter((value) => {
+			// console.log(value);
+			return value.name.toLowerCase().includes(searchTerm.toLowerCase());
+		});
+		setFilteredTricks(newFilter);
+	};
+
+	const animatedFilter = useTransition(filteredTricks, {
+		from: { opacity: 0 },
+		enter: { opacity: 1 },
+		leave: { opacity: 0 },
+		config: {
+			duration: 300,
+			config: config.stiff,
+		},
+	});
+
 	return (
 		<>
-			<div className='sticky top-0 h-14 bg-zinc-900'></div>
-			<AOAT className='rounded-2xl bg-zinc-300' />
+			{/* <div className='sticky top-0 h-14 bg-zinc-900'></div> */}
+			{/* <AOAT className='rounded-2xl bg-zinc-300' /> */}
+			<input
+				className='sticky top-0 w-full rounded-3xl p-2'
+				type={"search"}
+				placeholder='Search for Transitions...'
+				onChange={handleFilter}
+			/>
 			<div className='font-inter mt-4 flex flex-col place-content-center place-items-center font-bold text-white'>
-				{transArr.map((e, i) => (
-					<div className='m-4 rounded-2xl bg-gradient-to-br from-sky-300 to-sky-400'>
+				{animatedFilter(({ opacity }, e) => (
+					<animated.div
+						style={{ opacity: opacity }}
+						className='m-4 rounded-2xl bg-gradient-to-br from-sky-300 to-sky-400'>
 						<Link
 							to={`/3d/sandbox/Kerwood/${e.name}`}
 							className='flex-col p-2 text-2xl text-zinc-600'>
@@ -26,7 +56,7 @@ export function TransitionList() {
 									</Suspense>
 								</Canvas>
 							</div>
-							<div className='flex w-full flex-col text-zinc-600' id={i}>
+							<div className='flex w-full flex-col text-zinc-600' id={e}>
 								<div className='pr-2'>{`TransitionFamily: ${
 									e.transitionType || "no base found"
 								}`}</div>
@@ -58,7 +88,7 @@ export function TransitionList() {
 								</table>
 							</div>
 						</div>
-					</div>
+					</animated.div>
 				))}
 			</div>
 		</>

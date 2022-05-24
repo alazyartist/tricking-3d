@@ -24,17 +24,16 @@ function TrickList() {
 		enter: { opacity: 1 },
 		leave: { opacity: 0 },
 		config: {
-			reset: true,
-			duration: 700,
+			duration: 300,
 			config: config.stiff,
 		},
 	});
 
 	return (
 		<>
-			<div className='sticky top-0 h-14 bg-zinc-900'></div>
-			<AOAT className='rounded-2xl bg-zinc-300' />
-			<div className='font-inter mt-4 flex flex-col place-content-center place-items-center font-bold '>
+			{/* <div className='sticky top-0 h-14 bg-zinc-900'></div> */}
+			{/* <AOAT className='rounded-2xl bg-zinc-300' /> */}
+			<div className='font-inter sticky top-0 mt-4 flex flex-col place-content-center place-items-center font-bold '>
 				<input
 					className='w-full rounded-3xl p-2'
 					type={"search"}
