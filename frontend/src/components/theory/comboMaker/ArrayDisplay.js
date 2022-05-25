@@ -12,7 +12,11 @@ export function ArrayDisplay(props) {
 		<div
 			className={`flex w-full flex-col rounded-lg ${
 				props.bg && "bg-gradient-to-br from-sky-700 to-sky-600 "
-			}  ${!props.isCollapsable && isOpen ? "max-h-[14rem]" : ""} p-2`}>
+			}  ${
+				!props.isCollapsable && isOpen && !props.stanceList
+					? "max-h-[14rem]"
+					: ""
+			} ${props.stanceList ? "" : ""} p-2`}>
 			<div
 				onClick={() => props.isCollapsable && setOpen(!isOpen)}
 				className='place-self-center text-xl'>
@@ -20,10 +24,12 @@ export function ArrayDisplay(props) {
 			</div>
 			<div
 				className={`w-full ${
-					!props.isCollapsable && isOpen
+					!props.isCollapsable && isOpen && !props.stanceList
 						? "h-[14rem] overflow-hidden rounded-lg"
 						: ""
-				} no-scrollbar overflow-y-auto`}>
+				} no-scrollbar ${
+					props.stanceList ? "h-[18rem] overflow-hidden " : ""
+				}overflow-y-auto`}>
 				<div
 					className={`${
 						props.isCollapsable && isOpen

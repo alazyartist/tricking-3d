@@ -115,7 +115,9 @@ function ComboMaker() {
 					<div className='mt-2 h-[10rem] w-full rounded-xl bg-zinc-700'>
 						<Canvas>
 							<Suspense fallback={<Loader />}>
-								<TrickListScene />
+								<TrickListScene
+									trick={newCombo.map((nC) => nC.name).toString()}
+								/>
 							</Suspense>
 						</Canvas>
 					</div>

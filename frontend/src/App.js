@@ -86,7 +86,8 @@ function App() {
 					<Route path={"kicks"} element={<Kicks />} />
 					<Route path={"touchdowns"} element={<Touchdowns />} />
 					<Route path={"stances"} element={<AdvancedStanceCircle />}>
-						<Route
+						{/* <Route path=':stance' element={<StanceInfo />} /> */}
+						{/* <Route
 							path={"FrontsideSemi"}
 							element={<StanceInfo stance='FrontsideSemi' />}
 						/>
@@ -117,7 +118,7 @@ function App() {
 						<Route
 							path={"OutsideSemi"}
 							element={<StanceInfo stance='OutsideSemi' />}
-						/>
+						/> */}
 					</Route>
 					<Route index element={<TheoryNavBar />} />
 				</Route>

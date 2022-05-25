@@ -2,7 +2,7 @@ import React from "react";
 import { ReactComponent as LeftFoot } from "../../../data/ComboMakerSVG/Left.svg";
 import { ReactComponent as RightFoot } from "../../../data/ComboMakerSVG/Right.svg";
 import { ReactComponent as BothFoot } from "../../../data/ComboMakerSVG/Both.svg";
-function TransitionButtons({ currentLeg }) {
+function TransitionButtons({ currentLeg, f }) {
 	function whichLeg(toLeg) {
 		switch (toLeg) {
 			case "Left": {
@@ -18,7 +18,9 @@ function TransitionButtons({ currentLeg }) {
 	}
 
 	return (
-		<div className='flex flex-col place-items-center  text-zinc-800'>
+		<div
+			onClick={() => f()}
+			className='flex flex-col place-items-center  text-zinc-800'>
 			{currentLeg && whichLeg(currentLeg)}
 			{currentLeg}
 		</div>
