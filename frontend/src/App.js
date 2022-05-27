@@ -1,5 +1,5 @@
 import Home from "./pages/Home";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Landing from "./pages/Landing";
 import { FullScreen } from "./pages/FullScreen";
 import { TestPage } from "./pages/TestPage";
@@ -38,59 +38,85 @@ import Yonder from "./pages/Yonder";
 import { TransitionList } from "./pages/TransitionList";
 import ComboMaker from "./components/theory/ComboMaker";
 import TabBar from "./components/TabBar";
+import { animated, useTransition } from "react-spring";
+import { useEffect, useState } from "react";
+import TheoryTabBar from "./components/theory/TheoryTabBar";
+
 function App() {
+	const location = useLocation();
+	const transitions = useTransition(location, {
+		from: { opacity: 0 },
+		enter: { opacity: 1 },
+		leave: { opacity: 0 },
+		exitBeforeEnter: true,
+		config: {
+			duration: 100,
+			tension: 140,
+			friction: 80,
+		},
+	});
+
+	const [tabBar, setTabBar] = useState(true);
+	useEffect(() => {
+		console.log(location.pathname);
+		location.pathname.includes("/3d/theory")
+			? setTabBar(false)
+			: setTabBar(true);
+	}, [location.pathname]);
 	return (
 		<>
 			<AppBackground />
 			<Header />
-			<TabBar />
+			{tabBar ? <TabBar /> : <TheoryTabBar />}
 
-			<Routes>
-				<Route
-					path='*'
-					element={
-						<ComingSoon />
-						// <Navigate replace to='/3d/sandbox' />
-					}
-				/>
-				<Route path={"/3d/home"} element={<Home />} />
-				<Route path={"/3d"} element={<FullScreen />} />
-				<Route path={"/3d/learnmore"} element={<LearnMore />} />
-				<Route path={"/3d/about"} element={<AboutUs />} />
-				<Route path={"/3d/yonder"} element={<Yonder />} />
-				<Route path={"/3d/sandbox"} element={<Sandbox />}>
-					<Route path=':model'>
-						<Route path=':trick' element={<Sandbox />} />
-					</Route>
-				</Route>
-				<Route
-					path={"/3d/comboMaker"}
-					element={
-						<div className='mt-14 flex place-content-center'>
-							<ComboMaker />
-						</div>
-					}
-				/>
-				<Route path={"/3d/theory"} element={<TheoryPage />}>
-					<Route path={"transitionlist"} element={<TransitionList />} />
-					<Route path={"tricklist"} element={<TrickList />} />
-					<Route path={"anatomy"} element={<AnatomyOfATrick />} />
-					<Route path={"setups"} element={<Setups />} />
-					<Route path={"transitions"} element={<Transitions />}>
-						<Route index element={<All />} />
-						<Route path='all' element={<All />} />
-						<Route path='singular' element={<Singular />} />
-						<Route path='sequential' element={<Sequential />} />
-						<Route path='unified' element={<Unified />} />
-					</Route>
-					<Route path={"grabs"} element={<Grabs />} />
-					<Route path={"shapes"} element={<Shapes />} />
-					<Route path={"rotations"} element={<Rotations />} />
-					<Route path={"kicks"} element={<Kicks />} />
-					<Route path={"touchdowns"} element={<Touchdowns />} />
-					<Route path={"stances"} element={<AdvancedStanceCircle />}>
-						{/* <Route path=':stance' element={<StanceInfo />} /> */}
-						{/* <Route
+			{transitions(({ opacity }, curLocation) => (
+				<animated.div style={{ opacity }}>
+					<Routes location={curLocation}>
+						<Route
+							path='*'
+							element={
+								<ComingSoon />
+								// <Navigate replace to='/3d/sandbox' />
+							}
+						/>
+						<Route path={"/3d/home"} element={<Home />} />
+						<Route path={"/3d"} element={<FullScreen />} />
+						<Route path={"/3d/learnmore"} element={<LearnMore />} />
+						<Route path={"/3d/about"} element={<AboutUs />} />
+						<Route path={"/3d/yonder"} element={<Yonder />} />
+						<Route path={"/3d/sandbox"} element={<Sandbox />}>
+							<Route path=':model'>
+								<Route path=':trick' element={<Sandbox />} />
+							</Route>
+						</Route>
+						<Route
+							path={"/3d/comboMaker"}
+							element={
+								<div className='mt-14 flex place-content-center'>
+									<ComboMaker />
+								</div>
+							}
+						/>
+						<Route path={"/3d/theory"} element={<TheoryPage />}>
+							<Route path={"transitionlist"} element={<TransitionList />} />
+							<Route path={"tricklist"} element={<TrickList />} />
+							<Route path={"anatomy"} element={<AnatomyOfATrick />} />
+							<Route path={"setups"} element={<Setups />} />
+							<Route path={"transitions"} element={<Transitions />}>
+								<Route index element={<All />} />
+								<Route path='all' element={<All />} />
+								<Route path='singular' element={<Singular />} />
+								<Route path='sequential' element={<Sequential />} />
+								<Route path='unified' element={<Unified />} />
+							</Route>
+							<Route path={"grabs"} element={<Grabs />} />
+							<Route path={"shapes"} element={<Shapes />} />
+							<Route path={"rotations"} element={<Rotations />} />
+							<Route path={"kicks"} element={<Kicks />} />
+							<Route path={"touchdowns"} element={<Touchdowns />} />
+							<Route path={"stances"} element={<AdvancedStanceCircle />}>
+								{/* <Route path=':stance' element={<StanceInfo />} /> */}
+								{/* <Route
 							path={"FrontsideSemi"}
 							element={<StanceInfo stance='FrontsideSemi' />}
 						/>
@@ -107,8 +133,8 @@ function App() {
 							element={<StanceInfo stance='InsideHyper' />}
 						/>
 						<Route
-							path={"BacksideHyper"}
-							element={<StanceInfo stance='BacksideHyper' />}
+						path={"BacksideHyper"}
+						element={<StanceInfo stance='BacksideHyper' />}
 						/>
 						<Route
 							path={"BacksideComplete"}
@@ -122,74 +148,30 @@ function App() {
 							path={"OutsideSemi"}
 							element={<StanceInfo stance='OutsideSemi' />}
 						/> */}
-					</Route>
-					<Route index element={<TheoryNavBar />} />
-				</Route>
-				<Route path={"/3d/comingsoon"} element={<ComingSoon />} />
-				<Route path={"/3d/contribute"} element={<Contribute />}>
-					<Route path={"design"} element={<Design />} />
-					<Route path={"code"} element={<Code />} />
-					<Route path={"marketing"} element={<Marketing />} />
-					<Route path={"theory"} element={<Theory />} />
-					<Route path={"3d"} element={<HelpWith3d />} />
-					<Route
-						index
-						element={<div className='text-center'>What can you help with?</div>}
-					/>
-				</Route>
-				<Route path={"/3d/instructions"} element={<InstructionsPage />} />
-				<Route path={"/3d/landing"} element={<Landing />} />
+							</Route>
+							<Route index element={<TheoryNavBar />} />
+						</Route>
+						<Route path={"/3d/comingsoon"} element={<ComingSoon />} />
+						<Route path={"/3d/contribute"} element={<Contribute />}>
+							<Route path={"design"} element={<Design />} />
+							<Route path={"code"} element={<Code />} />
+							<Route path={"marketing"} element={<Marketing />} />
+							<Route path={"theory"} element={<Theory />} />
+							<Route path={"3d"} element={<HelpWith3d />} />
+							<Route
+								index
+								element={
+									<div className='text-center'>What can you help with?</div>
+								}
+							/>
+						</Route>
+						<Route path={"/3d/instructions"} element={<InstructionsPage />} />
+						<Route path={"/3d/landing"} element={<Landing />} />
 
-				<Route path={"/3d/test"} element={<TestPage />}>
-					<Route
-						path={"testoutlet"}
-						element={
-							<div className=''>
-								<div className='rounded-xl bg-gray-900 text-center text-zinc-300'>
-									Test Outlet
-								</div>
-								<img
-									className='w-2/3 place-self-center rounded-3xl'
-									alt='some image'
-									src='https://source.unsplash.com/KwsSAotVIRc'
-									width='500'
-									heith='500'></img>
-							</div>
-						}
-					/>
-					<Route
-						path={"testoutlet2"}
-						element={
-							<div className='flex flex-col'>
-								<div className='rounded-xl bg-gray-900 text-center text-zinc-300'>
-									Test Outlet 2
-								</div>
-								<img
-									className='w-2/3 place-self-center rounded-3xl'
-									alt='some image'
-									src='https://source.unsplash.com/Geu-i5VvI1A'
-									height='500'
-									width='500'></img>
-							</div>
-						}
-					/>
-					<Route
-						path={"testoutlet3"}
-						element={
-							<div className='flex flex-col'>
-								<div className='rounded-xl bg-gray-900 text-center text-zinc-300'>
-									Test Outlet 3
-								</div>
-								<img
-									className='w-2/3 place-self-center rounded-3xl'
-									alt='some image'
-									src='https://source.unsplash.com/U2TjtLJe4Z0'
-									height='500'></img>
-							</div>
-						}
-					/>
-				</Route>
-			</Routes>
+						<Route path={"/3d/test"} element={<TestPage />}></Route>
+					</Routes>
+				</animated.div>
+			))}
 		</>
 	);
 }

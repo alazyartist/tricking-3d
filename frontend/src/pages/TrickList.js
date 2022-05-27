@@ -32,7 +32,7 @@ function TrickList() {
 			{/* <AOAT className='rounded-2xl bg-zinc-300' /> */}
 			<div
 				id={"TrickListContainer"}
-				className='font-inter sticky top-0 mt-4 flex flex-col place-content-center place-items-center font-bold '>
+				className='font-inter sticky top-0 flex flex-col place-content-center place-items-center font-bold '>
 				<input
 					className='w-full rounded-3xl p-2'
 					type={"search"}
