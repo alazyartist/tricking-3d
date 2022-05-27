@@ -69,22 +69,26 @@ export function TransitionList() {
 								}`}</div>
 								<div className='pr-2'>{`Rotation: ${e.rotation}`}</div>
 								<table className='m-3 rounded-3xl bg-teal-400'>
-									<tr>
-										<td>Name</td>
-										<td>Rotation</td>
-										<td>TakeoffStance</td>
-										<td>TakeoffStyle</td>
-										<td>LandingStance</td>
-										<td>LandingStyle</td>
-									</tr>
-									<tr>
-										<td className='text-white'>{e.name}</td>
-										<td className='text-white'>{e.rotation}</td>
-										<td className='text-white'>{e.takeoffStance}</td>
-										<td className='text-white'>{e.landingStance}</td>
-										<td className='text-white'>{e.takeoffStyle}</td>
-										<td className='text-white'>{e.landingStyle}</td>
-									</tr>
+									<thead>
+										<tr>
+											<td>Name</td>
+											<td>Rotation</td>
+											<td>TakeoffStance</td>
+											<td>TakeoffStyle</td>
+											<td>LandingStance</td>
+											<td>LandingStyle</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td className='text-white'>{e.name}</td>
+											<td className='text-white'>{e.rotation}</td>
+											<td className='text-white'>{e.takeoffStance}</td>
+											<td className='text-white'>{e.landingStance}</td>
+											<td className='text-white'>{e.takeoffStyle}</td>
+											<td className='text-white'>{e.landingStyle}</td>
+										</tr>
+									</tbody>
 								</table>
 							</div>
 						</div>

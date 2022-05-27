@@ -8,19 +8,21 @@ import {
 	useHelper,
 	Plane,
 } from "@react-three/drei";
-import { SpotLightHelper } from "three";
 import Loader from "../components/loaders/Loader";
 import ModelLoader from "../components/loaders/ModelLoader";
 import LoadActiveModel from "../components/media/ModelSelector";
 import SceneBackground from "./SceneBackground";
+import { Frank } from "../animations/Frank";
+import { useStore } from "../store/store";
+import { useThree } from "@react-three/fiber";
 // import Model from "../animations/KerwoodCC3Tpose";
 export function TorqueScene(props) {
 	const light = useRef();
 	const light2 = useRef();
-	// useHelper(light2, SpotLightHelper, "red");
+	const cameraRef = useRef();
 	// useHelper(light, SpotLightHelper, "cyan");
 	return (
-		<PerspectiveCamera position={[0, -1, 0]}>
+		<PerspectiveCamera ref={cameraRef} position={[0, -1, 1]}>
 			<Suspense fallback={<ModelLoader />}>
 				<LoadActiveModel />
 			</Suspense>

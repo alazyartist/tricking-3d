@@ -10,9 +10,7 @@ function TrickList() {
 	const [filteredTricks, setFilteredTricks] = useState([...TrickListArr]);
 	const handleFilter = (event) => {
 		const searchTerm = event.target.value;
-		console.log(searchTerm);
 		const newFilter = TrickListArr.filter((value) => {
-			// console.log(value);
 			return value.name.toLowerCase().includes(searchTerm.toLowerCase());
 		});
 		setFilteredTricks(newFilter);
@@ -32,13 +30,16 @@ function TrickList() {
 		<>
 			{/* <div className='sticky top-0 h-14 bg-zinc-900'></div> */}
 			{/* <AOAT className='rounded-2xl bg-zinc-300' /> */}
-			<div className='font-inter sticky top-0 mt-4 flex flex-col place-content-center place-items-center font-bold '>
+			<div
+				id={"TrickListContainer"}
+				className='font-inter sticky top-0 mt-4 flex flex-col place-content-center place-items-center font-bold '>
 				<input
 					className='w-full rounded-3xl p-2'
 					type={"search"}
 					placeholder='Search for Tricks...'
 					onChange={handleFilter}
 				/>
+				{/* Maps over data returned from filter and displays it. */}
 				{animatedFilter(({ opacity }, e) => (
 					<animated.div
 						style={{ opacity: opacity }}
@@ -53,7 +54,7 @@ function TrickList() {
 							<div className='flex w-full place-content-center place-items-center md:w-[50%]'>
 								<Canvas className='rounded-2xl bg-zinc-800'>
 									<Suspense fallback={<Loader />}>
-										{/* <TrickListScene trick={e.name} /> */}
+										<TrickListScene trick={e.name} />
 									</Suspense>
 								</Canvas>
 							</div>

@@ -37,11 +37,14 @@ import All from "./components/theory/transitions/All";
 import Yonder from "./pages/Yonder";
 import { TransitionList } from "./pages/TransitionList";
 import ComboMaker from "./components/theory/ComboMaker";
+import TabBar from "./components/TabBar";
 function App() {
 	return (
 		<>
 			<AppBackground />
 			<Header />
+			<TabBar />
+
 			<Routes>
 				<Route
 					path='*'

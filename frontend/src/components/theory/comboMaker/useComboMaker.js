@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	Stance,
 	Transition,
 	Trick,
 } from "../../../data/trickDataModel/TrickClasses";
 import { stances } from "../../../data/trickDataModel/TrickObjects";
-import { transArr, wrapR } from "../../../data/TricklistClass";
+import { transArr } from "../../../data/TricklistClass";
 import { useComboMakerStore } from "../../../store/comboMakerStore";
 
 function useComboMaker(combo, setcombo, newCombo) {
@@ -48,28 +48,11 @@ function useComboMaker(combo, setcombo, newCombo) {
 				newTransitionRot,
 				currentLeg
 			);
-			console.log(
-				"I Changed the Transition from",
-				currentStance,
-				"to",
-				newTransitionStance,
-				currentLeg,
-				newTransitionRot
-			);
+
 			setCurrentStance(newTransitionStance);
 			setCurrentLeg(stances[newTransitionStance].leg);
 		}
-		if (
-			stances[currentStance]?.direction == currentDirection &&
-			stances[currentStance]?.leg !== currentLeg
-		) {
-			console.log(stances[currentStance]);
-			console.log("Don'tMatch");
-			// setCurrentStance(stances[currentStance].getNewStance(currentLeg));
-			// setCurrentLeg(stances[currentStance].leg);
 
-			// setCurrentDirection(stances[currentStance]?.direction);
-		}
 		// Updates newCombo to be displayed
 		if (combo) {
 			setcombo(combo);
@@ -98,7 +81,6 @@ function useComboMaker(combo, setcombo, newCombo) {
 	}, [isDelete, setIsDelete]);
 	//Sets Current State to be valid based on your selection.
 
-	useEffect(() => {}, [currentStance, currentLeg]);
 	return {
 		currentDirection,
 		currentLeg,

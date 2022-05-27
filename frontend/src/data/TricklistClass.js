@@ -245,7 +245,7 @@ const gainer = new Trick(
 );
 gainer.landingStance = "BacksideHyper";
 const badsideGainer = new Trick(
-	"BadSideGainer",
+	"GainerR",
 	gainerR,
 	stances.BacksideHyper,
 	styles.singular

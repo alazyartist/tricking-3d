@@ -1,10 +1,17 @@
 import React, { useEffect, useMemo } from "react";
 import { stances } from "../../../data/trickDataModel/TrickObjects";
+import { useComboMakerStore } from "../../../store/comboMakerStore";
 import { useStore } from "../../../store/store";
+import TransitionButtons from "../comboMaker/TransitionButtons";
 import { stanceInfoText as stanceText } from "./stanceInfoText";
 function StanceInfo(props) {
+	const currentLeg = useComboMakerStore((s) => s.currentLeg);
 	const stanceColor = useStore((s) => s.stanceColor);
 	const color = {
+		Backside: `bg-[#07b9e9]`,
+		Inside: `bg-[#06d8b7]`,
+		Outside: `bg-[#10b35d]`,
+		Frontside: `bg-[#003eb3]`,
 		BacksideComplete: `bg-[#7EE0FB]`,
 		OutsideComplete: `bg-[#75FBB3]`,
 		OutsideSemi: `bg-[#2db36c]`,
@@ -14,6 +21,7 @@ function StanceInfo(props) {
 		InsideHyper: `bg-[#5ed8c5]`,
 		BacksideHyper: `bg-[#6bcee9]`,
 	};
+
 	let currentColor = color[props.stance];
 	// let curColor = `bg-[#4171ca]`;
 	let curColor = `${color[props.stance]} `;
@@ -30,7 +38,7 @@ function StanceInfo(props) {
 			<div className='flex flex-row place-content-center place-items-center gap-2 p-2'>
 				<div className='text-light w-30 flex flex-col rounded-xl bg-sky-400 bg-opacity-40 p-2'>
 					<div className='whitespace-nowrap text-xs'>Plant Foot</div>
-					<div>{stances[props.stance].leg}</div>
+					<TransitionButtons currentLeg={stances[props.stance].leg} />
 				</div>
 				<div className='text-light w-30 rounded-xl bg-emerald-400 bg-opacity-40 p-2 '>
 					<div className='whitespace-nowrap text-xs'>Direction</div>

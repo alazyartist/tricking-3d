@@ -10,11 +10,13 @@ import { useComboMakerStore } from "../../store/comboMakerStore";
 import { stances } from "../../data/trickDataModel/TrickObjects";
 import StanceList from "./StanceList";
 import StanceInfo from "./stances/StanceInfo";
+import TransitionButtons from "./comboMaker/TransitionButtons";
 function AdvancedStanceCircle() {
 	const nav = useNavigate();
 	const setStanceColor = useStore((s) => s.setStanceColor);
 	const setCurrentStance = useComboMakerStore((s) => s.setCurrentStance);
 	const currentStance = useComboMakerStore((s) => s.currentStance);
+	const currentLeg = useComboMakerStore((s) => s.currentLeg);
 	const setCurrentLeg = useComboMakerStore((s) => s.setCurrentLeg);
 	const setCurrentDirection = useComboMakerStore((s) => s.setCurrentDirection);
 	const [lastRotation, setLastRotation] = useState(0);

@@ -11,6 +11,8 @@ import * as THREE from "three";
 
 export function Frank({ ...props }) {
 	const group = useRef();
+	const hipsRef = useRef();
+
 	const { nodes, materials, animations } = useGLTF(
 		"https://torquetricking.com/3d/Frank.glb"
 	);
@@ -32,6 +34,8 @@ export function Frank({ ...props }) {
 	const timescale = useStore((s) => s.timescale);
 	const trimToggle = useStore((s) => s.trimToggle);
 	const setCurrentAnim = useStore((s) => s.selectAnim);
+	const modelPosition = useStore((s) => s.modelPosition);
+	const setModelPosition = useStore((s) => s.setModelPosition);
 	const activeModel = useStore((s) => s.activeModel);
 	//Solves Problem with infinte renders of Animations Array and successfully passes to store
 	useMemo(
@@ -109,7 +113,7 @@ export function Frank({ ...props }) {
 		// <Trail>
 		<group ref={group} {...props} dispose={null}>
 			<group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
-				<primitive object={nodes.mixamorig1Hips} />
+				<primitive ref={hipsRef} object={nodes.mixamorig1Hips} />
 				<skinnedMesh
 					frustumCulled={false}
 					geometry={nodes.Skin.geometry}

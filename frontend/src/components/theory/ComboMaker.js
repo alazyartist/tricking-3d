@@ -59,11 +59,13 @@ function ComboMaker() {
 	}
 	function deleteLast() {
 		setIsDelete(!isDelete);
+		// Handles Switching Legs to ComboEnd
 		if (currentLeg !== newCombo[newCombo.length - 1]?.toLeg) {
 			if (newCombo[newCombo.length - 1]?.toLeg) {
 				setCurrentLeg(
-					newCombo[newCombo.length - 2]?.toLeg ||
+					newCombo[newCombo.length - 1]?.toLeg ||
 						newCombo[newCombo.length - 1]?.leg ||
+						newCombo[newCombo.length - 2]?.leg ||
 						"Left"
 				);
 			}
@@ -87,90 +89,91 @@ function ComboMaker() {
 	);
 	// let rotation = currentTransition?.getNewRotation(currentStance);
 	return (
-		<div className='font-inter h-[80vh] w-[90vw]'>
+		<div id='comboMaker-wrapper' className='font-inter h-[80vh] w-[90vw]'>
+			{/* Page Title */}
 			<div id='pageTitle' className=' text-2xl font-bold text-zinc-400'>
 				ComboMaker
 			</div>
 			<div
-				className=' flex h-[80vh] w-full
-			 flex-col place-content-center place-items-center overflow-y-auto rounded-lg bg-sky-500 p-2 text-zinc-300'>
-				<div className=''>
-					<div>
-						{/* CurrentState Display */}
-						<div className=''>
-							<CurrentStateInfo
-								newCombo={newCombo}
-								currentStance={currentStance}
-								currentLeg={currentLeg}
-								currentDirection={currentDirection}
+				id='app-content'
+				className='flex h-[80vh] w-full flex-col place-content-center place-items-center overflow-y-auto rounded-lg bg-sky-500 p-2 text-zinc-300'>
+				<div id='stateInfo-button-wrapper'>
+					{/* CurrentState Display */}
+					<CurrentStateInfo
+						newCombo={newCombo}
+						currentStance={currentStance}
+						currentLeg={currentLeg}
+						currentDirection={currentDirection}
+					/>
+				</div>
+
+				{/* Output for 3dView */}
+				<div
+					id='3dCanvas'
+					className='mt-2 h-[10rem] w-full rounded-xl bg-zinc-700'>
+					<Canvas>
+						<Suspense fallback={<Loader />}>
+							<TrickListScene
+								trick={newCombo.map((nC) => nC.name).toString()}
 							/>
-						</div>
-					</div>
-					{/* Stance Container */}
-					{/* <div
-						id='stanceContainer'
-						className={"flex w-full place-content-center place-items-center"}>
-						<StanceAnimationTest currentStance={currentStance} />
-					</div> */}
-					<div className='mt-2 h-[10rem] w-full rounded-xl bg-zinc-700'>
-						<Canvas>
-							<Suspense fallback={<Loader />}>
-								<TrickListScene
-									trick={newCombo.map((nC) => nC.name).toString()}
-								/>
-							</Suspense>
-						</Canvas>
-					</div>
-					{/* Combo State Array */}
-					<NewComboDisplay newCombo={newCombo} />
+						</Suspense>
+					</Canvas>
+				</div>
+				{/* newCombo State Array */}
+				<NewComboDisplay newCombo={newCombo} />
+				{/* Button Container */}
+				<div
+					id='selectables-container'
+					className='grid h-[18rem] grid-flow-row grid-cols-2 gap-2 overflow-hidden overflow-y-auto'>
+					{/* Current Options Array for Selection */}
+					{/* FilteredTricks */}
 					<div
-						id='arrayContainer'
-						className='grid h-[18rem] grid-flow-row grid-cols-2 gap-2 overflow-hidden overflow-y-auto'>
-						{/* Current Options Array for Selection */}
-						{/* FilteredTricks */}
-						<div className='flex w-full flex-col gap-2 '>
+						id='left-column-tricks-n-stances'
+						className='flex w-full flex-col gap-2 '>
+						<ArrayDisplay
+							bg
+							startOpen
+							isEmpty={isEmpty}
+							name={"Tricks"}
+							arr={filteredTricks}
+							f={(e) => handleTrickAdd(e)}></ArrayDisplay>
+						{/* FilteredStances */}
+						<div className=''>
 							<ArrayDisplay
 								bg
-								startOpen
-								isEmpty={isEmpty}
-								name={"Tricks"}
-								arr={filteredTricks}
-								f={(e) => handleTrickAdd(e)}></ArrayDisplay>
-							<div className=''>
-								<ArrayDisplay
-									bg
-									isCollapsable
-									isAnimated
-									name='Stances'
-									arr={filteredStances}
-									f={(e) => handleStanceAdd(e)}></ArrayDisplay>
-							</div>
-						</div>
-						<div className='flex flex-col'>
-							{/* FilteredTransitions */}
-							<ArrayDisplay
 								isCollapsable
-								name={<TransitionButtons currentLeg={currentLeg} />}
-								arr={filteredTransitions}
-								f={(e) => handleTrickAdd(e)}></ArrayDisplay>
-							{/* FilteredStances */}
-							<div className='h-40 w-40'>
-								<StanceAnimationTest
-									handleStanceAdd={handleStanceAdd}
-									isSmall
-									currentStance={currentStance}
-								/>
-							</div>
+								isAnimated
+								name='Stances'
+								arr={filteredStances}
+								f={(e) => handleStanceAdd(e)}></ArrayDisplay>
 						</div>
-						{/* <div className=' flex w-full place-content-center rounded bg-zinc-600'>
-						Timeline
-					</div> */}
-						<div className='fixed bottom-0 left-[20%] flex flex-row place-content-center place-items-center'>
-							<ResetButton
-								resetTricklist={resetTricklist}
-								deleteLast={deleteLast}
+					</div>
+					<div
+						id='right-column-transitions-stanceCircle'
+						className='flex flex-col'>
+						{/* FilteredTransitions */}
+						<ArrayDisplay
+							isCollapsable
+							name={<TransitionButtons currentLeg={currentLeg} />}
+							arr={filteredTransitions}
+							f={(e) => handleTrickAdd(e)}></ArrayDisplay>
+						{/* StanceCircleAnimation */}
+						<div className='h-40 w-40'>
+							<StanceAnimationTest
+								handleStanceAdd={handleStanceAdd}
+								isSmall
+								currentStance={currentStance}
 							/>
 						</div>
+					</div>
+					{/* Reset Buttons */}
+					<div
+						id='reset-buttons-container'
+						className='fixed left-[20%] bottom-12 flex flex-row place-content-center place-items-center'>
+						<ResetButton
+							resetTricklist={resetTricklist}
+							deleteLast={deleteLast}
+						/>
 					</div>
 				</div>
 			</div>

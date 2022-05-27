@@ -3,7 +3,7 @@ import { Stance, Transition } from "../../../data/trickDataModel/TrickClasses";
 import { ReactComponent as LeftFoot } from "../../../data/ComboMakerSVG/Left.svg";
 import { ReactComponent as RightFoot } from "../../../data/ComboMakerSVG/Right.svg";
 import { ReactComponent as BothFoot } from "../../../data/ComboMakerSVG/Both.svg";
-
+//Nested Ternerary Hell for styling... Should have done this differently... next time this works for now.
 export function ArrayDisplay(props) {
 	let isEmpty = props.isEmpty;
 	const [isOpen, setOpen] = useState(props.startOpen);
@@ -33,7 +33,7 @@ export function ArrayDisplay(props) {
 				<div
 					className={`${
 						props.isCollapsable && isOpen
-							? "absolute top-[20vh] left-0 z-[10] max-h-[70vh] overflow-y-auto p-4 "
+							? "fixed top-[20vh] left-0 z-[10] max-h-[70vh] overflow-y-auto p-4 "
 							: ""
 					} flex w-full flex-col place-items-center `}>
 					<div>{isEmpty && "Select Valid Stance"}</div>
@@ -79,7 +79,7 @@ export function ArrayDisplay(props) {
 				className={`${
 					props.isCollapsable &&
 					isOpen &&
-					"absolute bottom-0 left-0 z-[1] h-[100vh]  place-content-center place-items-center overflow-y-auto bg-zinc-700 p-4 opacity-80 blur-md "
+					"fixed bottom-0 left-0 z-[1] h-[100vh] max-h-screen  place-content-center place-items-center overflow-y-auto bg-zinc-700 p-4 opacity-80 blur-md "
 				} flex w-full flex-col place-items-center  `}></div>
 		</div>
 	);

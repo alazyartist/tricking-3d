@@ -1,6 +1,6 @@
 {
 	"name": "tricking-3d",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"homepage": "https://torquetricking.com/3d",
 	"private": true,
 	"proxy": "http://localhost:3000",
