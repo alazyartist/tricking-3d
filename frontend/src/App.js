@@ -58,7 +58,6 @@ function App() {
 
 	const [tabBar, setTabBar] = useState(true);
 	useEffect(() => {
-		console.log(location.pathname);
 		location.pathname.includes("/3d/theory")
 			? setTabBar(false)
 			: setTabBar(true);

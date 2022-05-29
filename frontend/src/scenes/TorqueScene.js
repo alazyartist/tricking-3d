@@ -19,54 +19,43 @@ import { useFrame, useThree } from "@react-three/fiber";
 export function TorqueScene(props) {
 	const light = useRef();
 	const light2 = useRef();
-	const cameraRef = useRef();
+	const gizmoRef = useRef();
+	const isFollowCam = useStore((s) => s.isFollowCam);
+	useEffect(() => {
+		console.log("Gismo", gizmoRef);
+	}, [isFollowCam]);
 	// useHelper(light, SpotLightHelper, "cyan");
-	let hipArr;
-	let hipPos;
-	let posArr;
-	function updateCamera() {
-		if (cameraRef?.current?.children) {
-			hipPos =
-				cameraRef?.current?.children[0].children[0]?.children[0]?.position;
-			hipArr = [hipPos.x, hipPos.y, hipPos.z];
-		}
-		posArr = hipArr?.map((pos) => pos * -0.01) || [0, 0, 0];
-	}
-	// console.log(cameraRef.current.);
-	useFrame(({ camera }) => {
-		// updateCamera();
-		// console.log(camera);
-		// cameraRef.lookAt(...posArr);
-	});
 	return (
-		<PerspectiveCamera ref={cameraRef} position={[0, -1, 0]}>
-			<Suspense fallback={<ModelLoader />}>
-				<LoadActiveModel />
-			</Suspense>
-			<SceneBackground />
-			{/* <Model /> */}
-			<ambientLight intensity={0.3} />
-			<spotLight
-				ref={light2}
-				color={"whitesmoke"}
-				intensity={0.4}
-				position={[0, 2, 5]}
-			/>
-			<spotLight
-				ref={light}
-				color={"whitesmoke"}
-				intensity={0.04}
-				position={[0, 2, -5]}
-			/>
-			{/* <Environment preset='park' /> */}
-			<OrbitControls makeDefault />
-			{/* <gridHelper args={[10, 10, `black`, `gainsboro`]} position={[0, 0, 0]} /> */}
-			<GizmoHelper alignment={"bottom-left"} margin={[60, 220]}>
-				<GizmoViewport
-					axisColors={["red", "green", "blue"]}
-					labelColor='gainsboro'
+		<>
+			<PerspectiveCamera ref={gizmoRef} position={[0, -1, 0]}>
+				<Suspense fallback={<ModelLoader />}>
+					<LoadActiveModel />
+				</Suspense>
+				<SceneBackground />
+				{/* <Model /> */}
+				<ambientLight intensity={0.3} />
+				<spotLight
+					ref={light2}
+					color={"whitesmoke"}
+					intensity={0.4}
+					position={[0, 2, 5]}
 				/>
-			</GizmoHelper>
-		</PerspectiveCamera>
+				<spotLight
+					ref={light}
+					color={"whitesmoke"}
+					intensity={0.04}
+					position={[0, 2, -5]}
+				/>
+				{/* <Environment preset='park' /> */}
+				<OrbitControls />
+				{/* <gridHelper args={[10, 10, `black`, `gainsboro`]} position={[0, 0, 0]} /> */}
+				<GizmoHelper alignment={"bottom-left"} margin={[60, 220]}>
+					<GizmoViewport
+						axisColors={["red", "green", "blue"]}
+						labelColor='gainsboro'
+					/>
+				</GizmoHelper>
+			</PerspectiveCamera>
+		</>
 	);
 }

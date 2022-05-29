@@ -4,6 +4,9 @@ import { devtools } from "zustand/middleware";
 export const useStore = create(
 	devtools((set, api) => ({
 		aI: 0,
+
+		isFollowCam: false,
+		setFollowCam: () => set((s) => ({ isFollowCam: !s.isFollowCam })),
 		addToAnimationArray: (value) =>
 			set((state) => ({ animationsArray: [...state.animationsArray, value] })),
 		animationSelector: () =>
