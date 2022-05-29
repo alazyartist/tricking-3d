@@ -7,10 +7,12 @@ function Transitions() {
 		<>
 			<div className='font-inter mt-4 flex flex-col place-content-center place-items-center font-bold text-zinc-300'>
 				<div className='text-xl font-black text-white'>Transitions</div>
-				<Link to='all'>All</Link>
-				<Link to='singular'>Singular</Link>
-				<Link to='sequential'>Sequential</Link>
-				<Link to='unified'>Unified</Link>
+				<div className='flex gap-2'>
+					<Link to='all'>All</Link>
+					<Link to='singular'>Singular</Link>
+					<Link to='sequential'>Sequential</Link>
+					<Link to='unified'>Unified</Link>
+				</div>
 				<div className='my-2 flex h-[27vh] w-full flex-col overflow-y-auto rounded-md '>
 					<div>Transitions Array</div>
 					{transArr.map((e) => {

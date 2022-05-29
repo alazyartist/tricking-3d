@@ -30,11 +30,13 @@ function Home() {
 					to='/3d/sandbox/'
 					id='canvas-container'
 					className='m-5 h-[40vw] w-[90vw] rounded-2xl bg-zinc-900 md:h-[40vh] md:w-[90vh] '>
-					<Canvas className='rounded-2xl'>
-						<Suspense fallback={<Loader />}>
-							<TorqueScene />
-						</Suspense>
-					</Canvas>
+					<Suspense fallback={<Loader />}>
+						<Canvas className='rounded-2xl'>
+							<Suspense fallback={<Loader />}>
+								<TorqueScene />
+							</Suspense>
+						</Canvas>
+					</Suspense>
 
 					<div className='translate-y-[-5vh] lg:translate-y-[-6vh] 2xl:translate-y-[-10vh] '>
 						<h1 className='l:text-4xl text-center text-xl font-black text-zinc-300 md:text-2xl'>

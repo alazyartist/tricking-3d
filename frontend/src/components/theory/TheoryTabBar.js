@@ -35,14 +35,15 @@ function TheoryTabBar() {
 				</Link>
 				<Link
 					onClick={() => setOpenHamburger(false)}
-					to='/3d/theory/transitionList'>
+					to='/3d/theory/transitions'>
 					<div className='flex w-full flex-col place-items-center'>
 						<TransitionFeet className=' flex h-12 place-content-center' />
 						<div className='text-xs'>Transitions</div>
 					</div>
 				</Link>
 				<Link onClick={() => setOpenHamburger(false)} to='/3d/theory/trickList'>
-					<div className='text-xs'>Vert Kicks</div>
+					<TransitionFeet className='flex h-12 place-content-center' />
+					<div className='text-xs'>Tricks</div>
 				</Link>
 
 				<GiHamburgerMenu onClick={() => setOpenHamburger(!openHamburger)} />
@@ -55,10 +56,16 @@ function TheoryTabBar() {
 							style={styles}
 							onClick={() => setOpenHamburger(!openHamburger)}
 							className='fixed bottom-14 rounded-l-xl'>
-							<animated.div className=' flex h-[40vh] max-w-[40vw] flex-col gap-3 rounded-l-xl bg-gradient-to-br from-zinc-900 to-zinc-800 p-3 text-sm text-white'>
-								<Link to='/3d/about'>About</Link>
-								<Link to='/3d/contribute'>Contibute</Link>
-								<Link to='/3d/learnMore'>Learn More</Link>
+							<animated.div className=' z-[] flex h-[40vh] max-w-[40vw] flex-col gap-3 rounded-l-xl bg-gradient-to-br from-zinc-900 to-zinc-800 p-3 text-sm text-white'>
+								<div className='text-bold'>Variations</div>
+								<div className='flex flex-col gap-2 text-zinc-400'>
+									<Link to='/3d/theory/axes'>Axes</Link>
+									<Link to='/3d/theory/touchdowns'>Touchdowns</Link>
+									<Link to='/3d/theory/rotations'>Rotations</Link>
+									<Link to='/3d/theory/kicks'>Kicks</Link>
+									<Link to='/3d/theory/grabs'>Grabs</Link>
+									<Link to='/3d/theory/shapes'>Shapes</Link>
+								</div>
 							</animated.div>
 						</animated.div>
 					)

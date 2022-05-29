@@ -11,6 +11,7 @@ import { stances } from "../../data/trickDataModel/TrickObjects";
 import StanceList from "./StanceList";
 import StanceInfo from "./stances/StanceInfo";
 import TransitionButtons from "./comboMaker/TransitionButtons";
+import StanceSVG from "./stances/StanceSVG";
 function AdvancedStanceCircle() {
 	const nav = useNavigate();
 	const setStanceColor = useStore((s) => s.setStanceColor);
@@ -50,9 +51,9 @@ function AdvancedStanceCircle() {
 
 	return (
 		<div className='flex flex-col place-items-center'>
-			<div className=' fixed left-0 top-0 z-[10] h-14 w-full bg-opacity-20 bg-gradient-to-b from-zinc-900 to-transparent' />
-			<animated.div style={rotateSpring} className={`w-[80vw]`}>
-				<div className='sticky top-0'>
+			{/* <div className=' fixed left-0 top-0 z-[10] h-14 w-full bg-opacity-20 bg-gradient-to-b from-zinc-900 to-transparent' /> */}
+			<animated.div style={rotateSpring} className={`w-[75vw]`}>
+				<div className=''>
 					<StanceCircleSelector
 						className='absolute w-[80vw] opacity-0'
 						onClick={(e) => {
@@ -72,6 +73,7 @@ function AdvancedStanceCircle() {
 				</div>
 			</animated.div>
 			{/* <Outlet /> */}
+
 			<StanceInfo stance={currentStance} />
 			<StanceList
 				currentStance={currentStance}

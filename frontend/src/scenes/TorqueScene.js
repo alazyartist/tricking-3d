@@ -14,15 +14,32 @@ import LoadActiveModel from "../components/media/ModelSelector";
 import SceneBackground from "./SceneBackground";
 import { Frank } from "../animations/Frank";
 import { useStore } from "../store/store";
-import { useThree } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 // import Model from "../animations/KerwoodCC3Tpose";
 export function TorqueScene(props) {
 	const light = useRef();
 	const light2 = useRef();
 	const cameraRef = useRef();
 	// useHelper(light, SpotLightHelper, "cyan");
+	let hipArr;
+	let hipPos;
+	let posArr;
+	function updateCamera() {
+		if (cameraRef?.current?.children) {
+			hipPos =
+				cameraRef?.current?.children[0].children[0]?.children[0]?.position;
+			hipArr = [hipPos.x, hipPos.y, hipPos.z];
+		}
+		posArr = hipArr?.map((pos) => pos * -0.01) || [0, 0, 0];
+	}
+	// console.log(cameraRef.current.);
+	useFrame(({ camera }) => {
+		// updateCamera();
+		// console.log(camera);
+		// cameraRef.lookAt(...posArr);
+	});
 	return (
-		<PerspectiveCamera ref={cameraRef} position={[0, -1, 1]}>
+		<PerspectiveCamera ref={cameraRef} position={[0, -1, 0]}>
 			<Suspense fallback={<ModelLoader />}>
 				<LoadActiveModel />
 			</Suspense>
@@ -42,7 +59,7 @@ export function TorqueScene(props) {
 				position={[0, 2, -5]}
 			/>
 			{/* <Environment preset='park' /> */}
-			<OrbitControls />
+			<OrbitControls makeDefault />
 			{/* <gridHelper args={[10, 10, `black`, `gainsboro`]} position={[0, 0, 0]} /> */}
 			<GizmoHelper alignment={"bottom-left"} margin={[60, 220]}>
 				<GizmoViewport
