@@ -91,7 +91,7 @@ function App() {
 						<Route
 							path={"/3d/comboMaker"}
 							element={
-								<div className='mt-14 flex place-content-center'>
+								<div className='mt-14 flex w-full place-content-center'>
 									<ComboMaker />
 								</div>
 							}

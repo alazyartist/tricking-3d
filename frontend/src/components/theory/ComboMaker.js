@@ -89,87 +89,98 @@ function ComboMaker() {
 	);
 	// let rotation = currentTransition?.getNewRotation(currentStance);
 	return (
-		<div id='comboMaker-wrapper' className='font-inter h-[80vh] w-[90vw]'>
-			{/* Page Title */}
-			<div id='pageTitle' className=' text-2xl font-bold text-zinc-400'>
-				ComboMaker
+		<>
+			<div id='stateInfo-button-wrapper' className='absolute right-10'>
+				{/* CurrentState Display */}
+				<CurrentStateInfo
+					newCombo={newCombo}
+					currentStance={currentStance}
+					currentLeg={currentLeg}
+					currentDirection={currentDirection}
+				/>
 			</div>
-			<div
-				id='app-content'
-				className='flex h-[80vh] w-full flex-col place-content-center place-items-center overflow-y-auto rounded-lg bg-sky-500 p-2 text-zinc-300'>
-				<div id='stateInfo-button-wrapper'>
-					{/* CurrentState Display */}
-					<CurrentStateInfo
-						newCombo={newCombo}
-						currentStance={currentStance}
-						currentLeg={currentLeg}
-						currentDirection={currentDirection}
-					/>
-				</div>
-
-				{/* Output for 3dView */}
+			<div id='comboMaker-wrapper' className='font-inter h-[80vh] w-[90vw]'>
+				{/* Page Title */}
 				<div
-					id='3dCanvas'
-					className='mt-2 h-[10rem] w-full rounded-xl bg-zinc-700'>
-					<Canvas>
-						<Suspense fallback={<Loader />}>
-							<TrickListScene
-								trick={newCombo.map((nC) => nC.name).toString()}
-							/>
-						</Suspense>
-					</Canvas>
+					id='pageTitle'
+					className='select-none text-2xl font-bold text-zinc-400'>
+					ComboMaker
 				</div>
-				{/* newCombo State Array */}
-				<NewComboDisplay newCombo={newCombo} />
-				{/* Button Container */}
 				<div
-					id='selectables-container'
-					className='grid h-[18rem] grid-flow-row grid-cols-2 gap-2 overflow-hidden overflow-y-auto'>
-					{/* Current Options Array for Selection */}
-					{/* FilteredTricks */}
+					id='app-content'
+					className='flex h-[80vh] w-full flex-col place-content-start place-items-center overflow-y-auto rounded-lg  p-2 text-zinc-300 '>
+					{/* Output for 3dView */}
 					<div
-						id='left-column-tricks-n-stances'
-						className='flex w-full flex-col gap-2 '>
-						<ArrayDisplay
-							bg
-							startOpen
-							isEmpty={isEmpty}
-							name={"Tricks"}
-							arr={filteredTricks}
-							f={(e) => handleTrickAdd(e)}></ArrayDisplay>
-						{/* FilteredStances */}
-						<div className=''>
+						id='3dCanvas'
+						className='mt-2 h-[10rem] w-full rounded-xl bg-zinc-700'>
+						<Canvas>
+							<Suspense fallback={<Loader />}>
+								{/* <TrickListScene
+								trick={newCombo.map((nC) => nC.name).toString()}
+							/> */}
+							</Suspense>
+						</Canvas>
+					</div>
+					{/* newCombo State Array */}
+
+					<NewComboDisplay newCombo={newCombo} />
+					{/* Button Container */}
+					<div
+						id='selectables-container'
+						className='grid h-full grid-flow-row grid-cols-2 place-content-center gap-2 '>
+						{/* Current Options Array for Selection */}
+						{/* FilteredTricks */}
+						<div
+							id='left-column-tricks-n-stances'
+							className='flex w-full flex-col gap-2 '>
+							<ArrayDisplay
+								bg
+								startOpen
+								isEmpty={isEmpty}
+								name={"Tricks"}
+								arr={filteredTricks}
+								f={(e) => handleTrickAdd(e)}></ArrayDisplay>
+							{/* FilteredStances */}
+							<div className=''>
+								<ArrayDisplay
+									bg
+									isCollapsable
+									isAnimated
+									name='Stances'
+									arr={filteredStances}
+									f={(e) => handleStanceAdd(e)}></ArrayDisplay>
+							</div>
+						</div>
+						<div
+							id='right-column-transitions-stanceCircle'
+							className='flex flex-col place-content-center justify-around'>
+							{/* FilteredTransitions */}
 							<ArrayDisplay
 								bg
 								isCollapsable
-								isAnimated
-								name='Stances'
-								arr={filteredStances}
-								f={(e) => handleStanceAdd(e)}></ArrayDisplay>
+								name={
+									<TransitionButtons
+										f={() => console.log("openedTransitions")}
+										currentLeg={currentLeg}
+									/>
+								}
+								arr={filteredTransitions}
+								f={(e) => handleTrickAdd(e)}></ArrayDisplay>
+							{/* StanceCircleAnimation */}
+							<div className='h-40 w-40'>
+								<StanceAnimationTest
+									handleStanceAdd={handleStanceAdd}
+									isSmall
+									currentStance={currentStance}
+								/>
+							</div>
 						</div>
-					</div>
-					<div
-						id='right-column-transitions-stanceCircle'
-						className='flex flex-col'>
-						{/* FilteredTransitions */}
-						<ArrayDisplay
-							isCollapsable
-							name={<TransitionButtons currentLeg={currentLeg} />}
-							arr={filteredTransitions}
-							f={(e) => handleTrickAdd(e)}></ArrayDisplay>
-						{/* StanceCircleAnimation */}
-						<div className='h-40 w-40'>
-							<StanceAnimationTest
-								handleStanceAdd={handleStanceAdd}
-								isSmall
-								currentStance={currentStance}
-							/>
-						</div>
+						<div className='absolute top-14 left-2.5 z-[-1] h-[85vh] w-[95vw] rounded-3xl bg-gradient-to-br from-zinc-400 to-sky-500 opacity-50'></div>
 					</div>
 					{/* Reset Buttons */}
 					<div
 						id='reset-buttons-container'
-						className='fixed left-[20%] bottom-12 flex flex-row place-content-center place-items-center'>
+						className='flex flex-grow flex-row place-content-center place-items-center'>
 						<ResetButton
 							resetTricklist={resetTricklist}
 							deleteLast={deleteLast}
@@ -177,7 +188,7 @@ function ComboMaker() {
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }
 

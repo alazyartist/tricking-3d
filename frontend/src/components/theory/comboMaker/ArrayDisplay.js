@@ -11,7 +11,7 @@ export function ArrayDisplay(props) {
 	return (
 		<div
 			className={`flex w-full flex-col rounded-lg ${
-				props.bg && "bg-gradient-to-br from-sky-700 to-sky-600 "
+				props.bg && "bg-gradient-to-br from-zinc-400 to-sky-200"
 			}  ${
 				!props.isCollapsable && isOpen && !props.stanceList
 					? "max-h-[14rem]"
@@ -19,7 +19,7 @@ export function ArrayDisplay(props) {
 			} ${props.stanceList ? "" : ""} p-2`}>
 			<div
 				onClick={() => props.isCollapsable && setOpen(!isOpen)}
-				className='place-self-center text-xl'>
+				className='place-self-center text-xl font-bold text-zinc-800'>
 				{props.name}
 			</div>
 			<div
@@ -44,7 +44,7 @@ export function ArrayDisplay(props) {
 								className={`${
 									props.isCollapsable
 										? "z-[50] text-zinc-800"
-										: "bg-opacity-20 text-zinc-300"
+										: "bg-opacity-20 text-zinc-800"
 								} my-1 flex w-fit place-items-center rounded-lg bg-zinc-300 p-1`}
 								onClick={() => {
 									props.f(arrV);
@@ -53,7 +53,7 @@ export function ArrayDisplay(props) {
 								}}>
 								<div
 									className={`text-sm ${
-										props.isCollapsable ? "text-zinc-800" : "text-zinc-300"
+										props.isCollapsable ? "text-zinc-800" : "text-zinc-800"
 									}`}>
 									{arrV.name}
 								</div>

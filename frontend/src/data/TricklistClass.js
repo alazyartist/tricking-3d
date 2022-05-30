@@ -95,6 +95,7 @@ const gainerR = new Base(
 	legs.L,
 	styles.singular
 );
+gainerR.landingStance = "BacksideComplete";
 const websterR = new Base(
 	"WebsterR",
 	directions.Forwards,
@@ -250,6 +251,7 @@ const badsideGainer = new Trick(
 	stances.BacksideHyper,
 	styles.singular
 );
+badsideGainer.landingStance = "BacksideComplete";
 const gainerSwitch = new Trick(
 	"GainerSwitch",
 	gainerL,

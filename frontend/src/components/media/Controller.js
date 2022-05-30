@@ -58,7 +58,7 @@ function Controller() {
 
 				<MediaButton
 					id='FrameBack-button'
-					f={() => setCurrentTime(currentTime - 0.05)}
+					f={() => setCurrentTime(currentTime - 0.05 * timescale)}
 					content={
 						<FaStepBackward className='fill-slate-200 text-xl hover:fill-white' />
 					}
@@ -80,7 +80,7 @@ function Controller() {
 
 				<MediaButton
 					id='FrameForward-button'
-					f={() => setCurrentTime(0.05 + currentTime)}
+					f={() => setCurrentTime(0.05 * timescale + currentTime)}
 					content={
 						<FaStepForward className='fill-slate-200 text-xl hover:fill-white' />
 					}
