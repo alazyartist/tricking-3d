@@ -5,7 +5,6 @@ import { useStore } from "../../../store/store";
 import TransitionButtons from "../comboMaker/TransitionButtons";
 import { stanceInfoText as stanceText } from "./stanceInfoText";
 import StanceSVG from "./StanceSVG";
-import { ReactComponent as SVG } from "../../../data/IndividualStances/Backside.svg";
 function StanceInfo(props) {
 	const currentLeg = useComboMakerStore((s) => s.currentLeg);
 	const stanceColor = useStore((s) => s.stanceColor);
@@ -50,7 +49,6 @@ function StanceInfo(props) {
 					<div className='text-light w-30 rounded-xl bg-zinc-100 p-2 '>
 						{/* <div className='whitespace-nowrap text-xs'>Direction</div> */}
 						{/* <StanceSVG currentStance={props.stance} /> */}
-						<SVG />
 					</div>
 					<div className='text-light w-30  rounded-xl bg-teal-400 bg-opacity-40 p-2 '>
 						<div className='whitespace-nowrap text-xs'>Family</div>

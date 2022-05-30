@@ -30,6 +30,7 @@ export function Frank({ ...props }) {
 	const trimToggle = useStore((s) => s.trimToggle);
 	const activeModel = useStore((s) => s.activeModel);
 	const isFollowCam = useStore((s) => s.isFollowCam);
+	const frameTime = useStore((s) => s.currentTime);
 
 	//Solves Problem with infinte renders of Animations Array and successfully passes to store
 	useMemo(
@@ -114,9 +115,15 @@ export function Frank({ ...props }) {
 		}
 	}, [trimToggle, isScrubbing, start, end]);
 	//Updates every Frame to paint currentTime
+	useEffect(() => {
+		actions[currentAnim].time = frameTime;
+	}, [frameTime]);
+
 	useFrame(() => {
-		setCurrentTime(actions[currentAnim].time);
-		setClipDuration(actions[currentAnim].getClip().duration);
+		if (isPlaying) {
+			setCurrentTime(actions[currentAnim].time);
+			setClipDuration(actions[currentAnim].getClip().duration);
+		}
 	});
 
 	//Resets Animations Player on Change of CurrentAnim

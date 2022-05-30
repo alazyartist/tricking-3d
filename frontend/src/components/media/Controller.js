@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useStore } from "../../store/store.js";
 import { FaPlay, FaPause, FaStepBackward, FaStepForward } from "react-icons/fa";
 import { BiRevision } from "react-icons/bi";
@@ -21,6 +21,8 @@ function Controller() {
 	const timescale = useStore((state) => state.timescale);
 	const setFollowCam = useStore((state) => state.setFollowCam);
 	const isFollowCam = useStore((state) => state.isFollowCam);
+	const setCurrentTime = useStore((state) => state.setCurrentTime);
+	const currentTime = useStore((state) => state.currentTime);
 	// Envoke Player Controller
 
 	return (
@@ -55,7 +57,8 @@ function Controller() {
 				/>
 
 				<MediaButton
-					id='reverse-button'
+					id='FrameBack-button'
+					f={() => setCurrentTime(currentTime - 0.05)}
 					content={
 						<FaStepBackward className='fill-slate-200 text-xl hover:fill-white' />
 					}
@@ -76,7 +79,8 @@ function Controller() {
 				/>
 
 				<MediaButton
-					id='reverse-button'
+					id='FrameForward-button'
+					f={() => setCurrentTime(0.05 + currentTime)}
 					content={
 						<FaStepForward className='fill-slate-200 text-xl hover:fill-white' />
 					}
