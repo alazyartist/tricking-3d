@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import { TorqueScene } from "../../scenes/TorqueScene";
@@ -85,7 +85,6 @@ function CanvasComponent() {
 			window.removeEventListener("touchmove", scaleMobile);
 		}
 	}, []);
-
 	return (
 		<>
 			<div id='canvas-container' className='sticky h-screen md:flex'>

@@ -7,7 +7,7 @@ import { ReactComponent as AOAT } from "../data/AnatomyOfATrick.svg";
 import { Link } from "react-router-dom";
 import { animated, useTransition, config } from "react-spring";
 function TrickList() {
-	const [filteredTricks, setFilteredTricks] = useState([...TrickListArr]);
+	const [filteredTricks, setFilteredTricks] = useState();
 	const handleFilter = (event) => {
 		const searchTerm = event.target.value;
 		const newFilter = TrickListArr.filter((value) => {

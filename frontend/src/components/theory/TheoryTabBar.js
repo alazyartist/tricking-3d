@@ -28,7 +28,7 @@ function TheoryTabBar() {
 					<AiOutlineHome />
 				</Link>
 				<Link onClick={() => setOpenHamburger(false)} to='3d/theory/stances'>
-					<div classname='w-full'>
+					<div className='w-full'>
 						<StanceCircleColor />
 						<div className='text-xs'>Stances</div>
 					</div>

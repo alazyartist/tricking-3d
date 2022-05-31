@@ -28,7 +28,7 @@ import {
 const backflipB = new Base(
 	"Backflip",
 	directions.Backwards,
-	stances.Backside,
+	"Backside",
 	legs.Both,
 	legs.Both,
 	styles.unified
@@ -36,7 +36,7 @@ const backflipB = new Base(
 const frontflipB = new Base(
 	"Frontflip",
 	directions.Forwards,
-	stances.Frontside,
+	"Frontside",
 	legs.Both,
 	legs.Both,
 	styles.unified
@@ -44,7 +44,7 @@ const frontflipB = new Base(
 const insideflipB = new Base(
 	"Insideflip",
 	directions.Inside,
-	stances.Inside,
+	"Inside",
 	legs.Both,
 	legs.Both,
 	styles.unified
@@ -52,7 +52,7 @@ const insideflipB = new Base(
 const outsideflipB = new Base(
 	"Outsideflip",
 	directions.Outside,
-	stances.Outside,
+	"Outside",
 	legs.Both,
 	legs.Both,
 	styles.unified
@@ -61,28 +61,28 @@ const outsideflipB = new Base(
 const gainerL = new Base(
 	"Gainer",
 	directions.Backwards,
-	stances.BacksideComplete,
+	"BacksideComplete",
 	legs.L,
 	legs.R
 );
 const websterL = new Base(
 	"Webster",
 	directions.Forwards,
-	stances.FrontsideMega,
+	"FrontsideMega",
 	legs.L,
 	legs.R
 );
 const aerialL = new Base(
 	"Aerial",
 	directions.Inside,
-	stances.InsideMega,
+	"InsideMega",
 	legs.L,
 	legs.R
 );
 const lotusL = new Base(
 	"Lotus",
 	directions.Outside,
-	stances.OutsideComplete,
+	"OutsideComplete",
 	legs.L,
 	legs.L
 );
@@ -90,7 +90,7 @@ const lotusL = new Base(
 const gainerR = new Base(
 	"GainerR",
 	directions.Backwards,
-	stances.BacksideHyper,
+	"BacksideHyper",
 	legs.R,
 	legs.L,
 	styles.singular
@@ -99,7 +99,7 @@ gainerR.landingStance = "BacksideComplete";
 const websterR = new Base(
 	"WebsterR",
 	directions.Forwards,
-	stances.FrontsideSemi,
+	"FrontsideSemi",
 	legs.R,
 	legs.L,
 	styles.singular
@@ -107,7 +107,7 @@ const websterR = new Base(
 const gmsR = new Base(
 	"Gms",
 	directions.Inside,
-	stances.InsideHyper,
+	"InsideHyper",
 	legs.R,
 	legs.R,
 	styles.singular
@@ -115,7 +115,7 @@ const gmsR = new Base(
 const raizR = new Base(
 	"Raiz",
 	directions.Outside,
-	stances.OutsideSemi,
+	"OutsideSemi",
 	legs.R,
 	legs.L,
 	styles.singular
@@ -147,17 +147,12 @@ const outsideflip = new Trick(
 	styles.unified
 );
 
-const full = new Trick("Full", backflipB, stances.Backside, styles.unified);
+const full = new Trick("Full", backflipB, "Backside", styles.unified);
 full.rotation = rotations.full;
 full.landingStance = stances.BacksideComplete;
 full.toLeg = legs.L;
 
-const cork = new Trick(
-	"Cork",
-	gainerL,
-	stances.BacksideComplete,
-	styles.singular
-);
+const cork = new Trick("Cork", gainerL, "BacksideComplete", styles.singular);
 cork.rotation = rotations.full;
 
 cork.toLeg = legs.L;
@@ -181,7 +176,7 @@ const atwist = new Trick(
 atwist.toLeg = legs.L;
 atwist.landingStance = stances.BacksideComplete;
 atwist.rotation = 270;
-const btwist = new Trick("BTwist", atwist, stances.InsideMega, styles.singular);
+const btwist = new Trick("Btwist", atwist, stances.InsideMega, styles.singular);
 btwist.landingStance = stances.BacksideComplete;
 
 const doublecork = new Trick(
@@ -284,6 +279,14 @@ const touchdownRaiz = new Trick(
 touchdownRaiz.landingStance = "BacksideComplete";
 touchdownRaiz.touchdowns = "Touchdown";
 
+const wrapFull = new Trick(
+	"WrapFull",
+	full,
+	stances.BacksideHyper,
+	styles.singular
+);
+wrapFull.fromLeg = "Right";
+wrapFull.landingStance = stances.BacksideComplete;
 export const TrickListArr = [
 	backflip,
 	insideflip,
@@ -305,6 +308,7 @@ export const TrickListArr = [
 	cartwheel,
 	touchdownRaiz,
 	full,
+	wrapFull,
 	cork,
 	corksnapu,
 	doublecork,

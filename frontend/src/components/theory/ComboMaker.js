@@ -115,14 +115,16 @@ function ComboMaker() {
 						className='mt-2 h-[10rem] w-full rounded-xl bg-zinc-700'>
 						<Canvas>
 							<Suspense fallback={<Loader />}>
-								{/* <TrickListScene
-								trick={newCombo.map((nC) => nC.name).toString()}
-							/> */}
+								<TrickListScene
+									trick={newCombo.map((nC) => nC.name).toString()}
+								/>
 							</Suspense>
 						</Canvas>
 					</div>
+					<div className='text-center font-bold text-zinc-300'>
+						Animation Support Coming Soon!
+					</div>
 					{/* newCombo State Array */}
-
 					<NewComboDisplay newCombo={newCombo} />
 					{/* Button Container */}
 					<div
