@@ -4,6 +4,9 @@ import { devtools } from "zustand/middleware";
 export const useStore = create(
 	devtools((set, api) => ({
 		aI: 0,
+
+		isFollowCam: true,
+		setFollowCam: () => set((s) => ({ isFollowCam: !s.isFollowCam })),
 		addToAnimationArray: (value) =>
 			set((state) => ({ animationsArray: [...state.animationsArray, value] })),
 		animationSelector: () =>
@@ -34,12 +37,12 @@ export const useStore = create(
 		loop: true,
 		modelArray: ["Frank", "Kerwood", "Andrew"],
 		setModel: (value) => set(() => ({ activeModel: value })),
-		position: [],
+		modelPosition: [],
 		selectAnim: (value) => set(() => ({ currentAnim: value })),
 		setBounce: () => set((state) => ({ bounce: !state.bounce })),
 		setClipDuration: (value) => set(() => ({ clipDuration: value })),
 		setCurrentTime: (value) => set(() => ({ currentTime: value })),
-		setFredPosition: (value) => set(() => ({ position: [value] })),
+		setModelPosition: (value) => set(() => ({ modelPosition: [value] })),
 		setIsPaused: () => set((state) => ({ isPaused: !state.isPaused })),
 		setLoop: () => set((state) => ({ loop: !state.loop })),
 		setScrubbing: (value) => set((state) => ({ isScrubbing: value })),

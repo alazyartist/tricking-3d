@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { stanceArr, transArr, TrickListArr } from "../../data/TricklistClass";
 import { stances } from "../../data/trickDataModel/TrickObjects";
 
@@ -17,6 +17,9 @@ import AdvancedStanceCircle from "./AdvancedStanceCircle";
 import { ReactComponent as StanceCircle } from "../../data/AdvancedStancesSVG.svg";
 import StanceAnimationTest from "./stances/StanceAnimationTest";
 import TransitionButtons from "./comboMaker/TransitionButtons";
+import { Canvas } from "@react-three/fiber";
+import Loader from "../loaders/Loader";
+import { TrickListScene } from "../../scenes/TrickListScene";
 
 let newCombo = [];
 function ComboMaker() {
@@ -56,11 +59,13 @@ function ComboMaker() {
 	}
 	function deleteLast() {
 		setIsDelete(!isDelete);
+		// Handles Switching Legs to ComboEnd
 		if (currentLeg !== newCombo[newCombo.length - 1]?.toLeg) {
 			if (newCombo[newCombo.length - 1]?.toLeg) {
 				setCurrentLeg(
-					newCombo[newCombo.length - 2]?.toLeg ||
+					newCombo[newCombo.length - 1]?.toLeg ||
 						newCombo[newCombo.length - 1]?.leg ||
+						newCombo[newCombo.length - 2]?.leg ||
 						"Left"
 				);
 			}
@@ -84,39 +89,52 @@ function ComboMaker() {
 	);
 	// let rotation = currentTransition?.getNewRotation(currentStance);
 	return (
-		<div className='font-inter h-[80vh] w-[90vw]'>
-			<div id='pageTitle' className=' text-2xl font-bold text-zinc-400'>
-				ComboMaker
+		<>
+			<div id='stateInfo-button-wrapper' className='absolute right-10'>
+				{/* CurrentState Display */}
+				<CurrentStateInfo
+					newCombo={newCombo}
+					currentStance={currentStance}
+					currentLeg={currentLeg}
+					currentDirection={currentDirection}
+				/>
 			</div>
-			<div
-				className=' flex h-[80vh] w-full
-			 flex-col place-content-center place-items-center overflow-y-auto rounded-lg bg-sky-500 p-2 text-zinc-300'>
-				<div className=''>
-					<div>
-						{/* CurrentState Display */}
-						<div className=''>
-							<CurrentStateInfo
-								newCombo={newCombo}
-								currentStance={currentStance}
-								currentLeg={currentLeg}
-								currentDirection={currentDirection}
-							/>
-						</div>
-					</div>
-					{/* Stance Container */}
-					{/* <div
-						id='stanceContainer'
-						className={"flex w-full place-content-center place-items-center"}>
-						<StanceAnimationTest currentStance={currentStance} />
-					</div> */}
-					{/* Combo State Array */}
-					<NewComboDisplay newCombo={newCombo} />
+			<div id='comboMaker-wrapper' className='font-inter h-[80vh] w-[90vw]'>
+				{/* Page Title */}
+				<div
+					id='pageTitle'
+					className='select-none text-2xl font-bold text-zinc-400'>
+					ComboMaker
+				</div>
+				<div
+					id='app-content'
+					className='flex h-[80vh] w-full flex-col place-content-start place-items-center overflow-y-auto rounded-lg  p-2 text-zinc-300 '>
+					{/* Output for 3dView */}
 					<div
-						id='arrayContainer'
-						className='grid grid-flow-row grid-cols-2 gap-2'>
+						id='3dCanvas'
+						className='mt-2 h-[10rem] w-full rounded-xl bg-zinc-700'>
+						<Canvas>
+							<Suspense fallback={<Loader />}>
+								<TrickListScene
+									trick={newCombo.map((nC) => nC.name).toString()}
+								/>
+							</Suspense>
+						</Canvas>
+					</div>
+					<div className='text-center font-bold text-zinc-300'>
+						Animation Support Coming Soon!
+					</div>
+					{/* newCombo State Array */}
+					<NewComboDisplay newCombo={newCombo} />
+					{/* Button Container */}
+					<div
+						id='selectables-container'
+						className='grid h-full grid-flow-row grid-cols-2 place-content-center gap-2 '>
 						{/* Current Options Array for Selection */}
 						{/* FilteredTricks */}
-						<div className='flex w-full '>
+						<div
+							id='left-column-tricks-n-stances'
+							className='flex w-full flex-col gap-2 '>
 							<ArrayDisplay
 								bg
 								startOpen
@@ -124,22 +142,7 @@ function ComboMaker() {
 								name={"Tricks"}
 								arr={filteredTricks}
 								f={(e) => handleTrickAdd(e)}></ArrayDisplay>
-						</div>
-						<div className='flex flex-col gap-4 py-2'>
-							{/* FilteredTransitions */}
-							<ArrayDisplay
-								isCollapsable
-								name={<TransitionButtons currentLeg={currentLeg} />}
-								arr={filteredTransitions}
-								f={(e) => handleTrickAdd(e)}></ArrayDisplay>
 							{/* FilteredStances */}
-							<div className='h-40 w-40'>
-								<StanceAnimationTest
-									handleStanceAdd={handleStanceAdd}
-									isSmall
-									currentStance={currentStance}
-								/>
-							</div>
 							<div className=''>
 								<ArrayDisplay
 									bg
@@ -150,19 +153,44 @@ function ComboMaker() {
 									f={(e) => handleStanceAdd(e)}></ArrayDisplay>
 							</div>
 						</div>
-						{/* <div className=' flex w-full place-content-center rounded bg-zinc-600'>
-						Timeline
-					</div> */}
-						<div className='fixed bottom-0 left-[20%] flex flex-row place-content-center place-items-center'>
-							<ResetButton
-								resetTricklist={resetTricklist}
-								deleteLast={deleteLast}
-							/>
+						<div
+							id='right-column-transitions-stanceCircle'
+							className='flex flex-col place-content-center justify-around'>
+							{/* FilteredTransitions */}
+							<ArrayDisplay
+								bg
+								isCollapsable
+								name={
+									<TransitionButtons
+										f={() => console.log("openedTransitions")}
+										currentLeg={currentLeg}
+									/>
+								}
+								arr={filteredTransitions}
+								f={(e) => handleTrickAdd(e)}></ArrayDisplay>
+							{/* StanceCircleAnimation */}
+							<div className='h-40 w-40'>
+								<StanceAnimationTest
+									handleStanceAdd={handleStanceAdd}
+									isSmall
+									currentStance={currentStance}
+								/>
+							</div>
 						</div>
+						<div className='absolute top-14 left-2.5 z-[-1] h-[85vh] w-[95vw] rounded-3xl bg-gradient-to-br from-zinc-400 to-sky-500 opacity-50'></div>
+					</div>
+					{/* Reset Buttons */}
+					<div
+						id='reset-buttons-container'
+						className='flex flex-grow flex-row place-content-center place-items-center'>
+						<ResetButton
+							resetTricklist={resetTricklist}
+							deleteLast={deleteLast}
+						/>
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }
 

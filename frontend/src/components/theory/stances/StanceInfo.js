@@ -1,39 +1,59 @@
 import React, { useEffect, useMemo } from "react";
+import { stances } from "../../../data/trickDataModel/TrickObjects";
+import { useComboMakerStore } from "../../../store/comboMakerStore";
 import { useStore } from "../../../store/store";
+import TransitionButtons from "../comboMaker/TransitionButtons";
 import { stanceInfoText as stanceText } from "./stanceInfoText";
+import StanceSVG from "./StanceSVG";
 function StanceInfo(props) {
+	const currentLeg = useComboMakerStore((s) => s.currentLeg);
 	const stanceColor = useStore((s) => s.stanceColor);
 	const color = {
-		BacksideComplete: "#7EE0FB",
-		OutsideComplete: "#75FBB3",
-		OutsideSemi: "#2db36c",
-		FrontsideSemi: "#2b5ab3",
-		FrontsideMega: "#4171ca",
-		InsideMega: "#40baa6",
-		InsideHyper: "#5ed8c5",
-		BacksideHyper: "#6bcee9",
+		Backside: `bg-[#07b9e9]`,
+		Inside: `bg-[#06d8b7]`,
+		Outside: `bg-[#10b35d]`,
+		Frontside: `bg-[#003eb3]`,
+		BacksideComplete: `bg-[#7EE0FB]`,
+		OutsideComplete: `bg-[#75FBB3]`,
+		OutsideSemi: `bg-[#2db36c]`,
+		FrontsideSemi: `bg-[#2b5ab3]`,
+		FrontsideMega: `bg-[#4171ca]`,
+		InsideMega: `bg-[#40baa6]`,
+		InsideHyper: `bg-[#5ed8c5]`,
+		BacksideHyper: `bg-[#6bcee9]`,
 	};
 
+	let currentColor = color[props.stance];
 	// let curColor = `bg-[#4171ca]`;
-	let curColor = `bg-[${color[props.stance]}]`;
-
+	let curColor = `${color[props.stance]} `;
 	console.log("Current Stance", props.stance);
 	console.log("Current Color", curColor);
 	return (
-		<div className='font-inter grid grid-cols-3 place-content-center place-items-center bg-zinc-300'>
+		<div
+			className={`font-inter ${currentColor} place-content-center place-items-center rounded-xl`}>
 			<div
-				className={`col-span-3 flex h-10 w-60 place-content-center place-items-center gap-2 rounded-md ${curColor} text-center text-2xl`}>
+				className={`col-span-3 flex h-10 w-60 place-content-center place-items-center gap-2 rounded-md 
+				text-center text-2xl`}>
 				{props.stance}
 			</div>
-			<div className='flex flex-col gap-2 p-2'>
-				<div className='text-light w-30 h-20 bg-sky-400 p-2'>
-					{stanceText[props.stance].Text}
+			<div className='flex flex-row place-content-center place-items-center gap-2 p-2'>
+				<div className='text-light w-30 flex flex-col rounded-xl bg-sky-400 bg-opacity-40 p-2'>
+					<div className='whitespace-nowrap text-xs'>Plant Foot</div>
+					<TransitionButtons currentLeg={stances[props.stance].leg} />
 				</div>
-				<div className='text-light w-30 h-20 bg-emerald-400 p-2 '>
-					{stanceText[props.stance].Direction}
+				<div className='text-light w-30 rounded-xl bg-emerald-400 bg-opacity-40 p-2 '>
+					<div className='whitespace-nowrap text-xs'>Direction</div>
+					<div>{stances[props.stance].direction}</div>
 				</div>
-				<div className='text-light w-30 h-20 bg-teal-400 p-2 '>
-					Plant Foot: {stanceText[props.stance].Foot}
+				<div className='flex flex-col'>
+					<div className='text-light w-30 rounded-xl bg-zinc-100 p-2 '>
+						{/* <div className='whitespace-nowrap text-xs'>Direction</div> */}
+						{/* <StanceSVG currentStance={props.stance} /> */}
+					</div>
+					<div className='text-light w-30  rounded-xl bg-teal-400 bg-opacity-40 p-2 '>
+						<div className='whitespace-nowrap text-xs'>Family</div>
+						<div>{stances[props.stance].getTrick().name}</div>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import { TorqueScene } from "../../scenes/TorqueScene";
 import Loader from "../loaders/Loader";
-import { AiFillDownCircle, AiFillRightCircle } from "react-icons/ai";
+import { AiFillDownCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { Box, Html } from "@react-three/drei";
 function CanvasComponent() {
 	const min = 54;
 	let initialWidth = 0,
@@ -81,13 +80,11 @@ function CanvasComponent() {
 			mouseX = e.touches[0].pageX;
 			mouseY = e.touches[0].pageY;
 		}
-		console.log(mouseX);
 		//Removes Mobile Scale
 		function removeScaleMobile() {
 			window.removeEventListener("touchmove", scaleMobile);
 		}
 	}, []);
-
 	return (
 		<>
 			<div id='canvas-container' className='sticky h-screen md:flex'>

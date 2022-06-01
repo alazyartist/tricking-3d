@@ -3,7 +3,7 @@ import { Stance, Transition } from "../../../data/trickDataModel/TrickClasses";
 import { ReactComponent as LeftFoot } from "../../../data/ComboMakerSVG/Left.svg";
 import { ReactComponent as RightFoot } from "../../../data/ComboMakerSVG/Right.svg";
 import { ReactComponent as BothFoot } from "../../../data/ComboMakerSVG/Both.svg";
-
+//Nested Ternerary Hell for styling... Should have done this differently... next time this works for now.
 export function ArrayDisplay(props) {
 	let isEmpty = props.isEmpty;
 	const [isOpen, setOpen] = useState(props.startOpen);
@@ -11,21 +11,29 @@ export function ArrayDisplay(props) {
 	return (
 		<div
 			className={`flex w-full flex-col rounded-lg ${
-				props.bg && "bg-gradient-to-br from-sky-700 to-sky-600 "
-			} p-2`}>
+				props.bg && "bg-gradient-to-br from-zinc-400 to-sky-200"
+			}  ${
+				!props.isCollapsable && isOpen && !props.stanceList
+					? "max-h-[14rem]"
+					: ""
+			} ${props.stanceList ? "" : ""} p-2`}>
 			<div
 				onClick={() => props.isCollapsable && setOpen(!isOpen)}
-				className='place-self-center text-xl'>
+				className='place-self-center text-xl font-bold text-zinc-800'>
 				{props.name}
 			</div>
 			<div
 				className={`w-full ${
-					!props.isCollapsable && isOpen ? "h-[50vh]" : ""
-				} no-scrollbar overflow-y-auto`}>
+					!props.isCollapsable && isOpen && !props.stanceList
+						? "h-[14rem] overflow-hidden rounded-lg"
+						: ""
+				} no-scrollbar ${
+					props.stanceList ? "h-[18rem] overflow-hidden " : ""
+				}overflow-y-auto`}>
 				<div
 					className={`${
 						props.isCollapsable && isOpen
-							? "absolute top-[20vh] left-0 z-[10] max-h-[70vh] overflow-y-auto p-4 "
+							? "fixed top-[20vh] left-0 z-[10] max-h-[70vh] overflow-y-auto p-4 "
 							: ""
 					} flex w-full flex-col place-items-center `}>
 					<div>{isEmpty && "Select Valid Stance"}</div>
@@ -36,7 +44,7 @@ export function ArrayDisplay(props) {
 								className={`${
 									props.isCollapsable
 										? "z-[50] text-zinc-800"
-										: "bg-opacity-20 text-zinc-300"
+										: "bg-opacity-20 text-zinc-800"
 								} my-1 flex w-fit place-items-center rounded-lg bg-zinc-300 p-1`}
 								onClick={() => {
 									props.f(arrV);
@@ -45,7 +53,7 @@ export function ArrayDisplay(props) {
 								}}>
 								<div
 									className={`text-sm ${
-										props.isCollapsable ? "text-zinc-800" : "text-zinc-300"
+										props.isCollapsable ? "text-zinc-800" : "text-zinc-800"
 									}`}>
 									{arrV.name}
 								</div>
@@ -71,7 +79,7 @@ export function ArrayDisplay(props) {
 				className={`${
 					props.isCollapsable &&
 					isOpen &&
-					"absolute bottom-0 left-0 z-[1] h-[100vh]  place-content-center place-items-center overflow-y-auto bg-zinc-700 p-4 opacity-80 blur-md "
+					"fixed bottom-0 left-0 z-[1] h-[100vh] max-h-screen  place-content-center place-items-center overflow-y-auto bg-zinc-700 p-4 opacity-80 blur-md "
 				} flex w-full flex-col place-items-center  `}></div>
 		</div>
 	);

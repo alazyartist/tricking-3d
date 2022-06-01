@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useStore } from "../../store/store.js";
 import { FaPlay, FaPause, FaStepBackward, FaStepForward } from "react-icons/fa";
 import { BiRevision } from "react-icons/bi";
 import { ImLoop } from "react-icons/im";
-import { MdSpeed, MdLoop } from "react-icons/md";
+import {
+	MdSpeed,
+	MdLoop,
+	MdCenterFocusWeak,
+	MdCenterFocusStrong,
+} from "react-icons/md";
 import { MediaButton } from "./MediaButton.js";
 
 function Controller() {
@@ -14,7 +19,10 @@ function Controller() {
 	const bounce = useStore((state) => state.bounce);
 	const setTimescale = useStore((state) => state.setTimescale);
 	const timescale = useStore((state) => state.timescale);
-
+	const setFollowCam = useStore((state) => state.setFollowCam);
+	const isFollowCam = useStore((state) => state.isFollowCam);
+	const setCurrentTime = useStore((state) => state.setCurrentTime);
+	const currentTime = useStore((state) => state.currentTime);
 	// Envoke Player Controller
 
 	return (
@@ -27,12 +35,12 @@ function Controller() {
 		'>
 				<MediaButton
 					id='bounce-button'
-					f={setBounce}
+					f={setFollowCam}
 					content={
-						bounce ? (
-							<BiRevision className='fill-gray-300 text-2xl' />
+						isFollowCam ? (
+							<MdCenterFocusStrong className='text-xl text-[hotpink]' />
 						) : (
-							<ImLoop className='text-xl text-[gainsboro]' />
+							<MdCenterFocusWeak className='text-xl text-[gainsboro]' />
 						)
 					}
 				/>
@@ -49,7 +57,8 @@ function Controller() {
 				/>
 
 				<MediaButton
-					id='reverse-button'
+					id='FrameBack-button'
+					f={() => setCurrentTime(currentTime - 0.05 * timescale)}
 					content={
 						<FaStepBackward className='fill-slate-200 text-xl hover:fill-white' />
 					}
@@ -70,7 +79,11 @@ function Controller() {
 				/>
 
 				<MediaButton
-					id='reverse-button'
+					id='FrameForward-button'
+					f={() => setCurrentTime(0.05 * timescale + currentTime)}
+					mD={() => {
+						console.log("MOUSDOWN");
+					}}
 					content={
 						<FaStepForward className='fill-slate-200 text-xl hover:fill-white' />
 					}

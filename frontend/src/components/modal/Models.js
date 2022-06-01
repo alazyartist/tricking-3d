@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useStore } from "../../store/store";
 
 const Models = () => {
+	const selectAnim = useStore((s) => s.selectAnim);
 	const modelArray = useStore((state) => state.modelArray);
 	const selectModel = useStore((s) => s.setModel);
 	const navigate = useNavigate();
@@ -17,6 +18,7 @@ const Models = () => {
 						id='dropdown-item'
 						className='font-inter mt-1 mb-2 flex h-fit w-full justify-center rounded-lg text-xl font-light text-zinc-200 hover:text-zinc-400'
 						onClick={() => {
+							selectAnim("Backflip");
 							selectModel(e);
 							navigate(`/3d/sandbox/${e}/Backflip`);
 						}}

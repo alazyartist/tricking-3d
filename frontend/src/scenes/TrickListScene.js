@@ -24,7 +24,8 @@ export function TrickListScene(props) {
 	// useHelper(light2, SpotLightHelper, "red");
 	// useHelper(light, SpotLightHelper, "cyan");
 	return (
-		<PerspectiveCamera position={[-2, -1.25, 2.3]}>
+		<>
+			{/* <PerspectiveCamera position={[-2, -1.25, 2.3]}> */}
 			<Suspense fallback={<ModelLoader />}>
 				<TrickListModel trick={props.trick} />
 			</Suspense>
@@ -45,7 +46,7 @@ export function TrickListScene(props) {
 				position={[0, 2, -5]}
 			/>
 			{/* <Environment preset='park' /> */}
-			<OrbitControls />
+			<OrbitControls makeDefault />
 			<gridHelper args={[10, 10, `black`, `gainsboro`]} position={[0, 0, 0]} />
 			{/* <GizmoHelper alignment={"bottom-left"} margin={[60, 220]}>
 				<GizmoViewport
@@ -53,6 +54,7 @@ export function TrickListScene(props) {
 					labelColor='gainsboro'
 				/>
 			</GizmoHelper> */}
-		</PerspectiveCamera>
+			{/* </PerspectiveCamera> */}
+		</>
 	);
 }

@@ -1,7 +1,6 @@
 import { Html } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import React, { Suspense } from "react";
-import Swamp from "../animations/Swamp";
 import Loader from "../components/loaders/Loader";
 import { YonderScene } from "../scenes/YonderScene";
 
@@ -16,7 +15,6 @@ function Yonder() {
 						<Canvas className='rounded-2xl text-zinc-300'>
 							<Suspense fallback={<Loader />}>
 								<YonderScene />
-								{/* <Swamp /> */}
 								<Html>Yonder Coming Soon</Html>
 							</Suspense>
 						</Canvas>
