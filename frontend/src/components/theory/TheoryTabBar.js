@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineHome } from "react-icons/ai";
 import { BiCube } from "react-icons/bi";
 import { FaGraduationCap, FaToolbox } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { animated, config, useSpring, useTransition } from "react-spring";
 import { ReactComponent as StanceCircleColor } from "../../data/AdvancedStancesSelectorColor.svg";
 import { ReactComponent as TransitionFeet } from "../../data/ComboMakerSVG/Left.svg";
-function TheoryTabBar() {
+function TheoryTabBar({ tabBar }) {
 	const [openHamburger, setOpenHamburger] = useState();
+	const location = useLocation();
 	const hamburger = useTransition(openHamburger, {
 		from: { opacity: 0, right: "-40vw" },
 		enter: { opacity: 1, right: "0" },
@@ -23,7 +24,7 @@ function TheoryTabBar() {
 		<>
 			<div
 				id='TheoryTabBar'
-				className='fixed bottom-0 left-0 z-[80] flex h-fit w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300'>
+				className='fixed bottom-0 left-0 z-[100] flex h-fit w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300'>
 				<Link onClick={() => setOpenHamburger(false)} to='/3d/home'>
 					<AiOutlineHome />
 				</Link>

@@ -52,15 +52,15 @@ function useMediaController(actions, names, mixer) {
 	//bounce uE
 	useEffect(() => {
 		bounce
-			? actions[currentAnim].setLoop(THREE.LoopPingPong)
-			: actions[currentAnim].setLoop(THREE.LoopRepeat);
+			? actions[currentAnim]?.setLoop(THREE.LoopPingPong)
+			: actions[currentAnim]?.setLoop(THREE.LoopRepeat);
 	}, [bounce, actions, currentAnim]);
 
 	//loop uE
 	useEffect(() => {
 		loop
-			? actions[currentAnim].setLoop(THREE.LoopRepeat)
-			: actions[currentAnim].setLoop(THREE.LoopOnce);
+			? actions[currentAnim]?.setLoop(THREE.LoopRepeat)
+			: actions[currentAnim]?.setLoop(THREE.LoopOnce);
 	}, [loop, actions, currentAnim]);
 
 	//Timescale (SlowMo, FullSpeed, Timeslider) && Play Pause uE
@@ -72,13 +72,13 @@ function useMediaController(actions, names, mixer) {
 
 	// Set Play Start uE
 	useEffect(() => {
-		isPlaying ? actions[currentAnim].play() : actions[currentAnim].play();
+		isPlaying ? actions[currentAnim]?.play() : actions[currentAnim]?.play();
 	}, [isPlaying, actions, currentAnim]);
 
 	// Scrub
 	useEffect(() => {
 		if (isScrubbing > 0) {
-			const duration = actions[currentAnim].getClip().duration.toFixed(2);
+			const duration = actions[currentAnim]?.getClip().duration.toFixed(2);
 			actions[currentAnim].time =
 				isScrubbing === 1 ? duration * start : duration * end;
 		}

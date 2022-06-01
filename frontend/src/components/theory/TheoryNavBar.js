@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import StanceSVG from "./stances/StanceSVG";
 
 function TheoryNavBar() {
 	return (
@@ -19,9 +18,6 @@ function TheoryNavBar() {
 			{/* <Link to='tricklist'>TrickList</Link> */}
 			{/* <Link to='transitionlist'>TransitionList</Link> */}
 			{/* <Link to='/3d/comboMaker'>ComboMaker</Link> */}
-			<div className='flex w-full place-content-center place-items-center'>
-				<StanceSVG currentStance={"BacksideComplete"} />
-			</div>
 		</div>
 	);
 }

@@ -81,6 +81,9 @@ function Controller() {
 				<MediaButton
 					id='FrameForward-button'
 					f={() => setCurrentTime(0.05 * timescale + currentTime)}
+					mD={() => {
+						console.log("MOUSDOWN");
+					}}
 					content={
 						<FaStepForward className='fill-slate-200 text-xl hover:fill-white' />
 					}

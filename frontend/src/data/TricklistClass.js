@@ -287,6 +287,18 @@ const wrapFull = new Trick(
 );
 wrapFull.fromLeg = "Right";
 wrapFull.landingStance = stances.BacksideComplete;
+
+const frontFull = new Trick(
+	"Frontfull",
+	frontflip,
+	"Frontside",
+	styles.unified
+);
+frontFull.rotation = 360;
+
+const raizTwist = new Trick("Raiz Twist", raiz, "OutsideSemi", styles.singular);
+raizTwist.rotation = 540;
+
 export const TrickListArr = [
 	backflip,
 	insideflip,
@@ -309,6 +321,7 @@ export const TrickListArr = [
 	touchdownRaiz,
 	full,
 	wrapFull,
+	frontFull,
 	cork,
 	corksnapu,
 	doublecork,

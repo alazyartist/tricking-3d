@@ -16,18 +16,17 @@ export default function Andrew({ ...props }) {
 	const hipsRef = useRef();
 	useMediaController(actions, names, mixer);
 	useFollowCam(hipsRef);
-	console.log(nodes.CC_Base_Pelvis);
 	return (
 		<group ref={group} {...props} dispose={null}>
 			<group scale={0.01}>
 				<group
+					ref={hipsRef}
 					name='Andrew_no_beard'
 					position={[0, 104.37, -0.07]}
 					rotation={[1.68, 0, 0]}>
 					<primitive object={nodes.CC_Base_Pelvis} />
 					<primitive object={nodes.CC_Base_Waist} />
 					<skinnedMesh
-						ref={hipsRef}
 						frustumCulled={false}
 						geometry={nodes.remesh_7_combined_Remeshed.geometry}
 						material={materials.remesh_7_combined_Bake}

@@ -41,6 +41,7 @@ import TabBar from "./components/TabBar";
 import { animated, useTransition } from "react-spring";
 import { useEffect, useState } from "react";
 import TheoryTabBar from "./components/theory/TheoryTabBar";
+import AnimationsNeeded from "./pages/AnimationsNeeded";
 
 function App() {
 	const location = useLocation();
@@ -62,6 +63,7 @@ function App() {
 			? setTabBar(false)
 			: setTabBar(true);
 	}, [location.pathname]);
+
 	return (
 		<>
 			<AppBackground />
@@ -96,6 +98,7 @@ function App() {
 								</div>
 							}
 						/>
+						<Route path={"/3d/need"} element={<AnimationsNeeded />} />
 						<Route path={"/3d/theory"} element={<TheoryPage />}>
 							<Route path={"transitionlist"} element={<TransitionList />} />
 							<Route path={"tricklist"} element={<TrickList />} />
