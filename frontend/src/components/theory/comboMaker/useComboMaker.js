@@ -25,12 +25,14 @@ function useComboMaker(combo, setcombo, newCombo) {
 			let pivot = `Pivot to`;
 			//AutoAdd Pivot on stance change.
 			if (combo.direction !== currentDirection && newCombo.length && !isTrick) {
-				newCombo.push(pivot);
+				// newCombo.push(pivot);
 			}
 			//update current state
 			setCurrentStance(combo.name);
 			setCurrentDirection(combo.direction);
 			setIsTrick(false);
+			//return skips adding pivot to stance to newCombo
+			return;
 		}
 		//Trick Type behavior
 		if (combo instanceof Trick) {

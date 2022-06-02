@@ -20,6 +20,7 @@ import TransitionButtons from "./comboMaker/TransitionButtons";
 import { Canvas } from "@react-three/fiber";
 import Loader from "../loaders/Loader";
 import { TrickListScene } from "../../scenes/TrickListScene";
+import { ComboMakerScene } from "../../scenes/ComboMakerScene";
 
 let newCombo = [];
 function ComboMaker() {
@@ -115,9 +116,7 @@ function ComboMaker() {
 						className='mt-2 h-[10rem] w-full rounded-xl bg-zinc-700'>
 						<Canvas>
 							<Suspense fallback={<Loader />}>
-								<TrickListScene
-									trick={newCombo.map((nC) => nC.name).toString()}
-								/>
+								<ComboMakerScene trick={newCombo.map((nC) => nC.name)} />
 							</Suspense>
 						</Canvas>
 					</div>
