@@ -19,7 +19,7 @@ module.exports = {
 					firstName: "Dylan",
 					lastName: "James",
 					email: "alazyartist@gmail.com",
-					password: 1123,
+					password: 5000,
 					account_created: new Date(),
 				},
 			],

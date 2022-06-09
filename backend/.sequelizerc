@@ -1,5 +1,3 @@
-const path = require("path");
+import { resolve } from "path";
 
-module.exports = {
-	config: path.resolve("config", "config.js"),
-};
+export const config = resolve("config", "config.js");

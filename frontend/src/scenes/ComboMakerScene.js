@@ -30,7 +30,7 @@ export function ComboMakerScene(props) {
 			<Suspense fallback={<ModelLoader />}>
 				<ComboMakerModel trick={props.trick} />
 			</Suspense>
-			<Html>{props.trick}</Html>
+			<Html position={[2, 2, 0]}>{props.trick}</Html>
 			{/* <SceneBackground /> */}
 			{/* <Model /> */}
 			<ambientLight intensity={0.3} />
@@ -47,7 +47,7 @@ export function ComboMakerScene(props) {
 				position={[0, 2, -5]}
 			/>
 			{/* <Environment preset='park' /> */}
-			<OrbitControls makeDefault />
+			<OrbitControls />
 			<gridHelper args={[10, 10, `black`, `gainsboro`]} position={[0, 0, 0]} />
 			{/* <GizmoHelper alignment={"bottom-left"} margin={[60, 220]}>
 				<GizmoViewport

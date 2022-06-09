@@ -29,6 +29,8 @@ export default function ComboMakerModel({ ...props }) {
 			return num;
 		}
 		mixer.stopAllAction();
+
+		actions[anims[i]].clampWhenFinished = true;
 		actions[anims[i]]?.setLoop(THREE.LoopOnce, 1);
 		actions[anims[i]].play();
 		num++;
@@ -37,9 +39,11 @@ export default function ComboMakerModel({ ...props }) {
 	}
 	mixer.addEventListener("finished", (e) => {
 		console.log("Finished Playing", e);
-		mixer.stopAllAction();
-		playActions(num);
+		console.log(actions[anims[0]]);
+		// mixer.stopAllAction();
+		// playActions(num);
 	});
+
 	useEffect(() => {
 		console.log(num);
 	}, [num]);
@@ -51,7 +55,7 @@ export default function ComboMakerModel({ ...props }) {
 			mixer.stopAllAction();
 			// actions["Aerial"].play();
 		}
-	}, [props.trick, "finished"]);
+	}, [props.trick]);
 
 	return (
 		<group ref={group} {...props} dispose={null}>
@@ -69,7 +73,6 @@ export default function ComboMakerModel({ ...props }) {
 						material={materials.remesh_6_combined_Bake}
 						skeleton={nodes.remesh_6_combined_Remeshed.skeleton}
 					/>
-					<Html>{props.trick}</Html>
 				</group>
 			</group>
 		</group>

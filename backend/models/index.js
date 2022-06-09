@@ -7,18 +7,13 @@ import Sequelize from "sequelize";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const basename = path.basename(__filename);
-import config from "../config/config";
+import { config } from "../config/config.js";
 const db = {};
 const sequelize = new Sequelize(
 	config.database,
 	config.username,
 	config.password,
 	{
-		database: "tricking3d-test",
-		username: "root",
-		password: "tricking",
-		host: "127.0.0.1",
-		port: 3306,
 		dialect: "mysql",
 	}
 );
