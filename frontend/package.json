@@ -1,7 +1,7 @@
 {
 	"name": "tricking-3d",
 	"version": "0.3.0",
-	"homepage": "https://torquetricking.com/3d",
+	"homepage": "https://trickedex.app",
 	"private": true,
 	"proxy": "http://localhost:3000",
 	"dependencies": {
