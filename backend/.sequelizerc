@@ -1,3 +1,7 @@
-import { resolve } from "path";
+// .sequelizerc
 
-export const config = resolve("config", "config.js");
+const path = require("path");
+
+module.exports = {
+	config: path.resolve("config", "db.json"),
+};

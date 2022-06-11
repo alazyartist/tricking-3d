@@ -13,7 +13,7 @@ const corsOptions = {
 };
 
 const requestEndpoint = `https://jsonplaceholder.typicode.com/todos/`;
-app.get("/", cors(corsOptions), async (req, res) => {
+app.get("/api", cors(corsOptions), async (req, res) => {
 	res.send("A Working Server by Dylan!");
 });
 app.get("/getData", cors(corsOptions), async (req, res) => {

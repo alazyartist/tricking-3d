@@ -20,10 +20,9 @@ const sequelize = new Sequelize(
 
 try {
 	await sequelize.authenticate();
-	console.log("Connection has been established successfully.");
+	console.log("DB Connect!");
 } catch (error) {
 	console.error("Unable to connect to the database:", error);
-	console.log("Config", config);
 }
 
 fs.readdirSync(__dirname)

@@ -11,13 +11,14 @@ module.exports = {
 		 *   isBetaMember: false
 		 * }], {});
 		 */
-		await queryInterface.bulkInsert(
-			"People",
+		return queryInterface.bulkInsert(
+			"Users",
 			[
 				{
+					id: "0",
 					user_name: "alazyartist",
-					firstName: "Dylan",
-					lastName: "James",
+					first_name: "Dylan",
+					last_name: "James",
 					email: "alazyartist@gmail.com",
 					password: 5000,
 					account_created: new Date(),
