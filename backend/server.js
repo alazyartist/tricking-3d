@@ -1,13 +1,10 @@
 import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
-
 const PORT = 5000;
 const app = express();
-
 const options = {};
 app.use(cors());
-
 const corsOptions = {
 	origin: "http://localhost:3000",
 };
@@ -27,6 +24,7 @@ app.get("/getData", cors(corsOptions), async (req, res) => {
 import db from "./models/index.js";
 import { User } from "./models/Users.js";
 
+//Synchronizes with DB
 await db.sequelize.sync().then(() => {
 	console.log("Syncronized DB");
 	app.listen(PORT, (err) => {
