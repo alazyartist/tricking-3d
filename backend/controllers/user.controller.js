@@ -44,14 +44,17 @@ export const checkPassword = async (req, res) => {
 			.then((pass) => {
 				bcrypt
 					.compare(userPassword, pass)
-					.then((bool) => console.log(bool))
+					.then((bool) => {
+						if (bool) {
+							res.send("You can login!");
+						} else {
+							res.send("Not Valid");
+						}
+					})
 					.catch((err) => console.log(err));
-			})
-			.then(() => {
-				res.send(`Selected User ${req.body.email}`);
 			});
 	} else {
-		res.send("Select Valid User");
+		res.send("Select Valid User Email");
 	}
 	console.log(selectedUser);
 };
