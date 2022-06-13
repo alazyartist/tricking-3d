@@ -1,39 +1,50 @@
 `use strict`;
-
-export const User = (sequelize, DataTypes) => {
+import { Sequelize } from "sequelize";
+export const User = (sequelize) => {
 	//sequelize.define(modelName, attributes, options)
 
 	return sequelize.define(
-		"User",
+		"users",
 		{
 			id: {
-				type: DataTypes.UUID,
+				type: Sequelize.UUID,
 				primaryKey: true,
+				defaultValue: Sequelize.UUIDV4,
 			},
 			user_name: {
-				type: DataTypes.STRING,
+				type: Sequelize.STRING,
 				len: [2, 50],
 				allowNull: true,
 			},
 			first_name: {
-				type: DataTypes.STRING,
+				type: Sequelize.STRING,
 			},
 			last_name: {
-				type: DataTypes.STRING,
+				type: Sequelize.STRING,
 				required: true,
 			},
 			email: {
-				type: DataTypes.STRING,
+				type: Sequelize.STRING,
 				isEmail: true,
 				required: true,
+				unique: true,
 			},
 			password: {
-				type: DataTypes.STRING,
+				type: Sequelize.STRING,
 				required: true,
+				allowNull: false,
 			},
-			account_created: {
-				type: DataTypes.STRING,
-				required: true,
+			createdAt: {
+				field: "created_at",
+				type: Sequelize.DATE,
+			},
+			updatedAt: {
+				field: "updated_at",
+				type: Sequelize.DATE,
+			},
+			deletedAt: {
+				field: "deleted_at",
+				type: Sequelize.DATE,
 			},
 		},
 		{

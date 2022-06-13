@@ -15,11 +15,26 @@ module.exports = {
 			"Users",
 			[
 				{
-					id: "0",
 					user_name: "alazyartist",
 					first_name: "Dylan",
 					last_name: "James",
 					email: "alazyartist@gmail.com",
+					password: 5000,
+					account_created: new Date(),
+				},
+				{
+					user_name: "fred",
+					first_name: "fred",
+					last_name: "James",
+					email: "test@gmail.com",
+					password: 5000,
+					account_created: new Date(),
+				},
+				{
+					user_name: "frank",
+					first_name: "frank",
+					last_name: "James",
+					email: "test2@gmail.com",
 					password: 5000,
 					account_created: new Date(),
 				},

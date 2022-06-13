@@ -42,6 +42,7 @@ import { animated, useTransition } from "react-spring";
 import { useEffect, useState } from "react";
 import TheoryTabBar from "./components/theory/TheoryTabBar";
 import AnimationsNeeded from "./pages/AnimationsNeeded";
+import Login from "./pages/Login";
 
 function App() {
 	const location = useLocation();
@@ -80,26 +81,26 @@ function App() {
 								// <Navigate replace to='/3d/sandbox' />
 							}
 						/>
-						<Route path={"/3d/home"} element={<Home />} />
-						<Route path={"/3d"} element={<FullScreen />} />
-						<Route path={"/3d/learnmore"} element={<LearnMore />} />
-						<Route path={"/3d/about"} element={<AboutUs />} />
-						<Route path={"/3d/yonder"} element={<Yonder />} />
-						<Route path={"/3d/sandbox"} element={<Sandbox />}>
+						<Route path={"/home"} element={<Home />} />
+						<Route path={""} element={<FullScreen />} />
+						<Route path={"/learnmore"} element={<LearnMore />} />
+						<Route path={"/about"} element={<AboutUs />} />
+						<Route path={"/yonder"} element={<Yonder />} />
+						<Route path={"/sandbox"} element={<Sandbox />}>
 							<Route path=':model'>
 								<Route path=':trick' element={<Sandbox />} />
 							</Route>
 						</Route>
 						<Route
-							path={"/3d/comboMaker"}
+							path={"/comboMaker"}
 							element={
 								<div className=' mt-14 flex h-full w-full place-content-center'>
 									<ComboMaker />
 								</div>
 							}
 						/>
-						<Route path={"/3d/need"} element={<AnimationsNeeded />} />
-						<Route path={"/3d/theory"} element={<TheoryPage />}>
+						<Route path={"/need"} element={<AnimationsNeeded />} />
+						<Route path={"/theory"} element={<TheoryPage />}>
 							<Route path={"transitionlist"} element={<TransitionList />} />
 							<Route path={"tricklist"} element={<TrickList />} />
 							<Route path={"anatomy"} element={<AnatomyOfATrick />} />
@@ -116,45 +117,14 @@ function App() {
 							<Route path={"rotations"} element={<Rotations />} />
 							<Route path={"kicks"} element={<Kicks />} />
 							<Route path={"touchdowns"} element={<Touchdowns />} />
-							<Route path={"stances"} element={<AdvancedStanceCircle />}>
-								{/* <Route path=':stance' element={<StanceInfo />} /> */}
-								{/* <Route
-							path={"FrontsideSemi"}
-							element={<StanceInfo stance='FrontsideSemi' />}
-						/>
-						<Route
-							path={"FrontsideMega"}
-							element={<StanceInfo stance='FrontsideMega' />}
-						/>
-						<Route
-							path={"InsideMega"}
-							element={<StanceInfo stance='InsideMega' />}
-						/>
-						<Route
-							path={"InsideHyper"}
-							element={<StanceInfo stance='InsideHyper' />}
-						/>
-						<Route
-						path={"BacksideHyper"}
-						element={<StanceInfo stance='BacksideHyper' />}
-						/>
-						<Route
-							path={"BacksideComplete"}
-							element={<StanceInfo stance='BacksideComplete' />}
-						/>
-						<Route
-							path={"OutsideComplete"}
-							element={<StanceInfo stance='OutsideComplete' />}
-						/>
-						<Route
-							path={"OutsideSemi"}
-							element={<StanceInfo stance='OutsideSemi' />}
-						/> */}
-							</Route>
+							<Route
+								path={"stances"}
+								element={<AdvancedStanceCircle />}></Route>
 							<Route index element={<TheoryNavBar />} />
 						</Route>
-						<Route path={"/3d/comingsoon"} element={<ComingSoon />} />
-						<Route path={"/3d/contribute"} element={<Contribute />}>
+						<Route path={"/login"} element={<Login />} />
+						<Route path={"/comingsoon"} element={<ComingSoon />} />
+						<Route path={"/contribute"} element={<Contribute />}>
 							<Route path={"design"} element={<Design />} />
 							<Route path={"code"} element={<Code />} />
 							<Route path={"marketing"} element={<Marketing />} />
@@ -167,10 +137,10 @@ function App() {
 								}
 							/>
 						</Route>
-						<Route path={"/3d/instructions"} element={<InstructionsPage />} />
-						<Route path={"/3d/landing"} element={<Landing />} />
+						<Route path={"/instructions"} element={<InstructionsPage />} />
+						<Route path={"/landing"} element={<Landing />} />
 
-						<Route path={"/3d/test"} element={<TestPage />}></Route>
+						<Route path={"/test"} element={<TestPage />}></Route>
 					</Routes>
 				</animated.div>
 			))}

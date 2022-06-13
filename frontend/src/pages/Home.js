@@ -21,21 +21,21 @@ function Home() {
 					</h1>
 				</div>
 				<Link
-					to='/3d/learnmore'
-					className='font-inter m-2 rounded-3xl bg-indigo-600 px-2 py-0 font-semibold text-zinc-300'>
+					to='/learnmore'
+					className='m-2 rounded-3xl bg-indigo-600 px-2 py-0 font-inter font-semibold text-zinc-300'>
 					Learn More
 				</Link>
 
 				<Link
-					to='/3d/sandbox/'
+					to='/sandbox/'
 					id='canvas-container'
 					className='m-5 h-[40vw] w-[90vw] rounded-2xl bg-zinc-900 md:h-[40vh] md:w-[90vh] '>
 					<Suspense fallback={<Loader />}>
-						{/* <Canvas className='rounded-2xl'>
+						<Canvas className='rounded-2xl'>
 							<Suspense fallback={<Loader />}>
 								<TorqueScene />
 							</Suspense>
-						</Canvas> */}
+						</Canvas>
 					</Suspense>
 
 					<div className='translate-y-[-5vh] lg:translate-y-[-6vh] 2xl:translate-y-[-10vh] '>
@@ -52,7 +52,7 @@ function Home() {
 					{/* <Link to='/3d/sandbox'>
 						<div>Sandbox</div>
 					</Link> */}
-					<Link className='' to='/3d/instructions'>
+					<Link className='' to='/instructions'>
 						<div>Instructions</div>
 					</Link>
 					{/* <Link to='/3d/learnmore'>
@@ -76,15 +76,22 @@ function Home() {
 				</div>
 
 				<div className='m-2 flex w-full place-content-center gap-4 rounded-xl p-2'>
-					<div className='flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-teal-400 to-teal-300 text-4xl'>
+					<Link
+						className='flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-teal-400 to-teal-300 text-4xl'
+						to='/comboMaker'>
 						<FaToolbox />
 						<div className='text-sm'>Combo Maker</div>
-					</div>
-					<div className='flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-teal-400 to-teal-300 text-4xl'>
+					</Link>
+					<Link
+						className='flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-teal-400 to-teal-300 text-4xl'
+						to='/theory'>
 						<FaGraduationCap />
 						<div className='text-sm'>Theory</div>
-					</div>
+					</Link>
 				</div>
+				<Link to='/login'>
+					<div className='w-fit rounded-xl bg-sky-400 p-4'>LOGIN</div>
+				</Link>
 				<div className='bottom-8 py-8'>
 					<MultiDonateButton />
 				</div>

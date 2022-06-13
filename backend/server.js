@@ -3,26 +3,17 @@ import cors from "cors";
 import fetch from "node-fetch";
 const PORT = 5000;
 const app = express();
-const options = {};
-app.use(cors());
+import db from "./models/index.js";
+import { userRoutes } from "./routes/user.routes.js";
+app.use(cors(), express.json());
 const corsOptions = {
 	origin: "http://localhost:3000",
 };
 
-const requestEndpoint = `https://jsonplaceholder.typicode.com/todos/`;
-app.get("/api", cors(corsOptions), async (req, res) => {
-	res.send("A Working Server by Dylan!");
-});
-app.get("/getData", cors(corsOptions), async (req, res) => {
-	const fetchOptions = {
-		method: "GET",
-	};
-	const response = await fetch(requestEndpoint, fetchOptions);
-	const jsonResponse = await response.json();
-	res.json(jsonResponse);
-});
-import db from "./models/index.js";
-import { User } from "./models/Users.js";
+// app.get("/api", cors(corsOptions), async (req, res) => {
+// 	res.send("A Working Server by Dylan!");
+// });
+app.use("/api", userRoutes);
 
 //Synchronizes with DB
 await db.sequelize.sync().then(() => {

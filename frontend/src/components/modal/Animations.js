@@ -27,7 +27,7 @@ const Animations = () => {
 						className='mt-1 mb-2 flex h-fit w-full justify-center rounded-lg font-inter text-xl font-light text-zinc-200 hover:text-zinc-400'
 						onClick={() => {
 							selectAnim(e);
-							navigate(`/3d/sandbox/${currentModel}/${e}`);
+							navigate(`/sandbox/${currentModel}/${e}`);
 						}}
 						key={i}>
 						{e}

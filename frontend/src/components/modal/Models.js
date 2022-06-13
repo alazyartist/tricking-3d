@@ -16,11 +16,11 @@ const Models = () => {
 				return (
 					<button
 						id='dropdown-item'
-						className='font-inter mt-1 mb-2 flex h-fit w-full justify-center rounded-lg text-xl font-light text-zinc-200 hover:text-zinc-400'
+						className='mt-1 mb-2 flex h-fit w-full justify-center rounded-lg font-inter text-xl font-light text-zinc-200 hover:text-zinc-400'
 						onClick={() => {
 							selectAnim("Backflip");
 							selectModel(e);
-							navigate(`/3d/sandbox/${e}/Backflip`);
+							navigate(`/sandbox/${e}/Backflip`);
 						}}
 						key={i}>
 						{e}

@@ -21,16 +21,16 @@ function TabBar() {
 	return (
 		<>
 			<div className='fixed bottom-0 left-0 flex h-12 w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300'>
-				<Link onClick={() => setOpenHamburger(false)} to='/3d/home'>
+				<Link onClick={() => setOpenHamburger(false)} to='/home'>
 					<AiOutlineHome />
 				</Link>
-				<Link onClick={() => setOpenHamburger(false)} to='/3d/comboMaker'>
+				<Link onClick={() => setOpenHamburger(false)} to='/comboMaker'>
 					<FaToolbox />
 				</Link>
-				<Link onClick={() => setOpenHamburger(false)} to='/3d/sandbox'>
+				<Link onClick={() => setOpenHamburger(false)} to='/sandbox'>
 					<BiCube />
 				</Link>
-				<Link onClick={() => setOpenHamburger(false)} to='/3d/theory'>
+				<Link onClick={() => setOpenHamburger(false)} to='/theory'>
 					<FaGraduationCap />
 				</Link>
 
@@ -45,9 +45,9 @@ function TabBar() {
 							onClick={() => setOpenHamburger(!openHamburger)}
 							className='fixed bottom-14 rounded-l-xl'>
 							<animated.div className=' flex h-[40vh] max-w-[40vw] flex-col gap-3 rounded-l-xl bg-gradient-to-br from-zinc-900 to-zinc-800 p-3 text-sm text-white'>
-								<Link to='/3d/about'>About</Link>
-								<Link to='/3d/contribute'>Contibute</Link>
-								<Link to='/3d/learnMore'>Learn More</Link>
+								<Link to='/about'>About</Link>
+								<Link to='/contribute'>Contibute</Link>
+								<Link to='/learnMore'>Learn More</Link>
 							</animated.div>
 						</animated.div>
 					)
