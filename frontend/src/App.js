@@ -43,6 +43,7 @@ import { useEffect, useState } from "react";
 import TheoryTabBar from "./components/theory/TheoryTabBar";
 import AnimationsNeeded from "./pages/AnimationsNeeded";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
 	const location = useLocation();
@@ -81,6 +82,8 @@ function App() {
 								// <Navigate replace to='/3d/sandbox' />
 							}
 						/>
+						<Route path={"/register"} element={<Register />} />
+						<Route path={"/login"} element={<Login />} />
 						<Route path={"/home"} element={<Home />} />
 						<Route path={""} element={<FullScreen />} />
 						<Route path={"/learnmore"} element={<LearnMore />} />
@@ -122,7 +125,6 @@ function App() {
 								element={<AdvancedStanceCircle />}></Route>
 							<Route index element={<TheoryNavBar />} />
 						</Route>
-						<Route path={"/login"} element={<Login />} />
 						<Route path={"/comingsoon"} element={<ComingSoon />} />
 						<Route path={"/contribute"} element={<Contribute />}>
 							<Route path={"design"} element={<Design />} />

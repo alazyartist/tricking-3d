@@ -1,30 +1,44 @@
-import React, { useEffect, useState } from "react";
-import api from "../../api/login.js";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import api from "../../api/api.js";
+import { useUserStore } from "../../store/userStore.js";
 function LoginForm() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [isVisible, setIsVisible] = useState();
 	const [data, setData] = useState();
-	const [fetch, setFetch] = useState(true);
+	const setAccessToken = useUserStore((s) => s.setAccessToken);
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			const response = await api.post("/user/login", {
+				email: email.toString(),
+				password: password.toString(),
+			});
+			const accessToken = response?.data?.accessToken;
+			setAccessToken(accessToken);
+			setData(response.data);
+		} catch (err) {}
+	};
 
-	useEffect(() => {
-		const fetchUsers = async () => {
-			try {
-				const response = await api.post("/user/login", {
-					email: email.toString(),
-					password: password.toString(),
-				});
+	// useEffect(() => {
+	// 	const fetchUsers = async () => {
+	// 		try {
+	// 			const response = await api.post("/user/login", {
+	// 				email: email.toString(),
+	// 				password: password.toString(),
+	// 			});
 
-				setData(response.data);
-			} catch (err) {
-				console.log(err);
-			}
-		};
-		fetchUsers();
-	}, [fetch]);
+	// 			setData(response.data);
+	// 		} catch (err) {
+	// 			console.log(err);
+	// 		}
+	// 	};
+	// 	fetchUsers();
+	// }, [fetch]);
 
 	return (
-		<div className='flex flex-col gap-2 text-zinc-800'>
+		<form onSubmit={handleSubmit} className='flex flex-col gap-2 text-zinc-800'>
 			<input
 				className='rounded-xl bg-zinc-200 p-2'
 				onChange={(e) => setEmail(e.target.value)}
@@ -42,20 +56,20 @@ function LoginForm() {
 					{!isVisible ? "Show" : "Hide"}
 				</button>
 			</div>
-			<div className='text=zinc-700 flex w-fit place-self-center rounded bg-sky-500 p-2 '>
-				<button
-					onClick={() => {
-						setFetch(!fetch);
-						console.log(email, password, fetch);
-					}}>
+			<div className='flex w-full justify-around'>
+				<button className='text=zinc-700 w-fit rounded bg-sky-500 p-2 '>
 					Submit
 				</button>
+				<Link className='place-self-end text-base text-zinc-300' to='/register'>
+					Register
+				</Link>
 			</div>
 			<div className='flex flex-col gap-2 text-zinc-300'>
 				{/* {data && JSON.stringify(data[1].user_name)} */}
-				{data && JSON.stringify(data)}
+				{data && JSON.stringify(data.message)}
+				{/* <div>{data.accessToken}</div> */}
 			</div>
-		</div>
+		</form>
 	);
 }
 

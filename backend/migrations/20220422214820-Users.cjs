@@ -12,14 +12,15 @@ module.exports = {
 			"users",
 			{
 				id: {
-					type: Sequelize.UUID,
+					type: Sequelize.INTEGER,
 					primaryKey: true,
-					defaultValue: Sequelize.UUIDV4,
+					autoIncrement: true,
 				},
-				user_name: {
+				username: {
 					type: Sequelize.STRING,
 					len: [2, 50],
 					allowNull: true,
+					unique: true,
 				},
 				first_name: {
 					type: Sequelize.STRING,
@@ -39,6 +40,15 @@ module.exports = {
 					required: true,
 					allowNull: false,
 				},
+				refreshToken: {
+					field: "refresh_token",
+					type: Sequelize.STRING,
+				},
+				uuid: {
+					type: Sequelize.UUID,
+					defaultValue: Sequelize.UUIDV4,
+				},
+
 				createdAt: {
 					field: "created_at",
 					type: Sequelize.DATE,

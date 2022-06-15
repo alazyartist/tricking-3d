@@ -1,10 +1,14 @@
 import { User } from "../models/Users.js";
 import db from "../models/index.js";
 const user = await User(db.sequelize);
-import bcrypt, { hash } from "bcrypt";
+import bcrypt from "bcrypt";
+import env from "dotenv";
+import jwt from "jsonwebtoken";
+env.config();
+
 export const findAll = async (req, res) => {
 	user
-		.findAll()
+		.findAll({ attributes: ["username", "first_name", "last_name", "email"] })
 		.then((users) => {
 			res.json(users);
 		})
@@ -14,28 +18,33 @@ export const findAll = async (req, res) => {
 };
 
 export const findOrCreate = async (req, res) => {
-	bcrypt.hash(req.body.password.toString(), 10, (err, hash) => {
-		user
-			.findOrCreate({
-				where: {
-					user_name: req.body.user_name,
-					first_name: req.body.first_name,
-					last_name: req.body.last_name,
-					email: req.body.email,
-					password: hash,
-				},
-			})
-			.then((res) => {
-				res.send("You Created :" + req.body.user_name);
-			})
-			.catch((err) => res.send(err));
-	});
+	const hash = await bcrypt.hash(req.body.password.toString(), 10);
+	const [user1, created] = await user
+		.findOrCreate({
+			where: {
+				username: req.body.username,
+				first_name: req.body.first_name,
+				last_name: req.body.last_name,
+				email: req.body.email,
+				password: hash,
+			},
+		})
+		.catch((err) => {
+			console.log(err?.errors[0].message);
+			res.send(err?.errors[0].message);
+		});
+	if (created) {
+		res.status(201).send("Successfully Registered New User");
+	}
 };
 
 export const checkPassword = async (req, res) => {
-	let userPassword = await req.body.password;
-	console.log(userPassword);
-	const selectedUser = await user.findOne({ where: { email: req.body.email } });
+	const { email, password } = await req.body;
+	//Check email and password exists
+	if (!email || !password)
+		return res.status(400).json({ message: "Email && Password Required" });
+	//selects user from db
+	const selectedUser = await user.findOne({ where: { email: email } });
 
 	if (selectedUser) {
 		Promise.resolve(selectedUser)
@@ -43,32 +52,51 @@ export const checkPassword = async (req, res) => {
 			.catch((err) => res.send(err))
 			.then((pass) => {
 				bcrypt
-					.compare(userPassword, pass)
-					.then((bool) => {
-						if (bool) {
-							res.send("You can login!");
+					.compare(password, pass)
+					.then((match) => {
+						if (match) {
+							//JWT TOKENS HERE
+							const accessToken = jwt.sign(
+								{ username: selectedUser.username, roles: "1000" },
+								process.env.ACCESS_TOKEN_SECRET,
+								{ expiresIn: "5min" }
+							);
+							const refreshToken = jwt.sign(
+								{ username: selectedUser.username, roles: "1000" },
+								process.env.REFRESH_TOKEN_SECRET,
+								{ expiresIn: "15min" }
+							);
+							selectedUser.update({ refreshToken });
+
+							res.cookie("jwt", refreshToken, {
+								httpOnly: true,
+								maxAge: 24 * 60 * 60 * 1000,
+							});
+							res
+								.status(200)
+								.json({ accessToken, message: "You are logged in!" });
 						} else {
-							res.send("Not Valid");
+							res.status(401).json({ message: "Not Valid" });
 						}
 					})
 					.catch((err) => console.log(err));
 			});
 	} else {
-		res.send("Select Valid User Email");
+		res.status(400).json({ message: "Enter Valid Email or Register" });
 	}
-	console.log(selectedUser);
 };
 
 export const deleteUser = async (req, res) => {
-	let id = req.body.id;
+	let username = req.body.username;
 	user
-		.destroy({ where: { id: id } })
-		.then((u) => u.destroy())
-		.then(() => {
-			res.send(`Deleted User: ${id}`);
+		.destroy({ where: { username: username } })
+		.then((deleted) => {
+			if (deleted >= 1) {
+				res.status(201).send("Deleted User");
+			}
+			if (deleted === 0) {
+				res.status(200).send("User Already Deleted");
+			}
 		})
-		.then(() => {
-			res.sendStatus(200);
-		})
-		.catch((err) => res.send(err));
+		.catch((err) => res.status(400).send(err));
 };
