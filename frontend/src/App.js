@@ -1,11 +1,10 @@
 import Home from "./pages/Home";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Landing from "./pages/Landing";
 import { FullScreen } from "./pages/FullScreen";
 import { TestPage } from "./pages/TestPage";
 import { Sandbox } from "./pages/Sandbox";
 import Contribute from "./pages/Contribute";
-import DiscordLink from "./components/info/DiscordLink";
 import ComingSoon from "./pages/ComingSoon";
 import InstructionsPage from "./pages/InstructionsPage";
 import Theory from "./components/contribute/Theory";
@@ -18,7 +17,6 @@ import Header from "./components/Header";
 import TheoryPage from "./pages/TheoryPage";
 import AdvancedStanceCircle from "./components/theory/AdvancedStanceCircle";
 import TheoryNavBar from "./components/theory/TheoryNavBar";
-import StanceInfo from "./components/theory/stances/StanceInfo";
 import LearnMore from "./pages/LearnMore";
 import AboutUs from "./pages/AboutUs";
 import TrickList from "./pages/TrickList";
@@ -44,6 +42,8 @@ import TheoryTabBar from "./components/theory/TheoryTabBar";
 import AnimationsNeeded from "./pages/AnimationsNeeded";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import RequireAuth from "./components/login/RequireAuth";
 
 function App() {
 	const location = useLocation();
@@ -61,9 +61,7 @@ function App() {
 
 	const [tabBar, setTabBar] = useState(true);
 	useEffect(() => {
-		location.pathname.includes("/3d/theory")
-			? setTabBar(false)
-			: setTabBar(true);
+		location.pathname.includes("/theory") ? setTabBar(false) : setTabBar(true);
 	}, [location.pathname]);
 
 	return (
@@ -84,6 +82,10 @@ function App() {
 						/>
 						<Route path={"/register"} element={<Register />} />
 						<Route path={"/login"} element={<Login />} />
+
+						<Route element={<RequireAuth />}>
+							<Route path={"/dash"} element={<Dashboard />} />
+						</Route>
 						<Route path={"/home"} element={<Home />} />
 						<Route path={""} element={<FullScreen />} />
 						<Route path={"/learnmore"} element={<LearnMore />} />

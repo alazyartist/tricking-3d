@@ -1,0 +1,44 @@
+import React, { useEffect } from "react";
+import { apiPrivate } from "../api/api";
+import { useUserStore } from "../store/userStore";
+import useRefreshToken from "./useRefreshToken";
+const useApiCreds = () => {
+	const refresh = useRefreshToken();
+	const accessToken = useUserStore((s) => s.accessToken);
+
+	useEffect(() => {
+		const requestIntercept = apiPrivate.interceptors.request.use(
+			(config) => {
+				if (!config.headers["Authorization"]) {
+					config.headers["Authorization"] = `Bearer ${accessToken}`;
+				}
+				console.log(config);
+				return config;
+			},
+			(error) => Promise.reject(error)
+		);
+
+		const responseIntercept = apiPrivate.interceptors.response.use(
+			(response) => response,
+			async (error) => {
+				const prevRequest = error?.config;
+				if (error?.response?.status === 403 && !prevRequest?.sent) {
+					prevRequest.sent = true;
+					const newAccessToken = await refresh();
+					prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+					return apiPrivate(prevRequest);
+				}
+				return Promise.reject(error);
+			}
+		);
+
+		return () => {
+			apiPrivate.interceptors.request.eject(requestIntercept);
+			apiPrivate.interceptors.response.eject(responseIntercept);
+		};
+	}, [accessToken, refresh]);
+
+	return apiPrivate;
+};
+
+export default useApiCreds;

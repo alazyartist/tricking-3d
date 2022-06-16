@@ -8,7 +8,9 @@ import MultiDonateButton from "../components/info/MultiDonateButton";
 import { TorqueScene } from "../scenes/TorqueScene";
 import TabBar from "../components/TabBar";
 import { FaGraduationCap, FaToolbox } from "react-icons/fa";
+import { useUserStore } from "../store/userStore";
 function Home() {
+	const user = useUserStore((s) => s.user);
 	const navigate = useNavigate();
 	return (
 		<div>
@@ -17,7 +19,8 @@ function Home() {
 				className='flex h-screen w-screen flex-col place-items-center'>
 				<div className='mt-14 w-full text-center text-zinc-200'>
 					<h1 className='text-xl '>
-						Welcome to <div className='inline font-black'>Tricking-3D</div>
+						Welcome to{" "}
+						<div className='inline font-black'>Tricking-3D {user}</div>
 					</h1>
 				</div>
 				<Link
@@ -89,8 +92,13 @@ function Home() {
 						<div className='text-sm'>Theory</div>
 					</Link>
 				</div>
-				<Link to='/login'>
-					<div className='w-fit rounded-xl bg-sky-400 p-4'>LOGIN</div>
+				{user === null && (
+					<Link to='/login'>
+						<div className='w-fit rounded-xl bg-sky-400 p-4'>LOGIN</div>
+					</Link>
+				)}
+				<Link to='/dash'>
+					<div className='w-fit rounded-xl bg-teal-200 p-4'>Dashboard</div>
 				</Link>
 				<div className='bottom-8 py-8'>
 					<MultiDonateButton />

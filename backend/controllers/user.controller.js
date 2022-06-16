@@ -41,8 +41,10 @@ export const findOrCreate = async (req, res) => {
 export const checkPassword = async (req, res) => {
 	const { email, password } = await req.body;
 	//Check email and password exists
-	if (!email || !password)
+	if (!email || !password) {
+		console.log(email, password);
 		return res.status(400).json({ message: "Email && Password Required" });
+	}
 	//selects user from db
 	const selectedUser = await user.findOne({ where: { email: email } });
 
@@ -64,7 +66,7 @@ export const checkPassword = async (req, res) => {
 							const refreshToken = jwt.sign(
 								{ username: selectedUser.username, roles: "1000" },
 								process.env.REFRESH_TOKEN_SECRET,
-								{ expiresIn: "15min" }
+								{ expiresIn: "15days" }
 							);
 							selectedUser.update({ refreshToken });
 
@@ -72,11 +74,13 @@ export const checkPassword = async (req, res) => {
 								httpOnly: true,
 								maxAge: 24 * 60 * 60 * 1000,
 							});
-							res
-								.status(200)
-								.json({ accessToken, message: "You are logged in!" });
+							res.status(200).json({
+								accessToken,
+								message: "You are logged in!",
+								username: selectedUser.username,
+							});
 						} else {
-							res.status(401).json({ message: "Not Valid" });
+							res.status(401).json({ message: "Password Not Valid" });
 						}
 					})
 					.catch((err) => console.log(err));

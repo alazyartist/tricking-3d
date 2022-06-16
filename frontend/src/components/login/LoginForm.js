@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import api from "../../api/api.js";
 import { useUserStore } from "../../store/userStore.js";
 function LoginForm() {
@@ -8,6 +8,12 @@ function LoginForm() {
 	const [isVisible, setIsVisible] = useState();
 	const [data, setData] = useState();
 	const setAccessToken = useUserStore((s) => s.setAccessToken);
+	const accessTokenStore = useUserStore((s) => s.accessToken);
+	const setUser = useUserStore((s) => s.setUser);
+	const user = useUserStore((s) => s.user);
+	const nav = useNavigate();
+	const location = useLocation();
+	const from = "/dash";
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
@@ -18,8 +24,20 @@ function LoginForm() {
 			const accessToken = response?.data?.accessToken;
 			setAccessToken(accessToken);
 			setData(response.data);
-		} catch (err) {}
+			setUser(response.data.username);
+			if (response.status === 200) {
+				setTimeout(() => {
+					nav("/dash");
+				}, 1000);
+			}
+		} catch (err) {
+			setData(err.response.data);
+			console.log(err.response.data.message);
+		}
 	};
+	useEffect(() => {
+		console.log(accessTokenStore, user, from);
+	}, [accessTokenStore, user, from]);
 
 	// useEffect(() => {
 	// 	const fetchUsers = async () => {

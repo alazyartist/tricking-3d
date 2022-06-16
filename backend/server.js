@@ -11,8 +11,29 @@ import { refreshRoutes } from "./routes/refresh.routes.js";
 import cookieParser from "cookie-parser";
 const corsOptions = {
 	origin: "http://localhost:3000",
+	allowedHeaders: ["Content-Type", "Authorization", "x-csrf-token"],
+	credentials: true,
+	exposedHeaders: ["*", "Authorization"],
 };
+
+app.use((req, res, next) => {
+	res.header("Access-Control-Allow-Credentials", true);
+	res.header(
+		"Access-Control-Allow-Headers",
+		"Origin, X-Requested-With, Content-Type, Accept"
+	);
+	next();
+});
+// );
+app.use((req, res, next) => {
+	console.log(req.rawHeaders);
+	next();
+});
 app.use(cors(corsOptions), express.json(), cookieParser());
+// app.use((req, res, next) => {
+// 	console.log("after", req);
+// 	next();
+// });
 
 // app.get("/api", cors(corsOptions), async (req, res) => {
 // 	res.send("A Working Server by Dylan!");

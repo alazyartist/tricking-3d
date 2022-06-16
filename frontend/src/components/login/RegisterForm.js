@@ -8,33 +8,41 @@ function RegisterForm() {
 	const [data, setData] = useState();
 	const nav = useNavigate();
 	const [userData, setUserData] = useState({
-		user_name: "",
-		first_name: "",
-		last_name: "",
-		email: "",
-		password: "",
-		confirmPassword: "",
+		username: null,
+		first_name: null,
+		last_name: null,
+		email: null,
+		password: null,
+		confirmPassword: null,
 	});
 
 	const handleRegister = async (e) => {
 		e.preventDefault();
-		try {
-			const createUser = await api.post("/user", {
-				username: userData.user_name,
-				first_name: userData.first_name,
-				last_name: userData.last_name,
-				email: userData.email,
-				password: userData.password,
-			});
-			setData(createUser.data);
-			if (createUser) return setSuccess(true);
-		} catch (err) {
-			console.log(err);
+		if (
+			userData.password !== null &&
+			userData.email !== null &&
+			userData.username !== null &&
+			userData.first_name !== null &&
+			userData.last_name !== null
+		) {
+			try {
+				const createUser = await api.post("/user", {
+					username: userData.username,
+					first_name: userData.first_name,
+					last_name: userData.last_name,
+					email: userData.email,
+					password: userData.password,
+				});
+				setData(createUser.data);
+				if (createUser.status === 200) return setSuccess(true);
+			} catch (err) {
+				console.log(err);
+			}
 		}
 	};
 	useEffect(() => {
 		const { password, confirmPassword } = userData;
-		if (password !== "" && password === confirmPassword) {
+		if (password !== null && password !== "" && password === confirmPassword) {
 			setValidPassword(true);
 		} else {
 			setValidPassword(false);

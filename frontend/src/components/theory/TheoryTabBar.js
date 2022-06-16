@@ -25,24 +25,22 @@ function TheoryTabBar({ tabBar }) {
 			<div
 				id='TheoryTabBar'
 				className='fixed bottom-0 left-0 z-[100] flex h-fit w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300'>
-				<Link onClick={() => setOpenHamburger(false)} to='/3d/home'>
+				<Link onClick={() => setOpenHamburger(false)} to='/home'>
 					<AiOutlineHome />
 				</Link>
-				<Link onClick={() => setOpenHamburger(false)} to='3d/theory/stances'>
+				<Link onClick={() => setOpenHamburger(false)} to='/theory/stances'>
 					<div className='w-full'>
 						<StanceCircleColor />
 						<div className='text-xs'>Stances</div>
 					</div>
 				</Link>
-				<Link
-					onClick={() => setOpenHamburger(false)}
-					to='/3d/theory/transitions'>
+				<Link onClick={() => setOpenHamburger(false)} to='/theory/transitions'>
 					<div className='flex w-full flex-col place-items-center'>
 						<TransitionFeet className=' flex h-12 place-content-center' />
 						<div className='text-xs'>Transitions</div>
 					</div>
 				</Link>
-				<Link onClick={() => setOpenHamburger(false)} to='/3d/theory/trickList'>
+				<Link onClick={() => setOpenHamburger(false)} to='/theory/trickList'>
 					<TransitionFeet className='flex h-12 place-content-center' />
 					<div className='text-xs'>Tricks</div>
 				</Link>
@@ -60,12 +58,12 @@ function TheoryTabBar({ tabBar }) {
 							<animated.div className=' z-[] flex h-[40vh] max-w-[40vw] flex-col gap-3 rounded-l-xl bg-gradient-to-br from-zinc-900 to-zinc-800 p-3 text-sm text-white'>
 								<div className='text-bold'>Variations</div>
 								<div className='flex flex-col gap-2 text-zinc-400'>
-									<Link to='/3d/theory/axes'>Axes</Link>
-									<Link to='/3d/theory/touchdowns'>Touchdowns</Link>
-									<Link to='/3d/theory/rotations'>Rotations</Link>
-									<Link to='/3d/theory/kicks'>Kicks</Link>
-									<Link to='/3d/theory/grabs'>Grabs</Link>
-									<Link to='/3d/theory/shapes'>Shapes</Link>
+									<Link to='/theory/axes'>Axes</Link>
+									<Link to='/theory/touchdowns'>Touchdowns</Link>
+									<Link to='/theory/rotations'>Rotations</Link>
+									<Link to='/theory/kicks'>Kicks</Link>
+									<Link to='/theory/grabs'>Grabs</Link>
+									<Link to='/theory/shapes'>Shapes</Link>
 								</div>
 							</animated.div>
 						</animated.div>

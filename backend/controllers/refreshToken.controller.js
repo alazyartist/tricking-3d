@@ -11,7 +11,7 @@ export const handleRefreshToken = async (req, res) => {
 	if (!cookies?.jwt) return res.status(401);
 
 	const refreshToken = cookies.jwt;
-	console.log(cookies.jwt);
+	console.log("JWT COOKIE", cookies.jwt);
 	//selects user from db
 	const selectedUser = await user.findOne({ where: { refreshToken } });
 
