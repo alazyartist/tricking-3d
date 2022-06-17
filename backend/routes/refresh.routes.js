@@ -3,4 +3,4 @@ import { handleRefreshToken } from "../controllers/refreshToken.controller.js";
 
 export const refreshRoutes = express.Router();
 
-refreshRoutes.post("/", handleRefreshToken);
+refreshRoutes.get("/", handleRefreshToken);

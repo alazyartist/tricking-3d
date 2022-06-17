@@ -25,10 +25,10 @@ app.use((req, res, next) => {
 	next();
 });
 // );
-app.use((req, res, next) => {
-	console.log(req.rawHeaders);
-	next();
-});
+// app.use((req, res, next) => {
+// 	console.log(req.rawHeaders);
+// 	next();
+// });
 app.use(cors(corsOptions), express.json(), cookieParser());
 // app.use((req, res, next) => {
 // 	console.log("after", req);

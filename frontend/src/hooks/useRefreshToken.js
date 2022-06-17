@@ -5,10 +5,21 @@ const useRefreshToken = () => {
 	const setAccessToken = useUserStore((s) => s.setAccessToken);
 
 	const refresh = async () => {
-		const response = await apiPrivate.get("/refresh");
-		console.log(response);
-		setAccessToken(response.data.accessToken);
-		return response.data.accessToken;
+		api
+			.get(
+				"/refresh",
+				{},
+				{
+					headers: { "Content-Type": "application/json" },
+					withCredentials: true,
+				}
+			)
+			.then((response) => {
+				setAccessToken(response.data.accessToken);
+				console.log(response);
+				return response.data.accessToken;
+			})
+			.catch((err) => console.log(err));
 	};
 
 	return refresh;

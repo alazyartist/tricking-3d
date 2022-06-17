@@ -8,7 +8,6 @@ axios.defaults.withCredentials = true;
 export const apiPrivate = axios.create({
 	baseURL: BASE_URL,
 	headers: {
-		crossDomain: true,
 		"Content-Type": "application/json",
 	},
 	withCredentials: true,
