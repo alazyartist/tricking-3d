@@ -8,7 +8,7 @@ env.config();
 export const handleRefreshToken = async (req, res) => {
 	const cookies = req.cookies;
 	//Checks if cookies exists
-	if (!cookies?.jwt) return res.status(401);
+	if (!cookies?.jwt) return res.sendStatus(401);
 
 	const refreshToken = cookies.jwt;
 	console.log("JWT COOKIE", cookies.jwt);
@@ -18,7 +18,7 @@ export const handleRefreshToken = async (req, res) => {
 	if (!selectedUser) return res.sendStatus(403);
 	//checks JWT
 	jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
-		console.log(decoded);
+		console.log("decoded", decoded);
 		if (err || selectedUser.username !== decoded.username) {
 			console.log(selectedUser.username, decoded.username);
 			return res.sendStatus(403);

@@ -9,6 +9,7 @@ import { verifyJWT } from "./middleware/verifyJWT.js";
 import { loginRoutes } from "./routes/loggedIn.routes.js";
 import { refreshRoutes } from "./routes/refresh.routes.js";
 import cookieParser from "cookie-parser";
+import handleLogout from "./controllers/logout.controller.js";
 const corsOptions = {
 	origin: "http://localhost:3000",
 	allowedHeaders: ["Content-Type", "Authorization", "x-csrf-token"],
@@ -17,18 +18,20 @@ const corsOptions = {
 };
 
 app.use((req, res, next) => {
-	res.header("Access-Control-Allow-Credentials", true);
-	res.header(
-		"Access-Control-Allow-Headers",
-		"Origin, X-Requested-With, Content-Type, Accept"
-	);
+	if (req?.cookies?.jwt) {
+		res.header("Access-Control-Allow-Credentials", true);
+		res.header(
+			"Access-Control-Allow-Headers",
+			"Origin, X-Requested-With, Content-Type, Accept"
+		);
+	}
 	next();
 });
 // );
-// app.use((req, res, next) => {
-// 	console.log(req.rawHeaders);
-// 	next();
-// });
+app.use((req, res, next) => {
+	console.log(req.cookies);
+	next();
+});
 app.use(cors(corsOptions), express.json(), cookieParser());
 // app.use((req, res, next) => {
 // 	console.log("after", req);
@@ -40,6 +43,7 @@ app.use(cors(corsOptions), express.json(), cookieParser());
 // });
 app.use("/api", userRoutes);
 app.use("/api/refresh", refreshRoutes);
+app.use("/api/logout", handleLogout);
 app.use("/api/loggedIn", verifyJWT, loginRoutes);
 
 //Synchronizes with DB

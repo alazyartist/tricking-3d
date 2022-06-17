@@ -1,13 +1,15 @@
 import create from "zustand";
-import { devtools } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
 
 export const useUserStore = create(
-	devtools((set) => ({
-		user: null,
-		accessToken: null,
-		auth: "",
-		setUser: (value) => set(() => ({ user: value })),
-		setAccessToken: (value) => set(() => ({ accessToken: value })),
-		setAuth: (value) => set(() => ({ auth: value })),
-	}))
+	devtools(
+		persist((set) => ({
+			user: null,
+			accessToken: null,
+			persist: JSON.parse(localStorage.getItem("persist")) || false,
+			setUser: (value) => set(() => ({ user: value })),
+			setAccessToken: (value) => set(() => ({ accessToken: value })),
+			setPersist: (value) => set(() => ({ persist: value })),
+		}))
+	)
 );

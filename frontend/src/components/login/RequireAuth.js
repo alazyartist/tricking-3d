@@ -3,13 +3,12 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
 
 function RequireAuth() {
-	const user = useUserStore((s) => s.user);
+	const accessToken = useUserStore((s) => s.accessToken);
 	const location = useLocation();
 	useEffect(() => {
-		console.log(location);
-		console.log(user);
+		console.log(accessToken);
 	}, []);
-	return user ? (
+	return accessToken ? (
 		<Outlet />
 	) : (
 		<Navigate to='/login' state={{ from: location }} replace={true} />

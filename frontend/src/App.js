@@ -44,7 +44,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import RequireAuth from "./components/login/RequireAuth";
-
+import PersistLogin from "./components/login/PersistLogin";
 function App() {
 	const location = useLocation();
 	const transitions = useTransition(location, {
@@ -81,10 +81,12 @@ function App() {
 							}
 						/>
 						<Route path={"/register"} element={<Register />} />
-						<Route path={"/login"} element={<Login />} />
+						<Route element={<PersistLogin />}>
+							<Route path={"/login"} element={<Login />} />
 
-						<Route element={<RequireAuth />}>
-							<Route path={"/dash"} element={<Dashboard />} />
+							<Route element={<RequireAuth />}>
+								<Route path={"/dash"} element={<Dashboard />} />
+							</Route>
 						</Route>
 						<Route path={"/home"} element={<Home />} />
 						<Route path={""} element={<FullScreen />} />
