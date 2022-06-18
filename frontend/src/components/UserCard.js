@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { animated, useTransition } from "react-spring";
 import UpdateUserInfoForm from "./info/UpdateUserInfoForm";
 function UserCard(props) {
-	const [editing, setEditing] = useState(true);
+	const [editing, setEditing] = useState(false);
 	const editMenu = useTransition(editing, {
 		from: { opacity: 0, top: "-40vw" },
 		enter: { opacity: 1, top: "0" },

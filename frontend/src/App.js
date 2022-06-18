@@ -48,7 +48,7 @@ import PersistLogin from "./components/login/PersistLogin";
 import UserIcon from "./UserIcon";
 import { useUserStore } from "./store/userStore";
 function App() {
-	const user = useUserStore((s) => s.user);
+	const accessToken = useUserStore((s) => s.accessToken);
 	const location = useLocation();
 	const transitions = useTransition(location, {
 		from: { opacity: 0 },
@@ -70,7 +70,7 @@ function App() {
 	return (
 		<>
 			<AppBackground />
-			{<UserIcon />}
+			{accessToken && <UserIcon />}
 			<Header />
 			{tabBar ? <TabBar /> : <TheoryTabBar />}
 

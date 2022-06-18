@@ -18,18 +18,18 @@ const corsOptions = {
 };
 
 app.use((req, res, next) => {
-	if (req?.cookies?.jwt) {
-		res.header("Access-Control-Allow-Credentials", true);
-		res.header(
-			"Access-Control-Allow-Headers",
-			"Origin, X-Requested-With, Content-Type, Accept"
-		);
-	}
+	console.log("adding headers");
+	res.header("Access-Control-Allow-Credentials", true);
+	res.header(
+		"Access-Control-Allow-Headers",
+		"Origin, X-Requested-With, Content-Type, Accept"
+	);
 	next();
 });
 // );
 app.use((req, res, next) => {
 	console.log(req.cookies);
+	console.log("Next");
 	next();
 });
 app.use(cors(corsOptions), express.json(), cookieParser());

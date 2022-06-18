@@ -61,7 +61,7 @@ export const checkPassword = async (req, res) => {
 							const accessToken = jwt.sign(
 								{ username: selectedUser.username, roles: "1000" },
 								process.env.ACCESS_TOKEN_SECRET,
-								{ expiresIn: "5min" }
+								{ expiresIn: "30s" }
 							);
 							const refreshToken = jwt.sign(
 								{ username: selectedUser.username, roles: "1000" },
@@ -128,6 +128,18 @@ export const updateUserInfo = async (req, res) => {
 							selectedUser.update({ username });
 							selectedUser.update({ first_name });
 							selectedUser.update({ last_name });
+
+							const refreshToken = jwt.sign(
+								{ username: selectedUser.username, roles: "1000" },
+								process.env.REFRESH_TOKEN_SECRET,
+								{ expiresIn: "15days" }
+							);
+							selectedUser.update({ refreshToken });
+
+							res.cookie("jwt", refreshToken, {
+								httpOnly: true,
+								maxAge: 24 * 60 * 60 * 1000,
+							});
 
 							res.status(200).json({
 								message: "You updated your info!",

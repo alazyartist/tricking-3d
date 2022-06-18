@@ -6,21 +6,24 @@ const useRefreshToken = () => {
 	const accessToken = useUserStore((s) => s.accessToken);
 
 	const refresh = async () => {
+		api.defaults.withCredentials = true;
 		api
 			.get(
 				"/refresh",
-				{ accessToken },
+				{},
 				{
-					headers: { "Content-Type": "application/json" },
+					headers: {
+						"Content-Type": "application/json",
+					},
 					withCredentials: true,
 				}
 			)
 			.then((response) => {
 				setAccessToken(response.data.accessToken);
 				console.log("refreshResponse", response.data.accessToken);
-				return;
+				return response.data.accessToken;
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => console.log("refreshErr", err));
 	};
 
 	return refresh;

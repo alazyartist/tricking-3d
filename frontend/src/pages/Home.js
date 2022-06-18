@@ -11,6 +11,7 @@ import { FaGraduationCap, FaToolbox } from "react-icons/fa";
 import { useUserStore } from "../store/userStore";
 function Home() {
 	const user = useUserStore((s) => s.user);
+	const accessToken = useUserStore((s) => s.accessToken);
 	const navigate = useNavigate();
 	return (
 		<div className='sticky mt-14'>
@@ -92,7 +93,7 @@ function Home() {
 						<div className='text-sm'>Theory</div>
 					</Link>
 				</div>
-				{user === null && (
+				{accessToken === null && (
 					<Link to='/login'>
 						<div className='w-fit rounded-xl bg-sky-400 p-4'>LOGIN</div>
 					</Link>

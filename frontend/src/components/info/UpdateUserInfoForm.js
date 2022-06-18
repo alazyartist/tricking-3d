@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/api.js";
 import useApiCreds from "../../hooks/useApiCreds.js";
+import { useUserStore } from "../../store/userStore.js";
 const UpdateUserInfoForm = () => {
 	const [success, setSuccess] = useState(false);
 	const [validPassword, setValidPassword] = useState(false);
@@ -9,7 +10,7 @@ const UpdateUserInfoForm = () => {
 	const [data, setData] = useState();
 	const nav = useNavigate();
 	const apiPrivate = useApiCreds();
-
+	const accessToken = useUserStore((s) => s.accessToken);
 	const [userData, setUserData] = useState({
 		username: null,
 		first_name: null,
@@ -34,6 +35,7 @@ const UpdateUserInfoForm = () => {
 			const updateUser = await apiPrivate.put(
 				"/loggedIn/user",
 				{
+					accessToken,
 					username: userData.username,
 					first_name: userData.first_name,
 					last_name: userData.last_name,
