@@ -6,6 +6,14 @@ import env from "dotenv";
 import jwt from "jsonwebtoken";
 env.config();
 
+export const getUserInfo = async (req, res) => {
+	console.log("hit userInfo");
+	const refreshToken = req.cookies.jwt;
+	user.findOne({ where: { refreshToken } }).then((currentUser) => {
+		res.json(currentUser);
+	});
+};
+
 export const findAll = async (req, res) => {
 	user
 		.findAll({ attributes: ["username", "first_name", "last_name", "email"] })

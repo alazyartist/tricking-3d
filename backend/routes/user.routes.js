@@ -4,6 +4,7 @@ import {
 	deleteUser,
 	findAll,
 	findOrCreate,
+	getUserInfo,
 } from "../controllers/user.controller.js";
 import { verifyJWT } from "../middleware/verifyJWT.js";
 
@@ -15,4 +16,5 @@ userRoutes
 	.post(findOrCreate)
 	.delete(deleteUser);
 
+userRoutes.route("/user/getInfo").get(verifyJWT, getUserInfo);
 userRoutes.route("/user/login").post(checkPassword);

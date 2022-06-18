@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/api.js";
 import useApiCreds from "../../hooks/useApiCreds.js";
+import useUserInfo from "../../hooks/useUserInfo.js";
 import { useUserStore } from "../../store/userStore.js";
 const UpdateUserInfoForm = () => {
 	const [success, setSuccess] = useState(false);
@@ -19,7 +20,7 @@ const UpdateUserInfoForm = () => {
 		password: null,
 		confirmPassword: null,
 	});
-
+	const getInfo = useUserInfo();
 	const handleUpdate = async (e) => {
 		e.preventDefault();
 		console.log("Attempting to Update");
@@ -54,7 +55,21 @@ const UpdateUserInfoForm = () => {
 			// }
 		}
 	};
-
+	const getUserInfo = async () => {
+		try {
+			const response = await getInfo();
+			console.log(response.data);
+			setUserData({
+				password: null,
+				username: response.data.username,
+				first_name: response.data.first_name,
+				last_name: response.data.last_name,
+				email: response.data.email,
+			});
+		} catch (err) {
+			console.log("getUserInfoErr", err);
+		}
+	};
 	useEffect(() => {
 		const { password, confirmPassword } = userData;
 		if (password !== null && password !== "" && password === confirmPassword) {
@@ -63,7 +78,9 @@ const UpdateUserInfoForm = () => {
 			setValidPassword(false);
 		}
 	}, [userData]);
-
+	useEffect(() => {
+		getUserInfo();
+	}, []);
 	return (
 		<div className='w-[70vw]'>
 			<form
@@ -76,7 +93,7 @@ const UpdateUserInfoForm = () => {
 						setUserData({ ...userData, username: e.target.value })
 					}
 					type='text'
-					placeholder='username'
+					value={userData.username || "username"}
 				/>
 				<div className='grid grid-cols-2 gap-2'>
 					<input
@@ -86,7 +103,8 @@ const UpdateUserInfoForm = () => {
 							setUserData({ ...userData, first_name: e.target.value })
 						}
 						type='text'
-						placeholder='first_name'
+						value={userData.first_name}
+						placeholder={"first_name"}
 					/>
 					<input
 						id='last name'
@@ -95,7 +113,8 @@ const UpdateUserInfoForm = () => {
 							setUserData({ ...userData, last_name: e.target.value })
 						}
 						type='text'
-						placeholder='last_name'
+						placeholder={"last_name"}
+						value={userData.last_name}
 					/>
 				</div>
 				<input
@@ -103,7 +122,8 @@ const UpdateUserInfoForm = () => {
 					className='rounded-xl bg-zinc-200 p-2'
 					onChange={(e) => setUserData({ ...userData, email: e.target.value })}
 					type='email'
-					placeholder='email'
+					placeholder={"email"}
+					value={userData.email}
 				/>
 				<div className='w-full'>
 					<input
@@ -132,8 +152,15 @@ const UpdateUserInfoForm = () => {
 						</button>
 					</div>
 				</div>
+				{!validPassword && (
+					<div className='flex place-self-center text-xs text-rose-200'>
+						Enter Password to Save
+					</div>
+				)}
 				{!validPassword && userData.password && (
-					<div className='text-xs text-rose-200'>Passwords Dont Match</div>
+					<div className='flex place-self-center text-xs text-rose-200'>
+						Passwords Dont Match
+					</div>
 				)}
 				<div
 					className={`text=zinc-700 flex w-fit place-self-center rounded-2xl ${
@@ -149,7 +176,7 @@ const UpdateUserInfoForm = () => {
 				<div className='flex flex-col gap-2 text-zinc-300'>
 					{/* {data && JSON.stringify(data[1].user_name)} */}
 					<div className='flex place-self-center'>
-						{data && JSON.stringify(data)}
+						{data && JSON.stringify(data.message)}
 					</div>
 				</div>
 			</form>
