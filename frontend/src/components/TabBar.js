@@ -20,7 +20,7 @@ function TabBar() {
 
 	return (
 		<>
-			<div className='fixed bottom-0 left-0 flex h-12 w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300'>
+			<div className='fixed bottom-0 left-0 z-[100] flex h-12 w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300'>
 				<Link onClick={() => setOpenHamburger(false)} to='/home'>
 					<AiOutlineHome />
 				</Link>

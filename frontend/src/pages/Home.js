@@ -13,11 +13,11 @@ function Home() {
 	const user = useUserStore((s) => s.user);
 	const navigate = useNavigate();
 	return (
-		<div>
+		<div className='sticky mt-14'>
 			<div
 				id='AppBackground-flex'
 				className='flex h-screen w-screen flex-col place-items-center'>
-				<div className='mt-14 w-full text-center text-zinc-200'>
+				<div className='w-full text-center text-zinc-200'>
 					<h1 className='text-xl '>
 						Welcome to{" "}
 						<div className='inline font-black'>Tricking-3D {user}</div>

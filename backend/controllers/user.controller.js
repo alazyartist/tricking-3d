@@ -104,3 +104,42 @@ export const deleteUser = async (req, res) => {
 		})
 		.catch((err) => res.status(400).send(err));
 };
+
+export const updateUserInfo = async (req, res) => {
+	const { email, username, password, first_name, last_name } = await req.body;
+	//Check username and password exists
+	console.log("Attemting to Update");
+	if (!email || !password) {
+		console.log(username, password);
+		return res.status(400).json({ message: "Username && Password Required" });
+	}
+	//selects user from db
+	const selectedUser = await user.findOne({ where: { email: email } });
+
+	if (selectedUser) {
+		Promise.resolve(selectedUser)
+			.then((u) => u.dataValues.password)
+			.catch((err) => res.send(err))
+			.then((pass) => {
+				bcrypt
+					.compare(password, pass)
+					.then((match) => {
+						if (match) {
+							selectedUser.update({ username });
+							selectedUser.update({ first_name });
+							selectedUser.update({ last_name });
+
+							res.status(200).json({
+								message: "You updated your info!",
+								username: selectedUser.username,
+							});
+						} else {
+							res.status(401).json({ message: "Password Not Valid" });
+						}
+					})
+					.catch((err) => console.log(err));
+			});
+	} else {
+		res.status(400).json({ message: "Try logging back in" });
+	}
+};

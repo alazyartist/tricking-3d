@@ -22,11 +22,12 @@ const useApiCreds = () => {
 			(response) => response,
 			async (error) => {
 				const prevRequest = error?.config;
-				console.log(prevRequest);
+				console.log("prevReq", prevRequest);
 				if (error?.response?.status === 401 && !prevRequest?.sent) {
 					prevRequest.sent = true;
-					const newAccessToken = await refresh();
-					prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+					await refresh();
+					console.log("newAccessToken", accessToken);
+					prevRequest.headers["Authorization"] = `Bearer ${accessToken}`;
 					return apiPrivate(prevRequest);
 				}
 				return Promise.reject(error);

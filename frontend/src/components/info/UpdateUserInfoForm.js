@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/api.js";
-function RegisterForm() {
+import useApiCreds from "../../hooks/useApiCreds.js";
+const UpdateUserInfoForm = () => {
 	const [success, setSuccess] = useState(false);
 	const [validPassword, setValidPassword] = useState(false);
 	const [isVisible, setIsVisible] = useState();
 	const [data, setData] = useState();
 	const nav = useNavigate();
+	const apiPrivate = useApiCreds();
+
 	const [userData, setUserData] = useState({
 		username: null,
 		first_name: null,
@@ -16,9 +19,9 @@ function RegisterForm() {
 		confirmPassword: null,
 	});
 
-	const handleRegister = async (e) => {
+	const handleUpdate = async (e) => {
 		e.preventDefault();
-		console.log("Attempting to Register");
+		console.log("Attempting to Update");
 		// if (
 		// 	userData.password !== null &&
 		// 	userData.email !== null &&
@@ -27,21 +30,29 @@ function RegisterForm() {
 		// 	userData.last_name !== null
 		// ) {
 		try {
-			console.log("Trying CREATE");
-			const createUser = await api.post("/user", {
-				username: userData.username,
-				first_name: userData.first_name,
-				last_name: userData.last_name,
-				email: userData.email,
-				password: userData.password,
-			});
-			setData(createUser.data);
-			if (createUser.status === 200) return setSuccess(true);
+			console.log("Trying Update");
+			const updateUser = await apiPrivate.put(
+				"/loggedIn/user",
+				{
+					username: userData.username,
+					first_name: userData.first_name,
+					last_name: userData.last_name,
+					email: userData.email,
+					password: userData.password,
+				},
+				{
+					withCredentials: true,
+					headers: { "Content-Type": "application/json" },
+				}
+			);
+			setData(updateUser.data);
+			if (updateUser.status === 200) return setSuccess(true);
 		} catch (err) {
 			console.log(err);
 			// }
 		}
 	};
+
 	useEffect(() => {
 		const { password, confirmPassword } = userData;
 		if (password !== null && password !== "" && password === confirmPassword) {
@@ -51,23 +62,16 @@ function RegisterForm() {
 		}
 	}, [userData]);
 
-	useEffect(() => {
-		if (success === true) {
-			setTimeout(() => {
-				// nav("/login");
-			}, 5000);
-		}
-	}, [success, nav]);
 	return (
-		<div className='w-[80vw]'>
+		<div className='w-[70vw]'>
 			<form
-				onSubmit={handleRegister}
+				onSubmit={handleUpdate}
 				className='flex w-full flex-col gap-2 text-zinc-800'>
 				<input
-					id='user_name'
+					id='username'
 					className='rounded-xl bg-zinc-200 p-2'
 					onChange={(e) =>
-						setUserData({ ...userData, user_name: e.target.value })
+						setUserData({ ...userData, username: e.target.value })
 					}
 					type='text'
 					placeholder='username'
@@ -136,7 +140,7 @@ function RegisterForm() {
 					<button
 						onClick={() => setSuccess(true)}
 						disabled={!validPassword ? true : false}>
-						Submit
+						Save
 					</button>
 				</div>
 
@@ -149,6 +153,6 @@ function RegisterForm() {
 			</form>
 		</div>
 	);
-}
+};
 
-export default RegisterForm;
+export default UpdateUserInfoForm;

@@ -45,7 +45,10 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import RequireAuth from "./components/login/RequireAuth";
 import PersistLogin from "./components/login/PersistLogin";
+import UserIcon from "./UserIcon";
+import { useUserStore } from "./store/userStore";
 function App() {
+	const user = useUserStore((s) => s.user);
 	const location = useLocation();
 	const transitions = useTransition(location, {
 		from: { opacity: 0 },
@@ -67,6 +70,7 @@ function App() {
 	return (
 		<>
 			<AppBackground />
+			{<UserIcon />}
 			<Header />
 			{tabBar ? <TabBar /> : <TheoryTabBar />}
 
