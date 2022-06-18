@@ -13,12 +13,12 @@ const UpdateUserInfoForm = () => {
 	const apiPrivate = useApiCreds();
 	const accessToken = useUserStore((s) => s.accessToken);
 	const [userData, setUserData] = useState({
-		username: null,
-		first_name: null,
-		last_name: null,
-		email: null,
-		password: null,
-		confirmPassword: null,
+		username: undefined,
+		first_name: undefined,
+		last_name: undefined,
+		email: undefined,
+		password: undefined,
+		confirmPassword: undefined,
 	});
 	const getInfo = useUserInfo();
 	const handleUpdate = async (e) => {
@@ -93,7 +93,8 @@ const UpdateUserInfoForm = () => {
 						setUserData({ ...userData, username: e.target.value })
 					}
 					type='text'
-					value={userData.username || "username"}
+					value={userData.username}
+					placeholder={"username"}
 				/>
 				<div className='grid grid-cols-2 gap-2'>
 					<input

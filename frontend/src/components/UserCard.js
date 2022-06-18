@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { animated, useTransition } from "react-spring";
+import { useUserStore } from "../store/userStore";
 import UpdateUserInfoForm from "./info/UpdateUserInfoForm";
+import UpdateProfilePic from "./info/UpdateProfilePic";
 function UserCard(props) {
+	const userInfo = useUserStore((s) => s.userInfo);
+	const [editingPhoto, setEditingPhoto] = useState(false);
 	const [editing, setEditing] = useState(false);
 	const editMenu = useTransition(editing, {
 		from: { opacity: 0, top: "-40vw" },
@@ -12,6 +16,7 @@ function UserCard(props) {
 		config: { durration: 1200, tension: 280, friction: 40 },
 		// onRest: () => setediting(!editing),
 	});
+
 	return (
 		<>
 			<div className='mx-2 flex w-[70vw] place-items-center justify-between rounded-xl bg-zinc-800 px-4'>
@@ -29,8 +34,10 @@ function UserCard(props) {
 				</div>
 
 				<div className='flex flex-col'>
-					<div className='text-xl font-semibold'>{props.name}</div>
-					<div className='text-xs'>{props.username}</div>
+					<div className='text-xl font-semibold'>
+						{userInfo.first_name + " " + userInfo.last_name}
+					</div>
+					<div className='text-xs'>{userInfo.username}</div>
 				</div>
 			</div>
 			{/* {editing && (
@@ -38,13 +45,13 @@ function UserCard(props) {
 					<UpdateUserInfoForm />
 				</div>
 			)} */}
-
 			{editMenu(
 				(styles, editing) =>
 					editing && (
 						<animated.div
-							className='relative mt-4 h-10 w-[70vw] rounded-xl bg-zinc-800'
+							className='relative mt-4 h-10 w-[70vw] rounded-xl'
 							style={styles}>
+							<UpdateProfilePic />
 							<UpdateUserInfoForm />
 						</animated.div>
 					)

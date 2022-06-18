@@ -43,6 +43,10 @@ export const User = (sequelize) => {
 				type: Sequelize.UUID,
 				defaultValue: Sequelize.UUIDV4,
 			},
+			profilePic: {
+				field: "profile_pic",
+				type: Sequelize.STRING,
+			},
 
 			createdAt: {
 				field: "created_at",

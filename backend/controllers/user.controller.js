@@ -4,6 +4,13 @@ const user = await User(db.sequelize);
 import bcrypt from "bcrypt";
 import env from "dotenv";
 import jwt from "jsonwebtoken";
+import * as fs from "fs";
+import * as path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 env.config();
 
 export const getUserInfo = async (req, res) => {
@@ -161,5 +168,62 @@ export const updateUserInfo = async (req, res) => {
 			});
 	} else {
 		res.status(400).json({ message: "Try logging back in" });
+	}
+};
+export const updateProfilePic = async (req, res) => {
+	const { uuid } = await req.body;
+	const pp = req.files.file;
+	const serverPathName = path.join(
+		__dirname,
+		"..",
+		"..",
+		"frontend",
+		"public",
+		"images",
+		`${pp.name}`
+	);
+	if (pp === null) {
+		return res.status(400).json({ message: "No File Found" });
+	}
+	console.log("Attemting to UpdateProfilePic");
+	if (!uuid) {
+		console.log(uuid);
+		return res.status(400).json({ message: "UUID NEEDED" });
+	}
+	//selects user from db
+	const selectedUser = await user.findOne({ where: { uuid: uuid } });
+
+	if (selectedUser && pp) {
+		res.status(200).json({
+			message: `USER FOUND & ${pp.name} Received `,
+			fileName: pp.name,
+			filePath: `/images/${pp.name}`,
+		});
+	} else {
+		res.status(400).json({ message: "Try logging back in" });
+	}
+	console.log();
+	if (fs.existsSync(serverPathName)) {
+		selectedUser.update({ profilePic: pp.name });
+		return res
+			.status(200)
+			.json({
+				message: `Profile Picture Switched to ${pp.name} `,
+				fileName: pp.name,
+				filePath: `/images/${pp.name}`,
+			});
+	}
+	try {
+		pp.mv(serverPathName, (err) => {
+			selectedUser.update({ profilePic: pp.name });
+
+			if (err) {
+				return res.status(500).send(err);
+			} else {
+			}
+		});
+		//Check username and password exists
+	} catch (err) {
+		console.log(err);
 	}
 };

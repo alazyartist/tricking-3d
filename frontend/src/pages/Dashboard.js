@@ -8,6 +8,7 @@ import { useUserStore } from "../store/userStore";
 
 function Dashboard() {
 	const user = useUserStore((s) => s.user);
+	const { profilePic } = useUserStore((s) => s.userInfo);
 	const accessToken = useUserStore((s) => s.accessToken);
 	const setAccessToken = useUserStore((s) => s.setAccessToken);
 	const logout = useLogout();
@@ -33,7 +34,7 @@ function Dashboard() {
 				edit
 				name={`Dylan James`}
 				username={user}
-				src='./mesquared.jpg'
+				src={`./images/${profilePic}`}
 			/>
 			<button className='absolute right-5 bottom-14' onClick={() => logout()}>
 				Logout
