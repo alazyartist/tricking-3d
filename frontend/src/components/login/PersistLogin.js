@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import useRefreshToken from "../../hooks/useRefreshToken";
+import useUserInfo from "../../hooks/useUserInfo";
 import { useUserStore } from "../../store/userStore";
 
 const PersistLogin = () => {
@@ -10,6 +11,11 @@ const PersistLogin = () => {
 	const user = useUserStore((s) => s.user);
 	const persist = useLocalStorage("persist", false);
 	const refresh = useRefreshToken();
+	const getInfo = useUserInfo();
+	useEffect(() => {
+		getInfo();
+	}, []);
+
 	useEffect(() => {
 		let isMounted = true;
 		const verifyRefreshToken = async () => {

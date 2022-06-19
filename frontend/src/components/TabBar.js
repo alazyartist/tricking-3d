@@ -4,6 +4,7 @@ import { BiCube } from "react-icons/bi";
 import { FaGraduationCap, FaToolbox } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import { ReactComponent as ComboMakerBlueprint } from "../data/ComboMakerBlueprint.svg";
 import { animated, config, useSpring, useTransition } from "react-spring";
 
 function TabBar() {
@@ -25,7 +26,8 @@ function TabBar() {
 					<AiOutlineHome />
 				</Link>
 				<Link onClick={() => setOpenHamburger(false)} to='/comboMaker'>
-					<FaToolbox />
+					{/* <FaToolbox /> */}
+					<ComboMakerBlueprint className='h-10 w-10' fill='#ffffff' />
 				</Link>
 				<Link onClick={() => setOpenHamburger(false)} to='/sandbox'>
 					<BiCube />
