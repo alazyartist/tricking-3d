@@ -220,18 +220,19 @@ export const updateProfilePic = async (req, res) => {
 			fileName: pp.name,
 			filePath: `/images/${pp.name}`,
 		});
-	}
-	try {
-		pp.mv(serverPathName, (err) => {
-			selectedUser.update({ profilePic: pp.name });
+	} else {
+		try {
+			pp.mv(serverPathName, (err) => {
+				selectedUser.update({ profilePic: pp.name });
 
-			if (err) {
-				return res.status(500).send(err);
-			} else {
-			}
-		});
-		//Check username and password exists
-	} catch (err) {
-		console.log(err);
+				if (err) {
+					return res.status(500).send(err);
+				} else {
+				}
+			});
+			//Check username and password exists
+		} catch (err) {
+			console.log(err);
+		}
 	}
 };
