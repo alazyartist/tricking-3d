@@ -185,6 +185,7 @@ export const updateProfilePic = async (req, res) => {
 	// );
 	//Production Path
 	const serverPathName = path.join(
+		'/',
 		"var",
 		"www",
 		"trickedex.app",
