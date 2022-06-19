@@ -5,7 +5,7 @@ export const useUserStore = create(
 	devtools(
 		persist((set) => ({
 			user: null,
-			userInfo: null,
+			userInfo: { profilePic: "noimg.jpeg" },
 			accessToken: null,
 			persist: JSON.parse(localStorage.getItem("persist")) || false,
 			setUserInfo: (value) => set(() => ({ userInfo: value })),

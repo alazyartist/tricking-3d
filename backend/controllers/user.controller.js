@@ -173,12 +173,22 @@ export const updateUserInfo = async (req, res) => {
 export const updateProfilePic = async (req, res) => {
 	const { uuid } = await req.body;
 	const pp = req.files.file;
+	//local path for testing
+	// const serverPathName = path.join(
+	// 	__dirname,
+	// 	"..",
+	// 	"..",
+	// 	"frontend",
+	// 	"public",
+	// 	"images",
+	// 	`${pp.name}`
+	// );
+	//Production Path
 	const serverPathName = path.join(
-		__dirname,
-		"..",
-		"..",
-		"frontend",
-		"public",
+		"var",
+		"www",
+		"trickedex.app",
+		"html",
 		"images",
 		`${pp.name}`
 	);
@@ -205,13 +215,11 @@ export const updateProfilePic = async (req, res) => {
 	console.log();
 	if (fs.existsSync(serverPathName)) {
 		selectedUser.update({ profilePic: pp.name });
-		return res
-			.status(200)
-			.json({
-				message: `Profile Picture Switched to ${pp.name} `,
-				fileName: pp.name,
-				filePath: `/images/${pp.name}`,
-			});
+		return res.status(200).json({
+			message: `Profile Picture Switched to ${pp.name} `,
+			fileName: pp.name,
+			filePath: `/images/${pp.name}`,
+		});
 	}
 	try {
 		pp.mv(serverPathName, (err) => {
