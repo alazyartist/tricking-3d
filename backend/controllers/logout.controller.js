@@ -14,7 +14,7 @@ const handleLogout = async (req, res) => {
 	//selects user from db
 	const selectedUser = await user.findOne({ where: { refreshToken } });
 	// is there cookie?
-	if (selectedUser) {
+	if (!selectedUser) {
 		res.clearCookie("jwt", { httpOnly: true });
 		console.log("YOU LOGGED OUT");
 		return res.sendStatus(204);

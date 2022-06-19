@@ -4,6 +4,7 @@ import { useUserStore } from "../store/userStore";
 
 function useLogout() {
 	const setUser = useUserStore((s) => s.setUser);
+	const setUserInfo = useUserStore((s) => s.setUserInfo);
 	const setAccessToken = useUserStore((s) => s.setAccessToken);
 	// const apiPrivate = useApiCreds();
 	const logout = async () => {
@@ -14,6 +15,7 @@ function useLogout() {
 		console.log("logoutRes", response);
 		setUser(null);
 		setAccessToken(null);
+		setUserInfo({ profilePic: "noimg.jpeg" });
 	};
 
 	return logout;
