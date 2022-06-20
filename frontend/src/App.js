@@ -63,8 +63,14 @@ function App() {
 	});
 
 	const [tabBar, setTabBar] = useState(true);
+	const [isSandbox, setIsSandbox] = useState(false);
 	useEffect(() => {
 		location.pathname.includes("/theory") ? setTabBar(false) : setTabBar(true);
+	}, [location.pathname]);
+	useEffect(() => {
+		location.pathname.includes("/sandbox")
+			? setIsSandbox(true)
+			: setIsSandbox(false);
 	}, [location.pathname]);
 
 	return (
@@ -72,7 +78,7 @@ function App() {
 			<AppBackground />
 			{accessToken && <UserIcon />}
 			<Header />
-			{tabBar ? <TabBar /> : <TheoryTabBar />}
+			{tabBar ? !isSandbox && <TabBar /> : !isSandbox && <TheoryTabBar />}
 
 			{transitions(({ opacity }, curLocation) => (
 				<animated.div style={{ opacity }}>

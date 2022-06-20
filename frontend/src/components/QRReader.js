@@ -23,6 +23,7 @@ const QRReader = () => {
 				onResult={(result, err) => handleResult(result, err)}
 				style={{ width: "300px", height: "300px" }}
 				videoId={"video"}
+				constraints={{ facingMode: "environment" }}
 				videoStyle={{
 					"border-color": "#202021",
 					"border-radius": "28px",
