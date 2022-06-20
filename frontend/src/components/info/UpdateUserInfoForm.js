@@ -82,7 +82,7 @@ const UpdateUserInfoForm = () => {
 		getUserInfo();
 	}, []);
 	return (
-		<div className='w-[70vw]'>
+		<div className='w-[70vw] rounded-xl bg-zinc-800'>
 			<form
 				onSubmit={handleUpdate}
 				className='flex w-full flex-col gap-2 text-zinc-800'>

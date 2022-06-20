@@ -76,7 +76,7 @@ export const checkPassword = async (req, res) => {
 							const accessToken = jwt.sign(
 								{ username: selectedUser.username, roles: "1000" },
 								process.env.ACCESS_TOKEN_SECRET,
-								{ expiresIn: "30s" }
+								{ expiresIn: "12hr" }
 							);
 							const refreshToken = jwt.sign(
 								{ username: selectedUser.username, roles: "1000" },
@@ -185,7 +185,7 @@ export const updateProfilePic = async (req, res) => {
 	// );
 	//Production Path
 	const serverPathName = path.join(
-		'/',
+		"/",
 		"var",
 		"www",
 		"trickedex.app",

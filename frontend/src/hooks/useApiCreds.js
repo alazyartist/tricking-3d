@@ -12,7 +12,7 @@ const useApiCreds = () => {
 				if (!config.headers["Authorization"]) {
 					config.headers["Authorization"] = `Bearer ${accessToken}`;
 				}
-				console.log(config);
+				// console.log(config);
 				return config;
 			},
 			(error) => Promise.reject(error)
@@ -22,12 +22,11 @@ const useApiCreds = () => {
 			(response) => response,
 			async (error) => {
 				const prevRequest = error?.config;
-				console.log("prevReq", prevRequest);
+				// console.log("prevReq", prevRequest);
 				if (error?.response?.status === 401 && !prevRequest?.sent) {
 					prevRequest.sent = true;
 					prevRequest.withCredentials = true;
 					const newAccessToken = await refresh();
-					console.log("newAccessToken", accessToken);
 					prevRequest.headers["Authorization"] = `Bearer ${accessToken}`;
 					return apiPrivate(prevRequest);
 				}

@@ -3,12 +3,13 @@ import { Canvas } from "@react-three/fiber";
 import { HomeScene } from "../scenes/HomeScene";
 import Loader from "../components/loaders/Loader";
 import { useNavigate, Link } from "react-router-dom";
-import DonateText from "../components/contribute/DonateText";
 import MultiDonateButton from "../components/info/MultiDonateButton";
 import { TorqueScene } from "../scenes/TorqueScene";
-import TabBar from "../components/TabBar";
-import { FaGraduationCap, FaToolbox } from "react-icons/fa";
+import { FaGraduationCap } from "react-icons/fa";
 import { useUserStore } from "../store/userStore";
+import { ReactComponent as ComboMakerBlueprint } from "../data/ComboMakerBlueprint.svg";
+import { RGB_ETC1_Format } from "three";
+
 function Home() {
 	const user = useUserStore((s) => s.user);
 	const accessToken = useUserStore((s) => s.accessToken);
@@ -49,58 +50,42 @@ function Home() {
 					</div>
 				</Link>
 
-				<div className='m-2 rounded-2xl bg-red-700 p-4 text-center text-white'>
+				{/* <div className='m-2 rounded-2xl bg-red-700 p-4 text-center text-white'>
 					UNDERGOING REDESIGN <br></br>THINGS WILL BREAK
-				</div>
-				<div className='flex w-[90vw] flex-col place-items-center justify-center gap-5 rounded-2xl bg-gradient-to-b from-sky-400 to-sky-300 p-2 font-bold text-zinc-300'>
-					{/* <Link to='/3d/sandbox'>
-						<div>Sandbox</div>
-					</Link> */}
-					<Link className='' to='/instructions'>
+				</div> */}
+				<Link className='' to='/instructions'>
+					<div className='flex w-[90vw] flex-col place-items-center justify-center gap-5 rounded-2xl bg-gradient-to-b from-zinc-800 to-zinc-800 p-2 font-bold text-zinc-300'>
 						<div>Instructions</div>
-					</Link>
-					{/* <Link to='/3d/learnmore'>
-						<div>Learn More</div>
-					</Link>
-					<Link to='/3d/about'>
-						<div>About</div>
-					</Link> */}
-					{/* <Link to='/3d/comingsoon'>
-						<div>Learn</div>
-					</Link> */}
-					{/* <Link to='/3d/theory'>
-						<div>Theory</div>
-					</Link>
-					<Link to='/3d/contribute'>
-						<div>Contribute</div> */}
-					{/* </Link> */}
-					{/* <Link to='/3d/yonder'>
-						<div>yonder</div>
-					</Link> */}
-				</div>
+					</div>
+				</Link>
 
-				<div className='m-2 flex w-full place-content-center gap-4 rounded-xl p-2'>
+				<div className='m-2 flex w-full place-content-center gap-4 rounded-xl p-2 text-zinc-300'>
 					<Link
-						className='flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-teal-400 to-teal-300 text-4xl'
+						className='flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-zinc-800  text-4xl'
 						to='/comboMaker'>
-						<FaToolbox />
-						<div className='text-sm'>Combo Maker</div>
+						<ComboMakerBlueprint fill={"#d4d4d8"} />
+						<div className='mt-[-14px] text-sm font-bold'>Combo Maker</div>
 					</Link>
 					<Link
-						className='flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-teal-400 to-teal-300 text-4xl'
+						className='flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-zinc-800 text-6xl'
 						to='/theory'>
 						<FaGraduationCap />
-						<div className='text-sm'>Theory</div>
+						<div className='text-sm font-bold'>Theory</div>
 					</Link>
 				</div>
 				{accessToken === null && (
-					<Link to='/login'>
-						<div className='w-fit rounded-xl bg-sky-400 p-4'>LOGIN</div>
-					</Link>
+					<div className=' flex gap-4'>
+						<Link to='/login'>
+							<div className='w-fit rounded-xl bg-zinc-300 p-3'>LOGIN</div>
+						</Link>
+						<Link to='/register'>
+							<div className='w-fit rounded-xl bg-zinc-700 p-3 text-zinc-300'>
+								REGISTER
+							</div>
+						</Link>
+					</div>
 				)}
-				<Link to='/dash'>
-					<div className='w-fit rounded-xl bg-teal-200 p-4'>Dashboard</div>
-				</Link>
+
 				<div className='bottom-8 py-8'>
 					<MultiDonateButton />
 				</div>
