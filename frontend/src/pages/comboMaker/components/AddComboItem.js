@@ -31,6 +31,7 @@ const AddComboItem = ({
 		}
 		if (type === "Stances") {
 			handleStanceAdd(e);
+			setType("Tricks");
 		}
 	};
 
