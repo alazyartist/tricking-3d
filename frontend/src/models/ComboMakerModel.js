@@ -4,8 +4,8 @@ import { useStore } from "../store/store";
 import * as THREE from "three";
 import { useGLTF, useAnimations, Html } from "@react-three/drei";
 import { Vector3 } from "three";
-import useMediaController from "./useMediaController";
-import useFollowCam from "./useFollowCam";
+import useMediaController from "../hooks/useMediaController";
+import useFollowCam from "../hooks/useFollowCam";
 
 export default function ComboMakerModel({ ...props }) {
 	const group = useRef();

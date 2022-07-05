@@ -45,7 +45,7 @@ import RequireAuth from "./auth/RequireAuth";
 import PersistLogin from "./auth/PersistLogin";
 import UserIcon from "./components/layout/UserIcon";
 import { useUserStore } from "./store/userStore";
-import Axes from "./pages/theory/Axes";
+import Axes from "./pages/theory/axes/Axes";
 function App() {
 	const accessToken = useUserStore((s) => s.accessToken);
 	const location = useLocation();

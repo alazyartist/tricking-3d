@@ -16,7 +16,7 @@ import LoadActiveModel from "../components/media/ModelSelector";
 import SceneBackground from "./SceneBackground";
 import { Frank } from "../animations/Frank";
 import TrickListModel from "../animations/TrickListModel";
-import ComboMakerModel from "../animations/ComboMakerModel";
+import ComboMakerModel from "../models/ComboMakerModel";
 
 // import Model from "../animations/KerwoodCC3Tpose";
 export function ComboMakerScene(props) {

@@ -3,8 +3,8 @@ import { useFrame } from "@react-three/fiber";
 import { useStore } from "../store/store";
 import * as THREE from "three";
 import { useGLTF, useAnimations } from "@react-three/drei";
-import useFollowCam from "./useFollowCam";
-import useMediaController from "./useMediaController";
+import useFollowCam from "../hooks/useFollowCam";
+import useMediaController from "../hooks/useMediaController";
 
 export default function Kerwood40({ ...props }) {
 	const group = useRef();

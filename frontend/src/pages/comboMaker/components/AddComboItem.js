@@ -25,9 +25,11 @@ const AddComboItem = ({
 	const handleAdd = (e) => {
 		if (type === "Tricks") {
 			handleTrickAdd(e);
+			setType("Stances");
 		}
 		if (type === "Transitions") {
 			handleTrickAdd(e);
+			setType("Tricks");
 		}
 		if (type === "Stances") {
 			handleStanceAdd(e);
@@ -97,7 +99,7 @@ const AddComboItem = ({
 					setType("");
 					setAddTrick(!addTrick);
 				}}
-				className='absolute bottom-[22vh] flex h-8 w-8 place-content-center place-items-center place-self-center rounded-full bg-slate-700'>
+				className='m-4 flex h-8 w-8 place-content-center place-items-center place-self-center rounded-full bg-slate-700'>
 				{/* <AiOutlinePlus className='h-9 w-9' /> */}
 				<TiPlus className='h-9 w-9' />
 			</div>

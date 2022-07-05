@@ -4,8 +4,8 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useStore } from "../store/store";
 import * as THREE from "three";
 import { Vector3 } from "three";
-import { useFrankFollowCam } from "./useFollowCam";
-import useMediaController from "./useMediaController";
+import { useFrankFollowCam } from "../hooks/useFollowCam";
+import useMediaController from "../hooks/useMediaController";
 
 export function Frank({ ...props }) {
 	const group = useRef();
