@@ -73,12 +73,12 @@ function ComboMaker() {
 			}
 		}
 	}
-
+	console.log(stances[currentStance]);
 	//Filters
 	let filteredStances = stanceArr.filter(
 		(e) =>
-			(e.leg == currentLeg && !isTrick) ||
-			(isTrick && e.landingStyle == stances[currentStance].landingStyle)
+			(!isTrick && e.leg == currentLeg) ||
+			(isTrick && e.landingStyle == stances[currentStance]?.landingStyle)
 	);
 	let filteredTricks = TrickListArr.filter(
 		(e) => e.takeoffStance == currentStance && e.fromLeg == currentLeg

@@ -44,7 +44,14 @@ const AddComboItem = ({
 		if (type === "Stances") {
 			setArray(filteredStances);
 		}
-	}, [type, addTrick, setAddTrick]);
+	}, [
+		type,
+		addTrick,
+		setAddTrick,
+		filteredTricks,
+		filteredStances,
+		filteredTransitions,
+	]);
 	return (
 		<div className='flex flex-col'>
 			{addTrick && (
