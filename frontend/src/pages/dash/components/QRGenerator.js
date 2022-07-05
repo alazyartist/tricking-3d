@@ -1,6 +1,6 @@
 import React from "react";
 import { QRCode } from "react-qrcode-logo";
-import { useUserStore } from "../store/userStore";
+import { useUserStore } from "../../../store/userStore";
 const QRGenerator = () => {
 	const userInfo = useUserStore((s) => s.userInfo);
 	return (

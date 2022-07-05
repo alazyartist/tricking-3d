@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactComponent as UnifiedTransitions } from "../../../data/Unified.svg";
+import { ReactComponent as UnifiedTransitions } from "../../../../data/Unified.svg";
 function Unified() {
 	return (
 		<div>

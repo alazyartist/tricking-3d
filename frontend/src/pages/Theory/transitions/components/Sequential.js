@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactComponent as SequentialTransitions } from "../../../data/Sequential.svg";
+import { ReactComponent as SequentialTransitions } from "../../../../data/Sequential.svg";
 function Sequential() {
 	return (
 		<div>

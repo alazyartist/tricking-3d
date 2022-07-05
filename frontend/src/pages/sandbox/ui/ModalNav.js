@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { MdInfo, MdInfoOutline } from "react-icons/md";
-import { useStore } from "../../store/store";
-import TrickInfo from "../info/TrickInfo";
-import Animations from "../modal/Animations";
-import Models from "../modal/Models";
+import { useStore } from "../../../store/store";
+import TrickInfo from "../../../components/info/TrickInfo";
+import Animations from "./modal/Animations";
+import Models from "./modal/Models";
 import AnimationsDropwdown from "./AnimationsDropwdown";
 import InfoButton from "./InfoButton";
-import ModalWrapper from "../modal/ModalWrapper";
+import ModalWrapper from "./modal/ModalWrapper";
 import ModelDropdown from "./ModelDropdown";
-import ModalButton from "../modal/ModalButton";
+import ModalButton from "./modal/ModalButton";
 
 const ModalNav = () => {
 	//global states

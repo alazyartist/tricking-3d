@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { stances } from "../../data/trickDataModel/TrickObjects";
 import { stanceArr } from "../../data/TricklistClass";
 import { useComboMakerStore } from "../../store/comboMakerStore";
-import ArrayDisplay from "./comboMaker/ArrayDisplay";
-import TransitionButtons from "./comboMaker/TransitionButtons";
+import ArrayDisplay from "../../pages/comboMaker/components/ArrayDisplay";
+import TransitionButtons from "../../pages/comboMaker/components/TransitionButtons.js";
 function StanceList({ setCurrentStance, currentStance }) {
 	const currentLeg = useComboMakerStore((s) => s.currentLeg);
 	const setCurrentLeg = useComboMakerStore((s) => s.setCurrentLeg);

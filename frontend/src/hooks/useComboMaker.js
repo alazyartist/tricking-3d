@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
-import {
-	Stance,
-	Transition,
-	Trick,
-} from "../../../data/trickDataModel/TrickClasses";
-import { stances } from "../../../data/trickDataModel/TrickObjects";
-import { transArr } from "../../../data/TricklistClass";
-import { useComboMakerStore } from "../../../store/comboMakerStore";
+import { Stance, Transition, Trick } from "../data/trickDataModel/TrickClasses";
+import { stances } from "../data/trickDataModel/TrickObjects";
+import { transArr } from "../data/TricklistClass";
+import { useComboMakerStore } from "../store/comboMakerStore";
 
 function useComboMaker(combo, setcombo, newCombo) {
 	const [isDelete, setIsDelete] = useState(false);

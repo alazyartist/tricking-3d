@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import useApiCreds from "../hooks/useApiCreds";
-import UserCard from "../components/UserCard";
-import useLogout from "../hooks/useLogout";
-import useRefreshToken from "../hooks/useRefreshToken";
-import { useUserStore } from "../store/userStore";
+import useApiCreds from "../../hooks/useApiCreds";
+import UserCard from "./components/UserCard";
+import useLogout from "../../hooks/useLogout";
+import useRefreshToken from "../../hooks/useRefreshToken";
+import { useUserStore } from "../../store/userStore";
 import { Link } from "react-router-dom";
 import { GiHorizonRoad } from "react-icons/gi";
-import ProfileCode from "../components/ProfileCode";
+import ProfileCode from "./components/ProfileCode";
 
 function Dashboard() {
 	const user = useUserStore((s) => s.user);

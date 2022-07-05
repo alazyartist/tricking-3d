@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactComponent as Sequences } from "../../../data/TakeOffLandingSequences.svg";
+import { ReactComponent as Sequences } from "../../../../data/TakeOffLandingSequences.svg";
 
 function All() {
 	return (

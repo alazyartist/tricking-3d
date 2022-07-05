@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 
 import { ReactComponent as StanceCircle } from "../../data/AdvancedStancesSVG.svg";
 import { ReactComponent as StanceCircleSelector } from "../../data/AdvancedStancesSelector.svg";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useStore } from "../../store/store";
 import { animated, config, useSpring } from "react-spring";
 import { useComboMakerStore } from "../../store/comboMakerStore";
 import { stances } from "../../data/trickDataModel/TrickObjects";
 import StanceList from "./StanceList";
 import StanceInfo from "./stances/StanceInfo";
-import TransitionButtons from "./comboMaker/TransitionButtons";
-import StanceSVG from "./stances/StanceSVG";
+
 function AdvancedStanceCircle() {
 	const nav = useNavigate();
 	const setStanceColor = useStore((s) => s.setStanceColor);

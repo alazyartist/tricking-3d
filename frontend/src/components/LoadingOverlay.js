@@ -4,7 +4,7 @@ import Header from "./layout/Header";
 import DiscordLink from "./info/DiscordLink";
 import MultiDonateButton from "./info/MultiDonateButton";
 import PaypalDonate from "./info/PaypalDonate";
-import Instructions from "./Instructions";
+import Instructions from "../pages/instructrions/components/Instructions";
 
 function LoadingOverlay({ progress, setIsLoaderOpen }) {
 	return (

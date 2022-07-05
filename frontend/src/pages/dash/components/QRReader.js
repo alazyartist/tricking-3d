@@ -25,9 +25,9 @@ const QRReader = () => {
 				videoId={"video"}
 				constraints={{ facingMode: "environment", aspectRatio: 1 }}
 				videoStyle={{
-					"border-color": "#3f3f46",
-					"border-radius": "30px",
-					"border-width": "12px",
+					borderColor: "#3f3f46",
+					borderRadius: "30px",
+					borderWidth: "12px",
 					width: "60vw",
 					height: "60vw",
 				}}

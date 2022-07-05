@@ -1,6 +1,6 @@
 import React from "react";
-import { MediaButton } from "../media/MediaButton";
-import { useStore } from "../../store/store";
+import { MediaButton } from "../../../components/media/MediaButton";
+import { useStore } from "../../../store/store";
 import { MdInfo, MdInfoOutline } from "react-icons/md";
 function InfoButton() {
 	const showInfo = useStore((s) => s.showInfo);

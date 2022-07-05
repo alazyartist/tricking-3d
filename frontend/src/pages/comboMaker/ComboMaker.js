@@ -7,21 +7,21 @@ import {
 	Transition,
 	Trick,
 } from "../../data/trickDataModel/TrickClasses";
-import ArrayDisplay from "./comboMaker/ArrayDisplay";
+import ArrayDisplay from "./components/ArrayDisplay";
 import { useComboMakerStore } from "../../store/comboMakerStore";
-import CurrentStateInfo from "./comboMaker/CurrentStateInfo";
-import ResetButton from "./comboMaker/ResetButton";
-import NewComboDisplay from "./comboMaker/newComboDisplay";
-import useComboMaker from "./comboMaker/useComboMaker";
-import AdvancedStanceCircle from "./AdvancedStanceCircle";
+import CurrentStateInfo from "./components/CurrentStateInfo";
+import ResetButton from "./components/ResetButton";
+import NewComboDisplay from "./components/newComboDisplay";
+import useComboMaker from "../../hooks/useComboMaker";
+import AdvancedStanceCircle from "../../components/theory/AdvancedStanceCircle";
 import { ReactComponent as StanceCircle } from "../../data/AdvancedStancesSVG.svg";
-import StanceAnimationTest from "./stances/StanceAnimationTest";
-import TransitionButtons from "./comboMaker/TransitionButtons";
+import StanceAnimationTest from "../../components/theory/stances/StanceAnimationTest";
+import TransitionButtons from "./components/TransitionButtons";
 import { Canvas } from "@react-three/fiber";
-import Loader from "../loaders/Loader";
+import Loader from "../../components/loaders/Loader";
 import { TrickListScene } from "../../scenes/TrickListScene";
 import { ComboMakerScene } from "../../scenes/ComboMakerScene";
-import AddComboItem from "./comboMaker/AddComboItem";
+import AddComboItem from "./components/AddComboItem";
 
 let newCombo = [];
 function ComboMaker() {

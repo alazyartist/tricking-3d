@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import { stances } from "../../../data/trickDataModel/TrickObjects";
 import { useComboMakerStore } from "../../../store/comboMakerStore";
 import { useStore } from "../../../store/store";
-import TransitionButtons from "../comboMaker/TransitionButtons";
+import TransitionButtons from "../../../pages/comboMaker/components/TransitionButtons";
 import { stanceInfoText as stanceText } from "./stanceInfoText";
 import StanceSVG from "./StanceSVG";
 function StanceInfo(props) {

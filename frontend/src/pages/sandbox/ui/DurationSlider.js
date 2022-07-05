@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useCallback } from "react";
-import { useStore } from "../../store/store";
+import { useStore } from "../../../store/store";
 import { TrimToggle } from "./TrimToggle";
 import { FaCheckCircle } from "react-icons/fa";
 
@@ -154,13 +154,13 @@ function DurationSlider() {
 							id='start-timestamp'
 							className='
                 z-60 
-                font-inter 
-                absolute
-                left-[-25px] 
-                top-[-22px]
+                absolute 
+                left-[-25px]
+                top-[-22px] 
                 h-[16px]
-                w-[32px] 
-            rounded 
+                w-[32px]
+                rounded 
+            font-inter 
                 text-xs
                 text-slate-200 
               '>
@@ -170,13 +170,13 @@ function DurationSlider() {
 							id='end-timestamp'
 							className='
                 z-60 
-                font-inter 
-                absolute
-                right-[-25px] 
-                top-[-22px]
+                absolute 
+                right-[-25px]
+                top-[-22px] 
                 h-[16px]
-				w-[32px]
-                rounded 
+                w-[32px]
+				rounded
+                font-inter 
              
                 text-xs
                 text-slate-200 

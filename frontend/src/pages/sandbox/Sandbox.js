@@ -3,10 +3,10 @@ import { useMemo } from "react";
 import { useStore } from "../../store/store.js";
 
 import React from "react";
-import UI from "../../components/ui/UI";
-import ShowHideToggle from "../../components/ui/ShowHideToggle";
+import UI from "./ui/UI";
+import ShowHideToggle from "./ui/ShowHideToggle";
 import { useParams, useSearchParams } from "react-router-dom";
-import MinimalUI from "../../components/ui/MinimalUI";
+import MinimalUI from "./ui/MinimalUI";
 import TrickInfo from "../../components/info/TrickInfo";
 
 export function Sandbox() {

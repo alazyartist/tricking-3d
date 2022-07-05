@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { animated, useTransition } from "react-spring";
-import { useUserStore } from "../store/userStore";
-import UpdateUserInfoForm from "./info/UpdateUserInfoForm";
-import UpdateProfilePic from "./info/UpdateProfilePic";
+import { useUserStore } from "../../../store/userStore";
+import UpdateUserInfoForm from "../../../components/info/UpdateUserInfoForm";
+import UpdateProfilePic from "../../../components/info/UpdateProfilePic";
 function UserCard(props) {
 	const userInfo = useUserStore((s) => s.userInfo);
 	const [editingPhoto, setEditingPhoto] = useState(false);

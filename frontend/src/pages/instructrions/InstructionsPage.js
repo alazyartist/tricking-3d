@@ -1,5 +1,5 @@
 import React from "react";
-import Instructions from "../components/Instructions";
+import Instructions from "./components/Instructions";
 import { Link } from "react-router-dom";
 function InstructionsPage() {
 	return (

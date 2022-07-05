@@ -1,6 +1,6 @@
 import React from "react";
 import { BsGithub } from "react-icons/bs";
-import DylanContactLinks from "../info/DylanContactLinks";
+import DylanContactLinks from "../../../components/info/DylanContactLinks";
 function Code() {
 	return (
 		<div>

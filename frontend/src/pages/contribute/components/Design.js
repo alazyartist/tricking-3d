@@ -1,5 +1,5 @@
 import React from "react";
-import DylanContactLinks from "../info/DylanContactLinks";
+import DylanContactLinks from "../../../components/info/DylanContactLinks";
 
 function Design() {
 	return (

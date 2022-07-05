@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactComponent as SingularTransitions } from "../../../data/Singular.svg";
+import { ReactComponent as SingularTransitions } from "../../../../data/Singular.svg";
 function Singular() {
 	return (
 		<div>
