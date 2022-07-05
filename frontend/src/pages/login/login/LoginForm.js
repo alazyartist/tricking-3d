@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import useApiCreds from "../../hooks/useApiCreds.js";
-import useLocalStorage from "../../hooks/useLocalStorage.js";
-import { useUserStore } from "../../store/userStore.js";
+import useApiCreds from "../../../hooks/useApiCreds.js";
+import useLocalStorage from "../../../hooks/useLocalStorage.js";
+import { useUserStore } from "../../../store/userStore.js";
 function LoginForm() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");

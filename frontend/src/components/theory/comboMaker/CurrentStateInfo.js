@@ -11,7 +11,7 @@ function CurrentStateInfo({
 		<div
 			id='CurrentState'
 			className={`${
-				isOpen && "absolute top-3 left-3 z-[1001] w-[94vw]"
+				isOpen && "fixed left-7 top-3 z-[1001] w-[86vw]"
 			}  w-full rounded-md bg-sky-300 p-2 text-sm text-zinc-700`}>
 			<div onClick={() => setIsOpen(!isOpen)} className=''>
 				{`${currentStance}`}

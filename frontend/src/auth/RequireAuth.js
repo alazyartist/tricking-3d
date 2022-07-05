@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useUserStore } from "../../store/userStore";
+import { useUserStore } from "../store/userStore";
 
 function RequireAuth() {
 	const accessToken = useUserStore((s) => s.accessToken);

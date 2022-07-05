@@ -1,35 +1,21 @@
-import CanvasComponent from "../components/panels/CanvasComponent";
-import ModelSelector from "../components//media/ModelSelector";
-import LoadingOverlay from "../components/LoadingOverlay.js";
-import { useProgress } from "@react-three/drei";
-import { useCallback, useMemo, useState } from "react";
-import { useStore } from "../store/store.js";
-import LeftPanelContent from "../components/panels/LeftPanelContent.js";
-import RightPanelContent from "../components/panels/RightPanelContent.js";
+import CanvasComponent from "./CanvasComponent.js";
+import { useMemo } from "react";
+import { useStore } from "../../store/store.js";
+
 import React from "react";
-import ModelDropdown from "../components/ui/ModelDropdown";
-import AnimationsDropwdown from "../components/ui/AnimationsDropwdown";
-import Controller from "../components/media/Controller";
-import UI from "../components/ui/UI";
-import ShowHideToggle from "../components/ui/ShowHideToggle";
+import UI from "../../components/ui/UI";
+import ShowHideToggle from "../../components/ui/ShowHideToggle";
 import { useParams, useSearchParams } from "react-router-dom";
-import MinimalUI from "../components/ui/MinimalUI";
-import InfoButton from "../components/ui/InfoButton";
-import TrickInfo from "../components/info/TrickInfo";
+import MinimalUI from "../../components/ui/MinimalUI";
+import TrickInfo from "../../components/info/TrickInfo";
 
 export function Sandbox() {
 	const { model, trick } = useParams();
 	const showUI = useStore((s) => s.showUI);
 	const showInfo = useStore((s) => s.showInfo);
-	const timescale = useStore((s) => s.timescale);
-	const isPaused = useStore((s) => s.isPaused);
-	const start = useStore((s) => s.start);
-	const end = useStore((s) => s.end);
 	const setModel = useStore((s) => s.setModel);
 	const setAnim = useStore((s) => s.selectAnim);
-	const setTimescale = useStore((s) => s.setTimescale);
-	const setUI = useStore((s) => s.setUI);
-	const setIsPaused = useStore((s) => s.setIsPaused);
+
 	useMemo(() => {
 		model && setModel(model);
 		trick && setAnim(trick);

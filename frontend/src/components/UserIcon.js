@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useUserStore } from "./store/userStore";
+import { useUserStore } from "../store/userStore";
 
 const UserIcon = () => {
 	const { profilePic } = useUserStore((s) => s.userInfo);

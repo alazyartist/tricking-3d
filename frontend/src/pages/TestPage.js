@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Routes, Route, Outlet } from "react-router-dom";
-import AppBackground from "../components/AppBackground";
-import Header from "../components/Header";
+import AppBackground from "../components/layout/AppBackground";
+import Header from "../components/layout/Header";
 import AnimationsDropwdown from "../components/ui/AnimationsDropwdown";
 
 export function TestPage() {

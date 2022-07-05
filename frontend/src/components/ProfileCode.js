@@ -20,23 +20,25 @@ const ProfileCode = () => {
 	}, [showQrReader]);
 	return (
 		<>
-			<div className='flex gap-3'>
-				<button
-					className=' flex w-20 flex-col place-items-center rounded-lg bg-zinc-700'
-					onClick={() => setShowQR(!showQR)}>
-					<MdOutlineQrCode2 className='h-12 w-12' />
-					<div>Generate</div>
-				</button>
-				<button
-					className='flex w-20 flex-col place-items-center rounded-lg bg-red-700'
-					onClick={() => setShowQrReader(!showQrReader)}>
-					<MdQrCodeScanner className='h-12 w-12' />
-					<div>Scan</div>
-				</button>
-			</div>
-			<div className='flex w-full flex-col place-content-center place-items-center'>
-				{showQR && <QRGenerator />}
-				{showQrReader && <QRReader />}
+			<div className='rounded-xl bg-zinc-700 p-2'>
+				<div className='flex place-content-center place-items-center gap-3'>
+					<button
+						className=' flex w-20 flex-col place-items-center rounded-lg bg-zinc-700'
+						onClick={() => setShowQR(!showQR)}>
+						<MdOutlineQrCode2 className='h-12 w-12' />
+						<div>Generate</div>
+					</button>
+					<button
+						className='flex w-20 flex-col place-items-center rounded-lg bg-red-700'
+						onClick={() => setShowQrReader(!showQrReader)}>
+						<MdQrCodeScanner className='h-12 w-12' />
+						<div>Scan</div>
+					</button>
+				</div>
+				<div className='flex w-full flex-col place-content-center place-items-center'>
+					{showQR && <QRGenerator />}
+					{showQrReader && <QRReader />}
+				</div>
 			</div>
 		</>
 	);

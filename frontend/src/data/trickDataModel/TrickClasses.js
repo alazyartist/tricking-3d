@@ -52,10 +52,10 @@ export class Trick extends Base {
 export class Transition {
 	constructor(name, fromStyle, toStyle, fromleg, toleg) {
 		this.name = name;
-		this.landingStance = stances.Any;
+		// this.landingStance = stances.Any;
 		this.landingStyle = fromStyle;
 		this.transitionType = toStyle;
-		this.takeoffStance = stances.Any;
+		// this.takeoffStance = stances.Any;
 		this.takeoffStyle = toStyle;
 		this.fromLeg = fromleg;
 		this.toLeg = toleg;

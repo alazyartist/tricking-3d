@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Header from "./Header";
+import Header from "./layout/Header";
 import DiscordLink from "./info/DiscordLink";
 import MultiDonateButton from "./info/MultiDonateButton";
 import PaypalDonate from "./info/PaypalDonate";

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import StanceCircleBIFO from "../theory/StanceCircleBIFO";
-import StanceCircleCHMS from "../theory/StanceCircleCHMS";
+
 import { ReactComponent as StanceCircle } from "../../data/AdvancedStancesSVG.svg";
 import { ReactComponent as StanceCircleSelector } from "../../data/AdvancedStancesSelector.svg";
 import { Outlet, useNavigate } from "react-router-dom";

@@ -21,6 +21,7 @@ import { Canvas } from "@react-three/fiber";
 import Loader from "../loaders/Loader";
 import { TrickListScene } from "../../scenes/TrickListScene";
 import { ComboMakerScene } from "../../scenes/ComboMakerScene";
+import AddComboItem from "./comboMaker/AddComboItem";
 
 let newCombo = [];
 function ComboMaker() {
@@ -46,7 +47,7 @@ function ComboMaker() {
 		setCurrentLeg(e.toLeg);
 	}
 	function handleStanceAdd(e) {
-		setCurrentStance(stances[e] ? stances[e]?.name : currentStance);
+		setCurrentStance(stances[e]?.name);
 		setCurrentLeg(e.getTrick().fromLeg);
 		setcombo(e);
 	}
@@ -100,7 +101,7 @@ function ComboMaker() {
 					currentDirection={currentDirection}
 				/>
 			</div>
-			<div id='comboMaker-wrapper' className='font-inter h-[80vh] w-[90vw]'>
+			<div id='comboMaker-wrapper' className='h-[80vh] w-[90vw] font-inter'>
 				{/* Page Title */}
 				<div
 					id='pageTitle'
@@ -126,6 +127,23 @@ function ComboMaker() {
 					{/* newCombo State Array */}
 					<NewComboDisplay newCombo={newCombo} />
 					{/* Button Container */}
+					{/* <ArrayDisplay
+						bg
+						startOpen
+						isEmpty={isEmpty}
+						name={"Tricks"}
+						arr={filteredTricks}
+						f={(e) => handleTrickAdd(e)}
+					/> */}
+					<AddComboItem
+						isEmpty={isEmpty}
+						filteredTricks={filteredTricks}
+						filteredTransitions={filteredTransitions}
+						filteredStances={filteredStances}
+						handleStanceAdd={handleStanceAdd}
+						handleTrickAdd={handleTrickAdd}
+						f={(e) => handleTrickAdd(e)}
+					/>
 					<div
 						id='selectables-container'
 						className='grid h-full grid-flow-row grid-cols-2 place-content-center gap-2 '>
@@ -134,15 +152,15 @@ function ComboMaker() {
 						<div
 							id='left-column-tricks-n-stances'
 							className='flex w-full flex-col gap-2 '>
-							<ArrayDisplay
+							{/* <ArrayDisplay
 								bg
 								startOpen
 								isEmpty={isEmpty}
 								name={"Tricks"}
 								arr={filteredTricks}
-								f={(e) => handleTrickAdd(e)}></ArrayDisplay>
-							{/* FilteredStances */}
-							<div className=''>
+								f={(e) => handleTrickAdd(e)}></ArrayDisplay> */}
+							{/* FilteredStances
+							{/*	<div className=''>
 								<ArrayDisplay
 									bg
 									isCollapsable
@@ -151,12 +169,13 @@ function ComboMaker() {
 									arr={filteredStances}
 									f={(e) => handleStanceAdd(e)}></ArrayDisplay>
 							</div>
+							*/}
 						</div>
 						<div
 							id='right-column-transitions-stanceCircle'
 							className='flex flex-col place-content-center justify-around'>
 							{/* FilteredTransitions */}
-							<ArrayDisplay
+							{/* <ArrayDisplay
 								bg
 								isCollapsable
 								name={
@@ -166,17 +185,18 @@ function ComboMaker() {
 									/>
 								}
 								arr={filteredTransitions}
-								f={(e) => handleTrickAdd(e)}></ArrayDisplay>
+								f={(e) => handleTrickAdd(e)}></ArrayDisplay> */}
 							{/* StanceCircleAnimation */}
-							<div className='h-40 w-40'>
+							{/* <div className='h-40 w-40'>
 								<StanceAnimationTest
 									handleStanceAdd={handleStanceAdd}
 									isSmall
 									currentStance={currentStance}
 								/>
-							</div>
+							</div> */}
 						</div>
-						<div className='absolute top-14 left-2.5 z-[-1] h-[85vh] w-[95vw] rounded-3xl bg-gradient-to-br from-zinc-400 to-sky-500 opacity-50'></div>
+						{/* Background Color */}
+						{/* <div className='absolute top-14 left-2.5 z-[-1] h-[85vh] w-[95vw] rounded-3xl bg-gradient-to-br from-zinc-400 to-sky-500 opacity-50'></div> */}
 					</div>
 					{/* Reset Buttons */}
 					<div

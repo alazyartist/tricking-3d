@@ -23,17 +23,17 @@ const QRReader = () => {
 				onResult={(result, err) => handleResult(result, err)}
 				style={{ width: "300px", height: "300px" }}
 				videoId={"video"}
-				constraints={{ facingMode: "environment" }}
+				constraints={{ facingMode: "environment", aspectRatio: 1 }}
 				videoStyle={{
-					"border-color": "#202021",
-					"border-radius": "28px",
-					"border-width": "16px",
-					width: "400px",
-					height: "300px",
+					"border-color": "#3f3f46",
+					"border-radius": "30px",
+					"border-width": "12px",
+					width: "60vw",
+					height: "60vw",
 				}}
 				videoContainerStyle={{
-					width: "400px",
-					height: "300px",
+					width: "60vw",
+					height: "60vw",
 				}}
 			/>
 

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import useLocalStorage from "../../hooks/useLocalStorage";
-import useRefreshToken from "../../hooks/useRefreshToken";
-import useUserInfo from "../../hooks/useUserInfo";
-import { useUserStore } from "../../store/userStore";
+import useLocalStorage from "../hooks/useLocalStorage";
+import useRefreshToken from "../hooks/useRefreshToken";
+import useUserInfo from "../hooks/useUserInfo";
+import { useUserStore } from "../store/userStore";
 
 const PersistLogin = () => {
 	const [isLoading, setIsLoading] = useState(true);

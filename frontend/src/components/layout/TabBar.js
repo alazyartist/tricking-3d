@@ -4,7 +4,7 @@ import { BiCube } from "react-icons/bi";
 import { FaGraduationCap, FaToolbox } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
-import { ReactComponent as ComboMakerBlueprint } from "../data/ComboMakerBlueprint.svg";
+import { ReactComponent as ComboMakerBlueprint } from "../../data/ComboMakerBlueprint.svg";
 import { animated, config, useSpring, useTransition } from "react-spring";
 
 function TabBar() {

@@ -56,7 +56,7 @@ function Dashboard() {
 					<br /> Plans
 				</div>
 			</Link>
-			<button className='absolute right-5 bottom-14' onClick={() => logout()}>
+			<button className='fixed right-5 bottom-14' onClick={() => logout()}>
 				Logout
 			</button>
 		</div>

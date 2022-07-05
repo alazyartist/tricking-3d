@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import DonateText from "../components/contribute/DonateText";
+import DonateText from "../pages/contribute/components/DonateText.js";
 
 function LearnMore() {
 	const nav = useNavigate();
@@ -8,7 +8,7 @@ function LearnMore() {
 		<>
 			<div id='sticky-header' className='sticky top-0 h-14 bg-zinc-900'></div>
 			<div className='m-0  flex justify-center p-1'>
-				<div className='font-inter flex w-[80vw] flex-col place-content-center place-items-center gap-5 text-zinc-300'>
+				<div className='flex w-[80vw] flex-col place-content-center place-items-center gap-5 font-inter text-zinc-300'>
 					<h1 className='text-5xl font-bold'>Road to Trickedex</h1>
 					<p className='indent-4 text-base font-light'>
 						In order to get where we would like to have this project it will

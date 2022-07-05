@@ -25,29 +25,6 @@ function useMediaController(actions, names, mixer) {
 		() => Promise.resolve(names).then((results) => setAnimationsArray(results)),
 		[names, setAnimationsArray]
 	);
-	// Grabbing Position and Quaterion from MixamoHipsRig
-	// useLayoutEffect(() => {
-	// 	isFollowCam
-	// 		? console.log("Changed to FollowCam")
-	// 		: console.log("NormalMode");
-	// 	console.log(hipsRef.current);
-	// }, [isFollowCam]);
-
-	// const camera = useThree((state) => state.camera);
-	// useFrame(({}) => {
-	// 	let pos;
-	// 	pos = hipsRef.current.position;
-	// 	let { x, y, z } = pos;
-	// 	let quat = hipsRef.current.quaternion;
-	// 	let posArr = [x, y, z];
-	// 	posArr = posArr.map((p) => p * 0.01);
-	// 	let vec = new Vector3(posArr[0], 0.5, posArr[1]);
-	// 	if (isFollowCam && hipsRef.current && camera) {
-	// 		camera.quaternion.set(quat, 0.1);
-	// 		camera.lookAt(vec, 1);
-	// 		camera.updateProjectionMatrix();
-	// 	}
-	// });
 	// Handle Animation Loop
 	//bounce uE
 	useEffect(() => {

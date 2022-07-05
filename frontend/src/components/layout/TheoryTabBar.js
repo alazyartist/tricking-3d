@@ -7,6 +7,8 @@ import { Link, useLocation } from "react-router-dom";
 import { animated, config, useSpring, useTransition } from "react-spring";
 import { ReactComponent as StanceCircleColor } from "../../data/AdvancedStancesSelectorColor.svg";
 import { ReactComponent as TransitionFeet } from "../../data/ComboMakerSVG/Left.svg";
+import TransitionsIcon from "../../data/icons/TransitionsIcon";
+import TricksIcon from "../../data/icons/TricksIcon";
 function TheoryTabBar({ tabBar }) {
 	const [openHamburger, setOpenHamburger] = useState();
 	const location = useLocation();
@@ -28,6 +30,9 @@ function TheoryTabBar({ tabBar }) {
 				<Link onClick={() => setOpenHamburger(false)} to='/home'>
 					<AiOutlineHome />
 				</Link>
+				<Link onClick={() => setOpenHamburger(false)} to='/theory'>
+					<FaGraduationCap />
+				</Link>
 				<Link onClick={() => setOpenHamburger(false)} to='/theory/stances'>
 					<div className='w-full'>
 						<StanceCircleColor />
@@ -36,12 +41,12 @@ function TheoryTabBar({ tabBar }) {
 				</Link>
 				<Link onClick={() => setOpenHamburger(false)} to='/theory/transitions'>
 					<div className='flex w-full flex-col place-items-center'>
-						<TransitionFeet className=' flex h-12 place-content-center' />
+						<TransitionsIcon className=' flex h-12 place-content-center' />
 						<div className='text-xs'>Transitions</div>
 					</div>
 				</Link>
 				<Link onClick={() => setOpenHamburger(false)} to='/theory/trickList'>
-					<TransitionFeet className='flex h-12 place-content-center' />
+					<TricksIcon className='flex h-12 place-content-center' />
 					<div className='text-xs'>Tricks</div>
 				</Link>
 

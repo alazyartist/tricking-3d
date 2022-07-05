@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import { TorqueScene } from "../../scenes/TorqueScene";
-import Loader from "../loaders/Loader";
+import Loader from "../../components/loaders/Loader";
 import { AiFillDownCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 function CanvasComponent() {

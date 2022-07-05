@@ -1,10 +1,9 @@
 import Home from "./pages/Home";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Landing from "./pages/Landing";
-import { FullScreen } from "./pages/FullScreen";
 import { TestPage } from "./pages/TestPage";
-import { Sandbox } from "./pages/Sandbox";
-import Contribute from "./pages/Contribute";
+import { Sandbox } from "./pages/sandbox/Sandbox";
+import Contribute from "./pages/contribute/Contribute";
 import ComingSoon from "./pages/ComingSoon";
 import InstructionsPage from "./pages/InstructionsPage";
 import Theory from "./components/contribute/Theory";
@@ -12,22 +11,22 @@ import Marketing from "./components/contribute/Marketing";
 import Code from "./components/contribute/Code";
 import Design from "./components/contribute/Design";
 import HelpWith3d from "./components/contribute/HelpWith3d";
-import AppBackground from "./components/AppBackground";
-import Header from "./components/Header";
+import AppBackground from "./components/layout/AppBackground";
+import Header from "./components/layout/Header";
 import TheoryPage from "./pages/TheoryPage";
 import AdvancedStanceCircle from "./components/theory/AdvancedStanceCircle";
 import TheoryNavBar from "./components/theory/TheoryNavBar";
 import LearnMore from "./pages/LearnMore";
-import AboutUs from "./pages/AboutUs";
+import AboutUs from "./pages/about/AboutUs";
 import TrickList from "./pages/TrickList";
-import AnatomyOfATrick from "./pages/Theory/AnatomyOfATrick";
-import Setups from "./pages/Theory/Setups";
-import Transitions from "./pages/Theory/Transitions";
-import Grabs from "./pages/Theory/Grabs";
-import Shapes from "./pages/Theory/Shapes";
-import Rotations from "./pages/Theory/Rotations";
-import Kicks from "./pages/Theory/Kicks";
-import Touchdowns from "./pages/Theory/Touchdowns";
+import AnatomyOfATrick from "./pages/theory/AnatomyOfATrick";
+import Setups from "./pages/theory/Setups";
+import Transitions from "./pages/theory/Transitions";
+import Grabs from "./pages/theory/Grabs";
+import Shapes from "./pages/theory/Shapes";
+import Rotations from "./pages/theory/Rotations";
+import Kicks from "./pages/theory/Kicks";
+import Touchdowns from "./pages/theory/Touchdowns";
 import Singular from "./components/theory/transitions/Singular";
 import Sequential from "./components/theory/transitions/Sequential";
 import Unified from "./components/theory/transitions/Unified";
@@ -35,17 +34,17 @@ import All from "./components/theory/transitions/All";
 import Yonder from "./pages/Yonder";
 import { TransitionList } from "./pages/TransitionList";
 import ComboMaker from "./components/theory/ComboMaker";
-import TabBar from "./components/TabBar";
+import TabBar from "./components/layout/TabBar";
 import { animated, useTransition } from "react-spring";
 import { useEffect, useState } from "react";
-import TheoryTabBar from "./components/theory/TheoryTabBar";
+import TheoryTabBar from "./components/layout/TheoryTabBar";
 import AnimationsNeeded from "./pages/AnimationsNeeded";
-import Login from "./pages/Login";
+import Login from "./pages/login/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import RequireAuth from "./components/login/RequireAuth";
-import PersistLogin from "./components/login/PersistLogin";
-import UserIcon from "./UserIcon";
+import RequireAuth from "./auth/RequireAuth";
+import PersistLogin from "./auth/PersistLogin";
+import UserIcon from "./components/UserIcon";
 import { useUserStore } from "./store/userStore";
 function App() {
 	const accessToken = useUserStore((s) => s.accessToken);
@@ -99,7 +98,6 @@ function App() {
 							</Route>
 						</Route>
 						<Route path={"/home"} element={<Home />} />
-						<Route path={""} element={<FullScreen />} />
 						<Route path={"/learnmore"} element={<LearnMore />} />
 						<Route path={"/about"} element={<AboutUs />} />
 						<Route path={"/yonder"} element={<Yonder />} />
