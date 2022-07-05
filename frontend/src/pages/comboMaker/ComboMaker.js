@@ -110,7 +110,7 @@ function ComboMaker() {
 				</div>
 				<div
 					id='app-content'
-					className='flex h-[80vh] w-full flex-col place-content-start place-items-center overflow-y-auto rounded-lg  p-2 text-zinc-300 '>
+					className='flex h-[80vh] w-full flex-col place-content-start place-items-center overflow-y-auto overflow-x-hidden rounded-lg  p-2 text-zinc-300 '>
 					{/* Output for 3dView */}
 					<div
 						id='3dCanvas'
@@ -142,7 +142,7 @@ function ComboMaker() {
 						filteredStances={filteredStances}
 						handleStanceAdd={handleStanceAdd}
 						handleTrickAdd={handleTrickAdd}
-						f={(e) => handleTrickAdd(e)}
+						// f={(e) => handleTrickAdd(e)}
 					/>
 					<div
 						id='selectables-container'

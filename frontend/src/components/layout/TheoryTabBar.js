@@ -45,7 +45,7 @@ function TheoryTabBar({ tabBar }) {
 						<div className='text-xs'>Transitions</div>
 					</div>
 				</Link>
-				<Link onClick={() => setOpenHamburger(false)} to='/theory/trickList'>
+				<Link onClick={() => setOpenHamburger(false)} to='/theory/tricks'>
 					<TricksIcon className='flex h-12 place-content-center' />
 					<div className='text-xs'>Tricks</div>
 				</Link>

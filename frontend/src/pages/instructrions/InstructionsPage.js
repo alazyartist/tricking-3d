@@ -8,7 +8,7 @@ function InstructionsPage() {
 				<Instructions />
 			</div>
 			<Link
-				to='/3d/sandbox'
+				to='/sandbox'
 				id='start-button'
 				className='focus:shadow-outline m-4 mt-0 flex h-12 place-content-center place-items-center rounded-lg bg-indigo-600 px-4 text-center font-inter text-xl font-semibold
 								text-indigo-100 transition-colors duration-500 hover:bg-indigo-700'>
