@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { apiPrivate } from "../../../api/api";
+import useApiCreds from "../../../hooks/useApiCreds";
 import { useUserStore } from "../../../store/userStore";
 
 const Captures = () => {
-	const [data, setData] = useState("Awaiting Data");
+	const [data, setData] = useState();
 	const activeUser = useUserStore();
-	console.log(activeUser.accessToken);
+	const apiPrivate = useApiCreds();
+	console.log(activeUser.userInfo.id);
 	const getData = async () => {
 		apiPrivate
-			.get(
+			.put(
 				"/capture/",
 				{
+					id: activeUser.userInfo.id,
 					accessToken: activeUser.accessToken,
 				},
 				{
@@ -26,7 +28,7 @@ const Captures = () => {
 
 	useEffect(() => {
 		getData();
-		console.log(data[0]);
+		console.log(data);
 	}, []);
 
 	return (
@@ -34,13 +36,14 @@ const Captures = () => {
 			<div>Captures</div>
 			<div onClick={() => getData()}>GetData</div>
 			<div>
-				{Object.keys(data).map((key) => (
-					<div className='flex gap-3'>
-						{Object.keys(data[key]).map((dk) => (
-							<div>{dk + ":" + data[key][dk]}</div>
-						))}
-					</div>
-				))}
+				{!!data &&
+					Object.keys(data).map((key) => (
+						<div className='flex gap-3'>
+							{Object.keys(data[key]).map((dk) => (
+								<div>{dk + ":" + data[key][dk]}</div>
+							))}
+						</div>
+					))}
 			</div>
 		</>
 	);

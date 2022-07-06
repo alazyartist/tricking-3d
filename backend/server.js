@@ -35,14 +35,7 @@ app.use((req, res, next) => {
 });
 //Middlewares
 app.use(cors(corsOptions), express.json(), cookieParser());
-// app.use((req, res, next) => {
-// 	console.log("after", req);
-// 	next();
-// });
 
-// app.get("/api", cors(corsOptions), async (req, res) => {
-// 	res.send("A Working Server by Dylan!");
-// });
 app.use("/api", userRoutes);
 app.use("/api/refresh", refreshRoutes);
 app.use("/api/logout", handleLogout);

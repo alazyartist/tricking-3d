@@ -54,8 +54,8 @@ function RegisterForm() {
 	useEffect(() => {
 		if (success === true) {
 			setTimeout(() => {
-				// nav("/login");
-			}, 5000);
+				nav("/login");
+			}, 500);
 		}
 	}, [success, nav]);
 	return (
