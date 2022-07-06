@@ -64,10 +64,10 @@ function RegisterForm() {
 				onSubmit={handleRegister}
 				className='flex w-full flex-col gap-2 text-zinc-800'>
 				<input
-					id='user_name'
+					id='username'
 					className='rounded-xl bg-zinc-200 p-2'
 					onChange={(e) =>
-						setUserData({ ...userData, user_name: e.target.value })
+						setUserData({ ...userData, username: e.target.value })
 					}
 					type='text'
 					placeholder='username'
