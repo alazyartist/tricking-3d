@@ -25,7 +25,7 @@ const AddComboItem = ({
 	const handleAdd = (e) => {
 		if (type === "Tricks") {
 			handleTrickAdd(e);
-			setType("Stances");
+			setType("Transitions");
 		}
 		if (type === "Transitions") {
 			handleTrickAdd(e);

@@ -143,13 +143,13 @@ function ComboMaker() {
 						handleTrickAdd={handleTrickAdd}
 						// f={(e) => handleTrickAdd(e)}
 					/>
-					<div className='absolute top-[27vh] right-5 h-36 w-36 overflow-hidden'>
+					{/* <div className='absolute top-[27vh] right-5 h-36 w-36 overflow-hidden'>
 						<StanceAnimationTest
 							handleStanceAdd={handleStanceAdd}
 							isSmall
 							currentStance={currentStance}
 						/>
-					</div>
+					</div> */}
 					<div
 						id='selectables-container'
 						className='grid h-full grid-flow-row grid-cols-2 place-content-center gap-2 '>
