@@ -10,6 +10,7 @@ import { loginRoutes } from "./routes/loggedIn.routes.js";
 import { refreshRoutes } from "./routes/refresh.routes.js";
 import cookieParser from "cookie-parser";
 import handleLogout from "./controllers/logout.controller.js";
+import { captureRoutes } from "./routes/captures.routes.js";
 const corsOptions = {
 	origin: "http://localhost:3000",
 	allowedHeaders: ["Content-Type", "Authorization", "x-csrf-token"],
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
 	console.log("Next");
 	next();
 });
+//Middlewares
 app.use(cors(corsOptions), express.json(), cookieParser());
 // app.use((req, res, next) => {
 // 	console.log("after", req);
@@ -45,6 +47,7 @@ app.use("/api", userRoutes);
 app.use("/api/refresh", refreshRoutes);
 app.use("/api/logout", handleLogout);
 app.use("/api/loggedIn", verifyJWT, loginRoutes);
+app.use("/api/capture", verifyJWT, captureRoutes);
 
 //Synchronizes with DB
 await db.sequelize.sync().then(() => {
