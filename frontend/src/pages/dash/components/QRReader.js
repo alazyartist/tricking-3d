@@ -1,12 +1,33 @@
 import React, { useState } from "react";
 import { QrReader } from "react-qr-reader";
+import api, { apiPrivate } from "../../../api/api";
+import { useUserStore } from "../../../store/userStore";
 const QRReader = () => {
 	const [QRData, setQRData] = useState();
+	const activeUser = useUserStore((s) => s.userInfo);
+	console.log("Active", activeUser);
 
-	const handleResult = (result, err) => {
+	const handleResult = async (result, err) => {
 		if (!!result) {
 			setQRData(result?.text);
 			console.log(result);
+			try {
+				const response = await apiPrivate.post(
+					"/capture/",
+					{
+						useruuid: activeUser?.uuid,
+						captureuuid: result.text,
+						accessToken: activeUser.accessToken,
+					},
+					{
+						withCredentials: true,
+						headers: { "Content-Type": "application/json" },
+					}
+				);
+				console.log(response);
+			} catch (err) {
+				console.log(err);
+			}
 		}
 
 		if (!!err) {

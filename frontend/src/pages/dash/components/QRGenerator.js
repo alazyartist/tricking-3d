@@ -8,7 +8,7 @@ const QRGenerator = () => {
 			<div>Your Profile Code</div>
 			<QRCode
 				size={"225"}
-				value={userInfo.username + " " + userInfo.uuid}
+				value={userInfo.uuid}
 				ecLevel='H'
 				logoHeight={"59"}
 				logoWidth={"59"}

@@ -28,7 +28,9 @@ export const captureUser = async (req, res) => {
 export const getCaptures = async (req, res) => {
 	console.log("Hit Captures");
 	try {
-		const cpt = await capture.findAll({});
+		const cpt = await capture.findAll({
+			attributes: ["user_id", "captured_id"],
+		});
 		res.json(cpt);
 	} catch (err) {
 		console.log(err);

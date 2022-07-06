@@ -7,6 +7,7 @@ import { useUserStore } from "../../store/userStore";
 import { Link } from "react-router-dom";
 import { GiHorizonRoad } from "react-icons/gi";
 import ProfileCode from "./components/ProfileCode";
+import Captures from "./components/Captures";
 
 function Dashboard() {
 	const user = useUserStore((s) => s.user);
@@ -45,6 +46,7 @@ function Dashboard() {
 			</div>
 			{/* QR Code Generator and Reader */}
 			<ProfileCode />
+			<Captures />
 			<Link
 				className='m-2 mt-4 flex rounded-xl bg-sky-800 p-2 font-bold'
 				to='/learnmore'>
