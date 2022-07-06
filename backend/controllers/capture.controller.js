@@ -24,3 +24,13 @@ export const captureUser = async (req, res) => {
 		console.log(err);
 	}
 };
+
+export const getCaptures = async (req, res) => {
+	console.log("Hit Captures");
+	try {
+		const cpt = await capture.findAll({});
+		res.json(cpt);
+	} catch (err) {
+		console.log(err);
+	}
+};
