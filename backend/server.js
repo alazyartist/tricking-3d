@@ -12,7 +12,7 @@ import cookieParser from "cookie-parser";
 import handleLogout from "./controllers/logout.controller.js";
 import { captureRoutes } from "./routes/captures.routes.js";
 const corsOptions = {
-	origin: "http://localhost:3000",
+	origin: ["http://trickedex.app", "https://trickedex.app", "http://trickedex.com", "https://trickedex.com"],
 	allowedHeaders: ["Content-Type", "Authorization", "x-csrf-token"],
 	credentials: true,
 	exposedHeaders: ["*", "Authorization"],

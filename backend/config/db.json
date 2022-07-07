@@ -1,8 +1,8 @@
 {
 	"development": {
-		"username": "root",
-		"password": "tricking",
-		"database": "tricking3d-test",
+		"username": "server",
+		"password": "server",
+		"database": "trickedex",
 		"host": "127.0.0.1",
 		"dialect": "mysql"
 	},
@@ -14,9 +14,9 @@
 		"dialect": "mysql"
 	},
 	"production": {
-		"username": "root",
-		"password": "tricking",
-		"database": "tricking3d-test",
+		"username": "server",
+		"password": "server",
+		"database": "trickedex",
 		"host": "127.0.0.1",
 		"dialect": "mysql"
 	}
