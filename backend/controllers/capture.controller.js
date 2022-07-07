@@ -22,6 +22,7 @@ export const captureUser = async (req, res) => {
 		res.json(cpt);
 	} catch (err) {
 		console.log(err);
+		res.send("error");
 	}
 };
 
@@ -34,7 +35,18 @@ export const getCaptures = async (req, res) => {
 			where: { user_id: userid },
 			attributes: ["user_id", "captured_id"],
 		});
-		res.json(cpt);
+		let cptUserArr = [];
+		Object.keys(cpt).map((key) => {
+			cptUserArr.push(cpt[key].dataValues.captured_id);
+		});
+		console.log(cptUserArr);
+
+		const cptUsers = await user.findAll({
+			where: { id: cptUserArr },
+			attributes: ["username", "profilePic", "first_name", "last_name"],
+		});
+		// console.log(cptUsers);
+		res.json(cptUsers);
 	} catch (err) {
 		console.log(err);
 	}

@@ -8,6 +8,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const basename = path.basename(__filename);
 import { config } from "../config/config.js";
+import { User } from "./Users.js";
+import { Captures } from "./captures.js";
 const db = {};
 const sequelize = new Sequelize(
 	config.database,
@@ -45,5 +47,8 @@ Object.keys(db).forEach((modelName) => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
+const user = User(db.sequelize);
+const captures = Captures(db.sequelize);
+user.belongsToMany(user, { as: "captured_id", through: captures });
+user.belongsToMany(user, { as: "user_id", through: captures });
 export default db;

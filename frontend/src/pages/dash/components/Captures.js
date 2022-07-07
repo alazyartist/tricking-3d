@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useApiCreds from "../../../hooks/useApiCreds";
 import { useUserStore } from "../../../store/userStore";
+import CapturedCard from "./CapturedCard";
+import UserCard from "./UserCard";
 
 const Captures = () => {
 	const [data, setData] = useState();
@@ -38,10 +40,17 @@ const Captures = () => {
 			<div>
 				{!!data &&
 					Object.keys(data).map((key) => (
-						<div className='flex gap-3'>
-							{Object.keys(data[key]).map((dk) => (
-								<div>{dk + ":" + data[key][dk]}</div>
-							))}
+						<div className='flex flex-col gap-3'>
+							<CapturedCard
+								name={data[key].first_name + " " + data[key].last_name}
+								src={`./images/${data[key].profilePic}`}
+								username={`${data[key].username}`}
+							/>
+							{/* {Object.keys(data[key]).map((dk) => (
+								<>
+									<div>{dk + ":" + data[key][dk]}</div>
+								</>
+							))} */}
 						</div>
 					))}
 			</div>

@@ -50,6 +50,7 @@ export const findOrCreate = async (req, res) => {
 		});
 	if (created) {
 		res.status(201).send("Successfully Registered New User");
+		//SEND REGISTRATION EMAIL
 	}
 };
 
