@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { Stance, Transition, Trick } from "../data/trickDataModel/TrickClasses";
+import {
+	Kick,
+	Stance,
+	Transition,
+	Trick,
+} from "../data/trickDataModel/TrickClasses";
 import { stances } from "../data/trickDataModel/TrickObjects";
 import { transArr } from "../data/TricklistClass";
 import { useComboMakerStore } from "../store/comboMakerStore";
@@ -31,7 +36,7 @@ function useComboMaker(combo, setcombo, newCombo) {
 			// return;
 		}
 		//Trick Type behavior
-		if (combo instanceof Trick) {
+		if (combo instanceof Trick || combo instanceof Kick) {
 			setCurrentStance(combo.getStance());
 			setIsTrick(true);
 		}

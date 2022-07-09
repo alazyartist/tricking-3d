@@ -16,7 +16,7 @@ function LearnMore() {
 					</p>
 					<button
 						className='rounded-xl bg-zinc-600 p-2 font-semibold text-sky-400'
-						onClick={() => nav("/3d/contribute")}>
+						onClick={() => nav("/contribute")}>
 						Contribute
 					</button>
 					<h2 className='text-2xl font-semibold'>What is the Trickedex?</h2>

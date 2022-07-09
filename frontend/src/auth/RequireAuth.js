@@ -5,9 +5,9 @@ import { useUserStore } from "../store/userStore";
 function RequireAuth() {
 	const accessToken = useUserStore((s) => s.accessToken);
 	const location = useLocation();
-	useEffect(() => {
-		console.log(accessToken);
-	}, []);
+	// useEffect(() => {
+	// 	console.log(accessToken);
+	// }, []);
 	return accessToken ? (
 		<Outlet />
 	) : (

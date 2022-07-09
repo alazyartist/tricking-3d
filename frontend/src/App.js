@@ -21,16 +21,15 @@ import TrickList from "./pages/TrickList";
 import AnatomyOfATrick from "./pages/theory/anatomy/AnatomyOfATrick";
 import Setups from "./pages/theory/Setups";
 import Transitions from "./pages/theory/transitions/Transitions";
-import Grabs from "./pages/theory/Grabs";
-import Shapes from "./pages/theory/Shapes";
-import Rotations from "./pages/theory/Rotations";
-import Kicks from "./pages/theory/Kicks";
-import Touchdowns from "./pages/theory/Touchdowns";
+import Grabs from "./pages/theory/grabs/Grabs";
+import Shapes from "./pages/theory/shapes/Shapes";
+import Rotations from "./pages/theory/rotations/Rotations";
+import Kicks from "./pages/theory/kicks/Kicks";
+import Touchdowns from "./pages/theory/touchdowns/Touchdowns";
 import Singular from "./pages/theory/transitions/components/Singular";
 import Sequential from "./pages/theory/transitions/components/Sequential";
 import Unified from "./pages/theory/transitions/components/Unified";
 import All from "./pages/theory/transitions/components/All";
-import Yonder from "./pages/Yonder";
 import { TransitionList } from "./pages/TransitionList";
 import ComboMaker from "./pages/comboMaker/ComboMaker";
 import TabBar from "./components/layout/TabBar";
@@ -101,7 +100,7 @@ function App() {
 						<Route path={"/home"} element={<Home />} />
 						<Route path={"/learnmore"} element={<LearnMore />} />
 						<Route path={"/about"} element={<AboutUs />} />
-						<Route path={"/yonder"} element={<Yonder />} />
+
 						<Route path={"/sandbox"} element={<Sandbox />}>
 							<Route path=':model'>
 								<Route path=':trick' element={<Sandbox />} />

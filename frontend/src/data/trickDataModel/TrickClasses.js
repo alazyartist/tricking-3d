@@ -7,7 +7,6 @@ export class Base {
 		this.fromLeg = fromLeg || legs.Both;
 		this.toLeg = toLeg || legs.Both;
 		this.rotation = 0;
-		this.stance = stance;
 
 		this.takeoffStance = stance || stances.Backside;
 		this.landingStance = stance || stances.Backside;
@@ -18,14 +17,7 @@ export class Base {
 
 export class Trick extends Base {
 	constructor(name, base, stance, style) {
-		super(
-			name,
-			base.direction,
-			base.stance,
-			base.fromLeg,
-			base.toLeg,
-			base.style
-		);
+		super(name, base.direction, base.fromLeg, base.toLeg, base.style);
 		this.name = name;
 		this.base = base;
 		this.rotation = base.rotation;
@@ -34,7 +26,6 @@ export class Trick extends Base {
 		this.takeoffStyle = style || base.takeoffStyle;
 		this.landingStance = stance || this.base.landingStance;
 		this.landingStyle = style || this.base.landingstyle;
-		this.stance = this.takeoffStance || base.stance;
 		// this.variations = {
 		// 	rotations,
 		// 	kicks,
@@ -186,5 +177,58 @@ export class Stance {
 	}
 	getTrick() {
 		return this.trick;
+	}
+}
+
+export class Kick {
+	constructor(takeoffStance, landingStance, rotation, kick, type) {
+		this.name = type + rotation + kick;
+		this.takeoffStance = takeoffStance;
+		this.landingStance = landingStance;
+		this.rotation = rotation;
+		this.kicks = kick;
+		this.type = type;
+		if (this.takeoffStance === "Backside" && this.type === "Backside") {
+			this.fromLeg = "Both";
+			this.takeoffStyle = "Unified";
+			this.direction = "Backwards";
+		}
+		if (this.takeoffStance === "BacksideComplete" && this.type === "Swing") {
+			this.fromLeg = "Left";
+			this.takeoffStyle = "Singular";
+			this.direction = "Backwards";
+		}
+
+		if (this.takeoffStance === "BacksideHyper" && this.type === "Vanish") {
+			this.fromLeg = "Right";
+			this.takeoffStyle = "Singular";
+			this.direction = "Backwards";
+		}
+		if (this.takeoffStance === "Frontside" && this.type === "Pop") {
+			this.fromLeg = "Both";
+			this.takeoffStyle = "Unified";
+		}
+		if (this.takeoffStance === "FrontsideMega" && this.type === "StepOver") {
+			this.fromLeg = "Left";
+			this.takeoffStyle = "Singular";
+		}
+
+		if (this.takeoffStance === "FrontsideSemi" && this.type === "Wrap") {
+			this.fromLeg = "Right";
+			this.takeoffStyle = "Singular";
+		}
+		if (this.landingStance === "FrontsideMega") {
+			this.landingStyle = "Singular";
+			this.toLeg = "Left";
+			this.direction = "Forwards";
+		}
+		if (this.landingStance === "BacksideHyper") {
+			this.landingStyle = "Singular";
+			this.toLeg = "Right";
+			this.direction = "Backwards";
+		}
+	}
+	getStance() {
+		return this.landingStance;
 	}
 }

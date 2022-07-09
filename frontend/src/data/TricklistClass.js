@@ -4,6 +4,7 @@ import {
 	Stance,
 	Variation,
 	Transition,
+	Kick,
 } from "./trickDataModel/TrickClasses";
 
 import {
@@ -122,34 +123,29 @@ const raizR = new Base(
 );
 raizR.rotation = 180;
 
-const backflip = new Trick(
-	"Backflip",
-	backflipB,
-	stances.Backside,
-	styles.unified
-);
+const backflip = new Trick("Backflip", backflipB, "Backside", styles.unified);
 const frontflip = new Trick(
 	"Frontflip",
 	frontflipB,
-	stances.Frontside,
+	"Frontside",
 	styles.unified
 );
 const insideflip = new Trick(
 	"Insideflip",
 	insideflipB,
-	stances.Inside,
+	"Inside",
 	styles.unified
 );
 const outsideflip = new Trick(
 	"Outsideflip",
 	outsideflipB,
-	stances.Outside,
+	"Outside",
 	styles.unified
 );
 
 const full = new Trick("Full", backflipB, "Backside", styles.unified);
 full.rotation = rotations.full;
-full.landingStance = stances.BacksideComplete;
+full.landingStance = "BacksideComplete";
 full.toLeg = legs.L;
 
 const cork = new Trick("Cork", gainerL, "BacksideComplete", styles.singular);
@@ -157,27 +153,21 @@ cork.rotation = rotations.full;
 
 cork.toLeg = legs.L;
 
-const aerial = new Trick("Aerial", aerialL);
-// aerial.stance = stances.InsideMega;
+const aerial = new Trick("Aerial", aerialL, "InsideMega", styles.singular);
+// aerial.stance = "InsideMega";
 // aerial.rotation = rotations.zero;
-aerial.takeoffStance = stances.InsideMega;
+aerial.takeoffStance = "InsideMega";
 aerial.landingStance = "InsideHyper";
 aerial.takeoffStyle = styles.singular;
 // aerial.direction = directions.Inside;
 aerial.landingStyle = styles.singular;
-console.log(aerialL);
 
-const atwist = new Trick(
-	"ATwist",
-	aerialL,
-	stances.InsideMega,
-	styles.singular
-);
+const atwist = new Trick("ATwist", aerialL, "InsideMega", styles.singular);
 atwist.toLeg = legs.L;
-atwist.landingStance = stances.BacksideComplete;
+atwist.landingStance = "BacksideComplete";
 atwist.rotation = 270;
-const btwist = new Trick("Btwist", atwist, stances.InsideMega, styles.singular);
-btwist.landingStance = stances.BacksideComplete;
+const btwist = new Trick("Btwist", atwist, "InsideMega", styles.singular);
+btwist.landingStance = "BacksideComplete";
 
 const doublecork = new Trick(
 	"Doublecork",
@@ -187,84 +177,73 @@ const doublecork = new Trick(
 );
 doublecork.direction = directions.Backwards;
 doublecork.rotation = rotations.double;
-doublecork.landingStance = stances.BacksideComplete;
-doublecork.takeoffStance = stances.BacksideComplete;
+doublecork.landingStance = "BacksideComplete";
+doublecork.takeoffStance = "BacksideComplete";
 doublecork.landingStyle = styles.singular;
 doublecork.takeoffStyle = styles.singular;
-doublecork.stance = stances.BacksideComplete;
 
-const gms = new Trick("GMS", gmsR, stances.InsideHyper, styles.singular);
-const gmTwist = new Trick(
-	"GMTwist",
-	gmsR,
-	stances.InsideHyper,
-	styles.singular
-);
+const gms = new Trick("GMS", gmsR, "InsideHyper", styles.singular);
+const gmTwist = new Trick("GMTwist", gmsR, "InsideHyper", styles.singular);
 gmTwist.rotation = 270;
-gmTwist.landingStance = stances.BacksideComplete;
+gmTwist.landingStance = "BacksideComplete";
 gmTwist.toLeg = legs.L;
-const kroc = new Trick("Kroc", gainerR, stances.BacksideHyper, styles.singular);
+const kroc = new Trick("Kroc", gainerR, "BacksideHyper", styles.singular);
 kroc.rotation = 360;
-kroc.landingStance = stances.BacksideComplete;
+kroc.landingStance = "BacksideComplete";
 kroc.toLeg = legs.L;
 
 const webster = new Trick(
 	"Webster",
 	websterL,
-	stances.FrontsideMega,
+	"FrontsideMega",
 	styles.singular
 );
 const badsideWebster = new Trick(
 	"Badside Webster",
 	websterR,
-	stances.FrontsideSemi,
+	"FrontsideSemi",
 	styles.singular
 );
 
 const raiz = new Trick("Raiz", raizR);
-raiz.takeoffStance = stances.OutsideSemi;
-raiz.landingStance = stances.BacksideComplete;
+raiz.takeoffStance = "OutsideSemi";
+raiz.landingStance = "BacksideComplete";
 raiz.takeoffStyle = styles.singular;
 raiz.landingStyle = styles.singular;
 
-const lotus = new Trick(
-	"Lotus",
-	lotusL,
-	stances.OutsideComplete,
-	styles.singular
-);
+const lotus = new Trick("Lotus", lotusL, "OutsideComplete", styles.singular);
 const gainer = new Trick(
 	"Gainer",
 	gainerL,
-	stances.BacksideComplete,
+	"BacksideComplete",
 	styles.singular
 );
 gainer.landingStance = "BacksideHyper";
 const badsideGainer = new Trick(
 	"GainerR",
 	gainerR,
-	stances.BacksideHyper,
+	"BacksideHyper",
 	styles.singular
 );
 badsideGainer.landingStance = "BacksideComplete";
 const gainerSwitch = new Trick(
 	"GainerSwitch",
 	gainerL,
-	stances.BacksideComplete,
+	"BacksideComplete",
 	styles.singular
 );
 gainerSwitch.toLeg = legs.L;
 const corksnapu = new Trick(
 	"Corksnapu",
 	cork,
-	stances.BacksideComplete,
+	"BacksideComplete",
 	styles.singular
 );
 
 const cartwheel = new Trick(
 	"Cartwheel",
 	aerialL,
-	stances.InsideMega,
+	"InsideMega",
 	styles.singular
 );
 cartwheel.touchdowns = "Cart";
@@ -273,20 +252,15 @@ corksnapu.rotation = 720;
 const touchdownRaiz = new Trick(
 	"Touchdown Raiz",
 	raizR,
-	stances.OutsideSemi,
+	"OutsideSemi",
 	styles.singular
 );
 touchdownRaiz.landingStance = "BacksideComplete";
 touchdownRaiz.touchdowns = "Touchdown";
 
-const wrapFull = new Trick(
-	"WrapFull",
-	full,
-	stances.BacksideHyper,
-	styles.singular
-);
+const wrapFull = new Trick("WrapFull", full, "BacksideHyper", styles.singular);
 wrapFull.fromLeg = "Right";
-wrapFull.landingStance = stances.BacksideComplete;
+wrapFull.landingStance = "BacksideComplete";
 
 const frontFull = new Trick(
 	"Frontfull",
@@ -632,12 +606,270 @@ const lateHook = new Variation("Late Hook", {
 	kicks: "Hook",
 	pos: positions.Ex,
 });
-const dragonfly = new Variation("Dragonfly", {
+const dragonflyR = new Variation("Dragonfly", {
 	kicks: "Round",
 	pos: positions.En,
 });
+const dragonflyH = new Variation("Dragonfly", {
+	kicks: "Round",
+	pos: positions.En,
+});
+//Backside
+const bs180r = new Kick("Backside", "FrontsideMega", 180, "Round", "Backside");
+const bs360h = new Kick("Backside", "BacksideHyper", 360, "Hook", "Backside");
+const bs540r = new Kick("Backside", "FrontsideMega", 540, "Round", "Backside");
+const bs720h = new Kick("Backside", "BacksideHyper", 720, "Hook", "Backside");
+const bs900r = new Kick("Backside", "FrontsideMega", 900, "Round", "Backside");
+const bs1080h = new Kick("Backside", "BacksideHyper", 1080, "Hook", "Backside");
+const bs1260r = new Kick(
+	"Backside",
+	"FrontsideMega",
+	1260,
+	"Round",
+	"Backside"
+);
+const bs1440h = new Kick("Backside", "BacksideHyper", 1440, "Hook", "Backside");
+//Vanish
+const v180r = new Kick(
+	"BacksideHyper",
+	"FrontsideMega",
+	180,
+	"Round",
+	"Vanish"
+);
+const v360h = new Kick("BacksideHyper", "BacksideHyper", 360, "Hook", "Vanish");
+const v540r = new Kick(
+	"BacksideHyper",
+	"FrontsideMega",
+	540,
+	"Round",
+	"Vanish"
+);
+const v720h = new Kick("BacksideHyper", "BacksideHyper", 720, "Hook", "Vanish");
+const v900r = new Kick(
+	"BacksideHyper",
+	"FrontsideMega",
+	900,
+	"Round",
+	"Vanish"
+);
+const v1080h = new Kick(
+	"BacksideHyper",
+	"BacksideHyper",
+	1080,
+	"Hook",
+	"Vanish"
+);
+const v1260r = new Kick(
+	"BacksideHyper",
+	"FrontsideMega",
+	1260,
+	"Round",
+	"Vanish"
+);
+const v1440h = new Kick(
+	"BacksideHyper",
+	"BacksideHyper",
+	1440,
+	"Hook",
+	"Vanish"
+);
+//Swing
+const s180r = new Kick(
+	"BacksideComplete",
+	"FrontsideMega",
+	180,
+	"Round",
+	"Swing"
+);
+const s360h = new Kick(
+	"BacksideComplete",
+	"BacksideHyper",
+	360,
+	"Hook",
+	"Swing"
+);
+const s540r = new Kick(
+	"BacksideComplete",
+	"FrontsideMega",
+	540,
+	"Round",
+	"Swing"
+);
+const s720h = new Kick(
+	"BacksideComplete",
+	"BacksideHyper",
+	720,
+	"Hook",
+	"Swing"
+);
+const s900r = new Kick(
+	"BacksideComplete",
+	"FrontsideMega",
+	900,
+	"Round",
+	"Swing"
+);
+const s1080h = new Kick(
+	"BacksideComplete",
+	"BacksideHyper",
+	1080,
+	"Hook",
+	"Swing"
+);
+const s1260r = new Kick(
+	"BacksideComplete",
+	"FrontsideMega",
+	1260,
+	"Round",
+	"Swing"
+);
+const s1440h = new Kick(
+	"BacksideComplete",
+	"BacksideHyper",
+	1440,
+	"Hook",
+	"Swing"
+);
+//Pop
+const p180h = new Kick("Frontside", "BacksideHyper", 180, "Hook", "Pop");
+const p360r = new Kick("Frontside", "FrontsideMega", 360, "Round", "Pop");
+const p540h = new Kick("Frontside", "BacksideHyper", 540, "Hook", "Pop");
+const p720r = new Kick("Frontside", "FrontsideMega", 720, "Round", "Pop");
+const p900h = new Kick("Frontside", "BacksideHyper", 900, "Hook", "Pop");
+const p1080r = new Kick("Frontside", "FrontsideMega", 1080, "Round", "Pop");
+const p1260h = new Kick("Frontside", "BacksideHyper", 1260, "Hook", "Pop");
+const p1440r = new Kick("Frontside", "FrontsideMega", 1440, "Round", "Pop");
+//Wrap
+const w180h = new Kick("FrontsideSemi", "BacksideHyper", 180, "Hook", "Wrap");
+const w360r = new Kick("FrontsideSemi", "FrontsideMega", 360, "Round", "Wrap");
+const w540h = new Kick("FrontsideSemi", "BacksideHyper", 540, "Hook", "Wrap");
+const w720r = new Kick("FrontsideSemi", "FrontsideMega", 720, "Round", "Wrap");
+const w900h = new Kick("FrontsideSemi", "BacksideHyper", 900, "Hook", "Wrap");
+const w1080r = new Kick(
+	"FrontsideSemi",
+	"FrontsideMega",
+	1080,
+	"Round",
+	"Wrap"
+);
+const w1260h = new Kick("FrontsideSemi", "BacksideHyper", 1260, "Hook", "Wrap");
+const w1440r = new Kick(
+	"FrontsideSemi",
+	"FrontsideMega",
+	1440,
+	"Round",
+	"Wrap"
+);
+//StepOver
+const so180h = new Kick(
+	"FrontsideMega",
+	"BacksideHyper",
+	180,
+	"Hook",
+	"StepOver"
+);
+const so360r = new Kick(
+	"FrontsideMega",
+	"FrontsideMega",
+	360,
+	"Round",
+	"StepOver"
+);
+const so540h = new Kick(
+	"FrontsideMega",
+	"BacksideHyper",
+	540,
+	"Hook",
+	"StepOver"
+);
+const so720r = new Kick(
+	"FrontsideMega",
+	"FrontsideMega",
+	720,
+	"Round",
+	"StepOver"
+);
+const so900h = new Kick(
+	"FrontsideMega",
+	"BacksideHyper",
+	900,
+	"Hook",
+	"StepOver"
+);
+const so1080r = new Kick(
+	"FrontsideMega",
+	"FrontsideMega",
+	1080,
+	"Round",
+	"StepOver"
+);
+const so1260h = new Kick(
+	"FrontsideMega",
+	"BacksideHyper",
+	1260,
+	"Hook",
+	"StepOver"
+);
+const so1440r = new Kick(
+	"FrontsideMega",
+	"FrontsideMega",
+	1440,
+	"Round",
+	"StepOver"
+);
 
 // Arrays
+export const Kicks = [
+	bs180r,
+	bs360h,
+	bs540r,
+	bs720h,
+	bs900r,
+	bs1080h,
+	bs1260r,
+	bs1440h,
+	v180r,
+	v360h,
+	v540r,
+	v720h,
+	v900r,
+	v1080h,
+	v1260r,
+	v1440h,
+	s180r,
+	s360h,
+	s540r,
+	s720h,
+	s900r,
+	s1080h,
+	s1260r,
+	s1440h,
+	w180h,
+	w360r,
+	w540h,
+	w720r,
+	w900h,
+	w1080r,
+	w1260h,
+	w1440r,
+	p180h,
+	p360r,
+	p540h,
+	p720r,
+	p900h,
+	p1080r,
+	p1260h,
+	p1440r,
+	so180h,
+	so360r,
+	so540h,
+	so720r,
+	so900h,
+	so1080r,
+	so1260h,
+	so1440r,
+];
 export const transArr = [
 	swingLtoL,
 	swingLtoR,
@@ -690,6 +922,7 @@ Object.keys(stances).map((e) => {
 	stanceArr.push(stances[e]);
 });
 
+TrickListArr.push(...Kicks);
 const basesArr = [
 	backflipB,
 	insideflipB,
@@ -706,7 +939,8 @@ const basesArr = [
 ];
 
 export const kickVariationsArr = [
-	dragonfly,
+	dragonflyR,
+	dragonflyH,
 	flash,
 	swipe,
 	round,
@@ -719,7 +953,8 @@ export const kickVariationsArr = [
 
 // console.table(stanceArr);
 // console.table(kickVariationsArr);
-console.table(basesArr);
-console.table(stances);
-console.table(transArr);
-console.table(TrickListArr);
+// console.table(basesArr);
+// console.table(stances);
+// console.table(transArr);
+// console.table(TrickListArr);
+// console.table(Kicks);
