@@ -8,7 +8,7 @@ import { TorqueScene } from "../scenes/TorqueScene";
 import { FaGraduationCap } from "react-icons/fa";
 import { useUserStore } from "../store/userStore";
 import { ReactComponent as ComboMakerBlueprint } from "../data/ComboMakerBlueprint.svg";
-import { RGB_ETC1_Format } from "three";
+import { TrickedexLogo } from "../data/icons/TrickedexLogo";
 
 function Home() {
 	const user = useUserStore((s) => s.user);
@@ -20,9 +20,10 @@ function Home() {
 				id='AppBackground-flex'
 				className='flex h-screen w-screen flex-col place-items-center'>
 				<div className='w-full text-center text-zinc-200'>
-					<h1 className='text-xl '>
-						Welcome to{" "}
-						<div className='inline font-black'>Tricking-3D {user}</div>
+					<h1 className='flex flex-col text-xl '>
+						Welcome to the
+						<TrickedexLogo className='-m-2px flex w-[80vw] place-self-center' />
+						<div className='inline font-black'>{user}</div>
 					</h1>
 				</div>
 				<Link
@@ -50,9 +51,6 @@ function Home() {
 					</div>
 				</Link>
 
-				{/* <div className='m-2 rounded-2xl bg-red-700 p-4 text-center text-white'>
-					UNDERGOING REDESIGN <br></br>THINGS WILL BREAK
-				</div> */}
 				<Link className='' to='/instructions'>
 					<div className='flex w-[90vw] flex-col place-items-center justify-center gap-5 rounded-2xl bg-gradient-to-b from-zinc-800 to-zinc-800 p-2 font-bold text-zinc-300'>
 						<div>Instructions</div>

@@ -953,8 +953,8 @@ export const kickVariationsArr = [
 
 // console.table(stanceArr);
 // console.table(kickVariationsArr);
-// console.table(basesArr);
-// console.table(stances);
-// console.table(transArr);
-// console.table(TrickListArr);
-// console.table(Kicks);
+console.table(basesArr);
+console.table(stances);
+console.table(transArr);
+console.table(TrickListArr);
+console.table(Kicks);

@@ -75,7 +75,7 @@ function App() {
 		<>
 			<AppBackground />
 			{accessToken && <UserIcon />}
-			<Header />
+			{!location.pathname.includes("/home") && <Header />}
 			{tabBar ? !isSandbox && <TabBar /> : !isSandbox && <TheoryTabBar />}
 
 			{transitions(({ opacity }, curLocation) => (
