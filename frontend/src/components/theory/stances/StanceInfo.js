@@ -46,10 +46,10 @@ function StanceInfo(props) {
 					<div>{stances[props.stance].direction}</div>
 				</div>
 				<div className='flex flex-col'>
-					<div className='text-light w-30 rounded-xl bg-zinc-100 p-2 '>
-						{/* <div className='whitespace-nowrap text-xs'>Direction</div> */}
-						{/* <StanceSVG currentStance={props.stance} /> */}
-					</div>
+					{/* <div className='text-light w-30 rounded-xl bg-zinc-100 p-2 '> */}
+					{/* <div className='whitespace-nowrap text-xs'>Direction</div> */}
+					{/* <StanceSVG currentStance={props.stance} /> */}
+					{/* </div> */}
 					<div className='text-light w-30  rounded-xl bg-teal-400 bg-opacity-40 p-2 '>
 						<div className='whitespace-nowrap text-xs'>Family</div>
 						<div>{stances[props.stance].getTrick().name}</div>

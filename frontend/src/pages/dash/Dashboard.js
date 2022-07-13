@@ -47,17 +47,6 @@ function Dashboard() {
 			{/* QR Code Generator and Reader */}
 			<ProfileCode />
 			<Captures />
-			<Link
-				className='m-2 mt-4 flex rounded-xl bg-sky-800 p-2 font-bold'
-				to='/learnmore'>
-				<GiHorizonRoad className='h-[65px] w-[65px]' />
-				<div className='p-2'>
-					See our
-					<br />
-					Future
-					<br /> Plans
-				</div>
-			</Link>
 			<button className='fixed right-5 bottom-14' onClick={() => logout()}>
 				Logout
 			</button>

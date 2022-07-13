@@ -136,7 +136,7 @@ function App() {
 							<Route
 								path={"stances"}
 								element={<AdvancedStanceCircle />}></Route>
-							<Route index element={<TheoryNavBar />} />
+							{/* <Route index element={<TheoryNavBar />} /> */}
 						</Route>
 						<Route path={"/comingsoon"} element={<ComingSoon />} />
 						<Route path={"/contribute"} element={<Contribute />}>
