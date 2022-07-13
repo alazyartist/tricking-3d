@@ -7,7 +7,7 @@ const useRefreshToken = () => {
 
 	const refresh = async () => {
 		api.defaults.withCredentials = true;
-		api
+		const res = await api
 			.get(
 				"/refresh",
 				{},
@@ -24,6 +24,7 @@ const useRefreshToken = () => {
 				return response.data.accessToken;
 			})
 			.catch((err) => console.log("refreshErr", err));
+		return res;
 	};
 
 	return refresh;

@@ -13,13 +13,6 @@ const Animations = () => {
 			className='no-scrollbar fixed top-[10vh] left-[10vw] 
         h-[85vh] w-[80vw] flex-col items-center justify-center overflow-y-auto 
         rounded-2xl py-6 sm:pr-6 md:pr-4 lg:pr-[5rem]'>
-			<div className='sticky top-0 flex place-content-center place-items-center rounded-lg bg-zinc-400 p-2'>
-				<input
-					className='sticky top-0 flex place-content-center place-items-center rounded-lg bg-zinc-400 p-2 text-black'
-					type='search'
-					placeholder='Search'
-				/>
-			</div>
 			{animationsArray?.map((e, i) => {
 				return (
 					<button

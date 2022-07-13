@@ -47,6 +47,8 @@ Object.keys(db).forEach((modelName) => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+//Associations User to User through Captures
 const user = User(db.sequelize);
 const captures = Captures(db.sequelize);
 user.belongsToMany(user, { as: "captured_id", through: captures });

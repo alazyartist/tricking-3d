@@ -8,7 +8,7 @@ const Captures = () => {
 	const [data, setData] = useState();
 	const activeUser = useUserStore();
 	const apiPrivate = useApiCreds();
-	console.log(activeUser.userInfo.id);
+	// console.log(activeUser.userInfo.id);
 	const getData = async () => {
 		apiPrivate
 			.put(
@@ -30,17 +30,17 @@ const Captures = () => {
 
 	useEffect(() => {
 		getData();
-		console.log(data);
+		// console.log(data);
 	}, []);
 
 	return (
-		<>
-			<div>Captures</div>
+		<div className='flex flex-col place-items-center font-inter'>
+			<div className='text-xl'>Captures</div>
 			<div onClick={() => getData()}>GetData</div>
 			<div>
 				{!!data &&
 					Object.keys(data).map((key) => (
-						<div className='flex flex-col gap-3'>
+						<div key={`${data[key].username}`} className='flex flex-col gap-3'>
 							<CapturedCard
 								name={data[key].first_name + " " + data[key].last_name}
 								src={`./images/${data[key].profilePic}`}
@@ -54,7 +54,7 @@ const Captures = () => {
 						</div>
 					))}
 			</div>
-		</>
+		</div>
 	);
 };
 

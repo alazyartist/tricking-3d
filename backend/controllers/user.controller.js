@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
+import { mailer } from "../middleware/nodemailer.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -49,8 +50,23 @@ export const findOrCreate = async (req, res) => {
 			res.send(err?.errors[0].message);
 		});
 	if (created) {
-		res.status(201).send("Successfully Registered New User");
 		//SEND REGISTRATION EMAIL
+		const { first_name, last_name, username, email } = user1.dataValues;
+		await mailer
+			.sendMail({
+				from: '"Trickedex" <torquetricking@gmail.com>',
+				to: `${email}`,
+				subject: `Welcome to the Trickedex, ${username}`,
+				text: "Thanks for signing up. Your account is ready.",
+				html: `<html>
+			<body style="color: '#d4d4d8';text-align:center;">
+			<h1>Welcome, <span style="color:#4f4f46;">${first_name} ${last_name}</span> Thank You for Signing Up to the</h1>
+			<a href="trickedex.app"><img style="height: fit; width: fit;" src="https://trickedex.app/TrickedexLogo.png" /></a>
+				<h3 style="text-size: ">We are excited to have you! Once you login you will be able to access the Dashboard and many of it's hidden features!<a style="color:#4f4622;" href='trickedex.app/dash'><h2>Go to The Dash Now</h2></a><br/> <h2>Enjoy!</h2></h3>
+				</html>`,
+			})
+			.catch((err) => console.log(err));
+		res.status(201).send("Successfully Registered New User");
 	}
 };
 
