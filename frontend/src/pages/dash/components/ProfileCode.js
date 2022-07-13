@@ -19,19 +19,19 @@ const ProfileCode = () => {
 		}
 	}, [showQrReader]);
 	return (
-		<div className='absolute bottom-16 left-5'>
+		<div className='absolute top-28 left-2'>
 			<div className='rounded-xl bg-zinc-700 p-2'>
-				<div className='flex flex-col place-content-center place-items-center gap-3'>
+				<div className='flex flex-col place-content-center place-items-center gap-2'>
 					<button
-						className=' flex w-20 flex-col place-items-center rounded-lg bg-zinc-700 p-1'
+						className=' flex w-14 flex-col place-items-center rounded-lg bg-zinc-700 p-1'
 						onClick={() => setShowQR(!showQR)}>
-						<MdOutlineQrCode2 className='h-8 w-8' />
+						<MdOutlineQrCode2 className='h-6 w-6' />
 						<div className='text-sm'>Generate</div>
 					</button>
 					<button
-						className='flex w-20 flex-col place-items-center rounded-lg bg-red-700 p-1'
+						className='flex w-14 flex-col place-items-center rounded-lg bg-red-700 p-1'
 						onClick={() => setShowQrReader(!showQrReader)}>
-						<MdQrCodeScanner className='h-8 w-8' />
+						<MdQrCodeScanner className='h-6 w-6' />
 						<div className='text-sm'>Scan</div>
 					</button>
 				</div>
