@@ -18,16 +18,15 @@ const corsOptions = {
 	exposedHeaders: ["*", "Authorization"],
 };
 //Maybe dont need this. Still unsure. Keep for now
-// app.use((req, res, next) => {
-// 	console.log("adding headers");
-// 	res.header("Access-Control-Allow-Credentials", true);
-// 	res.header(
-// 		"Access-Control-Allow-Headers",
-// 		"Origin, X-Requested-With, Content-Type, Accept"
-// 	);
-// 	next();
-// });
-// );
+app.use((req, res, next) => {
+	console.log("adding headers");
+	res.header("Access-Control-Allow-Credentials", true);
+	res.header(
+		"Access-Control-Allow-Headers",
+		"Origin, X-Requested-With, Content-Type, Accept"
+	);
+	next();
+});
 
 //Middlewares
 app.use(cors(corsOptions), express.json(), cookieParser());
