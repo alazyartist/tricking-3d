@@ -1,4 +1,4 @@
-import { User } from "../models/Users.js";
+import { User } from "../models/users.js";
 import db from "../models/index.js";
 const user = await User(db.sequelize);
 import bcrypt from "bcrypt";

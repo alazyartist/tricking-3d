@@ -1,4 +1,4 @@
-import { User } from "../models/Users.js";
+import { User } from "../models/users.js";
 import { Captures } from "../models/captures.js";
 import db from "../models/index.js";
 

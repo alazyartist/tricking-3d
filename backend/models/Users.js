@@ -4,7 +4,7 @@ export const User = (sequelize) => {
 	//sequelize.define(modelName, attributes, options)
 
 	return sequelize.define(
-		"users",
+		"Users",
 		{
 			id: {
 				type: Sequelize.INTEGER,
@@ -19,6 +19,7 @@ export const User = (sequelize) => {
 			},
 			first_name: {
 				type: Sequelize.STRING,
+				required: true,
 			},
 			last_name: {
 				type: Sequelize.STRING,
