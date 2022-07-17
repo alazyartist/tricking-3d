@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const AnatomySketch = (props) => (
+export const AnatomySketch = (props) => (
 	<svg
 		xmlns='http://www.w3.org/2000/svg'
 		viewBox='0 0 957.5678124505688 364.0204915980863'

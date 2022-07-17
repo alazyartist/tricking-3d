@@ -4,9 +4,8 @@ module.exports = {
 		await queryInterface.createTable("Bases", {
 			base_id: {
 				allowNull: false,
-				autoIncrement: true,
 				primaryKey: true,
-				type: Sequelize.INTEGER,
+				type: Sequelize.STRING,
 			},
 			name: {
 				type: Sequelize.STRING,
@@ -24,24 +23,16 @@ module.exports = {
 				type: Sequelize.INTEGER,
 			},
 			stance_id: {
-				type: Sequelize.INTEGER,
+				type: Sequelize.STRING,
 				references: { model: "Stances", key: "stance_id" },
 			},
 			takeoffStance_id: {
-				type: Sequelize.INTEGER,
+				type: Sequelize.STRING,
 				references: { model: "Stances", key: "stance_id" },
 			},
 			landingStance_id: {
-				type: Sequelize.INTEGER,
+				type: Sequelize.STRING,
 				references: { model: "Stances", key: "stance_id" },
-			},
-			createdAt: {
-				allowNull: false,
-				type: Sequelize.DATE,
-			},
-			updatedAt: {
-				allowNull: false,
-				type: Sequelize.DATE,
 			},
 		});
 	},

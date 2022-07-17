@@ -923,7 +923,7 @@ Object.keys(stances).map((e) => {
 });
 
 TrickListArr.push(...Kicks);
-const basesArr = [
+export const basesArr = [
 	backflipB,
 	insideflipB,
 	frontflipB,
@@ -958,3 +958,17 @@ console.table(stances);
 console.table(transArr);
 console.table(TrickListArr);
 console.table(Kicks);
+
+const newMap = basesArr.map((base) => {
+	return {
+		name: base.name,
+		direction: base.direction,
+		fromLeg: base.fromLeg,
+		toLeg: base.toLeg,
+		rotation: base.rotation,
+		stance_id: base.takeoffStance,
+		takeoffStance_id: base.takeoffStance,
+		landingStance_id: base.landingStance,
+	};
+});
+console.log("newmap", newMap);

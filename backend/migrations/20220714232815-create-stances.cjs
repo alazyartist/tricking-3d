@@ -4,9 +4,8 @@ module.exports = {
 		await queryInterface.createTable("Stances", {
 			stance_id: {
 				allowNull: false,
-				autoIncrement: true,
 				primaryKey: true,
-				type: Sequelize.INTEGER,
+				type: Sequelize.STRING,
 			},
 			trick_id: {
 				type: Sequelize.UUID,
@@ -22,14 +21,6 @@ module.exports = {
 			},
 			stanceRotation: {
 				type: Sequelize.INTEGER,
-			},
-			createdAt: {
-				allowNull: false,
-				type: Sequelize.DATE,
-			},
-			updatedAt: {
-				allowNull: false,
-				type: Sequelize.DATE,
 			},
 		});
 	},

@@ -4,7 +4,11 @@ import { DataTypes } from "sequelize";
 
 export const Trick = (sequelize) => {
 	return sequelize.define("Tricks", {
-		trick_id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4 },
+		trick_id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
+			primaryKey: true,
+		},
 		name: DataTypes.STRING,
 		user_renamed: DataTypes.STRING,
 		stance_id: {

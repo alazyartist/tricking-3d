@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import AnatomySVG from "../../data/AnatomySVG";
+import AnatomyNav from "./components/AnatomyNavSVG";
+import AnatomySketch from "./components/AnatomySketchSVG";
 function TheoryPage() {
 	return (
 		<>
@@ -12,8 +14,10 @@ function TheoryPage() {
 					Theory
 				</Link>
 				<div className='text-zinc-300'>Theory !=== Reality</div> */}
-				<div className=' p-4'>
-					<AnatomySVG className=' h-full w-[80vw] text-zinc-300' />
+				<div className='flex flex-col place-items-center gap-4 p-4'>
+					{/* <AnatomySVG className=' h-full w-[80vw] text-zinc-300' /> */}
+					<AnatomySketch className='h-full w-[80vw] text-zinc-300' />
+					<AnatomyNav className=' h-full w-[80vw] text-zinc-300' />
 					<Outlet />
 				</div>
 			</div>

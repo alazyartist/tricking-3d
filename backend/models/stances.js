@@ -3,12 +3,10 @@ import { DataTypes } from "sequelize";
 export const Stance = (sequelize) => {
 	return sequelize.define("Stances", {
 		stance_id: {
-			type: DataTypes.INTEGER,
-			primaryKey: true,
-			autoIncrement: true,
+			type: DataTypes.STRING,
 		},
 		trick_id: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.UUID,
 			references: { model: "Tricks", key: "trick_id" },
 		},
 		name: DataTypes.STRING,

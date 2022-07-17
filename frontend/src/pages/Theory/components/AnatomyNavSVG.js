@@ -5,9 +5,10 @@ const AnatomyNav = (props) => {
 	const nav = useNavigate();
 
 	const handleNav = (e) => {
-		if (e.target?.innerHTML) {
+		if (e.target?.innerHTML && !e.target?.innerHTML.includes("<style>")) {
 			let adr = e.target.innerHTML;
 			nav(adr.toLowerCase());
+			console.log(adr.toLowerCase());
 			return;
 		}
 	};

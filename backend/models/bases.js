@@ -4,9 +4,8 @@ import { DataTypes } from "sequelize";
 export const Base = (sequelize) => {
 	return sequelize.define("Bases", {
 		base_id: {
-			type: Sequelize.INTEGER,
+			type: DataTypes.STRING,
 			primaryKey: true,
-			autoIncrement: true,
 		},
 		name: DataTypes.STRING,
 		direction: DataTypes.STRING,
@@ -14,16 +13,16 @@ export const Base = (sequelize) => {
 		toLeg: DataTypes.STRING,
 		rotation: DataTypes.INTEGER,
 		stance_id: {
-			type: DataTypes.INTEGER,
-			references: { model: "Stances", key: "id" },
+			type: DataTypes.STRING,
+			references: { model: "Stances", key: "stance_id" },
 		},
 		takeoffStance_id: {
-			type: DataTypes.INTEGER,
-			references: { model: "Stances", key: "id" },
+			type: DataTypes.STRING,
+			references: { model: "Stances", key: "stance_id" },
 		},
 		landingStance_id: {
-			type: DataTypes.INTEGER,
-			references: { model: "Stances", key: "id" },
+			type: DataTypes.STRING,
+			references: { model: "Stances", key: "stance_id" },
 		},
 	});
 };
