@@ -8,11 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const basename = path.basename(__filename);
 import { config } from "../config/config.js";
-import { User } from "./users.js";
-import { Captures } from "./captures.js";
-import { Base } from "./bases.js";
-import { Stance } from "./stances.js";
-import { Trick } from "./tricks.js";
+
 const db = {};
 const sequelize = new Sequelize(
 	config.database,
@@ -41,7 +37,6 @@ fs.readdirSync(__dirname)
 		if (typeof model != "function") return;
 		db[model.name] = model;
 	});
-
 Object.keys(db).forEach((modelName) => {
 	if (db[modelName].associate) {
 		db[modelName].associate(db);
@@ -51,27 +46,4 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-//Associations User to User through Captures
-const user = User(db.sequelize);
-const captures = Captures(db.sequelize);
-user.belongsToMany(user, { as: "captured_id", through: captures });
-user.belongsToMany(user, { as: "user_id", through: captures });
-
-//Associations Tricks, Bases, Stances
-const base = Base(db.sequelize);
-const trick = Trick(db.sequelize);
-const stance = Stance(db.sequelize);
-//Bases to Stances
-// base.hasOne(stance, { foreignKey: "stance_id", constraints: false });
-// stance.belongsTo(base, { as: "stance_base", constraints: false });
-// //Bases to Tricks
-// stance.hasOne(trick, { foreignKey: "trick_id", constraints: false });
-// trick.belongsTo(stance, { foreignKey: "trick_id", constraints: false });
-// base.belongsTo(trick, {
-// 	as: "tricks",
-// 	foreignKey: "trick_id",
-// 	constraints: false,
-// });
-
-// trick.hasOne(stance, { foreignKey: "stance_id", constraints: false });
 export default db;

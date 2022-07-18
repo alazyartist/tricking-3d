@@ -13,6 +13,7 @@ import handleLogout from "./controllers/logout.controller.js";
 import { captureRoutes } from "./routes/captures.routes.js";
 const corsOptions = {
 	origin: [
+		"http://localhost:3000",
 		"http://trickedex.app",
 		"https://trickedex.app",
 		"http://trickedex.com",
@@ -22,7 +23,6 @@ const corsOptions = {
 	credentials: true,
 	exposedHeaders: ["*", "Authorization"],
 };
-//Middlewares
 app.use(cors(corsOptions), express.json(), cookieParser());
 //Maybe dont need this. Still unsure. Keep for now
 app.use((req, res, next) => {
@@ -30,10 +30,12 @@ app.use((req, res, next) => {
 	res.header("Access-Control-Allow-Credentials", true);
 	res.header(
 		"Access-Control-Allow-Headers",
+		"Access-Control-Allow-Origin",
 		"Origin, X-Requested-With, Content-Type, Accept"
 	);
 	next();
 });
+//Middlewares
 
 app.use("/api", userRoutes);
 app.use("/api/refresh", refreshRoutes);

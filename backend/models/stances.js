@@ -9,7 +9,6 @@ export const Stance = (sequelize) => {
 			},
 			trick_id: {
 				type: DataTypes.UUID,
-				references: { model: "Tricks", key: "trick_id" },
 			},
 			name: DataTypes.STRING,
 			leg: DataTypes.STRING,

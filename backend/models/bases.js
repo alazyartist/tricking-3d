@@ -9,10 +9,6 @@ export const Base = (sequelize) => {
 		},
 		trick_id: {
 			type: DataTypes.UUID,
-			references: {
-				model: "Tricks",
-				key: "trick_id",
-			},
 		},
 		name: DataTypes.STRING,
 		direction: DataTypes.STRING,
@@ -21,15 +17,16 @@ export const Base = (sequelize) => {
 		rotation: DataTypes.INTEGER,
 		stance_id: {
 			type: DataTypes.STRING,
-			references: { model: "Stances", key: "stance_id" },
+			references: {
+				model: "Stances",
+				key: "stance_id",
+			},
 		},
 		takeoffStance_id: {
 			type: DataTypes.STRING,
-			references: { model: "Stances", key: "stance_id" },
 		},
 		landingStance_id: {
 			type: DataTypes.STRING,
-			references: { model: "Stances", key: "stance_id" },
 		},
 	});
 };

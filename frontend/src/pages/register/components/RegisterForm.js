@@ -55,7 +55,7 @@ function RegisterForm() {
 		if (success === true) {
 			setTimeout(() => {
 				nav("/login");
-			}, 500);
+			}, 1000);
 		}
 	}, [success, nav]);
 	return (
