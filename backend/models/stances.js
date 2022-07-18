@@ -1,17 +1,21 @@
 "use strict";
 import { DataTypes } from "sequelize";
 export const Stance = (sequelize) => {
-	return sequelize.define("Stances", {
-		stance_id: {
-			type: DataTypes.STRING,
+	return sequelize.define(
+		"Stances",
+		{
+			stance_id: {
+				type: DataTypes.STRING,
+			},
+			trick_id: {
+				type: DataTypes.UUID,
+				references: { model: "Tricks", key: "trick_id" },
+			},
+			name: DataTypes.STRING,
+			leg: DataTypes.STRING,
+			direction: DataTypes.STRING,
+			stanceRotation: DataTypes.INTEGER,
 		},
-		trick_id: {
-			type: DataTypes.UUID,
-			references: { model: "Tricks", key: "trick_id" },
-		},
-		name: DataTypes.STRING,
-		leg: DataTypes.STRING,
-		direction: DataTypes.STRING,
-		stanceRotation: DataTypes.INTEGER,
-	});
+		{ constraints: false }
+	);
 };

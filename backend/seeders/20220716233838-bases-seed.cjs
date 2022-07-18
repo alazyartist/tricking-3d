@@ -70,7 +70,7 @@ module.exports = {
 			{
 				base_id: "GainerR",
 				name: "GainerR",
-				direction: "Forwards",
+				direction: "Backwards",
 				fromLeg: "Right",
 				toLeg: "Left",
 				rotation: 0,

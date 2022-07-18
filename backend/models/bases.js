@@ -7,6 +7,13 @@ export const Base = (sequelize) => {
 			type: DataTypes.STRING,
 			primaryKey: true,
 		},
+		trick_id: {
+			type: DataTypes.UUID,
+			references: {
+				model: "Tricks",
+				key: "trick_id",
+			},
+		},
 		name: DataTypes.STRING,
 		direction: DataTypes.STRING,
 		fromLeg: DataTypes.STRING,

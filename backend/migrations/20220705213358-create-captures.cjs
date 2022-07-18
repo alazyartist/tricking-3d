@@ -12,17 +12,9 @@ module.exports = {
 				},
 				user_id: {
 					type: Sequelize.INTEGER,
-					references: {
-						model: "Users",
-						key: "id",
-					},
 				},
 				captured_id: {
 					type: Sequelize.INTEGER,
-					references: {
-						model: "Users",
-						key: "id",
-					},
 				},
 				createdAt: {
 					allowNull: false,
@@ -36,6 +28,7 @@ module.exports = {
 			{
 				underscored: true,
 				paranoid: true,
+				constraints: false,
 			}
 		);
 	},
