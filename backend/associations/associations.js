@@ -5,8 +5,8 @@ const Associations = async () => {
 	try {
 		const user = await User(db.sequelize);
 		const interaction = await Interactions(db.sequelize);
-		user.hasMany(interaction);
-		interaction.belongsTo(user, { foreignKey: "user_id" });
+		user.hasMany(interaction, { foreignKey: "user_id" });
+		interaction.belongsTo(user, { foreignKey: "id" });
 
 		console.log(db.sequelize.models);
 

@@ -7,7 +7,7 @@ export const Interactions = (sequelize) => {
 		{
 			user_id: {
 				type: Sequelize.INTEGER,
-				references: { model: "users", key: "user_id" },
+				references: { model: "users", key: "id" },
 			},
 			interaction_id: {
 				type: Sequelize.UUID,
