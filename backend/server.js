@@ -4,6 +4,7 @@ import fetch from "node-fetch";
 const PORT = 5000;
 const app = express();
 import db from "./models/index.js";
+import Associations from "./associations/associations.js";
 import { userRoutes } from "./routes/user.routes.js";
 import { verifyJWT } from "./middleware/verifyJWT.js";
 import { loginRoutes } from "./routes/loggedIn.routes.js";
@@ -11,6 +12,7 @@ import { refreshRoutes } from "./routes/refresh.routes.js";
 import cookieParser from "cookie-parser";
 import handleLogout from "./controllers/logout.controller.js";
 import { captureRoutes } from "./routes/captures.routes.js";
+await Associations();
 const corsOptions = {
 	origin: [
 		"http://localhost:3000",

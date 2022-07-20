@@ -8,10 +8,11 @@ import { Link } from "react-router-dom";
 import { GiHorizonRoad } from "react-icons/gi";
 import ProfileCode from "./components/ProfileCode";
 import Captures from "./components/Captures";
+import { NoToneMapping } from "three";
 
 function Dashboard() {
 	const user = useUserStore((s) => s.user);
-	const { profilePic } = useUserStore((s) => s.userInfo);
+	const { profilePic, uuid } = useUserStore((s) => s.userInfo);
 	const accessToken = useUserStore((s) => s.accessToken);
 	const setAccessToken = useUserStore((s) => s.setAccessToken);
 	const logout = useLogout();
@@ -38,7 +39,7 @@ function Dashboard() {
 				edit
 				name={`Dylan James`}
 				username={user}
-				src={`./images/${profilePic}`}
+				src={`./images/${uuid}/${profilePic}` || `./images/noimg.jpeg`}
 			/>
 			<div className='text-center'>
 				You are a bit early.

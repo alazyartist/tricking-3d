@@ -190,26 +190,47 @@ export const updateUserInfo = async (req, res) => {
 export const updateProfilePic = async (req, res) => {
 	const { uuid } = await req.body;
 	const pp = req.files.file;
+	pp.name = pp.name.replace(/\s/g, "");
 	//local path for testing
-	// const serverPathName = path.join(
-	// 	__dirname,
-	// 	"..",
-	// 	"..",
-	// 	"frontend",
-	// 	"public",
-	// 	"images",
-	// 	`${pp.name}`
-	// );
-	//Production Path
 	const serverPathName = path.join(
-		"/",
-		"var",
-		"www",
-		"trickedex.app",
-		"html",
+		__dirname,
+		"..",
+		"..",
+		"frontend",
+		"public",
 		"images",
+		`${uuid}`,
 		`${pp.name}`
 	);
+	const serverPathFolderName = path.join(
+		__dirname,
+		"..",
+		"..",
+		"frontend",
+		"public",
+		"images",
+		`${uuid}`
+	);
+	//Production Path
+	// const serverPathName = path.join(
+	// 	"/",
+	// 	"var",
+	// 	"www",
+	// 	"trickedex.app",
+	// 	"html",
+	// 	"images",
+	// 	`${uuid}`,
+	// 	`${pp.name}`
+	// );
+	// const serverPathFolderName = path.join(
+	// 	"/",
+	// 	"var",
+	// 	"www",
+	// 	"trickedex.app",
+	// 	"html",
+	// 	"images",
+	// 	`${uuid}`,
+	// );
 
 	console.log(serverPathName);
 	if (pp === null) {
@@ -227,18 +248,21 @@ export const updateProfilePic = async (req, res) => {
 		res.status(200).json({
 			message: `USER FOUND & ${pp.name} Received `,
 			fileName: pp.name,
-			filePath: `/images/${pp.name}`,
+			filePath: `/images/${uuid}/${pp.name}`,
 		});
 	} else {
 		res.status(400).json({ message: "Try logging back in" });
 	}
 	console.log();
+	if (!fs.existsSync(serverPathFolderName)) {
+		fs.mkdirSync(serverPathFolderName, { recursive: true });
+	}
 	if (fs.existsSync(serverPathName)) {
 		selectedUser.update({ profilePic: pp.name });
 		return res.status(200).json({
 			message: `Profile Picture Switched to ${pp.name} `,
 			fileName: pp.name,
-			filePath: `/images/${pp.name}`,
+			filePath: `/images/${uuid}/${pp.name}`,
 		});
 	}
 
