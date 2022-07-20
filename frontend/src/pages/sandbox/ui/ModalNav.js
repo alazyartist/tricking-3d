@@ -45,7 +45,7 @@ const ModalNav = () => {
 	return (
 		<div
 			id='dropdowns-div'
-			className='max-h-750px absolute z-20 ml-3 mt-[45px] flex gap-3'>
+			className='max-h-750px absolute z-[1006] ml-3 mt-[45px] flex gap-3'>
 			{/**original version w/ collisions */}
 			{/* <AnimationsDropwdown />
       <InfoButton />*/}
@@ -54,7 +54,9 @@ const ModalNav = () => {
 			{/**new version w/o collisions */}
 			{/**animations button */}
 			<ModalButton
-				handleOpen={() => handleOpen(0)}
+				handleOpen={() => {
+					handleOpen(0);
+				}}
 				content={currentAnim}
 				isDropdown
 			/>

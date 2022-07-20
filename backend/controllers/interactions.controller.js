@@ -5,9 +5,9 @@ const user = User(db.sequelize);
 import db from "../models/index.js";
 
 export const interact = async (req, res) => {
-	const { useruuid, type, content } = req.body;
+	const { uuid, type, content } = req.body;
 	try {
-		const activeUser = await user.findOne({ where: { uuid: useruuid } });
+		const activeUser = await user.findOne({ where: { uuid: uuid } });
 
 		const interact = await interactions.findOrCreate({
 			where: {
@@ -22,6 +22,21 @@ export const interact = async (req, res) => {
 		console.log("active", activeUser);
 		console.log("interact", interact);
 		res.json({ message: "I Interacted", interaction: interact });
+	} catch (err) {
+		console.log(err);
+		err && res.json({ message: "I Failed to Interact", error: err });
+	}
+};
+export const getInteractions = async (req, res) => {
+	const { trick } = req.body;
+	try {
+		const commentData = await interactions.findAll({
+			where: {
+				type: trick,
+			},
+		});
+		console.log(commentData);
+		res.json({ message: "I Interacted", comments: commentData });
 	} catch (err) {
 		console.log(err);
 		err && res.json({ message: "I Failed to Interact", error: err });

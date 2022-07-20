@@ -7,6 +7,7 @@ import ModalNav from "./ModalNav";
 function UI() {
 	return (
 		<>
+			<div className='pt-3'></div>
 			<ModalNav />
 			<ActiveDevNote />
 			<div

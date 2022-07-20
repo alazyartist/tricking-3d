@@ -9,6 +9,7 @@ import { GiHorizonRoad } from "react-icons/gi";
 import ProfileCode from "./components/ProfileCode";
 import Captures from "./components/Captures";
 import { NoToneMapping } from "three";
+import Interact from "./components/Interact";
 
 function Dashboard() {
 	const user = useUserStore((s) => s.user);

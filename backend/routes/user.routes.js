@@ -1,5 +1,8 @@
 import express from "express";
-import { interact } from "../controllers/interactions.controller.js";
+import {
+	getInteractions,
+	interact,
+} from "../controllers/interactions.controller.js";
 import {
 	checkPassword,
 	deleteUser,
@@ -20,3 +23,4 @@ userRoutes
 userRoutes.route("/user/getInfo").get(verifyJWT, getUserInfo);
 userRoutes.route("/user/login").post(checkPassword);
 userRoutes.route("/user/interact").post(interact);
+userRoutes.route("/user/comments").post(getInteractions);
