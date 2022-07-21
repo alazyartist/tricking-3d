@@ -12,7 +12,6 @@ import { refreshRoutes } from "./routes/refresh.routes.js";
 import cookieParser from "cookie-parser";
 import handleLogout from "./controllers/logout.controller.js";
 import { captureRoutes } from "./routes/captures.routes.js";
-await Associations();
 const corsOptions = {
 	origin: [
 		"http://localhost:3000",
@@ -28,7 +27,6 @@ const corsOptions = {
 app.use(cors(corsOptions), express.json(), cookieParser());
 //Maybe dont need this. Still unsure. Keep for now
 app.use((req, res, next) => {
-	console.log("adding headers");
 	res.header("Access-Control-Allow-Credentials", true);
 	res.header(
 		"Access-Control-Allow-Headers",
@@ -37,6 +35,7 @@ app.use((req, res, next) => {
 	);
 	next();
 });
+
 //Middlewares
 
 app.use("/api", userRoutes);

@@ -3,11 +3,9 @@ import { User } from "../models/users.js";
 const interactions = Interactions(db.sequelize);
 const user = User(db.sequelize);
 import db from "../models/index.js";
-import Associations from "../associations/associations.js";
-export const interact = async (req, res) => {
-	await Associations();
 
-	const { uuid, type, content } = req.body;
+export const interact = async (req, res) => {
+	const { uuid, type, content, id } = req.body;
 	try {
 		const activeUser = await user.findOne({ where: { uuid: uuid } });
 
@@ -30,8 +28,6 @@ export const interact = async (req, res) => {
 	}
 };
 export const getInteractions = async (req, res) => {
-	await Associations();
-
 	const { trick } = req.body;
 	try {
 		const commentData = await interactions.findAll({

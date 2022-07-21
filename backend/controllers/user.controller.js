@@ -24,11 +24,42 @@ export const getUserInfo = async (req, res) => {
 
 export const findAll = async (req, res) => {
 	user
-		.findAll({ attributes: ["username", "first_name", "last_name", "email"] })
+		.findAll({
+			attributes: [
+				"username",
+				"first_name",
+				"last_name",
+				"email",
+				"profile_pic",
+			],
+		})
 		.then((users) => {
 			res.json(users);
 		})
 		.catch((err) => console.log(err));
+
+	// res.send("User coming soon.");
+};
+export const getUserInfoById = async (req, res) => {
+	const { id } = req.body;
+	if (id) {
+		user
+			.findAll({
+				where: { id: id },
+				attributes: [
+					"username",
+					"first_name",
+					"last_name",
+					"email",
+					"profile_pic",
+					"uuid",
+				],
+			})
+			.then((users) => {
+				res.json(users);
+			})
+			.catch((err) => console.log(err));
+	}
 
 	// res.send("User coming soon.");
 };
