@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import useApiCreds from "../../hooks/useApiCreds";
 import { useStore } from "../../store/store";
+import UserProfilePicById from "./UserProfilePicById";
 
-const TrickInfoComments = (count) => {
+const TrickInfoComments = ({ count }) => {
 	const api = useApiCreds();
 	const currentAnim = useStore((s) => s.currentAnim);
 	const [comments, setComments] = useState();
@@ -18,16 +19,28 @@ const TrickInfoComments = (count) => {
 	};
 
 	useEffect(() => {
-		console.log("RAN GET COMMENTS", comments);
 		getComments();
-	}, [count]);
+		console.log("RAN GET COMMENTS", comments);
+	}, []);
+
+	// useEffect(() => {
+	// 	Array.isArray(comments) &&
+	// 		comments.sort((a, b) => {
+	// 			return (
+	// 				new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+	// 			);
+	// 		});
+	// }, [comments]);
 
 	return (
-		<div className='h-[40vh] overflow-auto rounded-xl bg-zinc-800 bg-opacity-60 p-4 pt-4'>
+		<div className='absolute top-[40vh] h-[30vh] w-[95vw] overflow-auto rounded-xl bg-zinc-800 bg-opacity-60 p-4 pt-4'>
 			<div>
 				{comments?.map((comment) => (
-					<div className='flex gap-2'>
-						<div>{comment.user_id}</div>
+					<div key={comment.interaction_id} className='flex gap-2'>
+						<UserProfilePicById
+							key={comment.interaction_id}
+							id={comment.user_id}
+						/>
 						<div>{comment.content}</div>
 					</div>
 				))}

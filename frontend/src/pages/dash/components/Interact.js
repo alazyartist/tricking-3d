@@ -30,7 +30,6 @@ const Interact = ({ count, setCount }) => {
 
 	return (
 		<div className='fixed bottom-5  w-full'>
-			<div className='text-zinc-300'>{content}</div>
 			<form
 				onSubmit={handleSubmit}
 				className='flex place-content-center gap-2 font-inter text-zinc-800'>

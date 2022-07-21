@@ -16,7 +16,13 @@ export const interact = async (req, res) => {
 				type: type,
 				content: content,
 			},
-			attributes: ["trick_id", "type", "content", "interaction_id"],
+			attributes: [
+				"trick_id",
+				"type",
+				"content",
+				"interaction_id",
+				"createdAt",
+			],
 		});
 
 		console.log("active", activeUser);
