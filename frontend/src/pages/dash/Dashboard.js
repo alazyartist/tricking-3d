@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useApiCreds from "../../hooks/useApiCreds";
 import UserCard from "./components/UserCard";
 import useLogout from "../../hooks/useLogout";
@@ -40,7 +40,11 @@ function Dashboard() {
 				edit
 				name={`Dylan James`}
 				username={user}
-				src={`./images/${uuid}/${profilePic}` || `./images/noimg.jpeg`}
+				src={
+					profilePic !== null
+						? `./images/${uuid}/${profilePic}`
+						: "./images/noimg.jpeg"
+				}
 			/>
 			<div className='text-center'>
 				You are a bit early.

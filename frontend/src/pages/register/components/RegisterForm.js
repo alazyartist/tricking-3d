@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../../api/api.js";
 function RegisterForm() {
-	const [success, setSuccess] = useState(false);
 	const [validPassword, setValidPassword] = useState(false);
 	const [isVisible, setIsVisible] = useState();
 	const [data, setData] = useState();
@@ -28,15 +27,20 @@ function RegisterForm() {
 		// ) {
 		try {
 			console.log("Trying CREATE");
-			const createUser = await api.post("/user", {
-				username: userData.username,
-				first_name: userData.first_name,
-				last_name: userData.last_name,
-				email: userData.email,
-				password: userData.password,
-			});
-			setData(createUser.data);
-			if (createUser.status === 200) return setSuccess(true);
+			api
+				.post("/user", {
+					username: userData.username,
+					first_name: userData.first_name,
+					last_name: userData.last_name,
+					email: userData.email,
+					password: userData.password,
+				})
+				.then((createdUser) => {
+					setData(createdUser.data);
+				})
+				.then(() => {
+					nav("/login");
+				});
 		} catch (err) {
 			console.log(err);
 			// }
@@ -51,13 +55,6 @@ function RegisterForm() {
 		}
 	}, [userData]);
 
-	useEffect(() => {
-		if (success === true) {
-			setTimeout(() => {
-				nav("/login");
-			}, 1000);
-		}
-	}, [success, nav]);
 	return (
 		<div className='w-[80vw]'>
 			<form
@@ -133,11 +130,7 @@ function RegisterForm() {
 					className={`text=zinc-700 flex w-fit place-self-center rounded-2xl ${
 						validPassword ? "bg-emerald-400" : "bg-zinc-400"
 					} p-2 `}>
-					<button
-						onClick={() => setSuccess(true)}
-						disabled={!validPassword ? true : false}>
-						Submit
-					</button>
+					<button disabled={!validPassword ? true : false}>Submit</button>
 				</div>
 
 				<div className='flex flex-col gap-2 text-zinc-300'>
