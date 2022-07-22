@@ -38,28 +38,27 @@ const QRReader = () => {
 		<div className='border-2 border-dashed border-blue-400'></div>
 	);
 	return (
-		<>
-			<div>QRReader</div>
+		<div className='mt-4'>
 			<QrReader
 				onResult={(result, err) => handleResult(result, err)}
-				style={{ width: "300px", height: "300px" }}
+				style={{ width: "325px", height: "325px" }}
 				videoId={"video"}
 				constraints={{ facingMode: "environment", aspectRatio: 1 }}
 				videoStyle={{
 					borderColor: "#3f3f46",
 					borderRadius: "30px",
-					borderWidth: "12px",
-					width: "60vw",
-					height: "60vw",
+					borderWidth: "0px",
+					width: "70vw",
+					height: "70vw",
 				}}
 				videoContainerStyle={{
-					width: "60vw",
-					height: "60vw",
+					width: "70vw",
+					height: "70vw",
 				}}
 			/>
 
 			<div>{QRData}</div>
-		</>
+		</div>
 	);
 };
 

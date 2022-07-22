@@ -43,7 +43,11 @@ const Captures = () => {
 						<div key={`${data[key].username}`} className='flex flex-col gap-3'>
 							<CapturedCard
 								name={data[key].first_name + " " + data[key].last_name}
-								src={`./images/${data[key].profilePic}`}
+								src={
+									data[key].uuid
+										? `./images/${data[key].profilePic}`
+										: `./images/noimg.jpeg`
+								}
 								username={`${data[key].username}`}
 							/>
 							{/* {Object.keys(data[key]).map((dk) => (

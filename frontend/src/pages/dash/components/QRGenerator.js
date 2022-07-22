@@ -4,8 +4,7 @@ import { useUserStore } from "../../../store/userStore";
 const QRGenerator = () => {
 	const { uuid, profilePic } = useUserStore((s) => s.userInfo);
 	return (
-		<>
-			<div>Your Profile Code</div>
+		<div className='mt-4 overflow-hidden rounded-2xl'>
 			<QRCode
 				size={"225"}
 				value={uuid}
@@ -23,7 +22,7 @@ const QRGenerator = () => {
 					[15, 15, 15, 0],
 				]}
 			/>
-		</>
+		</div>
 	);
 };
 
