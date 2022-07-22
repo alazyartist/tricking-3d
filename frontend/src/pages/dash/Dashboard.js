@@ -10,6 +10,7 @@ import ProfileCode from "./components/ProfileCode";
 import Captures from "./components/Captures";
 import { NoToneMapping } from "three";
 import Interact from "./components/Interact";
+import { FaQrcode } from "react-icons/fa";
 
 function Dashboard() {
 	const user = useUserStore((s) => s.user);
@@ -18,6 +19,7 @@ function Dashboard() {
 	const setAccessToken = useUserStore((s) => s.setAccessToken);
 	const logout = useLogout();
 	const apiPrivate = useApiCreds();
+	const [open, setOpen] = useState(false);
 
 	// const updateUserInfo = () => {
 	// 	apiPrivate
@@ -33,26 +35,35 @@ function Dashboard() {
 	// };
 
 	return (
-		<div className='mt-14 flex flex-col place-content-center place-items-center gap-2 text-zinc-300'>
-			Dashboard
-			<div>Welcome {user}</div>
-			<UserCard
-				edit
-				name={`Dylan James`}
-				username={user}
-				src={
-					profilePic !== null
-						? `./images/${uuid}/${profilePic}`
-						: "./images/noimg.jpeg"
-				}
-			/>
-			<div className='text-center'>
-				You are a bit early.
-				<br /> Not much to Show Here Yet
+		<div className='mt-14 flex flex-col place-content-center place-items-center gap-2 text-zinc-400'>
+			<div className='p-4'>
+				Welcome <span className='font-semibold text-zinc-300'>{user}</span>
 			</div>
+			{!open && (
+				<>
+					<UserCard
+						edit
+						name={`Dylan James`}
+						username={user}
+						src={
+							profilePic !== null
+								? `./images/${uuid}/${profilePic}`
+								: "./images/noimg.jpeg"
+						}
+					/>
+					<div className='text-center'>
+						You are a bit early.
+						<br /> Not much to Show Here Yet
+					</div>
+				</>
+			)}
 			{/* QR Code Generator and Reader */}
-			<ProfileCode />
-			<Captures />
+			{open && <ProfileCode />}
+			<FaQrcode
+				onClick={() => setOpen(!open)}
+				className='absolute top-20 left-5'
+			/>
+			{!open && <Captures />}
 			<button className='fixed right-5 bottom-14' onClick={() => logout()}>
 				Logout
 			</button>

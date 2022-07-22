@@ -4,7 +4,7 @@ import QRGenerator from "../components/QRGenerator";
 import QRReader from "../components/QRReader";
 
 const ProfileCode = () => {
-	const [showQR, setShowQR] = useState(false);
+	const [showQR, setShowQR] = useState(true);
 	const [showQrReader, setShowQrReader] = useState(false);
 	useEffect(() => {
 		if (showQR === true) {
@@ -19,20 +19,20 @@ const ProfileCode = () => {
 		}
 	}, [showQrReader]);
 	return (
-		<div className='absolute top-28 left-2'>
-			<div className='rounded-xl bg-zinc-700 p-2'>
-				<div className='flex flex-col place-content-center place-items-center gap-2'>
+		<div className='absolute top-28 left-[15vw] w-[70vw]'>
+			<div className=' rounded-xl  p-2'>
+				<div className='flex place-content-center place-items-center gap-2'>
 					<button
 						className=' flex w-14 flex-col place-items-center rounded-lg bg-zinc-700 p-1'
 						onClick={() => setShowQR(!showQR)}>
-						<MdOutlineQrCode2 className='h-6 w-6' />
-						<div className='text-sm'>Generate</div>
+						<MdOutlineQrCode2 className='h-5 w-5' />
+						<div className='text-xs'>Generate</div>
 					</button>
 					<button
 						className='flex w-14 flex-col place-items-center rounded-lg bg-red-700 p-1'
 						onClick={() => setShowQrReader(!showQrReader)}>
-						<MdQrCodeScanner className='h-6 w-6' />
-						<div className='text-sm'>Scan</div>
+						<MdQrCodeScanner className='h-5 w-5' />
+						<div className='text-xs'>Scan</div>
 					</button>
 				</div>
 				<div className='flex w-full flex-col place-content-center place-items-center'>
