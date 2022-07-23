@@ -230,45 +230,45 @@ export const updateProfilePic = async (req, res) => {
 	const pp = req.files.file;
 	pp.name = pp.name.replace(/\s/g, "");
 	//local path for testing
+	// const serverPathName = path.join(
+	// 	__dirname,
+	// 	"..",
+	// 	"..",
+	// 	"frontend",
+	// 	"public",
+	// 	"images",
+	// 	`${uuid}`,
+	// 	`${pp.name}`
+	// );
+	// const serverPathFolderName = path.join(
+	// 	__dirname,
+	// 	"..",
+	// 	"..",
+	// 	"frontend",
+	// 	"public",
+	// 	"images",
+	// 	`${uuid}`
+	// );
+	//Production Path
 	const serverPathName = path.join(
-		__dirname,
-		"..",
-		"..",
-		"frontend",
-		"public",
+		"/",
+		"var",
+		"www",
+		"trickedex.app",
+		"html",
 		"images",
 		`${uuid}`,
 		`${pp.name}`
 	);
 	const serverPathFolderName = path.join(
-		__dirname,
-		"..",
-		"..",
-		"frontend",
-		"public",
+		"/",
+		"var",
+		"www",
+		"trickedex.app",
+		"html",
 		"images",
 		`${uuid}`
 	);
-	//Production Path
-	//  const serverPathName = path.join(
-	//  	"/",
-	//  	"var",
-	//  	"www",
-	//  	"trickedex.app",
-	//  	"html",
-	//  	"images",
-	//  	`${uuid}`,
-	//  	`${pp.name}`
-	//  );
-	//  const serverPathFolderName = path.join(
-	//  	"/",
-	//  	"var",
-	//  	"www",
-	//  	"trickedex.app",
-	//  	"html",
-	//  	"images",
-	//  	`${uuid}`,
-	//  );
 
 	console.log(serverPathName);
 	if (pp === null) {
