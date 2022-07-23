@@ -37,9 +37,12 @@ function RegisterForm() {
 				})
 				.then((createdUser) => {
 					setData(createdUser.data);
+					return createdUser;
 				})
-				.then(() => {
-					nav("/login");
+				.then((createdUser) => {
+					if (createdUser.status === 201) {
+						nav("/login");
+					}
 				});
 		} catch (err) {
 			console.log(err);

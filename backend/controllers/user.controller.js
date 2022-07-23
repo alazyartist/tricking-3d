@@ -1,6 +1,6 @@
-import { User } from "../models/users.js";
+import Users from "../models/users.cjs";
 import db from "../models/index.js";
-const user = await User(db.sequelize);
+const user = await Users(db.sequelize);
 import bcrypt from "bcrypt";
 import env from "dotenv";
 import jwt from "jsonwebtoken";
@@ -51,7 +51,7 @@ export const getUserInfoById = async (req, res) => {
 					"first_name",
 					"last_name",
 					"email",
-					"profile_pic",
+					"profilePic",
 					"uuid",
 				],
 			})
@@ -66,7 +66,7 @@ export const getUserInfoById = async (req, res) => {
 
 export const findOrCreate = async (req, res) => {
 	const hash = await bcrypt.hash(req.body.password.toString(), 10);
-	const [user1, created] = await user
+	user
 		.findOrCreate({
 			where: {
 				username: req.body.username,
@@ -76,15 +76,13 @@ export const findOrCreate = async (req, res) => {
 				password: hash,
 			},
 		})
-		.catch((err) => {
-			console.log(err?.errors[0].message);
-			res.send(err?.errors[0].message);
-		});
-	if (created) {
-		//SEND REGISTRATION EMAIL
-		const { first_name, last_name, username, email } = user1.dataValues;
-		await mailer
-			.sendMail({
+		.then((data) => {
+			return data[0];
+		})
+		.then((data) => {
+			console.log(data);
+			const { first_name, last_name, username, email } = data.dataValues;
+			mailer.sendMail({
 				from: '"Trickedex" <torquetricking@gmail.com>',
 				to: `${email}`,
 				subject: `Welcome to the Trickedex, ${username}`,
@@ -95,10 +93,19 @@ export const findOrCreate = async (req, res) => {
 			<a href="trickedex.app"><img style="height: fit; width: fit;" src="https://trickedex.app/TrickedexLogo.png" /></a>
 				<h3 style="text-size: ">We are excited to have you! Once you login you will be able to access the Dashboard and many of it's hidden features!<a style="color:#4f4622;" href='trickedex.app/dash'><h2>Go to The Dash Now</h2></a><br/> <h2>Enjoy!</h2></h3>
 				</html>`,
-			})
-			.catch((err) => console.log(err));
-		res.status(201).send("Successfully Registered New User");
-	}
+			});
+		})
+		.then(() => {
+			res.status(201).send("Successfully Registered New User");
+		})
+		.catch((err) => {
+			if (err) {
+				console.log(err);
+				res
+					.status(401)
+					.json({ error: err, message: "Not Able To Create User, Try Again" });
+			}
+		});
 };
 
 export const checkPassword = async (req, res) => {

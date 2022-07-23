@@ -1,6 +1,6 @@
-import { User } from "../models/users.js";
+import Users from "../models/users.cjs";
 import db from "../models/index.js";
-const user = await User(db.sequelize);
+const user = await Users(db.sequelize);
 import env from "dotenv";
 import jwt from "jsonwebtoken";
 env.config();

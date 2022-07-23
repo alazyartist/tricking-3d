@@ -14,11 +14,13 @@ module.exports = {
 		await queryInterface.bulkInsert("Tricks", [
 			{
 				trick_id: uuidv4(),
+				base_id: "Gainer",
 				name: "Cork",
 				stance_id: "BacksideComplete",
-				takeoffStance_id: "BacksideComplete",
-				landingStance_id: "BacksideComplete",
-				base_id: "Gainer",
+				takeoffStance: "BacksideComplete",
+				landingStance: "BacksideComplete",
+				createdAt: new Date(Date.now()),
+				updatedAt: new Date(Date.now()),
 			},
 		]);
 	},

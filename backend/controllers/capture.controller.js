@@ -1,9 +1,9 @@
-import { User } from "../models/users.js";
-import { Captures } from "../models/captures.js";
+import Users from "../models/users.cjs";
+import Captures from "../models/captures.cjs";
 import db from "../models/index.js";
 
-const user = await User(db.sequelize);
-const capture = await Captures(db.sequelize);
+const user = Users(db.sequelize);
+const capture = Captures(db.sequelize);
 
 export const captureUser = async (req, res) => {
 	let useruuid = req.body.useruuid;

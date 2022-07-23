@@ -1,7 +1,7 @@
-import { Interactions } from "../models/interactions.js";
-import { User } from "../models/users.js";
+import Interactions from "../models/interactions.cjs";
+import Users from "../models/users.cjs";
 const interactions = Interactions(db.sequelize);
-const user = User(db.sequelize);
+const user = Users(db.sequelize);
 import db from "../models/index.js";
 
 export const interact = async (req, res) => {

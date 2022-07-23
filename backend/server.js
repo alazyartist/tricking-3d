@@ -4,7 +4,6 @@ import fetch from "node-fetch";
 const PORT = 5000;
 const app = express();
 import db from "./models/index.js";
-import Associations from "./associations/associations.js";
 import { userRoutes } from "./routes/user.routes.js";
 import { verifyJWT } from "./middleware/verifyJWT.js";
 import { loginRoutes } from "./routes/loggedIn.routes.js";
