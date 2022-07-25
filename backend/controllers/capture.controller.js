@@ -2,18 +2,6 @@ import db from "../models/index.js";
 const user = await db.sequelize.models.Users;
 const capture = await db.sequelize.models.Captures;
 
-// const user = Users(db.sequelize);
-// const capture = Captures(db.sequelize);
-// user.belongsToMany(user, {
-// 	through: capture,
-// 	as: "MainUser",
-// 	foreignKey: "captured_id",
-// });
-// user.belongsToMany(user, {
-// 	through: capture,
-// 	as: "Captured",
-// 	foreignKey: "user_id",
-// });
 db.sequelize.models.Users.associate(db.sequelize.models);
 
 export const captureUser = async (req, res) => {
@@ -38,9 +26,7 @@ export const captureUser = async (req, res) => {
 };
 
 export const getCaptures = async (req, res) => {
-	console.log("Hit Captures");
 	const userid = await req.body.id;
-	console.log(userid, req.body.id, "UserID");
 	try {
 		user
 			.findOne({
@@ -52,31 +38,22 @@ export const getCaptures = async (req, res) => {
 					"profilePic",
 					"uuid",
 				],
-				include: "Captured",
+				include: {
+					model: db.sequelize.models.Users,
+					as: "Captured",
+					attributes: [
+						"username",
+						"first_name",
+						"last_name",
+						"profilePic",
+						"uuid",
+					],
+				},
 			})
-			.then((testUser) => {
-				console.log(testUser);
-				res.json(testUser);
-				// testUser.dataValues.Captured.map((data) => {
-				// 	console.log("captureddata", data);
-				// });
+			.then((userWithCaptures) => {
+				console.log(userWithCaptures);
+				res.json(userWithCaptures);
 			});
-		// const cpt = await capture.findAll({
-		// 	where: { user_id: userid },
-		// 	attributes: ["user_id", "captured_id"],
-		// });
-
-		// let cptUserArr = [];
-		// Object.keys(cpt).map((key) => {
-		// 	cptUserArr.push(cpt[key].dataValues.captured_id);
-		// });
-		// console.log(cptUserArr);
-		// // const cptUsers = await user.findAll({
-		// 	where: { id: cptUserArr },
-		// 	attributes: ["username", "profilePic", "first_name", "last_name", "uuid"],
-		// });
-		// console.log(cptUsers);
-		// res.json(cptUsers);
 	} catch (err) {
 		console.log(err);
 	}

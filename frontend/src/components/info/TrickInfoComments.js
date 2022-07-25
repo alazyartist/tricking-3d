@@ -7,21 +7,23 @@ const TrickInfoComments = ({ count }) => {
 	const api = useApiCreds();
 	const currentAnim = useStore((s) => s.currentAnim);
 	const [comments, setComments] = useState();
-	const getComments = async () => {
-		try {
-			const resData = await api.post("user/comments", {
+	const getComments = () => {
+		api
+			.post("user/comments", {
 				trick: currentAnim,
+			})
+			.then((resData) => {
+				setComments(resData.data.comments);
+			})
+			.catch((err) => {
+				console.log(err);
 			});
-			setComments(resData.data.comments);
-		} catch (err) {
-			console.log(err);
-		}
 	};
 
 	useEffect(() => {
 		getComments();
 		console.log("RAN GET COMMENTS", comments);
-	}, []);
+	}, [count]);
 
 	// useEffect(() => {
 	// 	Array.isArray(comments) &&

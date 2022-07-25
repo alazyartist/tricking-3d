@@ -133,7 +133,11 @@ function RegisterForm() {
 					className={`text=zinc-700 flex w-fit place-self-center rounded-2xl ${
 						validPassword ? "bg-emerald-400" : "bg-zinc-400"
 					} p-2 `}>
-					<button disabled={!validPassword ? true : false}>Submit</button>
+					<input
+						type='button'
+						value='Submit'
+						name='go'
+						disabled={!validPassword ? true : false}></input>
 				</div>
 
 				<div className='flex flex-col gap-2 text-zinc-300'>

@@ -6,7 +6,7 @@ import TrickInfoComments from "./TrickInfoComments";
 
 export default function TrickInfo() {
 	const setInfo = useStore((state) => state.setInfo);
-	const [count, setCount] = useState();
+	const [count, setCount] = useState(0);
 
 	const currentAnim = useStore((state) => state.currentAnim);
 	const TrickInfoText = TrickInformation[currentAnim]?.toString();

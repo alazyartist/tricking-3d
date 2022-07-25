@@ -9,7 +9,7 @@ const Captures = () => {
 	const activeUser = useUserStore();
 	const apiPrivate = useApiCreds();
 	// console.log(activeUser.userInfo.id);
-	const getData = async () => {
+	const getData = () => {
 		apiPrivate
 			.put(
 				"/capture/",
@@ -23,7 +23,8 @@ const Captures = () => {
 				}
 			)
 			.then((res) => {
-				setData(res.data);
+				console.log(res.data.Captured);
+				setData(res.data.Captured);
 			})
 			.catch((err) => console.log(err));
 	};
