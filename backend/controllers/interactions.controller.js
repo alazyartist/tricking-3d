@@ -33,6 +33,18 @@ export const interact = async (req, res) => {
 		err && res.json({ message: "I Failed to Interact", error: err });
 	}
 };
+export const deleteInteraction = async (req, res) => {
+	const { interaction_id } = req.body;
+	try {
+		console.log(interaction_id);
+		await interactions.destroy({ where: { interaction_id: interaction_id } });
+
+		res.json({ message: "Comment Deleted" });
+	} catch (err) {
+		console.log(err);
+		err && res.json({ message: "I Failed to Delete", error: err });
+	}
+};
 export const getInteractions = async (req, res) => {
 	const { trick } = req.body;
 	try {

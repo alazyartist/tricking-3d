@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import useApiCreds from "../../hooks/useApiCreds";
 import { useStore } from "../../store/store";
+import { useUserStore } from "../../store/userStore";
 import UserProfilePicById from "./UserProfilePicById";
 
 const TrickInfoComments = ({ count }) => {
 	const api = useApiCreds();
+	const { userInfo } = useUserStore();
 	const currentAnim = useStore((s) => s.currentAnim);
 	const [comments, setComments] = useState();
+	console.log(userInfo);
 	const getComments = () => {
 		api
 			.post("user/comments", {
@@ -19,7 +22,16 @@ const TrickInfoComments = ({ count }) => {
 				console.log(err);
 			});
 	};
-
+	const deleteComment = (iid) => {
+		console.log(iid);
+		api
+			.post("user/comments/delete", {
+				interaction_id: iid,
+			})
+			.then(() => {
+				getComments();
+			});
+	};
 	useEffect(() => {
 		getComments();
 		console.log("RAN GET COMMENTS", comments);
@@ -44,6 +56,13 @@ const TrickInfoComments = ({ count }) => {
 							id={comment.user_id}
 						/>
 						<div>{comment.content}</div>
+						{userInfo.id === comment.user_id && (
+							<p
+								className='self-center text-xs text-zinc-400'
+								onClick={() => deleteComment(comment.interaction_id)}>
+								delete
+							</p>
+						)}
 					</div>
 				))}
 			</div>

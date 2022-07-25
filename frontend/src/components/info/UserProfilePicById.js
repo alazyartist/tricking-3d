@@ -4,7 +4,6 @@ import useApiCreds from "../../hooks/useApiCreds";
 const UserProfilePicById = ({ id }) => {
 	const api = useApiCreds();
 	const [data, setData] = useState({ profilePic: "noimg.jpeg" });
-	console.log("id", id);
 
 	const getData = async () => {
 		const response = await api
@@ -12,7 +11,6 @@ const UserProfilePicById = ({ id }) => {
 				id: id,
 			})
 			.then((info) => {
-				console.log("ususer", info.data[0]);
 				setData(info.data[0]);
 			})
 			.catch((err) => console.log(err));
@@ -20,7 +18,6 @@ const UserProfilePicById = ({ id }) => {
 	useEffect(() => {
 		getData();
 	}, []);
-	console.log(data);
 	const { profilePic, uuid } = data;
 	return (
 		<div className=' h-2 w-5'>

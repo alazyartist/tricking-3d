@@ -1,5 +1,6 @@
 import express from "express";
 import {
+	deleteInteraction,
 	getInteractions,
 	interact,
 } from "../controllers/interactions.controller.js";
@@ -26,3 +27,4 @@ userRoutes.route("/user/getInfo").get(verifyJWT, getUserInfo);
 userRoutes.route("/user/getInfoById").post(getUserInfoById);
 userRoutes.route("/user/interact").post(interact);
 userRoutes.route("/user/comments").post(getInteractions);
+userRoutes.route("/user/comments/delete").post(deleteInteraction);
