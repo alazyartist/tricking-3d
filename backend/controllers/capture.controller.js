@@ -42,35 +42,41 @@ export const getCaptures = async (req, res) => {
 	const userid = await req.body.id;
 	console.log(userid, req.body.id, "UserID");
 	try {
-		const cpt = await capture.findAll({
-			where: { user_id: userid },
-			attributes: ["user_id", "captured_id"],
-		});
+		user
+			.findOne({
+				where: { id: userid },
+				attributes: [
+					"username",
+					"first_name",
+					"last_name",
+					"profilePic",
+					"uuid",
+				],
+				include: "Captured",
+			})
+			.then((testUser) => {
+				console.log(testUser);
+				res.json(testUser);
+				// testUser.dataValues.Captured.map((data) => {
+				// 	console.log("captureddata", data);
+				// });
+			});
+		// const cpt = await capture.findAll({
+		// 	where: { user_id: userid },
+		// 	attributes: ["user_id", "captured_id"],
+		// });
 
-		let cptUserArr = [];
-		Object.keys(cpt).map((key) => {
-			cptUserArr.push(cpt[key].dataValues.captured_id);
-		});
-		console.log(cptUserArr);
-
-		// user
-		// 	.findOne({
-		// 		where: { id: userid },
-		// 		attributes: ["username", "first_name", "last_name"],
-		// 		include: "Captured",
-		// 	})
-		// 	.then((testUser) => {
-		// 		testUser.dataValues.Captured.map((data) => {
-		// 			console.log("captureddata", data);
-		// 		});
-		// 	});
-		const cptUsers = await user.findAll({
-			where: { id: cptUserArr },
-			attributes: ["username", "profilePic", "first_name", "last_name", "uuid"],
-		});
-		console.log(cptUsers);
+		// let cptUserArr = [];
+		// Object.keys(cpt).map((key) => {
+		// 	cptUserArr.push(cpt[key].dataValues.captured_id);
+		// });
+		// console.log(cptUserArr);
+		// // const cptUsers = await user.findAll({
+		// 	where: { id: cptUserArr },
+		// 	attributes: ["username", "profilePic", "first_name", "last_name", "uuid"],
+		// });
 		// console.log(cptUsers);
-		res.json(cptUsers);
+		// res.json(cptUsers);
 	} catch (err) {
 		console.log(err);
 	}

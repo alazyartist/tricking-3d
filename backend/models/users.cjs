@@ -11,14 +11,14 @@ module.exports = (sequelize) => {
 			// define association here
 			this.belongsToMany(Users, {
 				through: Captures,
-				as: "mainUser",
+				as: "Captured",
 				foreignKey: "user_id",
 				sourceKey: "id",
 				targetKey: "id",
 			});
 			this.belongsToMany(Users, {
 				through: Captures,
-				as: "Captured",
+				as: "mainUser",
 				foreignKey: "captured_id",
 				sourceKey: "id",
 				targetKey: "id",
