@@ -7,8 +7,22 @@ module.exports = (sequelize) => {
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
-		static associate(models) {
+		static associate({ Users, Captures }) {
 			// define association here
+			this.belongsToMany(Users, {
+				through: Captures,
+				as: "mainUser",
+				foreignKey: "user_id",
+				sourceKey: "id",
+				targetKey: "id",
+			});
+			this.belongsToMany(Users, {
+				through: Captures,
+				as: "Captured",
+				foreignKey: "captured_id",
+				sourceKey: "id",
+				targetKey: "id",
+			});
 		}
 	}
 	Users.init(
@@ -66,6 +80,7 @@ module.exports = (sequelize) => {
 		},
 		{
 			sequelize,
+			underscored: false,
 			paranoid: false,
 			modelName: "Users",
 		}

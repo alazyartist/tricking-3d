@@ -28,17 +28,14 @@ module.exports = (sequelize) => {
 				references: { model: "Users", key: "id" },
 			},
 			createdAt: {
-				field: "created_at",
 				type: DataTypes.DATE,
 			},
 			updatedAt: {
-				field: "updated_at",
 				type: DataTypes.DATE,
 			},
 		},
 		{
 			sequelize,
-			underscored: true,
 			modelName: "Captures",
 		}
 	);

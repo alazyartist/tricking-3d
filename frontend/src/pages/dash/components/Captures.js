@@ -44,8 +44,8 @@ const Captures = () => {
 							<CapturedCard
 								name={data[key].first_name + " " + data[key].last_name}
 								src={
-									data[key].uuid
-										? `./images/${data[key].profilePic}`
+									data[key].profilePic
+										? `./images/${data[key].uuid}/${data[key].profilePic}`
 										: `./images/noimg.jpeg`
 								}
 								username={`${data[key].username}`}

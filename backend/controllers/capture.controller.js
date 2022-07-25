@@ -1,9 +1,20 @@
-import Users from "../models/users.cjs";
-import Captures from "../models/captures.cjs";
 import db from "../models/index.js";
+const user = await db.sequelize.models.Users;
+const capture = await db.sequelize.models.Captures;
 
-const user = Users(db.sequelize);
-const capture = Captures(db.sequelize);
+// const user = Users(db.sequelize);
+// const capture = Captures(db.sequelize);
+// user.belongsToMany(user, {
+// 	through: capture,
+// 	as: "MainUser",
+// 	foreignKey: "captured_id",
+// });
+// user.belongsToMany(user, {
+// 	through: capture,
+// 	as: "Captured",
+// 	foreignKey: "user_id",
+// });
+db.sequelize.models.Users.associate(db.sequelize.models);
 
 export const captureUser = async (req, res) => {
 	let useruuid = req.body.useruuid;
@@ -35,16 +46,29 @@ export const getCaptures = async (req, res) => {
 			where: { user_id: userid },
 			attributes: ["user_id", "captured_id"],
 		});
+
 		let cptUserArr = [];
 		Object.keys(cpt).map((key) => {
 			cptUserArr.push(cpt[key].dataValues.captured_id);
 		});
 		console.log(cptUserArr);
 
+		// user
+		// 	.findOne({
+		// 		where: { id: userid },
+		// 		attributes: ["username", "first_name", "last_name"],
+		// 		include: "Captured",
+		// 	})
+		// 	.then((testUser) => {
+		// 		testUser.dataValues.Captured.map((data) => {
+		// 			console.log("captureddata", data);
+		// 		});
+		// 	});
 		const cptUsers = await user.findAll({
 			where: { id: cptUserArr },
-			attributes: ["username", "profilePic", "first_name", "last_name"],
+			attributes: ["username", "profilePic", "first_name", "last_name", "uuid"],
 		});
+		console.log(cptUsers);
 		// console.log(cptUsers);
 		res.json(cptUsers);
 	} catch (err) {
