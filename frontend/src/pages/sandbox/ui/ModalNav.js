@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MdInfo, MdInfoOutline } from "react-icons/md";
+import { MdInfo, MdInfoOutline, MdSettings } from "react-icons/md";
 import { useStore } from "../../../store/store";
 import TrickInfo from "../../../components/info/TrickInfo";
 import Animations from "./modal/Animations";
@@ -10,6 +10,7 @@ import ModalWrapper from "./modal/ModalWrapper";
 import ModelDropdown from "./ModelDropdown";
 import ModalButton from "./modal/ModalButton";
 import Versions from "./modal/Versions";
+import Settings from "./modal/Settings";
 
 const ModalNav = () => {
 	//global states
@@ -32,6 +33,8 @@ const ModalNav = () => {
 				return <Models />;
 			case 3:
 				return <Versions />;
+			case 4:
+				return <Settings />;
 			default:
 				return null;
 		}
@@ -60,13 +63,14 @@ const ModalNav = () => {
 
 			{/**new version w/o collisions */}
 			{/**animations button */}
+
 			{!visible && activeView !== 1 && (
 				<div className='absolute top-2 left-2 text-3xl font-bold text-zinc-300'>
-					{currentAnim}
+					{activeView === 4 ? "Settings" : currentAnim}
 				</div>
 			)}
 			{visible && (
-				<div className='flex gap-3'>
+				<div className='flex max-w-[80vw] flex-wrap gap-3'>
 					<ModalButton
 						handleOpen={() => {
 							handleOpen(0);
@@ -98,11 +102,16 @@ const ModalNav = () => {
 						content={"Versions"}
 						isDropdown
 					/>
+					{/**versions button*/}
+					<ModalButton
+						handleOpen={() => handleOpen(4)}
+						content={<MdSettings className='fill-zinc-300 text-3xl' />}
+					/>
 				</div>
 			)}
 
 			{open && (
-				<ModalWrapper handleClose={handleClose}>
+				<ModalWrapper currentAnim={currentAnim} handleClose={handleClose}>
 					{getViewContent(activeView)}
 				</ModalWrapper>
 			)}
