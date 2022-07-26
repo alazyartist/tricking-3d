@@ -8,7 +8,7 @@ function ModalWrapper({ handleClose, children }) {
 				id='trick-info-modal-bg'
 				className='fixed top-0 left-0 h-full w-full'>
 				<div
-					className='absolute top-24 right-7 z-[1010] text-4xl text-zinc-300'
+					className='absolute top-[1.25rem] right-[6rem] z-[1010] text-4xl text-zinc-300'
 					onClick={(e) => handleClose(e)}>
 					<AiOutlineCloseCircle />
 				</div>
