@@ -17,9 +17,14 @@ env.config();
 export const getUserInfo = async (req, res) => {
 	console.log("hit userInfo");
 	const refreshToken = req.cookies.jwt;
-	user.findOne({ where: { refreshToken } }).then((currentUser) => {
-		res.json(currentUser);
-	});
+	try {
+		user.findOne({ where: { refreshToken } }).then((currentUser) => {
+			res.json(currentUser);
+		});
+	} catch (err) {
+		console.log(err);
+		res.json({ error: err });
+	}
 };
 
 export const findAll = async (req, res) => {
