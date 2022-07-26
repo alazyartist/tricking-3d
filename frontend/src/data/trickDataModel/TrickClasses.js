@@ -68,14 +68,10 @@ export class Transition {
 }
 
 export class Variation {
-	constructor(name, { rotation, kicks, grabs, shapes, touchdowns, axis, pos }) {
+	constructor(name, type, value, pos) {
+		this.type = type;
 		this.name = name;
-		this.adjustRotation = rotation;
-		this.touchdowns = touchdowns;
-		this.kicks = kicks;
-		this.axis = axis;
-		this.grabs = grabs;
-		this.shapes = shapes;
+		this.value = value;
 		this.pos = pos;
 	}
 }
