@@ -967,8 +967,8 @@ const newMap = basesArr.map((base) => {
 		toLeg: base.toLeg,
 		rotation: base.rotation,
 		stance_id: base.takeoffStance,
-		takeoffStance_id: base.takeoffStance,
-		landingStance_id: base.landingStance,
+		takeoffStance: base.takeoffStance,
+		landingStance: base.landingStance,
 	};
 });
 console.log("newmap", newMap);

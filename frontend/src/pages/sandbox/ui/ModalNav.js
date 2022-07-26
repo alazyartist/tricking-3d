@@ -91,11 +91,11 @@ const ModalNav = () => {
 						f={() => handleOpen(1)}
 					/>
 					{/**models button*/}
-					{/* <ModalButton
-				handleOpen={() => handleOpen(2)}
-				content={currentModel}
-				isDropdown
-			/> */}
+					<ModalButton
+						handleOpen={() => handleOpen(2)}
+						content={currentModel}
+						isDropdown
+					/>
 					{/**versions button*/}
 					<ModalButton
 						handleOpen={() => handleOpen(3)}

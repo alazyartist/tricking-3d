@@ -43,7 +43,7 @@ module.exports = {
 				updatedAt: new Date(Date.now()),
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "ed832bc6-eae3-458d-8cf2-26b5b531d96c",
 				base_id: "Gainer",
 				name: "dragonfly-Cork",
 				stance_id: "BacksideComplete",

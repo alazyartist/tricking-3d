@@ -23,6 +23,7 @@ module.exports = (sequelize) => {
 			},
 		},
 		{
+			timestamps: false,
 			sequelize,
 			modelName: "Trick_Variations",
 		}

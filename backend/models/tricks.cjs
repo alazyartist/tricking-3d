@@ -32,9 +32,8 @@ module.exports = (sequelize) => {
 				type: DataTypes.STRING,
 				references: { model: "Stances", key: "stance_id" },
 			},
-			takeoffStance_id: DataTypes.STRING,
-			landingStance_id: DataTypes.STRING,
-			variations_id: DataTypes.INTEGER,
+			takeoffStance: DataTypes.STRING,
+			landingStance: DataTypes.STRING,
 		},
 		{
 			sequelize,

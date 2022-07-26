@@ -24,9 +24,6 @@ module.exports = {
 			landingStance: {
 				type: Sequelize.STRING,
 			},
-			variations_id: {
-				type: Sequelize.INTEGER,
-			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
