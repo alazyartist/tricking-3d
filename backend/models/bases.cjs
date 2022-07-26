@@ -9,8 +9,6 @@ module.exports = (sequelize) => {
 		 */
 		static associate({ Stances, Tricks }) {
 			// define association here
-			this.belongsTo(Stances);
-			this.hasMany(Tricks);
 		}
 	}
 	Bases.init(

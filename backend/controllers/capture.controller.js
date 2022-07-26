@@ -2,6 +2,8 @@ import db from "../models/index.js";
 const user = await db.sequelize.models.Users;
 const capture = await db.sequelize.models.Captures;
 
+db.sequelize.models.Tricks.associate(db.sequelize.models);
+db.sequelize.models.Variations.associate(db.sequelize.models);
 db.sequelize.models.Users.associate(db.sequelize.models);
 
 export const captureUser = async (req, res) => {

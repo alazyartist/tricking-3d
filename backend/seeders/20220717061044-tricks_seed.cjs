@@ -42,6 +42,16 @@ module.exports = {
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
 			},
+			{
+				trick_id: uuidv4(),
+				base_id: "Gainer",
+				name: "dragonfly-Cork",
+				stance_id: "BacksideComplete",
+				takeoffStance: "BacksideComplete",
+				landingStance: "BacksideComplete",
+				createdAt: new Date(Date.now()),
+				updatedAt: new Date(Date.now()),
+			},
 		]);
 	},
 

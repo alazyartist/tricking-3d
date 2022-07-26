@@ -1,0 +1,33 @@
+"use strict";
+const { Model, DataTypes } = require("sequelize");
+module.exports = (sequelize) => {
+	class Variations extends Model {
+		/**
+		 * Helper method for defining associations.
+		 * This method is not a part of Sequelize lifecycle.
+		 * The `models/index` file will call this method automatically.
+		 */
+		static associate({ Tricks }) {
+			// define association here
+			this.belongsToMany(Tricks, {
+				through: "Trick_Variations",
+				foreignKey: "variation_id",
+				sourceKey: "id",
+			});
+		}
+	}
+	Variations.init(
+		{
+			id: { type: DataTypes.STRING, autoIncrement: true, primaryKey: true },
+			type: DataTypes.STRING,
+			name: DataTypes.STRING,
+			value: DataTypes.STRING,
+			pos: DataTypes.STRING,
+		},
+		{
+			sequelize,
+			modelName: "Variations",
+		}
+	);
+	return Variations;
+};
