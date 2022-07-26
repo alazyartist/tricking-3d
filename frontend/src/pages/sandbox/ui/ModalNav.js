@@ -49,7 +49,7 @@ const ModalNav = () => {
 	return (
 		<div
 			id='dropdowns-div'
-			className='max-h-750px maw-w-screen absolute z-[1006] ml-3 mt-[45px] flex flex-wrap gap-3'>
+			className='max-h-750px maw-w-[90vw] absolute z-[1006] ml-3 mt-[45px] flex flex-col gap-3'>
 			{/**original version w/ collisions */}
 			{/* <AnimationsDropwdown />
       <InfoButton />*/}

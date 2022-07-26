@@ -1,27 +1,22 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../../../../store/store";
+import useCreateVersions from "./useCreateVersions";
 
 const Animations = () => {
-	const animationsArray = useStore((s) => s.animationsArray);
 	const selectAnim = useStore((s) => s.selectAnim);
-	const currentAnim = useStore((s) => s.currentAnim);
 	const currentModel = useStore((s) => s.activeModel);
 	const currVersions = useStore((s) => s.currVersions);
-	const setVersions = useStore((s) => s.setVersions);
+
 	const navigate = useNavigate();
-	const regEx = /(\s?\-?\d+)$/;
-	const renameAnimArr = animationsArray.map((anim) => anim.replace(regEx, ""));
-	const animSet = new Set(renameAnimArr);
-	useEffect(() => {
-		setVersions(animationsArray.filter((curr) => curr.includes(currentAnim)));
-	}, []);
+	const animSet = useCreateVersions();
+
 	return (
 		<div
 			className='no-scrollbar fixed top-[10vh] left-[10vw] 
         h-[85vh] w-[80vw] flex-col items-center justify-center overflow-y-auto 
         rounded-2xl py-6 sm:pr-6 md:pr-4 lg:pr-[5rem]'>
-			{Array.from(animSet)?.map((e, i) => {
+			{animSet?.map((e, i) => {
 				return (
 					<button
 						id='dropdown-item'
