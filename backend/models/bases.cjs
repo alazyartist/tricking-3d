@@ -12,6 +12,7 @@ module.exports = (sequelize) => {
 			this.hasOne(Stances, {
 				foreignKey: "base_id",
 				sourceKey: "base_id",
+				onDelete: "UPDATE",
 			});
 		}
 	}
