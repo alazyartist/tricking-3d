@@ -10,9 +10,11 @@ module.exports = {
 			},
 			user_id: {
 				type: Sequelize.INTEGER,
+				references: { model: "Users", key: "id" },
 			},
 			captured_id: {
-				type: Sequelize.STRING,
+				type: Sequelize.INTEGER,
+				references: { model: "Users", key: "id" },
 			},
 			createdAt: {
 				type: Sequelize.DATE,
