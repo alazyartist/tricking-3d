@@ -11,6 +11,7 @@ import { refreshRoutes } from "./routes/refresh.routes.js";
 import cookieParser from "cookie-parser";
 import handleLogout from "./controllers/logout.controller.js";
 import { captureRoutes } from "./routes/captures.routes.js";
+import { trickRoutes } from "./routes/trick.routes.js";
 const corsOptions = {
 	origin: [
 		"http://localhost:3000",
@@ -38,6 +39,7 @@ app.use((req, res, next) => {
 //Middlewares
 
 app.use("/api", userRoutes);
+app.use("/api/tricks", trickRoutes);
 app.use("/api/refresh", refreshRoutes);
 app.use("/api/logout", handleLogout);
 app.use("/api/loggedIn", verifyJWT, loginRoutes);
