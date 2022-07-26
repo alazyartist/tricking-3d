@@ -8,9 +8,7 @@ import useMediaController from "../hooks/useMediaController";
 
 export default function Kerwood40({ ...props }) {
 	const group = useRef();
-	const { nodes, materials, animations } = useGLTF(
-		"https://torquetricking.com/3d/Kerwood40.glb"
-	);
+	const { nodes, materials, animations } = useGLTF("/Kerwood.glb");
 	const { actions, names, mixer } = useAnimations(animations, group);
 	const hipsRef = useRef();
 	useMediaController(actions, names, mixer);

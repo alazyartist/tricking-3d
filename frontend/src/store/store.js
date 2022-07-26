@@ -16,6 +16,7 @@ export const useStore = create(
 				isPaused: false,
 			})),
 		animationsArray: [],
+		currVersions: [],
 		stanceColor: "#ffffff",
 		setStanceColor: (value) => set(() => ({ stanceColor: value })),
 		bounce: true,
@@ -63,5 +64,7 @@ export const useStore = create(
 		trimToggle: false,
 		updateAnimationArray: (value) =>
 			set(() => ({ animationsArray: [...value] })),
+
+		setVersions: (value) => set(() => ({ currVersions: [...value] })),
 	}))
 );

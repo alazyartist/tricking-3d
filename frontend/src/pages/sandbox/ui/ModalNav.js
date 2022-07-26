@@ -9,11 +9,13 @@ import InfoButton from "./InfoButton";
 import ModalWrapper from "./modal/ModalWrapper";
 import ModelDropdown from "./ModelDropdown";
 import ModalButton from "./modal/ModalButton";
+import Versions from "./modal/Versions";
 
 const ModalNav = () => {
 	//global states
 	const currentAnim = useStore((s) => s.currentAnim);
 	const currentModel = useStore((s) => s.activeModel);
+	const currentVersions = useStore((s) => s.currVersions);
 
 	//local states
 	const [open, setOpen] = useState(false);
@@ -27,6 +29,8 @@ const ModalNav = () => {
 				return <TrickInfo />;
 			case 2:
 				return <Models />;
+			case 3:
+				return <Versions />;
 			default:
 				return null;
 		}
@@ -45,7 +49,7 @@ const ModalNav = () => {
 	return (
 		<div
 			id='dropdowns-div'
-			className='max-h-750px absolute z-[1006] ml-3 mt-[45px] flex gap-3'>
+			className='max-h-750px maw-w-screen absolute z-[1006] ml-3 mt-[45px] flex flex-wrap gap-3'>
 			{/**original version w/ collisions */}
 			{/* <AnimationsDropwdown />
       <InfoButton />*/}
@@ -76,6 +80,12 @@ const ModalNav = () => {
 			<ModalButton
 				handleOpen={() => handleOpen(2)}
 				content={currentModel}
+				isDropdown
+			/>
+			{/**versions button*/}
+			<ModalButton
+				handleOpen={() => handleOpen(3)}
+				content={"Versions"}
 				isDropdown
 			/>
 
