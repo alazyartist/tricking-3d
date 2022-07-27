@@ -17,6 +17,9 @@ env.config();
 export const getUserInfo = async (req, res) => {
 	console.log("hit userInfo");
 	const refreshToken = req.cookies.jwt;
+  if(refreshToken === null) {
+    res.send("You aint got no cookies.");
+  }
 	try {
 		user.findOne({ where: { refreshToken } }).then((currentUser) => {
 			res.json(currentUser);
@@ -66,7 +69,7 @@ export const getUserInfoById = async (req, res) => {
 			.catch((err) => console.log(err));
 	}
 
-	// res.send("User coming soon.");
+	res.send("User has no ID.");
 };
 
 export const findOrCreate = async (req, res) => {

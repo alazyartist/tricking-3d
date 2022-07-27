@@ -14,6 +14,7 @@ module.exports = {
 		 * }], {});
 		 */
 		const hash = await bcrypt.hash("test", 10);
+		const hash2 = await bcrypt.hash("init", 10);
 		await queryInterface.bulkInsert("Users", [
 			{
 				id: 1,
@@ -26,6 +27,17 @@ module.exports = {
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
 			},
+      {
+				id: 2,
+				username: "Tohzt",
+				first_name: "Steven",
+				last_name: "French",
+				email: "Steven.G.French@live.com",
+				password: hash2,
+				uuid: uuid(),
+				createdAt: new Date(Date.now()),
+				updatedAt: new Date(Date.now()),
+      }
 		]);
 	},
 
