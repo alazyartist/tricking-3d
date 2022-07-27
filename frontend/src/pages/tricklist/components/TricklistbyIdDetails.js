@@ -5,7 +5,10 @@ const TricklistbyIdDetails = ({ data }) => {
 	updated = updated.toDateString();
 	return (
 		<>
-			<div className='font-inter text-2xl font-bold text-zinc-300'>
+			<div
+				onChange={(e) => console.log(e)}
+				contentEditable='true'
+				className='font-inter text-2xl font-bold text-zinc-300'>
 				{data?.name}
 			</div>
 			<div id={"data-container"} className='flex gap-8 text-zinc-300'>

@@ -33,11 +33,17 @@ const MakeNewTrickList = ({ setOpen, setCount, count }) => {
 		<div
 			onClick={(e) => handleClick(e)}
 			className='absolute top-0 h-full w-full bg-zinc-800 bg-opacity-40 backdrop-blur-xl'>
-			<div className='absolute top-[50vh] w-full '>
+			<label
+				className='lg absolute top-[45%] left-[20%] text-2xl md:left-[35%] lg:left-[45%]'
+				htmlFor='name-input'>
+				Name your Tricklist
+			</label>
+			<div className='absolute top-[50vh] flex w-full flex-col p-2 '>
 				<form
 					onSubmit={handleSubmit}
 					className='flex place-content-center gap-2'>
 					<input
+						id={"name-input"}
 						className='rounded-xl p-1 pl-2'
 						onChange={(e) => {
 							setName(e.target.value);
