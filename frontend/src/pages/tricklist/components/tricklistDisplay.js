@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import useApiCreds from "../../../hooks/useApiCreds";
 import { useUserStore } from "../../../store/userStore";
 
-const TricklistDisplay = () => {
+const TricklistDisplay = ({ count, setOpenView, setTricklist_id }) => {
 	const accessToken = useUserStore((s) => s.accessToken);
 	const userInfo = useUserStore((s) => s.userInfo);
 	const apiPrivate = useApiCreds();
 	const [lists, setLists] = useState([]);
-	console.log(userInfo, "activeUser");
-	const getTricklists = () => {
+	const getUserTricklists = async () => {
 		apiPrivate
 			.post("/tricklist/user", {
 				accessToken: accessToken,
@@ -20,9 +19,14 @@ const TricklistDisplay = () => {
 			})
 			.catch((err) => console.log(err));
 	};
+	const handleListClick = (uuid) => {
+		console.log("setOpenView", uuid);
+		setTricklist_id(uuid);
+		setOpenView(true);
+	};
 	useEffect(() => {
-		getTricklists();
-	}, []);
+		getUserTricklists();
+	}, [count]);
 	return (
 		<div>
 			<table>
@@ -35,7 +39,7 @@ const TricklistDisplay = () => {
 				<tbody className='text-center'>
 					{lists.length &&
 						lists.map((item) => (
-							<tr>
+							<tr onClick={() => handleListClick(item.tricklist_id)}>
 								<td>
 									{item.tricklist_id.substring(item.tricklist_id.length - 4)}
 								</td>

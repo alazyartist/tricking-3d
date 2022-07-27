@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useApiCreds from "../../../hooks/useApiCreds";
 import { useUserStore } from "../../../store/userStore";
 
-const MakeNewTrickList = () => {
+const MakeNewTrickList = ({ setOpen, setCount, count }) => {
 	const [name, setName] = useState("");
 	const accessToken = useUserStore((s) => s.accessToken);
 	const { uuid } = useUserStore((s) => s.userInfo);
@@ -21,22 +21,30 @@ const MakeNewTrickList = () => {
 				console.log(response);
 			})
 			.catch((err) => console.log(err));
+		setOpen(false);
+		setCount(count + 1);
 	};
 
 	return (
-		<div>
-			<form onSubmit={handleSubmit} className='flex place-content-center gap-2'>
-				<input
-					className='rounded-xl p-1 pl-2'
-					onChange={(e) => {
-						setName(e.target.value);
-					}}
-					placeholder={"name"}
-					value={name}
-					type={"text"}
-				/>
-				<button className='h-5 w-10 rounded-xl bg-red-500' />
-			</form>
+		<div className='absolute h-full w-full bg-zinc-800 bg-opacity-40 backdrop-blur-sm'>
+			<div className='absolute top-[50vh] w-full '>
+				<form
+					onSubmit={handleSubmit}
+					className='flex place-content-center gap-2'>
+					<input
+						className='rounded-xl p-1 pl-2'
+						onChange={(e) => {
+							setName(e.target.value);
+						}}
+						placeholder={"name"}
+						value={name}
+						type={"text"}
+					/>
+					<button className=' w-fit rounded-xl bg-emerald-600 p-2 text-zinc-300'>
+						Create
+					</button>
+				</form>
+			</div>
 		</div>
 	);
 };
