@@ -37,8 +37,7 @@ const Captures = () => {
 
 	return (
 		<div className='flex flex-col place-items-center font-inter'>
-			<div className='text-xl'>Captures</div>
-			<div onClick={() => getData()}>GetData</div>
+			<div onClick={() => getData()}>Your Captures</div>
 			<div>
 				{!!data &&
 					Object.keys(data).map((key) => (

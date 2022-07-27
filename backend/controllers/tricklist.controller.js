@@ -62,3 +62,13 @@ export const getTricklistsById = async (req, res) => {
 			res.json(data);
 		});
 };
+export const deleteTricklistsById = async (req, res) => {
+	const tricklist_id = req.params.tricklist_id;
+	tricklist
+		.destroy({
+			where: { tricklist_id: tricklist_id },
+		})
+		.then((data) => {
+			res.json({ data: data, message: "DELETED TRICKLIST" });
+		});
+};

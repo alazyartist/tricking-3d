@@ -52,10 +52,6 @@ function Dashboard() {
 								: "./images/noimg.jpeg"
 						}
 					/>
-					<div className='text-center'>
-						You are a bit early.
-						<br /> Not much to Show Here Yet
-					</div>
 				</>
 			)}
 			{/* QR Code Generator and Reader */}

@@ -32,7 +32,7 @@ const MakeNewTrickList = ({ setOpen, setCount, count }) => {
 	return (
 		<div
 			onClick={(e) => handleClick(e)}
-			className='absolute top-0 h-full w-full bg-zinc-800 bg-opacity-40 backdrop-blur-sm'>
+			className='absolute top-0 h-full w-full bg-zinc-800 bg-opacity-40 backdrop-blur-xl'>
 			<div className='absolute top-[50vh] w-full '>
 				<form
 					onSubmit={handleSubmit}

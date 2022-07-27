@@ -26,7 +26,11 @@ const ListViewbyID = ({ tricklist_id, setOpenView }) => {
 		}
 	};
 	const handleDelete = () => {
-		console.log("GONNA DELETE");
+		console.log("GONNA DELETE", tricklist_id, userInfo.uuid);
+		apiPrivate.delete(`/tricklist/user/${tricklist_id}`).then((res) => {
+			console.log(res.data);
+			setOpenView(false);
+		});
 	};
 	return (
 		<div
