@@ -24,9 +24,15 @@ const MakeNewTrickList = ({ setOpen, setCount, count }) => {
 		setOpen(false);
 		setCount(count + 1);
 	};
-
+	const handleClick = (e) => {
+		if (e.target.nodeName === "DIV") {
+			setOpen(false);
+		}
+	};
 	return (
-		<div className='absolute h-full w-full bg-zinc-800 bg-opacity-40 backdrop-blur-sm'>
+		<div
+			onClick={(e) => handleClick(e)}
+			className='absolute top-0 h-full w-full bg-zinc-800 bg-opacity-40 backdrop-blur-sm'>
 			<div className='absolute top-[50vh] w-full '>
 				<form
 					onSubmit={handleSubmit}
