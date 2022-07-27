@@ -1,7 +1,7 @@
 import db from "../models/index.js";
 const tricks = await db.sequelize.models.Tricks;
-db.sequelize.models.Bases.associate(db.sequelize.models);
 db.sequelize.models.Tricks.associate(db.sequelize.models);
+db.sequelize.models.Bases.associate(db.sequelize.models);
 db.sequelize.models.Stances.associate(db.sequelize.models);
 db.sequelize.models.Variations.associate(db.sequelize.models);
 export const getTrickByTrickId = async (req, res) => {

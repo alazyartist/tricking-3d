@@ -10,8 +10,9 @@ module.exports = (sequelize) => {
 		static associate({ Stances, Tricks }) {
 			// define association here
 			this.hasOne(Stances, {
-				foreignKey: "base_id",
-				sourceKey: "base_id",
+				foreignKey: "stance_id",
+				sourceKey: "stance_id",
+				targetKey: "stance_id",
 				constraints: false,
 			});
 		}
