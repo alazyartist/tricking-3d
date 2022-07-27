@@ -4,7 +4,7 @@ import api from "../../api/api.js";
 import useApiCreds from "../../hooks/useApiCreds.js";
 import useUserInfo from "../../hooks/useUserInfo.js";
 import { useUserStore } from "../../store/userStore.js";
-const UpdateUserInfoForm = () => {
+const UpdateUserInfoForm = ({ setEditing }) => {
 	const [success, setSuccess] = useState(false);
 	const [validPassword, setValidPassword] = useState(false);
 	const [isVisible, setIsVisible] = useState();
@@ -79,8 +79,10 @@ const UpdateUserInfoForm = () => {
 		}
 	}, [userData]);
 	useEffect(() => {
+		success ? setEditing(false) : setEditing(true);
 		getUserInfo();
-	}, []);
+	}, [success]);
+
 	return (
 		<div className='w-[70vw] rounded-xl bg-zinc-800'>
 			<form
@@ -167,11 +169,7 @@ const UpdateUserInfoForm = () => {
 					className={`text=zinc-700 flex w-fit place-self-center rounded-2xl ${
 						validPassword ? "bg-emerald-400" : "bg-zinc-400"
 					} p-2 `}>
-					<button
-						onClick={() => setSuccess(true)}
-						disabled={!validPassword ? true : false}>
-						Save
-					</button>
+					<button disabled={!validPassword ? true : false}>Save</button>
 				</div>
 
 				<div className='flex flex-col gap-2 text-zinc-300'>

@@ -52,7 +52,7 @@ function UserCard(props) {
 							className='relative mt-4 h-10 w-[70vw] rounded-xl'
 							style={styles}>
 							<UpdateProfilePic />
-							<UpdateUserInfoForm />
+							<UpdateUserInfoForm setEditing={setEditing} />
 						</animated.div>
 					)
 			)}
