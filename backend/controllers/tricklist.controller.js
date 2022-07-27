@@ -47,3 +47,18 @@ export const getUserTricklists = async (req, res) => {
 			res.json(data);
 		});
 };
+export const getTricklistsById = async (req, res) => {
+	const { uuid, tricklist_id } = req.body;
+	tricklist
+		.findAll({
+			where: { owner: uuid, tricklist_id: tricklist_id },
+			include: {
+				model: db.sequelize.models.Users,
+				as: "Owner",
+				attributes: ["username", "first_name"],
+			},
+		})
+		.then((data) => {
+			res.json(data);
+		});
+};

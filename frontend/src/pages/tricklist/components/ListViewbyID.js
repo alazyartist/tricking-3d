@@ -1,12 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { MdClose } from "react-icons/md";
 import useApiCreds from "../../../hooks/useApiCreds";
-
+import { useUserStore } from "../../../store/userStore";
+import TricklistbyIdDetails from "./TricklistbyIdDetails";
 const ListViewbyID = ({ tricklist_id, setOpenView }) => {
+	const userInfo = useUserStore((s) => s.userInfo);
 	const apiPrivate = useApiCreds();
+
+	const [data, setData] = useState("No Data");
 	const [deleteCheck, setDeleteCheck] = useState(false);
 	useEffect(() => {
-		console.log("listView");
+		apiPrivate
+			.post("/tricklist/user/id", {
+				uuid: userInfo.uuid,
+				tricklist_id: tricklist_id,
+			})
+			.then((response) => {
+				console.log(response.data[0]);
+				setData(response.data[0]);
+			});
 	}, []);
 	const handleClick = (e) => {
 		if (e.target.id === "background") {
@@ -20,9 +32,9 @@ const ListViewbyID = ({ tricklist_id, setOpenView }) => {
 		<div
 			onClick={(e) => handleClick(e)}
 			id={"background"}
-			className='absolute top-0 z-[10] flex h-[100vh] w-full place-content-center place-items-center bg-zinc-800 bg-opacity-40 backdrop-blur-md'>
-			<div className='text-xl'>
-				<div>{tricklist_id}</div>
+			className='absolute top-0 z-[10] flex h-[100vh] w-full place-content-center bg-zinc-800 bg-opacity-40 pt-[8rem] backdrop-blur-xl'>
+			<div className='h-fit text-xl'>
+				<TricklistbyIdDetails data={data} />
 				<div>
 					{deleteCheck && (
 						<div className='absolute top-0 left-0 flex h-full w-full flex-col place-content-center place-items-center gap-3 bg-zinc-800 font-inter'>
