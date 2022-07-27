@@ -13,12 +13,12 @@ module.exports = (sequelize) => {
 	}
 	Animations.init(
 		{
-			animation_id: { type: DataTypes.UUID, primaryKey: true },
-			animationName: DataTypes.STRING,
-			trick_id: {
+			animation_id: {
 				type: DataTypes.UUID,
-				references: { model: "Tricks", key: "trick_id" },
+				defaultValue: DataTypes.UUIDV4,
+				primaryKey: true,
 			},
+			animationName: DataTypes.STRING,
 			skeleton: DataTypes.STRING,
 			fileName: DataTypes.STRING,
 			model: DataTypes.STRING,

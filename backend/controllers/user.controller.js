@@ -1,7 +1,7 @@
 import Users from "../models/users.cjs";
 import db from "../models/index.js";
-const user = await Users(db.sequelize);
 import bcrypt from "bcrypt";
+const user = await db.sequelize.models.Users;
 import env from "dotenv";
 import jwt from "jsonwebtoken";
 import * as fs from "fs";

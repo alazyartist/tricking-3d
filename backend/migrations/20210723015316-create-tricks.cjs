@@ -24,6 +24,9 @@ module.exports = {
 			landingStance: {
 				type: Sequelize.STRING,
 			},
+			defaultAnimation: {
+				type: Sequelize.UUID,
+			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,

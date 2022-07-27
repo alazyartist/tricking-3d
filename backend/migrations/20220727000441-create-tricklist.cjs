@@ -1,34 +1,30 @@
 "use strict";
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable("Animations", {
-			animation_id: {
+		await queryInterface.createTable("Tricklists", {
+			tricklist_id: {
+				allowNull: false,
 				type: Sequelize.UUID,
-				primaryKey: true,
 				defaultValue: Sequelize.UUIDV4,
+				primaryKey: true,
 			},
-			animationName: {
+			name: {
 				type: Sequelize.STRING,
 			},
-
-			skeleton: {
-				type: Sequelize.STRING,
-			},
-			fileName: {
-				type: Sequelize.STRING,
-			},
-			model: {
-				type: Sequelize.STRING,
+			owner: {
+				type: Sequelize.UUID,
 			},
 			createdAt: {
+				allowNull: false,
 				type: Sequelize.DATE,
 			},
 			updatedAt: {
+				allowNull: false,
 				type: Sequelize.DATE,
 			},
 		});
 	},
 	async down(queryInterface, Sequelize) {
-		await queryInterface.dropTable("Animations");
+		await queryInterface.dropTable("Tricklists");
 	},
 };

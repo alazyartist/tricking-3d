@@ -11,6 +11,7 @@ import Captures from "./components/Captures";
 import { NoToneMapping } from "three";
 import Interact from "./components/Interact";
 import { FaQrcode } from "react-icons/fa";
+import TricklistPage from "../tricklist/TricklistPage";
 
 function Dashboard() {
 	const user = useUserStore((s) => s.user);
@@ -64,6 +65,8 @@ function Dashboard() {
 				className='absolute top-20 left-5'
 			/>
 			{!open && <Captures />}
+			<TricklistPage />
+
 			<button className='fixed right-5 bottom-14' onClick={() => logout()}>
 				Logout
 			</button>
