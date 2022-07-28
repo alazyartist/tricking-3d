@@ -13,6 +13,7 @@ module.exports = (sequelize) => {
 	}
 	Combo_Tricks.init(
 		{
+			id: { type: DataTypes.INTEGER, primaryKey: true },
 			combo_id: DataTypes.UUID,
 			trick_id: DataTypes.UUID,
 		},

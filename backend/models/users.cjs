@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
 				sourceKey: "id",
 				targetKey: "id",
 			});
-			this.hasOne(Tricklist, {
+			this.hasMany(Tricklist, {
 				foreignKey: "owner",
 				sourceKey: "uuid",
 				targetKey: "owner",

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useApiCreds from "../../../hooks/useApiCreds";
 import { useUserStore } from "../../../store/userStore";
+import AddComboItemToTricklist from "./AddComboItemToTricklist";
 import DeleteCheck from "./DeleteCheck";
 import TricklistbyIdDetails from "./TricklistbyIdDetails";
 const ListViewbyID = ({ tricklist_id, setOpenView }) => {
@@ -9,16 +10,24 @@ const ListViewbyID = ({ tricklist_id, setOpenView }) => {
 
 	const [data, setData] = useState("No Data");
 	const [deleteCheck, setDeleteCheck] = useState(false);
+
+	const getTricklists = async () => {
+		try {
+			apiPrivate
+				.post("/tricklist/user/id", {
+					uuid: userInfo.uuid,
+					tricklist_id: tricklist_id,
+				})
+				.then((response) => {
+					console.log(response.data[0]);
+					setData(response.data[0]);
+				});
+		} catch (err) {
+			console.log(err);
+		}
+	};
 	useEffect(() => {
-		apiPrivate
-			.post("/tricklist/user/id", {
-				uuid: userInfo.uuid,
-				tricklist_id: tricklist_id,
-			})
-			.then((response) => {
-				console.log(response.data[0]);
-				setData(response.data[0]);
-			});
+		getTricklists();
 	}, []);
 	const handleClick = (e) => {
 		if (e.target.id === "background") {
@@ -44,6 +53,7 @@ const ListViewbyID = ({ tricklist_id, setOpenView }) => {
 					handleDelete={handleDelete}
 					setDeleteCheck={setDeleteCheck}
 				/>
+				<AddComboItemToTricklist tricklist_id={tricklist_id} />
 			</div>
 		</div>
 	);

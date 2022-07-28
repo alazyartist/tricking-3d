@@ -1,4 +1,3 @@
-import Users from "../models/users.cjs";
 import db from "../models/index.js";
 import bcrypt from "bcrypt";
 const user = await db.sequelize.models.Users;
@@ -17,9 +16,8 @@ env.config();
 export const getUserInfo = async (req, res) => {
 	console.log("hit userInfo");
 	const refreshToken = req.cookies.jwt;
-	if (!req.cookies.jwt) {
-		res.send("You aint got no cookies.");
-	}
+	if (!req.cookies.jwt) return res.send("You aint got no cookies.");
+
 	try {
 		user.findOne({ where: { refreshToken } }).then((currentUser) => {
 			res.json(currentUser);
@@ -51,22 +49,26 @@ export const findAll = async (req, res) => {
 export const getUserInfoById = async (req, res) => {
 	const { id } = req.body;
 	if (id) {
-		user
-			.findAll({
-				where: { id: id },
-				attributes: [
-					"username",
-					"first_name",
-					"last_name",
-					"email",
-					"profilePic",
-					"uuid",
-				],
-			})
-			.then((users) => {
-				res.json(users);
-			})
-			.catch((err) => console.log(err));
+		try {
+			user
+				.findAll({
+					where: { id: id },
+					attributes: [
+						"username",
+						"first_name",
+						"last_name",
+						"email",
+						"profilePic",
+						"uuid",
+					],
+				})
+				.then((users) => {
+					res.json(users);
+				})
+				.catch((err) => console.log(err));
+		} catch (err) {
+			console.log(err);
+		}
 	}
 
 	res.send("User has no ID.");

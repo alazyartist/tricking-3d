@@ -7,6 +7,9 @@ module.exports = {
 				primaryKey: true,
 				allowNull: false,
 			},
+			trick_id: {
+				type: Sequelize.UUID,
+			},
 			name: {
 				type: Sequelize.STRING,
 			},
