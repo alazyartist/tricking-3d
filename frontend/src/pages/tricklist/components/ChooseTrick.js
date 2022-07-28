@@ -5,10 +5,11 @@ import { useUserStore } from "../../../store/userStore";
 const ChooseTrick = ({ setOpen, open, tricklist_id }) => {
 	const userInfo = useUserStore((s) => s.userInfo);
 	const apiPrivate = useApiCreds();
+	const [comboArr, setComboArr] = useState([]);
 	const [cname, setCname] = useState("");
 	const addComboDB = async () => {
 		try {
-			apiPrivate.post("/combo/add", {
+			apiPrivate.post(`/tricklist/user/${tricklist_id}`, {
 				tricklist_id: tricklist_id,
 				uuid: userInfo.uuid,
 				name: cname,
@@ -17,8 +18,23 @@ const ChooseTrick = ({ setOpen, open, tricklist_id }) => {
 			console.log(err);
 		}
 	};
+	const getAllCombos = async () => {
+		try {
+			apiPrivate
+				.get(`/combo`, {})
+				.then((responseData) => {
+					console.log("RESPONSE FROM CHOOSE TRICK", responseData);
+					setComboArr(responseData.data);
+				})
+				.catch((err) => console.log(err));
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+		getAllCombos();
+	}, []);
 	const handleClick = (e) => {
 		if (e.target.id === "addItemBackground") {
 			setOpen(false);
@@ -29,10 +45,13 @@ const ChooseTrick = ({ setOpen, open, tricklist_id }) => {
 			onClick={(e) => handleClick(e)}
 			id='addItemBackground'
 			className='absolute top-0 left-0 flex h-full w-full place-content-center place-items-center bg-zinc-800 bg-opacity-40 backdrop-blur-md'>
-			<div className='flex flex-col'>
-				<div>ChooseTrick</div>
-				<div>viewAllTricks</div>
-				<div>{tricklist_id}</div>
+			<div className='flex flex-col place-content-center place-items-center'>
+				<div className='p-1 text-2xl font-bold'>Choose Combo to Add</div>
+				<div>
+					{comboArr.map((combo) => (
+						<div>{combo.name}</div>
+					))}
+				</div>
 				<input
 					onChange={(e) => setCname(e.target.value)}
 					type={"text"}

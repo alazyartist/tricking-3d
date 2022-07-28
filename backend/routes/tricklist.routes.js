@@ -1,5 +1,8 @@
 import express from "express";
-import { getComboItemsByTricklistId } from "../controllers/combo.controller.js";
+import {
+	addCombotoTricklist,
+	getComboItemsByTricklistId,
+} from "../controllers/combo.controller.js";
 
 import {
 	deleteTricklistsById,
@@ -14,6 +17,9 @@ tricklistRoutes.route("/").get(getTricklists).post(makeNewTricklist);
 tricklistRoutes.route("/user").post(getUserTricklists);
 tricklistRoutes.route("/user/id").post(getTricklistsById);
 
-tricklistRoutes.route("/user/:tricklist_id").delete(deleteTricklistsById);
+tricklistRoutes
+	.route("/user/:tricklist_id")
+	.delete(deleteTricklistsById)
+	.post(addCombotoTricklist);
 
 tricklistRoutes.route("/user/tl/:tid").get(getComboItemsByTricklistId);
