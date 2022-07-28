@@ -27,7 +27,7 @@ export const captureUser = async (req, res) => {
 
 export const getCaptures = async (req, res) => {
 	const userid = await req.body.id;
-
+	if (!req.body.id) return res.send("No ID Sent");
 	try {
 		user
 			.findOne({

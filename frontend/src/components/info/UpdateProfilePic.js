@@ -39,7 +39,7 @@ const UpdateProfilePic = () => {
 
 	return (
 		<>
-			<form id='form' className='flex' onSubmit={onSubmit}>
+			<form id='form' className='flex gap-2' onSubmit={onSubmit}>
 				<label
 					className='mb-2 flex w-3/4 place-content-center place-items-center rounded-xl bg-zinc-800 p-2 text-sm text-zinc-300'
 					placeholder='Change Profile Pic'

@@ -49,7 +49,7 @@ function UserCard(props) {
 				(styles, editing) =>
 					editing && (
 						<animated.div
-							className='relative mt-4 h-10 w-[70vw] rounded-xl'
+							className='relative z-20 mt-4 h-10 w-[70vw] rounded-xl'
 							style={styles}>
 							<UpdateProfilePic />
 							<UpdateUserInfoForm setEditing={setEditing} />
