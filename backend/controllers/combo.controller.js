@@ -5,14 +5,14 @@ const combos = db.sequelize.models.Combo;
 // db.sequelize.models.Combo.associate(db.sequelize.models);
 // db.sequelize.models.Tricks.associate(db.sequelize.models);
 export const addCombotoTricklist = async (req, res) => {
-	const { uuid, name } = req.body;
+	const { uuid, combo_id } = req.body;
 	console.log(uuid, req.body.tricklist_id);
 	//getsCurrent TrickList
 	const currentTL = await tricklist.findOne({
 		where: { tricklist_id: req.body.tricklist_id },
 	});
 	//getsSelectedCombotoAdd
-	const selectedCombo = await combos.findOne({ where: { name: name } });
+	const selectedCombo = await combos.findOne({ where: { combo_id: combo_id } });
 	//addsCombo to Tricklist through tricklist_combos
 	try {
 		currentTL.addTricklistCombo(selectedCombo).catch((err) => console.log(err));

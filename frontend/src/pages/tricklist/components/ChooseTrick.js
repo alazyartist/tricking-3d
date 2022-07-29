@@ -7,17 +7,18 @@ const ChooseTrick = ({ setOpen, open, tricklist_id }) => {
 	const apiPrivate = useApiCreds();
 	const [comboArr, setComboArr] = useState([]);
 	const [cname, setCname] = useState("");
-	const addComboDB = async () => {
+	const addComboDB = async (combo_id) => {
 		try {
 			apiPrivate.post(`/tricklist/user/${tricklist_id}`, {
 				tricklist_id: tricklist_id,
 				uuid: userInfo.uuid,
-				name: cname,
+				combo_id: combo_id,
 			});
 		} catch (err) {
 			console.log(err);
 		}
 	};
+
 	const getAllCombos = async () => {
 		try {
 			apiPrivate
@@ -35,6 +36,7 @@ const ChooseTrick = ({ setOpen, open, tricklist_id }) => {
 	useEffect(() => {
 		getAllCombos();
 	}, []);
+
 	const handleClick = (e) => {
 		if (e.target.id === "addItemBackground") {
 			setOpen(false);
@@ -49,7 +51,13 @@ const ChooseTrick = ({ setOpen, open, tricklist_id }) => {
 				<div className='p-1 text-2xl font-bold'>Choose Combo to Add</div>
 				<div>
 					{comboArr.map((combo) => (
-						<div>{combo.name}</div>
+						<div
+							onClick={() => {
+								addComboDB(combo.combo_id);
+								console.log(combo);
+							}}>
+							{combo.name}
+						</div>
 					))}
 				</div>
 				<input
