@@ -10,24 +10,19 @@ const Captures = () => {
 	const apiPrivate = useApiCreds();
 	// console.log(activeUser.userInfo.id);
 	const getData = () => {
-		apiPrivate
-			.put(
-				"/capture/",
-				{
+		if (activeUser.userInfo.id) {
+			apiPrivate
+				.put("/capture/", {
 					id: activeUser.userInfo.id,
 					accessToken: activeUser.accessToken,
-				},
-				{
-					withCredentials: true,
-					headers: { "Content-Type": "application/json" },
-				}
-			)
-			.then((res) => {
-				console.log(res.data);
-				console.log(res.data.Captured);
-				setData(res.data.Captured);
-			})
-			.catch((err) => console.log(err));
+				})
+				.then((res) => {
+					console.log(res.data);
+					console.log(res.data.Captured);
+					setData(res.data.Captured);
+				})
+				.catch((err) => console.log(err));
+		}
 	};
 
 	useEffect(() => {

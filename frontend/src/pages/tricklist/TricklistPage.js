@@ -13,7 +13,7 @@ const TricklistPage = () => {
 		console.log(tricklist_id);
 	}, [tricklist_id]);
 	return (
-		<div className='flex flex-col place-content-center place-items-center gap-2'>
+		<div className='flex w-full flex-col place-content-center place-items-center gap-2'>
 			<div>TricklistPage</div>
 			<TricklistDisplay
 				setTricklist_id={setTricklist_id}
