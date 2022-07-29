@@ -5,7 +5,6 @@ import { useUserStore } from "../../store/userStore";
 import ProfileCode from "./components/ProfileCode";
 import Captures from "./components/Captures";
 import { FaQrcode } from "react-icons/fa";
-import TricklistPage from "../tricklist/TricklistPage";
 
 function Dashboard() {
 	const user = useUserStore((s) => s.user);
@@ -33,7 +32,6 @@ function Dashboard() {
 						}
 					/>
 					<Captures />
-					<TricklistPage />
 				</>
 			)}
 
