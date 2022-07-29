@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MdOutlineArrowUpward } from "react-icons/md";
 import useApiCreds from "../../../hooks/useApiCreds";
 
-const Tricks = ({ setCurItem }) => {
+const Tricks = ({ setCurrentItem }) => {
 	const apiPrivate = useApiCreds();
 	const [tricks, setTricks] = useState([]);
 	const getTricks = async () => {
@@ -23,7 +23,7 @@ const Tricks = ({ setCurItem }) => {
 				{tricks.length &&
 					tricks.map((trick) => (
 						<div>
-							<div onClick={() => setCurItem((s) => [...s, trick.name])}>
+							<div onClick={() => setCurrentItem((s) => [...s, trick.name])}>
 								{trick?.name}
 							</div>
 						</div>

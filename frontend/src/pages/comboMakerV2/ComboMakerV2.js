@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { MdOutlineClose } from "react-icons/md";
 import ComboMaker from "../comboMaker/ComboMaker";
 import NewComboDisplay from "../comboMaker/components/newComboDisplay";
 import Tricks from "./components/Tricks";
@@ -6,7 +7,8 @@ import useComboMakerV2 from "./useComboMakerV2";
 
 const ComboMakerV2 = () => {
 	const [v2, setV2] = useState(true);
-	const [curItem, setCurItem] = useComboMakerV2();
+	const { currentItem, setCurrentItem, setDeleteLast } = useComboMakerV2();
+
 	return (
 		<>
 			{v2 ? (
@@ -20,8 +22,11 @@ const ComboMakerV2 = () => {
 					<div
 						id='app-content'
 						className='flex h-[80vh] w-full flex-col place-content-start place-items-center overflow-y-auto overflow-x-hidden rounded-lg  p-2 text-zinc-300 '>
-						<NewComboDisplay newCombo={curItem} />
-						<Tricks setCurItem={setCurItem} />
+						<div className='text-5xl'>
+							<MdOutlineClose onClick={() => setDeleteLast((s) => s + 1)} />
+						</div>
+						<NewComboDisplay newCombo={currentItem} />
+						<Tricks setCurrentItem={setCurrentItem} />
 					</div>
 				</div>
 			) : (
