@@ -7,8 +7,10 @@ module.exports = (sequelize) => {
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
-		static associate(models) {
+		static associate({ Combo, Tricklist }) {
 			// define association here
+			this.belongsTo(Combo, { foreignKey: "combo_id" });
+			this.belongsTo(Tricklist, { foreignKey: "tricklist_id" });
 		}
 	}
 	Tricklist_Combos.init(

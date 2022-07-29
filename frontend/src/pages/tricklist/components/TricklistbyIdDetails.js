@@ -5,7 +5,7 @@ const TricklistbyIdDetails = ({ data }) => {
 	const apiPrivate = useApiCreds();
 	let updated = new Date(data?.updatedAt);
 	updated = updated.toDateString();
-	const [listData, setListData] = useState([]);
+	const [tricklistData, setTrickListData] = useState([]);
 	console.log("data", data);
 	const getCombosById = () => {
 		let tid = data.tricklist_id;
@@ -13,7 +13,7 @@ const TricklistbyIdDetails = ({ data }) => {
 			.get(`/tricklist/user/tl/${tid}`)
 			.then((response) => {
 				console.log("TID ", response.data);
-				setListData(response.data[0].TricklistCombos);
+				setTrickListData(response.data);
 			})
 			.catch((err) => console.log(err));
 	};
@@ -35,16 +35,14 @@ const TricklistbyIdDetails = ({ data }) => {
 			<div onClick={() => getCombosById()} className='flex'>
 				LIST ITEM GO HERE
 			</div>
-			{Array.isArray(listData) &&
-				listData.map((listItem) => {
-					console.log(listItem);
+			{/* TricklistData shoul be [{},{}] */}
+			{Array.isArray(tricklistData) &&
+				tricklistData.map((listItem) => {
+					console.log("li", listItem);
 					return (
 						<div className='flex flex-col gap-2'>
-							<div>{listItem.name}</div>
 							<div>{listItem.combo_id}</div>
-							{listItem.ComboTricks.map((comboTrick) => (
-								<div>{comboTrick.name}</div>
-							))}
+							{listItem?.Combo?.name}
 						</div>
 					);
 				})}

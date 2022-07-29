@@ -53,15 +53,16 @@ const ChooseTrick = ({ setOpen, open, tricklist_id }) => {
 					))}
 				</div>
 				<input
+					className='my-2 rounded-xl p-1 pl-2 text-zinc-800'
 					onChange={(e) => setCname(e.target.value)}
 					type={"text"}
 					value={cname}
 				/>
-				<div
+				{/* <div
 					onClick={() => addComboDB()}
 					className='w-full rounded-xl bg-sky-400'>
 					Add Item
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

@@ -24,35 +24,52 @@ export const addCombotoTricklist = async (req, res) => {
 };
 export const getComboItemsByTricklistId = async (req, res) => {
 	console.log("params", req.params.tid);
-	tricklist
+	tricklist_combos
 		.findAll({
-			where: {
-				tricklist_id: req.params.tid,
-			},
+			where: { tricklist_id: req.params.tid },
 			include: [
-				{
-					model: db.sequelize.models.Combo,
-					as: "TricklistCombos",
-					include: [
-						{
-							model: db.sequelize.models.Tricks,
-							as: "ComboTricks",
-						},
-					],
-				},
-				{
-					model: db.sequelize.models.Users,
-					as: "Owner",
-					attributes: ["username", "uuid", "profilePic"],
-				},
+				{ model: db.sequelize.models.Combo },
+				{ model: db.sequelize.models.Tricklist },
 			],
 		})
-		.then((response) => {
-			console.log(response), res.json(response);
+		.then((data) => {
+			console.log("t_c", data);
+			res.json(data);
 		})
 		.catch((err) => {
-			console.log(err), res.json(err);
+			console.log(err);
+			res.json(err);
 		});
+
+	// tricklist
+	// 	.findAll({
+	// 		where: {
+	// 			tricklist_id: req.params.tid,
+	// 		},
+	// 		include: [
+	// 			{
+	// 				model: db.sequelize.models.Combo,
+	// 				as: "TricklistCombos",
+	// 				include: [
+	// 					{
+	// 						model: db.sequelize.models.Tricks,
+	// 						as: "ComboTricks",
+	// 					},
+	// 				],
+	// 			},
+	// 			{
+	// 				model: db.sequelize.models.Users,
+	// 				as: "Owner",
+	// 				attributes: ["username", "uuid", "profilePic"],
+	// 			},
+	// 		],
+	// 	})
+	// 	.then((response) => {
+	// 		console.log("tricklist", response), res.json(response);
+	// 	})
+	// 	.catch((err) => {
+	// 		console.log(err), res.json(err);
+	// 	});
 };
 
 export const getAllCombos = async (req, res) => {
