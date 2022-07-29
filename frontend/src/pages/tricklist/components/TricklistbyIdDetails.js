@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import useApiCreds from "../../../hooks/useApiCreds";
+import { AiOutlineClose } from "react-icons/ai";
+import api from "../../../api/api";
 
 const TricklistbyIdDetails = ({ data }) => {
 	const apiPrivate = useApiCreds();
 	let updated = new Date(data?.updatedAt);
 	updated = updated.toDateString();
 	const [tricklistData, setTrickListData] = useState([]);
-	console.log("data", data);
 	const getCombosById = () => {
 		let tid = data.tricklist_id;
 		apiPrivate
@@ -17,6 +18,15 @@ const TricklistbyIdDetails = ({ data }) => {
 			})
 			.catch((err) => console.log(err));
 	};
+	const deleteComboById = (selectedListItem) => {
+		apiPrivate
+			.delete(
+				`/tricklist/user/${selectedListItem.tricklist_id}/${selectedListItem.combo_id}/${selectedListItem.id}`
+			)
+			.then((datum) => console.log(datum))
+			.catch((err) => console.log(err));
+	};
+
 	useEffect(() => {
 		getCombosById();
 	}, [data]);
@@ -38,11 +48,17 @@ const TricklistbyIdDetails = ({ data }) => {
 			{/* TricklistData shoul be [{},{}] */}
 			{Array.isArray(tricklistData) &&
 				tricklistData.map((listItem) => {
-					console.log("li", listItem);
 					return (
-						<div className='flex flex-col gap-2'>
-							<div>{listItem.combo_id}</div>
+						<div className='flex gap-2'>
+							<div>
+								{listItem.combo_id.substring(listItem.combo_id.length - 5)}
+							</div>
 							{listItem?.Combo?.name}
+							<div
+								onClick={() => deleteComboById(listItem)}
+								className='h-4 w-4 text-red-500'>
+								<AiOutlineClose />
+							</div>
 						</div>
 					);
 				})}

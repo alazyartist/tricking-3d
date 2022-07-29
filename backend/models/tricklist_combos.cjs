@@ -15,6 +15,7 @@ module.exports = (sequelize) => {
 	}
 	Tricklist_Combos.init(
 		{
+			id: { primaryKey: true, type: DataTypes.INTEGER, autoIncrement: true },
 			tricklist_id: DataTypes.UUID,
 			combo_id: DataTypes.UUID,
 		},

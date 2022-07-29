@@ -6,21 +6,42 @@ const combos = db.sequelize.models.Combo;
 // db.sequelize.models.Tricks.associate(db.sequelize.models);
 export const addCombotoTricklist = async (req, res) => {
 	const { uuid, combo_id } = req.body;
-	console.log(uuid, req.body.tricklist_id);
-	//getsCurrent TrickList
-	const currentTL = await tricklist.findOne({
-		where: { tricklist_id: req.body.tricklist_id },
-	});
-	//getsSelectedCombotoAdd
-	const selectedCombo = await combos.findOne({ where: { combo_id: combo_id } });
-	//addsCombo to Tricklist through tricklist_combos
 	try {
-		currentTL.addTricklistCombo(selectedCombo).catch((err) => console.log(err));
-		console.log(currentTL);
+		tricklist_combos
+			.create({
+				tricklist_id: req.body.tricklist_id,
+				combo_id: combo_id,
+			})
+			.then((newCombo) => res.json(newCombo))
+			.catch((err) => {
+				console.log(err);
+				res.json(err);
+			});
 	} catch (err) {
 		console.log(err);
 	}
-	res.send("GOT IT");
+
+	// //getsCurrent TrickList
+	// const currentTL = await tricklist.findOne({
+	// 	where: { tricklist_id: req.body.tricklist_id },
+	// });
+	// //getsSelectedCombotoAdd
+	// const selectedCombo = await combos.findOne({ where: { combo_id: combo_id } });
+	// //addsCombo to Tricklist through tricklist_combos
+	// try {
+	// 	currentTL.addTricklistCombo(selectedCombo).catch((err) => console.log(err));
+	// 	console.log(currentTL);
+	// } catch (err) {
+	// 	console.log(err);
+	// }
+};
+
+export const deleteComboFromTricklist = async (req, res) => {
+	const { tricklist_id, combo_id, id } = req.params;
+	tricklist_combos.destroy({
+		where: { id: id, tricklist_id: tricklist_id, combo_id: combo_id },
+	});
+	res.send("DELETING it for you");
 };
 export const getComboItemsByTricklistId = async (req, res) => {
 	console.log("params", req.params.tid);
