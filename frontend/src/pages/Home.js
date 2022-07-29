@@ -16,7 +16,7 @@ function Home() {
 	const accessToken = useUserStore((s) => s.accessToken);
 	const navigate = useNavigate();
 	return (
-		<div className='sticky mt-14'>
+		<div className='sticky mt-0'>
 			<div
 				id='AppBackground-flex'
 				className='flex h-screen w-screen flex-col place-items-center'>

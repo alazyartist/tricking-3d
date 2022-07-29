@@ -44,6 +44,7 @@ function useComboMaker(combo, setcombo, newCombo) {
 		if (combo instanceof Transition) {
 			setCurrentTransition(combo);
 			setIsTrick(false);
+			setCurrentLeg(combo.toleg);
 
 			let newTransitionRot = currentTransition.getNewRotation(currentStance);
 

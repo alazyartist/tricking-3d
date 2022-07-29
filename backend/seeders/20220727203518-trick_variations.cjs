@@ -13,15 +13,7 @@ module.exports = {
 		 */
 		await queryInterface.bulkInsert("Trick_Variations", [
 			{
-				variation_id: 2,
-				trick_id: "ed832bc6-eae3-458d-8cf2-26b5b531d96c",
-			},
-			{
-				variation_id: 6,
-				trick_id: "ed832bc6-eae3-458d-8cf2-26b5b531d96c",
-			},
-			{
-				variation_id: 21,
+				variation_id: 9,
 				trick_id: "ed832bc6-eae3-458d-8cf2-26b5b531d96c",
 			},
 		]);

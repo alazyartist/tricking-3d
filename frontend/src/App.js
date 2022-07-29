@@ -14,7 +14,6 @@ import AppBackground from "./components/layout/AppBackground";
 import Header from "./components/layout/Header";
 import TheoryPage from "./pages/theory/TheoryPage";
 import AdvancedStanceCircle from "./components/theory/AdvancedStanceCircle";
-import TheoryNavBar from "./pages/theory/components/TheoryNavBar";
 import LearnMore from "./pages/LearnMore";
 import AboutUs from "./pages/about/AboutUs";
 import TrickList from "./pages/TrickList";
@@ -45,6 +44,7 @@ import PersistLogin from "./auth/PersistLogin";
 import UserIcon from "./components/layout/UserIcon";
 import { useUserStore } from "./store/userStore";
 import Axes from "./pages/theory/axes/Axes";
+import ComboMakerV2 from "./pages/comboMakerV2/ComboMakerV2";
 function App() {
 	const accessToken = useUserStore((s) => s.accessToken);
 	const location = useLocation();
@@ -110,10 +110,18 @@ function App() {
 							path={"/comboMaker"}
 							element={
 								<div className=' mt-14 flex h-full w-full place-content-center'>
-									<ComboMaker />
+									<ComboMakerV2 />
 								</div>
 							}
 						/>
+						{/* <Route
+							path={"/comboMaker"}
+							element={
+								<div className=' mt-14 flex h-full w-full place-content-center'>
+									<ComboMaker />
+								</div>
+							}
+						/> */}
 						<Route path={"/need"} element={<AnimationsNeeded />} />
 						<Route path={"/theory"} element={<TheoryPage />}>
 							<Route path={"transitionlist"} element={<TransitionList />} />

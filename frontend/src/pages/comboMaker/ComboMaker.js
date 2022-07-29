@@ -24,7 +24,7 @@ import { ComboMakerScene } from "../../scenes/ComboMakerScene";
 import AddComboItem from "./components/AddComboItem";
 
 let newCombo = [];
-function ComboMaker() {
+function ComboMaker({ setV2, v2 }) {
 	const [combo, setcombo] = useState();
 
 	const {
@@ -103,6 +103,7 @@ function ComboMaker() {
 			<div id='comboMaker-wrapper' className='h-[80vh] w-[90vw] font-inter'>
 				{/* Page Title */}
 				<div
+					onClick={() => setV2(!v2)}
 					id='pageTitle'
 					className='select-none text-2xl font-bold text-zinc-400'>
 					ComboMaker

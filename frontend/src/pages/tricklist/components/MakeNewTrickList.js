@@ -32,7 +32,7 @@ const MakeNewTrickList = ({ setOpen, setCount, count }) => {
 	return (
 		<div
 			onClick={(e) => handleClick(e)}
-			className='absolute top-0 h-full w-full bg-zinc-800 bg-opacity-40 backdrop-blur-xl'>
+			className='absolute top-0  h-full w-full bg-zinc-800 bg-opacity-40 backdrop-blur-xl'>
 			<label
 				className='lg absolute top-[45%] left-[20%] text-2xl md:left-[35%] lg:left-[45%]'
 				htmlFor='name-input'>
