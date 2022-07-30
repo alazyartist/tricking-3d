@@ -74,7 +74,7 @@ function App() {
 	return (
 		<>
 			<AppBackground />
-			{accessToken && <UserIcon />}
+			<UserIcon />
 			{!location.pathname.includes("/home") && <Header />}
 			{tabBar ? !isSandbox && <TabBar /> : !isSandbox && <TheoryTabBar />}
 
