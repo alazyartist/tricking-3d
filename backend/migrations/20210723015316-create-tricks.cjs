@@ -13,7 +13,7 @@ module.exports = {
 				references: { model: "Bases", key: "base_id" },
 			},
 			trickType: { type: Sequelize.STRING },
-			type: { type: Sequelize.STRING },
+			type: { type: Sequelize.STRING, defaultValue: "Trick" },
 			name: {
 				type: Sequelize.STRING,
 			},

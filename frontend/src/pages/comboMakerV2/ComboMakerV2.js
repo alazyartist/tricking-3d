@@ -22,7 +22,7 @@ const ComboMakerV2 = () => {
 					<div
 						id='app-content'
 						className='flex h-[80vh] w-full flex-col place-content-start place-items-center overflow-y-auto overflow-x-hidden rounded-lg  p-2 text-zinc-300 '>
-						<div className='text-5xl'>
+						<div className='absolute top-[6rem] right-[1.5rem] z-[10] text-5xl'>
 							<MdOutlineClose onClick={() => setDeleteLast((s) => s + 1)} />
 						</div>
 						<NewComboDisplay newCombo={currentItem} />

@@ -21,6 +21,7 @@ module.exports = {
 				stance_id: "Backside",
 				takeoffStance: "Backside",
 				landingStance: "Backside",
+				trickType: "Invert",
 			},
 			//2
 			{
@@ -30,6 +31,7 @@ module.exports = {
 				stance_id: "Inside",
 				takeoffStance: "Inside",
 				landingStance: "Inside",
+				trickType: "Invert",
 			},
 			//3
 			{
@@ -39,6 +41,7 @@ module.exports = {
 				stance_id: "Frontside",
 				takeoffStance: "Frontside",
 				landingStance: "Frontside",
+				trickType: "Invert",
 			},
 			//4
 			{
@@ -48,6 +51,7 @@ module.exports = {
 				stance_id: "Outside",
 				takeoffStance: "Outside",
 				landingStance: "Outside",
+				trickType: "Invert",
 			},
 			//5
 			{
@@ -57,6 +61,7 @@ module.exports = {
 				stance_id: "BacksideComplete",
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideHyper",
+				trickType: "Invert",
 			},
 			//6
 			{
@@ -66,6 +71,7 @@ module.exports = {
 				stance_id: "BacksideHyper",
 				takeoffStance: "BacksideHyper",
 				landingStance: "BacksideComplete",
+				trickType: "Invert",
 			},
 
 			//7
@@ -76,6 +82,7 @@ module.exports = {
 				stance_id: "InsideHyper",
 				takeoffStance: "InsideHyper",
 				landingStance: "InsideHyper",
+				trickType: "Invert",
 			},
 			//8
 			{
@@ -85,6 +92,7 @@ module.exports = {
 				stance_id: "InsideMega",
 				takeoffStance: "InsideMega",
 				landingStance: "InsideHyper",
+				trickType: "Invert",
 			},
 			//9
 			{
@@ -94,6 +102,7 @@ module.exports = {
 				stance_id: "FrontsideMega",
 				takeoffStance: "FrontsideMega",
 				landingStance: "FrontsideSemi",
+				trickType: "Invert",
 			},
 			//10
 			{
@@ -103,6 +112,7 @@ module.exports = {
 				stance_id: "FrontsideSemi",
 				takeoffStance: "FrontsideSemi",
 				landingStance: "FrontsideMega",
+				trickType: "Invert",
 			},
 			//11
 			{
@@ -112,6 +122,7 @@ module.exports = {
 				stance_id: "OutsideSemi",
 				takeoffStance: "OutsideSemi",
 				landingStance: "BacksideComplete",
+				trickType: "Invert",
 			},
 			//12
 			{
@@ -121,6 +132,7 @@ module.exports = {
 				stance_id: "OutsideComplete",
 				takeoffStance: "OutsideComplete",
 				landingStance: "OutsideComplete",
+				trickType: "Invert",
 			},
 			//Corks
 			{
@@ -130,6 +142,7 @@ module.exports = {
 				stance_id: "BacksideComplete",
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideComplete",
+				trickType: "Invert",
 			},
 			{
 				trick_id: "ed832bc6-eae3-458d-8cf2-26b5b531d96c",
@@ -138,8 +151,10 @@ module.exports = {
 				stance_id: "BacksideComplete",
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideComplete",
+				trickType: "Invert",
 			},
 		]);
+		trickType: "Invert";
 	},
 
 	async down(queryInterface, Sequelize) {
@@ -149,5 +164,6 @@ module.exports = {
 		 * Example:
 		 * await queryInterface.bulkDelete('People', null, {});
 		 */
+		trickType: "Invert";
 	},
 };

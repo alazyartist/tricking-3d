@@ -23,7 +23,7 @@ const Tricks = ({ setCurrentItem }) => {
 				{tricks.length &&
 					tricks.map((trick) => (
 						<div>
-							<div onClick={() => setCurrentItem((s) => [...s, trick.name])}>
+							<div onClick={() => setCurrentItem((s) => [...s, trick])}>
 								{trick?.name}
 							</div>
 						</div>
