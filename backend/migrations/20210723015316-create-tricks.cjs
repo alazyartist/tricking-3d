@@ -12,6 +12,8 @@ module.exports = {
 				type: Sequelize.STRING,
 				references: { model: "Bases", key: "base_id" },
 			},
+			trickType: { type: Sequelize.STRING },
+			type: { type: Sequelize.STRING },
 			name: {
 				type: Sequelize.STRING,
 			},
@@ -26,16 +28,6 @@ module.exports = {
 			},
 			defaultAnimation: {
 				type: Sequelize.UUID,
-			},
-			createdAt: {
-				allowNull: false,
-				type: Sequelize.DATE,
-				defaultValue: Sequelize.DATE,
-			},
-			updatedAt: {
-				allowNull: false,
-				type: Sequelize.DATE,
-				defaultValue: Sequelize.DATE,
 			},
 		});
 	},

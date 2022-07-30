@@ -1,32 +1,41 @@
 "use strict";
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable("Variations", {
+		await queryInterface.createTable("Transitions", {
 			id: {
 				allowNull: false,
 				autoIncrement: true,
 				primaryKey: true,
 				type: Sequelize.INTEGER,
 			},
-			variationType: {
+			name: {
 				type: Sequelize.STRING,
 			},
 			type: {
 				type: Sequelize.STRING,
-				defaultValue: "Variation",
+				defaultValue: "Transition",
 			},
-			name: {
+			transitionType: {
 				type: Sequelize.STRING,
 			},
-			value: {
+			takeoffStyle: {
 				type: Sequelize.STRING,
 			},
-			pos: {
+			landingStyle: {
 				type: Sequelize.STRING,
+			},
+			fromLeg: {
+				type: Sequelize.STRING,
+			},
+			toLeg: {
+				type: Sequelize.STRING,
+			},
+			rotation: {
+				type: Sequelize.INTEGER,
 			},
 		});
 	},
 	async down(queryInterface, Sequelize) {
-		await queryInterface.dropTable("Variations");
+		await queryInterface.dropTable("Transitions");
 	},
 };

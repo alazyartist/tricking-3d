@@ -15,6 +15,7 @@ module.exports = (sequelize) => {
 	Stances.init(
 		{
 			stance_id: { type: DataTypes.STRING, primaryKey: true },
+			type: { type: DataTypes.STRING, defaultValue: "Stance" },
 			name: DataTypes.STRING,
 			leg: DataTypes.STRING,
 			direction: DataTypes.STRING,

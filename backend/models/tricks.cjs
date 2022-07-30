@@ -42,6 +42,8 @@ module.exports = (sequelize) => {
 				references: { model: "Bases", key: "base_id" },
 			},
 			name: DataTypes.STRING,
+			type: { type: DataTypes.STRING, defaultValue: "Trick" },
+			trickType: { type: DataTypes.STRING },
 			stance_id: {
 				type: DataTypes.STRING,
 				references: { model: "Stances", key: "stance_id" },
@@ -49,10 +51,7 @@ module.exports = (sequelize) => {
 			takeoffStance: DataTypes.STRING,
 			landingStance: DataTypes.STRING,
 		},
-		{
-			sequelize,
-			modelName: "Tricks",
-		}
+		{ timestamps: false, sequelize, modelName: "Tricks" }
 	);
 	return Tricks;
 };

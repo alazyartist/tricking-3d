@@ -1,6 +1,7 @@
 import db from "../models/index.js";
 const tricks = await db.sequelize.models.Tricks;
 const stances = await db.sequelize.models.Stances;
+const transitions = await db.sequelize.models.Transitions;
 // db.sequelize.models.Tricks.associate(db.sequelize.models);
 // db.sequelize.models.Bases.associate(db.sequelize.models);
 // db.sequelize.models.Stances.associate(db.sequelize.models);
@@ -23,20 +24,31 @@ export const getTrickByTrickId = async (req, res) => {
 };
 
 export const getAllTricks = async (req, res) => {
-	stances
-		.findAll()
-		.then((allStances) => {
-			return allStances;
-		})
-		.then(async (allStances) => {
-			const allTricks = await tricks.findAll({
-				include: db.sequelize.models.Variations,
-			});
-			const data = [...allStances, ...allTricks];
-			return data;
-		})
+	try {
+		stances
+			.findAll()
+			.then((allStances) => {
+				return allStances;
+			})
+			.then(async (allStances) => {
+				const allTricks = await tricks.findAll({
+					include: db.sequelize.models.Variations,
+				});
+				const data = [...allTricks, ...allStances];
 
-		.then((data) => {
-			res.json(data);
-		});
+				return data;
+			})
+			.then(async (data) => {
+				const allTransitions = await transitions.findAll({});
+
+				const data2 = [...data, ...allTransitions];
+				return data2;
+			})
+			.then((data) => {
+				res.json(data);
+			})
+			.catch((err) => console.log(err));
+	} catch (err) {
+		console.log(err);
+	}
 };

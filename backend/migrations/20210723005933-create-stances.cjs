@@ -7,6 +7,10 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.STRING,
 			},
+			type: {
+				type: Sequelize.STRING,
+				defaultValue: "Stance",
+			},
 			name: {
 				type: Sequelize.STRING,
 			},

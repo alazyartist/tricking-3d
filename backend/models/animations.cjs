@@ -23,10 +23,7 @@ module.exports = (sequelize) => {
 			fileName: DataTypes.STRING,
 			model: DataTypes.STRING,
 		},
-		{
-			sequelize,
-			modelName: "Animations",
-		}
+		{ timestamps: false, sequelize, modelName: "Animations" }
 	);
 	return Animations;
 };

@@ -144,6 +144,28 @@ module.exports = {
 				takeoffStance: "OutsideComplete",
 				landingStance: "OutsideComplete",
 			},
+			{
+				base_id: "Hook",
+				name: "Hook",
+				direction: "Backwards",
+				fromLeg: "Right",
+				toLeg: "Right",
+				rotation: 0,
+				stance_id: "BacksideHyper",
+				takeoffStance: "BacksideHyper",
+				landingStance: "BacksideHyper",
+			},
+			{
+				base_id: "Round",
+				name: "Round",
+				direction: "Forwards",
+				fromLeg: "Left",
+				toLeg: "Left",
+				rotation: 0,
+				stance_id: "FrontsideMega",
+				takeoffStance: "FrontsideMega",
+				landingStance: "FrontsideMega",
+			},
 		]);
 	},
 

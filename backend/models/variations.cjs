@@ -19,12 +19,14 @@ module.exports = (sequelize) => {
 	Variations.init(
 		{
 			id: { type: DataTypes.STRING, autoIncrement: true, primaryKey: true },
-			type: DataTypes.STRING,
+			type: { type: DataTypes.STRING, defaultValue: "Variation" },
+			variationType: DataTypes.STRING,
 			name: DataTypes.STRING,
 			value: DataTypes.STRING,
 			pos: DataTypes.STRING,
 		},
 		{
+			timestamps: false,
 			sequelize,
 			modelName: "Variations",
 		}

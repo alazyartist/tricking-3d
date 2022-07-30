@@ -21,8 +21,6 @@ module.exports = {
 				stance_id: "Backside",
 				takeoffStance: "Backside",
 				landingStance: "Backside",
-				createdAt: new Date(Date.now()),
-				updatedAt: new Date(Date.now()),
 			},
 			//2
 			{
@@ -32,8 +30,6 @@ module.exports = {
 				stance_id: "Inside",
 				takeoffStance: "Inside",
 				landingStance: "Inside",
-				createdAt: new Date(Date.now()),
-				updatedAt: new Date(Date.now()),
 			},
 			//3
 			{
@@ -43,8 +39,6 @@ module.exports = {
 				stance_id: "Frontside",
 				takeoffStance: "Frontside",
 				landingStance: "Frontside",
-				createdAt: new Date(Date.now()),
-				updatedAt: new Date(Date.now()),
 			},
 			//4
 			{
@@ -54,8 +48,6 @@ module.exports = {
 				stance_id: "Outside",
 				takeoffStance: "Outside",
 				landingStance: "Outside",
-				createdAt: new Date(Date.now()),
-				updatedAt: new Date(Date.now()),
 			},
 			//5
 			{
@@ -65,8 +57,6 @@ module.exports = {
 				stance_id: "BacksideComplete",
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideHyper",
-				createdAt: new Date(Date.now()),
-				updatedAt: new Date(Date.now()),
 			},
 			//6
 			{
@@ -76,8 +66,6 @@ module.exports = {
 				stance_id: "BacksideHyper",
 				takeoffStance: "BacksideHyper",
 				landingStance: "BacksideComplete",
-				createdAt: new Date(Date.now()),
-				updatedAt: new Date(Date.now()),
 			},
 
 			//7
@@ -88,8 +76,6 @@ module.exports = {
 				stance_id: "InsideHyper",
 				takeoffStance: "InsideHyper",
 				landingStance: "InsideHyper",
-				createdAt: new Date(Date.now()),
-				updatedAt: new Date(Date.now()),
 			},
 			//8
 			{
@@ -99,8 +85,6 @@ module.exports = {
 				stance_id: "InsideMega",
 				takeoffStance: "InsideMega",
 				landingStance: "InsideHyper",
-				createdAt: new Date(Date.now()),
-				updatedAt: new Date(Date.now()),
 			},
 			//9
 			{
@@ -110,8 +94,6 @@ module.exports = {
 				stance_id: "FrontsideMega",
 				takeoffStance: "FrontsideMega",
 				landingStance: "FrontsideSemi",
-				createdAt: new Date(Date.now()),
-				updatedAt: new Date(Date.now()),
 			},
 			//10
 			{
@@ -121,8 +103,6 @@ module.exports = {
 				stance_id: "FrontsideSemi",
 				takeoffStance: "FrontsideSemi",
 				landingStance: "FrontsideMega",
-				createdAt: new Date(Date.now()),
-				updatedAt: new Date(Date.now()),
 			},
 			//11
 			{
@@ -132,8 +112,6 @@ module.exports = {
 				stance_id: "OutsideSemi",
 				takeoffStance: "OutsideSemi",
 				landingStance: "BacksideComplete",
-				createdAt: new Date(Date.now()),
-				updatedAt: new Date(Date.now()),
 			},
 			//12
 			{
@@ -143,8 +121,6 @@ module.exports = {
 				stance_id: "OutsideComplete",
 				takeoffStance: "OutsideComplete",
 				landingStance: "OutsideComplete",
-				createdAt: new Date(Date.now()),
-				updatedAt: new Date(Date.now()),
 			},
 			//Corks
 			{
@@ -154,8 +130,6 @@ module.exports = {
 				stance_id: "BacksideComplete",
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideComplete",
-				createdAt: new Date(Date.now()),
-				updatedAt: new Date(Date.now()),
 			},
 			{
 				trick_id: "ed832bc6-eae3-458d-8cf2-26b5b531d96c",
@@ -164,8 +138,6 @@ module.exports = {
 				stance_id: "BacksideComplete",
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideComplete",
-				createdAt: new Date(Date.now()),
-				updatedAt: new Date(Date.now()),
 			},
 		]);
 	},
