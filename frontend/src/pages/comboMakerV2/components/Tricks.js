@@ -36,7 +36,7 @@ const Tricks = ({ setCurrentItem, filter }) => {
 
 	return (
 		<>
-			<div className='flex h-[60vh] w-[60vw] flex-col gap-3 overflow-y-auto rounded-xl p-2 peer-hover:bg-red-500'>
+			<div className='no-scrollbar flex h-[60vh] w-[60vw] flex-col gap-3 overflow-y-auto rounded-xl p-2 peer-hover:bg-red-500'>
 				{tricks.length &&
 					tricks.map((trick) => (
 						<div className='rounded-xl  bg-zinc-800 p-2'>

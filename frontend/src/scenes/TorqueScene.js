@@ -16,6 +16,7 @@ import { Frank } from "../animations/Frank";
 import { useStore } from "../store/store";
 import { useFrame, useThree } from "@react-three/fiber";
 import BluesBackground from "./backgrounds/1st_scene";
+import { JapanShrine } from "./backgrounds/Japanshrine";
 // import Model from "../animations/KerwoodCC3Tpose";
 export function TorqueScene(props) {
 	const light = useRef();
@@ -32,7 +33,8 @@ export function TorqueScene(props) {
 				<Suspense fallback={<ModelLoader />}>
 					<LoadActiveModel />
 				</Suspense>
-				<SceneBackground />
+				{/* <SceneBackground /> */}
+				<JapanShrine />
 				{/* <BluesBackground /> */}
 				{/* <Model /> */}
 				<ambientLight intensity={0.3} />
