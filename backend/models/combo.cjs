@@ -23,7 +23,11 @@ module.exports = (sequelize) => {
 	}
 	Combo.init(
 		{
-			combo_id: { type: DataTypes.UUID, primaryKey: true },
+			combo_id: {
+				type: DataTypes.UUID,
+				primaryKey: true,
+				defaultValue: DataTypes.UUIDV4,
+			},
 			creator: DataTypes.UUID,
 			name: DataTypes.STRING,
 			createdAt: DataTypes.DATE,

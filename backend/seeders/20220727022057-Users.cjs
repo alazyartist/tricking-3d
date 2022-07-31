@@ -18,6 +18,17 @@ module.exports = {
 		await queryInterface.bulkInsert("Users", [
 			{
 				id: 1,
+				username: "alazyartist",
+				first_name: "Dylan",
+				last_name: "James",
+				email: "alazyartist@gmail.com",
+				password: hash,
+				uuid: "admin696-8c94-4ca7-b163-9alazyartist",
+				createdAt: new Date(Date.now()),
+				updatedAt: new Date(Date.now()),
+			},
+			{
+				id: 3,
 				username: "TestUsername",
 				first_name: "Tiesto",
 				last_name: "Tester",
@@ -27,7 +38,7 @@ module.exports = {
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
 			},
-      {
+			{
 				id: 2,
 				username: "Tohzt",
 				first_name: "Steven",
@@ -37,7 +48,7 @@ module.exports = {
 				uuid: uuid(),
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
-      }
+			},
 		]);
 	},
 

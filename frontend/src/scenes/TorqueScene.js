@@ -32,8 +32,7 @@ export function TorqueScene(props) {
 			<PerspectiveCamera ref={gizmoRef} position={[0, -1, 0]}>
 				<Suspense fallback={<ModelLoader />}>
 					<LoadActiveModel />
-				</Suspense>
-				<Suspense fallback={<h1>Loading..</h1>}>
+
 					{/* <SceneBackground /> */}
 					<JapanShrine />
 					{/* <BluesBackground /> */}

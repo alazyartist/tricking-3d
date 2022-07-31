@@ -22,7 +22,11 @@ function useMediaController(actions, names, mixer) {
 	const frameTime = useStore((s) => s.currentTime);
 	//Solves Problem with infinte renders of Animations Array and successfully passes to store
 	useMemo(
-		() => Promise.resolve(names).then((results) => setAnimationsArray(results)),
+		() =>
+			Promise.resolve(names).then((results) => {
+				console.log(results);
+				setAnimationsArray(results);
+			}),
 		[names, setAnimationsArray]
 	);
 	// Handle Animation Loop

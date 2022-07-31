@@ -15,7 +15,7 @@ module.exports = {
 			//BaseTricks
 			//1
 			{
-				trick_id: uuidv4(),
+				trick_id: "34f64fca-228b-4e99-8cf5-2e0cbackflip",
 				base_id: "Backflip",
 				name: "Backflip",
 				stance_id: "Backside",

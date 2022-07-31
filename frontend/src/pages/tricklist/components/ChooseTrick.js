@@ -52,6 +52,7 @@ const ChooseTrick = ({ setOpen, open, tricklist_id }) => {
 				<div>
 					{comboArr.map((combo) => (
 						<div
+							key={combo.combo_id.substring(24)}
 							onClick={() => {
 								addComboDB(combo.combo_id);
 								console.log(combo);

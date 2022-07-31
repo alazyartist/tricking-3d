@@ -49,7 +49,7 @@ const TricklistbyIdDetails = ({ data }) => {
 			{Array.isArray(tricklistData) &&
 				tricklistData.map((listItem) => {
 					return (
-						<div className='flex gap-2'>
+						<div key={listItem.combo_id} className='flex gap-2'>
 							<div>
 								{listItem.combo_id.substring(listItem.combo_id.length - 5)}
 							</div>
