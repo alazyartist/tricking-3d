@@ -33,9 +33,11 @@ export function TorqueScene(props) {
 				<Suspense fallback={<ModelLoader />}>
 					<LoadActiveModel />
 				</Suspense>
-				{/* <SceneBackground /> */}
-				<JapanShrine />
-				{/* <BluesBackground /> */}
+				<Suspense fallback={<h1>Loading..</h1>}>
+					{/* <SceneBackground /> */}
+					<JapanShrine />
+					{/* <BluesBackground /> */}
+				</Suspense>
 				{/* <Model /> */}
 				<ambientLight intensity={0.3} />
 				<spotLight

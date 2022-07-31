@@ -27,7 +27,11 @@ const ComboMakerV2 = () => {
 							<MdOutlineBackspace onClick={() => setDeleteLast((s) => s + 1)} />
 						</div>
 						<NewComboDisplay newCombo={currentItem} />
-						<Tricks filter={filter} setCurrentItem={setCurrentItem} />
+						<Tricks
+							filter={filter}
+							setCurrentItem={setCurrentItem}
+							currentItem={currentItem}
+						/>
 					</div>
 				</div>
 			) : (

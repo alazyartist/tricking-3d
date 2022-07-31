@@ -26,7 +26,9 @@ const Captures = () => {
 	};
 
 	useEffect(() => {
-		getData();
+		if (activeUser.accessToken !== null) {
+			getData();
+		}
 		// console.log(data);
 	}, []);
 

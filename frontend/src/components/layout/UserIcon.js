@@ -4,18 +4,16 @@ import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
 import { useUserStore } from "../../store/userStore";
 
 const UserIcon = () => {
-	const { profilePic, uuid } = useUserStore((s) => s.userInfo);
+	const { profilePic, uuid, username } = useUserStore((s) => s.userInfo);
 	const location = useLocation();
 	return (
 		<Link
 			to={location.pathname.includes("/home") ? "/dash" : "/home"}
 			className='fixed top-2.5 right-5 z-[1002] h-[50px] w-[50px] rounded-full border-2 border-zinc-300 border-opacity-20'>
-			{uuid === null ? (
+			{username !== null ? (
 				<img
 					src={
-						profilePic !== null && uuid !== null
-							? `/images/${uuid}/${profilePic}`
-							: `./images/noimg.jpeg`
+						profilePic ? `/images/${uuid}/${profilePic}` : `./images/noimg.jpeg`
 					}
 					className='h-full w-full rounded-full'
 				/>

@@ -15,7 +15,7 @@ function useLogout() {
 		console.log("logoutRes", response);
 		setUser(null);
 		setAccessToken(null);
-		setUserInfo({ profilePic: "noimg.jpeg" });
+		setUserInfo(null);
 	};
 
 	return logout;
