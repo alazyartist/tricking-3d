@@ -45,7 +45,7 @@ module.exports = {
 				last_name: "French",
 				email: "Steven.G.French@live.com",
 				password: hash2,
-				uuid: uuid(),
+				uuid: "admin696-8c94-4ca7-b163-969420Tohzt",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
 			},

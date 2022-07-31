@@ -9,9 +9,7 @@ import useFollowCam from "../hooks/useFollowCam";
 
 export default function Andrew({ ...props }) {
 	const group = useRef();
-	const { nodes, materials, animations } = useGLTF(
-		"https://torquetricking.com/3d/Andrew.glb"
-	);
+	const { nodes, materials, animations } = useGLTF("/Andrew.glb");
 	const { actions, names, mixer } = useAnimations(animations, group);
 	const hipsRef = useRef();
 	useMediaController(actions, names, mixer);

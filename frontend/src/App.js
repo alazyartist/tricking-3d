@@ -14,7 +14,7 @@ import AppBackground from "./components/layout/AppBackground";
 import Header from "./components/layout/Header";
 import TheoryPage from "./pages/theory/TheoryPage";
 import AdvancedStanceCircle from "./components/theory/AdvancedStanceCircle";
-import LearnMore from "./pages/LearnMore";
+import LearnMore from "./pages/learnmore/LearnMore";
 import AboutUs from "./pages/about/AboutUs";
 import TrickList from "./pages/TrickList";
 import AnatomyOfATrick from "./pages/theory/anatomy/AnatomyOfATrick";

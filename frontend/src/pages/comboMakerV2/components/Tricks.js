@@ -6,6 +6,9 @@ const Tricks = ({ setCurrentItem, filteredTricks }) => {
 	return (
 		<>
 			<div className='no-scrollbar flex h-[60vh] w-[60vw] flex-col gap-3 overflow-y-auto rounded-xl p-2 peer-hover:bg-red-500'>
+				<p className='place-self-end text-sm text-zinc-500'>
+					{filteredTricks.length} Options
+				</p>
 				{filteredTricks.length &&
 					filteredTricks.map((trick) => (
 						<div className='rounded-xl  bg-zinc-800 p-2'>

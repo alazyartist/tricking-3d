@@ -26,6 +26,20 @@ module.exports = {
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
 			},
+			{
+				id: 3,
+				user_id: 1,
+				captured_id: 3,
+				createdAt: new Date(Date.now()),
+				updatedAt: new Date(Date.now()),
+			},
+			{
+				id: 4,
+				user_id: 2,
+				captured_id: 3,
+				createdAt: new Date(Date.now()),
+				updatedAt: new Date(Date.now()),
+			},
 		]);
 	},
 

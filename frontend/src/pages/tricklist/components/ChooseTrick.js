@@ -49,9 +49,10 @@ const ChooseTrick = ({ setOpen, open, tricklist_id }) => {
 			className='absolute top-0 left-0 flex h-full w-full place-content-center place-items-center bg-zinc-800 bg-opacity-40 backdrop-blur-md'>
 			<div className='flex flex-col place-content-center place-items-center'>
 				<div className='p-1 text-2xl font-bold'>Choose Combo to Add</div>
-				<div>
+				<div className='no-scrollbar flex h-[40vh] w-[80vw] flex-col gap-2 overflow-y-auto'>
 					{comboArr.map((combo) => (
 						<div
+							className='rounded-md bg-zinc-900 p-1'
 							key={combo.combo_id.substring(24)}
 							onClick={() => {
 								addComboDB(combo.combo_id);

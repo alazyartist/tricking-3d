@@ -44,7 +44,7 @@ const MakeNewTrickList = ({ setOpen, setCount, count }) => {
 					className='flex place-content-center gap-2'>
 					<input
 						id={"name-input"}
-						className='rounded-xl p-1 pl-2'
+						className='rounded-xl p-1 pl-2 text-zinc-800'
 						onChange={(e) => {
 							setName(e.target.value);
 						}}
