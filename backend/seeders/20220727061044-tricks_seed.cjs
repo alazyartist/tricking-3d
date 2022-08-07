@@ -300,6 +300,7 @@ module.exports = {
 			},
 			{
 				trick_id: "ed832bc6-eae3-458d-8cfc-orkhyperhook",
+				trick_id: "ed832bc6-eae3-458d-8cfc-orkhyperhook",
 				base_id: "Gainer",
 				name: "Cork.hyper-hook",
 				stance_id: "BacksideComplete",

@@ -30,6 +30,7 @@ module.exports = (sequelize) => {
 			},
 			creator: DataTypes.UUID,
 			name: DataTypes.STRING,
+			comboArray: DataTypes.JSON,
 			createdAt: DataTypes.DATE,
 			updatedAt: DataTypes.DATE,
 		},

@@ -11,6 +11,7 @@ module.exports = {
 			name: {
 				type: Sequelize.STRING,
 			},
+			comboArray: { type: Sequelize.JSON },
 			creator: {
 				type: Sequelize.UUID,
 			},

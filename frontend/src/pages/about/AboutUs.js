@@ -21,13 +21,13 @@ function AboutUs() {
 					<DeveloperCard
 						name='Steven French'
 						title='Senior Developer'
-						src='./noimg.jpeg'
+						src='https://github.com/Tohzt.png'
 					/>
-					<DeveloperCard
+					{/* <DeveloperCard
 						name='Tim Vo'
 						title='Senior Developer'
 						src='./noimg.jpeg'
-					/>
+					/> */}
 				</div>
 				<h2>Motion Capture</h2>
 				<h2>Investors</h2>

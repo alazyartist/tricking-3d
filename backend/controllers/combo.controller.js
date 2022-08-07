@@ -120,20 +120,21 @@ export const saveNewCombo = async (req, res) => {
 				where: {
 					name: comboName,
 					creator: creator,
+					comboArray: comboItems,
 				},
 			})
-			.then(async (newCombo) => {
-				comboItems.map(async (comboItem) => {
-					await combo_tricks.findOrCreate({
-						where: {
-							combo_id: newCombo[0].dataValues.combo_id,
-							trick_id: comboItem.trick_id,
-						},
-					});
-				});
+			// .then(async (newCombo) => {
+			// 	comboItems.map(async (comboItem) => {
+			// 		await combo_tricks.findOrCreate({
+			// 			where: {
+			// 				combo_id: newCombo[0].dataValues.combo_id,
+			// 				trick_id: comboItem.trick_id,
+			// 			},
+			// 		});
+			// 	});
 
-				res.json(newCombo);
-			})
+			// 	res.json(newCombo);
+			// })
 			.catch((err) => console.log(err));
 	} catch (err) {
 		console.log(err), res.json(err);

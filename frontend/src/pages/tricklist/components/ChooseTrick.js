@@ -52,7 +52,7 @@ const ChooseTrick = ({ setOpen, open, tricklist_id }) => {
 				<div className='no-scrollbar flex h-[40vh] w-[80vw] flex-col gap-2 overflow-y-auto'>
 					{comboArr.map((combo) => (
 						<div
-							className='rounded-md bg-zinc-900 p-1'
+							className='rounded-md bg-zinc-800 p-1'
 							key={combo.combo_id.substring(24)}
 							onClick={() => {
 								addComboDB(combo.combo_id);
