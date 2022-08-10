@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useApiCreds from "../../../hooks/useApiCreds";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineCheckCircle, AiOutlineClose } from "react-icons/ai";
 import api from "../../../api/api";
+import Claimed from "./Claimed";
 
 const TricklistbyIdDetails = ({ data }) => {
 	const apiPrivate = useApiCreds();
@@ -49,7 +50,7 @@ const TricklistbyIdDetails = ({ data }) => {
 				</div>
 			</div>
 			<div onClick={() => getCombosById()} className='flex'>
-				LIST ITEM GO HERE
+				Refresh List{" "}
 			</div>
 			{/* TricklistData shoul be [{},{}] */}
 			{Array.isArray(tricklistData) &&
@@ -57,18 +58,16 @@ const TricklistbyIdDetails = ({ data }) => {
 					return (
 						<div
 							key={listItem.combo_id + Math.floor(Math.random() * 1000)}
-							className='flex place-items-center  gap-2'>
-							<div>
-								{/* {listItem.combo_id.substring(listItem.combo_id.length - 5)} */}
-							</div>
-							{listItem?.Combo?.name}
+							className='flex place-items-center justify-between gap-2 rounded-xl bg-zinc-900  p-1'>
+							<div>{listItem?.Combo?.name}</div>
 							{editing && (
 								<div
 									onClick={() => deleteComboById(listItem)}
-									className='h-4 w-4 text-red-500'>
+									className='h-8 w-8 place-items-end text-3xl text-red-500'>
 									<AiOutlineClose />
 								</div>
 							)}
+							{!editing && <Claimed combo={listItem} />}
 						</div>
 					);
 				})}

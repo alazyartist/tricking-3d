@@ -7,14 +7,14 @@ module.exports = (sequelize) => {
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
-		static associate({ Stances, Tricks }) {
+		static associate({ Stances }) {
 			// define association here
-			this.hasOne(Stances, {
-				foreignKey: "stance_id",
-				sourceKey: "stance_id",
-				targetKey: "stance_id",
-				constraints: false,
-			});
+			// this.hasOne(Stances, {
+			// 	foreignKey: "stance_id",
+			// 	sourceKey: "stance_id",
+			// 	targetKey: "stance_id",
+			// 	constraints: false,
+			// });
 		}
 	}
 	Bases.init(

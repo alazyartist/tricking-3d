@@ -37,7 +37,7 @@ const TricklistDisplay = ({ count, setOpenView, setTricklist_id }) => {
 					<th className='px-2'>lastUpdated</th>
 				</thead>
 				<tbody className='text-center'>
-					{lists.length &&
+					{Array.isArray(lists) &&
 						lists.map((item) => (
 							<tr onClick={() => handleListClick(item.tricklist_id)}>
 								<td>

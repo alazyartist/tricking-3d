@@ -7,12 +7,22 @@ module.exports = (sequelize) => {
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
-		static associate({ Users, Captures, Tricklist, User_Tricklists }) {
+		static associate({
+			Users,
+			Captures,
+			Tricks,
+			Tricklist,
+			ClaimedCombos,
+			ClaimedTricks,
+			Combo,
+			User_Tricklists,
+		}) {
 			// define association here
 			this.belongsToMany(Users, {
 				through: Captures,
 				as: "Captured",
 				foreignKey: "user_id",
+				otherKey: "captured_id",
 				sourceKey: "id",
 				targetKey: "id",
 			});
@@ -20,6 +30,7 @@ module.exports = (sequelize) => {
 				through: Captures,
 				as: "mainUser",
 				foreignKey: "captured_id",
+				otherKey: "user_id",
 				sourceKey: "id",
 				targetKey: "id",
 			});
@@ -31,6 +42,19 @@ module.exports = (sequelize) => {
 			this.belongsToMany(Tricklist, {
 				through: User_Tricklists,
 				foreignKey: "user_id",
+			});
+			this.belongsToMany(Tricks, {
+				through: ClaimedTricks,
+				as: "TricksClaimed",
+				foreignKey: "user_id",
+				otherKey: "trick_id",
+				sourceKey: "uuid",
+				targetKey: "trick_id",
+			});
+			this.belongsToMany(Combo, {
+				through: ClaimedCombos,
+				foreignKey: "user_id",
+				sourceKey: "uuid",
 			});
 		}
 	}

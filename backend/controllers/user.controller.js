@@ -1,6 +1,7 @@
 import db from "../models/index.js";
 import bcrypt from "bcrypt";
 const user = await db.sequelize.models.Users;
+const trick = await db.sequelize.models.Tricks;
 import env from "dotenv";
 import jwt from "jsonwebtoken";
 import * as fs from "fs";
@@ -10,18 +11,30 @@ import { mailer } from "../middleware/nodemailer.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 env.config();
+db.sequelize.models.Tricks.associate(db.sequelize.models);
+user.associate(db.sequelize.models);
 
 export const getUserInfo = async (req, res) => {
 	console.log("hit userInfo");
 	const refreshToken = req.cookies.jwt;
 	if (!req.cookies.jwt) return res.send("You aint got no cookies.");
-
+	console.log(user.associations);
 	try {
-		user.findOne({ where: { refreshToken } }).then((currentUser) => {
-			res.json(currentUser);
-		});
+		user
+			.findOne({
+				where: { refreshToken },
+				include: {
+					model: db.sequelize.models.Tricks,
+					as: "TricksClaimed",
+					attributes: ["trick_id", "name"],
+				},
+			})
+			.then((currentUser) => {
+				console.log(currentUser);
+				res.json(currentUser);
+			})
+			.catch((err) => console.log(err));
 	} catch (err) {
 		console.log(err);
 		res.json({ error: err });

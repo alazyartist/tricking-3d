@@ -2,7 +2,6 @@ import db from "../models/index.js";
 const tricklist = db.sequelize.models.Tricklist;
 const tricklist_combos = db.sequelize.models.Tricklist_Combos;
 const combos = db.sequelize.models.Combo;
-const combo_tricks = db.sequelize.models.Combo_Tricks;
 // db.sequelize.models.Combo.associate(db.sequelize.models);
 // db.sequelize.models.Tricks.associate(db.sequelize.models);
 export const addCombotoTricklist = async (req, res) => {
@@ -55,7 +54,7 @@ export const getComboItemsByTricklistId = async (req, res) => {
 			],
 		})
 		.then((data) => {
-			console.log("t_c", data);
+			// console.log("t_c", data);
 			res.json(data);
 		})
 		.catch((err) => {
@@ -96,11 +95,7 @@ export const getComboItemsByTricklistId = async (req, res) => {
 
 export const getAllCombos = async (req, res) => {
 	try {
-		combos
-			.findAll({
-				include: { model: db.sequelize.models.Tricks, as: "ComboTricks" },
-			})
-			.then((results) => res.json(results));
+		combos.findAll({}).then((results) => res.json(results));
 	} catch (err) {
 		console.log(err), res.json(err);
 	}
@@ -123,18 +118,6 @@ export const saveNewCombo = async (req, res) => {
 					comboArray: comboItems,
 				},
 			})
-			// .then(async (newCombo) => {
-			// 	comboItems.map(async (comboItem) => {
-			// 		await combo_tricks.findOrCreate({
-			// 			where: {
-			// 				combo_id: newCombo[0].dataValues.combo_id,
-			// 				trick_id: comboItem.trick_id,
-			// 			},
-			// 		});
-			// 	});
-
-			// 	res.json(newCombo);
-			// })
 			.catch((err) => console.log(err));
 	} catch (err) {
 		console.log(err), res.json(err);

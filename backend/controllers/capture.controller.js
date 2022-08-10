@@ -2,7 +2,8 @@ import db from "../models/index.js";
 const user = await db.sequelize.models.Users;
 const capture = await db.sequelize.models.Captures;
 
-db.sequelize.models.Users.associate(db.sequelize.models);
+// db.sequelize.models.Users.associate(db.sequelize.models);
+user.associate(db.sequelize.models);
 
 export const captureUser = async (req, res) => {
 	let useruuid = req.body.useruuid;
@@ -26,8 +27,8 @@ export const captureUser = async (req, res) => {
 };
 
 export const getCaptures = async (req, res) => {
-	const userid = await req.body.id;
-	if (!req.body.id) return res.send("No ID Sent");
+	const userid = await req.params.userid;
+	if (!req.params.userid) return res.send("No ID Sent");
 	try {
 		user
 			.findOne({
@@ -54,7 +55,8 @@ export const getCaptures = async (req, res) => {
 			.then((userWithCaptures) => {
 				console.log(userWithCaptures);
 				res.json(userWithCaptures);
-			});
+			})
+			.catch((err) => console.log(err));
 	} catch (err) {
 		console.log(err);
 	}

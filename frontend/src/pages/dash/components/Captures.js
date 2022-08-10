@@ -12,10 +12,7 @@ const Captures = () => {
 	const getData = () => {
 		if (activeUser.userInfo.id) {
 			apiPrivate
-				.put("/capture/", {
-					id: activeUser.userInfo.id,
-					accessToken: activeUser.accessToken,
-				})
+				.get(`/capture/${activeUser.userInfo.id}`)
 				.then((res) => {
 					console.log(res.data);
 					console.log(res.data.Captured);

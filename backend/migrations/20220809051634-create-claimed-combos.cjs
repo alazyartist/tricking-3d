@@ -1,18 +1,27 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Combo_Tricks', {
+    await queryInterface.createTable('ClaimedCombos', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      id: {
+        type: Sequelize.INTEGER
+      },
+      user_id: {
+        type: Sequelize.UUID
+      },
       combo_id: {
         type: Sequelize.UUID
       },
-      trick_id: {
-        type: Sequelize.UUID
+      createdAt: {
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
@@ -25,6 +34,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Combo_Tricks');
+    await queryInterface.dropTable('ClaimedCombos');
   }
 };

@@ -50,11 +50,15 @@ const dbmodels = Object.keys(db.sequelize.models);
 console.log(dbmodels);
 for (const modelName of dbmodels) {
 	if (db.sequelize.models[modelName].associate) {
+		console.log(db.sequelize.models[modelName]);
 		db.sequelize.models[modelName].associate(db.sequelize.models);
 	}
 }
 console.log(
 	"models/index.js Associtions",
-	db.sequelize.models.Users.associations
+	"users",
+	db.sequelize.models.Users?.associations,
+	"Tricks",
+	db.sequelize.models.Tricks?.associations
 );
 export default db;

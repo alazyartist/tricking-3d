@@ -1,7 +1,7 @@
 "use strict";
 const { Model, DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
-	class Combo_Tricks extends Model {
+	class ClaimedCombos extends Model {
 		/**
 		 * Helper method for defining associations.
 		 * This method is not a part of Sequelize lifecycle.
@@ -11,16 +11,22 @@ module.exports = (sequelize) => {
 			// define association here
 		}
 	}
-	Combo_Tricks.init(
+	ClaimedCombos.init(
 		{
-			id: { type: DataTypes.INTEGER, primaryKey: true },
+			id: {
+				type: DataTypes.INTEGER,
+				primaryKey: true,
+				autoIncrement: true,
+			},
+			user_id: DataTypes.UUID,
 			combo_id: DataTypes.UUID,
-			trick_id: DataTypes.UUID,
+			createdAt: DataTypes.DATE,
+			updatedAt: DataTypes.DATE,
 		},
 		{
 			sequelize,
-			modelName: "Combo_Tricks",
+			modelName: "ClaimedCombos",
 		}
 	);
-	return Combo_Tricks;
+	return ClaimedCombos;
 };

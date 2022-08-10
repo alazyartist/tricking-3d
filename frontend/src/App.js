@@ -77,7 +77,9 @@ function App() {
 			<QueryClientProvider client={queryClient}>
 				<AppBackground />
 				<UserIcon />
-				{!location.pathname.includes("/home") && <Header />}
+				{!location.pathname.includes("/home") && location.pathname !== "/" && (
+					<Header />
+				)}
 				{tabBar ? !isSandbox && <TabBar /> : !isSandbox && <TheoryTabBar />}
 
 				{transitions(({ opacity }, curLocation) => (

@@ -5,6 +5,7 @@ import { useUserStore } from "../../../store/userStore";
 const ChooseTrick = ({ setOpen, open, tricklist_id }) => {
 	const userInfo = useUserStore((s) => s.userInfo);
 	const apiPrivate = useApiCreds();
+	const [showCombo, setShowCombo] = useState(false);
 	const [comboArr, setComboArr] = useState([]);
 	const [cname, setCname] = useState("");
 	const addComboDB = async (combo_id) => {
@@ -52,13 +53,20 @@ const ChooseTrick = ({ setOpen, open, tricklist_id }) => {
 				<div className='no-scrollbar flex h-[40vh] w-[80vw] flex-col gap-2 overflow-y-auto'>
 					{comboArr.map((combo) => (
 						<div
+							onTouchStart={() => setShowCombo(true)}
+							onTouchEnd={() => setShowCombo(false)}
 							className='rounded-md bg-zinc-800 p-1'
 							key={combo.combo_id.substring(24)}
 							onClick={() => {
 								addComboDB(combo.combo_id);
 								console.log(combo);
 							}}>
-							{combo.name}
+							<div>{combo.name}</div>
+							<div className='flex'>
+								{combo.comboArray &&
+									showCombo &&
+									combo.comboArray.map((item) => <div>{item.name}&gt;</div>)}
+							</div>
 						</div>
 					))}
 				</div>

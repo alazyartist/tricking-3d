@@ -7,8 +7,14 @@ module.exports = (sequelize) => {
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
-		static associate({ Stances, Variations, Bases, Combo, Combo_Tricks }) {
+		static associate({ Stances, Users, Variations, Bases }) {
 			// define association here
+			// this.belongsToMany(Users, {
+			// 	through: "ClaimedTricks",
+			// 	foreignKey: "trick_id",
+			// 	sourceKey: "trick_id",
+			// 	targetKey: "uuid",
+			// });
 			this.belongsToMany(Variations, {
 				through: "Trick_Variations",
 				foreignKey: "trick_id",
@@ -21,12 +27,6 @@ module.exports = (sequelize) => {
 			this.belongsTo(Bases, {
 				foreignKey: "base_id",
 				sourceKey: "base_id",
-				as: "Base",
-			});
-			this.belongsToMany(Combo, {
-				through: Combo_Tricks,
-				foreignKey: "trick_id",
-				as: "TrickCombos",
 			});
 		}
 	}
