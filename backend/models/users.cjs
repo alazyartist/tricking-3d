@@ -16,6 +16,7 @@ module.exports = (sequelize) => {
 			ClaimedTricks,
 			Combo,
 			User_Tricklists,
+			Profile,
 		}) {
 			// define association here
 			this.belongsToMany(Users, {
@@ -28,13 +29,14 @@ module.exports = (sequelize) => {
 			});
 			this.belongsToMany(Users, {
 				through: Captures,
-				as: "mainUser",
+				as: "CapturedMe",
 				foreignKey: "captured_id",
 				otherKey: "user_id",
 				sourceKey: "id",
 				targetKey: "id",
 			});
 			this.hasMany(Tricklist, {
+				as: "MyTricklists",
 				foreignKey: "owner",
 				sourceKey: "uuid",
 				targetKey: "owner",
@@ -42,6 +44,9 @@ module.exports = (sequelize) => {
 			this.belongsToMany(Tricklist, {
 				through: User_Tricklists,
 				foreignKey: "user_id",
+				sourceKey: "uuid",
+				targetKey: "tricklist_id",
+				otherKey: "tricklist_id",
 			});
 			this.belongsToMany(Tricks, {
 				through: ClaimedTricks,
@@ -53,9 +58,13 @@ module.exports = (sequelize) => {
 			});
 			this.belongsToMany(Combo, {
 				through: ClaimedCombos,
+				as: "CombosClaimed",
 				foreignKey: "user_id",
 				sourceKey: "uuid",
+				otherKey: "combo_id",
+				targetKey: "combo_id",
 			});
+			this.hasOne(Profile, { foreignKey: "user_id", sourceKey: "uuid" });
 		}
 	}
 	Users.init(

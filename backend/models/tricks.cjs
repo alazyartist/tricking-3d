@@ -9,12 +9,13 @@ module.exports = (sequelize) => {
 		 */
 		static associate({ Stances, Users, Variations, Bases }) {
 			// define association here
-			// this.belongsToMany(Users, {
-			// 	through: "ClaimedTricks",
-			// 	foreignKey: "trick_id",
-			// 	sourceKey: "trick_id",
-			// 	targetKey: "uuid",
-			// });
+			this.belongsToMany(Users, {
+				through: "ClaimedTricks",
+				foreignKey: "trick_id",
+				sourceKey: "trick_id",
+				targetKey: "uuid",
+				otherKey: "user_id",
+			});
 			this.belongsToMany(Variations, {
 				through: "Trick_Variations",
 				foreignKey: "trick_id",
@@ -37,13 +38,13 @@ module.exports = (sequelize) => {
 				defaultValue: DataTypes.UUIDV4,
 				primaryKey: true,
 			},
+			name: DataTypes.STRING,
+			type: { type: DataTypes.STRING, defaultValue: "Trick" },
+			trickType: { type: DataTypes.STRING },
 			base_id: {
 				type: DataTypes.STRING,
 				references: { model: "Bases", key: "base_id" },
 			},
-			name: DataTypes.STRING,
-			type: { type: DataTypes.STRING, defaultValue: "Trick" },
-			trickType: { type: DataTypes.STRING },
 			stance_id: {
 				type: DataTypes.STRING,
 				references: { model: "Stances", key: "stance_id" },

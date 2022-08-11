@@ -10,6 +10,7 @@ const SaveCombo = ({ setComboName, comboName, setSave, save }) => {
 				onChange={(e) => setComboName(e.target.value)}
 				className={"w-[75vw] rounded-xl bg-transparent p-2"}
 				type={"text"}
+				placeholder='Name You Combo'
 				value={comboName}
 			/>
 			<div className='h-fit w-fit text-4xl' onClick={() => setSave(!save)}>

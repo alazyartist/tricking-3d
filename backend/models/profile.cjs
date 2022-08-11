@@ -7,12 +7,19 @@ module.exports = (sequelize) => {
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
-		static associate(models) {
+		static associate({ Users }) {
 			// define association here
+			this.belongsTo(Users, { foreignKey: "user_id", targetKey: "uuid" });
 		}
 	}
 	Profile.init(
 		{
+			id: {
+				allowNull: false,
+				autoIncrement: true,
+				primaryKey: true,
+				type: DataTypes.INTEGER,
+			},
 			user_id: DataTypes.UUID,
 			name: DataTypes.STRING,
 			age: DataTypes.INTEGER,

@@ -7,12 +7,17 @@ const useSaveCombo = (currentItem) => {
 	const userInfo = useUserStore((s) => s.userInfo);
 	const [save, setSave] = useState();
 	const saveCombo = (currentItem) => {
-		console.log("Saving Combo", currentItem, comboName);
-		apiPrivate.post("/combo/add", {
-			comboName: comboName,
-			comboItems: currentItem,
-			creator: userInfo.uuid,
-		});
+		if (Array.isArray(currentItem) && currentItem.length > 0) {
+			console.log("Saving Combo", currentItem, comboName);
+			apiPrivate
+				.post("/combo/add", {
+					comboName: comboName,
+					comboItems: currentItem,
+					creator: userInfo.uuid,
+				})
+				.then((post) => console.log(post))
+				.catch((err) => console.log(err));
+		}
 	};
 
 	useEffect(() => {
