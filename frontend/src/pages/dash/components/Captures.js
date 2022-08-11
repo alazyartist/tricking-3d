@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import useApiCreds from "../../../hooks/useApiCreds";
 import { useUserStore } from "../../../store/userStore";
@@ -5,51 +6,62 @@ import CapturedCard from "./CapturedCard";
 import UserCard from "./UserCard";
 
 const Captures = () => {
-	const [data, setData] = useState();
+	const [captured, setCaptured] = useState();
+	const [capturedYou, setCapturedYou] = useState();
 	const activeUser = useUserStore();
-	const apiPrivate = useApiCreds();
-	// console.log(activeUser.userInfo.id);
-	const getData = () => {
-		if (activeUser.userInfo.id) {
-			apiPrivate
-				.get(`/capture/${activeUser.userInfo.id}`)
-				.then((res) => {
-					console.log(res.data);
-					console.log(res.data.Captured);
-					setData(res.data.Captured);
-				})
-				.catch((err) => console.log(err));
-		}
-	};
+	const queryClient = useQueryClient();
+	console.log(activeUser.userInfo.Captured);
 
 	useEffect(() => {
-		if (activeUser.accessToken !== null) {
-			getData();
-		}
-		// console.log(data);
+		setCaptured(activeUser.userInfo.Captured);
+		setCapturedYou(activeUser.userInfo.CapturedMe);
 	}, []);
 
 	return (
 		<div className='flex flex-col place-items-center font-inter'>
-			<div onClick={() => getData()}>Your Captures</div>
+			<div onClick={() => queryClient.invalidateQueries(["userInfo"])}>
+				Your Captures
+			</div>
 			<div>
-				{!!data &&
-					Object.keys(data).map((key) => (
-						<div key={`${data[key].username}`} className='flex flex-col gap-3'>
+				{!!captured &&
+					Object.keys(captured).map((key) => (
+						<div
+							key={`${captured[key].username}`}
+							className='flex flex-col gap-3'>
 							<CapturedCard
-								name={data[key].first_name + " " + data[key].last_name}
+								name={captured[key].first_name + " " + captured[key].last_name}
 								src={
-									data[key].profilePic
-										? `./images/${data[key].uuid}/${data[key].profilePic}`
+									captured[key].profilePic
+										? `./images/${captured[key].uuid}/${captured[key].profilePic}`
 										: `./images/noimg.jpeg`
 								}
-								username={`${data[key].username}`}
+								username={`${captured[key].username}`}
 							/>
-							{/* {Object.keys(data[key]).map((dk) => (
-								<>
-									<div>{dk + ":" + data[key][dk]}</div>
-								</>
-							))} */}
+						</div>
+					))}
+			</div>
+			<div
+			// onClick={() => getData()}
+			>
+				Captured You
+			</div>
+			<div>
+				{!!capturedYou &&
+					Object.keys(capturedYou).map((key) => (
+						<div
+							key={`${capturedYou[key].username}`}
+							className='flex flex-col gap-3'>
+							<CapturedCard
+								name={
+									capturedYou[key].first_name + " " + capturedYou[key].last_name
+								}
+								src={
+									capturedYou[key].profilePic
+										? `./images/${capturedYou[key].uuid}/${capturedYou[key].profilePic}`
+										: `./images/noimg.jpeg`
+								}
+								username={`${capturedYou[key].username}`}
+							/>
 						</div>
 					))}
 			</div>

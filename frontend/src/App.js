@@ -46,6 +46,8 @@ import { useUserStore } from "./store/userStore";
 import Axes from "./pages/theory/axes/Axes";
 import ComboMakerV2 from "./pages/comboMakerV2/ComboMakerV2";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 function App() {
 	const accessToken = useUserStore((s) => s.accessToken);
 	const location = useLocation();
@@ -75,6 +77,7 @@ function App() {
 	return (
 		<>
 			<QueryClientProvider client={queryClient}>
+				<ReactQueryDevtools initialIsOpen />
 				<AppBackground />
 				<UserIcon />
 				{!location.pathname.includes("/home") && location.pathname !== "/" && (

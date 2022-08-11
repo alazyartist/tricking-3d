@@ -7,26 +7,28 @@ const TricklistDisplay = ({ count, setOpenView, setTricklist_id }) => {
 	const userInfo = useUserStore((s) => s.userInfo);
 	const apiPrivate = useApiCreds();
 	const [lists, setLists] = useState([]);
-	const getUserTricklists = async () => {
-		apiPrivate
-			.post("/tricklist/user", {
-				accessToken: accessToken,
-				uuid: userInfo.uuid,
-			})
-			.then((res) => {
-				console.log(res.data);
-				setLists(res.data);
-			})
-			.catch((err) => console.log(err));
-	};
+	// const getUserTricklists = async () => {
+	// 	apiPrivate
+	// 		.post("/tricklist/user", {
+	// 			accessToken: accessToken,
+	// 			uuid: userInfo.uuid,
+	// 		})
+	// 		.then((res) => {
+	// 			console.log(res.data);
+	// 			setLists(res.data);
+	// 		})
+	// 		.catch((err) => console.log(err));
+	// };
 	const handleListClick = (uuid) => {
 		console.log("setOpenView", uuid);
 		setTricklist_id(uuid);
 		setOpenView(true);
 	};
 	useEffect(() => {
-		getUserTricklists();
-	}, [count]);
+		// getUserTricklists();
+		setLists(userInfo?.MyTricklists);
+		console.log(userInfo?.MyTricklists);
+	}, []);
 	return (
 		<div>
 			<table>
@@ -44,7 +46,7 @@ const TricklistDisplay = ({ count, setOpenView, setTricklist_id }) => {
 									{item.tricklist_id.substring(item.tricklist_id.length - 4)}
 								</td>
 								<td>{item.name}</td>
-								<td>{item.Owner.username}</td>
+								<td>{item?.Owner?.username}</td>
 								<td>
 									{Number(
 										(Date.now() - new Date(item.updatedAt)) / 1000 / 60

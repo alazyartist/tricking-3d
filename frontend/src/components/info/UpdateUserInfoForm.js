@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/api.js";
 import useApiCreds from "../../hooks/useApiCreds.js";
-import useUserInfo from "../../hooks/useUserInfo.js";
+import useUserInfo from "../../api/useUserInfo.js";
 import { useUserStore } from "../../store/userStore.js";
+import { useQueryClient } from "@tanstack/react-query";
 const UpdateUserInfoForm = ({ setEditing }) => {
 	const [success, setSuccess] = useState(false);
 	const [validPassword, setValidPassword] = useState(false);
 	const [isVisible, setIsVisible] = useState();
-	const [data, setData] = useState();
 	const nav = useNavigate();
 	const apiPrivate = useApiCreds();
 	const accessToken = useUserStore((s) => s.accessToken);
@@ -20,7 +20,9 @@ const UpdateUserInfoForm = ({ setEditing }) => {
 		password: undefined,
 		confirmPassword: undefined,
 	});
-	const getInfo = useUserInfo();
+	const { data, isFetching, status, error } = useUserInfo();
+
+	const queryClient = useQueryClient();
 	const handleUpdate = async (e) => {
 		e.preventDefault();
 		console.log("Attempting to Update");
@@ -48,28 +50,14 @@ const UpdateUserInfoForm = ({ setEditing }) => {
 					headers: { "Content-Type": "application/json" },
 				}
 			);
-			setData(updateUser.data);
+			// setData(updateUser.data);
 			if (updateUser.status === 200) return setSuccess(true);
 		} catch (err) {
 			console.log(err);
 			// }
 		}
 	};
-	const getUserInfo = async () => {
-		try {
-			const response = await getInfo();
-			console.log(response.data);
-			setUserData({
-				password: null,
-				username: response.data.username,
-				first_name: response.data.first_name,
-				last_name: response.data.last_name,
-				email: response.data.email,
-			});
-		} catch (err) {
-			console.log("getUserInfoErr", err);
-		}
-	};
+
 	useEffect(() => {
 		const { password, confirmPassword } = userData;
 		if (password !== null && password !== "" && password === confirmPassword) {
@@ -80,8 +68,18 @@ const UpdateUserInfoForm = ({ setEditing }) => {
 	}, [userData]);
 	useEffect(() => {
 		success ? setEditing(false) : setEditing(true);
-		getUserInfo();
-	}, [success]);
+		// getUserInfo();
+		if (status === "success") {
+			setUserData({
+				password: null,
+				username: data?.username,
+				first_name: data?.first_name,
+				last_name: data?.last_name,
+				email: data?.email,
+			});
+		}
+		console.log(data, status, isFetching, error);
+	}, [success, data, status, isFetching, error]);
 
 	return (
 		<div className='w-[70vw] rounded-xl bg-zinc-800'>
