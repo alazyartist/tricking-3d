@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
+import useGetTricks from "../../api/useGetTricks";
 import { stances } from "../../data/trickDataModel/TrickObjects";
-import useApiCreds from "../../hooks/useApiCreds";
 
 const useComboMakerV2 = () => {
 	const [currentItem, setCurrentItem] = useState([]);
@@ -26,22 +26,14 @@ const useComboMakerV2 = () => {
 			console.log("V2", lastItem, filter);
 		}
 	}, [currentItem]);
-	const apiPrivate = useApiCreds();
 	const [tricks, setTricks] = useState([]);
 	const [filteredTricks, setFilteredTricks] = useState([]);
-	const getTricks = async () => {
-		apiPrivate
-			.get("/tricks")
-			.then((res) => {
-				console.log(res.data);
-				setTricks(res.data);
-				setFilteredTricks(res.data);
-			})
-			.catch((err) => console.log(err));
-	};
+
+	const { data, status, isSuccess } = useGetTricks();
 	useEffect(() => {
-		getTricks();
-	}, []);
+		setTricks(data);
+		setFilteredTricks(data);
+	}, [data, status, isSuccess]);
 	useEffect(() => {
 		if (currentItem.length < 1 || filteredTricks.length < 1) {
 			setFilteredTricks([...tricks]);

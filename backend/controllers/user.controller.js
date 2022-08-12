@@ -46,6 +46,13 @@ export const getUserInfo = async (req, res) => {
 					{
 						model: db.sequelize.models.Tricklist,
 						as: "MyTricklists",
+						include: [
+							{
+								model: db.sequelize.models.Users,
+								as: "Owner",
+								attributes: ["username"],
+							},
+						],
 					},
 					{
 						model: db.sequelize.models.Users,

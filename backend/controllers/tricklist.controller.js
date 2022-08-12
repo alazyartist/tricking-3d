@@ -6,7 +6,7 @@ const tricks = await db.sequelize.models.Tricks;
 // db.sequelize.models.Stances.associate(db.sequelize.models);
 // db.sequelize.models.Variations.associate(db.sequelize.models);
 export const makeNewTricklist = async (req, res) => {
-	const { name, uuid } = req.body;
+	const { name, uuid } = req.body.data;
 
 	tricklist
 		.findOrCreate({
@@ -34,12 +34,12 @@ export const getTricklists = async (req, res) => {
 		});
 };
 export const getUserTricklists = async (req, res) => {
-	const { uuid } = req.body;
-	if (!uuid) return res.send("noUUID");
+	const { user_id } = req.params;
+	if (!user_id) return res.send("noUUID");
 	console.log("hit userTricklists");
 	tricklist
 		.findAll({
-			where: { owner: uuid },
+			where: { owner: user_id },
 			include: {
 				model: db.sequelize.models.Users,
 				as: "Owner",
@@ -53,10 +53,10 @@ export const getUserTricklists = async (req, res) => {
 };
 export const getTricklistsById = async (req, res) => {
 	console.log("hitUserTricklistBYID");
-	const { uuid, tricklist_id } = req.body;
+	const { tricklist_id } = req.params;
 	tricklist
 		.findAll({
-			where: { owner: uuid, tricklist_id: tricklist_id },
+			where: { tricklist_id: tricklist_id },
 			include: {
 				model: db.sequelize.models.Users,
 				as: "Owner",

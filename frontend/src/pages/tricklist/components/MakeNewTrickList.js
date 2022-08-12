@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useMakeTricklist from "../../../api/useMakeTricklist";
 import useApiCreds from "../../../hooks/useApiCreds";
 import { useUserStore } from "../../../store/userStore";
 
@@ -7,22 +8,22 @@ const MakeNewTrickList = ({ setOpen, setCount, count }) => {
 	const accessToken = useUserStore((s) => s.accessToken);
 	const { uuid } = useUserStore((s) => s.userInfo);
 	const apiPrivate = useApiCreds();
-
+	const { mutate } = useMakeTricklist();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		console.log("Submit new Tricklist");
-		apiPrivate
-			.post("/tricklist", {
-				accessToken: accessToken,
-				uuid: uuid,
-				name: name,
-			})
-			.then((response) => {
-				console.log(response);
-			})
-			.catch((err) => console.log(err));
+		mutate({ uuid, name });
+		// apiPrivate
+		// 	.post("/tricklist", {
+		// 		accessToken: accessToken,
+		// 		uuid: uuid,
+		// 		name: name,
+		// 	})
+		// 	.then((response) => {
+		// 		console.log(response);
+		// 	})
+		// 	.catch((err) => console.log(err));
 		setOpen(false);
-		setCount(count + 1);
 	};
 	const handleClick = (e) => {
 		if (e.target.nodeName === "DIV") {

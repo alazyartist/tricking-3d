@@ -3,23 +3,20 @@ import useApiCreds from "../../../hooks/useApiCreds";
 import { AiOutlineCheckCircle, AiOutlineClose } from "react-icons/ai";
 import api from "../../../api/api";
 import Claimed from "./Claimed";
+import { useGetTricklistDetailsById } from "../../../api/useGetTricklists";
+import { useUserStore } from "../../../store/userStore";
 
-const TricklistbyIdDetails = ({ data }) => {
+const TricklistbyIdDetails = ({ tricklist_id, data }) => {
 	const apiPrivate = useApiCreds();
+	const { uuid } = useUserStore((s) => s.userInfo);
 	let updated = new Date(data?.updatedAt);
 	updated = updated.toDateString();
 	const [editing, setEditing] = useState(false);
-	const [tricklistData, setTrickListData] = useState([]);
-	const getCombosById = () => {
-		let tid = data.tricklist_id;
-		apiPrivate
-			.get(`/tricklist/user/tl/${tid}`)
-			.then((response) => {
-				console.log("TID ", response.data);
-				setTrickListData(response.data);
-			})
-			.catch((err) => console.log(err));
-	};
+
+	const { data: tricklistData } = useGetTricklistDetailsById(
+		tricklist_id,
+		uuid
+	);
 	const deleteComboById = (selectedListItem) => {
 		apiPrivate
 			.delete(
@@ -30,7 +27,7 @@ const TricklistbyIdDetails = ({ data }) => {
 	};
 
 	useEffect(() => {
-		getCombosById();
+		// getCombosById();
 	}, [data]);
 	return (
 		<>
@@ -49,7 +46,9 @@ const TricklistbyIdDetails = ({ data }) => {
 					Edit
 				</div>
 			</div>
-			<div onClick={() => getCombosById()} className='flex'>
+			<div
+				// onClick={() => getCombosById()}
+				className='flex'>
 				Refresh List{" "}
 			</div>
 			{/* TricklistData shoul be [{},{}] */}

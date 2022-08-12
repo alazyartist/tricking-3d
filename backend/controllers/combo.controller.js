@@ -44,10 +44,10 @@ export const deleteComboFromTricklist = async (req, res) => {
 	res.send("DELETING it for you");
 };
 export const getComboItemsByTricklistId = async (req, res) => {
-	console.log("params", req.params.tid);
+	console.log("hitTricklistDetails", req.params.tricklist_id);
 	tricklist_combos
 		.findAll({
-			where: { tricklist_id: req.params.tid },
+			where: { tricklist_id: req.params.tricklist_id },
 			include: [
 				{ model: db.sequelize.models.Combo },
 				{ model: db.sequelize.models.Tricklist },

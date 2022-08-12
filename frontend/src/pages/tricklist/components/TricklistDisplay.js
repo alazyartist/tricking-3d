@@ -1,34 +1,32 @@
+import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
+import useGetTricklists from "../../../api/useGetTricklists";
 import useApiCreds from "../../../hooks/useApiCreds";
 import { useUserStore } from "../../../store/userStore";
 
 const TricklistDisplay = ({ count, setOpenView, setTricklist_id }) => {
-	const accessToken = useUserStore((s) => s.accessToken);
+	const queryClient = useQueryClient();
 	const userInfo = useUserStore((s) => s.userInfo);
-	const apiPrivate = useApiCreds();
 	const [lists, setLists] = useState([]);
-	// const getUserTricklists = async () => {
-	// 	apiPrivate
-	// 		.post("/tricklist/user", {
-	// 			accessToken: accessToken,
-	// 			uuid: userInfo.uuid,
-	// 		})
-	// 		.then((res) => {
-	// 			console.log(res.data);
-	// 			setLists(res.data);
-	// 		})
-	// 		.catch((err) => console.log(err));
-	// };
+	const accessToken = useUserStore((s) => s.accessToken);
+	const apiPrivate = useApiCreds();
+
 	const handleListClick = (uuid) => {
 		console.log("setOpenView", uuid);
 		setTricklist_id(uuid);
 		setOpenView(true);
 	};
+	const { data } = useGetTricklists();
+	// const queryInfo = queryClient.getQueryData({ queryKey: "userInfo" });
 	useEffect(() => {
-		// getUserTricklists();
-		setLists(userInfo?.MyTricklists);
-		console.log(userInfo?.MyTricklists);
-	}, []);
+		if (data) {
+			setLists(data);
+		} else {
+			console.log("no-data");
+			// setLists(userInfo?.MyTricklists);
+		}
+		console.log(data);
+	}, [data, userInfo]);
 	return (
 		<div>
 			<table>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useGetTricklistById } from "../../../api/useGetTricklists";
 import useApiCreds from "../../../hooks/useApiCreds";
 import { useUserStore } from "../../../store/userStore";
 import AddComboItemToTricklist from "./AddComboItemToTricklist";
@@ -8,27 +9,12 @@ const ListViewbyID = ({ tricklist_id, setOpenView }) => {
 	const userInfo = useUserStore((s) => s.userInfo);
 	const apiPrivate = useApiCreds();
 
-	const [data, setData] = useState("No Data");
 	const [deleteCheck, setDeleteCheck] = useState(false);
 
-	const getTricklists = async () => {
-		try {
-			apiPrivate
-				.post("/tricklist/user/id", {
-					uuid: userInfo.uuid,
-					tricklist_id: tricklist_id,
-				})
-				.then((response) => {
-					console.log(response.data[0]);
-					setData(response.data[0]);
-				});
-		} catch (err) {
-			console.log(err);
-		}
-	};
+	const { data: tricklists } = useGetTricklistById(tricklist_id, userInfo.uuid);
 	useEffect(() => {
-		getTricklists();
-	}, []);
+		console.log(tricklists);
+	}, [tricklists]);
 	const handleClick = (e) => {
 		if (e.target.id === "background") {
 			setOpenView(false);
@@ -47,7 +33,10 @@ const ListViewbyID = ({ tricklist_id, setOpenView }) => {
 			id={"background"}
 			className='absolute top-0 z-[10] flex h-[100vh] w-full place-content-center bg-zinc-800 bg-opacity-40 pt-[8rem] backdrop-blur-xl'>
 			<div className='h-fit text-xl'>
-				<TricklistbyIdDetails data={data} />
+				<TricklistbyIdDetails
+					tricklist_id={tricklist_id}
+					data={tricklists?.[0]}
+				/>
 				<DeleteCheck
 					deleteCheck={deleteCheck}
 					handleDelete={handleDelete}
