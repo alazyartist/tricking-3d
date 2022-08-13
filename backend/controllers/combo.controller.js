@@ -5,11 +5,11 @@ const combos = db.sequelize.models.Combo;
 // db.sequelize.models.Combo.associate(db.sequelize.models);
 // db.sequelize.models.Tricks.associate(db.sequelize.models);
 export const addCombotoTricklist = async (req, res) => {
-	const { uuid, combo_id } = req.body;
+	const { uuid, combo_id } = req.body.data;
 	try {
 		tricklist_combos
 			.create({
-				tricklist_id: req.body.tricklist_id,
+				tricklist_id: req.body.data.tricklist_id,
 				combo_id: combo_id,
 			})
 			.then((newCombo) => res.json(newCombo))
@@ -41,7 +41,7 @@ export const deleteComboFromTricklist = async (req, res) => {
 	tricklist_combos.destroy({
 		where: { id: id, tricklist_id: tricklist_id, combo_id: combo_id },
 	});
-	res.send("DELETING it for you");
+	res.json({ id: id, tricklist_id: tricklist_id, combo_id: combo_id });
 };
 export const getComboItemsByTricklistId = async (req, res) => {
 	console.log("hitTricklistDetails", req.params.tricklist_id);

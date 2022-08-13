@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useGetTricklistById } from "../../../api/useGetTricklists";
-import useApiCreds from "../../../hooks/useApiCreds";
+import {
+	useDeleteTricklist,
+	useGetTricklistById,
+} from "../../../api/useTricklists";
 import { useUserStore } from "../../../store/userStore";
 import AddComboItemToTricklist from "./AddComboItemToTricklist";
 import DeleteCheck from "./DeleteCheck";
 import TricklistbyIdDetails from "./TricklistbyIdDetails";
 const ListViewbyID = ({ tricklist_id, setOpenView }) => {
 	const userInfo = useUserStore((s) => s.userInfo);
-	const apiPrivate = useApiCreds();
 
 	const [deleteCheck, setDeleteCheck] = useState(false);
-
 	const { data: tricklists } = useGetTricklistById(tricklist_id, userInfo.uuid);
+	const { mutate: deleteTricklist } = useDeleteTricklist(tricklist_id);
 	useEffect(() => {
 		console.log(tricklists);
 	}, [tricklists]);
@@ -21,11 +22,8 @@ const ListViewbyID = ({ tricklist_id, setOpenView }) => {
 		}
 	};
 	const handleDelete = () => {
-		console.log("GONNA DELETE", tricklist_id, userInfo.uuid);
-		apiPrivate.delete(`/tricklist/user/${tricklist_id}`).then((res) => {
-			console.log(res.data);
-			setOpenView(false);
-		});
+		deleteTricklist();
+		setOpenView(false);
 	};
 	return (
 		<div

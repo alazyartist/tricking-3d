@@ -12,7 +12,7 @@ const useMakeTricklist = () => {
 		},
 		{
 			onSuccess: () => {
-				queryClient.invalidateQueries("userInfo");
+				queryClient.invalidateQueries(["tricklists"]);
 				console.log("succeeded making new list");
 			},
 		}

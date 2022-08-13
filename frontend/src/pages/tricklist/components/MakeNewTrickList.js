@@ -1,28 +1,16 @@
 import React, { useState } from "react";
 import useMakeTricklist from "../../../api/useMakeTricklist";
-import useApiCreds from "../../../hooks/useApiCreds";
 import { useUserStore } from "../../../store/userStore";
 
-const MakeNewTrickList = ({ setOpen, setCount, count }) => {
+const MakeNewTrickList = ({ setOpen }) => {
 	const [name, setName] = useState("");
-	const accessToken = useUserStore((s) => s.accessToken);
 	const { uuid } = useUserStore((s) => s.userInfo);
-	const apiPrivate = useApiCreds();
-	const { mutate } = useMakeTricklist();
+	const { mutate: makeNewTricklist } = useMakeTricklist();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		console.log("Submit new Tricklist");
-		mutate({ uuid, name });
-		// apiPrivate
-		// 	.post("/tricklist", {
-		// 		accessToken: accessToken,
-		// 		uuid: uuid,
-		// 		name: name,
-		// 	})
-		// 	.then((response) => {
-		// 		console.log(response);
-		// 	})
-		// 	.catch((err) => console.log(err));
+		makeNewTricklist({ uuid, name });
+
 		setOpen(false);
 	};
 	const handleClick = (e) => {

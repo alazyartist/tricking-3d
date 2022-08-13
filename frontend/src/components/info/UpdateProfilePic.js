@@ -1,36 +1,17 @@
-import React, { useEffect, useState } from "react";
-import useApiCreds from "../../hooks/useApiCreds";
+import React, { useState } from "react";
+import { useChangeProfilePic } from "../../api/useUserInfo";
 import { useUserStore } from "../../store/userStore";
 const UpdateProfilePic = () => {
-	const apiPrivate = useApiCreds();
 	const [file, setFile] = useState();
 	const { uuid } = useUserStore((s) => s.userInfo);
-	const userInfo = useUserStore((s) => s.userInfo);
-	const setUserInfo = useUserStore((s) => s.setUserInfo);
 	const [filename, setFilename] = useState("Change Profile Pic");
-
+	const { mutate: changePic } = useChangeProfilePic();
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		const formData = new FormData();
 		formData.append("file", file);
 		formData.append("uuid", uuid);
-
-		try {
-			const response = await apiPrivate.post(
-				"loggedIn/user/profilePic",
-				formData,
-				{
-					headers: {
-						"Content-Type": "multipart/form-data",
-						"Content-Type": "application/json",
-					},
-				}
-			);
-			console.log(response.data.filePath);
-			setUserInfo({ ...userInfo, profilePic: response.data.fileName });
-		} catch (err) {
-			console.log(err);
-		}
+		changePic(formData);
 	};
 	const onChange = (e) => {
 		setFile(e.target.files[0]);

@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import useApiCreds from "../../../hooks/useApiCreds";
-import { AiOutlineCheckCircle, AiOutlineClose } from "react-icons/ai";
-import api from "../../../api/api";
+import React, { useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 import Claimed from "./Claimed";
-import { useGetTricklistDetailsById } from "../../../api/useGetTricklists";
+import {
+	useDeleteCombo,
+	useGetTricklistDetailsById,
+} from "../../../api/useTricklists.js";
 import { useUserStore } from "../../../store/userStore";
 
 const TricklistbyIdDetails = ({ tricklist_id, data }) => {
-	const apiPrivate = useApiCreds();
 	const { uuid } = useUserStore((s) => s.userInfo);
 	let updated = new Date(data?.updatedAt);
 	updated = updated.toDateString();
@@ -17,18 +17,8 @@ const TricklistbyIdDetails = ({ tricklist_id, data }) => {
 		tricklist_id,
 		uuid
 	);
-	const deleteComboById = (selectedListItem) => {
-		apiPrivate
-			.delete(
-				`/tricklist/user/${selectedListItem.tricklist_id}/${selectedListItem.combo_id}/${selectedListItem.id}`
-			)
-			.then((datum) => console.log(datum))
-			.catch((err) => console.log(err));
-	};
+	const { mutate: deleteComboById } = useDeleteCombo();
 
-	useEffect(() => {
-		// getCombosById();
-	}, [data]);
 	return (
 		<>
 			<div
@@ -46,11 +36,7 @@ const TricklistbyIdDetails = ({ tricklist_id, data }) => {
 					Edit
 				</div>
 			</div>
-			<div
-				// onClick={() => getCombosById()}
-				className='flex'>
-				Refresh List{" "}
-			</div>
+			<div className='flex'>Refresh List </div>
 			{/* TricklistData shoul be [{},{}] */}
 			{Array.isArray(tricklistData) &&
 				tricklistData.map((listItem) => {
