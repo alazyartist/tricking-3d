@@ -7,9 +7,10 @@ const transitions = await db.sequelize.models.Transitions;
 // db.sequelize.models.Stances.associate(db.sequelize.models);
 // db.sequelize.models.Variations.associate(db.sequelize.models);
 export const getTrickByTrickId = async (req, res) => {
+	const { trick_id } = req.params;
 	tricks
 		.findAll({
-			where: { name: "dragonfly-Cork" },
+			where: { trick_id },
 			include: [
 				{ model: db.sequelize.models.Variations, as: "Variations" },
 				{ model: db.sequelize.models.Stances, as: "Stance" },

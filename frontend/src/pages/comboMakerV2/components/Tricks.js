@@ -11,7 +11,7 @@ const Tricks = ({ setCurrentItem, filteredTricks }) => {
 				</p>
 				{filteredTricks.length &&
 					filteredTricks.map((trick) => (
-						<div className='rounded-xl  bg-zinc-800 p-2'>
+						<div key={trick.trick_id} className='rounded-xl  bg-zinc-800 p-2'>
 							<div
 								className='flex w-full justify-between'
 								onClick={() => setCurrentItem((s) => [...s, trick])}>

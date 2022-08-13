@@ -6,4 +6,4 @@ import {
 export const trickRoutes = express.Router();
 
 trickRoutes.route("/").get(getAllTricks);
-trickRoutes.route("/trickbyid").post(getTrickByTrickId);
+trickRoutes.route("/:trick_id").get(getTrickByTrickId);
