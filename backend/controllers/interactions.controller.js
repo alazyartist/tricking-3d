@@ -5,14 +5,14 @@ const user = Users(db.sequelize);
 import db from "../models/index.js";
 
 export const interact = async (req, res) => {
-	const { uuid, type, content, id } = req.body;
+	const { uuid, type, content, trick_id } = req.body;
 	try {
 		const activeUser = await user.findOne({ where: { uuid: uuid } });
 
 		const interact = await interactions.findOrCreate({
 			where: {
 				user_id: activeUser.id,
-				trick_id: "a6899597-7b9b-4e5c-bac3-99dab501a8f9",
+				trick_id: trick_id,
 				type: type,
 				content: content,
 			},
@@ -34,7 +34,7 @@ export const interact = async (req, res) => {
 	}
 };
 export const deleteInteraction = async (req, res) => {
-	const { interaction_id } = req.body;
+	const { interaction_id } = req.params;
 	try {
 		console.log(interaction_id);
 		await interactions.destroy({ where: { interaction_id: interaction_id } });
@@ -46,17 +46,17 @@ export const deleteInteraction = async (req, res) => {
 	}
 };
 export const getInteractions = async (req, res) => {
-	const { trick } = req.body;
+	const { trick_id } = req.params;
 	try {
 		const commentData = await interactions.findAll({
 			where: {
-				type: trick,
+				trick_id: trick_id,
+				type: "comment",
 			},
 		});
 		console.log(commentData);
-		res.json({ message: "I Interacted", comments: commentData });
+		res.json(commentData);
 	} catch (err) {
-		console.log(err);
-		err && res.json({ message: "I Failed to Interact", error: err });
+		console.log("getInteractions", err);
 	}
 };

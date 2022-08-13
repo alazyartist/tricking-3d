@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import api from "../../api/api.js";
-import useApiCreds from "../../hooks/useApiCreds.js";
-import useUserInfo from "../../api/useUserInfo.js";
-import { useUserStore } from "../../store/userStore.js";
-import { useQueryClient } from "@tanstack/react-query";
+import useUserInfo, { useUpdateUserInfo } from "../../api/useUserInfo.js";
 const UpdateUserInfoForm = ({ setEditing }) => {
 	const [success, setSuccess] = useState(false);
 	const [validPassword, setValidPassword] = useState(false);
 	const [isVisible, setIsVisible] = useState();
-	const nav = useNavigate();
-	const apiPrivate = useApiCreds();
-	const accessToken = useUserStore((s) => s.accessToken);
 	const [userData, setUserData] = useState({
 		username: undefined,
 		first_name: undefined,
@@ -21,40 +13,14 @@ const UpdateUserInfoForm = ({ setEditing }) => {
 		confirmPassword: undefined,
 	});
 	const { data, isFetching, status, error } = useUserInfo();
-
-	const queryClient = useQueryClient();
+	const { mutate: updateUserInfo } = useUpdateUserInfo();
 	const handleUpdate = async (e) => {
 		e.preventDefault();
-		console.log("Attempting to Update");
-		// if (
-		// 	userData.password !== null &&
-		// 	userData.email !== null &&
-		// 	userData.username !== null &&
-		// 	userData.first_name !== null &&
-		// 	userData.last_name !== null
-		// ) {
 		try {
-			console.log("Trying Update");
-			const updateUser = await apiPrivate.put(
-				"/loggedIn/user",
-				{
-					accessToken,
-					username: userData.username,
-					first_name: userData.first_name,
-					last_name: userData.last_name,
-					email: userData.email,
-					password: userData.password,
-				},
-				{
-					withCredentials: true,
-					headers: { "Content-Type": "application/json" },
-				}
-			);
-			// setData(updateUser.data);
-			if (updateUser.status === 200) return setSuccess(true);
+			updateUserInfo(userData);
+			setSuccess(true);
 		} catch (err) {
 			console.log(err);
-			// }
 		}
 	};
 

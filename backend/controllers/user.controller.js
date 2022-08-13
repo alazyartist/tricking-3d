@@ -144,9 +144,9 @@ export const getUserInfoById = async (req, res) => {
 		} catch (err) {
 			console.log(err);
 		}
+	} else {
+		res.send("User has no ID.");
 	}
-
-	res.send("User has no ID.");
 };
 
 export const findOrCreate = async (req, res) => {
@@ -213,6 +213,7 @@ export const checkPassword = async (req, res) => {
 					.then((match) => {
 						if (match) {
 							//JWT TOKENS HERE
+							console.log("LoggedIn");
 							const accessToken = jwt.sign(
 								{ username: selectedUser.username, roles: "1000" },
 								process.env.ACCESS_TOKEN_SECRET,

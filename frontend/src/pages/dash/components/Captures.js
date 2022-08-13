@@ -10,12 +10,11 @@ const Captures = () => {
 	const [capturedYou, setCapturedYou] = useState();
 	const activeUser = useUserStore();
 	const queryClient = useQueryClient();
-	console.log(activeUser.userInfo.Captured);
 
 	useEffect(() => {
 		setCaptured(activeUser.userInfo.Captured);
 		setCapturedYou(activeUser.userInfo.CapturedMe);
-	}, []);
+	}, [activeUser]);
 
 	return (
 		<div className='flex flex-col place-items-center font-inter'>

@@ -25,7 +25,9 @@ const TricklistDisplay = ({ setOpenView, setTricklist_id }) => {
 					{Array.isArray(lists) &&
 						lists.length > 0 &&
 						lists.map((item) => (
-							<tr onClick={() => handleListClick(item.tricklist_id)}>
+							<tr
+								key={item.tricklist_id}
+								onClick={() => handleListClick(item.tricklist_id)}>
 								<td>
 									{item.tricklist_id.substring(item.tricklist_id.length - 4)}
 								</td>

@@ -25,6 +25,6 @@ userRoutes
 
 userRoutes.route("/user/getInfo").get(verifyJWT, getUserInfo);
 userRoutes.route("/user/getInfoById").post(getUserInfoById);
-userRoutes.route("/user/interact").post(interact);
-userRoutes.route("/user/comments").post(getInteractions);
-userRoutes.route("/user/comments/delete").post(deleteInteraction);
+userRoutes.route("/user/interact/").post(interact);
+userRoutes.route("/user/comments/:trick_id").get(getInteractions);
+userRoutes.route("/user/comments/:interaction_id").delete(deleteInteraction);

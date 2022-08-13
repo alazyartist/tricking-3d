@@ -66,5 +66,7 @@ export const useStore = create(
 			set(() => ({ animationsArray: [...value] })),
 
 		setVersions: (value) => set(() => ({ currVersions: [...value] })),
+		trick_id: "",
+		setTrick_id: (value) => set((s) => ({ trick_id: value })),
 	}))
 );

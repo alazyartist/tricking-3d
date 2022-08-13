@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLogin } from "../../../api/useLogin.js";
 import useApiCreds from "../../../hooks/useApiCreds.js";
 import useLocalStorage from "../../../hooks/useLocalStorage.js";
 import { useUserStore } from "../../../store/userStore.js";
@@ -8,46 +9,33 @@ function LoginForm() {
 	const [password, setPassword] = useState("");
 	const [isVisible, setIsVisible] = useState();
 	const [data, setData] = useState();
-	const setAccessToken = useUserStore((s) => s.setAccessToken);
 	const accessTokenStore = useUserStore((s) => s.accessToken);
-	const setUser = useUserStore((s) => s.setUser);
 	const user = useUserStore((s) => s.user);
 	const [persist, setPersist] = useLocalStorage("persist", false);
 	const apiPrivate = useApiCreds();
 	const nav = useNavigate();
 	const location = useLocation();
 	const from = "/dash";
+	const { mutate: login, data: response } = useLogin();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const response = await apiPrivate.post(
-				"/user/login",
-				{
-					email: email.toString(),
-					password: password.toString(),
-				},
-				{
-					withCredentials: true,
-					headers: { "Content-Type": "application/json" },
-				}
-			);
-			const accessToken = response?.data?.accessToken;
-			setAccessToken(accessToken);
-			setData(response.data);
-			setUser(response.data.username);
-			if (response.status === 200) {
-				setTimeout(() => {
-					nav("/dash", { replace: true });
-				}, 1000);
-			}
+			login({
+				email: email.toString(),
+				password: password.toString(),
+			});
+
+			setTimeout(() => {
+				nav("/dash", { replace: true });
+			}, 100);
 		} catch (err) {
-			setData(err.response.data);
-			console.log(err.response.data.message);
+			console.log(err);
 		}
 	};
 	useEffect(() => {
+		console.log(response);
 		console.log(accessTokenStore, user, from);
-	}, [accessTokenStore, user, from]);
+	}, [accessTokenStore, response, user, from]);
 
 	const togglePersist = () => {
 		const bool = JSON.parse(localStorage.getItem("persist"));

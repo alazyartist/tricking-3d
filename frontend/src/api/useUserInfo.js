@@ -38,5 +38,35 @@ export const useChangeProfilePic = () => {
 		}
 	);
 };
+export const useUpdateUserInfo = () => {
+	const apiPrivate = useApiCreds();
+	const queryClient = useQueryClient();
+	const accessToken = useUserStore((s) => s.accessToken);
+
+	return useMutation(
+		["updateUserInfo"],
+		async (userData) => {
+			const { data } = await apiPrivate.put(
+				"/loggedIn/user",
+				{
+					accessToken,
+					username: userData.username,
+					first_name: userData.first_name,
+					last_name: userData.last_name,
+					email: userData.email,
+					password: userData.password,
+				},
+				{
+					withCredentials: true,
+					headers: { "Content-Type": "application/json" },
+				}
+			);
+			return data;
+		},
+		{
+			onSuccess: () => queryClient.invalidateQueries(["userInfo"]),
+		}
+	);
+};
 
 export default useUserInfo;
