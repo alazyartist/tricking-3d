@@ -35,7 +35,7 @@ function LearnMore() {
 						to make that a reality.
 					</p>
 					<WhatDoesItInclude />
-					<MachineLearning setId={setId} setOpen={setOpen} />
+					<MachineLearning />
 
 					<WhyBuildThis />
 					<DonateText />
