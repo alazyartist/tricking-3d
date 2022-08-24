@@ -8,24 +8,16 @@ const TricklistPage = () => {
 	const [open, setOpen] = useState(false);
 	const [openView, setOpenView] = useState(false);
 	const [tricklist_id, setTricklist_id] = useState("");
-	const [count, setCount] = useState(1);
 	useEffect(() => {
 		console.log(tricklist_id);
 	}, [tricklist_id]);
 	return (
 		<div className='flex w-full flex-col place-content-center place-items-center gap-2'>
-			<div>TricklistPage</div>
 			<TricklistDisplay
 				setTricklist_id={setTricklist_id}
-				count={count}
 				setOpenView={setOpenView}
 			/>
-			<AddListButton
-				setOpen={setOpen}
-				open={open}
-				setCount={setCount}
-				count={count}
-			/>
+			<AddListButton setOpen={setOpen} open={open} />
 			{open && <MakeNewTrickList setOpen={setOpen} />}
 			{openView && (
 				<ListViewbyID
