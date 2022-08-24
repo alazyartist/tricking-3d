@@ -3,59 +3,21 @@ import {
 	useDeleteInteraction,
 	useGetInteractions,
 } from "../../api/useInteractions";
-import useApiCreds from "../../hooks/useApiCreds";
 import { useStore } from "../../store/store";
 import { useUserStore } from "../../store/userStore";
 import UserProfilePicById from "./UserProfilePicById";
 
-const TrickInfoComments = ({ count }) => {
-	const apiPrivate = useApiCreds();
+const TrickInfoComments = () => {
 	const { userInfo } = useUserStore();
 	const currentAnim = useStore((s) => s.currentAnim);
 	const trick_id = useStore((s) => s.trick_id);
-	// const [comments, setComments] = useState();
 	console.log(userInfo);
-	// const getComments = () => {
-	// 	apiPrivate
-	// 		.post("user/comments", {
-	// 			trick: currentAnim,
-	// 		})
-	// 		.then((resData) => {
-	// 			setComments(resData.data.comments);
-	// 		})
-	// 		.catch((err) => {
-	// 			console.log(err);
-	// 		});
-	// };
+
 	const { data: comments } = useGetInteractions(trick_id);
 	const { mutate: deleteComment } = useDeleteInteraction();
 	useEffect(() => {
 		console.log(comments);
 	}, [comments]);
-	// const deleteComment = (iid) => {
-	// 	console.log(iid);
-
-	// 	// apiPrivate
-	// 	// 	.post("user/comments/delete", {
-	// 	// 		interaction_id: iid,
-	// 	// 	})
-	// 	// 	.then(() => {
-	// 	// 		// getComments();
-	// 	// 	});
-	// };
-	// useEffect(() => {
-	// 	getComments();
-	// 	console.log("RAN GET COMMENTS", comments);
-	// }, [count]);
-
-	// useEffect(() => {
-	// 	Array.isArray(comments) &&
-	// 		comments.sort((a, b) => {
-	// 			return (
-	// 				new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-	// 			);
-	// 		});
-	// }, [comments]);
 
 	return (
 		trick_id && (

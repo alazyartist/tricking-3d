@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLogin } from "../../../api/useLogin.js";
-import useApiCreds from "../../../hooks/useApiCreds.js";
 import useLocalStorage from "../../../hooks/useLocalStorage.js";
 import { useUserStore } from "../../../store/userStore.js";
 function LoginForm() {
@@ -12,7 +11,6 @@ function LoginForm() {
 	const accessTokenStore = useUserStore((s) => s.accessToken);
 	const user = useUserStore((s) => s.user);
 	const [persist, setPersist] = useLocalStorage("persist", false);
-	const apiPrivate = useApiCreds();
 	const nav = useNavigate();
 	const location = useLocation();
 	const from = "/dash";

@@ -8,21 +8,40 @@ import UserCard from "./UserCard";
 const Captures = () => {
 	const [captured, setCaptured] = useState();
 	const [capturedYou, setCapturedYou] = useState();
-	const activeUser = useUserStore();
+	const [display, setDisplay] = useState("captures");
+	const userInfo = useUserStore((s) => s.userInfo);
 	const queryClient = useQueryClient();
 
 	useEffect(() => {
-		setCaptured(activeUser.userInfo.Captured);
-		setCapturedYou(activeUser.userInfo.CapturedMe);
-	}, [activeUser]);
+		setCaptured(userInfo.Captured);
+		setCapturedYou(userInfo.CapturedMe);
+	}, [userInfo]);
 
 	return (
 		<div className='flex flex-col place-items-center font-inter'>
-			<div onClick={() => queryClient.invalidateQueries(["userInfo"])}>
-				Your Captures
+			<div className='flex gap-2 font-inter font-bold'>
+				<div
+					className={display === "captures" ? "text-zinc-300" : "text-zinc-400"}
+					onClick={() => {
+						setDisplay("captures");
+						queryClient.invalidateQueries(["userInfo"]);
+					}}>
+					Your Captures
+				</div>
+				<div
+					className={
+						display === "captured me" ? "text-zinc-300" : "text-zinc-400"
+					}
+					onClick={() => {
+						setDisplay("captured me");
+						queryClient.invalidateQueries(["userInfo"]);
+					}}>
+					Captured You
+				</div>
 			</div>
 			<div>
 				{!!captured &&
+					display === "captures" &&
 					Object.keys(captured).map((key) => (
 						<div
 							key={`${captured[key].username}`}
@@ -39,13 +58,10 @@ const Captures = () => {
 						</div>
 					))}
 			</div>
-			<div
-			// onClick={() => getData()}
-			>
-				Captured You
-			</div>
+
 			<div>
 				{!!capturedYou &&
+					display === "captured me" &&
 					Object.keys(capturedYou).map((key) => (
 						<div
 							key={`${capturedYou[key].username}`}

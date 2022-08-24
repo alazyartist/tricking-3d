@@ -4,7 +4,7 @@ import useApiCreds from "../../hooks/useApiCreds";
 const UserProfilePicById = ({ id }) => {
 	const api = useApiCreds();
 	const [data, setData] = useState({ profilePic: "noimg.jpeg" });
-
+	//TODO: Switch to React Query
 	const getData = async () => {
 		const response = await api
 			.post("/user/getInfoById", {

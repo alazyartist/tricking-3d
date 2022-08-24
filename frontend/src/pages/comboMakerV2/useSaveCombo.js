@@ -9,6 +9,7 @@ const useSaveCombo = (currentItem) => {
 	const saveCombo = (currentItem) => {
 		if (Array.isArray(currentItem) && currentItem.length > 0) {
 			console.log("Saving Combo", currentItem, comboName);
+			//TODO: Switch to React Query
 			apiPrivate
 				.post("/combo/add", {
 					comboName: comboName,
