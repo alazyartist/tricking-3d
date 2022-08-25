@@ -13,13 +13,18 @@ const ComboMakerV2 = () => {
 		useComboMakerV2();
 	const { save, setSave, comboName, setComboName } = useSaveCombo(currentItem);
 	useEffect(() => {
-		setComboName(
-			currentItem
-				.map((item) => {
-					return item.name;
-				})
-				.join(">")
-		);
+		if (currentItem?.length > 0) {
+			setComboName(
+				currentItem
+					.map((item) => {
+						return item.name;
+					})
+					.join(">")
+					.toString()
+			);
+		} else if (currentItem?.length === 0) {
+			setComboName("");
+		}
 	}, [currentItem]);
 	return (
 		<>

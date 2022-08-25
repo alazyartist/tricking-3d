@@ -32,6 +32,7 @@ const useComboMakerV2 = () => {
 	const { data, status, isSuccess } = useGetTricks();
 	useEffect(() => {
 		setTricks(data);
+		console.log(data);
 		setFilteredTricks(data);
 	}, [data, status, isSuccess]);
 	useEffect(() => {
