@@ -5,6 +5,16 @@ import useComboMakerV2 from "../useComboMakerV2";
 const Tricks = ({ setCurrentItem, filteredTricks }) => {
 	return (
 		<>
+			<div
+				className='rounded-xl bg-zinc-900 p-2'
+				onClick={() =>
+					setCurrentItem((s) => [
+						...s,
+						filteredTricks[Math.floor(Math.random() * filteredTricks.length)],
+					])
+				}>
+				Random
+			</div>
 			<div className='no-scrollbar flex h-[60vh] w-[60vw] flex-col gap-3 overflow-y-auto rounded-xl p-2 peer-hover:bg-red-500'>
 				<p className='place-self-end text-sm text-zinc-500'>
 					{filteredTricks.length} Options
