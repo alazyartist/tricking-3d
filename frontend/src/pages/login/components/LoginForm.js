@@ -17,18 +17,19 @@ function LoginForm() {
 	const { mutate: login, data: response } = useLogin();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		try {
-			login({
-				email: email.toString(),
-				password: password.toString(),
-			});
 
-			setTimeout(() => {
-				nav("/dash", { replace: true });
-			}, 100);
-		} catch (err) {
-			console.log(err);
-		}
+		login({
+			email: email.toString(),
+			password: password.toString(),
+		});
+		// try {
+
+		// 	setTimeout(() => {
+		// 		nav("/dash", { replace: true });
+		// 	}, 100);
+		// } catch (err) {
+		// 	console.log(err);
+		// }
 	};
 	useEffect(() => {
 		console.log(response);

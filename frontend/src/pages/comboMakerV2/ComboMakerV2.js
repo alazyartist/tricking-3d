@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ComboMaker from "../comboMaker/ComboMaker";
 import NewComboDisplay from "../comboMaker/components/newComboDisplay";
 import ComboStructure from "./components/ComboStructure";
@@ -12,7 +12,15 @@ const ComboMakerV2 = () => {
 	const { currentItem, setDeleteLast, setCurrentItem, filteredTricks } =
 		useComboMakerV2();
 	const { save, setSave, comboName, setComboName } = useSaveCombo(currentItem);
-
+	useEffect(() => {
+		setComboName(
+			currentItem
+				.map((item) => {
+					return item.name;
+				})
+				.join(">")
+		);
+	}, [currentItem]);
 	return (
 		<>
 			{v2 ? (

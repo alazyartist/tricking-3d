@@ -26,5 +26,4 @@ yarn-error.log*
 /frontend/yarn.lock
 /yarn.lock
 
-# Unsure
-/frontend/src/pages/theory/
+
