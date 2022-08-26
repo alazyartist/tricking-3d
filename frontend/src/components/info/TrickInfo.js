@@ -38,15 +38,21 @@ export default function TrickInfo() {
 								? trickDetails?.[0]?.name
 								: "Info Will Be Added Soon"}
 						</p>
-						<div>
-							{trickDetails?.[0]?.base_id === trickDetails?.[0]?.name &&
-								`Base Trick`}
-						</div>
-						<div className='flex gap-2'>
-							<div>{trickDetails?.[0]?.takeoffStance}</div>
-							<div>{trickDetails?.[0]?.landingStance}</div>
-						</div>
-						<div>Type {trickDetails?.[0]?.trickType}</div>
+						{trickDetails?.[0]?.base_id !== undefined && (
+							<>
+								<div>
+									Base{" "}
+									{(trickDetails?.[0]?.base_id === trickDetails?.[0]?.name &&
+										trickDetails?.[0]?.name) ||
+										`Base Trick`}
+								</div>
+								<div className='flex gap-2'>
+									<div>{trickDetails?.[0]?.takeoffStance}</div>
+									<div>{trickDetails?.[0]?.landingStance}</div>
+								</div>
+								<div>Type {trickDetails?.[0]?.trickType}</div>
+							</>
+						)}
 						<TrickInfoComments count={count} />
 						<Interact count={count} setCount={setCount} />
 					</div>

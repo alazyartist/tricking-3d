@@ -17,6 +17,7 @@ import { useStore } from "../store/store";
 import { useFrame, useThree } from "@react-three/fiber";
 import BluesBackground from "./backgrounds/1st_scene";
 import { JapanShrine } from "./backgrounds/Japanshrine";
+import LoadActiveBackground from "../components/media/BackgroundSelector";
 // import Model from "../animations/KerwoodCC3Tpose";
 export function TorqueScene(props) {
 	const light = useRef();
@@ -32,9 +33,10 @@ export function TorqueScene(props) {
 			<PerspectiveCamera ref={gizmoRef} position={[0, -1, 0]}>
 				<Suspense fallback={<ModelLoader />}>
 					<LoadActiveModel />
+					<LoadActiveBackground />
 
 					{/* <SceneBackground /> */}
-					<JapanShrine />
+					{/* <JapanShrine /> */}
 					{/* <BluesBackground /> */}
 				</Suspense>
 				{/* <Model /> */}

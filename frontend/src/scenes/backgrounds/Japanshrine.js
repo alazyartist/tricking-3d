@@ -8,7 +8,7 @@ import { useGLTF } from "@react-three/drei";
 export function JapanShrine(props) {
 	const { nodes, materials } = useGLTF("/japanshrine.glb");
 	return (
-		<group {...props} dispose={null}>
+		<group {...props} dispose={null} position={[0, -0.0001, 0]}>
 			<group rotation={[-Math.PI / 2, 0, 0]}>
 				<group position={[0, 20, 0]}>
 					<group scale={100}>

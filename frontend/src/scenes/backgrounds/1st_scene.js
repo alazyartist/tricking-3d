@@ -10,7 +10,12 @@ export default function BluesBackground({ ...props }) {
 	const { nodes, materials, animations } = useGLTF("/1st_scene.glb");
 	const { actions } = useAnimations(animations, group);
 	return (
-		<group ref={group} {...props} dispose={null}>
+		<group
+			scale={3}
+			position={[-10, 0, -10]}
+			ref={group}
+			{...props}
+			dispose={null}>
 			<group name='Scene'>
 				<group
 					name='Sketchfab_model'
