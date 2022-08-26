@@ -11,12 +11,8 @@ import {
 import Loader from "../components/loaders/Loader";
 import ModelLoader from "../components/loaders/ModelLoader";
 import LoadActiveModel from "../components/media/ModelSelector";
-import SceneBackground from "./SceneBackground";
-import { Frank } from "../animations/Frank";
 import { useStore } from "../store/store";
 import { useFrame, useThree } from "@react-three/fiber";
-import BluesBackground from "./backgrounds/1st_scene";
-import { JapanShrine } from "./backgrounds/Japanshrine";
 import LoadActiveBackground from "../components/media/BackgroundSelector";
 // import Model from "../animations/KerwoodCC3Tpose";
 export function TorqueScene(props) {
@@ -34,12 +30,7 @@ export function TorqueScene(props) {
 				<Suspense fallback={<ModelLoader />}>
 					<LoadActiveModel />
 					<LoadActiveBackground />
-
-					{/* <SceneBackground /> */}
-					{/* <JapanShrine /> */}
-					{/* <BluesBackground /> */}
 				</Suspense>
-				{/* <Model /> */}
 				<ambientLight intensity={0.3} />
 				<spotLight
 					ref={light2}

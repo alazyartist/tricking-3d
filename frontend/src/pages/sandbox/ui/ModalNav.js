@@ -97,11 +97,13 @@ const ModalNav = () => {
 						isDropdown
 					/>
 					{/**versions button*/}
-					<ModalButton
-						handleOpen={() => handleOpen(3)}
-						content={"Versions"}
-						isDropdown
-					/>
+					{currentVersions.length > 1 && (
+						<ModalButton
+							handleOpen={() => handleOpen(3)}
+							content={"Versions"}
+							isDropdown
+						/>
+					)}
 					{/**versions button*/}
 					<ModalButton
 						handleOpen={() => handleOpen(4)}
