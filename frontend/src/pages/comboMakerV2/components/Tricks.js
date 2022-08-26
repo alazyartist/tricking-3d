@@ -1,4 +1,5 @@
 import React from "react";
+import { AiOutlinePlusSquare } from "react-icons/ai";
 import { MdOutlineArrowUpward } from "react-icons/md";
 import useComboMakerV2 from "../useComboMakerV2";
 
@@ -6,14 +7,14 @@ const Tricks = ({ setCurrentItem, filteredTricks }) => {
 	return (
 		<>
 			<div
-				className='rounded-xl bg-zinc-900 p-2'
+				className=' flex place-items-center gap-2 rounded-xl bg-zinc-900 p-2'
 				onClick={() =>
 					setCurrentItem((s) => [
 						...s,
 						filteredTricks[Math.floor(Math.random() * filteredTricks.length)],
 					])
 				}>
-				Random
+				<AiOutlinePlusSquare /> Random
 			</div>
 			<div className='no-scrollbar flex h-[60vh] w-[60vw] flex-col gap-3 overflow-y-auto rounded-xl p-2 peer-hover:bg-red-500'>
 				<p className='place-self-end text-sm text-zinc-500'>

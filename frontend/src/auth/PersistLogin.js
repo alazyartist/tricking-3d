@@ -6,15 +6,15 @@ import useRefreshToken from "../hooks/useRefreshToken";
 import { useUserStore } from "../store/userStore";
 
 const PersistLogin = () => {
+	const { data, status } = useUserInfo();
 	const [isLoading, setIsLoading] = useState(true);
 	const accessToken = useUserStore((s) => s.accessToken);
 	const user = useUserStore((s) => s.user);
 	const persist = useLocalStorage("persist", false);
 	const refresh = useRefreshToken();
-	const { data, status } = useUserInfo();
-	useEffect(() => {
-		console.log(status, data);
-	}, [data, status]);
+	// useEffect(() => {
+	// 	console.log(status, data);
+	// }, [data, status]);
 
 	useEffect(() => {
 		let isMounted = true;

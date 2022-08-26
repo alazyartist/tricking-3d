@@ -213,7 +213,6 @@ export const checkPassword = async (req, res) => {
 					.then((match) => {
 						if (match) {
 							//JWT TOKENS HERE
-							console.log("LoggedIn");
 							const accessToken = jwt.sign(
 								{ username: selectedUser.username, roles: "1000" },
 								process.env.ACCESS_TOKEN_SECRET,
@@ -235,6 +234,7 @@ export const checkPassword = async (req, res) => {
 								message: "You are logged in!",
 								username: selectedUser.username,
 							});
+							console.log("LoggedIn");
 						} else {
 							res.status(401).json({ message: "Password Not Valid" });
 						}

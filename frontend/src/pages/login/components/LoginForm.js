@@ -22,6 +22,7 @@ function LoginForm() {
 			email: email.toString(),
 			password: password.toString(),
 		});
+		nav("/dash");
 		// try {
 
 		// 	setTimeout(() => {

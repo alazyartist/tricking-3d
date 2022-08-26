@@ -21,12 +21,11 @@ export const useLogin = () => {
 			return data;
 		},
 		{
-			onSuccess: (response) => {
-				console.log(response);
-				setAccessToken(response.data.accessToken);
-				setUser(response.data.username);
+			onSuccess: (data) => {
+				console.log("OnSuccess", data);
+				setAccessToken(data.data.accessToken);
+				setUser(data.data.username);
 				queryClient.invalidateQueries(["userInfo"]);
-				nav("/dash");
 			},
 		}
 	);
