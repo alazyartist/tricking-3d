@@ -50,6 +50,7 @@ const ComboMakerV2 = () => {
 							newCombo={currentItem}
 						/>
 						<Tricks
+							lastItem={currentItem[currentItem.length - 1]}
 							setCurrentItem={setCurrentItem}
 							filteredTricks={filteredTricks}
 						/>

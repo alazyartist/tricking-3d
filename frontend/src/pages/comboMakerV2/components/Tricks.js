@@ -1,9 +1,12 @@
 import React from "react";
 import { AiOutlinePlusSquare } from "react-icons/ai";
 import { MdOutlineArrowUpward } from "react-icons/md";
+import { stances } from "../../../data/trickDataModel/TrickObjects";
+import { useComboMakerStore } from "../../../store/comboMakerStore";
 import useComboMakerV2 from "../useComboMakerV2";
 
-const Tricks = ({ setCurrentItem, filteredTricks }) => {
+const Tricks = ({ lastItem, setCurrentItem, filteredTricks }) => {
+	console.log(lastItem);
 	return (
 		<>
 			<div
@@ -17,6 +20,15 @@ const Tricks = ({ setCurrentItem, filteredTricks }) => {
 				<AiOutlinePlusSquare /> Random
 			</div>
 			<div className='no-scrollbar flex h-[60vh] w-[60vw] flex-col gap-3 overflow-y-auto rounded-xl p-2 peer-hover:bg-red-500'>
+				{/* TODO Current Leg should go here-ish */}
+				<p className='place-self-end text-sm text-zinc-500'>
+					{
+						stances[lastItem?.landingStance]?.leg
+						// || lastItem?.toLeg
+						// ||
+						// lastItem?.leg
+					}
+				</p>
 				<p className='place-self-end text-sm text-zinc-500'>
 					{filteredTricks.length} Options
 				</p>

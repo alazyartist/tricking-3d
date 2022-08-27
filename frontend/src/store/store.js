@@ -31,7 +31,7 @@ export const useStore = create(
 				areInstructionsOpen: !s.areInstructionsOpen,
 			})),
 		activeModel: "Frank",
-		activeBackground: "Frank",
+		activeBackground: "Torque",
 		isPlaying: true,
 		setIsPlaying: () => set((state) => ({ isPlaying: !state.isPlaying })),
 		isPaused: false,

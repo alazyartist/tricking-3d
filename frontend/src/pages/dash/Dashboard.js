@@ -36,10 +36,11 @@ function Dashboard() {
 			)}
 
 			{/* QR Code Generator and Reader */}
-			<FaQrcode
+			<div
 				onClick={() => setProfileCodeOpen(!profileCodeOpen)}
-				className='absolute top-20 left-5'
-			/>
+				className='absolute top-20 left-5 flex place-items-center gap-2'>
+				<FaQrcode /> {!profileCodeOpen ? "Capture" : "Close"}
+			</div>
 
 			<button className='fixed right-5 bottom-14' onClick={() => logout()}>
 				Logout
