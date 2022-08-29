@@ -5,9 +5,7 @@ import * as THREE from "three";
 import { useGLTF, useAnimations } from "@react-three/drei";
 export default function AndrewKohrt({ ...props }) {
 	const group = useRef();
-	const { nodes, materials, animations } = useGLTF(
-		"https://trickedex.app/AndrewKohrt.gltf"
-	);
+	const { nodes, materials, animations } = useGLTF("/AndrewKohrt.gltf");
 	const { actions, names, mixer } = useAnimations(animations, group);
 
 	//Use Store

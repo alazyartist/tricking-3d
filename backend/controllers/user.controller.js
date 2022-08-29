@@ -102,6 +102,92 @@ export const getUserInfo = async (req, res) => {
 		res.json({ error: err });
 	}
 };
+export const getUserInfoByUUID = async (req, res) => {
+	console.log("hit userInfo by uuid");
+	const uuid = req.params.uuid;
+
+	try {
+		user
+			.findOne({
+				where: { uuid },
+				attributes: {
+					exclude: ["password", "deletedAt", "refreshToken", "createdAt"],
+				},
+				include: [
+					{
+						model: db.sequelize.models.Tricks,
+						as: "TricksClaimed",
+						through: { attributes: [] },
+					},
+					{
+						model: db.sequelize.models.Combo,
+						as: "CombosClaimed",
+						through: { attributes: [] },
+					},
+					{
+						model: db.sequelize.models.Tricklist,
+						as: "Tricklists",
+						through: { attributes: [] },
+					},
+					{
+						model: db.sequelize.models.Tricklist,
+						as: "MyTricklists",
+						include: [
+							{
+								model: db.sequelize.models.Users,
+								as: "Owner",
+								attributes: ["username"],
+							},
+						],
+					},
+					{
+						model: db.sequelize.models.Users,
+						as: "CapturedMe",
+						through: { attributes: [] },
+						attributes: {
+							exclude: [
+								"password",
+								"refreshToken",
+								"createdAt",
+								"updatedAt",
+								"deletedAt",
+								"id",
+							],
+						},
+					},
+					{
+						model: db.sequelize.models.Users,
+						as: "Captured",
+						through: { attributes: [] },
+						attributes: {
+							exclude: [
+								"password",
+								"refreshToken",
+								"createdAt",
+								"updatedAt",
+								"deletedAt",
+								"id",
+							],
+						},
+					},
+					{
+						model: db.sequelize.models.Profile,
+						attributes: {
+							exclude: ["user_id", "createdAt", "updatedAt", "id"],
+						},
+					},
+				],
+			})
+			.then((currentUser) => {
+				// console.log(currentUser);
+				res.json(currentUser);
+			})
+			.catch((err) => console.log(err));
+	} catch (err) {
+		console.log(err);
+		res.json({ error: err });
+	}
+};
 
 export const findAll = async (req, res) => {
 	user

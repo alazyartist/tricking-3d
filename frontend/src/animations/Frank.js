@@ -11,9 +11,7 @@ export function Frank({ ...props }) {
 	const group = useRef();
 	//HipsRef attached to skeletons Hips
 	const hipsRef = useRef();
-	const { nodes, materials, animations } = useGLTF(
-		"https://trickedex.app/Frank.glb"
-	);
+	const { nodes, materials, animations } = useGLTF("/Frank.glb");
 	const { actions, names, mixer } = useAnimations(animations, group);
 
 	useMediaController(actions, names, mixer);

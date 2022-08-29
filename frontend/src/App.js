@@ -47,6 +47,7 @@ import Axes from "./pages/theory/axes/Axes";
 import ComboMakerV2 from "./pages/comboMakerV2/ComboMakerV2";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import UserProfile from "./pages/userProfile/userProfile";
 
 function App() {
 	const accessToken = useUserStore((s) => s.accessToken);
@@ -104,6 +105,7 @@ function App() {
 									<Route path={"/dash"} element={<Dashboard />} />
 								</Route>
 							</Route>
+							<Route path={"/userProfile/:uuid"} element={<UserProfile />} />
 							<Route path={"/home"} element={<Home />} />
 							<Route path={"/learnmore"} element={<LearnMore />} />
 							<Route path={"/about"} element={<AboutUs />} />

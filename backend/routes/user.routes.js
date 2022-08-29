@@ -11,6 +11,7 @@ import {
 	findOrCreate,
 	getUserInfo,
 	getUserInfoById,
+	getUserInfoByUUID,
 } from "../controllers/user.controller.js";
 import { verifyJWT } from "../middleware/verifyJWT.js";
 
@@ -24,6 +25,7 @@ userRoutes
 	.delete(deleteUser);
 
 userRoutes.route("/user/getInfo").get(verifyJWT, getUserInfo);
+userRoutes.route("/user/getInfo/:uuid").get(verifyJWT, getUserInfoByUUID);
 userRoutes.route("/user/getInfoById").post(getUserInfoById);
 userRoutes.route("/user/interact/").post(interact);
 userRoutes.route("/user/comments/:trick_id").get(getInteractions);

@@ -1,5 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useApiCreds from "../../../hooks/useApiCreds";
 import { useUserStore } from "../../../store/userStore";
 import CapturedCard from "./CapturedCard";
@@ -11,7 +12,7 @@ const Captures = () => {
 	const [display, setDisplay] = useState("captures");
 	const userInfo = useUserStore((s) => s.userInfo);
 	const queryClient = useQueryClient();
-
+	const nav = useNavigate();
 	useEffect(() => {
 		setCaptured(userInfo.Captured);
 		setCapturedYou(userInfo.CapturedMe);
@@ -44,6 +45,7 @@ const Captures = () => {
 					display === "captures" &&
 					Object.keys(captured).map((key) => (
 						<div
+							onClick={() => nav(`/userProfile/${captured[key].uuid}`)}
 							key={`${captured[key].username}`}
 							className='flex flex-col gap-3'>
 							<CapturedCard

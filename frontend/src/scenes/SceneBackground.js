@@ -7,9 +7,7 @@ import { useGLTF } from "@react-three/drei";
 
 export default function SceneBackground({ ...props }) {
 	const group = useRef();
-	const { nodes, materials } = useGLTF(
-		"https://trickedex.app/SceneBackground.glb"
-	);
+	const { nodes, materials } = useGLTF("/SceneBackground.glb");
 	return (
 		<group ref={group} {...props} dispose={null}>
 			<group position={[0.32, 0.19, 0.93]} scale={0.99}>
