@@ -36,4 +36,4 @@ export default function Andrew({ ...props }) {
 	);
 }
 
-useGLTF.preload("https://torquetricking.com/3d/Andrew.glb");
+useGLTF.preload("https://trickedex.app/Andrew.glb");

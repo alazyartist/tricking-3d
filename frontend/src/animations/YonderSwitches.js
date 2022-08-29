@@ -8,7 +8,7 @@ import { useGLTF, PerspectiveCamera, useAnimations } from "@react-three/drei";
 export default function YonderSwitches({ ...props }) {
 	const group = useRef();
 	const { nodes, materials, animations } = useGLTF(
-		"https://torquetricking.com/3d/yonderSwitches.gltf"
+		"https://trickedex.app/yonderSwitches.gltf"
 	);
 	const { actions } = useAnimations(animations, group);
 	return (

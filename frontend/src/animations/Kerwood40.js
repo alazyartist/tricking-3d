@@ -36,4 +36,4 @@ export default function Kerwood40({ ...props }) {
 	);
 }
 
-useGLTF.preload("https://torquetricking.com/3d/Kerwood40.glb");
+useGLTF.preload("https://trickedex.app/Kerwood40.glb");

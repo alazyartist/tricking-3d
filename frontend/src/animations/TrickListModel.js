@@ -9,7 +9,7 @@ export default function TrickListModel({ ...props }) {
 	const group = useRef();
 	const hipsRef = useRef();
 	const { nodes, materials, animations } = useGLTF(
-		"https://torquetricking.com/3d/Kerwood40.glb"
+		"https://trickedex.app/Kerwood40.glb"
 	);
 	const { actions, names, mixer } = useAnimations(animations, group);
 
@@ -153,4 +153,4 @@ export default function TrickListModel({ ...props }) {
 	);
 }
 
-useGLTF.preload("https://torquetricking.com/3d/Kerwood40.glb");
+useGLTF.preload("https://trickedex.app/Kerwood40.glb");

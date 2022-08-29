@@ -12,7 +12,7 @@ export function Frank({ ...props }) {
 	//HipsRef attached to skeletons Hips
 	const hipsRef = useRef();
 	const { nodes, materials, animations } = useGLTF(
-		"https://torquetricking.com/3d/Frank.glb"
+		"https://trickedex.app/Frank.glb"
 	);
 	const { actions, names, mixer } = useAnimations(animations, group);
 
@@ -34,7 +34,7 @@ export function Frank({ ...props }) {
 	);
 }
 
-useGLTF.preload("https://torquetricking.com/3d/Frank.glb");
+useGLTF.preload("https://trickedex.app/Frank.glb");
 
 // FOLLOW CAMERA CODE 4 later
 // let vecPos = new Vector3(

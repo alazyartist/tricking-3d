@@ -6,7 +6,7 @@ import { useGLTF, useAnimations } from "@react-three/drei";
 export default function AndrewKohrt({ ...props }) {
 	const group = useRef();
 	const { nodes, materials, animations } = useGLTF(
-		"https://torquetricking.com/3d/AndrewKohrt.gltf"
+		"https://trickedex.app/AndrewKohrt.gltf"
 	);
 	const { actions, names, mixer } = useAnimations(animations, group);
 
@@ -317,4 +317,4 @@ export default function AndrewKohrt({ ...props }) {
 	);
 }
 
-useGLTF.preload("https://torquetricking.com/3d/AndrewKohrt.gltf");
+useGLTF.preload("https://trickedex.app/AndrewKohrt.gltf");
