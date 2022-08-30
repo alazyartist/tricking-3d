@@ -20,13 +20,7 @@ const UserProfile = () => {
 				<ProfileInfoCard />
 				<UserAvatarDisplay />
 			</div>
-			<TricklistsAndClamiedContainer />
-			<div>
-				<div>Tricklists</div>
-				{profileInfo?.MyTricklists?.map((list) => (
-					<div className='text-sm text-zinc-400'>{list?.name}</div>
-				))}
-			</div>
+			<TricklistsAndClamiedContainer MyTricklists={profileInfo?.MyTricklists} />
 		</div>
 	);
 };

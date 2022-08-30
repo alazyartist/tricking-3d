@@ -66,6 +66,7 @@ const Captures = () => {
 					display === "captured me" &&
 					Object.keys(capturedYou).map((key) => (
 						<div
+							onClick={() => nav(`/userProfile/${capturedYou[key].uuid}`)}
 							key={`${capturedYou[key].username}`}
 							className='flex flex-col gap-3'>
 							<CapturedCard
