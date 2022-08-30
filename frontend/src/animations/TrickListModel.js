@@ -8,9 +8,7 @@ import { Vector3 } from "three";
 export default function TrickListModel({ ...props }) {
 	const group = useRef();
 	const hipsRef = useRef();
-	const { nodes, materials, animations } = useGLTF(
-		"https://trickedex.app/Kerwood40.glb"
-	);
+	const { nodes, materials, animations } = useGLTF("/Kerwood40.glb");
 	const { actions, names, mixer } = useAnimations(animations, group);
 
 	//Use Store
