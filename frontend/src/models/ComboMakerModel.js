@@ -79,4 +79,4 @@ export default function ComboMakerModel({ ...props }) {
 	);
 }
 
-useGLTF.preload("https://trickedex.app/Kerwood40.glb");
+useGLTF.preload("/Kerwood40.glb");

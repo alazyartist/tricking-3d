@@ -315,4 +315,4 @@ export default function AndrewKohrt({ ...props }) {
 	);
 }
 
-useGLTF.preload("https://trickedex.app/AndrewKohrt.gltf");
+useGLTF.preload("/AndrewKohrt.gltf");

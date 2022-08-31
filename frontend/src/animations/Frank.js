@@ -32,7 +32,7 @@ export function Frank({ ...props }) {
 	);
 }
 
-useGLTF.preload("https://trickedex.app/Frank.glb");
+useGLTF.preload("/Frank.glb");
 
 // FOLLOW CAMERA CODE 4 later
 // let vecPos = new Vector3(

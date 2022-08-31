@@ -36,4 +36,4 @@ export default function Andrew({ ...props }) {
 	);
 }
 
-useGLTF.preload("https://trickedex.app/Andrew.glb");
+useGLTF.preload("/Andrew.glb");

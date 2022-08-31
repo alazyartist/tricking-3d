@@ -151,4 +151,4 @@ export default function TrickListModel({ ...props }) {
 	);
 }
 
-useGLTF.preload("https://trickedex.app/Kerwood40.glb");
+useGLTF.preload("/Kerwood40.glb");

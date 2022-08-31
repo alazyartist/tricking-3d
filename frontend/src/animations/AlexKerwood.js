@@ -7,9 +7,7 @@ import { useGLTF, useAnimations } from "@react-three/drei";
 
 export default function AlexKerwood({ ...props }) {
 	const group = useRef();
-	const { nodes, materials, animations } = useGLTF(
-		"https://trickedex.app/AlexKerwood.gltf"
-	);
+	const { nodes, materials, animations } = useGLTF("/AlexKerwood.gltf");
 	const { actions, names, mixer } = useAnimations(animations, group);
 	const hipsRef = useRef();
 	useMediaController(actions, names, mixer);
@@ -173,4 +171,4 @@ export default function AlexKerwood({ ...props }) {
 	);
 }
 
-useGLTF.preload("https://trickedex.app/AlexKerwood.gltf");
+useGLTF.preload("/AlexKerwood.gltf");

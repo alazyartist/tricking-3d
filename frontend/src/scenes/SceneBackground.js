@@ -86,4 +86,4 @@ export default function SceneBackground({ ...props }) {
 	);
 }
 
-useGLTF.preload("https://trickedex.app/SceneBackground.glb");
+useGLTF.preload("/SceneBackground.glb");
