@@ -16,10 +16,12 @@ const TricklistDisplay = ({ setOpenView, setTricklist_id }) => {
 		<div>
 			<table>
 				<thead className='text-center text-lg font-semibold text-zinc-300'>
-					<th className='px-2'>tricklist_id</th>
-					<th className='px-2'>name</th>
-					<th className='px-2'>owner</th>
-					<th className='px-2'>lastUpdated</th>
+          <tr>
+            <th className='px-2'>tricklist_id</th>
+            <th className='px-2'>name</th>
+            <th className='px-2'>owner</th>
+            <th className='px-2'>lastUpdated</th>
+          </tr>
 				</thead>
 				<tbody className='text-center'>
 					{Array.isArray(lists) &&

@@ -951,14 +951,6 @@ export const kickVariationsArr = [
 	lateHook,
 ];
 
-// console.table(stanceArr);
-// console.table(kickVariationsArr);
-console.table(basesArr);
-console.table(stances);
-console.table(transArr);
-console.table(TrickListArr);
-console.table(Kicks);
-
 const newMap = basesArr.map((base) => {
 	return {
 		name: base.name,
@@ -971,4 +963,14 @@ const newMap = basesArr.map((base) => {
 		landingStance: base.landingStance,
 	};
 });
+
+/*
 console.log("newmap", newMap);
+console.table(stanceArr);
+console.table(kickVariationsArr);
+console.table(basesArr);
+console.table(stances);
+console.table(transArr);
+console.table(TrickListArr);
+console.table(Kicks);
+*/

@@ -21,7 +21,6 @@ export function TorqueScene(props) {
 	const gizmoRef = useRef();
 	const isFollowCam = useStore((s) => s.isFollowCam);
 	useEffect(() => {
-		console.log("Gismo", gizmoRef);
 	}, [isFollowCam]);
 	// useHelper(light, SpotLightHelper, "cyan");
 	return (
