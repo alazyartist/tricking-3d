@@ -22,6 +22,8 @@ module.exports = (sequelize) => {
 			},
 			user_id: DataTypes.UUID,
 			name: DataTypes.STRING,
+			status: DataTypes.STRING,
+			socials: DataTypes.JSON,
 			age: DataTypes.INTEGER,
 			country: DataTypes.STRING,
 			state: DataTypes.STRING,
