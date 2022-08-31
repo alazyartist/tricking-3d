@@ -156,6 +156,12 @@ export const getUserInfoByUUID = async (req, res) => {
 						},
 					},
 					{
+						model: db.sequelize.models.Profile,
+						attributes: {
+							exclude: ["id", "user_id", "createdAt", "updatedAt", "deletedAt"],
+						},
+					},
+					{
 						model: db.sequelize.models.Users,
 						as: "Captured",
 						through: { attributes: [] },
