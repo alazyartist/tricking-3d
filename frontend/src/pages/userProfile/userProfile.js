@@ -17,7 +17,7 @@ const UserProfile = () => {
 			<div>UserProfile</div>
 			<div>{profileInfo?.first_name + " " + profileInfo?.last_name}</div>
 			<div className=' flex flex-row gap-4 pb-4'>
-				<ProfileInfoCard />
+				<ProfileInfoCard userInfo={profileInfo} />
 				<UserAvatarDisplay />
 			</div>
 			<TricklistsAndClamiedContainer MyTricklists={profileInfo?.MyTricklists} />

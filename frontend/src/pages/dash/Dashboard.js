@@ -10,37 +10,36 @@ function Dashboard() {
 	const user = useUserStore((s) => s.user);
 	const { profilePic, uuid } = useUserStore((s) => s.userInfo);
 	const logout = useLogout();
-	const [profileCodeOpen, setProfileCodeOpen] = useState(false);
 
 	return (
 		<div className='mt-14 flex flex-col place-content-center place-items-center gap-2 text-zinc-400'>
 			<div className='p-4'>
 				Welcome <span className='font-semibold text-zinc-300'>{user}</span>
 			</div>
-			{profileCodeOpen ? (
+			{/* {profileCodeOpen ? (
 				<ProfileCode />
-			) : (
-				<>
-					<UserCard
-						edit
-						name={`Dylan James`}
-						username={user}
-						src={
-							profilePic !== null
-								? `./images/${uuid}/${profilePic}`
-								: "./images/noimg.jpeg"
-						}
-					/>
-					<Captures />
-				</>
-			)}
+			) : ( */}
+			<>
+				<UserCard
+					edit
+					name={`Dylan James`}
+					username={user}
+					src={
+						profilePic !== null
+							? `./images/${uuid}/${profilePic}`
+							: "./images/noimg.jpeg"
+					}
+				/>
+				<Captures />
+			</>
+			{/* )} */}
 
-			{/* QR Code Generator and Reader */}
+			{/* QR Code Generator and Reader
 			<div
 				onClick={() => setProfileCodeOpen(!profileCodeOpen)}
 				className='absolute top-20 left-5 flex place-items-center gap-2'>
 				<FaQrcode /> {!profileCodeOpen ? "Capture" : "Close"}
-			</div>
+			</div> */}
 
 			<button className='fixed right-5 bottom-14' onClick={() => logout()}>
 				Logout
