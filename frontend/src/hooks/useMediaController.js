@@ -89,8 +89,15 @@ function useMediaController(actions, names, mixer) {
 
 	useFrame(() => {
 		if (isPlaying) {
-			setCurrentTime(actions[currentAnim].time);
-			setClipDuration(actions[currentAnim].getClip().duration);
+      const duration = parseFloat(actions[currentAnim].getClip().duration.toFixed(2));
+      const time = parseFloat(actions[currentAnim].time.toFixed(2));
+			setCurrentTime(time);
+			setClipDuration(duration);
+
+      // Snap/loop Clipped Duration
+      if (time > end*duration) {
+        setCurrentTime(start*duration);
+      }
 		}
 	});
 
