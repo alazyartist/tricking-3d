@@ -12,6 +12,13 @@ const UpdateUserInfoForm = ({ setEditing }) => {
 		password: undefined,
 		confirmPassword: undefined,
 	});
+	const [userProfileData, setUserProfileData] = useState({
+		age: undefined,
+		name: undefined,
+		country: undefined,
+		state: undefined,
+		city: undefined,
+	});
 	const { data, isFetching, status, error } = useUserInfo();
 	const { mutate: updateUserInfo } = useUpdateUserInfo();
 	const handleUpdate = async (e) => {

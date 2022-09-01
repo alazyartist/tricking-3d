@@ -8,7 +8,11 @@ const UserIcon = () => {
 	const location = useLocation();
 	return (
 		<Link
-			to={location.pathname.includes("/home") ? "/dash" : "/home"}
+			to={
+				location.pathname.includes("/userProfile")
+					? "/home"
+					: `/userProfile/${uuid}`
+			}
 			className='fixed top-2.5 right-5 z-[1002] h-[50px] w-[50px] rounded-full border-2 border-zinc-300 border-opacity-20'>
 			{username !== null ? (
 				<img

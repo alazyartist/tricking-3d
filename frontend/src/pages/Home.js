@@ -1,17 +1,20 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { HomeScene } from "../scenes/HomeScene";
 import Loader from "../components/loaders/Loader";
 import { useNavigate, Link } from "react-router-dom";
 import MultiDonateButton from "../components/info/MultiDonateButton";
 import { TorqueScene } from "../scenes/TorqueScene";
-import { FaGraduationCap } from "react-icons/fa";
+import { FaGraduationCap, FaQrcode } from "react-icons/fa";
 import { useUserStore } from "../store/userStore";
 import { ReactComponent as ComboMakerBlueprint } from "../data/ComboMakerBlueprint.svg";
 import { TrickedexLogo } from "../data/icons/TrickedexLogo";
 import TricklistPage from "./tricklist/TricklistPage";
+import Captures from "./dash/components/Captures";
+import ProfileCode from "./dash/components/ProfileCode";
 
 function Home() {
+	const [profileCodeOpen, setProfileCodeOpen] = useState(false);
 	const user = useUserStore((s) => s.user);
 	const accessToken = useUserStore((s) => s.accessToken);
 	const navigate = useNavigate();
@@ -96,10 +99,24 @@ function Home() {
 					</>
 				) : (
 					// LoggedIn
-					<div className='text-zinc-300'>
-						<TricklistPage />
-					</div>
+					<>
+						<div className='text-zinc-300'>
+							{profileCodeOpen ? (
+								<ProfileCode setProfileCodeOpen={setProfileCodeOpen} />
+							) : (
+								<>
+									<Captures />
+									<TricklistPage />
+								</>
+							)}
+						</div>
+					</>
 				)}
+			</div>
+			<div
+				onClick={() => setProfileCodeOpen(!profileCodeOpen)}
+				className='absolute bottom-20 left-5 flex place-items-center gap-2 text-zinc-300'>
+				<FaQrcode /> {!profileCodeOpen ? "Capture" : "Close"}
 			</div>
 		</div>
 	);
