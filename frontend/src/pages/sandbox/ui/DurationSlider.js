@@ -106,11 +106,11 @@ function DurationSlider() {
 						setSliderStart(value);
 						event.target.value = value;
 					}}
-					onMouseDown={(event) => {
+					onPointerDown={(event) => {
 						setScrubbing(1);
 						setIsPaused(true);
 					}}
-					onMouseUp={(event) => {
+					onPointerUp={(event) => {
 						setScrubbing(0);
 						setIsPaused(false);
 					}}
@@ -135,11 +135,11 @@ function DurationSlider() {
 						setSliderEnd(value);
 						event.target.value = value;
 					}}
-					onMouseDown={(event) => {
+					onPointerDown={(event) => {
 						setScrubbing(2);
 						setIsPaused(true);
 					}}
-					onMouseUp={(event) => {
+					onPointerUp={(event) => {
 						setScrubbing(0);
 						setIsPaused(false);
 					}}
