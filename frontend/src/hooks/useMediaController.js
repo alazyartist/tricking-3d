@@ -66,22 +66,6 @@ function useMediaController(actions, names, mixer) {
 		}
 	}, [isScrubbing, start, end, actions, currentAnim]);
 
-	// Apply Clip Duration
-	useEffect(() => {
-		if (!trimToggle && !isScrubbing) {
-			const duration = parseFloat(
-				actions[currentAnim].getClip().duration.toFixed(2)
-			);
-			let startHere = parseFloat((start * duration).toFixed(2));
-			let endHere = parseFloat((end * duration).toFixed(2));
-			let current = parseFloat(actions[currentAnim].time);
-
-			if (current.toFixed(1) >= endHere.toFixed(1)) {
-				actions[currentAnim].time = startHere;
-			}
-		}
-	}, [trimToggle, isScrubbing, start, end]);
-
 	//Updates every Frame to paint currentTime
 	useEffect(() => {
 		actions[currentAnim].time = frameTime;
@@ -89,9 +73,23 @@ function useMediaController(actions, names, mixer) {
 
 	useFrame(() => {
 		if (isPlaying) {
-			setCurrentTime(actions[currentAnim].time);
-			setClipDuration(actions[currentAnim].getClip().duration);
-		}
+      const duration = parseFloat(actions[currentAnim].getClip().duration.toFixed(2));
+      const time = parseFloat(actions[currentAnim].time.toFixed(2));
+      setCurrentTime(time);
+      setClipDuration(duration);
+
+      // Snap/loop Clipped Duration
+      if (timescale > 0) {
+        if (time > end*duration) {
+          setCurrentTime(start*duration);
+        }
+      }
+      else {
+        if (time < start*duration) {
+          setCurrentTime(end*duration);
+        }
+      }
+    }
 	});
 
 	//Resets Animations Player on Change of CurrentAnim
