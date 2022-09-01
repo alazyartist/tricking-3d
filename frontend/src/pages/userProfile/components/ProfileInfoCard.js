@@ -1,22 +1,36 @@
 import React from "react";
-import { useUserStore } from "../../../store/userStore";
 
 const ProfileInfoCard = ({ userInfo }) => {
-	const { profilePic, uuid, username } = useUserStore((s) => s.userInfo);
 	return (
 		<div className='flex h-full flex-col'>
 			<img
 				src={
-					profilePic ? `/images/${uuid}/${profilePic}` : `./images/noimg.jpeg`
+					userInfo?.profilePic
+						? `/images/${userInfo?.uuid}/${userInfo?.profilePic}`
+						: `./images/noimg.jpeg`
 				}
 				className='relative top-8 left-2 h-12 w-12 rounded-full'
 			/>
-			<div className='flex w-fit min-w-[35vw] max-w-[48vw] flex-col place-content-center place-items-center rounded-xl bg-zinc-700 p-2 pt-2 text-sm'>
-				<div className='pl-12'>{username}</div>
-				<div>{userInfo?.Profile?.age}</div>
-				<div>{userInfo?.Profile?.name}</div>
-				<div>{userInfo?.Profile?.country + "," + userInfo?.Profile?.state}</div>
-				<div>{userInfo?.Profile?.status}</div>
+			<div className='flex w-fit min-w-[35vw] max-w-[48vw] flex-col place-content-center place-items-start gap-2 rounded-xl bg-zinc-700 p-2 pt-2 text-sm'>
+				<div className='pl-14 font-bold'>
+					<div>{userInfo?.username}</div>
+					<div className='text-center text-xs font-normal'>
+						{userInfo?.Profile?.country + "," + userInfo?.Profile?.state}
+					</div>
+				</div>
+				<div className='flex w-full justify-between'>
+					<div>{userInfo?.Profile?.name}</div>
+					<div className=''>{userInfo?.Profile?.age}</div>
+				</div>
+				<div>Level</div>
+				{/* BIFW */}
+				<div className='w-full rounded-md bg-zinc-800 p-2'>
+					Brands I Fuck With
+				</div>
+				{/* Status */}
+				<div className='w-full rounded-md bg-zinc-800 p-2'>
+					{userInfo?.Profile?.status}
+				</div>
 			</div>
 		</div>
 	);
