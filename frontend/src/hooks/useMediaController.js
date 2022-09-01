@@ -20,6 +20,7 @@ function useMediaController(actions, names, mixer) {
 	const activeModel = useStore((s) => s.activeModel);
 	const isFollowCam = useStore((s) => s.isFollowCam);
 	const frameTime = useStore((s) => s.currentTime);
+
 	//Solves Problem with infinte renders of Animations Array and successfully passes to store
 	useMemo(
 		() =>
@@ -28,6 +29,7 @@ function useMediaController(actions, names, mixer) {
 			}),
 		[names, setAnimationsArray]
 	);
+
 	// Handle Animation Loop
 	//bounce uE
 	useEffect(() => {
@@ -65,8 +67,6 @@ function useMediaController(actions, names, mixer) {
 	}, [isScrubbing, start, end, actions, currentAnim]);
 
 	// Apply Clip Duration
-
-	//Switched from useFrame to useEffect Seems to be same functionality.
 	useEffect(() => {
 		if (!trimToggle && !isScrubbing) {
 			const duration = parseFloat(
@@ -81,6 +81,7 @@ function useMediaController(actions, names, mixer) {
 			}
 		}
 	}, [trimToggle, isScrubbing, start, end]);
+
 	//Updates every Frame to paint currentTime
 	useEffect(() => {
 		actions[currentAnim].time = frameTime;
