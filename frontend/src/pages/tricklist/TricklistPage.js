@@ -4,7 +4,7 @@ import ListViewbyID from "./components/ListViewbyID";
 import MakeNewTrickList from "./components/MakeNewTrickList";
 import TricklistDisplay from "./components/TricklistDisplay";
 
-const TricklistPage = () => {
+const TricklistPage = ({ displayOnly, profileuuid }) => {
 	const [open, setOpen] = useState(false);
 	const [openView, setOpenView] = useState(false);
 	const [tricklist_id, setTricklist_id] = useState("");
@@ -12,15 +12,18 @@ const TricklistPage = () => {
 		console.log(tricklist_id);
 	}, [tricklist_id]);
 	return (
-		<div className='flex w-full flex-col place-content-center place-items-center gap-2'>
+		<div className='place-content-center place-items-center flex w-full flex-col gap-2'>
 			<TricklistDisplay
+				profileuuid={profileuuid}
 				setTricklist_id={setTricklist_id}
 				setOpenView={setOpenView}
 			/>
-			<AddListButton setOpen={setOpen} open={open} />
-			{open && <MakeNewTrickList setOpen={setOpen} />}
+			{!displayOnly && <AddListButton setOpen={setOpen} open={open} />}
+			{open && !displayOnly && <MakeNewTrickList setOpen={setOpen} />}
+
 			{openView && (
 				<ListViewbyID
+					displayOnly={displayOnly}
 					setOpenView={setOpenView}
 					tricklist_id={tricklist_id}
 					setTricklist_id={setTricklist_id}

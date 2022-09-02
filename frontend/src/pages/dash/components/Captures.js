@@ -19,7 +19,9 @@ const Captures = () => {
 	}, [userInfo]);
 
 	return (
-		<div className='flex flex-col place-items-center font-inter'>
+		<div
+			id='captureContainer'
+			className='place-items-center flex flex-col font-inter'>
 			<div className='flex gap-2 font-inter font-bold'>
 				<div
 					className={display === "captures" ? "text-zinc-300" : "text-zinc-400"}
@@ -40,14 +42,14 @@ const Captures = () => {
 					Captured You
 				</div>
 			</div>
-			<div>
+			<div className='place-content-center flex w-[80vw] flex-row place-items-start overflow-x-auto'>
 				{!!captured &&
 					display === "captures" &&
 					Object.keys(captured).map((key) => (
 						<div
 							onClick={() => nav(`/userProfile/${captured[key].uuid}`)}
 							key={`${captured[key].username}`}
-							className='flex flex-col gap-3'>
+							className='flex flex-row gap-3'>
 							<CapturedCard
 								name={captured[key].first_name + " " + captured[key].last_name}
 								src={
@@ -61,14 +63,14 @@ const Captures = () => {
 					))}
 			</div>
 
-			<div>
+			<div className='place-content-center flex w-[80vw] flex-row place-items-start overflow-x-auto'>
 				{!!capturedYou &&
 					display === "captured me" &&
 					Object.keys(capturedYou).map((key) => (
 						<div
 							onClick={() => nav(`/userProfile/${capturedYou[key].uuid}`)}
 							key={`${capturedYou[key].username}`}
-							className='flex flex-col gap-3'>
+							className='flex  flex-row gap-3'>
 							<CapturedCard
 								name={
 									capturedYou[key].first_name + " " + capturedYou[key].last_name

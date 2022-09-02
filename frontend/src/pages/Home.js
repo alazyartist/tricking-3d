@@ -17,13 +17,14 @@ import UpdateStatusInput from "../components/UpdateStatusInput";
 function Home() {
 	const [profileCodeOpen, setProfileCodeOpen] = useState(false);
 	const user = useUserStore((s) => s.user);
+	const { uuid } = useUserStore((s) => s.userInfo);
 	const accessToken = useUserStore((s) => s.accessToken);
 	const navigate = useNavigate();
 	return (
 		<div className='sticky mt-0'>
 			<div
 				id='AppBackground-flex'
-				className='flex h-screen w-screen flex-col place-items-center'>
+				className='place-items-center flex h-screen w-screen flex-col'>
 				<div className='w-full text-center text-zinc-200'>
 					<h1 className='flex flex-col text-xl '>
 						Welcome to the
@@ -59,14 +60,14 @@ function Home() {
 				{!accessToken ? (
 					<>
 						<Link className='' to='/instructions'>
-							<div className='flex w-[90vw] flex-col place-items-center justify-center gap-5 rounded-2xl bg-gradient-to-b from-zinc-800 to-zinc-800 p-2 font-bold text-zinc-300'>
+							<div className='place-items-center flex w-[90vw] flex-col justify-center gap-5 rounded-2xl bg-gradient-to-b from-zinc-800 to-zinc-800 p-2 font-bold text-zinc-300'>
 								<div>Instructions</div>
 							</div>
 						</Link>
 
-						<div className='m-2 flex w-full place-content-center gap-4 rounded-xl p-2 text-zinc-300'>
+						<div className='place-content-center m-2 flex w-full gap-4 rounded-xl p-2 text-zinc-300'>
 							<Link
-								className='flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-zinc-800  text-4xl'
+								className='place-content-center place-items-center flex h-20 w-full flex-col rounded-xl bg-gradient-to-b from-zinc-800  text-4xl'
 								to='/comboMaker'>
 								{/* UnderConstruction Label */}
 								<div className='relative top-7 right-8 -rotate-[22deg] rounded-md bg-red-500 bg-opacity-70 p-2 text-base'>
@@ -76,7 +77,7 @@ function Home() {
 								<div className='mt-[-14px] text-sm font-bold'>Combo Maker</div>
 							</Link>
 							<Link
-								className='flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-zinc-800 text-6xl'
+								className='place-content-center place-items-center flex h-20 w-full flex-col rounded-xl bg-gradient-to-b from-zinc-800 text-6xl'
 								to='/theory'>
 								<FaGraduationCap />
 								<div className='text-sm font-bold'>Theory</div>
@@ -105,11 +106,11 @@ function Home() {
 							{profileCodeOpen ? (
 								<ProfileCode setProfileCodeOpen={setProfileCodeOpen} />
 							) : (
-								<>
-									<UpdateStatusInput />
+								<div className='flex flex-col gap-2'>
 									<Captures />
-									<TricklistPage />
-								</>
+									<TricklistPage profileuuid={uuid} />
+									<UpdateStatusInput />
+								</div>
 							)}
 						</div>
 					</>
@@ -117,7 +118,7 @@ function Home() {
 			</div>
 			<div
 				onClick={() => setProfileCodeOpen(!profileCodeOpen)}
-				className='absolute bottom-20 left-5 flex place-items-center gap-2 text-zinc-300'>
+				className='place-items-center absolute bottom-20 left-5 flex gap-2 text-zinc-300'>
 				<FaQrcode /> {!profileCodeOpen ? "Capture" : "Close"}
 			</div>
 		</div>

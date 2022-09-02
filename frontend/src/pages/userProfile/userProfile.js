@@ -13,12 +13,13 @@ const UserProfile = () => {
 	console.log(profileInfo);
 
 	return (
-		<div className='m-4 flex flex-col place-content-center place-items-center pt-[3.4rem] font-inter text-zinc-300'>
+		<div className='place-content-center place-items-center m-4 flex flex-col pt-[3.4rem] font-inter text-zinc-300'>
 			<div className=' flex flex-row gap-4 pb-4'>
 				<ProfileInfoCard userInfo={profileInfo} />
 				<UserAvatarDisplay />
 			</div>
 			<TricklistsAndClamiedContainer
+				profileuuid={uuid}
 				MyTricklists={profileInfo?.MyTricklists}
 				Claimed={profileInfo?.ClaimedTricks}
 			/>

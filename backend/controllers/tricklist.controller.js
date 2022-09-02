@@ -34,9 +34,10 @@ export const getTricklists = async (req, res) => {
 		});
 };
 export const getUserTricklists = async (req, res) => {
-	const { user_id } = req.params;
+	const { user_id } = await req.params;
 	if (!user_id) return res.send("noUUID");
 	console.log("hit userTricklists");
+	console.log(user_id);
 	tricklist
 		.findAll({
 			where: { owner: user_id },

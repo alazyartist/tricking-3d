@@ -2,9 +2,9 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useApiCreds from "../hooks/useApiCreds";
 import { useUserStore } from "../store/userStore";
 
-export const useGetTricklists = () => {
+export const useGetTricklists = (uuid) => {
 	const apiPrivate = useApiCreds();
-	const { uuid } = useUserStore((s) => s.userInfo);
+
 	const queryClient = useQueryClient();
 	return useQuery(
 		["tricklists"],

@@ -7,7 +7,7 @@ import { useUserStore } from "../../../store/userStore";
 import AddComboItemToTricklist from "./AddComboItemToTricklist";
 import DeleteCheck from "./DeleteCheck";
 import TricklistbyIdDetails from "./TricklistbyIdDetails";
-const ListViewbyID = ({ tricklist_id, setOpenView }) => {
+const ListViewbyID = ({ displayOnly, tricklist_id, setOpenView }) => {
 	const userInfo = useUserStore((s) => s.userInfo);
 
 	const [deleteCheck, setDeleteCheck] = useState(false);
@@ -29,18 +29,22 @@ const ListViewbyID = ({ tricklist_id, setOpenView }) => {
 		<div
 			onClick={(e) => handleClick(e)}
 			id={"background"}
-			className='absolute top-0 z-[10] flex h-[100vh] w-full place-content-center bg-zinc-800 bg-opacity-40 pt-[8rem] backdrop-blur-xl'>
+			className='place-content-center absolute top-0 z-[10] flex h-[100vh] w-full bg-zinc-800 bg-opacity-40 pt-[8rem] backdrop-blur-xl'>
 			<div className='h-fit text-xl'>
 				<TricklistbyIdDetails
 					tricklist_id={tricklist_id}
 					data={tricklists?.[0]}
 				/>
-				<DeleteCheck
-					deleteCheck={deleteCheck}
-					handleDelete={handleDelete}
-					setDeleteCheck={setDeleteCheck}
-				/>
-				<AddComboItemToTricklist tricklist_id={tricklist_id} />
+				{!displayOnly && (
+					<>
+						<DeleteCheck
+							deleteCheck={deleteCheck}
+							handleDelete={handleDelete}
+							setDeleteCheck={setDeleteCheck}
+						/>
+						<AddComboItemToTricklist tricklist_id={tricklist_id} />
+					</>
+				)}
 			</div>
 		</div>
 	);
