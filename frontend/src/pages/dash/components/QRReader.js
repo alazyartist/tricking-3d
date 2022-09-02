@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { QrReader } from "react-qr-reader";
 import { useNavigate, useLocation } from "react-router-dom";
 import useCaptureUser from "../../../api/useCaptures";
+import useUserInfoByUUID from "../../../api/useUserInfoById";
 import { useUserStore } from "../../../store/userStore";
 const QRReader = () => {
 	const [QRData, setQRData] = useState();
+	const [QRDataResponse, setQRDataResponse] = useState("Capture Valid User");
 	const activeUser = useUserStore((s) => s.userInfo);
 	const { mutate: captureUser } = useCaptureUser();
 	const nav = useNavigate();
 	const location = useLocation();
+	const { data: capturedUserInfo } = useUserInfoByUUID(QRData);
+	useEffect(() => {
+		capturedUserInfo && setQRDataResponse(capturedUserInfo?.username);
+	}, [capturedUserInfo]);
 	const handleResult = async (result, err) => {
 		if (!!result) {
 			setQRData(result?.text);
@@ -18,9 +24,10 @@ const QRReader = () => {
 				captureuuid: result.text,
 				accessToken: activeUser.accessToken,
 			});
-			result.text &&
-				location.pathname.includes("/home") &&
-				nav(`/userProfile/${result?.text}`);
+			console.log(capturedUserInfo);
+			// result.text &&
+			// 	location.pathname.includes("/home") &&
+			// 	nav(`/userProfile/${result?.text}`);
 		}
 	};
 	const ViewFinderComp = () => (
@@ -29,9 +36,7 @@ const QRReader = () => {
 	return (
 		<div className='mt-4'>
 			<QrReader
-				onResult={(result, err) => {
-					handleResult(result, err);
-				}}
+				onResult={(result, err) => handleResult(result, err)}
 				style={{ width: "325px", height: "325px" }}
 				videoId={"video"}
 				constraints={{ facingMode: "environment", aspectRatio: 1 }}
@@ -48,7 +53,18 @@ const QRReader = () => {
 				}}
 			/>
 
-			<div>{QRData}</div>
+			<div className='text-center font-inter text-xl font-bold'>
+				{(QRDataResponse !== "Capture Valid User" && (
+					<>
+						<div>{`You Captured ${QRDataResponse}`}</div>
+						<button
+							className='rounded-lg bg-zinc-700 p-1 text-sm'
+							onClick={() => nav(`/userProfile/${QRData}`)}>
+							View Profile
+						</button>
+					</>
+				)) || <div>"Capture Valid User"</div>}
+			</div>
 		</div>
 	);
 };
