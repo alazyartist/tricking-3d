@@ -9,25 +9,20 @@ export const DragableWrapper = ({ children, drag_offset_limit }) => {
 
 	// Set the drag hook and define component movement based on gesture data
 	const bind = useDrag(({ currentTarget, down, movement: [mx, my] }) => {
-
-    my = 0
-    if (mx < -drag_offset_limit) {
-      if (timescale > 0)
-        setTimescale(timescale - .01);
-      else
-        setTimescale(timescale + .01);
-      mx = -drag_offset_limit;
-    }
-    if (mx >  drag_offset_limit) {
-      if (timescale > 0)
-        setTimescale(timescale + .01);
-      else
-        setTimescale(timescale - .01);
-      mx =  drag_offset_limit;
-    }
-    if (timescale <= 0) setTimescale(0.1);
-    if (timescale >  2) setTimescale(2.0);
-    mx = mx;
+		my = 0;
+		if (mx < -drag_offset_limit) {
+			if (timescale > 0) setTimescale(timescale - 0.01);
+			else setTimescale(timescale + 0.01);
+			mx = -drag_offset_limit;
+		}
+		if (mx > drag_offset_limit) {
+			if (timescale > 0) setTimescale(timescale + 0.01);
+			else setTimescale(timescale - 0.01);
+			mx = drag_offset_limit;
+		}
+		if (timescale <= 0) setTimescale(0.1);
+		if (timescale > 2) setTimescale(2.0);
+		mx = mx;
 
 		api.start({ x: down ? mx : 0, y: down ? my : 0, immediate: down });
 	});
@@ -38,7 +33,7 @@ export const DragableWrapper = ({ children, drag_offset_limit }) => {
 			id={"animated DRAGABLE"}
 			className={" h-fit w-fit"}
 			{...bind()}
-			style={{ x, y }}>
+			style={{ x, y, touchAction: "none" }}>
 			{children}
 		</animated.div>
 	);
