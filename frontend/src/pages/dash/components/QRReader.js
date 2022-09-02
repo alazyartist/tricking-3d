@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { QrReader } from "react-qr-reader";
+import { useNavigate, useLocation } from "react-router-dom";
 import useCaptureUser from "../../../api/useCaptures";
 import { useUserStore } from "../../../store/userStore";
 const QRReader = () => {
 	const [QRData, setQRData] = useState();
 	const activeUser = useUserStore((s) => s.userInfo);
 	const { mutate: captureUser } = useCaptureUser();
+	const nav = useNavigate();
+	const location = useLocation();
 	const handleResult = async (result, err) => {
 		if (!!result) {
 			setQRData(result?.text);
@@ -15,6 +18,9 @@ const QRReader = () => {
 				captureuuid: result.text,
 				accessToken: activeUser.accessToken,
 			});
+			result.text &&
+				location.pathname.includes("/home") &&
+				nav(`/userProfile/${result?.text}`);
 		}
 	};
 	const ViewFinderComp = () => (
@@ -23,8 +29,9 @@ const QRReader = () => {
 	return (
 		<div className='mt-4'>
 			<QrReader
-				scanDelay={1000}
-				onResult={(result, err) => handleResult(result, err)}
+				onResult={(result, err) => {
+					handleResult(result, err);
+				}}
 				style={{ width: "325px", height: "325px" }}
 				videoId={"video"}
 				constraints={{ facingMode: "environment", aspectRatio: 1 }}

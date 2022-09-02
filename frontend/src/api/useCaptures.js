@@ -17,7 +17,9 @@ export const useCaptureUser = () => {
 			return data;
 		},
 		{
-			onSuccess: () => queryClient.invalidateQueries(["userInfo"]),
+			onSuccess: () => {
+				queryClient.invalidateQueries(["userInfo"]);
+			},
 		}
 	);
 };
