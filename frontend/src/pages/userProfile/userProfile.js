@@ -14,13 +14,14 @@ const UserProfile = () => {
 
 	return (
 		<div className='m-4 flex flex-col place-content-center place-items-center pt-[3.4rem] font-inter text-zinc-300'>
-			<div>UserProfile</div>
-			<div>{profileInfo?.first_name + " " + profileInfo?.last_name}</div>
 			<div className=' flex flex-row gap-4 pb-4'>
 				<ProfileInfoCard userInfo={profileInfo} />
 				<UserAvatarDisplay />
 			</div>
-			<TricklistsAndClamiedContainer MyTricklists={profileInfo?.MyTricklists} />
+			<TricklistsAndClamiedContainer
+				MyTricklists={profileInfo?.MyTricklists}
+				Claimed={profileInfo?.ClaimedTricks}
+			/>
 		</div>
 	);
 };

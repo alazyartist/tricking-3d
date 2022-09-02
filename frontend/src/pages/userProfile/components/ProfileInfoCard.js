@@ -7,7 +7,7 @@ const ProfileInfoCard = ({ userInfo }) => {
 				src={
 					userInfo?.profilePic
 						? `/images/${userInfo?.uuid}/${userInfo?.profilePic}`
-						: `./images/noimg.jpeg`
+						: `/images/noimg.jpeg`
 				}
 				className='relative top-8 left-2 h-12 w-12 rounded-full'
 			/>
@@ -15,21 +15,28 @@ const ProfileInfoCard = ({ userInfo }) => {
 				<div className='pl-14 font-bold'>
 					<div>{userInfo?.username}</div>
 					<div className='text-center text-xs font-normal'>
-						{userInfo?.Profile?.country + "," + userInfo?.Profile?.state}
+						{(userInfo?.Profile &&
+							`${userInfo?.Profile?.country} ${userInfo?.Profile?.state}`) ||
+							"Location Unkown"}
 					</div>
 				</div>
 				<div className='flex w-full justify-between'>
-					<div>{userInfo?.Profile?.name}</div>
+					<div>
+						{userInfo?.Profile?.name ||
+							userInfo?.first_name + " " + userInfo?.last_name}
+					</div>
 					<div className=''>{userInfo?.Profile?.age}</div>
 				</div>
 				<div>Level</div>
 				{/* BIFW */}
-				<div className='w-full rounded-md bg-zinc-800 p-2'>
-					Brands I Fuck With
-				</div>
+				{userInfo?.Profile?.brands && (
+					<div className='w-full rounded-md bg-zinc-800 p-2'>
+						Brands I Fuck With
+					</div>
+				)}
 				{/* Status */}
 				<div className='w-full rounded-md bg-zinc-800 p-2'>
-					{userInfo?.Profile?.status}
+					{userInfo?.Profile?.status || "I'm New Here"}
 				</div>
 			</div>
 		</div>
