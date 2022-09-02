@@ -10,6 +10,7 @@ import {
 	MdCenterFocusStrong,
 } from "react-icons/md";
 import { MediaButton } from "./MediaButton.js";
+import DragableWrapper from "../../pages/sandbox/ui/DraggableSlowMo.js";
 
 function Controller() {
 	const setIsPaused = useStore((state) => state.setIsPaused);
@@ -88,19 +89,20 @@ function Controller() {
 						<FaStepForward className='fill-slate-200 text-xl hover:fill-white' />
 					}
 				/>
-
-				<MediaButton
-					id='reduce-speed-button'
-					f={() => setTimescale(0.5 * timescale)}
-					content={
-						<div className='relative'>
-							<MdSpeed className='fill-zinc-300 text-2xl' />
-							<span className='absolute inset-x-0.5 top-6 text-[.9rem] '>
-								{Math.abs(Number.parseFloat(timescale).toFixed(2))}
-							</span>
-						</div>
-					}
-				/>
+				<DragableWrapper>
+					<MediaButton
+						id='reduce-speed-button'
+						f={() => setTimescale(0.5 * timescale)}
+						content={
+							<div className='relative'>
+								<MdSpeed className='fill-zinc-300 text-2xl' />
+								<span className='absolute inset-x-0.5 top-6 text-[.9rem] '>
+									{Math.abs(Number.parseFloat(timescale).toFixed(2))}
+								</span>
+							</div>
+						}
+					/>
+				</DragableWrapper>
 				<MediaButton
 					id='full-speed-button'
 					f={() => setTimescale(1)}
