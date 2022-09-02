@@ -12,6 +12,7 @@ import { TrickedexLogo } from "../data/icons/TrickedexLogo";
 import TricklistPage from "./tricklist/TricklistPage";
 import Captures from "./dash/components/Captures";
 import ProfileCode from "./dash/components/ProfileCode";
+import UpdateStatusInput from "../components/UpdateStatusInput";
 
 function Home() {
 	const [profileCodeOpen, setProfileCodeOpen] = useState(false);
@@ -105,6 +106,7 @@ function Home() {
 								<ProfileCode setProfileCodeOpen={setProfileCodeOpen} />
 							) : (
 								<>
+									<UpdateStatusInput />
 									<Captures />
 									<TricklistPage />
 								</>
