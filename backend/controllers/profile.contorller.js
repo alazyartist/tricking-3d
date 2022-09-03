@@ -28,15 +28,20 @@ export const updateProfileInfo = async (req, res) => {
 			selectedUser.update({ username });
 		});
 
-		profile
-			.findOne({ where: { user_id: uuid } })
-			.then((currentProfile) => {
-				console.log(currentProfile);
-				currentProfile.update({ name, country, state, city, age });
-			})
-			.then((updatedProfile) => {
-				res.json({ updatedProfile });
-			});
+		const [currentProfile, created] = await profile.findOrCreate({
+			where: { user_id: uuid },
+		});
+
+		console.log(created, currentProfile);
+		if (created || currentProfile) {
+			Promise.resolve(currentProfile)
+				.then((currentProfile) => {
+					currentProfile.update({ name, country, state, city, age });
+				})
+				.then((updatedProfile) => {
+					res.json({ updatedProfile });
+				});
+		}
 	} catch (err) {
 		console.log(err);
 	}

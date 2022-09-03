@@ -15,6 +15,9 @@ module.exports = {
 			creator: {
 				type: Sequelize.UUID,
 			},
+			defaultAnimation: {
+				type: Sequelize.UUID,
+			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,

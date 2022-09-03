@@ -25,6 +25,7 @@ module.exports = (sequelize) => {
 				defaultValue: DataTypes.UUIDV4,
 			},
 			creator: DataTypes.UUID,
+			defaultAnimation: DataTypes.UUID,
 			name: DataTypes.STRING,
 			comboArray: DataTypes.JSON,
 			createdAt: DataTypes.DATE,
