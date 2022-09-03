@@ -6,7 +6,7 @@ const AddListButton = ({ setOpen, open }) => {
 			onClick={() => {
 				setOpen(!open);
 			}}
-			className='rounded-full bg-blue-500 p-3 font-inter font-semibold text-zinc-200'>
+			className=' h-fit w-2/5 rounded-full bg-blue-500 p-2 font-inter text-sm font-semibold text-zinc-200'>
 			Make New List
 		</button>
 	);

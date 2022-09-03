@@ -36,14 +36,13 @@ const TricklistbyIdDetails = ({ tricklist_id, data }) => {
 					Edit
 				</div>
 			</div>
-			<div className='flex'>Refresh List </div>
 			{/* TricklistData shoul be [{},{}] */}
 			{Array.isArray(tricklistData) &&
 				tricklistData.map((listItem) => {
 					return (
 						<div
 							key={listItem.combo_id + Math.floor(Math.random() * 1000)}
-							className='flex place-items-center justify-between gap-2 rounded-xl bg-zinc-900  p-1'>
+							className='place-items-center flex justify-between gap-2 rounded-xl bg-zinc-900  p-1'>
 							<div>{listItem?.Combo?.name}</div>
 							{editing && (
 								<div
@@ -52,7 +51,13 @@ const TricklistbyIdDetails = ({ tricklist_id, data }) => {
 									<AiOutlineClose />
 								</div>
 							)}
-							{!editing && <Claimed combo={listItem} />}
+							{!editing && (
+								<Claimed
+									user_id={uuid}
+									combo_id={listItem?.combo_id}
+									combo={listItem}
+								/>
+							)}
 						</div>
 					);
 				})}

@@ -43,6 +43,7 @@ const ProfileInfoCardEditable = ({ userInfo, setEditing }) => {
 							<input
 								type={"text"}
 								className='w-[100%] bg-inherit text-center '
+								placeholder='Country'
 								value={editedInfo?.country}
 								onChange={(e) => {
 									setEditedInfo({ ...editedInfo, country: e.target.value });
@@ -52,6 +53,7 @@ const ProfileInfoCardEditable = ({ userInfo, setEditing }) => {
 							<input
 								type={"text"}
 								className='w-[100%] bg-inherit text-center '
+								placeholder='State'
 								value={editedInfo?.state}
 								onChange={(e) => {
 									setEditedInfo({ ...editedInfo, state: e.target.value });
@@ -61,6 +63,7 @@ const ProfileInfoCardEditable = ({ userInfo, setEditing }) => {
 						<input
 							type={"text"}
 							className='w-[100%] bg-inherit text-center '
+							placeholder='City'
 							value={editedInfo?.city}
 							onChange={(e) => {
 								setEditedInfo({ ...editedInfo, city: e.target.value });
@@ -79,6 +82,7 @@ const ProfileInfoCardEditable = ({ userInfo, setEditing }) => {
 					/>{" "}
 					<input
 						type={"text"}
+						placeholder='Age'
 						className='w-1/5 bg-inherit text-right '
 						value={editedInfo?.age}
 						onChange={(e) => {

@@ -17,7 +17,7 @@ const UserIcon = () => {
 			{username !== null ? (
 				<img
 					src={
-						profilePic ? `/images/${uuid}/${profilePic}` : `./images/noimg.jpeg`
+						profilePic ? `/images/${uuid}/${profilePic}` : `/images/noimg.jpeg`
 					}
 					className='h-full w-full rounded-full'
 				/>
