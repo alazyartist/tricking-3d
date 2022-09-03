@@ -20,6 +20,7 @@ function Controller() {
 	const bounce = useStore((state) => state.bounce);
 	const setTimescale = useStore((state) => state.setTimescale);
 	const timescale = useStore((state) => state.timescale);
+	const speedControl = useStore((state) => state.speedControl);
 	const setFollowCam = useStore((state) => state.setFollowCam);
 	const isFollowCam = useStore((state) => state.isFollowCam);
 	const setCurrentTime = useStore((state) => state.setCurrentTime);
@@ -37,6 +38,7 @@ function Controller() {
 				<MediaButton
 					id='bounce-button'
 					f={setFollowCam}
+          hide={speedControl}
 					content={
 						isFollowCam ? (
 							<MdCenterFocusStrong className='text-xl text-[hotpink]' />
@@ -48,6 +50,7 @@ function Controller() {
 				<MediaButton
 					id='reverse-button'
 					f={() => setTimescale(-timescale)}
+          hide={speedControl}
 					content={
 						timescale < 0 ? (
 							<MdLoop className='text-2xl text-zinc-300' />
@@ -60,6 +63,7 @@ function Controller() {
 				<MediaButton
 					id='FrameBack-button'
 					f={() => setCurrentTime(currentTime - 0.05 * timescale)}
+          hide={speedControl}
 					content={
 						<FaStepBackward className='fill-slate-200 text-xl hover:fill-white' />
 					}
@@ -69,6 +73,7 @@ function Controller() {
 					id='play-pause-button'
 					class='rounded'
 					f={setIsPaused}
+          hide={speedControl}
 					content={
 						!isPaused ? (
 							<FaPause className='fill-gray-800 p-0' />
@@ -82,6 +87,7 @@ function Controller() {
 				<MediaButton
 					id='FrameForward-button'
 					f={() => setCurrentTime(0.05 * timescale + currentTime)}
+          hide={speedControl}
 					mD={() => {
 						console.log("MOUSDOWN");
 					}}
@@ -90,7 +96,7 @@ function Controller() {
 					}
 				/>
 
-				<DragableWrapper drag_offset_limit={32}>
+				<DragableWrapper drag_offset_limit={80}>
 					<MediaButton
 						id='reduce-speed-button'
 						content={
@@ -107,6 +113,7 @@ function Controller() {
 				<MediaButton
 					id='full-speed-button'
 					f={() => setTimescale(1)}
+          hide={speedControl}
 					content={<MdSpeed className='fill-zinc-300 text-2xl' />}
 				/>
 			</div>
