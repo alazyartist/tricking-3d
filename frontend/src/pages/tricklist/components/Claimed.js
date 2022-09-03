@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdCircle, MdCheckCircle } from "react-icons/md";
-import { useClaimCombo } from "../../../api/useClaimCombo";
+import { useClaimCombo, useUnClaimCombo } from "../../../api/useClaimCombo";
+import useUserInfoByUUID from "../../../api/useUserInfoById";
 
-const Claimed = ({ combo, combo_id, user_id }) => {
+const Claimed = ({ displayOnly, combo, combo_id, user_id }) => {
 	const [claimed, setClaimed] = useState(false);
 	const { mutate: claim } = useClaimCombo();
-	const handleClaim = () => {
-		claim({ user_id, combo_id });
-		//needs user_id,combo_id
+	const { mutate: unclaim } = useUnClaimCombo();
+	const { data: profileInfo } = useUserInfoByUUID(user_id);
+	console.log(profileInfo?.CombosClaimed);
+	const isClaimed = profileInfo?.CombosClaimed?.some(
+		(combo) => combo.combo_id === combo_id
+	);
+
+	const handleClaim = async () => {
+		isClaimed ? unclaim({ user_id, combo_id }) : claim({ user_id, combo_id });
 	};
 	return (
 		<div
@@ -17,11 +24,11 @@ const Claimed = ({ combo, combo_id, user_id }) => {
 				// "Claim",
 				// listItem?.Combo.combo_id,
 				// listItem.Combo.name)}
-				// setClaimed(!claimed);
-				handleClaim();
+				setClaimed(!claimed);
+				!displayOnly && handleClaim();
 			}}
 			className='h-8 w-8 place-items-end text-3xl text-emerald-500'>
-			{claimed ? <MdCheckCircle /> : <MdCircle className='text-yellow-500' />}
+			{isClaimed ? <MdCheckCircle /> : <MdCircle className='text-yellow-500' />}
 		</div>
 	);
 };

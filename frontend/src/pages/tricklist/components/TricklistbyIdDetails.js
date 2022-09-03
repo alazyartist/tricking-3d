@@ -7,7 +7,7 @@ import {
 } from "../../../api/useTricklists.js";
 import { useUserStore } from "../../../store/userStore";
 
-const TricklistbyIdDetails = ({ tricklist_id, data }) => {
+const TricklistbyIdDetails = ({ displayOnly, tricklist_id, data }) => {
 	const { uuid } = useUserStore((s) => s.userInfo);
 	let updated = new Date(data?.updatedAt);
 	updated = updated.toDateString();
@@ -30,11 +30,13 @@ const TricklistbyIdDetails = ({ tricklist_id, data }) => {
 			<div id={"data-container"} className='flex gap-8 text-zinc-300'>
 				<div className=''>{data?.Owner?.username}</div>
 				<div>{updated}</div>
-				<div
-					className={`${editing ? "text-red-500" : "text-zinc-300"}`}
-					onClick={() => setEditing(!editing)}>
-					Edit
-				</div>
+				{!displayOnly && (
+					<div
+						className={`${editing ? "text-red-500" : "text-zinc-300"}`}
+						onClick={() => setEditing(!editing)}>
+						Edit
+					</div>
+				)}
 			</div>
 			{/* TricklistData shoul be [{},{}] */}
 			{Array.isArray(tricklistData) &&
@@ -53,6 +55,7 @@ const TricklistbyIdDetails = ({ tricklist_id, data }) => {
 							)}
 							{!editing && (
 								<Claimed
+									displayOnly={displayOnly}
 									user_id={uuid}
 									combo_id={listItem?.combo_id}
 									combo={listItem}

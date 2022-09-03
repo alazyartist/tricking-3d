@@ -17,6 +17,7 @@ module.exports = (sequelize) => {
 				type: DataTypes.INTEGER,
 				primaryKey: true,
 				autoIncrement: true,
+				allowNull: false,
 			},
 			user_id: DataTypes.UUID,
 			combo_id: DataTypes.UUID,

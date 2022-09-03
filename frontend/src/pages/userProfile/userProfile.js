@@ -69,7 +69,7 @@ const UserProfile = () => {
 			<TricklistsAndClamiedContainer
 				profileuuid={uuid}
 				MyTricklists={profileInfo?.MyTricklists}
-				Claimed={profileInfo?.ClaimedTricks}
+				Claimed={profileInfo?.CombosClaimed}
 			/>
 		</div>
 	);
