@@ -89,6 +89,7 @@ function Controller() {
 						<FaStepForward className='fill-slate-200 text-xl hover:fill-white' />
 					}
 				/>
+
 				<DragableWrapper drag_offset_limit={32}>
 					<MediaButton
 						id='reduce-speed-button'
@@ -102,6 +103,7 @@ function Controller() {
 						}
 					/>
 				</DragableWrapper>
+
 				<MediaButton
 					id='full-speed-button'
 					f={() => setTimescale(1)}
