@@ -4,9 +4,10 @@ import { useStore } from "../../../store/store.js";
 
 export const DragableWrapper = ({ children, drag_offset_limit }) => {
 	const [{ x, y }, api] = useSpring(() => ({ x: 0, y: 0 }));
+  const setSpeedControl = useStore((state) => state.setSpeedControl);
+  const setTrimToggle = useStore((state) => state.setTrimToggle);
 	const setTimescale = useStore((state) => state.setTimescale);
-	const setSpeedControl = useStore((state) => state.setSpeedControl);
-	const timescale = useStore((state) => state.timescale);
+  const timescale = useStore((state) => state.timescale);
   // Local Functions
   const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
   const lerp = (start, end, amt) => (1-amt)*start+amt*end;

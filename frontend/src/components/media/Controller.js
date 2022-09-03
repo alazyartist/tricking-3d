@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useStore } from "../../store/store.js";
+import { AiOutlineColumnWidth } from "react-icons/ai";
 import { FaPlay, FaPause, FaStepBackward, FaStepForward } from "react-icons/fa";
 import { BiRevision } from "react-icons/bi";
 import { ImLoop } from "react-icons/im";
@@ -15,6 +16,8 @@ import DragableWrapper from "../../pages/sandbox/ui/DraggableSlowMo.js";
 function Controller() {
 	const setIsPaused = useStore((state) => state.setIsPaused);
 	const setIsPlaying = useStore((state) => state.setIsPaused);
+	const setTrimToggle = useStore((state) => state.setTrimToggle);
+	const trimToggle = useStore((state) => state.trimToggle);
 	const setBounce = useStore((state) => state.setBounce);
 	const isPaused = useStore((state) => state.isPaused);
 	const bounce = useStore((state) => state.bounce);
@@ -111,10 +114,9 @@ function Controller() {
 				</DragableWrapper>
 
 				<MediaButton
-					id='full-speed-button'
-					f={() => setTimescale(1)}
-          hide={speedControl}
-					content={<MdSpeed className='fill-zinc-300 text-2xl' />}
+					id='toggle-playback-button'
+					f={() => setTrimToggle(!trimToggle)}
+					content={<AiOutlineColumnWidth className={`${trimToggle ? "fill-yellow-400" : "fill-zinc-300"} text-2xl`}/>}
 				/>
 			</div>
 		</div>
