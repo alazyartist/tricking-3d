@@ -7,23 +7,21 @@ export const DragableWrapper = ({ children, drag_offset_limit }) => {
 	const setTimescale = useStore((state) => state.setTimescale);
 	const timescale = useStore((state) => state.timescale);
 
-	// Set the drag hook and define component movement based on gesture data
-	const bind = useDrag(({ currentTarget, down, movement: [mx, my] }) => {
+  function lerp (start, end, amt){
+    return (1-amt)*start+amt*end
+  }
+
+  // Set the drag hook and define component movement based on gesture data
+  const bind = useDrag(({ currentTarget, down, movement: [mx, my] }) => {
+    // Speed Slider
 		my = 0;
 		if (mx < -drag_offset_limit) {
-			if (timescale > 0) setTimescale(timescale - 0.01);
-			else setTimescale(timescale + 0.01);
 			mx = -drag_offset_limit;
 		}
 		if (mx > drag_offset_limit) {
-			if (timescale > 0) setTimescale(timescale + 0.01);
-			else setTimescale(timescale - 0.01);
 			mx = drag_offset_limit;
 		}
-		if (timescale <= 0) setTimescale(0.1);
-		if (timescale > 2) setTimescale(2.0);
-		mx = mx;
-
+    setTimescale(lerp(0.01,2,((mx+drag_offset_limit)/(drag_offset_limit*2))));
 		api.start({ x: down ? mx : 0, y: down ? my : 0, immediate: down });
 	});
 
