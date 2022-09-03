@@ -5,7 +5,7 @@ import { useClaimCombo } from "../../../api/useClaimCombo";
 const Claimed = ({ combo, combo_id, user_id }) => {
 	const [claimed, setClaimed] = useState(false);
 	const { mutate: claim } = useClaimCombo();
-	const handleClaim = () => {
+	const handleClaim = async () => {
 		claim({ user_id, combo_id });
 		//needs user_id,combo_id
 	};
@@ -17,7 +17,7 @@ const Claimed = ({ combo, combo_id, user_id }) => {
 				// "Claim",
 				// listItem?.Combo.combo_id,
 				// listItem.Combo.name)}
-				// setClaimed(!claimed);
+				setClaimed(!claimed);
 				handleClaim();
 			}}
 			className='h-8 w-8 place-items-end text-3xl text-emerald-500'>

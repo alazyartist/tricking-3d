@@ -7,6 +7,7 @@ const TricklistsAndClamiedContainer = ({
 	profileuuid,
 }) => {
 	const [activePane, setActivePane] = useState("Tricklists");
+
 	return (
 		<>
 			<div className='place-content-center place-items-center flex w-[80vw] gap-2'>
@@ -49,7 +50,7 @@ const TricklistsAndClamiedContainer = ({
 				<div
 					className={`place-content-center place-items-center flex h-[37vh] w-[80vw] flex-col bg-zinc-600`}>
 					{(Claimed?.length &&
-						MyTricklists?.map((list) => <div>{list?.name}</div>)) ||
+						Claimed?.map((list) => <div>{list?.name}</div>)) ||
 						"No ClaimedTricks to Display"}
 				</div>
 			)}

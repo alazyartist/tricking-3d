@@ -8,7 +8,7 @@ export const useClaimCombo = () => {
 	return useMutation(
 		["claimCombo"],
 		async (formData) => {
-			const { data } = await apiPrivate.put("user/claimCombo", formData, {
+			const { data } = await apiPrivate.post("user/claimCombo", formData, {
 				headers: {
 					"Content-Type": "multipart/form-data",
 					"Content-Type": "application/json",
