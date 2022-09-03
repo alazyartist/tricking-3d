@@ -21,10 +21,11 @@ const TricklistsAndClamiedContainer = ({
 				</div>
 				<div
 					onClick={(e) => setActivePane("Claimed")}
-					className={`w-full select-none rounded-t-md p-2 ${
+					className={`flex w-full select-none justify-between rounded-t-md p-2 ${
 						activePane === "Tricklists" ? "bg-zinc-700" : "bg-zinc-600"
 					}`}>
-					Claimed
+					<div>Claimed</div>
+					<div>{Claimed.length}</div>
 				</div>
 			</div>
 			{activePane === "Tricklists" && (

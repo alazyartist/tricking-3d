@@ -1,9 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useApiCreds from "../hooks/useApiCreds";
+import { useUserStore } from "../store/userStore";
 
 export const useClaimCombo = () => {
 	const apiPrivate = useApiCreds();
 	const queryClient = useQueryClient();
+	const userInfo = useUserStore((s) => s.userInfo);
 
 	return useMutation(
 		["claimCombo"],
@@ -17,7 +19,10 @@ export const useClaimCombo = () => {
 			return data;
 		},
 		{
-			onSuccess: () => queryClient.invalidateQueries(["userInfo"]),
+			onSuccess: () => {
+				queryClient.invalidateQueries(["userInfo"]);
+				queryClient.invalidateQueries(["userInfoByUUID", userInfo?.uuid]);
+			},
 		}
 	);
 };
