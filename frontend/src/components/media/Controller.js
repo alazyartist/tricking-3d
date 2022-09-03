@@ -65,7 +65,14 @@ function Controller() {
 
 				<MediaButton
 					id='FrameBack-button'
-					f={() => setCurrentTime(currentTime - 0.05 * timescale)}
+					f={() => {
+              if (isPaused)
+                setCurrentTime(currentTime - 0.05 * timescale * Math.sign(timescale));
+              else {
+                setIsPlaying(true);
+              }
+            }
+          }
           hide={speedControl}
 					content={
 						<FaStepBackward className={`${isPaused ? "opacity-100" : "opacity-40"} fill-slate-200 text-xl hover:fill-white'`} />
@@ -89,7 +96,14 @@ function Controller() {
 
 				<MediaButton
 					id='FrameForward-button'
-					f={() => setCurrentTime(0.05 * timescale + currentTime)}
+					f={() => {
+              if (isPaused)
+                setCurrentTime(currentTime + 0.05 * timescale * Math.sign(timescale));
+              else {
+                setIsPlaying(true);
+              }
+            }
+          }
           hide={speedControl}
 					mD={() => {
 						console.log("MOUSDOWN");
