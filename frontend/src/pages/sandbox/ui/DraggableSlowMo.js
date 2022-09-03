@@ -21,7 +21,7 @@ export const DragableWrapper = ({ children, drag_offset_limit }) => {
 		if (mx > drag_offset_limit) {
 			mx = drag_offset_limit;
 		}
-    setTimescale(lerp(0,2,((mx+drag_offset_limit)/(drag_offset_limit*2))));
+    setTimescale(lerp(0.01,2,((mx+drag_offset_limit)/(drag_offset_limit*2))));
 		api.start({ x: down ? mx : 0, y: down ? my : 0, immediate: down });
 	});
 
