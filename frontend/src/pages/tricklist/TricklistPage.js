@@ -12,10 +12,13 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 		console.log(tricklist_id);
 	}, [tricklist_id]);
 	return (
-		<div className='place-content-center place-items-center flex w-full flex-col gap-2'>
+		<div
+			id={"tricklistPage-Container"}
+			className='place-content-center place-items-center no-scrollbar flex w-full flex-col gap-2 overflow-auto'>
 			<TricklistDisplay
 				profileuuid={profileuuid}
 				setTricklist_id={setTricklist_id}
+				displayOnly={displayOnly}
 				setOpenView={setOpenView}
 			/>
 			{!displayOnly && <AddListButton setOpen={setOpen} open={open} />}

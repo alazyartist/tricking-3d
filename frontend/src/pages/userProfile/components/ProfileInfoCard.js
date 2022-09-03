@@ -11,9 +11,9 @@ const ProfileInfoCard = ({ userInfo }) => {
 				}
 				className='relative top-8 left-2 h-12 w-12 rounded-full'
 			/>
-			<div className='flex w-fit min-w-[35vw] max-w-[48vw] flex-col place-content-center place-items-start gap-2 rounded-xl bg-zinc-700 p-2 pt-2 text-sm'>
-				<div className='pl-14 font-bold'>
-					<div>{userInfo?.username}</div>
+			<div className='place-content-center flex w-fit min-w-[35vw] max-w-[48vw] flex-col place-items-start gap-2 rounded-xl bg-zinc-700 p-2 pt-2 text-sm'>
+				<div className='w-full pl-14 font-bold'>
+					<div className='w-[100%] text-center'>{userInfo?.username}</div>
 					<div className='text-center text-xs font-normal'>
 						{(userInfo?.Profile &&
 							`${userInfo?.Profile?.country} ${userInfo?.Profile?.state}`) ||

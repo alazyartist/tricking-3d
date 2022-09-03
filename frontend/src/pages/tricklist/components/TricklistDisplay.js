@@ -2,7 +2,12 @@ import React from "react";
 import useGetTricklists from "../../../api/useTricklists";
 import { useUserStore } from "../../../store/userStore";
 
-const TricklistDisplay = ({ profileuuid, setOpenView, setTricklist_id }) => {
+const TricklistDisplay = ({
+	displayOnly,
+	profileuuid,
+	setOpenView,
+	setTricklist_id,
+}) => {
 	const userInfo = useUserStore((s) => s.userInfo);
 	const { uuid: userUUID } = useUserStore((s) => s.userInfo);
 	const handleListClick = (uuid) => {
@@ -14,14 +19,13 @@ const TricklistDisplay = ({ profileuuid, setOpenView, setTricklist_id }) => {
 	const { data: lists } = useGetTricklists(profileuuid);
 
 	return (
-		<div>
+		<div className='w-full p-2'>
 			<table>
-				<thead className='text-center text-lg font-semibold text-zinc-300'>
+				<thead className='text-center text-xs font-semibold text-zinc-300'>
 					<tr>
-						<th className='px-2'>tricklist_id</th>
-						<th className='px-2'>name</th>
-						<th className='px-2'>owner</th>
-						<th className='px-2'>lastUpdated</th>
+						<th className=''>name</th>
+						{!displayOnly && <th className='px-2'>owner</th>}
+						<th className=''>lastUpdated</th>
 					</tr>
 				</thead>
 				<tbody className='text-center'>
@@ -31,11 +35,8 @@ const TricklistDisplay = ({ profileuuid, setOpenView, setTricklist_id }) => {
 							<tr
 								key={item.tricklist_id}
 								onClick={() => handleListClick(item.tricklist_id)}>
-								<td>
-									{item.tricklist_id.substring(item.tricklist_id.length - 4)}
-								</td>
 								<td>{item.name}</td>
-								<td>{item?.Owner?.username}</td>
+								{!displayOnly && <td>{item?.Owner?.username}</td>}
 								<td>
 									{Number(
 										(Date.now() - new Date(item.updatedAt)) / 1000 / 60

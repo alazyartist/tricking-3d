@@ -4,7 +4,10 @@ import {
 	getInteractions,
 	interact,
 } from "../controllers/interactions.controller.js";
-import { updateStatus } from "../controllers/profile.contorller.js";
+import {
+	updateProfileInfo,
+	updateStatus,
+} from "../controllers/profile.contorller.js";
 import {
 	checkPassword,
 	deleteUser,
@@ -30,5 +33,6 @@ userRoutes.route("/user/getInfo/:uuid").get(verifyJWT, getUserInfoByUUID);
 userRoutes.route("/user/getInfoById").post(getUserInfoById);
 userRoutes.route("/user/interact/").post(interact);
 userRoutes.route("/user/profile/status").put(updateStatus);
+userRoutes.route("/user/profile/").put(updateProfileInfo);
 userRoutes.route("/user/comments/:trick_id").get(getInteractions);
 userRoutes.route("/user/comments/:interaction_id").delete(deleteInteraction);
