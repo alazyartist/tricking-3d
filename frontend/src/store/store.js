@@ -5,6 +5,8 @@ export const useStore = create(
 	devtools((set, api) => ({
 		aI: 0,
 
+		setSpeedControl: (value) => set(() => ({ speedControl: value })),
+    speedControl: false,
 		isFollowCam: true,
 		setFollowCam: () => set((s) => ({ isFollowCam: !s.isFollowCam })),
 		addToAnimationArray: (value) =>
