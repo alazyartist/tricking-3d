@@ -3,7 +3,7 @@ import { MdCircle, MdCheckCircle } from "react-icons/md";
 import { useClaimCombo, useUnClaimCombo } from "../../../api/useClaimCombo";
 import useUserInfoByUUID from "../../../api/useUserInfoById";
 
-const Claimed = ({ combo, combo_id, user_id }) => {
+const Claimed = ({ displayOnly, combo, combo_id, user_id }) => {
 	const [claimed, setClaimed] = useState(false);
 	const { mutate: claim } = useClaimCombo();
 	const { mutate: unclaim } = useUnClaimCombo();
@@ -25,7 +25,7 @@ const Claimed = ({ combo, combo_id, user_id }) => {
 				// listItem?.Combo.combo_id,
 				// listItem.Combo.name)}
 				setClaimed(!claimed);
-				handleClaim();
+				!displayOnly && handleClaim();
 			}}
 			className='h-8 w-8 place-items-end text-3xl text-emerald-500'>
 			{isClaimed ? <MdCheckCircle /> : <MdCircle className='text-yellow-500' />}

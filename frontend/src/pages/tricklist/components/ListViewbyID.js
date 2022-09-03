@@ -32,6 +32,7 @@ const ListViewbyID = ({ displayOnly, tricklist_id, setOpenView }) => {
 			className='place-content-center absolute top-0 z-[10] flex h-[100vh] w-full bg-zinc-800 bg-opacity-40 pt-[8rem] backdrop-blur-xl'>
 			<div className='h-fit text-xl'>
 				<TricklistbyIdDetails
+					displayOnly={displayOnly}
 					tricklist_id={tricklist_id}
 					data={tricklists?.[0]}
 				/>
