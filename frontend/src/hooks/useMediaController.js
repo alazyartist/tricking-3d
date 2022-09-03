@@ -20,6 +20,7 @@ function useMediaController(actions, names, mixer) {
 	const activeModel = useStore((s) => s.activeModel);
 	const isFollowCam = useStore((s) => s.isFollowCam);
 	const frameTime = useStore((s) => s.currentTime);
+  const setTrimToggle = useStore((s) => s.setTrimToggle);
 
 	//Solves Problem with infinte renders of Animations Array and successfully passes to store
 	useMemo(
@@ -79,15 +80,20 @@ function useMediaController(actions, names, mixer) {
       setClipDuration(duration);
 
       // Snap/loop Clipped Duration
-      if (timescale > 0) {
-        if (time > end*duration) {
-          setCurrentTime(start*duration);
+      if (trimToggle) {
+        if (timescale > 0) {
+          if (time > end*duration) {
+            setCurrentTime(start*duration);
+          }
+        }
+        else {
+          if (time < start*duration) {
+            setCurrentTime(end*duration);
+          }
         }
       }
       else {
-        if (time < start*duration) {
-          setCurrentTime(end*duration);
-        }
+        if (isScrubbing) setTrimToggle(true);
       }
     }
 	});

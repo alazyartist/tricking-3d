@@ -62,17 +62,6 @@ function DurationSlider() {
 		<div
 			id='duration-slider-container'
 			className='mb-1 items-center gap-3 self-center pt-0'>
-			{/* <TrimToggle
-				id='trim-toggle-container'
-				content={
-					trimToggle ? (
-						<FaCheckCircle className='h-8 w-8 fill-gray-500' />
-					) : (
-						<FaCheckCircle className='h-8 w-8 fill-green-600' />
-					)
-				}
-				f={() => setTrimToggle()}
-			/> */}
 			<div
 				id='duration-slider'
 				className=' relative z-0 flex h-[40px] w-full items-center justify-center rounded-lg bg-transparent align-middle'>
