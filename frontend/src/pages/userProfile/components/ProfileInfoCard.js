@@ -15,9 +15,12 @@ const ProfileInfoCard = ({ userInfo }) => {
 				<div className='w-full pl-14 font-bold'>
 					<div className='w-[100%] text-center'>{userInfo?.username}</div>
 					<div className='text-center text-xs font-normal'>
-						{(userInfo?.Profile &&
-							`${userInfo?.Profile?.country} ${userInfo?.Profile?.state}`) ||
-							"Location Unkown"}
+						<div>
+							{(userInfo?.Profile &&
+								`${userInfo?.Profile?.country} ${userInfo?.Profile?.state}`) ||
+								"Location Unkown"}
+						</div>
+						<div>{userInfo?.Profile?.city}</div>
 					</div>
 				</div>
 				<div className='flex w-full justify-between'>

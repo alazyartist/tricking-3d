@@ -17,9 +17,7 @@ const ProfileInfoCardEditable = ({ userInfo, setEditing }) => {
 		updateProfileInfo({ ...editedInfo });
 		setEditing(false);
 	};
-	useEffect(() => {
-		console.log(editedInfo);
-	}, [editedInfo]);
+
 	return (
 		<form onSubmit={handleSave} className='flex h-full flex-col'>
 			<img
@@ -50,7 +48,7 @@ const ProfileInfoCardEditable = ({ userInfo, setEditing }) => {
 									setEditedInfo({ ...editedInfo, country: e.target.value });
 								}}
 							/>
-							,
+
 							<input
 								type={"text"}
 								className='w-[100%] bg-inherit text-center '
