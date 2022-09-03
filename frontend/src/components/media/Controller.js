@@ -68,7 +68,7 @@ function Controller() {
 					f={() => setCurrentTime(currentTime - 0.05 * timescale)}
           hide={speedControl}
 					content={
-						<FaStepBackward className='fill-slate-200 text-xl hover:fill-white' />
+						<FaStepBackward className={`${isPaused ? "opacity-100" : "opacity-40"} fill-slate-200 text-xl hover:fill-white'`} />
 					}
 				/>
 
@@ -95,7 +95,7 @@ function Controller() {
 						console.log("MOUSDOWN");
 					}}
 					content={
-						<FaStepForward className='fill-slate-200 text-xl hover:fill-white' />
+						<FaStepForward className={`${isPaused ? "opacity-100" : "opacity-40"} fill-slate-200 text-xl hover:fill-white'`} />
 					}
 				/>
 
@@ -116,6 +116,7 @@ function Controller() {
 				<MediaButton
 					id='toggle-playback-button'
 					f={() => setTrimToggle(!trimToggle)}
+          hide={speedControl}
 					content={<AiOutlineColumnWidth className={`${trimToggle ? "fill-yellow-400" : "fill-zinc-300"} text-2xl`}/>}
 				/>
 			</div>
