@@ -1,4 +1,5 @@
 import React from "react";
+import { FaPlusCircle } from "react-icons/fa";
 
 const AddListButton = ({ setOpen, open }) => {
 	return (
@@ -6,8 +7,8 @@ const AddListButton = ({ setOpen, open }) => {
 			onClick={() => {
 				setOpen(!open);
 			}}
-			className=' h-fit w-2/5 rounded-full bg-blue-500 p-2 font-inter text-sm font-semibold text-zinc-200'>
-			Make New List
+			className=' fit h-fit rounded-full bg-blue-500 p-2 font-inter text-sm font-semibold text-zinc-200'>
+			<FaPlusCircle />
 		</button>
 	);
 };
