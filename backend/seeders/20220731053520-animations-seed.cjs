@@ -26,7 +26,8 @@ module.exports = {
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{	// @TODO: DNF
+			{
+				// @TODO: DNF
 				animation_id: "945c2d53-c063-451b-a2b8-44e279774667",
 				animationName: "ch180swipe",
 				skeleton: "CC3",
@@ -40,7 +41,7 @@ module.exports = {
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{	
+			{
 				animation_id: "942bbdb0-5cd8-475e-b327-64de97859be0",
 				animationName: "Aerial>Pop",
 				skeleton: "CC3",
@@ -96,7 +97,7 @@ module.exports = {
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ 
+			{
 				animation_id: "00b812fb-af28-4f75-a4e2-780cb275e3d8",
 				animationName: "Btwist",
 				skeleton: "CC3",
@@ -117,7 +118,8 @@ module.exports = {
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // @TODO: DNF
+			{
+				// @TODO: DNF
 				animation_id: "647e7b94-a3ab-4702-82f8-d922f1f348f1",
 				animationName: "c360h",
 				skeleton: "CC3",
@@ -159,56 +161,64 @@ module.exports = {
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "341449f3-95d4-4e46-b43e-3943bd496ee7",
 				animationName: "Cartwheel.complete 02",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "21c961cb-298d-44b4-859a-32d00103d3cb",
 				animationName: "Cartwheel.complete",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "61298185-4fd2-4cad-9a47-3732dfab0cb2",
 				animationName: "Cartwheel.insidehyper",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "cb340de1-ee3e-4c38-a589-d79830322e24",
 				animationName: "Cartwheel.mega",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "a66bb7ca-cb32-450f-86c7-2f00e8878bf4",
 				animationName: "Cartwheel.mega 02",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "a9a118fb-89af-481e-b9a6-71300f209a5e",
 				animationName: "Cartwheel.mega 03",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "b8e35731-7aac-4ab3-85dc-0763b449ce9b",
 				animationName: "Cartwheel.semi",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "bf1688b3-fbd2-4dc1-b3c5-00727b7ee72f",
 				animationName: "Cartwheel.semi 02",
 				skeleton: "CC3",
@@ -243,35 +253,40 @@ module.exports = {
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "063ecf40-59fe-43d0-8333-917649c3c53c",
 				animationName: "CheatSetup",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "e3d6f4fd-d13c-48f0-9e5a-d7a71852766a",
 				animationName: "CheatSetup 2",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "57d428e5-2f64-427a-81d6-f996778b5454",
 				animationName: "CheatSetup 3",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "cdc231cd-18ed-47ca-a1f7-2d0807c87232",
 				animationName: "CheatSetup 4",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "b230d781-d3a6-4d32-910e-44abe0497b45",
 				animationName: "CheatSetup 5",
 				skeleton: "CC3",
@@ -320,42 +335,48 @@ module.exports = {
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // @TODO: DNF
+			{
+				// @TODO: DNF
 				animation_id: "833d5c49-9fa8-42a7-905c-f8099ac482eb",
 				animationName: "Illusion-Twist",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // @TODO: DNF
+			{
+				// @TODO: DNF
 				animation_id: "60ce0d7c-3bd0-474c-b9c3-2fbff4993edd",
 				animationName: "Jstep",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "2fbec8de-2cc9-4b7d-9f7d-72627f1d53c4",
 				animationName: "Jstep 2",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "49d13acf-36c8-4406-802e-1b03e0433007",
 				animationName: "Jstep 3",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "3dabcc59-4d61-4b27-80e8-1330560986b8",
 				animationName: "Jstep 4",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "7bc322f3-2122-4c49-aaef-92f27a987dc5",
 				animationName: "Jstep5",
 				skeleton: "CC3",
@@ -404,21 +425,24 @@ module.exports = {
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // @TODO: DNF
+			{
+				// @TODO: DNF
 				animation_id: "d5051c16-097b-4ba0-9fb1-c8723435b75f",
 				animationName: "Roundoff",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "6f2c012c-68b5-49fd-a715-a2fc2a7eb40d",
 				animationName: "Roundoff.complete",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "cf50d747-81d2-4f7c-ad4c-55ac9aec3271",
 				animationName: "Roundoff 02",
 				skeleton: "CC3",
@@ -446,7 +470,8 @@ module.exports = {
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // @TODO: DNF
+			{
+				// @TODO: DNF
 				animation_id: "fc95d70e-d777-46de-81dc-c0f0a7dac361",
 				animationName: "Sailor Moon Scissor",
 				skeleton: "CC3",
@@ -474,28 +499,32 @@ module.exports = {
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "c5b83d6b-94b8-4697-8f34-65c779eb8ef3",
 				animationName: "Scoot Valdez",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "2529def8-262a-466d-9cf7-143b8da4aa83",
 				animationName: "Scoot Valdez 02",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // @TODO: DNF
+			{
+				// @TODO: DNF
 				animation_id: "c4eff7b5-6a97-4c25-ad3b-7b8f9a3a55eb",
 				animationName: "Spin Step",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{
+				// DNF
 				animation_id: "1e18e798-86cc-4373-85ac-16c397628bbe",
 				animationName: "Spin Step 02",
 				skeleton: "CC3",
@@ -551,14 +580,15 @@ module.exports = {
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // @TODO: DNF
+			{
+				// @TODO: DNF
 				animation_id: "96159fdc-e073-4cf6-93c8-2eeec2aab9e3",
 				animationName: "WrapFull",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ 
+			{
 				animation_id: "f7973309-4ee5-40a2-a85c-f8912564a5ec",
 				animationName: "WrapFull>Swing",
 				skeleton: "CC3",

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { FaCheck } from "react-icons/fa";
 import { useAddCombo, useGetCombos } from "../../../api/useTricklists";
 import { useUserStore } from "../../../store/userStore";
 
-const ChooseTrick = ({ setOpen, open, tricklist_id }) => {
+const ChooseCombo = ({ setOpen, open, tricklist_id }) => {
 	const userInfo = useUserStore((s) => s.userInfo);
 	const [showCombo, setShowCombo] = useState(false);
 	const [cname, setCname] = useState("");
@@ -19,8 +20,8 @@ const ChooseTrick = ({ setOpen, open, tricklist_id }) => {
 		<div
 			onClick={(e) => handleClick(e)}
 			id='addItemBackground'
-			className='absolute top-0 left-0 flex h-full w-full place-content-center place-items-center bg-zinc-800 bg-opacity-40 backdrop-blur-md'>
-			<div className='flex flex-col place-content-center place-items-center'>
+			className='place-content-center place-items-center absolute top-0 left-0 flex h-full w-full bg-zinc-800 bg-opacity-40 backdrop-blur-md'>
+			<div className='place-content-center place-items-center flex flex-col'>
 				<div className='p-1 text-2xl font-bold'>Choose Combo to Add</div>
 				<div className='no-scrollbar flex h-[40vh] w-[80vw] flex-col gap-2 overflow-y-auto'>
 					{Array.isArray(comboArr) &&
@@ -39,7 +40,14 @@ const ChooseTrick = ({ setOpen, open, tricklist_id }) => {
 									});
 									console.log(combo);
 								}}>
-								<div>{combo.name}</div>
+								<div className='place-content-center place-items-center flex justify-between'>
+									<div>{combo.name}</div>
+									<div>
+										{combo?.defaultAnimation && (
+											<FaCheck className='text-emerald-500' />
+										)}
+									</div>
+								</div>
 								<div className='flex'>
 									{combo.comboArray &&
 										showCombo &&
@@ -59,4 +67,4 @@ const ChooseTrick = ({ setOpen, open, tricklist_id }) => {
 	);
 };
 
-export default ChooseTrick;
+export default ChooseCombo;

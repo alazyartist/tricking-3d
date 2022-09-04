@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import ChooseTrick from "./ChooseTrick";
+import ChooseCombo from "./ChooseTrick";
 
 const AddComboItemToTricklist = ({ tricklist_id }) => {
 	const [addItemopen, setAddItemopen] = useState(false);
@@ -12,7 +12,7 @@ const AddComboItemToTricklist = ({ tricklist_id }) => {
 				className='absolute bottom-[4.5rem] left-10 h-14 w-14'
 			/>
 			{addItemopen && (
-				<ChooseTrick
+				<ChooseCombo
 					tricklist_id={tricklist_id}
 					open={addItemopen}
 					setOpen={setAddItemopen}
