@@ -10,9 +10,7 @@ import useFollowCam from "../hooks/useFollowCam";
 export default function ComboMakerModel({ ...props }) {
 	const group = useRef();
 	const hipsRef = useRef();
-	const { nodes, materials, animations } = useGLTF(
-		"https://trickedex.app/KerwoodComboMaker.glb"
-	);
+	const { nodes, materials, animations } = useGLTF("/Kerwood40.glb");
 	const { actions, names, mixer } = useAnimations(animations, group);
 	useFollowCam(hipsRef);
 

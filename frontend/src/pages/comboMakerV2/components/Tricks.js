@@ -7,9 +7,17 @@ import { useComboMakerStore } from "../../../store/comboMakerStore";
 import useComboMakerV2 from "../useComboMakerV2";
 
 const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
-	console.log(lastItem);
-	const [searchTerm, setSearchTerm] = useState(" ");
+	const [searchTerm, setSearchTerm] = useState("");
 	const [searchedItems, setSearchedItems] = useState();
+	console.log(allTricks, searchedItems);
+	useEffect(() => {
+		if (
+			(allTricks !== undefined && !searchTerm) ||
+			searchedItems?.length === 0
+		) {
+			setSearchedItems(allTricks);
+		}
+	}, [allTricks, searchedItems]);
 	const handleFilter = (event) => {
 		const searchTerm = event.target.value;
 		const newFilter = allTricks.filter((value) => {
@@ -50,7 +58,7 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 				<p className='place-self-end text-sm text-zinc-500'>
 					{filteredTricks.length} Options
 				</p>
-				{filteredTricks.length &&
+				{searchedItems?.length &&
 					searchedItems?.map((trick) => (
 						<div key={trick.trick_id} className='rounded-xl  bg-zinc-800 p-2'>
 							<div
