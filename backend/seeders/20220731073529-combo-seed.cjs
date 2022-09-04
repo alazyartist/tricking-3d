@@ -6,10 +6,16 @@ module.exports = {
 		 * Add seed commands here.
 		 *
 		 * Example:
-		 * await queryInterface.bulkInsert('People', [{
-		 *   name: 'John Doe',
-		 *   isBetaMember: false
-		 * }], {});
+		 * await queryInterface.bulkInsert('People', [
+		 * {
+		 *	combo_id: uuidv4(),
+		 *	name: "",
+		 *	creator: "",
+		 *	createdAt: new Date(Date.now()),
+		 *	updatedAt: new Date(Date.now()),
+		 *  defaultAnimation: "",
+		 * },
+		 * ], {});
 		 */
 		await queryInterface.bulkInsert("Combos", [
 			//Kerwood Combos
@@ -100,6 +106,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -107,6 +114,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -114,6 +122,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -121,6 +130,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -128,6 +138,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -135,6 +146,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -142,6 +154,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -149,6 +162,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -156,6 +170,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -163,6 +178,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -170,6 +186,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -177,6 +194,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -184,6 +202,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -191,6 +210,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -198,6 +218,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -205,6 +226,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -212,6 +234,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -219,6 +242,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -226,6 +250,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -233,6 +258,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -240,6 +266,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -247,6 +274,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -254,6 +282,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -261,6 +290,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -268,6 +298,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -275,6 +306,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
 			},
 			{
 				combo_id: uuidv4(),
@@ -282,6 +314,15 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "",
+			},
+			{
+				combo_id: uuidv4(),
+				name: "WrapFull>Swing",
+				creator: "tohzt",
+				createdAt: new Date(Date.now()),
+				updateAt:  new Date(Date.now()),
+				defaultAnimation: "f7973309-4ee5-40a2-a85c-f8912564a5ec",
 			},
 		]);
 	},
