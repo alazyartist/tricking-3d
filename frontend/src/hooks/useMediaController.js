@@ -20,13 +20,14 @@ function useMediaController(actions, names, mixer) {
 	const activeModel = useStore((s) => s.activeModel);
 	const isFollowCam = useStore((s) => s.isFollowCam);
 	const frameTime = useStore((s) => s.currentTime);
-  const setTrimToggle = useStore((s) => s.setTrimToggle);
+	const setTrimToggle = useStore((s) => s.setTrimToggle);
 
 	//Solves Problem with infinte renders of Animations Array and successfully passes to store
 	useMemo(
 		() =>
 			Promise.resolve(names).then((results) => {
 				setAnimationsArray(results);
+				console.log(results);
 			}),
 		[names, setAnimationsArray]
 	);
@@ -74,28 +75,28 @@ function useMediaController(actions, names, mixer) {
 
 	useFrame(() => {
 		if (isPlaying) {
-      const duration = parseFloat(actions[currentAnim].getClip().duration.toFixed(2));
-      const time = parseFloat(actions[currentAnim].time.toFixed(2));
-      setCurrentTime(time);
-      setClipDuration(duration);
+			const duration = parseFloat(
+				actions[currentAnim].getClip().duration.toFixed(2)
+			);
+			const time = parseFloat(actions[currentAnim].time.toFixed(2));
+			setCurrentTime(time);
+			setClipDuration(duration);
 
-      // Snap/loop Clipped Duration
-      if (trimToggle) {
-        if (timescale > 0) {
-          if (time > end*duration) {
-            setCurrentTime(start*duration);
-          }
-        }
-        else {
-          if (time < start*duration) {
-            setCurrentTime(end*duration);
-          }
-        }
-      }
-      else {
-        if (isScrubbing) setTrimToggle(true);
-      }
-    }
+			// Snap/loop Clipped Duration
+			if (trimToggle) {
+				if (timescale > 0) {
+					if (time > end * duration) {
+						setCurrentTime(start * duration);
+					}
+				} else {
+					if (time < start * duration) {
+						setCurrentTime(end * duration);
+					}
+				}
+			} else {
+				if (isScrubbing) setTrimToggle(true);
+			}
+		}
 	});
 
 	//Resets Animations Player on Change of CurrentAnim
