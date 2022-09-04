@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlinePlusSquare } from "react-icons/ai";
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaSearch } from "react-icons/fa";
 import { MdOutlineArrowUpward } from "react-icons/md";
 import { stances } from "../../../data/trickDataModel/TrickObjects";
 import { useComboMakerStore } from "../../../store/comboMakerStore";
@@ -9,7 +9,6 @@ import useComboMakerV2 from "../useComboMakerV2";
 const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [searchedItems, setSearchedItems] = useState();
-	console.log(allTricks, searchedItems);
 	useEffect(() => {
 		if (
 			(allTricks !== undefined && !searchTerm) ||
@@ -39,6 +38,18 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 				}>
 				<AiOutlinePlusSquare /> Random
 			</div>
+			<div
+				onClick={() => document.getElementById("searchBar").focus()}
+				className='place-content-center place-items-center flex gap-2 rounded-xl bg-zinc-800 p-2'>
+				<FaSearch />
+				<input
+					id='searchBar'
+					type={"text"}
+					className={"bg-inherit text-xl"}
+					value={searchTerm}
+					onChange={handleFilter}
+				/>
+			</div>
 			<div className='no-scrollbar flex h-[60vh] w-[60vw] flex-col gap-3 overflow-y-auto rounded-xl p-2 peer-hover:bg-red-500'>
 				{/* TODO Current Leg should go here-ish */}
 				<p className='place-self-end text-sm text-zinc-500'>
@@ -49,12 +60,6 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 						// lastItem?.leg
 					}
 				</p>
-				<input
-					type={"text"}
-					className={"rounded-xl bg-inherit p-2 text-xl"}
-					value={searchTerm}
-					onChange={handleFilter}
-				/>
 				<p className='place-self-end text-sm text-zinc-500'>
 					{filteredTricks.length} Options
 				</p>
