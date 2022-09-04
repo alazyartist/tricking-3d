@@ -176,6 +176,15 @@ module.exports = {
 				trickType: "Invert",
 				defaultAnimation: "7a69be00-5594-4b58-b6b0-95ddaf8de563",
 			},
+			{
+				trick_id: uuidv4(),
+				base_id: "Backflip",
+				name: "Valdez",
+				stance_id: "Backside",
+				takeoffStance: "Backside",
+				landingStance: "BacksideComplete",
+				trickType: "Invert",
+			},
 			//Fulls
 			{
 				trick_id: uuidv4(),
@@ -1044,7 +1053,7 @@ module.exports = {
 			{
 				trick_id: uuidv4(),
 				base_id: "Raiz",
-				name: "Sailor-Raiz",
+				name: "sailor-Raiz",
 				stance_id: "OutsideSemi",
 				takeoffStance: "OutsideSemi",
 				landingStance: "BacksideComplete",

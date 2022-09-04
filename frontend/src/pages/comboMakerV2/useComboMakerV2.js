@@ -68,6 +68,7 @@ const useComboMakerV2 = () => {
 		setDeleteLast,
 		filter,
 		filteredTricks,
+		tricks,
 	};
 };
 

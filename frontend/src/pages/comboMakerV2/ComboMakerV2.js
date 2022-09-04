@@ -9,7 +9,7 @@ import useSaveCombo from "./useSaveCombo";
 
 const ComboMakerV2 = () => {
 	const [v2, setV2] = useState(true);
-	const { currentItem, setDeleteLast, setCurrentItem, filteredTricks } =
+	const { currentItem, setDeleteLast, setCurrentItem, filteredTricks, tricks } =
 		useComboMakerV2();
 	const { save, setSave, comboName, setComboName } = useSaveCombo(currentItem);
 	useEffect(() => {
@@ -38,7 +38,7 @@ const ComboMakerV2 = () => {
 					</div>
 					<div
 						id='app-content'
-						className='flex h-[80vh] w-full flex-col place-content-start place-items-center overflow-y-auto overflow-x-hidden rounded-lg  p-2 text-zinc-300 '>
+						className='place-items-center flex h-[80vh] w-full flex-col place-content-start overflow-y-auto overflow-x-hidden rounded-lg  p-2 text-zinc-300 '>
 						<SaveCombo
 							save={save}
 							setSave={setSave}
@@ -53,6 +53,7 @@ const ComboMakerV2 = () => {
 							lastItem={currentItem[currentItem.length - 1]}
 							setCurrentItem={setCurrentItem}
 							filteredTricks={filteredTricks}
+							allTricks={tricks}
 						/>
 						<ComboStructure />
 					</div>

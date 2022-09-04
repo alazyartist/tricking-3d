@@ -274,15 +274,6 @@ module.exports = {
 				rotation: 0,
 			},
 			{
-				name: "Punch",
-				transitionType: "Unified",
-				takeoffStyle: "Unified",
-				landingStyle: "Unified",
-				fromLeg: "Both",
-				toLeg: "Both",
-				rotation: 0,
-			},
-			{
 				name: "Pop",
 				transitionType: "Unified",
 				takeoffStyle: "Unified",
