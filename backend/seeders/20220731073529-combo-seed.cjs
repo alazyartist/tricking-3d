@@ -19,6 +19,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "942bbdb0-5cd8-475e-b327-64de97859be0",
 			},
 			{
 				combo_id: uuidv4(),
@@ -26,6 +27,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "4575bfb1-33a8-4221-8723-7cef7874a606",
 			},
 			{
 				combo_id: uuidv4(),
@@ -33,6 +35,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "43b1f2f6-813a-4523-836d-9649ea9b1c40",
 			},
 			{
 				combo_id: uuidv4(),
@@ -40,6 +43,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "6e4efe4d-b2a9-4b84-b05e-b2a4f300da03",
 			},
 			{
 				combo_id: uuidv4(),
@@ -47,6 +51,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "18168226-37a3-4292-b2d2-1e3e8e7e6bd9",
 			},
 			{
 				combo_id: uuidv4(),
@@ -54,6 +59,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "6a425997-4828-4315-a169-75259d0c9c33",
 			},
 			{
 				combo_id: uuidv4(),
@@ -61,6 +67,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "ba412fa4-b480-4bca-8a4b-41da53486612",
 			},
 			{
 				combo_id: uuidv4(),
@@ -68,6 +75,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "fda5359e-8344-41f5-bbf2-49907e1b8b22",
 			},
 			{
 				combo_id: uuidv4(),
@@ -75,6 +83,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "118c6ae8-e38b-4573-87e3-d566c893e33a",
 			},
 			{
 				combo_id: uuidv4(),
@@ -82,6 +91,7 @@ module.exports = {
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
+				defaultAnimation: "08150b26-dddf-4f73-9cd4-a4380c541ff8",
 			},
 			//Andrew Combos
 			{

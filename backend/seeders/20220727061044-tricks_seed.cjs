@@ -94,6 +94,7 @@ module.exports = {
 				takeoffStance: "InsideMega",
 				landingStance: "InsideHyper",
 				trickType: "Invert",
+				defaultAnimation: "0066f091-b0a2-42f7-b112-400f444787d8",
 			},
 			//9
 			{
@@ -144,6 +145,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "Backside",
 				trickType: "Invert",
+				defaultAnimation: "eff90ead-2af6-4281-a35f-ff8b8357317c",
 			},
 			{
 				trick_id: uuidv4(),
