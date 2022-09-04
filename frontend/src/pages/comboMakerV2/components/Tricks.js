@@ -1,5 +1,6 @@
 import React from "react";
 import { AiOutlinePlusSquare } from "react-icons/ai";
+import { FaCheck } from "react-icons/fa";
 import { MdOutlineArrowUpward } from "react-icons/md";
 import { stances } from "../../../data/trickDataModel/TrickObjects";
 import { useComboMakerStore } from "../../../store/comboMakerStore";
@@ -10,7 +11,7 @@ const Tricks = ({ lastItem, setCurrentItem, filteredTricks }) => {
 	return (
 		<>
 			<div
-				className=' flex place-items-center gap-2 rounded-xl bg-zinc-900 p-2'
+				className=' place-items-center flex gap-2 rounded-xl bg-zinc-900 p-2'
 				onClick={() =>
 					setCurrentItem((s) => [
 						...s,
@@ -39,7 +40,12 @@ const Tricks = ({ lastItem, setCurrentItem, filteredTricks }) => {
 								className='flex w-full justify-between'
 								onClick={() => setCurrentItem((s) => [...s, trick])}>
 								<div>{trick?.name}</div>
-								<div className='text-zinc-500'>{trick?.type}</div>
+								<div className='place-content-center place-items-center flex gap-2 text-zinc-500'>
+									{trick?.type}
+									{trick?.defaultAnimation && (
+										<FaCheck className='text-emerald-500' />
+									)}
+								</div>
 							</div>
 						</div>
 					))}

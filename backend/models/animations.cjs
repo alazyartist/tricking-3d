@@ -9,8 +9,8 @@ module.exports = (sequelize) => {
 		 */
 		static associate({ Tricks }) {
 			// define association here
-			this.belongsTo(Tricks, {
-				foreignKey: "animation_id",
+			this.hasOne(Tricks, {
+				foreignKey: "defaultAnimation",
 				sourceKey: "animation_id",
 			});
 		}

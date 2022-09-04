@@ -29,9 +29,9 @@ module.exports = (sequelize) => {
 				foreignKey: "base_id",
 				sourceKey: "base_id",
 			});
-			this.hasOne(Animations, {
-				foreignKey: "trick_id",
-				sourceKey: "trick_id",
+			this.belongsTo(Animations, {
+				foreignKey: "defaultAnimation",
+				sourceKey: "defaultAnimation",
 			});
 		}
 	}
