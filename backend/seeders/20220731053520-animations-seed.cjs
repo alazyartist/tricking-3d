@@ -558,9 +558,9 @@ module.exports = {
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
 			},
-			{ // DNF
+			{ 
 				animation_id: "f7973309-4ee5-40a2-a85c-f8912564a5ec",
-				animationName: "WrapFullSwing",
+				animationName: "WrapFull>Swing",
 				skeleton: "CC3",
 				fileName: "Kerwood.glb",
 				model: "Kerwood",
