@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useUserStore } from "../../store/userStore";
 import ComboMaker from "../comboMaker/ComboMaker";
 import NewComboDisplay from "../comboMaker/components/newComboDisplay";
 import ComboStructure from "./components/ComboStructure";
@@ -9,6 +10,7 @@ import useSaveCombo from "./useSaveCombo";
 
 const ComboMakerV2 = () => {
 	const [v2, setV2] = useState(true);
+	const accessToken = useUserStore((s) => s.accessToken);
 	const { currentItem, setDeleteLast, setCurrentItem, filteredTricks, tricks } =
 		useComboMakerV2();
 	const { save, setSave, comboName, setComboName } = useSaveCombo(currentItem);
@@ -39,12 +41,14 @@ const ComboMakerV2 = () => {
 					<div
 						id='app-content'
 						className='place-items-center flex h-[80vh] w-full flex-col place-content-start overflow-y-auto overflow-x-hidden rounded-lg  p-2 text-zinc-300 '>
-						<SaveCombo
-							save={save}
-							setSave={setSave}
-							setComboName={setComboName}
-							comboName={comboName}
-						/>
+						{accessToken && (
+							<SaveCombo
+								save={save}
+								setSave={setSave}
+								setComboName={setComboName}
+								comboName={comboName}
+							/>
+						)}
 						<NewComboDisplay
 							setDeleteLast={setDeleteLast}
 							newCombo={currentItem}
