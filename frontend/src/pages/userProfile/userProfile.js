@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { useTransition, animated } from "react-spring";
 import useUserInfoByUUID from "../../api/useUserInfoById";
 import { useUserStore } from "../../store/userStore";
-import ProfileCode from "../dash/components/ProfileCode";
 import ProfileInfoCard from "./components/ProfileInfoCard";
 import ProfileInfoCardEditable from "./components/ProfileInfoCardEditable";
 import TricklistsAndClamiedContainer from "./components/TricklistsAndClaimedContainer";

@@ -22,6 +22,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "Backside",
 				trickType: "Invert",
+				defaultAnimation: "34f64fca-228b-4e99-8cf5-2e0ce0ed6645",
 			},
 			//2
 			{
@@ -152,6 +153,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "Backside",
 				trickType: "Invert",
+				defaultAnimation: "bc924753-5d18-46e0-b131-f747aad1a74e",
 			},
 			{
 				trick_id: uuidv4(),

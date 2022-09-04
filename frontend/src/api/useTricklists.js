@@ -1,11 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useApiCreds from "../hooks/useApiCreds";
-import { useUserStore } from "../store/userStore";
 
 export const useGetTricklists = (uuid) => {
 	const apiPrivate = useApiCreds();
 
-	const queryClient = useQueryClient();
 	return useQuery(
 		["tricklists"],
 		async () => {
@@ -21,7 +19,6 @@ export const useGetTricklists = (uuid) => {
 };
 export const useGetCombos = () => {
 	const apiPrivate = useApiCreds();
-	const queryClient = useQueryClient();
 	return useQuery(
 		["combos"],
 		async () => {
@@ -39,7 +36,6 @@ export const useGetCombos = () => {
 export const useGetTricklistById = (tricklist_id, uuid) => {
 	const apiPrivate = useApiCreds();
 	console.log(tricklist_id, uuid);
-	const queryClient = useQueryClient();
 	return useQuery(
 		["tricklist", tricklist_id],
 		async () => {
@@ -58,7 +54,6 @@ export const useGetTricklistById = (tricklist_id, uuid) => {
 export const useGetTricklistDetailsById = (tricklist_id, user_id) => {
 	const apiPrivate = useApiCreds();
 	console.log(tricklist_id, "usegettricklist");
-	const queryClient = useQueryClient();
 	return useQuery(
 		["tricklist details", tricklist_id],
 		async () => {
@@ -74,7 +69,7 @@ export const useGetTricklistDetailsById = (tricklist_id, user_id) => {
 		}
 	);
 };
-export const useAddCombo = (tricklist_id, user_id, combo_id) => {
+export const useAddCombo = (tricklist_id) => {
 	const apiPrivate = useApiCreds();
 	const queryClient = useQueryClient();
 	return useMutation(
