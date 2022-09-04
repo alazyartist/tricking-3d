@@ -33,6 +33,7 @@ module.exports = {
 				takeoffStance: "Inside",
 				landingStance: "Inside",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			//3
 			{
@@ -43,6 +44,7 @@ module.exports = {
 				takeoffStance: "Frontside",
 				landingStance: "Frontside",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			//4
 			{
@@ -53,6 +55,7 @@ module.exports = {
 				takeoffStance: "Outside",
 				landingStance: "Outside",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			//5
 			{
@@ -63,6 +66,7 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideHyper",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			//6
 			{
@@ -73,6 +77,7 @@ module.exports = {
 				takeoffStance: "BacksideHyper",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 
 			//7
@@ -84,6 +89,7 @@ module.exports = {
 				takeoffStance: "InsideHyper",
 				landingStance: "InsideHyper",
 				trickType: "Invert",
+				defaultAnimation: "35fad1e4-3d64-45d9-80d1-72b17c083c72",
 			},
 			//8
 			{
@@ -105,6 +111,7 @@ module.exports = {
 				takeoffStance: "FrontsideMega",
 				landingStance: "FrontsideSemi",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			//10
 			{
@@ -115,6 +122,7 @@ module.exports = {
 				takeoffStance: "FrontsideSemi",
 				landingStance: "FrontsideMega",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			//11
 			{
@@ -125,6 +133,7 @@ module.exports = {
 				takeoffStance: "OutsideSemi",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			//12
 			{
@@ -135,6 +144,7 @@ module.exports = {
 				takeoffStance: "OutsideComplete",
 				landingStance: "OutsideComplete",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -144,6 +154,7 @@ module.exports = {
 				takeoffStance: "BacksideHyper",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -153,6 +164,7 @@ module.exports = {
 				takeoffStance: "FrontsideMega",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -162,6 +174,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "Backside",
 				trickType: "Invert",
+				defaultAnimation: "7a69be00-5594-4b58-b6b0-95ddaf8de563",
 			},
 			//Fulls
 			{
@@ -192,6 +205,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "Backside",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -201,6 +215,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "Backside",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -210,6 +225,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "BacksideHyper",
 				trickType: "Invert",
+				defaultAnimation: "9834d477-8731-4aa3-8e5d-0d797cf13e04",
 			},
 			{
 				trick_id: uuidv4(),
@@ -219,6 +235,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -228,6 +245,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -237,6 +255,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "BacksideHyper",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -246,6 +265,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "FrontsideMega",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -255,6 +275,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "Backside",
 				trickType: "Invert",
+				defaultAnimation: "6e4efe4d-b2a9-4b84-b05e-b2a4f300da03",
 			},
 			{
 				trick_id: uuidv4(),
@@ -264,6 +285,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "Backside",
 				trickType: "Invert",
+				defaultAnimation: "5441cd71-599b-426f-8fae-875027e7343b",
 			},
 			{
 				trick_id: uuidv4(),
@@ -273,6 +295,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "Backside",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			//Corks
 			{
@@ -283,6 +306,7 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "e72fcc9c-f341-4e24-aed9-7295090c3bc0",
 			},
 			{
 				trick_id: "ed832bc6-eae3-458d-8cfd-ragonflycork",
@@ -292,6 +316,7 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: "ed832bc6-eae3-458d-8cf2-26bcorkswipe",
@@ -301,6 +326,7 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideHyper",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: "ed832bc6-eae3-458d-8cf2-26bcorkround",
@@ -310,6 +336,7 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "4fa1969c-c3e5-4e6f-85e1-1306bae77ed8",
 			},
 			{
 				trick_id: "ed832bc6-eae3-458d-8cfc-orkmegaround",
@@ -319,6 +346,7 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "FrontsideMega",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: "ed832bc6-eae3-458d-8cfc-orkshuiriken",
@@ -328,9 +356,9 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			{
-				trick_id: "ed832bc6-eae3-458d-8cfc-orkhyperhook",
 				trick_id: "ed832bc6-eae3-458d-8cfc-orkhyperhook",
 				base_id: "Gainer",
 				name: "Cork.hyper-hook",
@@ -338,6 +366,7 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideHyper",
 				trickType: "Invert",
+				defaultAnimation: "82e57be5-6da7-470d-a61d-093e7f18c4e3",
 			},
 			{
 				trick_id: "ed832bc6-eae3-458d-8cfc-26brodeocork",
@@ -347,6 +376,7 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -356,6 +386,7 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "118c6ae8-e38b-4573-87e3-d566c893e33a",
 			},
 			{
 				trick_id: uuidv4(),
@@ -365,6 +396,7 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			//Aerials
 			{
@@ -375,6 +407,7 @@ module.exports = {
 				takeoffStance: "InsideMega",
 				landingStance: "BacksideHyper",
 				trickType: "Invert",
+				defaultAnimation: "be8d4d0d-2295-47ff-9106-55dcb1c1de3c",
 			},
 			{
 				trick_id: uuidv4(),
@@ -384,6 +417,7 @@ module.exports = {
 				takeoffStance: "InsideMega",
 				landingStance: "BacksideHyper",
 				trickType: "Invert",
+				defaultAnimation: "fef9f1a2-69ad-4bf2-a598-9d649833a8dd",
 			},
 			{
 				trick_id: uuidv4(),
@@ -393,6 +427,7 @@ module.exports = {
 				takeoffStance: "InsideMega",
 				landingStance: "BacksideHyper",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -402,6 +437,7 @@ module.exports = {
 				takeoffStance: "InsideMega",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			//BKicks
 			{
@@ -412,6 +448,7 @@ module.exports = {
 				takeoffStance: "InsideMega",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "ecbe0d90-e1ab-422e-b117-21226141f1a6",
 			},
 			{
 				trick_id: uuidv4(),
@@ -421,6 +458,7 @@ module.exports = {
 				takeoffStance: "InsideMega",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "00b812fb-af28-4f75-a4e2-780cb275e3d8",
 			},
 			{
 				trick_id: uuidv4(),
@@ -430,6 +468,27 @@ module.exports = {
 				takeoffStance: "InsideMega",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "",
+			},
+			{
+				trick_id: uuidv4(),
+				base_id: "Aerial",
+				name: "Butterfly-Double-Twist",
+				stance_id: "InsideMega",
+				takeoffStance: "InsideMega",
+				landingStance: "BacksideComplete",
+				trickType: "Invert",
+				defaultAnimation: "65e7ed91-4d5d-4e03-a61f-58e75a733c95",
+			},
+			{
+				trick_id: uuidv4(),
+				base_id: "Aerial",
+				name: "Butterfly-Triple-Twist",
+				stance_id: "InsideMega",
+				takeoffStance: "InsideMega",
+				landingStance: "BacksideComplete",
+				trickType: "Invert",
+				defaultAnimation: "",
 			},
 
 			//Kicks
@@ -443,6 +502,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -452,6 +512,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -461,6 +522,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -470,6 +532,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -479,6 +542,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -488,6 +552,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -497,6 +562,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -506,6 +572,7 @@ module.exports = {
 				takeoffStance: "Backside",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			//Vanish
 			{
@@ -516,6 +583,7 @@ module.exports = {
 				takeoffStance: "BacksideHyper",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -525,6 +593,7 @@ module.exports = {
 				takeoffStance: "BacksideHyper",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -534,6 +603,7 @@ module.exports = {
 				takeoffStance: "BacksideHyper",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -543,6 +613,7 @@ module.exports = {
 				takeoffStance: "BacksideHyper",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -552,6 +623,7 @@ module.exports = {
 				takeoffStance: "BacksideHyper",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -561,6 +633,7 @@ module.exports = {
 				takeoffStance: "BacksideHyper",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -570,6 +643,7 @@ module.exports = {
 				takeoffStance: "BacksideHyper",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -579,6 +653,7 @@ module.exports = {
 				takeoffStance: "BacksideHyper",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			//Swing
 			{
@@ -589,6 +664,7 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -598,6 +674,7 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -607,6 +684,7 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -616,6 +694,7 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -625,6 +704,7 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -634,6 +714,7 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -643,6 +724,7 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -652,6 +734,7 @@ module.exports = {
 				takeoffStance: "BacksideComplete",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			//Pop
 			{
@@ -662,6 +745,7 @@ module.exports = {
 				takeoffStance: "Frontside",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -671,6 +755,7 @@ module.exports = {
 				takeoffStance: "Frontside",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -680,6 +765,7 @@ module.exports = {
 				takeoffStance: "Frontside",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "46b334e5-00fd-4ee3-8a9e-0e778ac02c05",
 			},
 			{
 				trick_id: uuidv4(),
@@ -689,6 +775,7 @@ module.exports = {
 				takeoffStance: "Frontside",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "67905a6d-b496-4145-8be5-193f82f23117",
 			},
 			{
 				trick_id: uuidv4(),
@@ -698,6 +785,7 @@ module.exports = {
 				takeoffStance: "Frontside",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -707,6 +795,7 @@ module.exports = {
 				takeoffStance: "Frontside",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -716,6 +805,7 @@ module.exports = {
 				takeoffStance: "Frontside",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -725,6 +815,7 @@ module.exports = {
 				takeoffStance: "Frontside",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			//Wrap
 			{
@@ -735,6 +826,7 @@ module.exports = {
 				takeoffStance: "FrontsideSemi",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -744,6 +836,7 @@ module.exports = {
 				takeoffStance: "FrontsideSemi",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -753,6 +846,7 @@ module.exports = {
 				takeoffStance: "FrontsideSemi",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -762,6 +856,7 @@ module.exports = {
 				takeoffStance: "FrontsideSemi",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -771,6 +866,7 @@ module.exports = {
 				takeoffStance: "FrontsideSemi",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -780,6 +876,7 @@ module.exports = {
 				takeoffStance: "FrontsideSemi",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -789,6 +886,7 @@ module.exports = {
 				takeoffStance: "FrontsideSemi",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -798,6 +896,7 @@ module.exports = {
 				takeoffStance: "FrontsideSemi",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			//Step-Over
 			{
@@ -808,6 +907,7 @@ module.exports = {
 				takeoffStance: "FrontsideMega",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -817,6 +917,7 @@ module.exports = {
 				takeoffStance: "FrontsideMega",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -826,6 +927,7 @@ module.exports = {
 				takeoffStance: "FrontsideMega",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -835,6 +937,7 @@ module.exports = {
 				takeoffStance: "FrontsideMega",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -844,6 +947,7 @@ module.exports = {
 				takeoffStance: "FrontsideMega",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -853,6 +957,7 @@ module.exports = {
 				takeoffStance: "FrontsideMega",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -862,6 +967,7 @@ module.exports = {
 				takeoffStance: "FrontsideMega",
 				landingStance: "BacksideHyper",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -871,6 +977,7 @@ module.exports = {
 				takeoffStance: "FrontsideMega",
 				landingStance: "FrontsideMega",
 				trickType: "Kick",
+				defaultAnimation: "",
 			},
 			//Scoot
 			{
@@ -881,6 +988,7 @@ module.exports = {
 				takeoffStance: "FrontsideSemi",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "ab30a357-bb2b-43a4-a5da-5af431003eb9",
 			},
 			{
 				trick_id: uuidv4(),
@@ -890,6 +998,7 @@ module.exports = {
 				takeoffStance: "FrontsideSemi",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "c1604863-d725-42e2-849e-7c4c333dbfb1",
 			},
 			{
 				trick_id: uuidv4(),
@@ -899,6 +1008,7 @@ module.exports = {
 				takeoffStance: "FrontsideSemi",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "9e8d73ee-4911-4e57-b6bb-384ab9d3cd80",
 			},
 			//Raiz
 			{
@@ -909,6 +1019,7 @@ module.exports = {
 				takeoffStance: "OutsideSemi",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "3c005457-cc74-4a78-8cc9-99f2691f8bf8",
 			},
 			{
 				trick_id: uuidv4(),
@@ -918,6 +1029,7 @@ module.exports = {
 				takeoffStance: "OutsideSemi",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "6d65d09b-6200-4dd6-81bd-ff1e8dfbf7b9",
 			},
 			{
 				trick_id: uuidv4(),
@@ -927,6 +1039,7 @@ module.exports = {
 				takeoffStance: "OutsideSemi",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "",
 			},
 			{
 				trick_id: uuidv4(),
@@ -936,6 +1049,7 @@ module.exports = {
 				takeoffStance: "OutsideSemi",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
+				defaultAnimation: "1ee36871-c6ed-48ea-a159-263086d802cb",
 			},
 			{
 				trick_id: uuidv4(),
@@ -945,15 +1059,7 @@ module.exports = {
 				takeoffStance: "OutsideSemi",
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
-			},
-			{
-				trick_id: uuidv4(),
-				base_id: "Raiz",
-				name: "Snapu",
-				stance_id: "OutsideSemi",
-				takeoffStance: "OutsideSemi",
-				landingStance: "BacksideComplete",
-				trickType: "Invert",
+				defaultAnimation: "6bff8f98-c2f8-47d9-8af4-75fe1d3790ae",
 			},
 			{
 				trick_id: uuidv4(),
@@ -963,6 +1069,7 @@ module.exports = {
 				takeoffStance: "FrontsideSemi",
 				landingStance: "FrontsideMega",
 				trickType: "Invert",
+				defaultAnimation: "9434bfc4-c62e-4d1f-a885-ae9fac77ce12",
 			},
 			{
 				trick_id: uuidv4(),
@@ -972,6 +1079,7 @@ module.exports = {
 				takeoffStance: "FrontsideSemi",
 				landingStance: "FrontsideMega",
 				trickType: "Invert",
+				defaultAnimation: "40299bd7-d2ac-411f-b0d1-197eaa6dee19",
 			},
 			// DoubleLeg
 			{
@@ -982,6 +1090,7 @@ module.exports = {
 				takeoffStance: "FrontsideSemi",
 				landingStance: "FrontsideMega",
 				trickType: "Invert",
+				defaultAnimation: "9434bfc4-c62e-4d1f-a885-ae9fac77ce12",
 			},
 		]);
 	},
