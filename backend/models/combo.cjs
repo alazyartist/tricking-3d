@@ -7,13 +7,17 @@ module.exports = (sequelize) => {
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
-		static associate({ Tricklist, Tricklist_Combos }) {
+		static associate({ Tricklist, Tricklist_Combos, Animations }) {
 			// define association here
 
 			this.belongsToMany(Tricklist, {
 				through: { model: Tricklist_Combos, unique: false },
 				as: "TricklistItems",
 				foreignKey: "combo_id",
+			});
+			this.belongsTo(Animations, {
+				foreignKey: "defaultAnimation",
+				sourceKey: "defaultAnimation",
 			});
 		}
 	}

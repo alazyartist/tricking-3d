@@ -49,7 +49,10 @@ export const getComboItemsByTricklistId = async (req, res) => {
 		.findAll({
 			where: { tricklist_id: req.params.tricklist_id },
 			include: [
-				{ model: db.sequelize.models.Combo },
+				{
+					model: db.sequelize.models.Combo,
+					include: { model: db.sequelize.models.Animations },
+				},
 				{ model: db.sequelize.models.Tricklist },
 			],
 		})

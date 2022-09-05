@@ -74,6 +74,7 @@ const TricklistbyIdDetails = ({
 									tricklistData.map((listItem) => {
 										return (
 											<div
+												onClick={() => console.log(listItem)}
 												id={"tricklistData-map-container"}
 												key={
 													listItem.combo_id + Math.floor(Math.random() * 1000)
