@@ -435,11 +435,11 @@ module.exports = {
 			},
 			{
 				combo_id: uuidv4(),
-				name: "Cart>DoubleFull-round",
+				name: "Cart>double-Full-round",
 				creator: "admin696-8c94-4ca7-b163-9alazyartist",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
-				defaultAnimation: "",
+				defaultAnimation: "1eb251a1-f375-44df-abc5-58467f39aec8",
 			},
 			{
 				combo_id: uuidv4(),

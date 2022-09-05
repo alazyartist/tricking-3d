@@ -18,8 +18,8 @@ const ClaimedDisplay = ({ Claimed }) => {
 				Claimed?.map((list) => (
 					<div
 						onClick={() => handleUpdateAnim(list)}
-						className='place-items-center flex gap-3 rounded-xl   bg-emerald-800 p-2 text-lg'>
-						<IoIosPlay />
+						className='place-items-center flex gap-3 rounded-xl   bg-zinc-800 p-2 text-lg'>
+						<IoIosPlay className='text-emerald-500' />
 						<div>{list?.name}</div>
 					</div>
 				))) ||
