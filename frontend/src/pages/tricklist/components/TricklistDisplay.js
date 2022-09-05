@@ -35,20 +35,19 @@ const TricklistDisplay = ({
 					<tbody className='text-center'>
 						{Array.isArray(lists) &&
 							lists.length > 0 &&
-							lists.map((item) => (
-								<tr
-									key={item.tricklist_id}
-									onClick={() => handleListClick(item.tricklist_id)}>
-									<td>{item.name}</td>
-									{!displayOnly && <td>{item?.Owner?.username}</td>}
-									<td>
-										{Number(
-											(Date.now() - new Date(item.updatedAt)) / 1000 / 60
-										).toFixed(0)}{" "}
-										min
-									</td>
-								</tr>
-							))}
+							lists.map((item) => {
+								let date = new Date(item?.updatedAt);
+								date = date.toDateString().slice(3, date.length);
+								return (
+									<tr
+										key={item.tricklist_id}
+										onClick={() => handleListClick(item.tricklist_id)}>
+										<td>{item.name}</td>
+										{!displayOnly && <td>{item?.Owner?.username}</td>}
+										<td>{date}</td>
+									</tr>
+								);
+							})}
 					</tbody>
 				</table>
 			</div>
