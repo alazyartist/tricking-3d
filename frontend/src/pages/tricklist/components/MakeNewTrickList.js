@@ -21,13 +21,13 @@ const MakeNewTrickList = ({ setOpen }) => {
 	return (
 		<div
 			onClick={(e) => handleClick(e)}
-			className='  h-full w-full bg-zinc-800 bg-opacity-40 '>
+			className=' h-full w-full bg-zinc-800 bg-opacity-40 '>
 			<label
-				className='lg absolute top-[45%] left-[20%] text-2xl md:left-[35%] lg:left-[45%]'
+				className=' text-2xl md:left-[35%] lg:left-[45%]'
 				htmlFor='name-input'>
 				Name your Tricklist
 			</label>
-			<div className='absolute top-[50vh] flex w-full flex-col p-2 '>
+			<div className=' top-[50vh] flex w-full flex-col p-2 '>
 				<form
 					onSubmit={handleSubmit}
 					className='place-content-center flex gap-2'>

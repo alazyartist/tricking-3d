@@ -27,8 +27,11 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 							displayOnly={displayOnly}
 							setOpenView={setOpenView}
 							openView={openView}
+							open={open}
 						/>
-						{!displayOnly && <AddListButton setOpen={setOpen} open={open} />}
+						{!displayOnly && !open && (
+							<AddListButton setOpen={setOpen} open={open} />
+						)}
 					</div>
 				)}
 				<div>
