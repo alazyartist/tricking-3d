@@ -107,20 +107,20 @@ function Home() {
 								<ProfileCode setProfileCodeOpen={setProfileCodeOpen} />
 							) : (
 								<div className='flex flex-col gap-2'>
-									<Captures />
+									{/* <Captures /> */}
 									<TricklistPage profileuuid={uuid} />
-									<UpdateStatusInput />
+									{/* <UpdateStatusInput /> */}
 								</div>
 							)}
 						</div>
 					</>
 				)}
 			</div>
-			<div
+			{/* <div
 				onClick={() => setProfileCodeOpen(!profileCodeOpen)}
 				className='place-items-center absolute bottom-20 left-5 flex gap-2 text-zinc-300'>
 				<FaQrcode /> {!profileCodeOpen ? "Capture" : "Close"}
-			</div>
+			</div> */}
 		</div>
 	);
 }

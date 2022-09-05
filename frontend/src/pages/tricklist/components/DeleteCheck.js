@@ -4,9 +4,9 @@ import { MdClose } from "react-icons/md";
 const DeleteCheck = ({ deleteCheck, handleDelete, setDeleteCheck }) => {
 	return (
 		<>
-			<div>
+			<div className={`?${deleteCheck && "absolute h-full w-full"}`}>
 				{deleteCheck && (
-					<div className='absolute top-0 left-0 flex h-full w-full flex-col place-content-center place-items-center gap-3 bg-zinc-800 font-inter'>
+					<div className='place-content-center place-items-center top-0 left-0 flex h-full w-full flex-col gap-3 bg-zinc-800 font-inter'>
 						<div className=' text-xl font-bold'>
 							Are you sure you want to DELETE?
 						</div>
@@ -28,7 +28,7 @@ const DeleteCheck = ({ deleteCheck, handleDelete, setDeleteCheck }) => {
 			{!deleteCheck && (
 				<div
 					onClick={() => setDeleteCheck(true)}
-					className='absolute bottom-[5rem] right-[2rem] flex place-content-center place-items-center'>
+					className=' place-items-center bottom-[5rem] right-[2rem] flex place-content-end'>
 					<MdClose className='h-10 w-10 text-red-500' />
 					<div>DELETE</div>
 				</div>

@@ -7,7 +7,14 @@ import { useUserStore } from "../../../store/userStore";
 import AddComboItemToTricklist from "./AddComboItemToTricklist";
 import DeleteCheck from "./DeleteCheck";
 import TricklistbyIdDetails from "./TricklistbyIdDetails";
-const ListViewbyID = ({ displayOnly, tricklist_id, setOpenView }) => {
+const ListViewbyID = ({
+	openView,
+	displayOnly,
+	tricklist_id,
+	setOpenView,
+	addItemopen,
+	setAddItemopen,
+}) => {
 	const userInfo = useUserStore((s) => s.userInfo);
 
 	const [deleteCheck, setDeleteCheck] = useState(false);
@@ -29,22 +36,39 @@ const ListViewbyID = ({ displayOnly, tricklist_id, setOpenView }) => {
 		<div
 			onClick={(e) => handleClick(e)}
 			id={"background"}
-			className='place-content-center absolute top-0 z-[10] flex h-[100vh] w-full bg-zinc-800 bg-opacity-40 pt-[8rem] backdrop-blur-xl'>
-			<div className='h-fit text-xl'>
-				<TricklistbyIdDetails
-					displayOnly={displayOnly}
-					tricklist_id={tricklist_id}
-					data={tricklists?.[0]}
-				/>
-				{!displayOnly && (
-					<>
-						<DeleteCheck
-							deleteCheck={deleteCheck}
-							handleDelete={handleDelete}
-							setDeleteCheck={setDeleteCheck}
+			className=' z-[10] flex h-full w-full flex-col place-content-start bg-zinc-800 bg-opacity-40  backdrop-blur-xl'>
+			<div className='h-full w-full p-3 text-xl'>
+				<div>
+					{!deleteCheck && (
+						<TricklistbyIdDetails
+							displayOnly={displayOnly}
+							tricklist_id={tricklist_id}
+							data={tricklists?.[0]}
+							openView={openView}
+							setOpenView={setOpenView}
+							addItemopen={addItemopen}
 						/>
-						<AddComboItemToTricklist tricklist_id={tricklist_id} />
-					</>
+					)}
+				</div>
+			</div>
+			<div className='mt-4 h-fit w-full'>
+				{!displayOnly && (
+					<div className=' flex w-full justify-between'>
+						{!deleteCheck && (
+							<AddComboItemToTricklist
+								addItemopen={addItemopen}
+								setAddItemopen={setAddItemopen}
+								tricklist_id={tricklist_id}
+							/>
+						)}
+						{!addItemopen && (
+							<DeleteCheck
+								deleteCheck={deleteCheck}
+								handleDelete={handleDelete}
+								setDeleteCheck={setDeleteCheck}
+							/>
+						)}
+					</div>
 				)}
 			</div>
 		</div>

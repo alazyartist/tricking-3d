@@ -7,6 +7,8 @@ import TricklistDisplay from "./components/TricklistDisplay";
 const TricklistPage = ({ displayOnly, profileuuid }) => {
 	const [open, setOpen] = useState(false);
 	const [openView, setOpenView] = useState(false);
+	const [addItemopen, setAddItemopen] = useState(false);
+
 	const [tricklist_id, setTricklist_id] = useState("");
 	useEffect(() => {
 		console.log(tricklist_id);
@@ -14,26 +16,39 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 	return (
 		<div
 			id={"tricklistPage-Container"}
-			className='place-content-center place-items-center no-scrollbar flex w-full max-w-full flex-col gap-2 overflow-auto'>
-			<div className='flex w-full flex-row gap-2'>
-				<TricklistDisplay
-					profileuuid={profileuuid}
-					setTricklist_id={setTricklist_id}
-					displayOnly={displayOnly}
-					setOpenView={setOpenView}
-				/>
-				{!displayOnly && <AddListButton setOpen={setOpen} open={open} />}
-			</div>
-			{open && !displayOnly && <MakeNewTrickList setOpen={setOpen} />}
+			className='place-items-center no-scrollbar flex h-fit max-h-[50vh] w-full flex-col place-content-start gap-2 overflow-y-auto'>
+			<div className='h-full w-full'>
+				{!openView && (
+					<div className='place-items-center flex h-full w-full flex-row gap-2'>
+						<TricklistDisplay
+							addItemopen={addItemopen}
+							profileuuid={profileuuid}
+							setTricklist_id={setTricklist_id}
+							displayOnly={displayOnly}
+							setOpenView={setOpenView}
+							openView={openView}
+						/>
+						{!displayOnly && <AddListButton setOpen={setOpen} open={open} />}
+					</div>
+				)}
+				<div>
+					{open && !displayOnly && <MakeNewTrickList setOpen={setOpen} />}
+				</div>
 
-			{openView && (
-				<ListViewbyID
-					displayOnly={displayOnly}
-					setOpenView={setOpenView}
-					tricklist_id={tricklist_id}
-					setTricklist_id={setTricklist_id}
-				/>
-			)}
+				<div>
+					{openView && (
+						<ListViewbyID
+							addItemopen={addItemopen}
+							setAddItemopen={setAddItemopen}
+							displayOnly={displayOnly}
+							setOpenView={setOpenView}
+							tricklist_id={tricklist_id}
+							setTricklist_id={setTricklist_id}
+							openView={openView}
+						/>
+					)}
+				</div>
+			</div>
 		</div>
 	);
 };

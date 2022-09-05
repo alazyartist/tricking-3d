@@ -19,7 +19,9 @@ const TricklistDisplay = ({
 	const { data: lists } = useGetTricklists(profileuuid);
 
 	return (
-		<div className='w-full p-2'>
+		<div
+			id='TricklistDisplay-table'
+			className='place-content-center flex w-full p-2'>
 			<table>
 				<thead className='text-center text-xs font-semibold text-zinc-300'>
 					<tr>

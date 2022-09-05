@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
+import { IoIosArrowBack } from "react-icons/io";
 import { useAddCombo, useGetCombos } from "../../../api/useTricklists";
 import { useUserStore } from "../../../store/userStore";
 
@@ -20,16 +21,21 @@ const ChooseCombo = ({ setOpen, open, tricklist_id }) => {
 		<div
 			onClick={(e) => handleClick(e)}
 			id='addItemBackground'
-			className='place-content-center place-items-center absolute top-0 left-0 flex h-full w-full bg-zinc-800 bg-opacity-40 backdrop-blur-md'>
+			className=' place-content-center place-items-center sticky top-0 left-0 flex h-full w-full bg-zinc-800 bg-opacity-40 backdrop-blur-md'>
 			<div className='place-content-center place-items-center flex flex-col'>
-				<div className='p-1 text-2xl font-bold'>Choose Combo to Add</div>
-				<div className='no-scrollbar flex h-[40vh] w-[80vw] flex-col gap-2 overflow-y-auto'>
+				<div className='place-items-center flex p-1 text-2xl font-bold'>
+					<div onClick={() => setOpen(false)}>
+						<IoIosArrowBack />
+					</div>
+					<div>Choose Combo to Add</div>
+				</div>
+				<div className='no-scrollbar flex h-[40vh] w-full flex-col gap-2 overflow-y-auto'>
 					{Array.isArray(comboArr) &&
 						comboArr.length > 0 &&
 						comboArr.map((combo) => (
 							<div
-								onTouchStart={() => setShowCombo(true)}
-								onTouchEnd={() => setShowCombo(false)}
+								// onPointerEnter={() => setShowCombo(true)}
+								// onPointerLeave={() => setShowCombo(false)}
 								className='rounded-md bg-zinc-800 p-1'
 								key={combo.combo_id.substring(24)}
 								onClick={() => {
