@@ -9,15 +9,15 @@ const ClaimedDisplay = ({ Claimed }) => {
 
 	const handleUpdateAnim = (listItem) => {
 		setTimescale(0.89);
-		setModel(listItem?.Combo?.Animation?.model);
-		selectAnim(listItem?.Combo?.Animation?.animationName);
+		setModel(listItem?.Animation?.model);
+		selectAnim(listItem?.Animation?.animationName);
 	};
 	return (
 		<div className='flex flex-col gap-2'>
 			{(Claimed?.length &&
 				Claimed?.map((list) => (
 					<div
-						onClick={() => console.log(list)}
+						onClick={() => handleUpdateAnim(list)}
 						className='place-items-center flex gap-3 rounded-xl   bg-emerald-800 p-2 text-lg'>
 						<IoIosPlay />
 						<div>{list?.name}</div>
