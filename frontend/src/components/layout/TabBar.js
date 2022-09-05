@@ -10,6 +10,7 @@ import useLogout from "../../hooks/useLogout";
 
 function TabBar() {
 	const [openHamburger, setOpenHamburger] = useState();
+	const [openNav, setOpenNav] = useState(true);
 	const logout = useLogout();
 
 	const hamburger = useTransition(openHamburger, {
@@ -22,25 +23,69 @@ function TabBar() {
 		// onRest: () => setOpenHamburger(!openHamburger),
 	});
 
+	const navToggle = useTransition(openNav, {
+		from: { opacity: 1, bottom: "1" },
+		enter: { opacity: 1, bottom: "1" },
+		leave: { opacity: 1, bottom: "1" },
+		reverse: openNav,
+		delay: 100,
+		config: { durration: 1200, tension: 50, friction: 10 },
+		// onRest: () => setOpenHamburger(!openHamburger),
+	});
+
 	return (
 		<>
-			<div className='fixed bottom-0 left-0 z-[100] flex h-12 w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300'>
-				<Link onClick={() => setOpenHamburger(false)} to='/home'>
-					<AiOutlineHome />
-				</Link>
-				<Link onClick={() => setOpenHamburger(false)} to='/comboMaker'>
-					{/* <FaToolbox /> */}
-					<ComboMakerBlueprint className='h-10 w-10' fill='#ffffff' />
-				</Link>
-				<Link onClick={() => setOpenHamburger(false)} to='/sandbox'>
-					<BiCube />
-				</Link>
-				<Link onClick={() => setOpenHamburger(false)} to='/theory'>
-					<FaGraduationCap />
-				</Link>
+			{navToggle(
+				(styles, showing) =>
+					showing && (
+						<div>
+					<button className='fixed z-[999] bottom-[45px] left-0 w-[100%] h-4 flex place-content-center place-items-center'
+						onClick={() => setOpenNav(!openNav)}>
+					</button>
+					<div className='fixed bottom-[-4px] left-0 z-[100] flex h-12 w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300'>
+						<Link onClick={() => setOpenHamburger(false)} to='/home'>
+							<AiOutlineHome />
+						</Link>
+						<Link onClick={() => setOpenHamburger(false)} to='/comboMaker'>
+							{/* <FaToolbox /> */}
+							<ComboMakerBlueprint className='h-10 w-10' fill='#ffffff' />
+						</Link>
+						<Link onClick={() => setOpenHamburger(false)} to='/sandbox'>
+							<BiCube />
+						</Link>
+						<Link onClick={() => setOpenHamburger(false)} to='/theory'>
+							<FaGraduationCap />
+						</Link>
+						<GiHamburgerMenu onClick={() => setOpenHamburger(!openHamburger)} />
+					</div>
+					</div>
+				)||
+						<div>
+					<button className='fixed z-[999] bottom-[0px] left-0 w-[100%] h-8 flex place-content-center place-items-center'
+						onClick={() => {
+							setOpenNav(!openNav);
+						}}>
+					</button>
+					<div className='fixed bottom-[-36px] left-0 z-[100] flex h-12 w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300'>
+						<Link onClick={() => setOpenHamburger(false)} to='/home'>
+							<AiOutlineHome />
+						</Link>
+						<Link onClick={() => setOpenHamburger(false)} to='/comboMaker'>
+							{/* <FaToolbox /> */}
+							<ComboMakerBlueprint className='h-10 w-10' fill='#ffffff' />
+						</Link>
+						<Link onClick={() => setOpenHamburger(false)} to='/sandbox'>
+							<BiCube />
+						</Link>
+						<Link onClick={() => setOpenHamburger(false)} to='/theory'>
+							<FaGraduationCap />
+						</Link>
+						<GiHamburgerMenu onClick={() => setOpenHamburger(!openHamburger)} />
+					</div>
+					</div>
+				)
+			}
 
-				<GiHamburgerMenu onClick={() => setOpenHamburger(!openHamburger)} />
-			</div>
 			{/* Open Hamburger Menu Display */}
 			{hamburger(
 				(styles, hamburgerMenu) =>
