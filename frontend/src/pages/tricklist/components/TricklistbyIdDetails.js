@@ -32,6 +32,12 @@ const TricklistbyIdDetails = ({
 	);
 	const { mutate: deleteComboById } = useDeleteCombo();
 
+	const handleUpdateAnim = (listItem) => {
+		setTimescale(0.89);
+		setModel(listItem?.Combo?.Animation?.model);
+		selectAnim(listItem?.Combo?.Animation?.animationName);
+	};
+
 	return (
 		<div className='h-full'>
 			<div>
@@ -78,10 +84,7 @@ const TricklistbyIdDetails = ({
 										return (
 											<div
 												onClick={() => {
-													console.log("changing store");
-													setTimescale(0.89);
-													setModel(listItem?.Combo?.Animation?.model);
-													selectAnim(listItem?.Combo?.Animation?.animationName);
+													handleUpdateAnim(listItem);
 												}}
 												id={"tricklistData-map-container"}
 												key={

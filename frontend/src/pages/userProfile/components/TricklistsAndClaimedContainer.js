@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import TricklistPage from "../../tricklist/TricklistPage";
+import ClaimedDisplay from "./ClaimedDisplay";
 
 const TricklistsAndClamiedContainer = ({
 	MyTricklists,
@@ -50,9 +51,7 @@ const TricklistsAndClamiedContainer = ({
 			{activePane === "Claimed" && (
 				<div
 					className={`place-content-center place-items-center flex h-[37vh] w-[80vw] flex-col bg-zinc-600`}>
-					{(Claimed?.length &&
-						Claimed?.map((list) => <div>{list?.name}</div>)) ||
-						"No ClaimedTricks to Display"}
+					<ClaimedDisplay Claimed={Claimed} />
 				</div>
 			)}
 		</>

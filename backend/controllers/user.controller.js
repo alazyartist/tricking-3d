@@ -123,6 +123,7 @@ export const getUserInfoByUUID = async (req, res) => {
 						model: db.sequelize.models.Combo,
 						as: "CombosClaimed",
 						through: { attributes: [] },
+						include: { model: db.sequelize.models.Animations },
 					},
 					{
 						model: db.sequelize.models.Tricklist,
