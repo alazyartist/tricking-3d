@@ -21,7 +21,7 @@ const ChooseCombo = ({ setOpen, open, tricklist_id }) => {
 		<div
 			onClick={(e) => handleClick(e)}
 			id='addItemBackground'
-			className=' place-content-center place-items-center sticky top-0 left-0 flex h-full w-full bg-zinc-800 bg-opacity-40 backdrop-blur-md'>
+			className=' place-content-center place-items-center sticky top-0 left-0 flex h-full w-full rounded-xl bg-zinc-800 bg-opacity-40'>
 			<div className='place-content-center place-items-center flex flex-col'>
 				<div className='place-items-center flex p-1 text-2xl font-bold'>
 					<div onClick={() => setOpen(false)}>

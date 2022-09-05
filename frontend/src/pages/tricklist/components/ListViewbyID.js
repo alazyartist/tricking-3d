@@ -36,7 +36,7 @@ const ListViewbyID = ({
 		<div
 			onClick={(e) => handleClick(e)}
 			id={"background"}
-			className=' z-[10] flex h-full w-full flex-col place-content-start bg-zinc-800 bg-opacity-40  backdrop-blur-xl'>
+			className=' z-[10] flex h-full w-full flex-col place-content-start rounded-xl bg-zinc-800 bg-opacity-40 '>
 			<div className='h-full w-full p-3 text-xl'>
 				<div>
 					{!deleteCheck && (

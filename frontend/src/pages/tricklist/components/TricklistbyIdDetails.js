@@ -54,7 +54,9 @@ const TricklistbyIdDetails = ({
 			<div>
 				{!addItemopen && (
 					<div className='place-content-center flex h-[35vh] flex-col  pt-4'>
-						<div id={"data-container"} className='flex gap-8 text-zinc-300'>
+						<div
+							id={"data-container"}
+							className='flex gap-8 text-base text-zinc-300'>
 							<div className=''>{data?.Owner?.username}</div>
 							<div>{updated}</div>
 							{!displayOnly && (

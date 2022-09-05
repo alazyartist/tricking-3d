@@ -30,7 +30,7 @@ const TricklistsAndClamiedContainer = ({
 			</div>
 			{activePane === "Tricklists" && (
 				<div
-					className={`place-items-center flex h-[37vh] w-[80vw] flex-col ${
+					className={`place-items-center flex h-full w-[80vw] flex-col ${
 						MyTricklists?.length
 							? "place-content-start"
 							: "place-content-center"

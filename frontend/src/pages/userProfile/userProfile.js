@@ -24,7 +24,7 @@ const UserProfile = () => {
 		exitBeforeEnter: true,
 	});
 	return (
-		<div className='place-content-center place-items-center m-4 flex flex-col pt-[3.4rem] font-inter text-zinc-300'>
+		<div className='place-content-center place-items-center m-4 mb-14 flex h-full flex-col pt-[3.4rem] font-inter text-zinc-300'>
 			<div className=' flex flex-row gap-4 pb-4'>
 				<div className='flex flex-col'>
 					{editView((styles, editing) =>

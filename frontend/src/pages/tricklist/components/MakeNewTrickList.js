@@ -21,7 +21,7 @@ const MakeNewTrickList = ({ setOpen }) => {
 	return (
 		<div
 			onClick={(e) => handleClick(e)}
-			className='absolute top-0  h-full w-full bg-zinc-800 bg-opacity-40 backdrop-blur-xl'>
+			className='  h-full w-full bg-zinc-800 bg-opacity-40 '>
 			<label
 				className='lg absolute top-[45%] left-[20%] text-2xl md:left-[35%] lg:left-[45%]'
 				htmlFor='name-input'>
@@ -30,7 +30,7 @@ const MakeNewTrickList = ({ setOpen }) => {
 			<div className='absolute top-[50vh] flex w-full flex-col p-2 '>
 				<form
 					onSubmit={handleSubmit}
-					className='flex place-content-center gap-2'>
+					className='place-content-center flex gap-2'>
 					<input
 						id={"name-input"}
 						className='rounded-xl p-1 pl-2 text-zinc-800'

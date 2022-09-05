@@ -21,7 +21,7 @@ function Home() {
 	const accessToken = useUserStore((s) => s.accessToken);
 	const navigate = useNavigate();
 	return (
-		<div className='sticky mt-0'>
+		<div className='sticky mt-0 '>
 			<div
 				id='AppBackground-flex'
 				className='place-items-center flex h-screen w-screen flex-col'>
@@ -106,7 +106,7 @@ function Home() {
 							{profileCodeOpen ? (
 								<ProfileCode setProfileCodeOpen={setProfileCodeOpen} />
 							) : (
-								<div className='flex flex-col gap-2'>
+								<div className='mb-20 flex flex-col gap-2 rounded-xl bg-zinc-700 p-2'>
 									{/* <Captures /> */}
 									<TricklistPage profileuuid={uuid} />
 									{/* <UpdateStatusInput /> */}
