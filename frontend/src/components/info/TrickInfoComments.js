@@ -23,8 +23,7 @@ const TrickInfoComments = () => {
 		trick_id && (
 			<div className='absolute top-[40vh] h-[30vh] w-[95vw] overflow-auto rounded-xl bg-zinc-800 bg-opacity-60 p-4 pt-4'>
 				<div>
-					{Array.isArray(comments) &&
-						comments?.length &&
+					{Array.isArray(comments) && comments?.length ? (
 						comments?.map((comment) => (
 							<div key={comment.interaction_id} className='flex gap-2'>
 								<UserProfilePicById
@@ -40,7 +39,10 @@ const TrickInfoComments = () => {
 									</p>
 								)}
 							</div>
-						))}
+						))
+					) : (
+						<div>Comment below to start the conversation!</div>
+					)}
 				</div>
 			</div>
 		)

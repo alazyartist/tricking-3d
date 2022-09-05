@@ -4,6 +4,7 @@ import { useUserStore } from "../../../store/userStore";
 import { useStore } from "../../../store/store";
 import { useInteraction } from "../../../api/useInteractions";
 import useGetTricks from "../../../api/useGetTricks";
+import useGetCombos from "../../../api/useGetCombos";
 
 const Interact = () => {
 	const { userInfo, accessToken } = useUserStore();
@@ -12,8 +13,10 @@ const Interact = () => {
 	const [content, setContent] = useState();
 	const trick_id = useStore((s) => s.trick_id);
 	const setTrick_id = useStore((s) => s.setTrick_id);
+	const setTrickOrCombo = useStore((s) => s.setTrickOrCombo);
 	const { mutate: comment } = useInteraction();
 	const { data: tricks } = useGetTricks();
+	const { data: combos } = useGetCombos();
 	const handleSubmit = async (e) => {
 		console.log(uuid);
 		e.preventDefault();
@@ -35,11 +38,26 @@ const Interact = () => {
 	};
 	useEffect(() => {
 		let tid =
-			tricks?.length &&
-			tricks.filter((trick) =>
+			(tricks?.length &&
+				combos?.length &&
+				tricks?.filter((trick) =>
+					trick.name.toLowerCase().includes(currentAnim.toLowerCase())
+				)[0]?.trick_id) ||
+			combos?.filter((trick) =>
 				trick.name.toLowerCase().includes(currentAnim.toLowerCase())
-			)[0]?.trick_id;
+			)[0]?.combo_id;
+		let comboOrTrick =
+			(tricks?.length &&
+				combos?.length &&
+				tricks?.filter((trick) =>
+					trick.name.toLowerCase().includes(currentAnim.toLowerCase())
+				)[0]?.type) ||
+			combos?.filter((trick) =>
+				trick.name.toLowerCase().includes(currentAnim.toLowerCase())
+			)[0]?.type;
+
 		setTrick_id(tid);
+		setTrickOrCombo(comboOrTrick);
 		console.log(tricks);
 		console.log(
 			tricks?.length &&
@@ -58,7 +76,7 @@ const Interact = () => {
 			<div className='fixed bottom-5  w-full'>
 				<form
 					onSubmit={handleSubmit}
-					className='flex place-content-center gap-2 font-inter text-zinc-800'>
+					className='place-content-center flex gap-2 font-inter text-zinc-800'>
 					<input
 						value={content}
 						onChange={(e) => {

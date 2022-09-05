@@ -6,7 +6,7 @@ export const useStore = create(
 		aI: 0,
 
 		setSpeedControl: (value) => set(() => ({ speedControl: value })),
-    speedControl: false,
+		speedControl: false,
 		isFollowCam: true,
 		setFollowCam: () => set((s) => ({ isFollowCam: !s.isFollowCam })),
 		addToAnimationArray: (value) =>
@@ -73,5 +73,7 @@ export const useStore = create(
 		setVersions: (value) => set(() => ({ currVersions: [...value] })),
 		trick_id: "",
 		setTrick_id: (value) => set((s) => ({ trick_id: value })),
+		trickOrCombo: "",
+		setTrickOrCombo: (value) => set((s) => ({ trickOrCombo: value })),
 	}))
 );

@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 app.use("/api", userRoutes);
 app.use("/api/tricks", trickRoutes);
 app.use("/api/tricklist", verifyJWT, tricklistRoutes);
-app.use("/api/combo", verifyJWT, comboRoutes);
+app.use("/api/combo", comboRoutes);
 app.use("/api/refresh", refreshRoutes);
 app.use("/api/logout", handleLogout);
 app.use("/api/loggedIn", verifyJWT, loginRoutes);

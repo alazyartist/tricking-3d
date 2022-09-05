@@ -9,6 +9,7 @@ export default function TrickInfo() {
 	const setInfo = useStore((state) => state.setInfo);
 	const [count, setCount] = useState(0);
 	const trick_id = useStore((state) => state.trick_id);
+	const trickOrCombo = useStore((state) => state.trickOrCombo);
 	const currentAnim = useStore((state) => state.currentAnim);
 
 	const { data: trickDetails } = useGetTricksById(trick_id);
@@ -22,11 +23,12 @@ export default function TrickInfo() {
 				<div id='trick-info-containers-reposition' className='relative top-20'>
 					<div
 						id='trick-info-container'
-						className='z-30 m-10 flex h-auto w-auto flex-col place-items-center p-4 align-middle text-zinc-200 '>
+						className='place-items-center z-30 m-10 flex h-auto w-auto flex-col p-4 align-middle text-zinc-200 '>
 						<h2
 							id='trick-info-header'
 							className='justify-center text-3xl font-black '>
 							{currentAnim}
+							{trickOrCombo}
 						</h2>
 						<div className='text-xs text-zinc-500'>{trick_id}</div>
 						<p

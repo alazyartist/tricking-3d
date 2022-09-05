@@ -1024,7 +1024,7 @@ module.exports = {
 			{
 				combo_id: uuidv4(),
 				name: "WrapFull>Swing",
-				creator: "tohzt",
+				creator: "admin696-8c94-4ca7-b163-969420Tohzt",
 				createdAt: new Date(Date.now()),
 				updatedAt: new Date(Date.now()),
 				defaultAnimation: "f7973309-4ee5-40a2-a85c-f8912564a5ec",
