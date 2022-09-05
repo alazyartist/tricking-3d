@@ -45,6 +45,7 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 							tricklist_id={tricklist_id}
 							setTricklist_id={setTricklist_id}
 							openView={openView}
+							open={open}
 						/>
 					)}
 				</div>

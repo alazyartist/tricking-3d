@@ -12,7 +12,7 @@ export const useGetTricklists = (uuid) => {
 		},
 		{
 			onSuccess: () => {
-				console.log("got the Tricklists");
+				// console.log("got the Tricklists");
 			},
 		}
 	);
@@ -27,7 +27,7 @@ export const useGetCombos = () => {
 		},
 		{
 			onSuccess: () => {
-				console.log("got the Tricklists");
+				// console.log("got the Combos");
 			},
 		}
 	);
@@ -35,7 +35,6 @@ export const useGetCombos = () => {
 
 export const useGetTricklistById = (tricklist_id, uuid) => {
 	const apiPrivate = useApiCreds();
-	console.log(tricklist_id, uuid);
 	return useQuery(
 		["tricklist", tricklist_id],
 		async () => {
@@ -46,14 +45,13 @@ export const useGetTricklistById = (tricklist_id, uuid) => {
 		},
 		{
 			onSuccess: (data) => {
-				console.log("got the TricklistsById", data);
+				// console.log("got the TricklistsById", data);
 			},
 		}
 	);
 };
 export const useGetTricklistDetailsById = (tricklist_id, user_id) => {
 	const apiPrivate = useApiCreds();
-	console.log(tricklist_id, "usegettricklist");
 	return useQuery(
 		["tricklist details", tricklist_id],
 		async () => {
@@ -64,7 +62,7 @@ export const useGetTricklistDetailsById = (tricklist_id, user_id) => {
 		},
 		{
 			onSuccess: (data) => {
-				console.log("got the TricklistsByIdDetails", data);
+				// console.log("got the TricklistsByIdDetails", data);
 			},
 		}
 	);
@@ -80,7 +78,7 @@ export const useAddCombo = (tricklist_id) => {
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries(["tricklist details", tricklist_id]);
-				console.log("succeeded making new list");
+				console.log("AddedCombo");
 			},
 		}
 	);
@@ -96,7 +94,6 @@ export const useDeleteTricklist = (tricklist_id) => {
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries(["tricklists"]);
-				console.log("succeeded making new list");
 			},
 		}
 	);
@@ -113,7 +110,6 @@ export const useDeleteCombo = () => {
 		},
 		{
 			onSuccess: (data) => {
-				console.log(data);
 				queryClient.invalidateQueries([
 					"tricklist details",
 					data.data.tricklist_id,

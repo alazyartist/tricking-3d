@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
+import { useTransition, animated } from "react-spring";
 import { useAddCombo, useGetCombos } from "../../../api/useTricklists";
 import { useUserStore } from "../../../store/userStore";
 
@@ -8,8 +9,12 @@ const ChooseCombo = ({ setOpen, open, tricklist_id }) => {
 	const userInfo = useUserStore((s) => s.userInfo);
 	const [showCombo, setShowCombo] = useState(false);
 	const [cname, setCname] = useState("");
+	const [addedCombo, setAddedCombo] = useState();
 
-	const { mutate: addComboDB } = useAddCombo(tricklist_id, userInfo.uuid);
+	const { mutate: addComboDB, isSuccess } = useAddCombo(
+		tricklist_id,
+		userInfo.uuid
+	);
 	const { data: comboArr } = useGetCombos();
 
 	const handleClick = (e) => {
@@ -17,16 +22,43 @@ const ChooseCombo = ({ setOpen, open, tricklist_id }) => {
 			setOpen(false);
 		}
 	};
+	const addItemAnim = useTransition(addedCombo, {
+		from: { top: -40, opacity: 0 },
+		enter: { top: 0, opacity: 100 },
+		leave: { opacity: 0 },
+		config: { durration: 300, tension: 260, friction: 50 },
+	});
+
+	useEffect(() => {
+		if (isSuccess) {
+			setAddedCombo(true);
+			setTimeout(() => {
+				setAddedCombo(false);
+			}, 1000);
+		}
+		console.log(isSuccess);
+	}, [isSuccess]);
 	return (
 		<div
 			onClick={(e) => handleClick(e)}
 			id='addItemBackground'
 			className=' place-content-center place-items-center sticky top-0 left-0 flex h-full w-full rounded-xl bg-zinc-800 bg-opacity-40'>
 			<div className='place-content-center place-items-center flex flex-col'>
+				{addItemAnim(
+					(styles, succeeded) =>
+						succeeded && (
+							<animated.div className={"absolute top-0"} style={styles}>
+								<div className='relative -top-10 h-full w-full rounded-lg bg-emerald-500 p-1'>
+									added combo
+								</div>
+							</animated.div>
+						)
+				)}
 				<div className='place-items-center flex p-1 text-2xl font-bold'>
 					<div onClick={() => setOpen(false)}>
 						<IoIosArrowBack />
 					</div>
+
 					<div>Choose Combo to Add</div>
 				</div>
 				<div className='no-scrollbar flex h-[40vh] w-full flex-col gap-2 overflow-y-auto'>

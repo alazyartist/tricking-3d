@@ -45,7 +45,7 @@ const TricklistbyIdDetails = ({
 						// contentEditable='true'
 						className='place-items-center flex gap-1 font-inter text-2xl font-bold text-zinc-300'>
 						<div onClick={() => setOpenView(false)}>
-							{openView && <IoIosArrowBack />}
+							{openView && !addItemopen && <IoIosArrowBack />}
 						</div>
 						<div>{data?.name}</div>
 					</div>

@@ -14,6 +14,7 @@ const ListViewbyID = ({
 	setOpenView,
 	addItemopen,
 	setAddItemopen,
+	open,
 }) => {
 	const userInfo = useUserStore((s) => s.userInfo);
 
@@ -47,6 +48,7 @@ const ListViewbyID = ({
 							openView={openView}
 							setOpenView={setOpenView}
 							addItemopen={addItemopen}
+							open={open}
 						/>
 					)}
 				</div>
