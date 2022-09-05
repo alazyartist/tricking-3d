@@ -15,13 +15,12 @@ import { useStore } from "../store/store";
 import { useFrame, useThree } from "@react-three/fiber";
 import LoadActiveBackground from "../components/media/BackgroundSelector";
 // import Model from "../animations/KerwoodCC3Tpose";
-export function TorqueScene(props) {
+export function TorqueScene({ gizmoHelper }) {
 	const light = useRef();
 	const light2 = useRef();
 	const gizmoRef = useRef();
 	const isFollowCam = useStore((s) => s.isFollowCam);
-	useEffect(() => {
-	}, [isFollowCam]);
+	useEffect(() => {}, [isFollowCam]);
 	// useHelper(light, SpotLightHelper, "cyan");
 	return (
 		<>
@@ -46,12 +45,14 @@ export function TorqueScene(props) {
 				{/* <Environment preset='park' /> */}
 				<OrbitControls />
 				{/* <gridHelper args={[10, 10, `black`, `gainsboro`]} position={[0, 0, 0]} /> */}
-				<GizmoHelper alignment={"bottom-left"} margin={[60, 220]}>
-					<GizmoViewport
-						axisColors={["red", "green", "blue"]}
-						labelColor='gainsboro'
-					/>
-				</GizmoHelper>
+				{gizmoHelper && (
+					<GizmoHelper alignment={"bottom-left"} margin={[60, 220]}>
+						<GizmoViewport
+							axisColors={["red", "green", "blue"]}
+							labelColor='gainsboro'
+						/>
+					</GizmoHelper>
+				)}
 			</PerspectiveCamera>
 		</>
 	);

@@ -7,6 +7,7 @@ import {
 	useGetTricklistDetailsById,
 } from "../../../api/useTricklists.js";
 import { useUserStore } from "../../../store/userStore";
+import { useStore } from "../../../store/store";
 
 const TricklistbyIdDetails = ({
 	openView,
@@ -22,7 +23,9 @@ const TricklistbyIdDetails = ({
 	updated = updated.toDateString();
 	const [editing, setEditing] = useState(false);
 	const [comboName, setComboName] = useState(data?.name);
-
+	const setModel = useStore((s) => s.setModel);
+	const selectAnim = useStore((s) => s.selectAnim);
+	const setTimescale = useStore((s) => s.setTimescale);
 	const { data: tricklistData } = useGetTricklistDetailsById(
 		tricklist_id,
 		uuid
@@ -74,7 +77,12 @@ const TricklistbyIdDetails = ({
 									tricklistData.map((listItem) => {
 										return (
 											<div
-												onClick={() => console.log(listItem)}
+												onClick={() => {
+													console.log("changing store");
+													setTimescale(0.89);
+													setModel(listItem?.Combo?.Animation?.model);
+													selectAnim(listItem?.Combo?.Animation?.animationName);
+												}}
 												id={"tricklistData-map-container"}
 												key={
 													listItem.combo_id + Math.floor(Math.random() * 1000)

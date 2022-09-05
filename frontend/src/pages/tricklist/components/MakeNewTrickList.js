@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IoIosArrowBack } from "react-icons/io";
 import useMakeTricklist from "../../../api/useMakeTricklist";
 import { useUserStore } from "../../../store/userStore";
 
@@ -23,9 +24,12 @@ const MakeNewTrickList = ({ setOpen }) => {
 			onClick={(e) => handleClick(e)}
 			className=' h-full w-full bg-zinc-800 bg-opacity-40 '>
 			<label
-				className=' text-2xl md:left-[35%] lg:left-[45%]'
+				className='place-items-center flex text-2xl md:left-[35%] lg:left-[45%]'
 				htmlFor='name-input'>
-				Name your Tricklist
+				<div onClick={() => setOpen(false)}>
+					<IoIosArrowBack />
+				</div>
+				<div>Name your Tricklist</div>
 			</label>
 			<div className=' top-[50vh] flex w-full flex-col p-2 '>
 				<form

@@ -8,7 +8,6 @@ const Claimed = ({ displayOnly, combo, combo_id, user_id }) => {
 	const { mutate: claim } = useClaimCombo();
 	const { mutate: unclaim } = useUnClaimCombo();
 	const { data: profileInfo } = useUserInfoByUUID(user_id);
-	console.log(profileInfo?.CombosClaimed);
 	const isClaimed = profileInfo?.CombosClaimed?.some(
 		(combo) => combo.combo_id === combo_id
 	);
@@ -19,7 +18,6 @@ const Claimed = ({ displayOnly, combo, combo_id, user_id }) => {
 	return (
 		<div
 			onClick={() => {
-				console.log(combo);
 				// console.log(
 				// "Claim",
 				// listItem?.Combo.combo_id,

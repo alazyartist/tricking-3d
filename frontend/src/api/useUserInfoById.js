@@ -10,8 +10,8 @@ const useUserInfoByUUID = (uuid) => {
 		async () => {
 			const { data } = await apiPrivate.get(`/user/getInfo/${uuid}`);
 			return data;
-		},
-		{ onSuccess: (data) => console.log(data) }
+		}
+		// { onSuccess: (data) => console.log(data) }
 	);
 };
 export default useUserInfoByUUID;
