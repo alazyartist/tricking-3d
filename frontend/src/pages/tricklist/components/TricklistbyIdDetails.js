@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
 import Claimed from "./Claimed";
@@ -8,6 +8,7 @@ import {
 } from "../../../api/useTricklists.js";
 import { useUserStore } from "../../../store/userStore";
 import { useStore } from "../../../store/store";
+import { useTransition, animated, config } from "react-spring";
 
 const TricklistbyIdDetails = ({
 	openView,
@@ -32,32 +33,57 @@ const TricklistbyIdDetails = ({
 	);
 	const { mutate: deleteComboById } = useDeleteCombo();
 
+	useEffect(() => {
+		setComboName(data?.name);
+	}, [data]);
+
 	const handleUpdateAnim = (listItem) => {
 		setTimescale(0.89);
 		setModel(listItem?.Combo?.Animation?.model);
 		selectAnim(listItem?.Combo?.Animation?.animationName);
 	};
+	const editViewArrow = useTransition(editing, {
+		from: { translateX: "-200px", opacity: 0 },
+		enter: { translateX: "0px", opacity: 1 },
+		leave: { translateX: "-200px", opacity: 0 },
+		reverse: editing,
+		config: { duration: 300, ...config.molasses },
+		exitBeforeEnter: true,
+	});
+	const editView = useTransition(editing, {
+		from: { translateX: "100px", opacity: 0 },
+		enter: { translateX: "0px", opacity: 1 },
+		leave: { translateX: "100px", opacity: 0 },
+		reverse: editing,
+		config: { duration: 300, ...config.molasses },
+		exitBeforeEnter: true,
+	});
 
 	return (
 		<div className='h-full'>
 			<div>
-				{editing ? (
-					<input
-						type='text'
-						className='bg-inherit font-inter text-2xl font-bold'
-						value={comboName}
-						onChange={(e) => setComboName(e.target.value)}
-					/>
-				) : (
-					<div
-						onChange={(e) => console.log(e)}
-						// contentEditable='true'
-						className='place-items-center flex gap-1 font-inter text-2xl font-bold text-zinc-300'>
-						<div onClick={() => setOpenView(false)}>
-							{openView && !addItemopen && <IoIosArrowBack />}
-						</div>
-						<div>{data?.name}</div>
-					</div>
+				{editViewArrow(({ opacity, translateX }, editing) =>
+					editing ? (
+						<animated.div style={{ opacity, translateX }}>
+							<input
+								type='text'
+								className='bg-inherit font-inter text-2xl font-bold'
+								value={comboName}
+								onChange={(e) => setComboName(e.target.value)}
+							/>
+						</animated.div>
+					) : (
+						<animated.div
+							style={(translateX, opacity)}
+							onChange={(e) => console.log(e)}
+							// contentEditable='true'
+							className='place-items-center flex gap-1 font-inter text-2xl font-bold text-zinc-300'>
+							<div onClick={() => setOpenView(false)}>
+								{openView && !addItemopen && <IoIosArrowBack />}
+							</div>
+							<div>{data?.name}</div>
+						</animated.div>
+					)
 				)}
 			</div>
 			<div>
@@ -92,20 +118,24 @@ const TricklistbyIdDetails = ({
 												}
 												className='place-items-center flex h-full justify-between gap-2 overflow-hidden rounded-xl bg-zinc-900  p-2'>
 												<div>{listItem?.Combo?.name}</div>
-												{editing && (
-													<div
-														onClick={() => deleteComboById(listItem)}
-														className='h-8 w-8 place-items-end text-3xl text-red-500'>
-														<AiOutlineClose />
-													</div>
-												)}
-												{!editing && (
-													<Claimed
-														displayOnly={displayOnly}
-														user_id={uuid}
-														combo_id={listItem?.combo_id}
-														combo={listItem}
-													/>
+												{editView((styles, editing) =>
+													editing ? (
+														<animated.div
+															style={styles}
+															onClick={() => deleteComboById(listItem)}
+															className='h-8 w-8 place-items-end text-3xl text-red-500'>
+															<AiOutlineClose />
+														</animated.div>
+													) : (
+														<animated.div style={styles}>
+															<Claimed
+																displayOnly={displayOnly}
+																user_id={uuid}
+																combo_id={listItem?.combo_id}
+																combo={listItem}
+															/>
+														</animated.div>
+													)
 												)}
 											</div>
 										);

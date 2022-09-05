@@ -80,11 +80,11 @@ const ChooseCombo = ({ setOpen, open, tricklist_id }) => {
 								}}>
 								<div className='place-content-center place-items-center flex justify-between'>
 									<div>{combo.name}</div>
-									<div>
+									{/* <div>
 										{combo?.defaultAnimation && (
 											<FaCheck className='text-emerald-500' />
 										)}
-									</div>
+									</div> */}
 								</div>
 								<div className='flex'>
 									{combo.comboArray &&

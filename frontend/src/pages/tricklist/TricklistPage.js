@@ -13,6 +13,8 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 	useEffect(() => {
 		console.log(tricklist_id);
 	}, [tricklist_id]);
+
+	//TODO add animations between Tricklist Views
 	return (
 		<div
 			id={"tricklistPage-Container"}
