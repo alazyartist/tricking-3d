@@ -97,6 +97,16 @@ const TricklistDisplay = ({
 							return (
 								<TrickList_Component
 									key={_key}
+									data={item}
+									date={date}
+									fn={() => handleListClick(item)}
+									drag_offset={60}
+									swipe_left={() => console.log(item.name, "- Swipe Left: Replace with function")}
+									swipe_right={() => console.log(item.name, "- Swipe Right: Replace with function")}
+								/>
+								/*
+								<TrickList_Component
+									key={_key}
 									type={item.type}
 									name={item.name}
 									date={date}
@@ -105,6 +115,7 @@ const TricklistDisplay = ({
 									swipe_left={() => console.log(item.name, "- Swipe Left: Replace with function")}
 									swipe_right={() => console.log(item.name, "- Swipe Right: Replace with function")}
 								/>
+								*/
 							);
 						}
 						)
