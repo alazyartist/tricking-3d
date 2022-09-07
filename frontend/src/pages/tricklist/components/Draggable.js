@@ -3,7 +3,7 @@ import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 import { useStore } from "../../../store/store.js";
 
-export const DragableWrapper = ({ children, drag_offset_left, swipe_left, swipe_right }) => {
+export const DragableWrapper = ({ children, drag_offset, swipe_left, swipe_right }) => {
 	//const [{ x, y }, api] = useSpring(() => ({ x: 0, y: 0 }));
 	const [subBtnBg, setSubBtnBg] = useState();
 	const [selectorColor, setSelectorColor] = useState();
@@ -24,18 +24,26 @@ export const DragableWrapper = ({ children, drag_offset_left, swipe_left, swipe_
 		...left,
 	}))
 
-	const bind = useDrag(({ active, dragging, movement: [x] }) => {
+	const bind = useDrag(({ movement, initial, active, dragging, movement: [x] }) => {
 		if (dragging) {
+			x = clamp(x, -drag_offset, drag_offset);
 			setSelectorColor("white");
-			if (x >  150) setSelectorColor(left.bg);
+			if (x >  drag_offset*0.8) setSelectorColor(left.bg);
 			else 
-			if (x < -150) setSelectorColor(right.bg);
+			if (x < -drag_offset*0.8) setSelectorColor(right.bg);
 		}
 		/* Release Touch */
 		else {
-			if (x < -150) swipe_left();
+			console.log(movement, " : ", initial);
+			if (x >  drag_offset*0.8)  {
+				swipe_left();
+				return;
+			}
 			else 
-			if (x > 150) swipe_right();
+			if (x < -drag_offset*0.8) {
+				swipe_right();
+				return;
+			}
 		}
 
 		api.start({
@@ -56,7 +64,7 @@ export const DragableWrapper = ({ children, drag_offset_left, swipe_left, swipe_
 	return (
 		<animated.div
 			{...bind()}
-			className={`h-full w-full z-[0] rounded-md relative`}
+			className={`overflow-hidden h-full w-full z-[0] rounded-md relative`}
 			style={{ background: bg, touchAction: "none" }}>
 
 			<animated.div 
