@@ -42,6 +42,7 @@ const TricklistsAndClamiedContainer = ({
 						))) ||
 						"No Tricklists to Display"} */}
 					{MyTricklists?.length ? (
+						// @TODO: Change back later: profileuuid
 						<TricklistPage profileuuid={profileuuid} displayOnly />
 					) : (
 						"No Tricklists to Display"

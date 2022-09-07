@@ -12,7 +12,7 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 
 	const [tricklist_id, setTricklist_id] = useState("");
 	useEffect(() => {
-		console.log(tricklist_id);
+		//console.log("tricklist_is: ", tricklist_id);
 	}, [tricklist_id]);
 
 	//TODO add animations between Tricklist Views
