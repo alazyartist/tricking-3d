@@ -71,7 +71,7 @@ const TrickList_Component = ({ data, date, fn, drag_offset, swipe_left, swipe_ri
 					onClick={() => fn()}
 					className='break-all w-full rounded-md bg-blue-500 p-2 font-inter text-sm font-semibold text-zinc-200'
 				>
-					{`${data.name?{data.name | date}:data.Combo.name}`}
+					{`${data.name?data.name:data.Combo.name}`}
 				</button>
 			</animated.div>
 		</animated.div>
