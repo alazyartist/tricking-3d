@@ -13,6 +13,7 @@ module.exports = (sequelize) => {
 	}
 	Trick_Variations.init(
 		{
+			id: { type: DataTypes.INTEGER, allowNull: false, primaryKey: true },
 			variation_id: {
 				type: DataTypes.INTEGER,
 				references: { model: "Variations", key: "id" },

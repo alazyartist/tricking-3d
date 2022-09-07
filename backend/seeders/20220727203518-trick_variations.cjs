@@ -17,6 +17,22 @@ module.exports = {
 				variation_id: 9,
 			},
 			{
+				trick_id: "ed832bc6-eae3-458d-8cfd-ragonflycork",
+				variation_id: 9,
+			},
+			{
+				trick_id: "ed832bc6-eae3-458d-8cfd-ragonflycork",
+				variation_id: 34,
+			},
+			{
+				trick_id: "ed832bc6-eae3-458d-8cfd-ragonflycork",
+				variation_id: 22,
+			},
+			{
+				trick_id: "ed832bc6-eae3-458d-8cfd-ragonflycork",
+				variation_id: 18,
+			},
+			{
 				trick_id: "ed832bc6-eae3-458d-8cfc-26brodeocork",
 				variation_id: 34,
 			},

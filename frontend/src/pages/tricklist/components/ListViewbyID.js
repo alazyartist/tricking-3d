@@ -53,9 +53,9 @@ const ListViewbyID = ({
 					)}
 				</div>
 			</div>
-			<div className='mt-4 h-fit w-full'>
+			<div className='mt-4 h-fit w-full p-2'>
 				{!displayOnly && (
-					<div className=' flex w-full justify-between'>
+					<div className='flex w-full justify-between'>
 						{!deleteCheck && (
 							<AddComboItemToTricklist
 								addItemopen={addItemopen}
