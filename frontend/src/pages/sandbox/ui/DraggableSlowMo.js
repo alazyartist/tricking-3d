@@ -38,4 +38,5 @@ export const DragableWrapper = ({ children, drag_offset_limit }) => {
 	);
 };
 
+
 export default DragableWrapper;

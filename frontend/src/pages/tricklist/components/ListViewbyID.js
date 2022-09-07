@@ -34,10 +34,11 @@ const ListViewbyID = ({
 		setOpenView(false);
 	};
 	return (
+		// @TODO: Update to trickListDisplay layout
 		<div
 			onClick={(e) => handleClick(e)}
 			id={"background"}
-			className=' z-[10] flex h-full w-full flex-col place-content-start rounded-xl bg-zinc-800 bg-opacity-40 '>
+			className=' z-[10] flex h-full w-full flex-col place-content-start rounded-xl bg-red-400 bg-opacity-40 '>
 			<div className='h-full w-full p-3 text-xl'>
 				<div>
 					{!deleteCheck && (

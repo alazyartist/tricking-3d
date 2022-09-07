@@ -3,6 +3,7 @@ import AddListButton from "./components/AddListButton";
 import ListViewbyID from "./components/ListViewbyID";
 import MakeNewTrickList from "./components/MakeNewTrickList";
 import TricklistDisplay from "./components/TricklistDisplay";
+import TricklistDisplay_Content from "./components/TricklistDisplay_Content";
 
 const TricklistPage = ({ displayOnly, profileuuid }) => {
 	const [open, setOpen] = useState(false);
@@ -18,11 +19,17 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 	return (
 		<div
 			id={"tricklistPage-Container"}
-			className='place-items-center no-scrollbar flex h-fit max-h-[50vh] w-full flex-col place-content-start gap-2 overflow-y-auto'>
+			className='
+					bg-blue-800 border-white 
+					w-[85vw] p-3
+					rounded-md
+					flex flex-col gap-[2px]
+					place-content-center
+			'>
 			<div className='h-full w-full'>
 				{!openView && (
 					<div className='place-items-center flex h-full w-full flex-row gap-2'>
-						<TricklistDisplay
+						<TricklistDisplay_Content
 							addItemopen={addItemopen}
 							profileuuid={profileuuid}
 							setTricklist_id={setTricklist_id}
@@ -31,15 +38,19 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 							openView={openView}
 							open={open}
 						/>
-						{!displayOnly && !open && (
-							<AddListButton setOpen={setOpen} open={open} />
-						)}
 					</div>
 				)}
+
+				{/* ADD TRICKLIST BUTTON */}
+				{!displayOnly && !open && (
+					<AddListButton setOpen={setOpen} open={open} />
+				)}
+				{/* ADD TRICKLIST POPUP */}
 				<div>
 					{open && !displayOnly && <MakeNewTrickList setOpen={setOpen} />}
 				</div>
 
+				{/* CONTENT CONTAINER */}
 				<div>
 					{openView && (
 						<ListViewbyID
