@@ -4,7 +4,7 @@ import TrickList_Component from "./trickList_Component";
 import { useUserStore } from "../../../store/userStore";
 import data_mock from "../../../data/_mock/tricklist_mock";
 
-const TricklistDisplay = ({
+const TrickList_Container = ({
 	displayOnly,
 	profileuuid,
 	setOpenView,
@@ -122,4 +122,4 @@ const TricklistDisplay = ({
 	);
 };
 
-export default TricklistDisplay;
+export default TrickList_Container;

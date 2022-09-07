@@ -3,7 +3,7 @@ import AddListButton from "./components/AddListButton";
 import ListViewbyID from "./components/ListViewbyID";
 import MakeNewTrickList from "./components/MakeNewTrickList";
 import TricklistDisplay from "./components/TricklistDisplay";
-import TricklistDisplay_Content from "./components/TricklistDisplay_Content";
+import TrickList_Container from "./components/trickList_Container";
 
 const TricklistPage = ({ displayOnly, profileuuid }) => {
 	const [open, setOpen] = useState(false);
@@ -29,7 +29,7 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 			<div className='h-full w-full'>
 				{!openView && (
 					<div className='place-items-center flex h-full w-full flex-row gap-2'>
-						<TricklistDisplay_Content
+						<TrickList_Container
 							addItemopen={addItemopen}
 							profileuuid={profileuuid}
 							setTricklist_id={setTricklist_id}
