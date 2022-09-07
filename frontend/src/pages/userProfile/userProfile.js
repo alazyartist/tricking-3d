@@ -23,24 +23,25 @@ const UserProfile = () => {
 		config: { durration: 300, tension: 260, friction: 50 },
 		exitBeforeEnter: true,
 	});
+	const isUsersPage = uuid === loggedInUUID;
 	return (
-		<div className='place-content-center place-items-center m-4 mb-14 flex h-full flex-col pt-[3.4rem] font-inter text-zinc-300'>
+		<div className='m-4 mb-14 flex h-full flex-col place-content-center place-items-center pt-[3.4rem] font-inter text-zinc-300'>
 			<div className=' flex flex-row gap-4 pb-4'>
 				<div className='flex flex-col'>
 					{editView((styles, editing) =>
 						editing ? (
 							<animated.div
 								style={styles}
-								className='place-items-center relative flex flex-col gap-2'>
+								className='relative flex flex-col place-items-center gap-2'>
 								<ProfileInfoCardEditable
 									setEditing={setEditing}
 									userInfo={profileInfo}
 								/>
-								{uuid === loggedInUUID && (
+								{isUsersPage && (
 									<>
 										{editing}
 										<div
-											className='place-items-center place-content-center flex gap-1'
+											className='flex place-content-center place-items-center gap-1'
 											onClick={() => setEditing(!editing)}>
 											<MdOutlineClose /> <div>Close</div>
 										</div>
@@ -50,9 +51,9 @@ const UserProfile = () => {
 						) : (
 							<animated.div
 								style={styles}
-								className='place-items-center relative flex flex-col gap-2'>
+								className='relative flex flex-col place-items-center gap-2'>
 								<ProfileInfoCard userInfo={profileInfo} />
-								{uuid === loggedInUUID && (
+								{isUsersPage && (
 									<>
 										{editing}
 										<div onClick={() => setEditing(!editing)}>Edit Info</div>
@@ -65,6 +66,7 @@ const UserProfile = () => {
 				<UserAvatarDisplay />
 			</div>
 			<TricklistsAndClamiedContainer
+				isUsersPage={isUsersPage && editing}
 				profileuuid={uuid}
 				MyTricklists={profileInfo?.MyTricklists}
 				Claimed={profileInfo?.CombosClaimed}

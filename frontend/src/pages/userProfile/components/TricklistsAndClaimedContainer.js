@@ -6,12 +6,13 @@ const TricklistsAndClamiedContainer = ({
 	MyTricklists,
 	Claimed,
 	profileuuid,
+	isUsersPage,
 }) => {
 	const [activePane, setActivePane] = useState("Tricklists");
 
 	return (
 		<>
-			<div className='place-content-center place-items-center flex w-[80vw] gap-2'>
+			<div className='flex w-[80vw] place-content-center place-items-center gap-2'>
 				<div
 					onClick={(e) => setActivePane("Tricklists")}
 					className={`flex w-full select-none justify-between rounded-t-md p-2 ${
@@ -31,7 +32,7 @@ const TricklistsAndClamiedContainer = ({
 			</div>
 			{activePane === "Tricklists" && (
 				<div
-					className={`place-items-center flex h-full w-[80vw] flex-col ${
+					className={`flex h-full w-[80vw] flex-col place-items-center ${
 						MyTricklists?.length
 							? "place-content-start"
 							: "place-content-center"
@@ -42,7 +43,10 @@ const TricklistsAndClamiedContainer = ({
 						))) ||
 						"No Tricklists to Display"} */}
 					{MyTricklists?.length ? (
-						<TricklistPage profileuuid={profileuuid} displayOnly />
+						<TricklistPage
+							profileuuid={profileuuid}
+							displayOnly={!isUsersPage}
+						/>
 					) : (
 						"No Tricklists to Display"
 					)}
@@ -50,7 +54,7 @@ const TricklistsAndClamiedContainer = ({
 			)}
 			{activePane === "Claimed" && (
 				<div
-					className={`place-content-center place-items-center flex h-[37vh] w-[80vw] flex-col bg-zinc-600`}>
+					className={`flex h-[37vh] w-[80vw] flex-col place-content-center place-items-center bg-zinc-600`}>
 					<ClaimedDisplay Claimed={Claimed} />
 				</div>
 			)}
