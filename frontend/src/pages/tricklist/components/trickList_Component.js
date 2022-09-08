@@ -3,8 +3,7 @@ import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 import { useStore } from "../../../store/store.js";
 
-//const TrickList_Component = ({ name, date, fn, drag_offset, swipe_left, swipe_right}) => {
-const TrickList_Component = ({ data, date, fn, drag_offset, swipe_left, swipe_right}) => {
+const TrickList_Component = ({ data, date, fn, _style, drag_offset, swipe_left, swipe_right}) => {
 	const [subBtnBg, setSubBtnBg] = useState();
 	const [selectorColor, setSelectorColor] = useState();
 	const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
@@ -47,6 +46,12 @@ const TrickList_Component = ({ data, date, fn, drag_offset, swipe_left, swipe_ri
 		extrapolate: 'clamp',
 	});
 
+	let label = "";
+	if (data.name) {
+		label = data.name;	
+		label = label.concat(" : ", date);
+	}
+	else label = data.Combo.name;
 
 	return (
 		<animated.div
@@ -69,9 +74,9 @@ const TrickList_Component = ({ data, date, fn, drag_offset, swipe_left, swipe_ri
 				style={{ x, touchAction: "none" }}>
 				<button
 					onClick={() => fn()}
-					className='break-all w-full rounded-md bg-blue-500 p-2 font-inter text-sm font-semibold text-zinc-200'
+					className={_style}
 				>
-					{`${data.name?data.name:data.Combo.name}`}
+					{label}
 				</button>
 			</animated.div>
 		</animated.div>
