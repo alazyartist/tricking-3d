@@ -346,7 +346,6 @@ module.exports = {
 				trickType: "Invert",
 				defaultAnimation: "",
 			},
-			//Corks
 			{
 				trick_id: "0e178697-d368-4d0b-ba2d-0818b14e5f24",
 				base_id: "Gainer",
@@ -427,6 +426,7 @@ module.exports = {
 				trickType: "Invert",
 				defaultAnimation: "",
 			},
+
 			{
 				trick_id: "ed832bc6-eae3-458d-8cfc-orkhyperhook",
 				base_id: "Gainer",
@@ -494,7 +494,7 @@ module.exports = {
 				name: "Cart-off",
 				stance_id: "InsideMega",
 				takeoffStance: "InsideMega",
-				landingStance: "Backside",
+				landingStance: "Inside",
 				trickType: "Invert",
 				defaultAnimation: "fef9f1a2-69ad-4bf2-a598-9d649833a8dd",
 			},
@@ -552,7 +552,7 @@ module.exports = {
 			{
 				trick_id: "5aa66a94-2f32-11ed-9dbe-335095ca4dda",
 				base_id: "Aerial",
-				name: "Butterfly-double-Twist",
+				name: "double-Butterfly-twist",
 				stance_id: "InsideMega",
 				takeoffStance: "InsideMega",
 				landingStance: "BacksideComplete",
@@ -562,7 +562,7 @@ module.exports = {
 			{
 				trick_id: "5aa66ab2-2f32-11ed-9dbf-cf4e9639bd33",
 				base_id: "Aerial",
-				name: "Butterfly-triple-Twist",
+				name: "triple-Butterfly-twist",
 				stance_id: "InsideMega",
 				takeoffStance: "InsideMega",
 				landingStance: "BacksideComplete",
@@ -571,7 +571,8 @@ module.exports = {
 			},
 
 			//Kicks
-
+			//TODO KickStart
+			//TODO StartHere
 			//Backside
 			{
 				trick_id: "5aa66ad0-2f32-11ed-9dc0-fb4f096f572a",
@@ -1078,6 +1079,8 @@ module.exports = {
 				trickType: "Kick",
 				defaultAnimation: "",
 			},
+			//TODO KicksEnd
+			//TODO EndHere
 			//Scoot
 			{
 				trick_id: "5aa66d46-2f32-11ed-9dd5-63b1dd09518b",

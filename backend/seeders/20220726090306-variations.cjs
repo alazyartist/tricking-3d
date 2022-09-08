@@ -303,16 +303,30 @@ module.exports = {
 			{
 				id: 42,
 				variationType: "Touchdown",
-				name: "master",
+				name: "Master",
 				value: "Both",
 				pos: "M",
 			},
 			{
 				id: 43,
 				variationType: "Touchdown",
-				name: "spring",
+				name: "Spring",
 				value: "Both",
 				pos: "M",
+			},
+			{
+				id: 44,
+				variationType: "Shape",
+				name: "Dleg",
+				value: "Dleg",
+				pos: "B,M,E",
+			},
+			{
+				id: 45,
+				variationType: "Shape",
+				name: "Nike",
+				value: "Nike",
+				pos: "B,M,E",
 			},
 		]);
 	},
