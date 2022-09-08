@@ -12,58 +12,62 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 
 	const [tricklist_id, setTricklist_id] = useState("");
 	useEffect(() => {
-		//console.log("tricklist_is: ", tricklist_id);
 	}, [tricklist_id]);
 
 	//TODO add animations between Tricklist Views
 	return (
-		<div
-			id={"tricklistPage-Container"}
-			className='
-					bg-blue-800 border-white 
-					w-[85vw] p-3
-					rounded-md
-					flex flex-col gap-[2px]
-					place-content-center
-			'>
-			<div className='h-full w-full'>
-				{!openView && (
-					<div className='place-items-center flex h-full w-full flex-row gap-2'>
-						<TrickList_Container
-							addItemopen={addItemopen}
-							profileuuid={profileuuid}
-							setTricklist_id={setTricklist_id}
-							displayOnly={displayOnly}
-							setOpenView={setOpenView}
-							openView={openView}
-							open={open}
-						/>
-					</div>
-				)}
+		<div className='h-[500px]'>
+			<div id="trickList_Header"
+				className='h-5 flex flex-row justify-center items-end'>
+				Trick List
+			</div>
 
-				{/* ADD TRICKLIST BUTTON */}
-				{!displayOnly && !open && (
-					<AddListButton setOpen={setOpen} open={open} />
-				)}
-				{/* ADD TRICKLIST POPUP */}
-				<div>
-					{open && !displayOnly && <MakeNewTrickList setOpen={setOpen} />}
-				</div>
-
-				{/* CONTENT CONTAINER */}
-				<div>
-					{openView && (
-						<ListViewbyID
-							addItemopen={addItemopen}
-							setAddItemopen={setAddItemopen}
-							displayOnly={displayOnly}
-							setOpenView={setOpenView}
-							tricklist_id={tricklist_id}
-							setTricklist_id={setTricklist_id}
-							openView={openView}
-							open={open}
-						/>
+			<div
+				id={"tricklistPage-Container"}
+				className='
+				bg-zinc-400 border-white 
+				h-full w-[90vw] p-1
+				rounded-md
+				'>
+				<div className='h-full w-full'>
+					{!openView && (
+						<div className='flex flex-row'>
+								<TrickList_Container
+									addItemopen={addItemopen}
+									profileuuid={profileuuid}
+									setTricklist_id={setTricklist_id}
+									displayOnly={displayOnly}
+									setOpenView={setOpenView}
+									openView={openView}
+									open={open}
+								/>
+						</div>
 					)}
+
+					{/* ADD TRICKLIST BUTTON */}
+					{!displayOnly && !open && (
+						<AddListButton setOpen={setOpen} open={open} />
+					)}
+					{/* ADD TRICKLIST POPUP */}
+					<div>
+						{open && !displayOnly && <MakeNewTrickList setOpen={setOpen} />}
+					</div>
+
+					{/* CONTENT CONTAINER */}
+					<div>
+						{openView && (
+							<ListViewbyID
+								addItemopen={addItemopen}
+								setAddItemopen={setAddItemopen}
+								displayOnly={displayOnly}
+								setOpenView={setOpenView}
+								tricklist_id={tricklist_id}
+								setTricklist_id={setTricklist_id}
+								openView={openView}
+								open={open}
+							/>
+						)}
+					</div>
 				</div>
 			</div>
 		</div>

@@ -30,6 +30,7 @@ const TricklistDisplay = ({
 	const [trickListID, setTrickListID] = useState();
 	const [comboListOpen, setComboListOpen] = useState(true);
 	const [comboListID, setComboListID] = useState();
+	const [prevList, setPrevList] = useState([]);
 	const [listArray, setListArray] = useState(
 		[
 			{
@@ -69,94 +70,70 @@ const TricklistDisplay = ({
 				}
 			}
 			setTrickListID(list.tricklist_id);
+			setPrevList([...prevList, listArray]);
 			setListArray(arr);
 		}
-		else {
-			setListArray([
-			{
-				"type": "TrickList",
-				"tricklist_id": "dc48fd5c-5c26-43ff-aabe-2e2a86fc05a0",
-				"name": "TrickList 01",
-				"owner": "3e5a2019-593e-490d-b301-91d76b5381de",
-				"createdAt": "2022-09-05T22:21:44.000Z",
-				"updatedAt": "2022-09-05T22:21:44.000Z",
-				"Owner": {
-					"username": "TestUsername"
-				}
-			},
-			{
-				"type": "TrickList",
-				"tricklist_id": "f579d784-16b9-4613-be8e-77bd4dbd5a56",
-				"name": "TrickList 02",
-				"owner": "3e5a2019-593e-490d-b301-91d76b5381de",
-				"createdAt": "2022-09-05T10:59:44.000Z",
-				"updatedAt": "2022-09-05T10:59:44.000Z",
-				"Owner": {
-					"username": "TestUsername"
-				}
-			}]);
-		}
+		else setListArray(prevList.pop());
 	};
 
 	const _toggleComboList = (list) => {
+		const _comboId = list.Combo.combo_id
+
 		setComboListOpen(!comboListOpen);
 		if (comboListOpen) {
 			let arr = [listArray[0], list];
+
 			for (let i = 0; i < mockedData.length; i++) {
 				if (mockedData[i].tricklist_id === trickListID) {
-					setComboListID(mockedData[i].Combo.combo_id)
-					const comboCnt = mockedData[i].Combo.comboArray.length;
-					for (let j = 0; j < comboCnt; j++) {
-						// @TODO: Remove when data has type
-						mockedData[i].Combo.comboArray[j].type = "Trick";
-						arr.push(mockedData[i].Combo.comboArray[j]);
+					if (mockedData[i].Combo.combo_id === _comboId) {
+						const comboCnt = mockedData[i].Combo.comboArray.length;
+						for (let j = 0; j < comboCnt; j++) {
+							// @TODO: Remove when data has type
+							mockedData[i].Combo.comboArray[j].type = "Trick";
+							arr.push(mockedData[i].Combo.comboArray[j])
+						}
+						setComboListID(_comboId)
+						setPrevList([...prevList, listArray])
+						setListArray(arr)
+						return;
 					}
-					setListArray(arr);
-					return;
 				}
 			}
 		}
-		else {
-			setListArray([
-			{
-				"type": "TrickList",
-				"tricklist_id": "dc48fd5c-5c26-43ff-aabe-2e2a86fc05a0",
-				"name": "TrickList 01",
-				"owner": "3e5a2019-593e-490d-b301-91d76b5381de",
-				"createdAt": "2022-09-05T22:21:44.000Z",
-				"updatedAt": "2022-09-05T22:21:44.000Z",
-				"Owner": {
-					"username": "TestUsername"
-				}
-			},
-			{
-				"type": "TrickList",
-				"tricklist_id": "f579d784-16b9-4613-be8e-77bd4dbd5a56",
-				"name": "TrickList 02",
-				"owner": "3e5a2019-593e-490d-b301-91d76b5381de",
-				"createdAt": "2022-09-05T10:59:44.000Z",
-				"updatedAt": "2022-09-05T10:59:44.000Z",
-				"Owner": {
-					"username": "TestUsername"
-				}
-			}]);
-		}
+		else setListArray(prevList.pop())
 	};
 
 	const _listElementStyle = (type) => {
-		let _style = "";
+		let _selected;
+		let _style = "break-all w-full p-1 font-inter text-sm font-semibold text-zinc-200";
+
 		switch(type) {
 			default:
-				_style = 'break-all w-full rounded-md bg-blue-200 p-2 font-inter text-sm font-semibold text-zinc-200';
+				_style = _style.concat(" bg-zinc-100");
 				break;
+
 			case "TrickList":
-				_style = 'break-all w-full rounded-md bg-blue-500 p-2 font-inter text-sm font-semibold text-zinc-200';
+				_style = _style.concat(" bg-zinc-800");
+				_selected = true;
+				if (_selected) {
+					_style = _style.concat(" rounded-t-lg h-[50px]");
+				}
 				break;
+
 			case "Combo":
-				_style = 'break-all w-full rounded-md bg-green-500 p-2 font-inter text-sm font-semibold text-zinc-200';
+				_style = _style.concat(" bg-zinc-700");
+				_selected = false
+				if (!_selected) {
+					_style = _style.concat(" w-[95%]");
+				}
 				break;
+
 			case "Trick":
-				_style = 'break-all w-full rounded-md bg-red-500 p-2 font-inter text-sm font-semibold text-zinc-200';
+				_style = _style.concat(" bg-zinc-600");
+				_selected = false
+				if (!_selected) {
+					_style = _style.concat(" w-[90%]");
+				}
 				break;
 		}
 		return _style;
@@ -185,19 +162,11 @@ const TricklistDisplay = ({
 			<div 
 				id="trickList_Container"
 				className='
-				bg-blue-800 border-white 
-				w-full 
-				flex flex-col gap-[2px]
-				place-content-center
+				h-[500px] w-full bg-zinc-900
+				flex flex-col gap-[1px]
+				justify-start
 				'
 			>
-				{/* TRICKLIST HEADER */}
-				<div id="trickList_Header"
-					className="flex flex-row items-center justify-around">
-					<button>Header</button>
-					<button>Info</button>
-					<button>Here</button>
-				</div>
 				{
 					/* TRICKLIST CLICKABLE */
 					Array.isArray(listArray) &&

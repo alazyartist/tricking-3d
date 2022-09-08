@@ -56,9 +56,13 @@ const TrickList_Component = ({ data, date, fn, _style, drag_offset, swipe_left, 
 	return (
 		<animated.div
 			{...bind()}
-			className={`overflow-hidden h-full w-full z-[0] rounded-md relative`}
-			style={{ background: bg, touchAction: "none" }}>
+			className={`overflow-hidden z-[0] relative`}
+			style={{ touchAction: "none" }}>
+			{/*
+					style={{ background: bg, touchAction: "none" }}>
+			*/}
 
+			{/* FLOATING BALL */}
 			<animated.div 
 				className={`
 					w-[12px] h-[12px]	z-[1]
@@ -69,7 +73,7 @@ const TrickList_Component = ({ data, date, fn, _style, drag_offset, swipe_left, 
 			/>
 
 			<animated.div
-				className={"relative h-full w-full z-[2]"}
+				className={"relative w-full z-[2] flex flex-row justify-center items-center"}
 				{...bind()}
 				style={{ x, touchAction: "none" }}>
 				<button
