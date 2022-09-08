@@ -2,7 +2,6 @@ import db from "../models/index.js";
 const tricks = await db.sequelize.models.Tricks;
 const stances = await db.sequelize.models.Stances;
 const transitions = await db.sequelize.models.Transitions;
-tricks.associate(db.sequelize.models);
 // db.sequelize.models.Tricks.associate(db.sequelize.models);
 // db.sequelize.models.Bases.associate(db.sequelize.models);
 // db.sequelize.models.Stances.associate(db.sequelize.models);
@@ -20,7 +19,7 @@ export const getTrickByTrickId = async (req, res) => {
 			],
 		})
 		.then((data) => {
-			console.log(data);
+			// console.log(data);
 			res.json(data);
 		})
 		.catch((err) => console.log(err));
@@ -36,6 +35,15 @@ export const getAllTricks = async (req, res) => {
 			.then(async (allStances) => {
 				const allTricks = await tricks.findAll({
 					include: [
+						{
+							model: db.sequelize.models.Trick_Variations,
+							as: "TVariations",
+							include: [
+								{
+									model: db.sequelize.models.Variations,
+								},
+							],
+						},
 						db.sequelize.models.Variations,
 						db.sequelize.models.Animations,
 					],

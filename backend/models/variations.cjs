@@ -10,6 +10,7 @@ module.exports = (sequelize) => {
 		static associate({ Tricks }) {
 			// define association here
 			this.belongsToMany(Tricks, {
+				as: "Potential Tricks",
 				through: "Trick_Variations",
 				foreignKey: "variation_id",
 				sourceKey: "id",

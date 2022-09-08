@@ -12,7 +12,7 @@ import { mailer } from "../middleware/nodemailer.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 env.config();
-db.sequelize.models.Tricks.associate(db.sequelize.models);
+// db.sequelize.models.Tricks.associate(db.sequelize.models);
 user.associate(db.sequelize.models);
 
 export const getUserInfo = async (req, res) => {
