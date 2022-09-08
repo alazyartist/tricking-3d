@@ -4,7 +4,10 @@ const TrickOrComboDetails = ({ trickOrCombo, details }) => {
 	const [trickInfo, setTrickInfo] = useState();
 	const [trickInfoOpen, setTrickInfoOpen] = useState();
 	useEffect(() => {
-		console.log(trickInfo);
+		setTrickInfo(details);
+	}, [details]);
+	useEffect(() => {
+		console.log(trickInfo, trickOrCombo);
 	}, [trickInfo]);
 	const handleClick = (trick) => {
 		setTrickInfo(trick);
@@ -12,11 +15,11 @@ const TrickOrComboDetails = ({ trickOrCombo, details }) => {
 	};
 	return (
 		<div>
-			{trickOrCombo === "Trick" && <TrickDetailDisplay trick={details} />}
+			{trickOrCombo === "Trick" && <TrickDetailDisplay details={trickInfo} />}
 			{trickOrCombo === "Combo" && (
 				<div className='flex gap-2'>
-					{details?.[0]?.comboArray?.length &&
-						details?.[0]?.comboArray?.map((trick) => {
+					{details?.comboArray?.length &&
+						details?.comboArray?.map((trick) => {
 							return (
 								<div>
 									<div
@@ -45,21 +48,21 @@ const TrickOrComboDetails = ({ trickOrCombo, details }) => {
 const TrickDetailDisplay = ({ trick, details, comboTrick }) => {
 	return (
 		<div>
-			{details?.[0]?.base_id !== undefined && !comboTrick && (
-				<>
-					<div>
-						Base{" "}
-						{(details?.[0]?.base_id === details?.[0]?.name &&
-							details?.[0]?.name) ||
-							`Base Trick`}
-					</div>
-					<div className='flex gap-2'>
-						<div>{details?.[0]?.takeoffStance}</div>
-						<div>{details?.[0]?.landingStance}</div>
-					</div>
-					<div>Type {details?.[0]?.trickType}</div>
-				</>
-			)}
+			{details?.base_id &&
+				!comboTrick &&(
+					<>
+						<div>
+							Base{" "}
+							{(details?.base_id === details?.name && details?.name) ||
+								`Base Trick`}
+						</div>
+						<div className='flex gap-2'>
+							<div>{details?.takeoffStance}</div>
+							<div>{details?.landingStance}</div>
+						</div>
+						<div>Type {details?.trickType}</div>
+					</>
+				)}
 			{comboTrick && trick?.name === details?.name && (
 				<div className='flex flex-col'>
 					<div>

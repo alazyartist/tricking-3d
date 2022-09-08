@@ -5,7 +5,7 @@ import Interact from "../../pages/dash/components/Interact";
 import TrickInfoComments from "./TrickInfoComments";
 import { useGetTricksById } from "../../api/useGetTricks";
 import { useGetComboById } from "../../api/useGetCombos";
-import TrickOrComboDetails from "./TrickOrComboDetails";
+import TrickOrComboDetails from "./trickInfo/TrickOrComboDetails";
 
 export default function TrickInfo() {
 	const setInfo = useStore((state) => state.setInfo);
@@ -54,7 +54,7 @@ export default function TrickInfo() {
 								: "Info Will Be Added Soon"}
 						</p> */}
 						<TrickOrComboDetails
-							details={details}
+							details={details?.[0]}
 							trickOrCombo={trickOrCombo}
 						/>
 

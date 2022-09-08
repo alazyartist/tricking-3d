@@ -12,7 +12,16 @@ export const getTrickByTrickId = async (req, res) => {
 		.findAll({
 			where: { trick_id },
 			include: [
-				{ model: db.sequelize.models.Variations, as: "Variations" },
+				{
+					model: db.sequelize.models.Trick_Variations,
+					as: "Variations",
+					include: [
+						{
+							model: db.sequelize.models.Variations,
+						},
+					],
+				},
+				{ model: db.sequelize.models.Variations, as: "UniqueVariations" },
 				{ model: db.sequelize.models.Stances, as: "Stance" },
 				{ model: db.sequelize.models.Bases },
 				{ model: db.sequelize.models.Animations },
@@ -37,14 +46,14 @@ export const getAllTricks = async (req, res) => {
 					include: [
 						{
 							model: db.sequelize.models.Trick_Variations,
-							as: "TVariations",
+							as: "Variations",
 							include: [
 								{
 									model: db.sequelize.models.Variations,
 								},
 							],
 						},
-						db.sequelize.models.Variations,
+						{ model: db.sequelize.models.Variations, as: "UniqueVariations" },
 						db.sequelize.models.Animations,
 					],
 				});
