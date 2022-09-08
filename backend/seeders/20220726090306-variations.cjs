@@ -184,8 +184,8 @@ module.exports = {
 			{
 				id: 29,
 				variationType: "Shape",
-				name: "DonutBoy",
-				value: "DonutBoy",
+				name: "Pike",
+				value: "Pike",
 				pos: "B,M,E",
 			},
 			{
@@ -278,6 +278,41 @@ module.exports = {
 				name: "halfGyro",
 				value: "180",
 				pos: "En,Ex",
+			},
+			{
+				id: 39,
+				variationType: "Kick",
+				name: "Scissor",
+				value: "Round",
+				pos: "E",
+			},
+			{
+				id: 40,
+				variationType: "Touchdown",
+				name: "Cart",
+				value: "Left->Right",
+				pos: "M",
+			},
+			{
+				id: 41,
+				variationType: "Touchdown",
+				name: "Gumbi",
+				value: "Right->Left",
+				pos: "M",
+			},
+			{
+				id: 42,
+				variationType: "Touchdown",
+				name: "master",
+				value: "Both",
+				pos: "M",
+			},
+			{
+				id: 43,
+				variationType: "Touchdown",
+				name: "spring",
+				value: "Both",
+				pos: "M",
 			},
 		]);
 	},

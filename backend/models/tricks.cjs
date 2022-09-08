@@ -28,15 +28,20 @@ module.exports = (sequelize) => {
 				through: "Trick_Variations",
 				foreignKey: "trick_id",
 				sourceKey: "trick_id",
-				uniqueKey: "id",
+				otherKey: "variation_id",
+				targetKey: "id",
 			});
-			this.hasMany(Trick_Variations, {
-				as: "Variations",
-				foreignKey: "trick_id",
-				sourceKey: "trick_id",
-				targetKey: "trick_id",
-				otherKey: "trick_id",
-			});
+			this.hasMany(
+				Trick_Variations,
+				{
+					as: "Variations",
+					foreignKey: "trick_id",
+					sourceKey: "trick_id",
+					targetKey: "trick_id",
+					otherKey: "trick_id",
+				},
+				{ constraints: false }
+			);
 
 			this.belongsTo(Stances, {
 				foreignKey: "stance_id",

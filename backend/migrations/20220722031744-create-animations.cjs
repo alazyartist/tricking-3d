@@ -23,6 +23,8 @@ module.exports = {
 		});
 	},
 	async down(queryInterface, Sequelize) {
+		await queryInterface.dropTable("Combos");
+		await queryInterface.dropTable("Tricks");
 		await queryInterface.dropTable("Animations");
 	},
 };
