@@ -32,7 +32,7 @@ const TricklistsAndClamiedContainer = ({
 			</div>
 			{activePane === "Tricklists" && (
 				<div
-					className={`flex h-full w-[80vw] flex-col place-items-center ${
+					className={`flex h-[37vh] w-[80vw] flex-col place-items-center ${
 						MyTricklists?.length
 							? "place-content-start"
 							: "place-content-center"
@@ -54,7 +54,7 @@ const TricklistsAndClamiedContainer = ({
 			)}
 			{activePane === "Claimed" && (
 				<div
-					className={`flex h-[37vh] w-[80vw] flex-col place-content-center place-items-center bg-zinc-600`}>
+					className={`flex h-[37vh] w-[80vw] flex-col place-content-start place-items-center bg-zinc-600`}>
 					<ClaimedDisplay Claimed={Claimed} />
 				</div>
 			)}
