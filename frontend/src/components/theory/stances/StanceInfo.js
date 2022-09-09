@@ -5,23 +5,23 @@ import { useStore } from "../../../store/store";
 import TransitionButtons from "../../../pages/comboMaker/components/TransitionButtons";
 import { stanceInfoText as stanceText } from "./stanceInfoText";
 import StanceSVG from "./StanceSVG";
+export const color = {
+	Backside: `bg-[#07b9e9]`,
+	Inside: `bg-[#06d8b7]`,
+	Outside: `bg-[#10b35d]`,
+	Frontside: `bg-[#003eb3]`,
+	BacksideComplete: `bg-[#7EE0FB]`,
+	OutsideComplete: `bg-[#75FBB3]`,
+	OutsideSemi: `bg-[#2db36c]`,
+	FrontsideSemi: `bg-[#2b5ab3]`,
+	FrontsideMega: `bg-[#4171ca]`,
+	InsideMega: `bg-[#40baa6]`,
+	InsideHyper: `bg-[#5ed8c5]`,
+	BacksideHyper: `bg-[#6bcee9]`,
+};
 function StanceInfo(props) {
 	const currentLeg = useComboMakerStore((s) => s.currentLeg);
 	const stanceColor = useStore((s) => s.stanceColor);
-	const color = {
-		Backside: `bg-[#07b9e9]`,
-		Inside: `bg-[#06d8b7]`,
-		Outside: `bg-[#10b35d]`,
-		Frontside: `bg-[#003eb3]`,
-		BacksideComplete: `bg-[#7EE0FB]`,
-		OutsideComplete: `bg-[#75FBB3]`,
-		OutsideSemi: `bg-[#2db36c]`,
-		FrontsideSemi: `bg-[#2b5ab3]`,
-		FrontsideMega: `bg-[#4171ca]`,
-		InsideMega: `bg-[#40baa6]`,
-		InsideHyper: `bg-[#5ed8c5]`,
-		BacksideHyper: `bg-[#6bcee9]`,
-	};
 
 	let currentColor = color[props.stance];
 	// let curColor = `bg-[#4171ca]`;
