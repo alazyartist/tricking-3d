@@ -13,7 +13,6 @@ const UserProfile = () => {
 	const { uuid } = useParams();
 	const { uuid: loggedInUUID } = useUserStore((s) => s.userInfo);
 	const { data: profileInfo } = useUserInfoByUUID(uuid);
-	console.log(profileInfo);
 	const [editing, setEditing] = useState(false);
 	const editView = useTransition(editing, {
 		from: { top: -400, opacity: 0 },

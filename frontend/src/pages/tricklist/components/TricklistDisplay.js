@@ -12,18 +12,16 @@ const TricklistDisplay = ({
 	const userInfo = useUserStore((s) => s.userInfo);
 	const { uuid: userUUID } = useUserStore((s) => s.userInfo);
 	const handleListClick = (uuid) => {
-		console.log("setOpenView", uuid);
 		setTricklist_id(uuid);
 		setOpenView(true);
 	};
-	console.log(userUUID);
 	const { data: lists } = useGetTricklists(profileuuid);
 
 	return (
 		!open && (
 			<div
 				id='TricklistDisplay-table'
-				className='place-content-center flex w-full p-2'>
+				className='flex w-full place-content-center p-2'>
 				<table>
 					<thead className='text-center text-xs font-semibold text-zinc-300'>
 						<tr>

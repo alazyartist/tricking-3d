@@ -8,9 +8,6 @@ const TrickOrComboDetails = ({ trickOrCombo, details }) => {
 	useEffect(() => {
 		setTrickInfo(details);
 	}, [details]);
-	useEffect(() => {
-		console.log(trickInfo, trickOrCombo);
-	}, [trickInfo]);
 	const handleClick = (trick) => {
 		setTrickInfo(trick);
 		setTrickInfoOpen(!trickInfoOpen);
@@ -58,13 +55,18 @@ const TrickDetailDisplay = ({ trick, trick_id, comboTrick }) => {
 	const { data } = useGetTricksById(trick_id);
 	useEffect(() => {
 		data && setDetails(data[0]);
-		console.log(data?.[0]);
 	}, [data]);
 	return (
 		<div className='flex flex-col place-items-center text-center'>
 			{comboTrick
 				? details?.name === trick?.name && (
 						<div className='flex flex-col gap-4'>
+							{details?.Variations?.length &&
+								details?.Variations?.map(
+									(v) =>
+										v.Variation.variationType === "Rotation" &&
+										parseInt(v.Variation.value)
+								)?.reduce((pv, cv) => pv + cv)}
 							<div>{details?.base_id} </div>
 							<div className='flex gap-2'>
 								<StanceRemap stance={details?.takeoffStance} />
@@ -74,12 +76,6 @@ const TrickDetailDisplay = ({ trick, trick_id, comboTrick }) => {
 								{details?.Variations.map((v) => (
 									<div>{v.Variation?.name}</div>
 								))}
-								{details?.Variations?.length &&
-									details?.Variations?.map(
-										(v) =>
-											v.Variation.variationType === "Rotation" &&
-											parseInt(v.Variation.value)
-									)?.reduce((pv, cv) => pv + cv)}
 							</div>
 						</div>
 				  )

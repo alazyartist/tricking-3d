@@ -18,7 +18,6 @@ const Interact = () => {
 	const { data: tricks } = useGetTricks();
 	const { data: combos } = useGetCombos();
 	const handleSubmit = async (e) => {
-		console.log(uuid);
 		e.preventDefault();
 		try {
 			console.log("trying interact");
@@ -58,25 +57,14 @@ const Interact = () => {
 
 		setTrick_id(tid);
 		setTrickOrCombo(comboOrTrick);
-		console.log(tricks);
-		console.log(
-			tricks?.length &&
-				tricks.filter(
-					(trick) => trick.name.toLowerCase() === currentAnim.toLowerCase()
-				)
-		);
-		console.log(tid);
 	}, [tricks, currentAnim]);
-	useEffect(() => {
-		console.log(trick_id);
-	}, [trick_id]);
 
 	return (
 		trick_id && (
 			<div className='fixed bottom-5  w-full'>
 				<form
 					onSubmit={handleSubmit}
-					className='place-content-center flex gap-2 font-inter text-zinc-800'>
+					className='flex place-content-center gap-2 font-inter text-zinc-800'>
 					<input
 						value={content}
 						onChange={(e) => {

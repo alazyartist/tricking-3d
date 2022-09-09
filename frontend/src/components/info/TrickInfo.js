@@ -24,10 +24,7 @@ export default function TrickInfo() {
 			setDetails(comboDetails);
 		}
 	}, [trick_id, comboDetails, trickDetails]);
-	useEffect(() => {
-		console.log(details);
-	}, [details]);
-	console.log(trickDetails);
+	useEffect(() => {}, [details]);
 	const TrickInfoText = TrickInformation[currentAnim]?.toString();
 	return (
 		<>

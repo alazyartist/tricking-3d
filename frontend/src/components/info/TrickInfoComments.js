@@ -11,13 +11,9 @@ const TrickInfoComments = () => {
 	const { userInfo } = useUserStore();
 	const currentAnim = useStore((s) => s.currentAnim);
 	const trick_id = useStore((s) => s.trick_id);
-	console.log(userInfo);
 
 	const { data: comments } = useGetInteractions(trick_id);
 	const { mutate: deleteComment } = useDeleteInteraction();
-	useEffect(() => {
-		console.log(comments);
-	}, [comments]);
 
 	return (
 		trick_id && (
