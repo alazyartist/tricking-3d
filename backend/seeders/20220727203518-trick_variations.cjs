@@ -96,18 +96,28 @@ module.exports = {
 			},
 			{
 				//snapu swipe
-				trick_id: "5aa66c92-2f32-11ed-9dcf-6fbfead50465",
+				trick_id: "5aa66cce-2f32-11ed-9dd1-9b9ecf2e2f6f",
 				variation_id: 13,
 			},
 			{
 				//snapu twist
-				trick_id: "5aa66c92-2f32-11ed-9dcf-6fbfead50465",
+				trick_id: "5aa66cce-2f32-11ed-9dd1-9b9ecf2e2f6f",
 				variation_id: 7,
 			},
 			{
 				//sailor-Raiz sailor
 				trick_id: "5aa66cec-2f32-11ed-9dd2-4322700699cc",
 				variation_id: 1,
+			},
+			{
+				//sailor-Raiz-scissor scissor
+				trick_id: "b4560032-693c-476b-8456-5a366b9a38fc",
+				variation_id: 1,
+			},
+			{
+				//sailor-Raiz-scissor scissor
+				trick_id: "b4560032-693c-476b-8456-5a366b9a38fc",
+				variation_id: 39,
 			},
 			{
 				//touchdown-Raiz touchdown

@@ -471,7 +471,7 @@ module.exports = {
 			{
 				trick_id: "5aa669e0-2f32-11ed-9db8-93708240e526",
 				base_id: "Aerial",
-				name: "Round-off",
+				name: "Roundoff",
 				stance_id: "Frontside",
 				takeoffStance: "Frontside",
 				landingStance: "Backside",
@@ -1152,6 +1152,16 @@ module.exports = {
 				landingStance: "BacksideComplete",
 				trickType: "Invert",
 				defaultAnimation: "1ee36871-c6ed-48ea-a159-263086d802cb",
+			},
+			{
+				trick_id: "b4560032-693c-476b-8456-5a366b9a38fc",
+				base_id: "Raiz",
+				name: "sailor-Raiz-scissor",
+				stance_id: "OutsideSemi",
+				takeoffStance: "OutsideSemi",
+				landingStance: "BacksideComplete",
+				trickType: "Invert",
+				defaultAnimation: "fc95d70e-d777-46de-81dc-c0f0a7dac361",
 			},
 			{
 				trick_id: "5aa66cce-2f32-11ed-9dd1-9b9ecf2e2f6f",
