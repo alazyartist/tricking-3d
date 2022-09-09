@@ -43,16 +43,15 @@ export default function TrickInfo() {
 							className='justify-center text-3xl font-black '>
 							{currentAnim}
 						</h2>
-						<h5>{trickOrCombo}</h5>
-						{/* <p
-							id='trick-info'
-							className='mt-4 w-[50vw] justify-center font-inter text-base font-light md:text-lg'>
-							{TrickInfoText?.length > 1
-								? TrickInfoText
-								: details?.length
-								? details?.[0]?.name
-								: "Info Will Be Added Soon"}
-						</p> */}
+						<div className='flex gap-3'>
+							<h5>{trickOrCombo}</h5>
+							{details?.[0]?.trickType && (
+								<h5>
+									<span className='pr-2'>|</span> {details?.[0]?.trickType}
+								</h5>
+							)}
+						</div>
+
 						<TrickOrComboDetails
 							details={details?.[0]}
 							trickOrCombo={trickOrCombo}

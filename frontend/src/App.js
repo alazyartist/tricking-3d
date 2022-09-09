@@ -78,7 +78,7 @@ function App() {
 	return (
 		<>
 			<QueryClientProvider client={queryClient}>
-				<ReactQueryDevtools initialIsOpen />
+				{/* <ReactQueryDevtools initialIsOpen /> */}
 				<AppBackground />
 				<UserIcon />
 				{!location.pathname.includes("/home") && location.pathname !== "/" && (
@@ -182,8 +182,4 @@ function App() {
 
 export default App;
 
-//test
-//DEV PUSH CHECK
 // 8=D
-//set time out on the landing
-//tivo's test to push to dev check
