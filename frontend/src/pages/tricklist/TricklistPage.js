@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import AddListButton from "./components/AddListButton";
 import ListViewbyID from "./components/ListViewbyID";
 import MakeNewTrickList from "./components/MakeNewTrickList";
-import TricklistDisplay from "./components/TricklistDisplay";
-import TrickList_Container from "./components/trickList_Container";
+import TrickListContainer from "./components/trickList_Container";
 
 const TricklistPage = ({ displayOnly, profileuuid }) => {
 	const [open, setOpen] = useState(false);
@@ -32,7 +31,7 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 				<div className='h-full w-full'>
 					{!openView && (
 						<div className='flex flex-row'>
-								<TrickList_Container
+								<TrickListContainer
 									addItemopen={addItemopen}
 									profileuuid={profileuuid}
 									setTricklist_id={setTricklist_id}

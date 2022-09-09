@@ -12,7 +12,7 @@ const TrickList_Component = ({ data, date, fn, _style, drag_offset, swipe_left, 
 	const [{ x, bg, scale, offset }, api] = useSpring(() => ({ x: 0, scale: 1, ...left }))
 
 
-	const bind = useDrag(({ initial, active, dragging, movement: [x] }) => {
+	const bind = useDrag(({first, initial, active, dragging, movement: [x] }) => {
 		if (dragging) {
 			x = clamp(x, -drag_offset, drag_offset);
 			setSelectorColor("white");

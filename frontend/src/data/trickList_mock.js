@@ -3,147 +3,251 @@ const data = () => {
 	return(
 		[
 			{
-				"id": 4,
-				"tricklist_id": "dc48fd5c-5c26-43ff-aabe-2e2a86fc05a0",
-				"combo_id": "1f4cf3e0-f26c-4046-9851-9a8134b07e90",
-				"createdAt": "2022-09-07T08:06:15.000Z",
-				"updatedAt": "2022-09-07T08:06:15.000Z",
-				"Combo": {
-					"combo_id": "1f4cf3e0-f26c-4046-9851-9a8134b07e90",
-					"creator": "admin696-8c94-4ca7-b163-9alazyartist",
-					"defaultAnimation": "465d201d-6fa1-4402-b84e-4480229edaa1",
-					"name": "Hook>master-Scoot>Cork",
-					"type": "Combo",
-					"comboArray": [
-						{
-							"name": "Hook",
-							"type": "Trick",
-							"base_id": "Hook",
-							"trick_id": "c56565e6-19d0-40bb-8571-1452d0284b56",
-							"Animation": null,
-							"stance_id": "BacksideHyper",
-							"trickType": "Kick",
-							"Variations": [],
-							"landingStance": "BacksideHyper",
-							"takeoffStance": "BacksideHyper",
-							"defaultAnimation": null
-						},
-						{
-							"name": "master-Scoot",
-							"type": "Trick",
-							"base_id": "GMS",
-							"trick_id": "e0ede2a5-199e-4228-bdff-e63102b31eb4",
-							"Animation": null,
-							"stance_id": "FrontsideSemi",
-							"trickType": "Invert",
-							"Variations": [],
-							"landingStance": "BacksideComplete",
-							"takeoffStance": "FrontsideSemi",
-							"defaultAnimation": null
-						},
-						{
-							"name": "Cork",
-							"type": "Trick",
-							"base_id": "Gainer",
-							"trick_id": "0e178697-d368-4d0b-ba2d-0818b14e5f24",
-							"Animation": null,
-							"stance_id": "BacksideComplete",
-							"trickType": "Invert",
-							"Variations": [],
-							"landingStance": "BacksideComplete",
-							"takeoffStance": "BacksideComplete",
-							"defaultAnimation": null
+				"type": "TrickList",
+				"name": "TrickList 01",
+				"id": 0,
+				"isOpen": false, 
+				"createdAt": "2022-09-05T22:21:44.000Z",
+  			"comboArray": [
+					{
+						"type": "Combo",
+						"name": "Hook>master-Scoot>Cork",
+						"id": 1,
+						"isOpen": false, 
+						"trickArray": [
+							{
+								"type": "Trick",
+								"name": "Hook",
+								"id": 2,
+								"isOpen": false, 
+								"base_id": "Hook",
+								"Animation": null,
+								"stance_id": "BacksideHyper",
+								"trickType": "Kick",
+								"Variations": [],
+								"landingStance": "BacksideHyper",
+								"takeoffStance": "BacksideHyper",
+								"defaultAnimation": null
+							},
+							{
+								"type": "Trick",
+								"name": "master-Scoot",
+								"id": 3,
+								"isOpen": false, 
+								"base_id": "GMS",
+								"Animation": null,
+								"stance_id": "FrontsideSemi",
+								"trickType": "Invert",
+								"Variations": [],
+								"landingStance": "BacksideComplete",
+								"takeoffStance": "FrontsideSemi",
+								"defaultAnimation": null
+							},
+							{
+								"type": "Trick",
+								"name": "Cork",
+								"id": 4,
+								"isOpen": false, 
+								"base_id": "Gainer",
+								"Animation": null,
+								"stance_id": "BacksideComplete",
+								"trickType": "Invert",
+								"Variations": [],
+								"landingStance": "BacksideComplete",
+								"takeoffStance": "BacksideComplete",
+								"defaultAnimation": null
+							}
+						],
+						"defaultAnimation": "465d201d-6fa1-4402-b84e-4480229edaa1",
+						"Animation": {
+							"animationName": "Hook>master-Scoot>Cork",
+							"skeleton": "CC3",
+							"fileName": "Andrew.glb",
+							"model": "Andrew"
 						}
-					],
-					"createdAt": "2022-09-07T06:50:23.000Z",
-					"updatedAt": "2022-09-07T06:50:23.000Z",
-					"Animation": {
-						"animation_id": "465d201d-6fa1-4402-b84e-4480229edaa1",
-						"animationName": "Hook>master-Scoot>Cork",
-						"skeleton": "CC3",
-						"fileName": "Andrew.glb",
-						"model": "Andrew"
+					}, 
+					{
+						"type": "Combo",
+						"name": "Cart>Dub>so180Hook",
+						"id": 5,
+						"isOpen": false, 
+						"trickArray": [
+							{
+								"type": "Trick",
+								"name": "Cart-wheel",
+								"id": 6,
+								"isOpen": false, 
+								"base_id": "Aerial",
+								"Animation": null,
+								"stance_id": "InsideMega",
+								"trickType": "Invert",
+								"Variations": [],
+								"landingStance": "BacksideHyper",
+								"takeoffStance": "InsideMega",
+								"defaultAnimation": null
+							},
+							{
+								"type": "Trick",
+								"name": "double-Full",
+								"id": 7,
+								"isOpen": false, 
+								"base_id": "Backflip",
+								"Animation": null,
+								"stance_id": "Backside",
+								"trickType": "Invert",
+								"Variations": [],
+								"landingStance": "Backside",
+								"takeoffStance": "Backside",
+								"defaultAnimation": null
+							},
+							{
+								"type": "Trick",
+								"name": "so180hook",
+								"id": 8,
+								"isOpen": false, 
+								"base_id": "Hook",
+								"Animation": null,
+								"stance_id": "FrontsideMega",
+								"trickType": "Kick",
+								"Variations": [],
+								"landingStance": "BacksideHyper",
+								"takeoffStance": "FrontsideMega",
+								"defaultAnimation": null
+							}
+						],
+						"defaultAnimation": "886d1044-0c70-46fd-b3df-ad8bafdd46e8",
+						"Animation": {
+							"animationName": "Dub>s180Hook",
+							"skeleton": "CC3",
+							"fileName": "Andrew.glb",
+							"model": "Andrew"
+						}
 					}
-				},
-				"Tricklist": {
-					"tricklist_id": "dc48fd5c-5c26-43ff-aabe-2e2a86fc05a0",
-					"name": "test list",
-					"owner": "41b4e16b-e772-4a89-9d35-2f6158895a62",
-					"createdAt": "2022-09-07T08:06:10.000Z",
-					"updatedAt": "2022-09-07T08:06:10.000Z"
-				}
-			},
+				]
+			}, 
 			{
-				"id": 5,
-				"tricklist_id": "dc48fd5c-5c26-43ff-aabe-2e2a86fc05a0",
-				"combo_id": "196e2fa6-7683-4a29-a0d3-859478430ca0",
-				"createdAt": "2022-09-07T08:12:57.000Z",
-				"updatedAt": "2022-09-07T08:12:57.000Z",
-				"Combo": {
-					"combo_id": "196e2fa6-7683-4a29-a0d3-859478430ca0",
-					"creator": "admin696-8c94-4ca7-b163-9alazyartist",
-					"defaultAnimation": "886d1044-0c70-46fd-b3df-ad8bafdd46e8",
-					"name": "Cart>Dub>so180Hook",
-					"type": "Combo",
-					"comboArray": [
-						{
-							"name": "Cart-wheel",
-							"type": "Trick",
-							"base_id": "Aerial",
-							"trick_id": "0dba9a0f-3098-4369-a9d7-67ff00828b9d",
-							"Animation": null,
-							"stance_id": "InsideMega",
-							"trickType": "Invert",
-							"Variations": [],
-							"landingStance": "BacksideHyper",
-							"takeoffStance": "InsideMega",
-							"defaultAnimation": null
-						},
-						{
-							"name": "double-Full",
-							"type": "Trick",
-							"base_id": "Backflip",
-							"trick_id": "44d77d40-280f-4f6c-afe3-f1bbbb85f0b6",
-							"Animation": null,
-							"stance_id": "Backside",
-							"trickType": "Invert",
-							"Variations": [],
-							"landingStance": "Backside",
-							"takeoffStance": "Backside",
-							"defaultAnimation": null
-						},
-						{
-							"name": "so180hook",
-							"type": "Trick",
-							"base_id": "Hook",
-							"trick_id": "59540e3f-61a0-40d2-9b7a-ad79ffe9cca6",
-							"Animation": null,
-							"stance_id": "FrontsideMega",
-							"trickType": "Kick",
-							"Variations": [],
-							"landingStance": "BacksideHyper",
-							"takeoffStance": "FrontsideMega",
-							"defaultAnimation": null
+				"type": "TrickList",
+				"name": "TrickList 02",
+				"id": 9,
+				"isOpen": false, 
+				"createdAt": "2022-10-05T22:21:44.000Z",
+  			"comboArray": [
+					{
+						"type": "Combo",
+						"name": "Cart>Dub>so180Hook",
+						"id": 10,
+						"isOpen": false, 
+						"trickArray": [
+							{
+								"type": "Trick",
+								"name": "Cart-wheel",
+								"id": 11,
+								"isOpen": false, 
+								"base_id": "Aerial",
+								"Animation": null,
+								"stance_id": "InsideMega",
+								"trickType": "Invert",
+								"Variations": [],
+								"landingStance": "BacksideHyper",
+								"takeoffStance": "InsideMega",
+								"defaultAnimation": null
+							},
+							{
+								"type": "Trick",
+								"name": "double-Full",
+								"id": 12,
+								"isOpen": false, 
+								"base_id": "Backflip",
+								"Animation": null,
+								"stance_id": "Backside",
+								"trickType": "Invert",
+								"Variations": [],
+								"landingStance": "Backside",
+								"takeoffStance": "Backside",
+								"defaultAnimation": null
+							},
+							{
+								"type": "Trick",
+								"name": "so180hook",
+								"id": 13,
+								"isOpen": false, 
+								"base_id": "Hook",
+								"Animation": null,
+								"stance_id": "FrontsideMega",
+								"trickType": "Kick",
+								"Variations": [],
+								"landingStance": "BacksideHyper",
+								"takeoffStance": "FrontsideMega",
+								"defaultAnimation": null
+							}
+						],
+						"defaultAnimation": "886d1044-0c70-46fd-b3df-ad8bafdd46e8",
+						"Animation": {
+							"animationName": "Dub>s180Hook",
+							"skeleton": "CC3",
+							"fileName": "Andrew.glb",
+							"model": "Andrew"
 						}
-					],
-					"createdAt": "2022-09-07T06:50:23.000Z",
-					"updatedAt": "2022-09-07T06:50:23.000Z",
-					"Animation": {
-						"animation_id": "886d1044-0c70-46fd-b3df-ad8bafdd46e8",
-						"animationName": "Dub>s180Hook",
-						"skeleton": "CC3",
-						"fileName": "Andrew.glb",
-						"model": "Andrew"
+					}, 
+					{
+						"type": "Combo",
+						"name": "Hook>master-Scoot>Cork",
+						"id": 14,
+						"isOpen": false, 
+						"trickArray": [
+							{
+								"type": "Trick",
+								"name": "Hook",
+								"id": 15,
+								"isOpen": false, 
+								"base_id": "Hook",
+								"Animation": null,
+								"stance_id": "BacksideHyper",
+								"trickType": "Kick",
+								"Variations": [],
+								"landingStance": "BacksideHyper",
+								"takeoffStance": "BacksideHyper",
+								"defaultAnimation": null
+							},
+							{
+								"type": "Trick",
+								"name": "master-Scoot",
+								"id": 16,
+								"isOpen": false, 
+								"base_id": "GMS",
+								"Animation": null,
+								"stance_id": "FrontsideSemi",
+								"trickType": "Invert",
+								"Variations": [],
+								"landingStance": "BacksideComplete",
+								"takeoffStance": "FrontsideSemi",
+								"defaultAnimation": null
+							},
+							{
+								"type": "Trick",
+								"name": "Cork",
+								"id": 17,
+								"isOpen": false, 
+								"base_id": "Gainer",
+								"Animation": null,
+								"stance_id": "BacksideComplete",
+								"trickType": "Invert",
+								"Variations": [],
+								"landingStance": "BacksideComplete",
+								"takeoffStance": "BacksideComplete",
+								"defaultAnimation": null
+							}
+						],
+						"defaultAnimation": "465d201d-6fa1-4402-b84e-4480229edaa1",
+						"Animation": {
+							"animationName": "Hook>master-Scoot>Cork",
+							"skeleton": "CC3",
+							"fileName": "Andrew.glb",
+							"model": "Andrew"
+						}
 					}
-				},
-				"Tricklist": {
-					"tricklist_id": "dc48fd5c-5c26-43ff-aabe-2e2a86fc05a0",
-					"name": "test list",
-					"owner": "41b4e16b-e772-4a89-9d35-2f6158895a62",
-					"createdAt": "2022-09-07T08:06:10.000Z",
-					"updatedAt": "2022-09-07T08:06:10.000Z"
-				}
-			},
+				]
+			}
 		]
 	)
 }

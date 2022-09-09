@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import useGetTricklists from "../../../api/useTricklists";
-import TrickList_Component from "./trickList_Component";
-import { useUserStore } from "../../../store/userStore";
-import Data_Mock from "../../../data/trickList_mock";
+import React, { useState, useEffect } from "react"
+import useGetTricklists from "../../../api/useTricklists"
+import TrickList_Component from "./trickList_Component"
+import { useUserStore } from "../../../store/userStore"
+import Data_Mock from "../../../data/trickList_mock"
 
-const TricklistDisplay = ({
+const Tricklist_Container = ({
 	displayOnly,
 	profileuuid,
 	setOpenView,
@@ -15,147 +15,55 @@ const TricklistDisplay = ({
 	//const { data: lists } = useGetTricklists(profileuuid);
 	//const { uuid: userUUID } = useUserStore((s) => s.userInfo);
 	//const userInfo = useUserStore((s) => s.userInfo);
+	const [mockedData] = useState(Data_Mock)
+	const [data, setData] = useState(mockedData)
 
-	/* * Potential Types
-	 * 
-	 * Combo
-	 * Trick
-	 * Stance
-	 * Variation
-	 * Transition
-	 *
-	 * */
-	const [mockedData, setMockedData] = useState(Data_Mock);
-	const [trickListOpen, setTrickListOpen] = useState(true);
-	const [trickListID, setTrickListID] = useState();
-	const [comboListOpen, setComboListOpen] = useState(true);
-	const [comboListID, setComboListID] = useState();
-	const [prevList, setPrevList] = useState([]);
-	const [listArray, setListArray] = useState(
-		[
-			{
-				"type": "TrickList",
-				"tricklist_id": "dc48fd5c-5c26-43ff-aabe-2e2a86fc05a0",
-				"name": "TrickList 01",
-				"owner": "3e5a2019-593e-490d-b301-91d76b5381de",
-				"createdAt": "2022-09-05T22:21:44.000Z",
-				"updatedAt": "2022-09-05T22:21:44.000Z",
-				"Owner": {
-					"username": "TestUsername"
-				}
-			},
-			{
-				"type": "TrickList",
-				"tricklist_id": "f579d784-16b9-4613-be8e-77bd4dbd5a56",
-				"name": "TrickList 02",
-				"owner": "3e5a2019-593e-490d-b301-91d76b5381de",
-				"createdAt": "2022-09-05T10:59:44.000Z",
-				"updatedAt": "2022-09-05T10:59:44.000Z",
-				"Owner": {
-					"username": "TestUsername"
-				}
-			}
-		]
-	);
-
-	const _toggleTrickList = (list) => {
-		setTrickListOpen(!trickListOpen);
-		if (trickListOpen) {
-			let arr = [list];
-			for (let i = 0; i < mockedData.length; i++) {
-				if (mockedData[i].tricklist_id === list.tricklist_id) {
-					// @TODO: Remove when data has type
-					mockedData[i].type = "Combo";
-					arr.push(mockedData[i]);
-				}
-			}
-			setTrickListID(list.tricklist_id);
-			setPrevList([...prevList, listArray]);
-			setListArray(arr);
-		}
-		else setListArray(prevList.pop());
+	const handleListClick = (e) => {
 	};
 
-	const _toggleComboList = (list) => {
-		const _comboId = list.Combo.combo_id
-
-		setComboListOpen(!comboListOpen);
-		if (comboListOpen) {
-			let arr = [listArray[0], list];
-
-			for (let i = 0; i < mockedData.length; i++) {
-				if (mockedData[i].tricklist_id === trickListID) {
-					if (mockedData[i].Combo.combo_id === _comboId) {
-						const comboCnt = mockedData[i].Combo.comboArray.length;
-						for (let j = 0; j < comboCnt; j++) {
-							// @TODO: Remove when data has type
-							mockedData[i].Combo.comboArray[j].type = "Trick";
-							arr.push(mockedData[i].Combo.comboArray[j])
-						}
-						setComboListID(_comboId)
-						setPrevList([...prevList, listArray])
-						setListArray(arr)
-						return;
-					}
-				}
-			}
-		}
-		else setListArray(prevList.pop())
-	};
-
-	const _listElementStyle = (type) => {
+	const _listElementStyle = (type, last) => {
+		console.log("Style-Type: ", type);
 		let _selected;
-		let _style = "break-all w-full p-1 font-inter text-sm font-semibold text-zinc-200";
-
+		let _style = "break-all w-full p-1 font-inter text-sm font-semibold text-zinc-200"
 		switch(type) {
 			default:
-				_style = _style.concat(" bg-zinc-100");
-				break;
+				_style = _style.concat(" bg-zinc-100")
+				break
 
 			case "TrickList":
-				_style = _style.concat(" bg-zinc-800");
+				_style = _style.concat(" bg-zinc-800")
 				_selected = true;
 				if (_selected) {
-					_style = _style.concat(" rounded-t-lg h-[50px]");
+					_style = _style.concat(" rounded-t-lg h-[50px]")
 				}
-				break;
+				break
 
 			case "Combo":
-				_style = _style.concat(" bg-zinc-700");
+				_style = _style.concat(" bg-zinc-700")
 				_selected = false
 				if (!_selected) {
-					_style = _style.concat(" w-[95%]");
+					_style = _style.concat(" w-[95%]")
 				}
-				break;
+				break
 
 			case "Trick":
-				_style = _style.concat(" bg-zinc-600");
+				_style = _style.concat(" bg-zinc-600")
 				_selected = false
 				if (!_selected) {
-					_style = _style.concat(" w-[90%]");
+					_style = _style.concat(" w-[90%]")
 				}
-				break;
+				if (last) {
+					_style = _style.concat(" rounded-b-md")
+				}
+				break
 		}
-		return _style;
+		return _style
 	}
 
-	const handleListClick = (list) => {
-		let type = list.type;
-		switch (type) {
-			default:
-				console.log("handlListClick: Default Type")
-				break;
-			case "TrickList":
-				_toggleTrickList(list);
-				break;
-			case "Combo":
-				_toggleComboList(list);
-				break;
-			case "Trick":
-				console.log("TOGGLE: Trick")
-				break;
-		}
-	};
+	const _getDate = (e) => {
+		let date = new Date(e?.createdAt)
+		return (date.toDateString().slice(3, date.length))
+	}
 
 	return (
 		!open && (
@@ -169,32 +77,76 @@ const TricklistDisplay = ({
 			>
 				{
 					/* TRICKLIST CLICKABLE */
-					Array.isArray(listArray) &&
-						listArray.length > 0 &&
-						listArray.map((item) => {
-							let date = new Date(item?.updatedAt);
-							date = date.toDateString().slice(3, date.length);
-							let _key = item.tricklist_id;
-							if (item.combo_id) _key = item.combo_id;
-
+					Array.isArray(data) &&
+						data.length > 0 &&
+						data.map((list, i) => {
 							return (
-								<TrickList_Component
-									key={_key}
-									data={item}
-									date={date}
-									_style={_listElementStyle(item.type)}
-									fn={() => handleListClick(item)}
-									drag_offset={60}
-									swipe_left={() => console.log(item.name, "- Swipe Left: Replace with function")}
-									swipe_right={() => console.log(item.name, "- Swipe Right: Replace with function")}
-								/>
-							);
+								<>
+									{
+									<TrickList_Component
+										key={list.id}
+										data={list}
+										date={_getDate(list)}
+										_style={_listElementStyle(list.type)}//, i===data.length-1)}
+										fn={() => { handleListClick(list) }}
+										drag_offset={60}
+										swipe_left={() => console.log(list.name, "- Swipe Left: Replace with function")}
+										swipe_right={() => console.log(list.name, "- Swipe Right: Replace with function")}
+									/>
+									}
+									{
+										Array.isArray(list.comboArray) &&
+											list.comboArray.length > 0 &&
+											list.comboArray.map((combo, j) => {
+												return (
+													<>{
+															<TrickList_Component
+																key={combo.id}
+																data={combo}
+																date={_getDate(list)}
+																_style={_listElementStyle(combo.type)}//, i===data.length-1)}
+																fn={() => { handleListClick(combo.type) }}
+																drag_offset={60}
+																swipe_left={() => console.log(combo.name, "- Swipe Left: Replace with function")}
+																swipe_right={() => console.log(combo.name, "- Swipe Right: Replace with function")}
+															/>
+														}
+														{
+															Array.isArray(combo.trickArray) &&
+																combo.trickArray.length > 0 &&
+																combo.trickArray.map((trick, j) => {
+																	return (
+																		<>
+																			{
+																				<TrickList_Component
+																					key={trick.id}
+																					data={trick}
+																					date={_getDate(list)}
+																					_style={_listElementStyle(trick.type)}//, i===data.length-1)}
+																					fn={() => { handleListClick(trick.type) }}
+																					drag_offset={60}
+																					swipe_left={() => console.log(trick.name, "- Swipe Left: Replace with function")}
+																					swipe_right={() => console.log(trick.name, "- Swipe Right: Replace with function")}
+																				/>
+																			}
+																		</>
+																	)
+																}
+															)
+														}
+													</>
+												)
+											}
+										)
+									}
+								</>
+							)
 						}
-						)
+					)
 				}
 			</div>
 		)
 	);
 };
 
-export default TricklistDisplay;
+export default Tricklist_Container;
