@@ -16,7 +16,7 @@ import TheoryPage from "./pages/theory/TheoryPage";
 import AdvancedStanceCircle from "./components/theory/AdvancedStanceCircle";
 import LearnMore from "./pages/learnmore/LearnMore";
 import AboutUs from "./pages/about/AboutUs";
-import TrickList from "./pages/TrickList";
+import AllTrickDisplay from "./pages/AllTrickDisplay";
 import AnatomyOfATrick from "./pages/theory/anatomy/AnatomyOfATrick";
 import Setups from "./pages/theory/Setups";
 import Transitions from "./pages/theory/transitions/Transitions";
@@ -134,7 +134,7 @@ function App() {
 							<Route path={"/need"} element={<AnimationsNeeded />} />
 							<Route path={"/theory"} element={<TheoryPage />}>
 								<Route path={"transitionlist"} element={<TransitionList />} />
-								<Route path={"tricks"} element={<TrickList />} />
+								<Route path={"tricks"} element={<AllTrickDisplay />} />
 								<Route path={"axes"} element={<Axes />} />
 								<Route path={"anatomy"} element={<AnatomyOfATrick />} />
 								<Route path={"setups"} element={<Setups />} />
