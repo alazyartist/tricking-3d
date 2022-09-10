@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSpring, animated, config } from "react-spring";
 
 export const HalfCircle = (props) => {
 	const color = {
+		Backside: `#07b9e9`,
+		Inside: `#06d8b7`,
+		Outside: `#10b35d`,
+		Frontside: `#003eb3`,
 		BacksideComplete: "#7EE0FB",
 		OutsideComplete: "#75fbb3",
 		OutsideSemi: "#2db36c",
@@ -12,6 +16,9 @@ export const HalfCircle = (props) => {
 		InsideHyper: "#5ed8c5",
 		BacksideHyper: "#6bcee9",
 	};
+	useEffect(() => {
+		console.log(props.currentStance);
+	}, [props.currentStance]);
 	// const [isFolded, setIsFolded] = useState(false);
 	const sprang = useSpring({
 		// from: {
