@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import TrickList_ListComponent from "./trickList_Component"
+import TrickList_ListComponent from "./trickList_ListComponent"
 import TrickList_Combo from "./trickList_Combo"
 
 const Tricklist_List = ({
@@ -19,14 +19,15 @@ const Tricklist_List = ({
 					data={data}
 					date={date}
 					style={style}
-					fn={() => { fn(); console.log("click from within") }}
+					fn={() => { setIsOpen(!isOpen) }}
 					drag_offset={drag_offset}
 					swipe_left={() => console.log(data.name, "- Swipe Left: Replace with function")}
 					swipe_right={() => console.log(data.name, "- Swipe Right: Replace with function")}
 				/>
 			}
 			{
-				Array.isArray(data.comboArray) &&
+				isOpen &&
+					Array.isArray(data.comboArray) &&
 					data.comboArray.length > 0 &&
 					data.comboArray.map((combo, j) => {
 						return (
@@ -37,7 +38,7 @@ const Tricklist_List = ({
 										data={combo}
 										date={date}
 										style={style}
-										fn={() => { fn(); console.log("Combo click from within") }}
+										fn={() => { console.log("Combo click from within _List") }}
 										drag_offset={drag_offset}
 										swipe_left={() => console.log(combo.name, "- Swipe Left: Replace with function")}
 										swipe_right={() => console.log(combo.name, "- Swipe Right: Replace with function")}

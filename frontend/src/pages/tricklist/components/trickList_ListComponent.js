@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
-import { useStore } from "../../../store/store.js";
 
-const TrickList_ComboComponent = ({ data, date, fn, style, drag_offset, swipe_left, swipe_right}) => {
-	const [subBtnBg, setSubBtnBg] = useState();
+const TrickList_ListComponent = ({ data, date, style, fn, drag_offset, swipe_left, swipe_right}) => {
 	const [selectorColor, setSelectorColor] = useState();
 	const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 	const left = {bg: `linear-gradient(120deg, #f093fb 0%, #f5576c 100%)`, offset: '90%'}
@@ -58,7 +56,7 @@ const TrickList_ComboComponent = ({ data, date, fn, style, drag_offset, swipe_le
 			{...bind()}
 			className={`overflow-hidden z-[0] relative`}
 			style={{ touchAction: "none" }}>
-			{/*
+			{/* Colorful BAckground
 					style={{ background: bg, touchAction: "none" }}>
 			*/}
 
@@ -88,6 +86,4 @@ const TrickList_ComboComponent = ({ data, date, fn, style, drag_offset, swipe_le
 };
 
 
-export default TrickList_ComboComponent;
-
-
+export default TrickList_ListComponent;
