@@ -8,7 +8,7 @@ const Tricklist_Trick = ({
 	fn,
 	drag_offset
 }) => {
-	const [isOpen, setIsOpen] = useState(true);
+	const [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<>
@@ -17,21 +17,21 @@ const Tricklist_Trick = ({
 					key={date.id}
 					data={data}
 					date={date}
-					style={style}
-					fn={() => { fn(); console.log("click from within") }}
+					fn={() => console.log("click from within Trick") }
 					drag_offset={drag_offset}
 					swipe_left={() => console.log(data.name, "- Swipe Left: Replace with function")}
 					swipe_right={() => console.log(data.name, "- Swipe Right: Replace with function")}
 				/>
 			}
-			{/*
+			{
+				isOpen &&
 				Array.isArray(data.trickArray) &&
 					data.trickArray.length > 0 &&
 					data.trickArray.map((trick, j) => {
 						return (
 							<>
-								{
-									<TrickList_Trick
+								{/*
+									<TrickList
 										key={trick.id}
 										data={trick}
 										date={date}
@@ -41,11 +41,11 @@ const Tricklist_Trick = ({
 										swipe_left={() => console.log(trick.name, "- Swipe Left: Replace with function")}
 										swipe_right={() => console.log(trick.name, "- Swipe Right: Replace with function")}
 									/>
-								}
+									*/}
 							</>
 						)
 					})
-					*/}
+					}
 		</>
 	)
 };

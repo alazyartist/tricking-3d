@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import useGetTricklists from "../../../api/useTricklists"
-import TrickList_List from "./trickList_List"
+import TrickList from "./trickList"
 import { useUserStore } from "../../../store/userStore"
 import Data_Mock from "../../../data/trickList_mock"
 
@@ -17,7 +17,25 @@ const Tricklist_Container = ({
 	//const userInfo = useUserStore((s) => s.userInfo);
 	const [mockedData] = useState(Data_Mock)
 	const [data, setData] = useState(mockedData)
-
+	const _getStyle = (list, last = false) => {
+		let _style = "break-all w-full p-1 font-inter text-sm font-semibold text-zinc-200"
+		switch(list.type) {
+			default:
+				_style = _style.concat(" bg-zinc-100")
+				break
+			case "TrickList":
+				_style = _style.concat(" bg-zinc-800")
+				break;
+			case "Combo":
+				_style = _style.concat(" bg-zinc-700 w-[95%]")
+				break
+			case "Trick":
+				_style = _style.concat(" bg-zinc-600 w-[90%]")
+				if (last) {_style = _style.concat(" rounded-b-md")}
+				break
+		}
+		return _style
+	}
 	const _getDate = (e) => {
 		let date = new Date(e?.createdAt)
 		return (date.toDateString().slice(3, date.length))
@@ -40,11 +58,11 @@ const Tricklist_Container = ({
 							return (
 								<>
 									{
-										<TrickList_List
+										<TrickList
 											key={list.id}
 											data={list}
 											date={_getDate(list)}
-											style={"break-all w-full p-1 font-inter text-sm font-semibold text-zinc-200 bg-zinc-800"}
+											style={_getStyle(list)}
 											fn={() => { console.log("List click from within _Container") }}
 											drag_offset={60}
 											swipe_left={() => console.log(list.name, "- Swipe Left: Replace with function")}

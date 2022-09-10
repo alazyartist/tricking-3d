@@ -3,14 +3,28 @@ import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 import { useStore } from "../../../store/store.js";
 
-const TrickList_TrickComponent = ({ data, date, fn, style, drag_offset, swipe_left, swipe_right}) => {
+const TrickList_TrickComponent = ({ data, date, fn, drag_offset, swipe_left, swipe_right}) => {
 	const [subBtnBg, setSubBtnBg] = useState();
 	const [selectorColor, setSelectorColor] = useState();
 	const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 	const left = {bg: `linear-gradient(120deg, #f093fb 0%, #f5576c 100%)`, offset: '90%'}
 	const right = {bg: `linear-gradient(120deg, #96fbc4 0%, #f9f586 100%)`, offset: '7%'}
 	const [{ x, bg, scale, offset }, api] = useSpring(() => ({ x: 0, scale: 1, ...left }))
-
+	const _getStyle = () => {
+		let _style = "break-all w-full p-1 font-inter text-sm font-semibold text-zinc-200"
+		switch(data.type) {
+			case "TrickList":
+				_style = _style.concat(" bg-zinc-800")
+				break;
+			case "Combo":
+				_style = _style.concat(" bg-zinc-700 w-[95%]")
+				break
+			case "Trick":
+				_style = _style.concat(" bg-zinc-600 w-[90%]")
+				break
+		}
+		return _style
+	}
 
 	const bind = useDrag(({first, initial, active, dragging, movement: [x] }) => {
 		if (dragging) {
@@ -78,7 +92,7 @@ const TrickList_TrickComponent = ({ data, date, fn, style, drag_offset, swipe_le
 				style={{ x, touchAction: "none" }}>
 				<button
 					onClick={() => fn()}
-					className={style}
+					className={_getStyle()}
 				>
 					{label}
 				</button>

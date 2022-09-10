@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import TrickList_ListComponent from "./trickList_ListComponent"
-import TrickList_Combo from "./trickList_Combo"
+import TrickList_Component from "./trickList_Component"
+import TrickList_Next from "./trickList"
 
-const Tricklist_List = ({
+const Tricklist = ({
 	data,
 	date,
 	style,
@@ -14,11 +14,10 @@ const Tricklist_List = ({
 	return (
 		<>
 			{
-				<TrickList_ListComponent
+				<TrickList_Component
 					key={data.id}
 					data={data}
 					date={date}
-					style={_getStyle(data)}
 					fn={() => { setIsOpen(!isOpen) }}
 					drag_offset={drag_offset}
 					swipe_left={() => console.log(data.name, "- Swipe Left: Replace with function")}
@@ -27,13 +26,13 @@ const Tricklist_List = ({
 			}
 			{
 				isOpen &&
-					Array.isArray(data.comboArray) &&
-					data.comboArray.length > 0 &&
-					data.comboArray.map((combo, j) => {
+					Array.isArray(data.innerArray) &&
+					data.innerArray.length > 0 &&
+					data.innerArray.map((combo, j) => {
 						return (
 							<>
 								{
-									<TrickList_Combo 
+									<TrickList_Next
 										key={combo.id}
 										data={combo}
 										date={date}
@@ -51,4 +50,4 @@ const Tricklist_List = ({
 	)
 }
 
-export default Tricklist_List;
+export default Tricklist;
