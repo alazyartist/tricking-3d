@@ -2,26 +2,30 @@ import React, { useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 
-const TrickList_Component = ({ data, date, fn, drag_offset, swipe_left, swipe_right}) => {
+const TrickList_Component = ({ data, open,date, fn, drag_offset, swipe_left, swipe_right}) => {
 	const [selectorColor, setSelectorColor] = useState();
 	const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 	const left = {bg: `linear-gradient(120deg, #f093fb 0%, #f5576c 100%)`, offset: '90%'}
 	const right = {bg: `linear-gradient(120deg, #96fbc4 0%, #f9f586 100%)`, offset: '7%'}
 	const [{ x, bg, scale, offset }, api] = useSpring(() => ({ x: 0, scale: 1, ...left }))
+
 	const _getStyle = () => {
-		let _style = "break-all w-full p-1 font-inter text-sm font-semibold text-zinc-200"
+		let _style = "h-[5vh] break-all w-full p-2 font-inter text-sm font-semibold text-zinc-200"
 		switch(data.type) {
 			case "TrickList":
-				_style = _style.concat(" bg-zinc-800")
+				if(open) _style = _style.concat(" bg-zinc-900 rounded-lg h-[7vh]")
+				else _style = _style.concat(" bg-zinc-900 rounded-full")
 				break;
 			case "Combo":
-				_style = _style.concat(" bg-zinc-700 w-[95%]")
+				if(open) _style = _style.concat(" bg-zinc-700 rounded-lg h-[8vh]")
+				else _style = _style.concat(" bg-zinc-700 w-[95%]")
 				break
 			case "Trick":
-				_style = _style.concat(" bg-zinc-600 w-[90%]")
+				if(open) _style = _style.concat(" bg-zinc-500 h-[5vh] w-[90%]")
+				else _style = _style.concat(" bg-zinc-600 w-[90%]")
 				break
 		}
-		return _style
+		return _style.concat(" ")
 	}
 
 	const bind = useDrag(({first, initial, active, dragging, movement: [x] }) => {

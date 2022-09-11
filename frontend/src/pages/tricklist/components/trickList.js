@@ -5,11 +5,11 @@ import TrickList_Next from "./trickList"
 const Tricklist = ({
 	data,
 	date,
-	style,
 	fn,
 	drag_offset
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
+	const innerArray = (data.comboArray) ? data.comboArray : data.trickArray
 
 	return (
 		<>
@@ -17,6 +17,7 @@ const Tricklist = ({
 				<TrickList_Component
 					key={data.id}
 					data={data}
+					open={isOpen}
 					date={date}
 					fn={() => { setIsOpen(!isOpen) }}
 					drag_offset={drag_offset}
@@ -26,9 +27,9 @@ const Tricklist = ({
 			}
 			{
 				isOpen &&
-					Array.isArray(data.innerArray) &&
-					data.innerArray.length > 0 &&
-					data.innerArray.map((combo, j) => {
+					Array.isArray(innerArray) &&
+					innerArray.length > 0 &&
+					innerArray.map((combo, j) => {
 						return (
 							<>
 								{
@@ -36,7 +37,6 @@ const Tricklist = ({
 										key={combo.id}
 										data={combo}
 										date={date}
-										style={style}
 										drag_offset={drag_offset}
 										swipe_left={() => console.log(combo.name, "- Swipe Left: Replace with function")}
 										swipe_right={() => console.log(combo.name, "- Swipe Right: Replace with function")}

@@ -23,11 +23,14 @@ export const getTricklists = async (req, res) => {
 	console.log("hitGetTricklist");
 	tricklist
 		.findAll({
-			include: {
-				model: db.sequelize.models.Users,
-				as: "Owner",
-				attributes: ["username", "first_name"],
-			},
+			include: [
+				{
+					model: db.sequelize.models.Users,
+					as: "Owner",
+					attributes: ["username", "first_name"],
+				},
+				{ model: db.sequelize.models.Combo },
+			],
 		})
 		.then((data) => {
 			res.json(data);
@@ -41,11 +44,14 @@ export const getUserTricklists = async (req, res) => {
 	tricklist
 		.findAll({
 			where: { owner: user_id },
-			include: {
-				model: db.sequelize.models.Users,
-				as: "Owner",
-				attributes: ["username", "first_name"],
-			},
+			include: [
+				{
+					model: db.sequelize.models.Users,
+					as: "Owner",
+					attributes: ["username", "first_name"],
+				},
+				{ model: db.sequelize.models.Combo, as: "TricklistCombos" },
+			],
 		})
 		.then((data) => {
 			res.json(data);

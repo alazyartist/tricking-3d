@@ -11,20 +11,15 @@ const TrickInfoComments = () => {
 	const { userInfo } = useUserStore();
 	const currentAnim = useStore((s) => s.currentAnim);
 	const trick_id = useStore((s) => s.trick_id);
-	console.log(userInfo);
 
 	const { data: comments } = useGetInteractions(trick_id);
 	const { mutate: deleteComment } = useDeleteInteraction();
-	useEffect(() => {
-		console.log(comments);
-	}, [comments]);
 
 	return (
 		trick_id && (
 			<div className='absolute top-[40vh] h-[30vh] w-[95vw] overflow-auto rounded-xl bg-zinc-800 bg-opacity-60 p-4 pt-4'>
 				<div>
-					{Array.isArray(comments) &&
-						comments?.length &&
+					{Array.isArray(comments) && comments?.length ? (
 						comments?.map((comment) => (
 							<div key={comment.interaction_id} className='flex gap-2'>
 								<UserProfilePicById
@@ -40,7 +35,10 @@ const TrickInfoComments = () => {
 									</p>
 								)}
 							</div>
-						))}
+						))
+					) : (
+						<div>Comment below to start the conversation!</div>
+					)}
 				</div>
 			</div>
 		)

@@ -9,6 +9,10 @@ import { useComboMakerStore } from "../../store/comboMakerStore";
 import { stances } from "../../data/trickDataModel/TrickObjects";
 import StanceList from "./StanceList";
 import StanceInfo from "./stances/StanceInfo";
+import {
+	HalfCircle,
+	HalfCircleFold,
+} from "../../pages/theory/stances/HalfCircleAnimation";
 
 function AdvancedStanceCircle() {
 	const nav = useNavigate();
@@ -20,6 +24,7 @@ function AdvancedStanceCircle() {
 	const setCurrentDirection = useComboMakerStore((s) => s.setCurrentDirection);
 	const [lastRotation, setLastRotation] = useState(0);
 	const [newRot, setNewRot] = useState(0);
+	const [isFolded, setIsFolded] = useState(false);
 
 	const color = {
 		BacksideComplete: "#7EE0FB",
@@ -35,7 +40,31 @@ function AdvancedStanceCircle() {
 		from: { opacity: 0, rotate: lastRotation },
 		to: { opacity: 1, rotate: newRot - 90 },
 		config: {
-			duration: 750,
+			duration: 450,
+			config: config.wobbly,
+		},
+	});
+	const opacitySpring = useSpring({
+		from: { opacity: 0 },
+		to: {
+			opacity: isFolded ? 0 : 1,
+			"touch-action": isFolded ? "none" : "auto",
+		},
+		reverse: isFolded,
+		config: {
+			duration: 450,
+			config: config.wobbly,
+		},
+	});
+	const zAnim = useSpring({
+		from: { zIndex: 0 },
+		to: {
+			zIndex: isFolded ? 0 : -10,
+			"touch-action": isFolded ? "none" : "auto",
+		},
+		reverse: isFolded,
+		config: {
+			duration: 450,
 			config: config.wobbly,
 		},
 	});
@@ -65,10 +94,20 @@ function AdvancedStanceCircle() {
 
 							e.target.id !== "Layer_1" && setCurrentStance(e.target.id);
 							e.target.id !== "Layer_1" && setStanceColor(color[e.target.id]);
+							e.target.id !== "Layer_1" && setIsFolded(true);
 						}}
 					/>
-					<StanceCircle className={""} />
+					<animated.div style={{ opacity: opacitySpring.opacity }}>
+						<StanceCircle />
+					</animated.div>
 				</div>
+			</animated.div>
+			<animated.div style={zAnim} className='absolute  flex w-[75vw]'>
+				<HalfCircle
+					onClick={() => setIsFolded(false)}
+					isFolded={isFolded}
+					stance={currentStance}
+				/>
 			</animated.div>
 			{/* <Outlet /> */}
 

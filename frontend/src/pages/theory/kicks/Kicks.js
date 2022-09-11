@@ -5,8 +5,8 @@ function Kicks() {
 	console.log(Object.keys(kicks));
 	return (
 		<div className='text-zinc-300'>
-			<KicksChart className='h-fit w-[90vw]' />
 			<div className='py-2 text-2xl text-zinc-300'>Kicks</div>
+			<KicksChart className='h-fit w-[90vw]' />
 			<div className='py-2 text-2xl text-zinc-300'>Variatons</div>
 			{/* {Object.keys(kicks).map((e, i) => (
 				<div id={i} className=' flex'>

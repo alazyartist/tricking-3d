@@ -1,18 +1,25 @@
-import React, { useState } from "react";
-import AddListButton from "./components/AddListButton";
-import ListViewbyID from "./components/ListViewbyID";
-import MakeNewTrickList from "./components/MakeNewTrickList";
+import React, { useState, useEffect } from "react"
+import AddListButton from "./components/AddListButton"
+import ListViewbyID from "./components/ListViewbyID"
+import MakeNewTrickList from "./components/MakeNewTrickList"
 import TrickList from "./components/trickList"
 import Data_Mock from "../../data/trickList_mock"
+import useGetTricklists from "../../api/useTricklists";
 
 const TricklistPage = ({ displayOnly, profileuuid }) => {
-	const [open, setOpen] = useState(false);
-	const [openView, setOpenView] = useState(false);
-	const [addItemopen, setAddItemopen] = useState(false);
+	const [open, setOpen] = useState(false)
+	const [openView, setOpenView] = useState(false)
+	const [addItemopen, setAddItemopen] = useState(false)
 	// @TODO: Uncomment for actual data
-	//const { data: lists } = useGetTricklists(profileuuid);
-	//const { uuid: userUUID } = useUserStore((s) => s.userInfo);
-	//const userInfo = useUserStore((s) => s.userInfo);
+	//const { uuid: userUUID } = useUserStore((s) => s.userInfo)
+	//const userInfo = useUserStore((s) => s.userInfo)
+	//const [tricklist_id, setTricklist_id] = useState("")
+	const { data: lists } = useGetTricklists(profileuuid);
+	useEffect(() => {
+		console.log(profileuuid)
+		console.log("list:")
+		console.log(lists)
+	}, [lists])
 	const [mockedData] = useState(Data_Mock)
 	const [data, setData] = useState(mockedData)
 	const _getDate = (e) => {
@@ -22,13 +29,16 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 
 	return (
 		<div className='flex flex-col items-center'>
-			<div className='w-[20vw] h-[4vh] rounded-t-lg bg-zinc-400 text-zinc-800 flex flex-row justify-center'>
+			<button 
+				className='w-[20vw] h-[4vh] rounded-t-lg bg-zinc-400 text-zinc-800 flex flex-row justify-center'
+				onClick={() => {setOpenView(!openView)}}
+			>
 				Trick List
-			</div>
+			</button>
 
-			<div className='w-[90vw] h-[40vh] border-8 border-zinc-400 rounded-md overflow-scroll no-scrollbar'>
-				{!openView && (
-					<div className='bg-zinc-900 gap-[1px] flex flex-col justify-start'>
+			<div className='w-[90vw] h-[45vh] border-8 border-zinc-400 bg-zinc-400 rounded-md overflow-scroll no-scrollbar'>
+				{openView && (
+					<div className='bg-zinc-400 flex flex-col justify-start'>
 						{
 							Array.isArray(data) &&
 								data.length > 0 &&
@@ -36,7 +46,7 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 									return (
 										<>
 											{
-												<>
+												<div className='p-1'>
 													<TrickList
 														key={list.id}
 														data={list}
@@ -51,7 +61,7 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 														<></>
 													)}
 													{open && !displayOnly && <MakeNewTrickList setOpen={setOpen} />}
-												</>
+												</div>
 											}
 										</>
 									)
@@ -59,12 +69,12 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 								)
 						}
 						<div className='absolute bottom-4 right-4'>
-						<AddListButton setOpen={setOpen} open={open} />
+							<AddListButton setOpen={setOpen} open={open} />
 						</div>
 					</div>
 				)}
 
-				{/* CONTENT CONTAINER */}
+				{/* CONTENT CONTAINER 
 				<div>
 					{openView && (
 						<ListViewbyID
@@ -77,7 +87,7 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 						/>
 					)}
 				</div>
-
+				*/}
 			</div>
 		</div>
 	);

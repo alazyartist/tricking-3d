@@ -27,7 +27,6 @@ function useMediaController(actions, names, mixer) {
 		() =>
 			Promise.resolve(names).then((results) => {
 				setAnimationsArray(results);
-				console.log(results);
 			}),
 		[names, setAnimationsArray]
 	);

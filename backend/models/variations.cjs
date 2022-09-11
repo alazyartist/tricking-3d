@@ -10,6 +10,7 @@ module.exports = (sequelize) => {
 		static associate({ Tricks }) {
 			// define association here
 			this.belongsToMany(Tricks, {
+				as: "Potential Tricks",
 				through: "Trick_Variations",
 				foreignKey: "variation_id",
 				sourceKey: "id",
@@ -18,7 +19,7 @@ module.exports = (sequelize) => {
 	}
 	Variations.init(
 		{
-			id: { type: DataTypes.STRING, autoIncrement: true, primaryKey: true },
+			id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
 			type: { type: DataTypes.STRING, defaultValue: "Variation" },
 			variationType: DataTypes.STRING,
 			name: DataTypes.STRING,

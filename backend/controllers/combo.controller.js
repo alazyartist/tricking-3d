@@ -104,6 +104,20 @@ export const getAllCombos = async (req, res) => {
 	}
 };
 
+export const getComboByComboId = async (req, res) => {
+	const { combo_id } = req.params;
+	combos
+		.findAll({
+			where: { combo_id },
+			include: [{ model: db.sequelize.models.Animations }],
+		})
+		.then((data) => {
+			console.log(data);
+			res.json(data);
+		})
+		.catch((err) => console.log(err));
+};
+
 export const saveNewCombo = async (req, res) => {
 	const { creator, comboName, comboItems } = req.body;
 

@@ -8,13 +8,13 @@ const data = () => {
 				"id": 0,
 				"isOpen": false, 
 				"createdAt": "2022-09-05T22:21:44.000Z",
-  			"innerArray": [
+  			"comboArray": [
 					{
 						"type": "Combo",
 						"name": "Hook>master-Scoot>Cork",
 						"id": 1,
 						"isOpen": false, 
-						"innerArray": [
+						"trickArray": [
 							{
 								"type": "Trick",
 								"name": "Hook",
@@ -71,7 +71,7 @@ const data = () => {
 						"name": "Cart>Dub>so180Hook",
 						"id": 5,
 						"isOpen": false, 
-						"innerArray": [
+						"trickArray": [
 							{
 								"type": "Trick",
 								"name": "Cart-wheel",
@@ -131,13 +131,13 @@ const data = () => {
 				"id": 9,
 				"isOpen": false, 
 				"createdAt": "2022-10-05T22:21:44.000Z",
-  			"innerArray": [
+  			"comboArray": [
 					{
 						"type": "Combo",
 						"name": "Cart>Dub>so180Hook",
 						"id": 10,
 						"isOpen": false, 
-						"innerArray": [
+						"trickArray": [
 							{
 								"type": "Trick",
 								"name": "Cart-wheel",
@@ -194,7 +194,7 @@ const data = () => {
 						"name": "Hook>master-Scoot>Cork",
 						"id": 14,
 						"isOpen": false, 
-						"innerArray": [
+						"trickArray": [
 							{
 								"type": "Trick",
 								"name": "Hook",

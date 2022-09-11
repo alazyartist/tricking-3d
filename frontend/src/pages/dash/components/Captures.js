@@ -21,7 +21,7 @@ const Captures = () => {
 	return (
 		<div
 			id='captureContainer'
-			className='place-items-center flex flex-col font-inter'>
+			className='flex flex-col place-items-center font-inter'>
 			<div className='flex gap-2 font-inter font-bold'>
 				<div
 					className={display === "captures" ? "text-zinc-300" : "text-zinc-400"}
@@ -42,7 +42,7 @@ const Captures = () => {
 					Captured You
 				</div>
 			</div>
-			<div className='place-content-center flex w-[80vw] flex-row place-items-start overflow-x-auto'>
+			<div className='flex w-[80vw] flex-row place-content-center place-items-start overflow-x-auto'>
 				{!!captured &&
 					display === "captures" &&
 					Object.keys(captured).map((key) => (
@@ -63,7 +63,7 @@ const Captures = () => {
 					))}
 			</div>
 
-			<div className='place-content-center flex w-[80vw] flex-row place-items-start overflow-x-auto'>
+			<div className='flex w-[80vw] flex-row place-content-center place-items-start overflow-x-auto'>
 				{!!capturedYou &&
 					display === "captured me" &&
 					Object.keys(capturedYou).map((key) => (

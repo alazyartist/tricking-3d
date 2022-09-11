@@ -26,7 +26,7 @@ module.exports = {
 			},
 			//2
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa665e4-2f32-11ed-9d9c-378ed7dd4390",
 				base_id: "InsideFlip",
 				name: "InsideFlip",
 				stance_id: "Inside",
@@ -37,7 +37,7 @@ module.exports = {
 			},
 			//3
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa666b6-2f32-11ed-9d9d-b34616856983",
 				base_id: "Frontflip",
 				name: "Frontflip",
 				stance_id: "Frontside",
@@ -48,7 +48,7 @@ module.exports = {
 			},
 			//4
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa666de-2f32-11ed-9d9e-3ff03610c5c2",
 				base_id: "OutsideFlip",
 				name: "OutsideFlip",
 				stance_id: "Outside",
@@ -59,7 +59,7 @@ module.exports = {
 			},
 			//5
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa666fc-2f32-11ed-9d9f-fb666cbcdc71",
 				base_id: "Gainer",
 				name: "Gainer",
 				stance_id: "BacksideComplete",
@@ -70,7 +70,7 @@ module.exports = {
 			},
 			//6
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa6671a-2f32-11ed-9da0-9f85229611e2",
 				base_id: "GainerR",
 				name: "DSGainer",
 				stance_id: "BacksideHyper",
@@ -82,7 +82,7 @@ module.exports = {
 
 			//7
 			{
-				trick_id: uuidv4(),
+				trick_id: "e1a7106c-4a9f-4f04-a590-45e25afa7529",
 				base_id: "GMS",
 				name: "GMS",
 				stance_id: "InsideHyper",
@@ -93,7 +93,7 @@ module.exports = {
 			},
 			//8
 			{
-				trick_id: uuidv4(),
+				trick_id: "0dbcabd6-2e97-4b27-bfe4-3bca2ce8dd76",
 				base_id: "Aerial",
 				name: "Aerial",
 				stance_id: "InsideMega",
@@ -104,7 +104,7 @@ module.exports = {
 			},
 			//9
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66738-2f32-11ed-9da1-8b1b7ffdb746",
 				base_id: "Webster",
 				name: "Webster",
 				stance_id: "FrontsideMega",
@@ -115,7 +115,7 @@ module.exports = {
 			},
 			//10
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66756-2f32-11ed-9da2-5f626157895e",
 				base_id: "WebsterR",
 				name: "DSWebster",
 				stance_id: "FrontsideSemi",
@@ -126,7 +126,7 @@ module.exports = {
 			},
 			//11
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66774-2f32-11ed-9da3-ff208ad44d0e",
 				base_id: "Raiz",
 				name: "Raiz",
 				stance_id: "OutsideSemi",
@@ -137,7 +137,7 @@ module.exports = {
 			},
 			//12
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66792-2f32-11ed-9da4-d345d849863e",
 				base_id: "Lotus",
 				name: "Lotus",
 				stance_id: "OutsideComplete",
@@ -147,7 +147,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "c56565e6-19d0-40bb-8571-1452d0284b56",
 				base_id: "Hook",
 				name: "Hook",
 				stance_id: "BacksideHyper",
@@ -157,7 +157,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa667b0-2f32-11ed-9da5-37057f9ad42d",
 				base_id: "Round",
 				name: "Round",
 				stance_id: "FrontsideMega",
@@ -167,7 +167,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa667ce-2f32-11ed-9da6-736f01b7d747",
 				base_id: "Backflip",
 				name: "Backhandspring",
 				stance_id: "Backside",
@@ -177,7 +177,7 @@ module.exports = {
 				defaultAnimation: "7a69be00-5594-4b58-b6b0-95ddaf8de563",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa667ec-2f32-11ed-9da7-4f51ee4d4e65",
 				base_id: "Backflip",
 				name: "Valdez",
 				stance_id: "Backside",
@@ -187,7 +187,7 @@ module.exports = {
 			},
 			//Fulls
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa6680a-2f32-11ed-9da8-ff5ae580713f",
 				base_id: "Backflip",
 				name: "Flashkick",
 				stance_id: "Backside",
@@ -197,7 +197,17 @@ module.exports = {
 				defaultAnimation: "eff90ead-2af6-4281-a35f-ff8b8357317c",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66828-2f32-11ed-9da9-ef8e18b02b8e",
+				base_id: "Backflip",
+				name: "wrap-Full",
+				stance_id: "BacksideHyper",
+				takeoffStance: "BacksideHyper",
+				landingStance: "Backside",
+				trickType: "Invert",
+				defaultAnimation: "",
+			},
+			{
+				trick_id: "5aa66846-2f32-11ed-9daa-33afc27d5451",
 				base_id: "Backflip",
 				name: "Full",
 				stance_id: "Backside",
@@ -207,7 +217,7 @@ module.exports = {
 				defaultAnimation: "bc924753-5d18-46e0-b131-f747aad1a74e",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66864-2f32-11ed-9dab-db57c179487d",
 				base_id: "Backflip",
 				name: "kick-Full",
 				stance_id: "Backside",
@@ -217,7 +227,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66882-2f32-11ed-9dac-3ff96f415f9c",
 				base_id: "Backflip",
 				name: "graizer-Full",
 				stance_id: "Backside",
@@ -227,7 +237,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "43952992-ec8e-42f7-a2bd-46b4380ab585",
 				base_id: "Backflip",
 				name: "Full-swipe",
 				stance_id: "Backside",
@@ -237,7 +247,17 @@ module.exports = {
 				defaultAnimation: "9834d477-8731-4aa3-8e5d-0d797cf13e04",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa668a0-2f32-11ed-9dad-afc756f483ff",
+				base_id: "Backflip",
+				name: "Full-snapu",
+				stance_id: "Backside",
+				takeoffStance: "Backside",
+				landingStance: "BacksideComplete",
+				trickType: "Invert",
+				defaultAnimation: "9834d477-8731-4aa3-8e5d-0d797cf13e04",
+			},
+			{
+				trick_id: "5aa668be-2f32-11ed-9dae-371515401d9f",
 				base_id: "Backflip",
 				name: "Full-shuriken",
 				stance_id: "Backside",
@@ -247,7 +267,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa668d2-2f32-11ed-9daf-372b62bde174",
 				base_id: "Backflip",
 				name: "Full-round",
 				stance_id: "Backside",
@@ -257,7 +277,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa668f0-2f32-11ed-9db0-2f70b07c089f",
 				base_id: "Backflip",
 				name: "Full.hyper-hook",
 				stance_id: "Backside",
@@ -267,7 +287,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa6690e-2f32-11ed-9db1-97acfa387b06",
 				base_id: "Backflip",
 				name: "Full.mega-round",
 				stance_id: "Backside",
@@ -277,7 +297,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "44d77d40-280f-4f6c-afe3-f1bbbb85f0b6",
 				base_id: "Backflip",
 				name: "double-Full",
 				stance_id: "Backside",
@@ -287,7 +307,27 @@ module.exports = {
 				defaultAnimation: "6e4efe4d-b2a9-4b84-b05e-b2a4f300da03",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa6692c-2f32-11ed-9db2-ff62072b5665",
+				base_id: "Backflip",
+				name: "double-Full-round",
+				stance_id: "Backside",
+				takeoffStance: "Backside",
+				landingStance: "FrontsideMega",
+				trickType: "Invert",
+				defaultAnimation: "",
+			},
+			{
+				trick_id: "5aa6694a-2f32-11ed-9db3-df3e4bdcbcde",
+				base_id: "Backflip",
+				name: "double-Full-dleg",
+				stance_id: "Backside",
+				takeoffStance: "Backside",
+				landingStance: "Backside",
+				trickType: "Invert",
+				defaultAnimation: "",
+			},
+			{
+				trick_id: "8211602c-596c-4ae2-b537-8e82de1900ba",
 				base_id: "Backflip",
 				name: "triple-Full",
 				stance_id: "Backside",
@@ -297,7 +337,7 @@ module.exports = {
 				defaultAnimation: "5441cd71-599b-426f-8fae-875027e7343b",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66968-2f32-11ed-9db4-1b8af129ab7f",
 				base_id: "Backflip",
 				name: "quad-Full",
 				stance_id: "Backside",
@@ -306,9 +346,8 @@ module.exports = {
 				trickType: "Invert",
 				defaultAnimation: "",
 			},
-			//Corks
 			{
-				trick_id: uuidv4(),
+				trick_id: "0e178697-d368-4d0b-ba2d-0818b14e5f24",
 				base_id: "Gainer",
 				name: "Cork",
 				stance_id: "BacksideComplete",
@@ -368,6 +407,27 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
+				trick_id: "5aa66986-2f32-11ed-9db5-b7563e8e09cd",
+				base_id: "Gainer",
+				name: "Cork-shuriken.hyper-hook",
+				stance_id: "BacksideComplete",
+				takeoffStance: "BacksideHyper",
+				landingStance: "BacksideHyper",
+				trickType: "Invert",
+				defaultAnimation: "",
+			},
+			{
+				trick_id: "5aa669a4-2f32-11ed-9db6-47e17ac1551b",
+				base_id: "Backflip",
+				name: "Nike",
+				stance_id: "Backside",
+				takeoffStance: "BacksideHyper",
+				landingStance: "BacksideHyper",
+				trickType: "Invert",
+				defaultAnimation: "",
+			},
+
+			{
 				trick_id: "ed832bc6-eae3-458d-8cfc-orkhyperhook",
 				base_id: "Gainer",
 				name: "Cork.hyper-hook",
@@ -388,7 +448,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "1ded7e34-4e37-49a9-b725-ced643b9fe4c",
 				base_id: "Gainer",
 				name: "double-Cork",
 				stance_id: "BacksideComplete",
@@ -398,7 +458,7 @@ module.exports = {
 				defaultAnimation: "118c6ae8-e38b-4573-87e3-d566c893e33a",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa669c2-2f32-11ed-9db7-4f46d4ed882c",
 				base_id: "Gainer",
 				name: "triple-Cork",
 				stance_id: "BacksideComplete",
@@ -409,9 +469,9 @@ module.exports = {
 			},
 			//Aerials
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa669e0-2f32-11ed-9db8-93708240e526",
 				base_id: "Aerial",
-				name: "Round-off",
+				name: "Roundoff",
 				stance_id: "Frontside",
 				takeoffStance: "Frontside",
 				landingStance: "Backside",
@@ -419,7 +479,7 @@ module.exports = {
 				defaultAnimation: "be8d4d0d-2295-47ff-9106-55dcb1c1de3c",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "0dba9a0f-3098-4369-a9d7-67ff00828b9d",
 				base_id: "Aerial",
 				name: "Cart-wheel",
 				stance_id: "InsideMega",
@@ -429,17 +489,17 @@ module.exports = {
 				defaultAnimation: "be8d4d0d-2295-47ff-9106-55dcb1c1de3c",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa669fe-2f32-11ed-9db9-5763ef1f142c",
 				base_id: "Aerial",
 				name: "Cart-off",
 				stance_id: "InsideMega",
 				takeoffStance: "InsideMega",
-				landingStance: "Backside",
+				landingStance: "Inside",
 				trickType: "Invert",
 				defaultAnimation: "fef9f1a2-69ad-4bf2-a598-9d649833a8dd",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "3ac9bfd7-e930-4466-9ffc-aa3ceb8c44ad",
 				base_id: "Aerial",
 				name: "Cart-twist",
 				stance_id: "InsideMega",
@@ -449,7 +509,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66a1c-2f32-11ed-9dba-eb156064bd8c",
 				base_id: "Aerial",
 				name: "Aerial-twist",
 				stance_id: "InsideMega",
@@ -460,7 +520,7 @@ module.exports = {
 			},
 			//BKicks
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66a3a-2f32-11ed-9dbb-6f897ca982fb",
 				base_id: "Aerial",
 				name: "ButterflyKick",
 				stance_id: "InsideMega",
@@ -470,7 +530,7 @@ module.exports = {
 				defaultAnimation: "ecbe0d90-e1ab-422e-b117-21226141f1a6",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66a58-2f32-11ed-9dbc-8b8e55acb6b4",
 				base_id: "Aerial",
 				name: "Butterfly-twist",
 				stance_id: "InsideMega",
@@ -480,7 +540,7 @@ module.exports = {
 				defaultAnimation: "00b812fb-af28-4f75-a4e2-780cb275e3d8",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66a76-2f32-11ed-9dbd-13989aa6d688",
 				base_id: "Aerial",
 				name: "Butterfly-twist-shuriken",
 				stance_id: "InsideMega",
@@ -490,9 +550,9 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66a94-2f32-11ed-9dbe-335095ca4dda",
 				base_id: "Aerial",
-				name: "Butterfly-Double-Twist",
+				name: "double-Butterfly-twist",
 				stance_id: "InsideMega",
 				takeoffStance: "InsideMega",
 				landingStance: "BacksideComplete",
@@ -500,9 +560,9 @@ module.exports = {
 				defaultAnimation: "65e7ed91-4d5d-4e03-a61f-58e75a733c95",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66ab2-2f32-11ed-9dbf-cf4e9639bd33",
 				base_id: "Aerial",
-				name: "Butterfly-Triple-Twist",
+				name: "triple-Butterfly-twist",
 				stance_id: "InsideMega",
 				takeoffStance: "InsideMega",
 				landingStance: "BacksideComplete",
@@ -511,10 +571,11 @@ module.exports = {
 			},
 
 			//Kicks
-
+			//TODO KickStart
+			//TODO StartHere
 			//Backside
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66ad0-2f32-11ed-9dc0-fb4f096f572a",
 				base_id: "Round",
 				name: "bs180round",
 				stance_id: "Backside",
@@ -524,7 +585,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66aee-2f32-11ed-9dc1-1f1ba7658aaa",
 				base_id: "Hook",
 				name: "bs360hook",
 				stance_id: "Backside",
@@ -534,7 +595,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66b0c-2f32-11ed-9dc2-8be1d803a32b",
 				base_id: "Round",
 				name: "bs540round",
 				stance_id: "Backside",
@@ -544,7 +605,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66b2a-2f32-11ed-9dc3-07b232c692b1",
 				base_id: "Hook",
 				name: "bs720hook",
 				stance_id: "Backside",
@@ -554,7 +615,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66b66-2f32-11ed-9dc5-7762c16725b5",
 				base_id: "Round",
 				name: "bs900round",
 				stance_id: "Backside",
@@ -564,7 +625,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa67228-2f32-11ed-9dff-ab68f7ca91ef",
 				base_id: "Hook",
 				name: "bs1080hook",
 				stance_id: "Backside",
@@ -574,7 +635,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa6720a-2f32-11ed-9dfe-4fbe44653ead",
 				base_id: "Round",
 				name: "bs1260round",
 				stance_id: "Backside",
@@ -584,7 +645,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa671ec-2f32-11ed-9dfd-3fd453cda94d",
 				base_id: "Hook",
 				name: "bs1440hook",
 				stance_id: "Backside",
@@ -595,7 +656,27 @@ module.exports = {
 			},
 			//Vanish
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa671ce-2f32-11ed-9dfc-9b591ebd16c7",
+				base_id: "Round",
+				name: "w180feint",
+				stance_id: "BacksideHyper",
+				takeoffStance: "BacksideHyper",
+				landingStance: "FrontsideMega",
+				trickType: "Kick",
+				defaultAnimation: "",
+			},
+			{
+				trick_id: "5aa671b0-2f32-11ed-9dfb-abaf33f5e046",
+				base_id: "Round",
+				name: "v180swipe",
+				stance_id: "BacksideHyper",
+				takeoffStance: "BacksideHyper",
+				landingStance: "BacksideHyper",
+				trickType: "Kick",
+				defaultAnimation: "",
+			},
+			{
+				trick_id: "5aa67192-2f32-11ed-9dfa-47fcb31c2d06",
 				base_id: "Round",
 				name: "v180round",
 				stance_id: "BacksideHyper",
@@ -605,7 +686,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa6716a-2f32-11ed-9df9-d381e46bc770",
 				base_id: "Hook",
 				name: "v360hook",
 				stance_id: "BacksideHyper",
@@ -615,7 +696,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa6714c-2f32-11ed-9df8-df4f3c086666",
 				base_id: "Round",
 				name: "v540round",
 				stance_id: "BacksideHyper",
@@ -625,7 +706,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa67138-2f32-11ed-9df7-fb0168f43f55",
 				base_id: "Hook",
 				name: "v720hook",
 				stance_id: "BacksideHyper",
@@ -635,7 +716,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa6711a-2f32-11ed-9df6-07c65bf8fd4f",
 				base_id: "Round",
 				name: "v900round",
 				stance_id: "BacksideHyper",
@@ -645,7 +726,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa670de-2f32-11ed-9df4-6b789af8fabf",
 				base_id: "Hook",
 				name: "v1080hook",
 				stance_id: "BacksideHyper",
@@ -655,7 +736,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa670c0-2f32-11ed-9df3-f756c710c70d",
 				base_id: "Round",
 				name: "v1260round",
 				stance_id: "BacksideHyper",
@@ -665,7 +746,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa670a2-2f32-11ed-9df2-0f3d9fb7e48e",
 				base_id: "Hook",
 				name: "v1440hook",
 				stance_id: "BacksideHyper",
@@ -676,7 +757,7 @@ module.exports = {
 			},
 			//Swing
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa67084-2f32-11ed-9df1-6f3ec1bee0d9",
 				base_id: "Round",
 				name: "s180round",
 				stance_id: "BacksideComplete",
@@ -686,7 +767,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa67066-2f32-11ed-9df0-133db2c54a08",
 				base_id: "Hook",
 				name: "s360hook",
 				stance_id: "BacksideComplete",
@@ -696,7 +777,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa67048-2f32-11ed-9def-f7b5a3df01a0",
 				base_id: "Round",
 				name: "s540round",
 				stance_id: "BacksideComplete",
@@ -706,7 +787,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa6702a-2f32-11ed-9dee-730f816b9b8c",
 				base_id: "Hook",
 				name: "s720hook",
 				stance_id: "BacksideComplete",
@@ -716,7 +797,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa6700c-2f32-11ed-9ded-ab759e81f6bd",
 				base_id: "Round",
 				name: "s900round",
 				stance_id: "BacksideComplete",
@@ -726,7 +807,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66fee-2f32-11ed-9dec-df5fe710927a",
 				base_id: "Hook",
 				name: "s1080hook",
 				stance_id: "BacksideComplete",
@@ -736,7 +817,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66fd0-2f32-11ed-9deb-33b50a4f0809",
 				base_id: "Round",
 				name: "s1260round",
 				stance_id: "BacksideComplete",
@@ -746,7 +827,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66e68-2f32-11ed-9ddf-4fbfc9f1b328",
 				base_id: "Hook",
 				name: "s1440hook",
 				stance_id: "BacksideComplete",
@@ -757,7 +838,7 @@ module.exports = {
 			},
 			//Pop
 			{
-				trick_id: uuidv4(),
+				trick_id: "9527e1b0-7810-4e0f-9ec8-b1459ffe4199",
 				base_id: "Hook",
 				name: "p180hook",
 				stance_id: "Frontside",
@@ -767,7 +848,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66fb2-2f32-11ed-9dea-67e0475e198e",
 				base_id: "Round",
 				name: "p360round",
 				stance_id: "Frontside",
@@ -777,7 +858,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66f94-2f32-11ed-9de9-0facddcdcffa",
 				base_id: "Hook",
 				name: "p540hook",
 				stance_id: "Frontside",
@@ -787,7 +868,7 @@ module.exports = {
 				defaultAnimation: "46b334e5-00fd-4ee3-8a9e-0e778ac02c05",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66f76-2f32-11ed-9de8-17034e3d2dd8",
 				base_id: "Round",
 				name: "p720round",
 				stance_id: "Frontside",
@@ -797,7 +878,7 @@ module.exports = {
 				defaultAnimation: "67905a6d-b496-4145-8be5-193f82f23117",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66f58-2f32-11ed-9de7-cf9281827850",
 				base_id: "Hook",
 				name: "p900hook",
 				stance_id: "Frontside",
@@ -807,7 +888,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66f3a-2f32-11ed-9de6-939006219e7a",
 				base_id: "Round",
 				name: "p1080round",
 				stance_id: "Frontside",
@@ -817,7 +898,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66f1c-2f32-11ed-9de5-c39d1b56fde7",
 				base_id: "Hook",
 				name: "p1260hook",
 				stance_id: "Frontside",
@@ -827,7 +908,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66efe-2f32-11ed-9de4-9b9aec44e655",
 				base_id: "Round",
 				name: "p1440round",
 				stance_id: "Frontside",
@@ -838,7 +919,7 @@ module.exports = {
 			},
 			//Wrap
 			{
-				trick_id: uuidv4(),
+				trick_id: "feb382fe-d83b-4829-9fc2-7e1e97387e6d",
 				base_id: "Hook",
 				name: "w180hook",
 				stance_id: "FrontsideSemi",
@@ -848,7 +929,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66ee0-2f32-11ed-9de3-0f49ae733447",
 				base_id: "Round",
 				name: "w360round",
 				stance_id: "FrontsideSemi",
@@ -858,7 +939,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66ec2-2f32-11ed-9de2-db24b33c7d85",
 				base_id: "Hook",
 				name: "w540hook",
 				stance_id: "FrontsideSemi",
@@ -868,7 +949,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66ea4-2f32-11ed-9de1-436995dc0eab",
 				base_id: "Round",
 				name: "w720round",
 				stance_id: "FrontsideSemi",
@@ -878,7 +959,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66e4a-2f32-11ed-9dde-7fe25cd8c081",
 				base_id: "Hook",
 				name: "w900hook",
 				stance_id: "FrontsideSemi",
@@ -888,7 +969,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66e86-2f32-11ed-9de0-27754471bc01",
 				base_id: "Round",
 				name: "w1080round",
 				stance_id: "FrontsideSemi",
@@ -898,7 +979,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66e2c-2f32-11ed-9ddd-f3469b57fbea",
 				base_id: "Hook",
 				name: "w1260hook",
 				stance_id: "FrontsideSemi",
@@ -908,7 +989,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66c56-2f32-11ed-9dcd-ff17558cd04a",
 				base_id: "Round",
 				name: "w1440round",
 				stance_id: "FrontsideSemi",
@@ -919,7 +1000,7 @@ module.exports = {
 			},
 			//Step-Over
 			{
-				trick_id: uuidv4(),
+				trick_id: "59540e3f-61a0-40d2-9b7a-ad79ffe9cca6",
 				base_id: "Hook",
 				name: "so180hook",
 				stance_id: "FrontsideMega",
@@ -929,7 +1010,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66e0e-2f32-11ed-9ddc-3f0995796123",
 				base_id: "Round",
 				name: "so360round",
 				stance_id: "FrontsideMega",
@@ -939,7 +1020,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66df0-2f32-11ed-9ddb-5f081f00e577",
 				base_id: "Hook",
 				name: "so540hook",
 				stance_id: "FrontsideMega",
@@ -949,7 +1030,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66dd2-2f32-11ed-9dda-c30791297e23",
 				base_id: "Round",
 				name: "so720round",
 				stance_id: "FrontsideMega",
@@ -959,7 +1040,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66db4-2f32-11ed-9dd9-877184784121",
 				base_id: "Hook",
 				name: "so900hook",
 				stance_id: "FrontsideMega",
@@ -969,7 +1050,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66da0-2f32-11ed-9dd8-4b445b00c62b",
 				base_id: "Round",
 				name: "so1080round",
 				stance_id: "FrontsideMega",
@@ -979,7 +1060,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66d82-2f32-11ed-9dd7-178e7c0bc7f8",
 				base_id: "Hook",
 				name: "so1260hook",
 				stance_id: "FrontsideMega",
@@ -989,7 +1070,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66d64-2f32-11ed-9dd6-a3fae8cdb922",
 				base_id: "Round",
 				name: "so1440round",
 				stance_id: "FrontsideMega",
@@ -998,9 +1079,11 @@ module.exports = {
 				trickType: "Kick",
 				defaultAnimation: "",
 			},
+			//TODO KicksEnd
+			//TODO EndHere
 			//Scoot
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66d46-2f32-11ed-9dd5-63b1dd09518b",
 				base_id: "GMS",
 				name: "Scoot",
 				stance_id: "FrontsideSemi",
@@ -1010,7 +1093,7 @@ module.exports = {
 				defaultAnimation: "ab30a357-bb2b-43a4-a5da-5af431003eb9",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66d28-2f32-11ed-9dd4-9b934527a4b6",
 				base_id: "GMS",
 				name: "Scoot-twist",
 				stance_id: "FrontsideSemi",
@@ -1020,7 +1103,7 @@ module.exports = {
 				defaultAnimation: "c1604863-d725-42e2-849e-7c4c333dbfb1",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "e0ede2a5-199e-4228-bdff-e63102b31eb4",
 				base_id: "GMS",
 				name: "master-Scoot",
 				stance_id: "FrontsideSemi",
@@ -1031,7 +1114,7 @@ module.exports = {
 			},
 			//Raiz
 			{
-				trick_id: uuidv4(),
+				trick_id: "01ef8300-9bf3-4259-820f-e496baad9f9c",
 				base_id: "Raiz",
 				name: "Gumbi",
 				stance_id: "OutsideSemi",
@@ -1041,7 +1124,7 @@ module.exports = {
 				defaultAnimation: "3c005457-cc74-4a78-8cc9-99f2691f8bf8",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66d0a-2f32-11ed-9dd3-93cdc8b2c37a",
 				base_id: "Raiz",
 				name: "Raiz-twist",
 				stance_id: "OutsideSemi",
@@ -1051,7 +1134,7 @@ module.exports = {
 				defaultAnimation: "6d65d09b-6200-4dd6-81bd-ff1e8dfbf7b9",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "59a4c8a5-545a-4235-b8bf-75839161bb7e",
 				base_id: "Raiz",
 				name: "touchdown-Raiz",
 				stance_id: "OutsideSemi",
@@ -1061,7 +1144,7 @@ module.exports = {
 				defaultAnimation: "",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66cec-2f32-11ed-9dd2-4322700699cc",
 				base_id: "Raiz",
 				name: "sailor-Raiz",
 				stance_id: "OutsideSemi",
@@ -1071,7 +1154,17 @@ module.exports = {
 				defaultAnimation: "1ee36871-c6ed-48ea-a159-263086d802cb",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "b4560032-693c-476b-8456-5a366b9a38fc",
+				base_id: "Raiz",
+				name: "sailor-Raiz-scissor",
+				stance_id: "OutsideSemi",
+				takeoffStance: "OutsideSemi",
+				landingStance: "BacksideComplete",
+				trickType: "Invert",
+				defaultAnimation: "fc95d70e-d777-46de-81dc-c0f0a7dac361",
+			},
+			{
+				trick_id: "5aa66cce-2f32-11ed-9dd1-9b9ecf2e2f6f",
 				base_id: "Raiz",
 				name: "Snapu",
 				stance_id: "OutsideSemi",
@@ -1081,7 +1174,7 @@ module.exports = {
 				defaultAnimation: "6bff8f98-c2f8-47d9-8af4-75fe1d3790ae",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66cb0-2f32-11ed-9dd0-ab008276c659",
 				base_id: "WebsterR",
 				name: "Reversao",
 				stance_id: "FrontsideSemi",
@@ -1091,7 +1184,7 @@ module.exports = {
 				defaultAnimation: "9434bfc4-c62e-4d1f-a885-ae9fac77ce12",
 			},
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66c92-2f32-11ed-9dcf-6fbfead50465",
 				base_id: "WebsterR",
 				name: "Reversao-scissor",
 				stance_id: "FrontsideSemi",
@@ -1102,7 +1195,7 @@ module.exports = {
 			},
 			// DoubleLeg
 			{
-				trick_id: uuidv4(),
+				trick_id: "5aa66c74-2f32-11ed-9dce-83cffac8c741",
 				base_id: "OutsideFlip",
 				name: "DoubleLeg",
 				stance_id: "FrontsideSemi",

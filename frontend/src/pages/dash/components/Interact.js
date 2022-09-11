@@ -4,6 +4,7 @@ import { useUserStore } from "../../../store/userStore";
 import { useStore } from "../../../store/store";
 import { useInteraction } from "../../../api/useInteractions";
 import useGetTricks from "../../../api/useGetTricks";
+import useGetCombos from "../../../api/useGetCombos";
 
 const Interact = () => {
 	const { userInfo, accessToken } = useUserStore();
@@ -12,10 +13,11 @@ const Interact = () => {
 	const [content, setContent] = useState();
 	const trick_id = useStore((s) => s.trick_id);
 	const setTrick_id = useStore((s) => s.setTrick_id);
+	const setTrickOrCombo = useStore((s) => s.setTrickOrCombo);
 	const { mutate: comment } = useInteraction();
 	const { data: tricks } = useGetTricks();
+	const { data: combos } = useGetCombos();
 	const handleSubmit = async (e) => {
-		console.log(uuid);
 		e.preventDefault();
 		try {
 			console.log("trying interact");
@@ -35,23 +37,27 @@ const Interact = () => {
 	};
 	useEffect(() => {
 		let tid =
-			tricks?.length &&
-			tricks.filter((trick) =>
+			(tricks?.length &&
+				combos?.length &&
+				tricks?.filter((trick) =>
+					trick.name.toLowerCase().includes(currentAnim.toLowerCase())
+				)[0]?.trick_id) ||
+			combos?.filter((trick) =>
 				trick.name.toLowerCase().includes(currentAnim.toLowerCase())
-			)[0]?.trick_id;
+			)[0]?.combo_id;
+		let comboOrTrick =
+			(tricks?.length &&
+				combos?.length &&
+				tricks?.filter((trick) =>
+					trick.name.toLowerCase().includes(currentAnim.toLowerCase())
+				)[0]?.type) ||
+			combos?.filter((trick) =>
+				trick.name.toLowerCase().includes(currentAnim.toLowerCase())
+			)[0]?.type;
+
 		setTrick_id(tid);
-		console.log(tricks);
-		console.log(
-			tricks?.length &&
-				tricks.filter(
-					(trick) => trick.name.toLowerCase() === currentAnim.toLowerCase()
-				)
-		);
-		console.log(tid);
+		setTrickOrCombo(comboOrTrick);
 	}, [tricks, currentAnim]);
-	useEffect(() => {
-		console.log(trick_id);
-	}, [trick_id]);
 
 	return (
 		trick_id && (

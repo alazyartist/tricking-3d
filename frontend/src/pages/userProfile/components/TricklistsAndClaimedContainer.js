@@ -6,12 +6,17 @@ const TricklistsAndClamiedContainer = ({
 	MyTricklists,
 	Claimed,
 	profileuuid,
+	isUsersPage,
 }) => {
 	const [activePane, setActivePane] = useState("Tricklists");
 
 	return (
 		<>
-			<div className='place-content-center place-items-center flex w-[80vw] gap-2'>
+			<TricklistPage profileuuid={profileuuid} displayOnly />
+		</>
+
+		/*
+			<div className='flex w-[80vw] place-content-center place-items-center gap-2'>
 				<div
 					onClick={(e) => setActivePane("Tricklists")}
 					className={`flex w-full select-none justify-between rounded-t-md p-2 ${
@@ -31,16 +36,11 @@ const TricklistsAndClamiedContainer = ({
 			</div>
 			{activePane === "Tricklists" && (
 				<div
-					className={`place-items-center flex h-full w-[80vw] flex-col ${
+					className={`flex h-[37vh] w-[80vw] flex-col place-items-center ${
 						MyTricklists?.length
 							? "place-content-start"
 							: "place-content-center"
 					} bg-zinc-600`}>
-					{/* {(MyTricklists?.length &&
-						MyTricklists?.map((list) => (
-							<div onClick={() => console.log(list)}>{list?.name}</div>
-						))) ||
-						"No Tricklists to Display"} */}
 					{MyTricklists?.length ? (
 						// @TODO: Change back later: profileuuid
 						<TricklistPage profileuuid={profileuuid} displayOnly />
@@ -51,11 +51,11 @@ const TricklistsAndClamiedContainer = ({
 			)}
 			{activePane === "Claimed" && (
 				<div
-					className={`place-content-center place-items-center flex h-[37vh] w-[80vw] flex-col bg-zinc-600`}>
+					className={`flex h-[37vh] w-[80vw] flex-col place-content-start place-items-center bg-zinc-600`}>
 					<ClaimedDisplay Claimed={Claimed} />
 				</div>
 			)}
-		</>
+		*/
 	);
 };
 

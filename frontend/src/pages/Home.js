@@ -20,11 +20,12 @@ function Home() {
 	const { uuid } = useUserStore((s) => s.userInfo);
 	const accessToken = useUserStore((s) => s.accessToken);
 	const navigate = useNavigate();
+	console.log("uuid: ", uuid)
 	return (
 		<div className='sticky mt-0 '>
 			<div
 				id='AppBackground-flex'
-				className='place-items-center flex h-screen w-screen flex-col'>
+				className='flex h-screen w-screen flex-col place-items-center'>
 				<div className='w-full text-center text-zinc-200'>
 					<h1 className='flex flex-col text-xl '>
 						Welcome to the
@@ -60,14 +61,14 @@ function Home() {
 				{!accessToken ? (
 					<>
 						<Link className='' to='/instructions'>
-							<div className='place-items-center flex w-[90vw] flex-col justify-center gap-5 rounded-2xl bg-gradient-to-b from-zinc-800 to-zinc-800 p-2 font-bold text-zinc-300'>
+							<div className='flex w-[90vw] flex-col place-items-center justify-center gap-5 rounded-2xl bg-gradient-to-b from-zinc-800 to-zinc-800 p-2 font-bold text-zinc-300'>
 								<div>Instructions</div>
 							</div>
 						</Link>
 
-						<div className='place-content-center m-2 flex w-full gap-4 rounded-xl p-2 text-zinc-300'>
+						<div className='m-2 flex w-full place-content-center gap-4 rounded-xl p-2 text-zinc-300'>
 							<Link
-								className='place-content-center place-items-center flex h-20 w-full flex-col rounded-xl bg-gradient-to-b from-zinc-800  text-4xl'
+								className='flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-zinc-800  text-4xl'
 								to='/comboMaker'>
 								{/* UnderConstruction Label */}
 								<div className='relative top-7 right-8 -rotate-[22deg] rounded-md bg-red-500 bg-opacity-70 p-2 text-base'>
@@ -77,7 +78,7 @@ function Home() {
 								<div className='mt-[-14px] text-sm font-bold'>Combo Maker</div>
 							</Link>
 							<Link
-								className='place-content-center place-items-center flex h-20 w-full flex-col rounded-xl bg-gradient-to-b from-zinc-800 text-6xl'
+								className='flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-zinc-800 text-6xl'
 								to='/theory'>
 								<FaGraduationCap />
 								<div className='text-sm font-bold'>Theory</div>
@@ -114,17 +115,24 @@ function Home() {
 									 <UpdateStatusInput />
 									</div>
 								</>
+								<div className='mb-2 flex flex-col gap-2 rounded-xl bg-zinc-700 p-2'>
+									<TricklistPage profileuuid={uuid} />
+									{/* <UpdateStatusInput /> 
+								</div>
 							)}
+							<div className='mb-20 flex flex-col gap-2 rounded-xl bg-zinc-700 p-2'>
+								<Captures />
+							</div>
 						</div>
 						*/}
 					</>
 				)}
 			</div>
-			{/* <div
+			<div
 				onClick={() => setProfileCodeOpen(!profileCodeOpen)}
-				className='place-items-center absolute bottom-20 left-5 flex gap-2 text-zinc-300'>
+				className='absolute bottom-20 left-5 flex place-items-center gap-2 text-zinc-300'>
 				<FaQrcode /> {!profileCodeOpen ? "Capture" : "Close"}
-			</div> */}
+			</div>
 		</div>
 	);
 }
