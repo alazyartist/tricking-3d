@@ -1,9 +1,13 @@
-import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import AnatomySVG from "../../data/AnatomySVG";
 import AnatomyNav from "./components/AnatomyNavSVG";
 import AnatomySketch from "./components/AnatomySketchSVG";
 function TheoryPage() {
+	const location = useLocation();
+	useEffect(() => {
+		console.log(location.pathname);
+	}, [location]);
 	return (
 		<>
 			{/* <div className='sticky top-0 h-14 bg-zinc-900'></div> */}
@@ -16,7 +20,9 @@ function TheoryPage() {
 				<div className='text-zinc-300'>Theory !=== Reality</div> */}
 				<div className='flex flex-col place-items-center gap-4 p-4'>
 					{/* <AnatomySVG className=' h-full w-[80vw] text-zinc-300' /> */}
-					<AnatomySketch className='h-full w-[80vw] text-zinc-300' />
+					{location.pathname === "/theory" && (
+						<AnatomySketch className='h-full w-[80vw] text-zinc-300' />
+					)}
 					<AnatomyNav className=' h-full w-[80vw] text-zinc-300' />
 					<Outlet />
 				</div>

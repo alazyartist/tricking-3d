@@ -30,11 +30,11 @@
 	}
 	/*Start Thumb Draggable*/
 	input[id="start"]::-webkit-slider-thumb {
-		@apply pointer-events-auto z-50 h-4 w-3 appearance-none rounded-lg bg-zinc-400;
+		@apply pointer-events-auto z-50 h-4 w-[15px] appearance-none rounded-md bg-zinc-400;
 	}
 	/*End Thumb Draggable*/
 	input[id="end"]::-webkit-slider-thumb {
-		@apply pointer-events-auto z-50 h-4 w-3 appearance-none rounded-lg bg-zinc-700;
+		@apply pointer-events-auto z-50 h-4 w-[15px] appearance-none rounded-md bg-zinc-700;
 	}
 	/*End Playhead Draggable*/
 	input[id="playhead"]::-webkit-slider-thumb {

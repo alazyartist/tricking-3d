@@ -5,6 +5,7 @@ import { stanceArr } from "../../data/TricklistClass";
 import { useComboMakerStore } from "../../store/comboMakerStore";
 import ArrayDisplay from "../../pages/comboMaker/components/ArrayDisplay";
 import TransitionButtons from "../../pages/comboMaker/components/TransitionButtons.js";
+import { IoIosList } from "react-icons/io";
 function StanceList({ setCurrentStance, currentStance }) {
 	const currentLeg = useComboMakerStore((s) => s.currentLeg);
 	const setCurrentLeg = useComboMakerStore((s) => s.setCurrentLeg);
@@ -56,10 +57,15 @@ function StanceList({ setCurrentStance, currentStance }) {
 
 	return (
 		<>
-			<div className='m-2 h-10 rounded-xl bg-zinc-300'>
+			<div className='m-2 h-10 w-full rounded-xl bg-zinc-300'>
 				<ArrayDisplay
 					isCollapsable
-					name={"StanceList"}
+					name={
+						<div className='flex place-items-center gap-2'>
+							Stances
+							<IoIosList />
+						</div>
+					}
 					arr={stanceArr}
 					f={(e) => {
 						setCurrentDirection(e.direction);

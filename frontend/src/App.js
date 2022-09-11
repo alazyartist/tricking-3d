@@ -48,6 +48,7 @@ import ComboMakerV2 from "./pages/comboMakerV2/ComboMakerV2";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import UserProfile from "./pages/userProfile/userProfile";
+import TheoryIndexInstructions from "./pages/theory/TheoryIndexInstructions";
 
 function App() {
 	const accessToken = useUserStore((s) => s.accessToken);
@@ -153,7 +154,7 @@ function App() {
 								<Route
 									path={"stances"}
 									element={<AdvancedStanceCircle />}></Route>
-								{/* <Route index element={<TheoryNavBar />} /> */}
+								<Route index element={<TheoryIndexInstructions />} />
 							</Route>
 							<Route path={"/comingsoon"} element={<ComingSoon />} />
 							<Route path={"/contribute"} element={<Contribute />}>
