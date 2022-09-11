@@ -84,7 +84,7 @@ export const HalfCircle = (props) => {
 		// 	d: "M472 472 236 472 0 70s.13 0 .13-.88a236 236 0 0 1 333.75 0c1 1 .1 2.88.472 0Z",
 		// },
 		reverse: props.isFolded,
-		config: { config: config.wobbly, duration: 250 },
+		config: { config: config.wobbly, duration: 450 },
 	});
 
 	return (
@@ -100,6 +100,20 @@ export const HalfCircle = (props) => {
 					}}
 					data-name='Layer 5'
 				/>
+				<text
+					x={228}
+					y={228}
+					fontFamily='Virgil, Segoe UI Emoji'
+					fontSize='20pt'
+					fill='#202023'
+					className='translate-x-[-86px] translate-y-[-30px]'
+					textAnchor='start'
+					style={{
+						whiteSpace: "pre",
+					}}
+					direction='ltr'>
+					{otherStance}
+				</text>
 			</g>
 		</svg>
 	);
