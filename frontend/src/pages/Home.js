@@ -102,17 +102,21 @@ function Home() {
 				) : (
 					// LoggedIn
 					<>
+						<TricklistPage profileuuid={uuid} />
+						{/*
 						<div className='text-zinc-300'>
 							{profileCodeOpen ? (
 								<ProfileCode setProfileCodeOpen={setProfileCodeOpen} />
 							) : (
-								<div className='mb-20 flex flex-col gap-2 rounded-xl bg-zinc-700 p-2'>
-									{/* <Captures /> */}
-									<TricklistPage profileuuid={uuid} />
-									{/* <UpdateStatusInput /> */}
-								</div>
+								<>
+									<div className='flex flex-col gap-2 rounded-xl bg-zinc-700 p-2'>
+									 <Captures />
+									 <UpdateStatusInput />
+									</div>
+								</>
 							)}
 						</div>
+						*/}
 					</>
 				)}
 			</div>

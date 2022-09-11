@@ -21,22 +21,21 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 	}
 
 	return (
-		<div className='flex flex-col items-center'>
-			<div className='w-[20vw] h-[4vh] rounded-t-lg bg-zinc-400 text-zinc-800 flex flex-row justify-center'>
+		<>
+			<div className='h-5 flex flex-row justify-center items-end'>
 				Trick List
 			</div>
 
-			<div className='w-[90vw] h-[40vh] border-8 border-zinc-400 rounded-md overflow-scroll no-scrollbar'>
-				{!openView && (
-					<div className='bg-zinc-900 gap-[1px] flex flex-col justify-start'>
-						{
-							Array.isArray(data) &&
-								data.length > 0 &&
-								data.map((list, i) => {
-									return (
-										<>
-											{
-												<>
+			<div className='bg-zinc-400 border-white h-full w-[90vw] p-1 rounded-md'>
+					{!openView && (
+						<div className='h-[500px] w-full bg-zinc-900 gap-[1px] flex flex-col justify-start'>
+							{
+								Array.isArray(data) &&
+									data.length > 0 &&
+									data.map((list, i) => {
+										return (
+											<>
+												{
 													<TrickList
 														key={list.id}
 														data={list}
@@ -46,40 +45,39 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 														swipe_left={() => console.log(list.name, "- Swipe Left: Replace with function")}
 														swipe_right={() => console.log(list.name, "- Swipe Right: Replace with function")}
 													/>
-													{/* ADD TRICKLIST BUTTON / POPUP */}
-													{!displayOnly && !open && (
-														<></>
-													)}
-													{open && !displayOnly && <MakeNewTrickList setOpen={setOpen} />}
-												</>
-											}
-										</>
+												}
+											</>
+										)
+									}
 									)
-								}
-								)
-						}
-						<div className='absolute bottom-4 right-4'>
-						<AddListButton setOpen={setOpen} open={open} />
+							}
 						</div>
-					</div>
-				)}
-
-				{/* CONTENT CONTAINER */}
-				<div>
-					{openView && (
-						<ListViewbyID
-							addItemopen={addItemopen}
-							setAddItemopen={setAddItemopen}
-							displayOnly={displayOnly}
-							setOpenView={setOpenView}
-							openView={openView}
-							open={open}
-						/>
 					)}
-				</div>
 
+					{/* ADD TRICKLIST BUTTON */}
+					{!displayOnly && !open && (
+						<AddListButton setOpen={setOpen} open={open} />
+					)}
+					{/* ADD TRICKLIST POPUP */}
+					<div>
+						{open && !displayOnly && <MakeNewTrickList setOpen={setOpen} />}
+					</div>
+
+					{/* CONTENT CONTAINER */}
+					<div>
+						{openView && (
+							<ListViewbyID
+								addItemopen={addItemopen}
+								setAddItemopen={setAddItemopen}
+								displayOnly={displayOnly}
+								setOpenView={setOpenView}
+								openView={openView}
+								open={open}
+							/>
+						)}
+				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 
