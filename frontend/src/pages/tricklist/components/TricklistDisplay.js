@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useGetTricklists from "../../../api/useTricklists";
 import { useUserStore } from "../../../store/userStore";
 
@@ -16,7 +16,9 @@ const TricklistDisplay = ({
 		setOpenView(true);
 	};
 	const { data: lists } = useGetTricklists(profileuuid);
-
+	useEffect(() => {
+		console.log(lists);
+	}, [lists]);
 	return (
 		!open && (
 			<div
