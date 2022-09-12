@@ -84,7 +84,7 @@ export const HalfCircle = (props) => {
 		// 	d: "M472 472 236 472 0 70s.13 0 .13-.88a236 236 0 0 1 333.75 0c1 1 .1 2.88.472 0Z",
 		// },
 		reverse: props.isFolded,
-		config: { config: config.wobbly, duration: 450 },
+		config: { config: config.wobbly },
 	});
 
 	return (

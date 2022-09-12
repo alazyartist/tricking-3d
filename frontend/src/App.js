@@ -49,6 +49,7 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import UserProfile from "./pages/userProfile/userProfile";
 import TheoryIndexInstructions from "./pages/theory/TheoryIndexInstructions";
+import TestSections from "./pages/TestSections";
 
 function App() {
 	const accessToken = useUserStore((s) => s.accessToken);
@@ -132,6 +133,7 @@ function App() {
 								</div>
 							}
 						/> */}
+							<Route path={"/test"} element={<TestSections />} />
 							<Route path={"/need"} element={<AnimationsNeeded />} />
 							<Route path={"/theory"} element={<TheoryPage />}>
 								<Route path={"transitionlist"} element={<TransitionList />} />
