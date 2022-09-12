@@ -40,7 +40,6 @@ function AdvancedStanceCircle() {
 		from: { opacity: 0, rotate: lastRotation },
 		to: { opacity: 1, rotate: newRot - 90 },
 		config: {
-			duration: 750,
 			config: config.stiff,
 		},
 	});
@@ -52,7 +51,6 @@ function AdvancedStanceCircle() {
 		},
 		reverse: isFolded,
 		config: {
-			duration: 450,
 			config: config.wobbly,
 		},
 	});
@@ -64,7 +62,6 @@ function AdvancedStanceCircle() {
 		},
 		reverse: isFolded,
 		config: {
-			duration: 150,
 			config: config.stiff,
 		},
 	});
