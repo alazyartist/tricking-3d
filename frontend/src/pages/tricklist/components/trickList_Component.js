@@ -2,27 +2,36 @@ import React, { useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 
-const TrickList_Component = ({ data, open,date, fn, drag_offset, swipe_left, swipe_right}) => {
+const TrickList_Component = ({ data, open, date, last, fn, drag_offset, swipe_left, swipe_right}) => {
 	const [selectorColor, setSelectorColor] = useState();
 	const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 	const left = {bg: `linear-gradient(120deg, #f093fb 0%, #f5576c 100%)`, offset: '90%'}
-	const right = {bg: `linear-gradient(120deg, #96fbc4 0%, #f9f586 100%)`, offset: '7%'}
-	const [{ x, bg, scale, offset }, api] = useSpring(() => ({ x: 0, scale: 1, ...left }))
+	const right = {bg: `linear-gradient(120deg, #96fbc4 0%, #a9f586 100%)`, offset: '5%'}
+	const [{ x, bg, scale, offset }, api] = useSpring(() => ({ x: 0, scale: 1 }))
 
 	const _getStyle = () => {
 		let _style = "h-[5vh] break-all w-full p-2 font-inter text-sm font-semibold text-zinc-200"
 		switch(data.type) {
-			case "TrickList":
-				if(open) _style = _style.concat(" bg-zinc-900 rounded-lg h-[7vh]")
-				else _style = _style.concat(" bg-zinc-900 rounded-full")
+			default:
+				_style = _style.concat(" bg-zinc-900")
+				if(open) _style = _style.concat(" rounded-t-lg h-[5vh]")
+				else _style = _style.concat(" rounded-lg h-[6vh]")
 				break;
 			case "Combo":
-				if(open) _style = _style.concat(" bg-zinc-700 rounded-lg h-[8vh]")
-				else _style = _style.concat(" bg-zinc-700 w-[95%]")
+				_style = _style.concat(" bg-zinc-700")
+				if(open) _style = _style.concat(" h-[6vh]")
+				else {
+					_style = _style.concat(" h-[5vh]")
+					if(last) _style = _style.concat(" rounded-b-lg")
+					else _style = _style = _style.concat(" border-zinc-800 border-dotted border-b-2")
+				}
 				break
 			case "Trick":
-				if(open) _style = _style.concat(" bg-zinc-500 h-[5vh] w-[90%]")
-				else _style = _style.concat(" bg-zinc-600 w-[90%]")
+				_style = _style.concat(" h-[5vh] bg-zinc-500")
+				if(open) _style = _style.concat(" bg-zinc-600")
+				else _style = _style.concat("")
+				if(last) _style = _style.concat(" rounded-b-lg")
+				else _style = _style = _style.concat(" border-zinc-700 border-dashed border-b-2")
 				break
 		}
 		return _style.concat(" ")
@@ -36,7 +45,7 @@ const TrickList_Component = ({ data, open,date, fn, drag_offset, swipe_left, swi
 			else 
 			if (x < -drag_offset*0.8) setSelectorColor(right.bg);
 		}
-		/* Release Touch */
+		// Release Touch
 		else {
 			if (x >  drag_offset*0.8)  {
 				swipe_right();
@@ -65,31 +74,33 @@ const TrickList_Component = ({ data, open,date, fn, drag_offset, swipe_left, swi
 	let label = "";
 	if (data.name) {
 		label = data.name;	
-		label = label.concat(" : ", date);
+		if (data.type === "TrickList")
+			label = label.concat(" : ", date);
 	}
-	else label = data.Combo.name;
 
 	return (
+		/* BACKGROUND */
 		<animated.div
 			{...bind()}
-			className={`overflow-hidden z-[0] relative`}
-			style={{ touchAction: "none" }}>
-			{/* Colorful BAckground
-					style={{ background: bg, touchAction: "none" }}>
-			*/}
+			className={`overflow-hidden relative`}
+			style={{ background: bg, touchAction: "none"}}>
 
 			{/* FLOATING BALL */}
-			<animated.div 
-				className={`
-					w-[12px] h-[12px]	z-[1]
+			<animated.div className='h-full flex flex-col justify-center absolute left-[50%]'
+				style={{ left: offset }} >
+				<animated.div 
+					className={`
+					w-4 h-4
 					rounded-full bg-white 
-					absolute top-[35%] left-[50%]
+					relative 
 				`} 
-				style={{ scale: avSize, left: offset, background: selectorColor}} 
-			/>
+					style={{ scale: avSize, background: selectorColor}} 
+				/>
+			</animated.div>
 
+			{/* MAIN ELEMENT */}
 			<animated.div
-				className={"relative w-full z-[2] flex flex-row justify-center items-center"}
+				className={"relative w-full flex flex-row justify-center items-center"}
 				{...bind()}
 				style={{ x, touchAction: "none" }}>
 				<button

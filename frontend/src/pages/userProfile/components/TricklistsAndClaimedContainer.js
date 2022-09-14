@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import TricklistPage from "../../tricklist/TricklistPage";
 import ClaimedDisplay from "./ClaimedDisplay";
 
 const TricklistsAndClamiedContainer = ({
@@ -12,10 +11,6 @@ const TricklistsAndClamiedContainer = ({
 
 	return (
 		<>
-			<TricklistPage profileuuid={profileuuid} displayOnly />
-		</>
-
-		/*
 			<div className='flex w-[80vw] place-content-center place-items-center gap-2'>
 				<div
 					onClick={(e) => setActivePane("Tricklists")}
@@ -42,8 +37,7 @@ const TricklistsAndClamiedContainer = ({
 							: "place-content-center"
 					} bg-zinc-600`}>
 					{MyTricklists?.length ? (
-						// @TODO: Change back later: profileuuid
-						<TricklistPage profileuuid={profileuuid} displayOnly />
+						<></>
 					) : (
 						"No Tricklists to Display"
 					)}
@@ -55,7 +49,7 @@ const TricklistsAndClamiedContainer = ({
 					<ClaimedDisplay Claimed={Claimed} />
 				</div>
 			)}
-		*/
+		</>
 	);
 };
 

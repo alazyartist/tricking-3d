@@ -66,6 +66,7 @@ function App() {
 
 	const [tabBar, setTabBar] = useState(true);
 	const [isSandbox, setIsSandbox] = useState(false);
+	const [isUserProfile, setIsUserProfile] = useState(false);
 	useEffect(() => {
 		location.pathname.includes("/theory") ? setTabBar(false) : setTabBar(true);
 	}, [location.pathname]);
@@ -73,6 +74,9 @@ function App() {
 		location.pathname.includes("/sandbox")
 			? setIsSandbox(true)
 			: setIsSandbox(false);
+		location.pathname.includes("/sandbox")
+			? setIsUserProfile(true)
+			: setIsUserProfile(false);
 	}, [location.pathname]);
 	const queryClient = new QueryClient();
 	return (
@@ -84,7 +88,7 @@ function App() {
 				{!location.pathname.includes("/home") && location.pathname !== "/" && (
 					<Header />
 				)}
-				{tabBar ? !isSandbox && <TabBar /> : !isSandbox && <TheoryTabBar />}
+				{tabBar ? (!isSandbox || !isUserProfile) && <TabBar /> : !isSandbox && <TheoryTabBar />}
 
 				{transitions(({ opacity }, curLocation) => (
 					<animated.div style={{ opacity }}>

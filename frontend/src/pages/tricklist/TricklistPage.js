@@ -1,44 +1,39 @@
 import React, { useState, useEffect } from "react"
-import AddListButton from "./components/AddListButton"
-import ListViewbyID from "./components/ListViewbyID"
-import MakeNewTrickList from "./components/MakeNewTrickList"
 import TrickList from "./components/trickList"
 import Data_Mock from "../../data/trickList_mock"
 import useGetTricklists from "../../api/useTricklists";
 
+import AddListButton from "./components/AddListButton"
+import AddComboItemToTricklist from "./components/AddComboItemToTricklist";
+
 const TricklistPage = ({ displayOnly, profileuuid }) => {
-	const [open, setOpen] = useState(false)
-	const [openView, setOpenView] = useState(false)
-	const [addItemopen, setAddItemopen] = useState(false)
-	// @TODO: Uncomment for actual data
-	//const { uuid: userUUID } = useUserStore((s) => s.userInfo)
-	//const userInfo = useUserStore((s) => s.userInfo)
-	//const [tricklist_id, setTricklist_id] = useState("")
+	const [openNewList, setOpenNewList] = useState(false)
+	const [openNewCombo, setOpenNewCombo] = useState(false)
+	const [openTrickList, setTrickListOpen] = useState(true)
+	const [openClaimed, setClaimedOpen] = useState(false)
 	const { data: lists } = useGetTricklists(profileuuid);
-	useEffect(() => {
-		console.log(profileuuid)
-		console.log("list:")
-		console.log(lists)
-	}, [lists])
 	const [mockedData] = useState(Data_Mock)
 	const [data, setData] = useState(mockedData)
+	const [current, setCurrent] = useState("TrickList");
+
+	useEffect(() => {
+		//setData(lists)
+	}, [lists])
+
 	const _getDate = (e) => {
 		let date = new Date(e?.createdAt)
 		return (date.toDateString().slice(3, date.length))
 	}
 
-	return (
-		<div className='flex flex-col items-center'>
-			<button 
-				className='w-[20vw] h-[4vh] rounded-t-lg bg-zinc-400 text-zinc-800 flex flex-row justify-center'
-				onClick={() => {setOpenView(!openView)}}
-			>
-				Trick List
-			</button>
+	const setCurrentLayer = (_data, type) => {
+		setCurrent(_data)
+	}
 
-			<div className='w-[90vw] h-[45vh] border-8 border-zinc-400 bg-zinc-400 rounded-md overflow-scroll no-scrollbar'>
-				{openView && (
-					<div className='bg-zinc-400 flex flex-col justify-start'>
+	return (
+		<div className='fixed bottom-0 h-[50vh] max-h-[50vh] flex flex-col items-center'>
+			<div className='w-[90vw] h-full p-2 bg-zinc-700 rounded-lg flex justify-center overflow-scroll no-scrollbar'>
+				{openTrickList && (
+					<div className='bg-zinc-400 rounded-lg w-full h-full overflow-scroll no-scrollbar'>
 						{
 							Array.isArray(data) &&
 								data.length > 0 &&
@@ -48,19 +43,15 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 											{
 												<div className='p-1'>
 													<TrickList
-														key={list.id}
+														key={list.tricklist_id}
 														data={list}
 														date={_getDate(list)}
-														fn={() => { console.log("List click from within _Container") }}
+														last={i == data.length-1}
 														drag_offset={60}
+														setCurrentLayer={setCurrentLayer}
 														swipe_left={() => console.log(list.name, "- Swipe Left: Replace with function")}
 														swipe_right={() => console.log(list.name, "- Swipe Right: Replace with function")}
 													/>
-													{/* ADD TRICKLIST BUTTON / POPUP */}
-													{!displayOnly && !open && (
-														<></>
-													)}
-													{open && !displayOnly && <MakeNewTrickList setOpen={setOpen} />}
 												</div>
 											}
 										</>
@@ -68,26 +59,24 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 								}
 								)
 						}
-						<div className='absolute bottom-4 right-4'>
-							<AddListButton setOpen={setOpen} open={open} />
-						</div>
 					</div>
 				)}
+			</div>
 
-				{/* CONTENT CONTAINER 
-				<div>
-					{openView && (
-						<ListViewbyID
-							addItemopen={addItemopen}
-							setAddItemopen={setAddItemopen}
-							displayOnly={displayOnly}
-							setOpenView={setOpenView}
-							openView={openView}
-							open={open}
-						/>
-					)}
-				</div>
-				*/}
+			<div className='flex justify-center items-center w-full h-[20vh] bg-zinc-700 border-zinc-900 border-t-2 rounded-lg'>
+				{
+					typeof(current) == "object" &&
+						current.type.includes("TrickList") &&
+						<AddListButton setOpen={setOpenNewList} open={openNewList} /> 
+				}{
+					typeof(current) == "object" &&
+						current.type === "Combo" &&
+						<AddComboItemToTricklist setOpen={setOpenNewCombo} open={openNewCombo} />
+				}{
+					typeof(current) == "object" &&
+						current.type === "Trick" &&
+						<AddComboItemToTricklist setOpen={setOpenNewCombo} open={openNewCombo} />
+				}
 			</div>
 		</div>
 	);

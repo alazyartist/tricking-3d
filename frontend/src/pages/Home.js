@@ -103,7 +103,6 @@ function Home() {
 				) : (
 					// LoggedIn
 					<>
-						<TricklistPage profileuuid={uuid} />
 						{/*
 						<div className='text-zinc-300'>
 							{profileCodeOpen ? (

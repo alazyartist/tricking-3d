@@ -8,6 +8,7 @@ import ProfileInfoCard from "./components/ProfileInfoCard";
 import ProfileInfoCardEditable from "./components/ProfileInfoCardEditable";
 import TricklistsAndClamiedContainer from "./components/TricklistsAndClaimedContainer";
 import UserAvatarDisplay from "./components/UserAvatarDisplay";
+import TricklistPage from "../tricklist/TricklistPage";
 
 const UserProfile = () => {
 	const { uuid } = useParams();
@@ -24,7 +25,7 @@ const UserProfile = () => {
 	});
 	const isUsersPage = uuid === loggedInUUID;
 	return (
-		<div className='m-4 mb-14 flex h-full flex-col place-content-center place-items-center pt-[3.4rem] font-inter text-zinc-300'>
+		<div className='m-4 flex h-full flex-col place-content-center place-items-center pt-[3.4rem] font-inter text-zinc-300'>
 			<div className=' flex flex-row gap-4 pb-4'>
 				<div className='flex flex-col'>
 					{editView((styles, editing) =>
@@ -64,12 +65,7 @@ const UserProfile = () => {
 				</div>
 				<UserAvatarDisplay />
 			</div>
-			<TricklistsAndClamiedContainer
-				isUsersPage={isUsersPage && editing}
-				profileuuid={uuid}
-				MyTricklists={profileInfo?.MyTricklists}
-				Claimed={profileInfo?.CombosClaimed}
-			/>
+			<TricklistPage profileuuid={uuid} displayOnly />
 		</div>
 	);
 };
