@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+/*
+ import React, { useEffect } from "react";
 import useGetTricklists from "../../../api/useTricklists";
 import { useUserStore } from "../../../store/userStore";
 
@@ -56,3 +57,4 @@ const TricklistDisplay = ({
 };
 
 export default TricklistDisplay;
+*/

@@ -1,58 +1,51 @@
-import React, { useState, useEffect } from "react";
-import AddListButton from "./components/AddListButton";
-import ListViewbyID from "./components/ListViewbyID";
-import MakeNewTrickList from "./components/MakeNewTrickList";
-import TricklistDisplay from "./components/TricklistDisplay";
+import React, { useState, useEffect } from "react"
+import TrickList from "./components/trickList"
+import Data_Mock from "../../data/trickList_mock"
+import useGetTricklists from "../../api/useTricklists";
 
+// @TODO: Something with displayOnly
 const TricklistPage = ({ displayOnly, profileuuid }) => {
-	const [open, setOpen] = useState(false);
-	const [openView, setOpenView] = useState(false);
-	const [addItemopen, setAddItemopen] = useState(false);
+	const [mockedData] = useState(Data_Mock)
+	const { data: lists } = useGetTricklists(profileuuid);
+	const [data, setData] = useState(lists)
 
-	const [tricklist_id, setTricklist_id] = useState("");
+	useEffect(() => {
+		setData(lists)
+	}, [lists])
 
-	//TODO add animations between Tricklist Views
+	const _getDate = (e) => {
+		let date = new Date(e?.createdAt)
+		return (date.toDateString().slice(3, date.length))
+	}
+
 	return (
-		<div
-			id={"tricklistPage-Container"}
-			className='no-scrollbar flex h-fit max-h-[50vh] w-full flex-col place-content-start place-items-center gap-2 overflow-y-auto'>
-			<div className='h-full w-full'>
-				{!openView && (
-					<div className='flex h-full w-full flex-row place-items-center gap-2'>
-						<TricklistDisplay
-							addItemopen={addItemopen}
-							profileuuid={profileuuid}
-							setTricklist_id={setTricklist_id}
-							displayOnly={displayOnly}
-							setOpenView={setOpenView}
-							openView={openView}
-							open={open}
-						/>
-						{!displayOnly && !open && (
-							<AddListButton setOpen={setOpen} open={open} />
-						)}
-					</div>
-				)}
-				<div>
-					{open && !displayOnly && <MakeNewTrickList setOpen={setOpen} />}
-				</div>
-
-				<div>
-					{openView && (
-						<ListViewbyID
-							addItemopen={addItemopen}
-							setAddItemopen={setAddItemopen}
-							displayOnly={displayOnly}
-							setOpenView={setOpenView}
-							tricklist_id={tricklist_id}
-							setTricklist_id={setTricklist_id}
-							openView={openView}
-							open={open}
-						/>
-					)}
+		<div className='w-[90vw] h-[38vh] max-h-[38vh] p-2 bg-zinc-700 rounded-lg flex flex-col items-center justify-center overflow-scroll no-scrollbar'>
+				<div className='bg-zinc-400 rounded-lg w-full h-full overflow-scroll no-scrollbar'>
+					{
+						Array.isArray(data) &&
+							data.length > 0 &&
+							data.map((list, i) => {
+								return (
+									<>
+										{
+											<div className='p-1'>
+												<TrickList
+													key={list.tricklist_id}
+													data={list}
+													date={_getDate(list)}
+													last={i == data.length-1}
+													// @TODO: Drag shouldn't be hardcoded
+													drag_offset={60}
+												/>
+											</div>
+										}
+									</>
+								)
+							}
+							)
+					}
 				</div>
 			</div>
-		</div>
 	);
 };
 

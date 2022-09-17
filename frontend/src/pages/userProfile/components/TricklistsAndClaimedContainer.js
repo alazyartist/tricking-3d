@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import TricklistPage from "../../tricklist/TricklistPage";
 import ClaimedDisplay from "./ClaimedDisplay";
 
 const TricklistsAndClamiedContainer = ({
@@ -37,16 +36,8 @@ const TricklistsAndClamiedContainer = ({
 							? "place-content-start"
 							: "place-content-center"
 					} bg-zinc-600`}>
-					{/* {(MyTricklists?.length &&
-						MyTricklists?.map((list) => (
-							<div onClick={() => console.log(list)}>{list?.name}</div>
-						))) ||
-						"No Tricklists to Display"} */}
 					{MyTricklists?.length ? (
-						<TricklistPage
-							profileuuid={profileuuid}
-							displayOnly={!isUsersPage}
-						/>
+						<></>
 					) : (
 						"No Tricklists to Display"
 					)}

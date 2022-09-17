@@ -20,6 +20,7 @@ function Home() {
 	const { uuid } = useUserStore((s) => s.userInfo);
 	const accessToken = useUserStore((s) => s.accessToken);
 	const navigate = useNavigate();
+	console.log("uuid: ", uuid)
 	return (
 		<div className='sticky mt-0 '>
 			<div
@@ -102,19 +103,27 @@ function Home() {
 				) : (
 					// LoggedIn
 					<>
+						{/*
 						<div className='text-zinc-300'>
 							{profileCodeOpen ? (
 								<ProfileCode setProfileCodeOpen={setProfileCodeOpen} />
 							) : (
+								<>
+									<div className='flex flex-col gap-2 rounded-xl bg-zinc-700 p-2'>
+									 <Captures />
+									 <UpdateStatusInput />
+									</div>
+								</>
 								<div className='mb-2 flex flex-col gap-2 rounded-xl bg-zinc-700 p-2'>
 									<TricklistPage profileuuid={uuid} />
-									{/* <UpdateStatusInput /> */}
+									{/* <UpdateStatusInput /> 
 								</div>
 							)}
 							<div className='mb-20 flex flex-col gap-2 rounded-xl bg-zinc-700 p-2'>
 								<Captures />
 							</div>
 						</div>
+						*/}
 					</>
 				)}
 			</div>
