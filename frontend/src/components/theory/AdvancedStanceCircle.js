@@ -40,8 +40,7 @@ function AdvancedStanceCircle() {
 		from: { opacity: 0, rotate: lastRotation },
 		to: { opacity: 1, rotate: newRot - 90 },
 		config: {
-			duration: 450,
-			config: config.wobbly,
+			config: config.stiff,
 		},
 	});
 	const opacitySpring = useSpring({
@@ -52,7 +51,6 @@ function AdvancedStanceCircle() {
 		},
 		reverse: isFolded,
 		config: {
-			duration: 450,
 			config: config.wobbly,
 		},
 	});
@@ -64,8 +62,7 @@ function AdvancedStanceCircle() {
 		},
 		reverse: isFolded,
 		config: {
-			duration: 450,
-			config: config.wobbly,
+			config: config.stiff,
 		},
 	});
 	console.log(newRot);
@@ -102,10 +99,19 @@ function AdvancedStanceCircle() {
 					</animated.div>
 				</div>
 			</animated.div>
-			<animated.div style={zAnim} className='absolute  flex w-[75vw]'>
+			<animated.div
+				style={zAnim}
+				className='absolute flex w-[75vw] flex-col place-items-center p-2'>
 				<HalfCircle
 					onClick={() => setIsFolded(false)}
 					isFolded={isFolded}
+					stance={currentStance}
+				/>
+				<HalfCircle
+					className={"rotate-180"}
+					onClick={() => setIsFolded(false)}
+					isFolded={isFolded}
+					isOtherStance
 					stance={currentStance}
 				/>
 			</animated.div>

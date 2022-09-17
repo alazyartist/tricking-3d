@@ -48,6 +48,8 @@ import ComboMakerV2 from "./pages/comboMakerV2/ComboMakerV2";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import UserProfile from "./pages/userProfile/userProfile";
+import TheoryIndexInstructions from "./pages/theory/TheoryIndexInstructions";
+import TestSections from "./pages/TestSections";
 
 function App() {
 	const accessToken = useUserStore((s) => s.accessToken);
@@ -82,7 +84,7 @@ function App() {
 	return (
 		<>
 			<QueryClientProvider client={queryClient}>
-				{/* <ReactQueryDevtools initialIsOpen /> */}
+				<ReactQueryDevtools initialIsOpen />
 				<AppBackground />
 				<UserIcon />
 				{!location.pathname.includes("/home") && location.pathname !== "/" && (
@@ -135,6 +137,7 @@ function App() {
 								</div>
 							}
 						/> */}
+							<Route path={"/test"} element={<TestSections />} />
 							<Route path={"/need"} element={<AnimationsNeeded />} />
 							<Route path={"/theory"} element={<TheoryPage />}>
 								<Route path={"transitionlist"} element={<TransitionList />} />
@@ -157,7 +160,7 @@ function App() {
 								<Route
 									path={"stances"}
 									element={<AdvancedStanceCircle />}></Route>
-								{/* <Route index element={<TheoryNavBar />} /> */}
+								<Route index element={<TheoryIndexInstructions />} />
 							</Route>
 							<Route path={"/comingsoon"} element={<ComingSoon />} />
 							<Route path={"/contribute"} element={<Contribute />}>
