@@ -1,6 +1,12 @@
+import { Canvas } from "@react-three/fiber";
 import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
+import { FaCompass, FaExpand, FaHamburger } from "react-icons/fa";
+import { GrNavigate } from "react-icons/gr";
 import { useSpring, animated, config } from "react-spring";
 import useMeasure from "react-use-measure";
+import AdvancedStanceCircle from "../components/theory/AdvancedStanceCircle";
+import { TorqueScene } from "../scenes/TorqueScene";
+import AnatomyNav from "./theory/components/AnatomyNavSVG";
 const TestSections = () => {
 	const [changeHeight, setChangeHeight] = useState({
 		ht1: "20vh",
@@ -8,10 +14,13 @@ const TestSections = () => {
 		ht3: "20vh",
 	});
 	const [lastSelected, setLast] = useState();
+	const [isOpenSideDrawer, openSideDrawer] = useState(false);
+	const [navOpen, setNavOpen] = useState(false);
 	// const [ref1, bounds] = useMeasure();
 	const ref1 = useRef();
 	const ref2 = useRef();
 	const ref3 = useRef();
+	const sideDrawer = useRef();
 
 	const { ht1, ht2, ht3 } = useSpring({
 		onChange: () => {
@@ -26,7 +35,11 @@ const TestSections = () => {
 			ht2: changeHeight.ht2,
 			ht3: changeHeight.ht3,
 		},
-		config: { ...config.wobbly },
+		config: { tension: 180, friction: 12, mass: 1 },
+	});
+	const { width } = useSpring({
+		to: { width: isOpenSideDrawer ? "50vw" : "0vw" },
+		config: { ...config.stiff },
 	});
 	useEffect(() => {
 		// ref3.current.scrollIntoView({
@@ -36,48 +49,88 @@ const TestSections = () => {
 		// });
 	}, [changeHeight, setChangeHeight]);
 	return (
-		<div
-			id={"flex"}
-			className=' no-scrollbar h-[100vh] w-full  overflow-y-scroll text-xl text-zinc-300'>
+		<div className='flex'>
 			<animated.div
-				ref={ref1}
-				onClick={() => {
-					setLast(ref1);
-					setChangeHeight({
-						...changeHeight,
-						ht1: changeHeight.ht1 === "40vh" ? "20vh" : "40vh",
-					});
-				}}
-				style={{ height: ht1 }}
-				className='h-[20vh] w-full   bg-zinc-600'>
-				TestSections1
+				style={{ width }}
+				ref={sideDrawer}
+				id='will-IT-portal'
+				className='h-[100vh] bg-zinc-800'>
+				Test
 			</animated.div>
-			<animated.div
-				ref={ref2}
-				onClick={() => {
-					setLast(ref2);
-					setChangeHeight({
-						...changeHeight,
-						ht2: changeHeight.ht2 === "80vh" ? "60vh" : "80vh",
-					});
-				}}
-				style={{ height: ht2 }}
-				className='h-[60vh] w-full   bg-zinc-500'>
-				TestSections2
-			</animated.div>
-			<animated.div
-				ref={ref3}
-				onClick={() => {
-					setLast(ref3);
-					setChangeHeight({
-						...changeHeight,
-						ht3: changeHeight.ht3 === "40vh" ? "20vh" : "40vh",
-					});
-				}}
-				style={{ height: ht3 }}
-				className='h-[20vh] w-full    bg-zinc-700'>
-				TestSections3
-			</animated.div>
+
+			<div
+				id={"flex"}
+				className=' no-scrollbar w-[100vw]} static h-[100vh] overflow-y-scroll font-inter text-xl font-bold text-zinc-900'>
+				<animated.div
+					ref={ref1}
+					style={{ height: ht1 }}
+					className='h-[20vh] w-full bg-zinc-800'>
+					{navOpen ? (
+						<Canvas className='overflow-hidden rounded-xl p-2'>
+							<TorqueScene />
+						</Canvas>
+					) : (
+						<AnatomyNav
+							style={{ height: changeHeight.ht3 }}
+							className='w-[100vw]'
+						/>
+					)}
+					<div
+						onClick={() => {
+							setLast(ref1);
+							setChangeHeight({
+								...changeHeight,
+								ht1: changeHeight.ht1 === "40vh" ? "20vh" : "40vh",
+							});
+						}}
+						className=' relative z-[200] flex w-full translate-y-[-3vh]  px-3 text-zinc-400'>
+						<FaExpand />
+					</div>
+					<div
+						onClick={() => openSideDrawer(!isOpenSideDrawer)}
+						className='relative top-[1vh] left-[2vh] z-[200] w-fit text-zinc-400'>
+						<FaHamburger />
+					</div>
+				</animated.div>
+				<div
+					onClick={() => setNavOpen(!navOpen)}
+					className='relative top-[1vh] left-[2vh] z-[200] h-0 w-fit text-zinc-400'>
+					<FaCompass />
+				</div>
+				<animated.div
+					ref={ref2}
+					style={{ height: ht2 }}
+					className='no-scrollbar h-[60vh] w-[100vw] overflow-y-auto bg-zinc-800'>
+					<div
+						onClick={() => {
+							setLast(ref2);
+							setChangeHeight({
+								...changeHeight,
+								ht2: changeHeight.ht2 === "80vh" ? "60vh" : "80vh",
+							});
+						}}
+						className=' relative top-[1vh] left-[90vw] z-[200] flex w-fit text-zinc-400'>
+						<FaExpand />
+					</div>
+					<AdvancedStanceCircle sideDrawer={sideDrawer} />
+				</animated.div>
+				<animated.div
+					ref={ref3}
+					style={{ height: ht3 }}
+					className=' w-[100vw]  bg-zinc-800'>
+					<div
+						onClick={() => {
+							setLast(ref3);
+							setChangeHeight({
+								...changeHeight,
+								ht3: changeHeight.ht3 === "40vh" ? "20vh" : "40vh",
+							});
+						}}
+						className=' relative flex h-0  w-full translate-y-[3vh] place-content-end px-3 text-zinc-400'>
+						<FaExpand />
+					</div>
+				</animated.div>
+			</div>
 		</div>
 	);
 };

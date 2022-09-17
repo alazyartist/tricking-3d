@@ -80,7 +80,7 @@ function App() {
 	return (
 		<>
 			<QueryClientProvider client={queryClient}>
-				{/* <ReactQueryDevtools initialIsOpen /> */}
+				<ReactQueryDevtools initialIsOpen />
 				<AppBackground />
 				<UserIcon />
 				{!location.pathname.includes("/home") && location.pathname !== "/" && (

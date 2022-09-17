@@ -77,7 +77,7 @@ const TricklistbyIdDetails = ({
 							style={(translateX, opacity)}
 							onChange={(e) => console.log(e)}
 							// contentEditable='true'
-							className='place-items-center flex gap-1 font-inter text-2xl font-bold text-zinc-300'>
+							className='flex place-items-center gap-1 font-inter text-2xl font-bold text-zinc-300'>
 							<div onClick={() => setOpenView(false)}>
 								{openView && !addItemopen && <IoIosArrowBack />}
 							</div>
@@ -88,7 +88,7 @@ const TricklistbyIdDetails = ({
 			</div>
 			<div>
 				{!addItemopen && (
-					<div className='place-content-center flex h-[35vh] flex-col  pt-4'>
+					<div className='flex h-[35vh] flex-col place-content-center  pt-4'>
 						<div
 							id={"data-container"}
 							className='flex gap-8 text-base text-zinc-300'>
@@ -107,6 +107,7 @@ const TricklistbyIdDetails = ({
 							<div className='no-scrollbar flex flex-shrink-0 flex-col gap-2 '>
 								{Array.isArray(tricklistData) &&
 									tricklistData.map((listItem) => {
+										console.log("listItem", listItem);
 										return (
 											<div
 												onClick={() => {
@@ -116,7 +117,7 @@ const TricklistbyIdDetails = ({
 												key={
 													listItem.combo_id + Math.floor(Math.random() * 1000)
 												}
-												className='place-items-center flex h-full justify-between gap-2 overflow-hidden rounded-xl bg-zinc-900  p-2'>
+												className='flex h-full place-items-center justify-between gap-2 overflow-hidden rounded-xl bg-zinc-900  p-2'>
 												<div>{listItem?.Combo?.name}</div>
 												{editView((styles, editing) =>
 													editing ? (

@@ -19,7 +19,7 @@ function TabBar() {
 		leave: { opacity: 0, right: "-40vw" },
 		reverse: openHamburger,
 		delay: 100,
-		config: { durration: 1200, tension: 280, friction: 40 },
+		config: { tension: 280, friction: 40 },
 		// onRest: () => setOpenHamburger(!openHamburger),
 	});
 
@@ -28,21 +28,21 @@ function TabBar() {
 		to: { bottom: "0px" },
 		reverse: openNav,
 		config: {
-			duration: 350,
-			config: config.wobbly,
+			config: { tension: 40, friction: 12 },
 		},
 	});
 
 	return (
 		<>
-			<div className='absolute w-[100%] bottom-0 overflow-hidden'>
-				<animated.div style={(navToggle)} className='relative'>
-					<button 
-						style={navToggle} 
-						className='relative z-[999] left-0 w-[100%] h-4 flex place-content-center place-items-center'
-						onClick={() => setOpenNav(!openNav)}>
-					</button>
-					<div style={(navToggle)} className='relative left-0 z-[100] flex h-12 w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300'>
+			<div className='absolute bottom-0 w-[100%] overflow-hidden'>
+				<animated.div style={navToggle} className='relative'>
+					<button
+						style={navToggle}
+						className='relative left-0 z-[999] flex h-4 w-[100%] place-content-center place-items-center'
+						onClick={() => setOpenNav(!openNav)}></button>
+					<div
+						style={navToggle}
+						className='relative left-0 z-[100] flex h-12 w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300'>
 						<Link onClick={() => setOpenHamburger(false)} to='/home'>
 							<AiOutlineHome />
 						</Link>
@@ -64,24 +64,24 @@ function TabBar() {
 			{/* Open Hamburger Menu Display */}
 			{hamburger(
 				(styles, hamburgerMenu) =>
-				hamburgerMenu && (
-					<animated.div
-						id='side-Menu'
-						style={styles}
-						onClick={() => setOpenHamburger(!openHamburger)}
-						className='fixed bottom-14 z-[100] rounded-l-xl'>
-						<animated.div className='flex h-[40vh] max-w-[40vw] flex-col gap-3 rounded-l-xl bg-gradient-to-br from-zinc-900 to-zinc-800 p-3 text-sm text-white'>
-							<Link to='/about'>About</Link>
-							<Link to='/contribute'>Contibute</Link>
-							<Link to='/learnMore'>Learn More</Link>
-							<button
-								className='absolute bottom-2 left-3'
-								onClick={() => logout()}>
-								Logout
-							</button>
+					hamburgerMenu && (
+						<animated.div
+							id='side-Menu'
+							style={styles}
+							onClick={() => setOpenHamburger(!openHamburger)}
+							className='fixed bottom-14 z-[100] rounded-l-xl'>
+							<animated.div className='flex h-[40vh] max-w-[40vw] flex-col gap-3 rounded-l-xl bg-gradient-to-br from-zinc-900 to-zinc-800 p-3 text-sm text-white'>
+								<Link to='/about'>About</Link>
+								<Link to='/contribute'>Contibute</Link>
+								<Link to='/learnMore'>Learn More</Link>
+								<button
+									className='absolute bottom-2 left-3'
+									onClick={() => logout()}>
+									Logout
+								</button>
+							</animated.div>
 						</animated.div>
-					</animated.div>
-				)
+					)
 			)}
 		</>
 	);
