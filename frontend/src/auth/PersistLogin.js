@@ -6,15 +6,11 @@ import useRefreshToken from "../hooks/useRefreshToken";
 import { useUserStore } from "../store/userStore";
 
 const PersistLogin = () => {
-	const { data, status } = useUserInfo();
 	const [isLoading, setIsLoading] = useState(true);
 	const accessToken = useUserStore((s) => s.accessToken);
 	const user = useUserStore((s) => s.user);
 	const persist = useLocalStorage("persist", false);
 	const refresh = useRefreshToken();
-	// useEffect(() => {
-	// 	console.log(status, data);
-	// }, [data, status]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -30,10 +26,6 @@ const PersistLogin = () => {
 		!accessToken ? verifyRefreshToken() : setIsLoading(false);
 		return () => (isMounted = false);
 	}, []);
-	// useEffect(() => {
-	// 	console.log(isLoading);
-	// 	console.log(accessToken);
-	// }, [isLoading]);
 
 	return (
 		<>{!persist ? <Outlet /> : isLoading ? <p>Loading ...</p> : <Outlet />}</>

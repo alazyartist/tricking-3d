@@ -14,6 +14,7 @@ const Captures = () => {
 	const queryClient = useQueryClient();
 	const nav = useNavigate();
 	useEffect(() => {
+		console.log(userInfo);
 		setCaptured(userInfo.Captured);
 		setCapturedYou(userInfo.CapturedMe);
 	}, [userInfo]);
