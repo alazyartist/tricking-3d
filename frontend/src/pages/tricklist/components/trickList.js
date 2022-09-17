@@ -3,35 +3,37 @@ import TrickList_Component from "./trickList_Component"
 import TrickList_Next from "./trickList"
 import AddListButton from "./AddListButton"
 import AddComboItemToTricklist from "./AddComboItemToTricklist";
+import { useStore } from "../../../store/store.js";
 
 const Tricklist = ({
 	data,
 	date,
 	last,
-	fn,
 	drag_offset,
-	setCurrentLayer
+	swipe_left,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const innerArray = (data.comboArray) ? data.comboArray : data.trickArray
+	const innerArray = (data.TricklistCombos) ? data.TricklistCombos : data.comboArray
 	const [addItemopen, setAddItemopen] = useState(false)
 	const [tricklist_id] = useState("")
 	const [open, setOpen] = useState(false)
-	useEffect(() => { setCurrentLayer(data) }, [isOpen])
+	const setSelected = useStore((s) => s.setSelected_TrickList);
+
+	const _toggleOpen = () => {
+		setSelected(isOpen? undefined : data );
+		setIsOpen(!isOpen)
+	}
 
 	return (
 		<>
 			{
 				<TrickList_Component
-					key={data.id}
 					data={data}
 					open={isOpen}
 					date={date}
 					last={last}
-					fn={() => { setIsOpen(!isOpen) }}
+					fn={() => { _toggleOpen() }}
 					drag_offset={drag_offset}
-					swipe_left={() => console.log(data.name, "- Swipe Left: Replace with function")}
-					swipe_right={() => console.log(data.name, "- Swipe Right: Replace with function")}
 				/>
 			}
 			{
@@ -48,9 +50,6 @@ const Tricklist = ({
 										date={date}
 										last={j == innerArray.length-1}
 										drag_offset={drag_offset}
-										setCurrentLayer={setCurrentLayer}
-										swipe_left={() => console.log(combo.name, "- Swipe Left: Replace with function")}
-										swipe_right={() => console.log(combo.name, "- Swipe Right: Replace with function")}
 									/>
 								}
 							</>

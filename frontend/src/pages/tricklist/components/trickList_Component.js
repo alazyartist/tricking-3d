@@ -1,13 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
+import { useStore } from "../../../store/store.js";
+import {
+	useDeleteTricklist,
+	useDeleteCombo,
+} from "../../../api/useTricklists";
 
-const TrickList_Component = ({ data, open, date, last, fn, drag_offset, swipe_left, swipe_right}) => {
+const TrickList_Component = ({ data, open, date, last, fn, drag_offset }) => {
+	const selected = useStore((s) => s.selected_TrickList);
+	const setSelected = useStore((s) => s.setSelected_TrickList);
 	const [selectorColor, setSelectorColor] = useState();
 	const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 	const left = {bg: `linear-gradient(120deg, #f093fb 0%, #f5576c 100%)`, offset: '90%'}
 	const right = {bg: `linear-gradient(120deg, #96fbc4 0%, #a9f586 100%)`, offset: '5%'}
 	const [{ x, bg, scale, offset }, api] = useSpring(() => ({ x: 0, scale: 1 }))
+	const { mutate: deleteTricklist } = useDeleteTricklist(selected?.tricklist_id);
+	const { mutate: deleteCombo } = useDeleteCombo();
+	
+	const swipe_left = () => {
+		data.type ? deleteCombo(selected?.Tricklist_Combos) : deleteTricklist()
+		setSelected(undefined);
+	}
+	const swipe_right = () => {
+		console.log("Swiped to the right: ", selected)
+	}
 
 	const _getStyle = () => {
 		let _style = "h-[5vh] break-all w-full p-2 font-inter text-sm font-semibold text-zinc-200"
@@ -104,7 +121,9 @@ const TrickList_Component = ({ data, open, date, last, fn, drag_offset, swipe_le
 				{...bind()}
 				style={{ x, touchAction: "none" }}>
 				<button
-					onClick={() => fn()}
+					onClick={() => {
+						fn();
+					}}
 					className={_getStyle()}
 				>
 					{label}

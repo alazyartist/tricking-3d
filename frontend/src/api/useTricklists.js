@@ -11,9 +11,7 @@ export const useGetTricklists = (uuid) => {
 			return data;
 		},
 		{
-			onSuccess: () => {
-				// console.log("got the Tricklists");
-			},
+			onSuccess: () => {},
 		}
 	);
 };
@@ -22,13 +20,12 @@ export const useGetCombos = () => {
 	return useQuery(
 		["combos"],
 		async () => {
+			// @TODO: Does this need to pass a uuid?
 			const { data } = await apiPrivate.get(`combo`, {});
 			return data;
 		},
 		{
-			onSuccess: () => {
-				// console.log("got the Combos");
-			},
+			onSuccess: () => {},
 		}
 	);
 };
@@ -78,6 +75,8 @@ export const useAddCombo = (tricklist_id) => {
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries(["tricklist details", tricklist_id]);
+				queryClient.invalidateQueries(["tricklists"]);
+				queryClient.invalidateQueries(["combos"]);
 				console.log("AddedCombo");
 			},
 		}
@@ -110,6 +109,7 @@ export const useDeleteCombo = () => {
 		},
 		{
 			onSuccess: (data) => {
+				queryClient.invalidateQueries([ "tricklists" ]);
 				queryClient.invalidateQueries([
 					"tricklist details",
 					data.data.tricklist_id,

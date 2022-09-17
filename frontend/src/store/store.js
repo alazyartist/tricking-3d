@@ -56,6 +56,8 @@ export const useStore = create(
 		setSliderEnd: (value) => set(() => ({ end: value })),
 		setSliderStart: (value) => set(() => ({ start: value })),
 		showUI: true,
+		selected_TrickList: {},
+		setSelected_TrickList: (value) => set(() => ({ selected_TrickList: value })),
 		showInfo: false,
 		setInfo: () => set((s) => ({ showInfo: !s.showInfo })),
 		setUI: () => set((s) => ({ showUI: !s.showUI })),
