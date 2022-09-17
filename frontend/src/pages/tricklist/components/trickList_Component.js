@@ -109,7 +109,7 @@ const TrickList_Component = ({ data, open, date, last, fn, drag_offset }) => {
 		/* BACKGROUND */
 		<animated.div
 			{...bind()}
-			className={`relative overflow-hidden`}
+			className={`relative rounded-xl`}
 			style={{ background: bg, touchAction: "none" }}>
 			{/* FLOATING BALL */}
 			<animated.div

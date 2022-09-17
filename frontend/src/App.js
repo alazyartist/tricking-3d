@@ -90,7 +90,9 @@ function App() {
 				{!location.pathname.includes("/home") && location.pathname !== "/" && (
 					<Header />
 				)}
-				{/*tabBar ? (!isSandbox || !isUserProfile) && <TabBar /> : !isSandbox && <TheoryTabBar />*/}
+				{tabBar
+					? (!isSandbox || !isUserProfile) && <TabBar />
+					: !isSandbox && <TheoryTabBar />}
 
 				{transitions(({ opacity }, curLocation) => (
 					<animated.div style={{ opacity }}>

@@ -20,9 +20,9 @@ function Home() {
 	const { uuid } = useUserStore((s) => s.userInfo);
 	const accessToken = useUserStore((s) => s.accessToken);
 	const navigate = useNavigate();
-	console.log("uuid: ", uuid)
+	console.log("uuid: ", uuid);
 	return (
-		<div className='sticky mt-0 '>
+		<div className='no-scrollbar sticky mt-0 h-[100vh] w-full overflow-y-scroll '>
 			<div
 				id='AppBackground-flex'
 				className='flex h-screen w-screen flex-col place-items-center'>
@@ -103,27 +103,24 @@ function Home() {
 				) : (
 					// LoggedIn
 					<>
-						{/*
 						<div className='text-zinc-300'>
 							{profileCodeOpen ? (
 								<ProfileCode setProfileCodeOpen={setProfileCodeOpen} />
 							) : (
 								<>
 									<div className='flex flex-col gap-2 rounded-xl bg-zinc-700 p-2'>
-									 <Captures />
-									 <UpdateStatusInput />
+										<UpdateStatusInput />
+									</div>
+									<div className='my-2 flex flex-col place-items-center gap-2 rounded-xl bg-zinc-600 p-2'>
+										<TricklistPage profileuuid={uuid} />
+										{/* <UpdateStatusInput /> */}
 									</div>
 								</>
-								<div className='mb-2 flex flex-col gap-2 rounded-xl bg-zinc-700 p-2'>
-									<TricklistPage profileuuid={uuid} />
-									{/* <UpdateStatusInput /> 
-								</div>
 							)}
 							<div className='mb-20 flex flex-col gap-2 rounded-xl bg-zinc-700 p-2'>
 								<Captures />
 							</div>
 						</div>
-						*/}
 					</>
 				)}
 			</div>
