@@ -1,5 +1,6 @@
 import db from "../models/index.js";
 const tricklist = await db.sequelize.models.Tricklist;
+const tricklist_combos = await db.sequelize.models.Tricklist_Combos;
 const tricks = await db.sequelize.models.Tricks;
 // db.sequelize.models.Bases.associate(db.sequelize.models);
 // db.sequelize.models.Tricks.associate(db.sequelize.models);
@@ -76,11 +77,14 @@ export const getTricklistsById = async (req, res) => {
 };
 export const deleteTricklistsById = async (req, res) => {
 	const tricklist_id = req.params.tricklist_id;
+	await tricklist_combos.destroy({
+		where: { tricklist_id: tricklist_id },
+	});
 	tricklist
 		.destroy({
 			where: { tricklist_id: tricklist_id },
 		})
-		.then((data) => {
-			res.json({ data: data, message: "DELETED TRICKLIST" });
+		.then(() => {
+			res.json({ message: "DELETED TRICKLIST" });
 		});
 };

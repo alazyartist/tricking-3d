@@ -91,7 +91,8 @@ export const useDeleteTricklist = (tricklist_id) => {
 			return apiPrivate.delete(`/tricklist/user/${tricklist_id}`, { data });
 		},
 		{
-			onSuccess: () => {
+			onSuccess: (data) => {
+				console.log(data);
 				queryClient.invalidateQueries(["tricklists"]);
 			},
 		}
@@ -109,7 +110,7 @@ export const useDeleteCombo = () => {
 		},
 		{
 			onSuccess: (data) => {
-				queryClient.invalidateQueries([ "tricklists" ]);
+				queryClient.invalidateQueries(["tricklists"]);
 				queryClient.invalidateQueries([
 					"tricklist details",
 					data.data.tricklist_id,
