@@ -100,7 +100,7 @@ export const HalfCircle = (props) => {
 					}}
 					data-name='Layer 5'
 				/>
-				<text
+				<animated.text
 					x={228}
 					y={228}
 					fontFamily='Virgil, Segoe UI Emoji'
@@ -109,11 +109,12 @@ export const HalfCircle = (props) => {
 					className='translate-x-[-86px] translate-y-[-30px]'
 					textAnchor='start'
 					style={{
+						opacity: sprang.opacity,
 						whiteSpace: "pre",
 					}}
 					direction='ltr'>
 					{otherStance}
-				</text>
+				</animated.text>
 			</g>
 		</svg>
 	);

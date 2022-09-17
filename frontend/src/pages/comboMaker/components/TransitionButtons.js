@@ -18,9 +18,7 @@ function TransitionButtons({ noText, currentLeg, f }) {
 	}
 
 	return (
-		<div
-			onClick={() => f()}
-			className='flex flex-col place-items-center  text-zinc-800'>
+		<div onClick={() => f()} className='flex flex-col place-items-center '>
 			{currentLeg && whichLeg(currentLeg)}
 			{!noText && currentLeg}
 		</div>

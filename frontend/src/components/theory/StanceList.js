@@ -74,8 +74,8 @@ function StanceList({ setCurrentStance, currentStance }) {
 						// nav(e.name);
 					}}></ArrayDisplay>
 			</div>
-			<div className='rounded-xl bg-zinc-300'>
-				<div className='mx-2 flex w-[80vw] place-content-center gap-2 overflow-hidden overflow-x-auto '>
+			<div className='rounded-xl'>
+				<div className='mx-2 flex  w-[80vw] place-content-center gap-2 overflow-hidden overflow-x-auto text-zinc-400 '>
 					{/* {filteredStances.map((st) => (
 						<div
 							onClick={() => setCurrentStance(st.name)}

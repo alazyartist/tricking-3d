@@ -26,7 +26,7 @@ const AnatomyNav = (props) => {
 				xmlns='http://www.w3.org/2000/svg'
 				viewBox='0 0 1026.8161367195285 352.68253968253964'
 				width={1026.8161367195285}
-				height={352.68253968253964}
+				height={props.height}
 				{...props}>
 				<defs>
 					<style>

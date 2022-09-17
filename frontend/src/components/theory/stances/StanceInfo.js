@@ -30,10 +30,12 @@ function StanceInfo(props) {
 	console.log("Current Color", curColor);
 	return (
 		<div
-			className={`font-inter ${currentColor} place-content-center place-items-center rounded-xl`}>
+			// ${currentColor}
+			className={`place-content-center 
+			place-items-center rounded-xl font-inter`}>
 			<div
 				className={`col-span-3 flex h-10 w-60 place-content-center place-items-center gap-2 rounded-md 
-				text-center text-2xl`}>
+				text-center text-2xl text-zinc-400`}>
 				{props.stance}
 			</div>
 			<div className='flex flex-row place-content-center place-items-center gap-2 p-2'>
