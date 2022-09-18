@@ -11,7 +11,7 @@ const TricklistsAndClamiedContainer = ({
 
 	return (
 		<>
-			<div className='flex w-[80vw] place-content-center place-items-center gap-2'>
+			<div className='flex h-full w-[80vw] place-content-center place-items-center gap-2'>
 				<div
 					onClick={(e) => setActivePane("Tricklists")}
 					className={`flex w-full select-none justify-between rounded-t-md p-2 ${
@@ -31,7 +31,7 @@ const TricklistsAndClamiedContainer = ({
 			</div>
 			{activePane === "Tricklists" && (
 				<div
-					className={`flex h-[37vh] w-[80vw] flex-col place-items-center ${
+					className={`flex h-[40vh] w-[80vw] flex-col place-items-center py-4 ${
 						MyTricklists?.length
 							? "place-content-start"
 							: "place-content-center"

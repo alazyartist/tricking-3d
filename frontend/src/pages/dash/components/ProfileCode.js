@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { IoIosArrowBack } from "react-icons/io";
 import { MdOutlineQrCode2, MdQrCodeScanner } from "react-icons/md";
 import QRGenerator from "../components/QRGenerator";
 import QRReader from "../components/QRReader";
+import Captures from "./Captures";
 
-const ProfileCode = ({ setProfileCodeOpen }) => {
+const ProfileCode = ({ setProfileCodeOpen, profileCodeOpen }) => {
 	const [showQR, setShowQR] = useState(true);
 	const [showQrReader, setShowQrReader] = useState(false);
 	useEffect(() => {
@@ -20,14 +22,18 @@ const ProfileCode = ({ setProfileCodeOpen }) => {
 	}, [showQrReader]);
 	return (
 		<>
-			<div
+			{/* <div
 				id='bacground-color'
 				onClick={() => setProfileCodeOpen(false)}
-				className='absolute top-0 left-0 h-full w-full bg-zinc-800 opacity-90'
-			/>
-			<div className='absolute top-28 left-[15vw] w-[70vw]'>
+				className=' h-full w-full bg-zinc-800 opacity-90'
+			/> */}
+			<div className='neumorphicIn relative flex h-full flex-col place-items-center rounded-xl bg-zinc-800 p-2'>
+				<IoIosArrowBack
+					className='absolute top-4 left-1 text-4xl'
+					onClick={() => setProfileCodeOpen(!profileCodeOpen)}
+				/>
 				<div className=' rounded-xl  p-2'>
-					<div className='flex place-content-center place-items-center gap-2'>
+					<div className=' flex place-content-center place-items-center gap-2 '>
 						<button
 							className=' flex w-14 flex-col place-items-center rounded-lg bg-zinc-700 p-1'
 							onClick={() => setShowQR(true)}>
@@ -44,6 +50,9 @@ const ProfileCode = ({ setProfileCodeOpen }) => {
 					<div className='flex w-full flex-col place-content-center place-items-center'>
 						{showQR && <QRGenerator />}
 						{showQrReader && <QRReader />}
+					</div>
+					<div className='py-2'>
+						<Captures />
 					</div>
 				</div>
 			</div>

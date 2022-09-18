@@ -11,8 +11,8 @@ const AddListButton = ({ setOpen, open }) => {
 			{!open && (
 				<button
 					className=' 
-					fit flex h-[10vw] w-[60vw]
-					flex-row items-center justify-center rounded-full bg-zinc-800 font-inter text-lg font-semibold text-zinc-400 drop-shadow-lg
+					fit neumorphic active:neumorphicIn flex
+					h-[10vw] w-[60vw] flex-row items-center justify-center rounded-full bg-zinc-800 font-inter text-lg font-semibold text-zinc-400
 					'
 					onClick={() => {
 						setOpen(!open);

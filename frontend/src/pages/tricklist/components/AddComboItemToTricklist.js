@@ -11,9 +11,9 @@ const AddComboItemToTricklist = ({
 			<div className='sticky top-0 text-zinc-300'>
 				{!addItemopen && (
 					<button
-						className=' 
+						className=' neumorphic active:neumorphicIn
 							fit flex h-[10vw] w-[60vw]
-							flex-row items-center justify-center rounded-full border-[6px] border-zinc-400 bg-zinc-800 font-inter text-lg font-semibold text-zinc-400
+							flex-row items-center justify-center rounded-full  bg-zinc-800 font-inter text-lg font-semibold text-zinc-400
 							'
 						onClick={() => setAddItemopen(!addItemopen)}>
 						Add New Combo
