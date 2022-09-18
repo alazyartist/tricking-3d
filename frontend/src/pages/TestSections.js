@@ -2,6 +2,7 @@ import { Canvas } from "@react-three/fiber";
 import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { FaCompass, FaExpand, FaHamburger } from "react-icons/fa";
 import { GrNavigate } from "react-icons/gr";
+import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import { useSpring, animated, config } from "react-spring";
 import useMeasure from "react-use-measure";
 import AdvancedStanceCircle from "../components/theory/AdvancedStanceCircle";
@@ -71,7 +72,7 @@ const TestSections = () => {
 						</Canvas>
 					) : (
 						<AnatomyNav
-							style={{ height: changeHeight.ht3 }}
+							style={{ height: changeHeight.ht1 }}
 							className='w-[100vw]'
 						/>
 					)}
@@ -83,24 +84,25 @@ const TestSections = () => {
 								ht1: changeHeight.ht1 === "40vh" ? "20vh" : "40vh",
 							});
 						}}
-						className=' relative z-[200] flex w-full translate-y-[-3vh]  px-3 text-zinc-400'>
-						<FaExpand />
-					</div>
-					<div
-						onClick={() => openSideDrawer(!isOpenSideDrawer)}
-						className='relative top-[1vh] left-[2vh] z-[200] w-fit text-zinc-400'>
-						<FaHamburger />
+						className=' relative z-[200] flex w-full place-content-end px-3 text-3xl text-zinc-400'>
+						{changeHeight.ht1 === "20vh" ? <MdExpandMore /> : <MdExpandLess />}
 					</div>
 				</animated.div>
+				{/* <div
+					onClick={() => openSideDrawer(!isOpenSideDrawer)}
+					className='relative top-[1vh] left-[2vh] z-[200] h-0 w-fit text-zinc-400'>
+					<FaHamburger />
+				</div>
 				<div
 					onClick={() => setNavOpen(!navOpen)}
-					className='relative top-[1vh] left-[2vh] z-[200] h-0 w-fit text-zinc-400'>
+					className='relative top-[4vh] left-[2vh] z-[200] h-0 w-fit text-zinc-400'>
 					<FaCompass />
-				</div>
+				</div> */}
 				<animated.div
 					ref={ref2}
 					style={{ height: ht2 }}
-					className='no-scrollbar h-[60vh] w-[100vw] overflow-y-auto bg-zinc-800'>
+					className='no-scrollbar relative h-[60vh] w-[100vw] overflow-y-auto bg-zinc-800'>
+					<AdvancedStanceCircle sideDrawer={sideDrawer} />
 					<div
 						onClick={() => {
 							setLast(ref2);
@@ -109,10 +111,9 @@ const TestSections = () => {
 								ht2: changeHeight.ht2 === "80vh" ? "60vh" : "80vh",
 							});
 						}}
-						className=' relative top-[1vh] left-[90vw] z-[200] flex w-fit text-zinc-400'>
-						<FaExpand />
+						className=' absolute bottom-[1vh] z-[200] flex w-full place-content-end px-3 text-3xl text-zinc-600'>
+						{changeHeight.ht2 === "60vh" ? <MdExpandMore /> : <MdExpandLess />}
 					</div>
-					<AdvancedStanceCircle sideDrawer={sideDrawer} />
 				</animated.div>
 				<animated.div
 					ref={ref3}
@@ -126,8 +127,8 @@ const TestSections = () => {
 								ht3: changeHeight.ht3 === "40vh" ? "20vh" : "40vh",
 							});
 						}}
-						className=' relative flex h-0  w-full translate-y-[3vh] place-content-end px-3 text-zinc-400'>
-						<FaExpand />
+						className=' relative flex h-0  w-full translate-y-[3vh] place-content-end px-3 text-3xl text-zinc-400'>
+						{changeHeight.ht3 === "20vh" ? <MdExpandMore /> : <MdExpandLess />}
 					</div>
 				</animated.div>
 			</div>

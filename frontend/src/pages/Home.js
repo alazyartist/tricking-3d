@@ -5,7 +5,8 @@ import Loader from "../components/loaders/Loader";
 import { useNavigate, Link } from "react-router-dom";
 import MultiDonateButton from "../components/info/MultiDonateButton";
 import { TorqueScene } from "../scenes/TorqueScene";
-import { FaGraduationCap, FaQrcode } from "react-icons/fa";
+import { FaClipboardList, FaGraduationCap, FaQrcode } from "react-icons/fa";
+import { BsClipboardCheck } from "react-icons/bs";
 import { useUserStore } from "../store/userStore";
 import { ReactComponent as ComboMakerBlueprint } from "../data/ComboMakerBlueprint.svg";
 import { TrickedexLogo } from "../data/icons/TrickedexLogo";
@@ -13,13 +14,23 @@ import TricklistPage from "./tricklist/TricklistPage";
 import Captures from "./dash/components/Captures";
 import ProfileCode from "./dash/components/ProfileCode";
 import UpdateStatusInput from "../components/UpdateStatusInput";
+import { useStore } from "../store/store";
+import AddListButton from "./tricklist/components/AddListButton";
+import AddComboItemToTricklist from "./tricklist/components/AddComboItemToTricklist";
+import useUserInfo from "../api/useUserInfo";
 
 function Home() {
 	const [profileCodeOpen, setProfileCodeOpen] = useState(false);
 	const user = useUserStore((s) => s.user);
+	useUserInfo();
 	const { uuid } = useUserStore((s) => s.userInfo);
 	const accessToken = useUserStore((s) => s.accessToken);
 	const navigate = useNavigate();
+
+	const selected = useStore((s) => s.selected_TrickList);
+	const [addItemopen, setAddItemopen] = useState(false);
+	const [openNewList, setOpenNewList] = useState(false);
+
 	console.log("uuid: ", uuid);
 	return (
 		<div className='no-scrollbar sticky mt-0 h-[100vh] w-full overflow-y-scroll '>
@@ -30,7 +41,7 @@ function Home() {
 					<h1 className='flex flex-col text-xl '>
 						Welcome to the
 						<TrickedexLogo className='-m-2px flex w-[80vw] place-self-center' />
-						<div className='inline font-black'>{user}</div>
+						<div className='font-black text-zinc-300'>{user}</div>
 					</h1>
 				</div>
 
@@ -104,6 +115,41 @@ function Home() {
 					// LoggedIn
 					<>
 						<div className='text-zinc-300'>
+							{/*
+							<div className='m-2 flex w-full place-content-center gap-4 rounded-xl p-2 text-zinc-300'>
+								<Link
+									className='flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-zinc-800  text-4xl'
+									to='/comboMaker'>
+									<FaQrcode />
+									<div className='text-sm font-bold'>Capture</div>
+								</Link>
+								<Link
+									className='flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-zinc-800 text-6xl'
+									to='/theory'>
+									<FaClipboardList />
+									<div className='text-sm font-bold'>Tricklist</div>
+								</Link>
+							</div> */}
+							<div className='mb-4 grid w-full grid-cols-2 place-content-center place-items-center gap-2'>
+								<div
+									onClick={() => setProfileCodeOpen(!profileCodeOpen)}
+									className='flex h-36 w-full flex-col place-content-center place-items-center rounded-lg bg-zinc-800 text-4xl'>
+									<FaQrcode />
+									<div className='text-lg font-bold'>Capture</div>
+								</div>
+								<div className='flex h-36 w-full flex-col place-content-center place-items-center rounded-lg bg-zinc-800 text-4xl'>
+									<FaClipboardList />
+									<div className='text-lg font-bold'>Tricklist</div>
+								</div>
+								<div className='flex h-36 w-full flex-col place-content-center place-items-center rounded-lg bg-zinc-800 text-4xl'>
+									<BsClipboardCheck />
+									<div className='text-lg font-bold'>Claim Tricks</div>
+								</div>
+								<div className='flex  h-36 w-full flex-col place-content-center place-items-center rounded-lg bg-zinc-800 p-4 text-4xl'>
+									<ComboMakerBlueprint fill={"#d4d4d8"} />
+									<div className='mt-[-18px] text-lg font-bold'>ComboMaker</div>
+								</div>
+							</div>
 							{profileCodeOpen ? (
 								<ProfileCode setProfileCodeOpen={setProfileCodeOpen} />
 							) : (
@@ -113,7 +159,21 @@ function Home() {
 									</div>
 									<div className='my-2 flex flex-col place-items-center gap-2 rounded-xl bg-zinc-600 p-2'>
 										<TricklistPage profileuuid={uuid} />
-										{/* <UpdateStatusInput /> */}
+										<div className='flex max-h-[30vh] min-h-[10vh] w-[90vw] items-center justify-center rounded-lg'>
+											{!selected && (
+												<AddListButton
+													setOpen={setOpenNewList}
+													open={openNewList}
+												/>
+											)}
+											{selected && (
+												<AddComboItemToTricklist
+													tricklist_id={selected.tricklist_id}
+													addItemopen={addItemopen}
+													setAddItemopen={setAddItemopen}
+												/>
+											)}
+										</div>
 									</div>
 								</>
 							)}
@@ -123,11 +183,6 @@ function Home() {
 						</div>
 					</>
 				)}
-			</div>
-			<div
-				onClick={() => setProfileCodeOpen(!profileCodeOpen)}
-				className='absolute bottom-20 left-5 flex place-items-center gap-2 text-zinc-300'>
-				<FaQrcode /> {!profileCodeOpen ? "Capture" : "Close"}
 			</div>
 		</div>
 	);

@@ -25,7 +25,7 @@ const Claimed = ({ displayOnly, combo, combo_id, user_id }) => {
 				setClaimed(!claimed);
 				!displayOnly && handleClaim();
 			}}
-			className='h-8 w-8 place-items-end text-3xl text-emerald-500'>
+			className='absolute right-4 h-full w-8 translate-y-[-50%] text-3xl text-emerald-500'>
 			{isClaimed ? <MdCheckCircle /> : <MdCircle className='text-yellow-500' />}
 		</div>
 	);

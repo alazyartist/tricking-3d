@@ -13,7 +13,10 @@ const ClaimedDisplay = ({ Claimed }) => {
 		selectAnim(listItem?.Animation?.animationName);
 	};
 	return (
-		<div className='flex w-full flex-col place-content-start gap-2 p-2'>
+		<div
+			className={`flex h-full w-full flex-col ${
+				Claimed?.length ? "place-content-start" : "place-content-center"
+			} gap-2 p-2 text-center`}>
 			{(Claimed?.length &&
 				Claimed?.map((list) => (
 					<div

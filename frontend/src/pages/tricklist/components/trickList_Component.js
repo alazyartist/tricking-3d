@@ -3,10 +3,13 @@ import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 import { useStore } from "../../../store/store.js";
 import { useDeleteTricklist, useDeleteCombo } from "../../../api/useTricklists";
+import { useUserStore } from "../../../store/userStore.js";
+import Claimed from "./Claimed.js";
 
 const TrickList_Component = ({ data, open, date, last, fn, drag_offset }) => {
 	const selected = useStore((s) => s.selected_TrickList);
 	const setSelected = useStore((s) => s.setSelected_TrickList);
+	const userInfo = useUserStore((s) => s.userInfo);
 	const [selectorColor, setSelectorColor] = useState();
 	const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 	const left = {
@@ -136,6 +139,13 @@ const TrickList_Component = ({ data, open, date, last, fn, drag_offset }) => {
 					}}
 					className={_getStyle()}>
 					{label}
+					{data.type === "Combo" && (
+						<Claimed
+							user_id={userInfo.uuid}
+							combo_id={data?.combo_id}
+							combo={data}
+						/>
+					)}
 				</button>
 			</animated.div>
 		</animated.div>

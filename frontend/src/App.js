@@ -113,8 +113,8 @@ function App() {
 									<Route path={"/dash"} element={<Dashboard />} />
 								</Route>
 							</Route>
-							<Route path={"/userProfile/:uuid"} element={<UserProfile />} />
 							<Route path={"/home"} element={<Home />} />
+							<Route path={"/userProfile/:uuid"} element={<UserProfile />} />
 							<Route path={"/learnmore"} element={<LearnMore />} />
 							<Route path={"/about"} element={<AboutUs />} />
 

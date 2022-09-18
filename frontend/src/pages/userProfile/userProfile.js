@@ -39,7 +39,7 @@ const UserProfile = () => {
 
 	return (
 		<div className='m-4  pt-[3.4rem] font-inter text-zinc-300'>
-			<div className=' flex flex-row gap-4 pb-4'>
+			<div className=' flex flex-row justify-between gap-4 pb-4'>
 				<div className='flex flex-col'>
 					{editView((styles, editing) =>
 						editing ? (
@@ -79,7 +79,7 @@ const UserProfile = () => {
 				<UserAvatarDisplay />
 			</div>
 
-			<div className='w-full rounded-lg border-t-4 border-zinc-900'>
+			<div className='flex w-full flex-col place-items-center rounded-lg'>
 				{/* @TODO: Wrap this with profile info container */}
 				<TricklistsAndClamiedContainer
 					profileuuid={uuid}
@@ -88,7 +88,7 @@ const UserProfile = () => {
 				/>
 			</div>
 
-			<div className='fixed bottom-0 flex max-h-[30vh] min-h-[10vh] w-[90vw] items-center justify-center rounded-lg border-t-4 border-zinc-900 bg-zinc-700'>
+			{/* <div className='fixed bottom-0 flex max-h-[30vh] min-h-[10vh] w-[90vw] items-center justify-center rounded-lg border-t-4 border-zinc-900 bg-zinc-700'>
 				{!selected && (
 					<AddListButton setOpen={setOpenNewList} open={openNewList} />
 				)}
@@ -99,7 +99,7 @@ const UserProfile = () => {
 						setAddItemopen={setAddItemopen}
 					/>
 				)}
-			</div>
+			</div> */}
 		</div>
 	);
 };
