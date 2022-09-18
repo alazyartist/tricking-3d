@@ -1,4 +1,4 @@
-import Home from "./pages/Home";
+import Home from "./pages/home/Home";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { TestPage } from "./pages/TestPage";
 import { Sandbox } from "./pages/sandbox/Sandbox";
@@ -50,6 +50,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import UserProfile from "./pages/userProfile/userProfile";
 import TheoryIndexInstructions from "./pages/theory/TheoryIndexInstructions";
 import TestSections from "./pages/TestSections";
+import AdminIndex from "./admin/AdminIndex";
 
 function App() {
 	const accessToken = useUserStore((s) => s.accessToken);
@@ -86,10 +87,10 @@ function App() {
 			<QueryClientProvider client={queryClient}>
 				<ReactQueryDevtools initialIsOpen />
 				<AppBackground />
-				<UserIcon />
-				{!location.pathname.includes("/home") && location.pathname !== "/" && (
-					<Header />
-				)}
+				{!location.pathname.includes("/admin") && <UserIcon />}
+				{!location.pathname.includes("/home") &&
+					!location.pathname.includes("/admin") &&
+					location.pathname !== "/" && <Header />}
 				{tabBar
 					? (!isSandbox || !isUserProfile) && <TabBar />
 					: !isSandbox && <TheoryTabBar />}
@@ -105,6 +106,7 @@ function App() {
 								}
 							/>
 							<Route path='/' element={<Home />} />
+							<Route path='/admin' element={<AdminIndex />} />
 							<Route path={"/register"} element={<Register />} />
 							<Route element={<PersistLogin />}>
 								<Route path={"/login"} element={<Login />} />

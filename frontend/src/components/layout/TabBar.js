@@ -3,15 +3,18 @@ import { AiOutlineHome } from "react-icons/ai";
 import { BiCube } from "react-icons/bi";
 import { FaGraduationCap, FaToolbox } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { RiAdminLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { ReactComponent as ComboMakerBlueprint } from "../../data/ComboMakerBlueprint.svg";
 import { animated, config, useSpring, useTransition } from "react-spring";
 import useLogout from "../../hooks/useLogout";
+import { useUserStore } from "../../store/userStore";
 
 function TabBar() {
 	const [openHamburger, setOpenHamburger] = useState();
 	const [openNav, setOpenNav] = useState(true);
 	const logout = useLogout();
+	const userInfo = useUserStore((s) => s.userInfo);
 
 	const hamburger = useTransition(openHamburger, {
 		from: { opacity: 0, right: "-40vw" },
@@ -43,6 +46,12 @@ function TabBar() {
 					<div
 						style={navToggle}
 						className='relative left-0 z-[100] flex h-12 w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300'>
+						{(userInfo?.uuid === "admin696-8c94-4ca7-b163-9alazyartist" ||
+							userInfo?.uuid === "admin696-8c94-4ca7-b163-969420Tohzt") && (
+							<Link onClick={() => setOpenHamburger(false)} to='/admin'>
+								<RiAdminLine />
+							</Link>
+						)}
 						<Link onClick={() => setOpenHamburger(false)} to='/home'>
 							<AiOutlineHome />
 						</Link>

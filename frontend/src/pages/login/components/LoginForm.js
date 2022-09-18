@@ -13,7 +13,7 @@ function LoginForm() {
 	const [persist, setPersist] = useLocalStorage("persist", false);
 	const nav = useNavigate();
 	const location = useLocation();
-	const from = "/dash";
+	const from = "/home";
 	const { mutate: login, data: response } = useLogin();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -22,7 +22,7 @@ function LoginForm() {
 			email: email.toString(),
 			password: password.toString(),
 		});
-		nav("/dash");
+		nav("/home");
 		// try {
 
 		// 	setTimeout(() => {

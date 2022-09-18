@@ -4,6 +4,16 @@
 @tailwind utilities;
 
 @layer utilities {
+	.neumorphicIn {
+		border-radius: 24px;
+		background: #242427;
+		box-shadow: inset 5px 5px 4px #1b1b1e, inset -5px -5px 4px #2d2d30;
+	}
+	.neumorphic {
+		border-radius: 24px;
+		background: #242427;
+		box-shadow: 5px 5px 4px #1b1b1e, -5px -5px 4px #2d2d30;
+	}
 	.no-scrollbar::-webkit-scrollbar {
 		display: none;
 	}
