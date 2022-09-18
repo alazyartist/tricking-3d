@@ -9,9 +9,7 @@ import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
 import TricklistPage from "../tricklist/TricklistPage";
 import ProfileCode from "../dash/components/ProfileCode";
 import UpdateStatusInput from "../../components/UpdateStatusInput";
-import { useStore } from "../../store/store";
-import AddListButton from "../tricklist/components/AddListButton";
-import AddComboItemToTricklist from "../tricklist/components/AddComboItemToTricklist";
+
 import useUserInfo from "../../api/useUserInfo";
 import { IoIosArrowBack } from "react-icons/io";
 import PublicHomePage from "./components/PublicHomePage";
@@ -25,9 +23,6 @@ function Home() {
 	const accessToken = useUserStore((s) => s.accessToken);
 	const navigate = useNavigate();
 
-	const selected = useStore((s) => s.selected_TrickList);
-	const [addItemopen, setAddItemopen] = useState(false);
-	const [openNewList, setOpenNewList] = useState(false);
 	const [openTricklists, setOpenTricklists] = useState(false);
 
 	console.log("uuid: ", uuid);
@@ -103,21 +98,6 @@ function Home() {
 													onClick={() => setOpenTricklists(!openTricklists)}
 												/>
 												<TricklistPage profileuuid={uuid} />
-												<div className='flex max-h-[30vh] min-h-[10vh] w-[90vw] items-center justify-center rounded-lg'>
-													{!selected && (
-														<AddListButton
-															setOpen={setOpenNewList}
-															open={openNewList}
-														/>
-													)}
-													{selected && (
-														<AddComboItemToTricklist
-															tricklist_id={selected.tricklist_id}
-															addItemopen={addItemopen}
-															setAddItemopen={setAddItemopen}
-														/>
-													)}
-												</div>
 											</div>
 										)}
 									</>

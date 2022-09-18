@@ -5,6 +5,7 @@ const AddComboItemToTricklist = ({
 	tricklist_id,
 	addItemopen,
 	setAddItemopen,
+	selected,
 }) => {
 	return (
 		<>
@@ -13,10 +14,11 @@ const AddComboItemToTricklist = ({
 					<button
 						className=' neumorphic active:neumorphicIn
 							fit flex h-[10vw] w-[60vw]
-							flex-row items-center justify-center rounded-full  bg-zinc-800 font-inter text-lg font-semibold text-zinc-400
+							flex-col items-center justify-center rounded-full  bg-zinc-800 font-inter text-lg font-semibold text-zinc-400
 							'
 						onClick={() => setAddItemopen(!addItemopen)}>
-						Add New Combo
+						Add New Combo{" "}
+						<span className='text-sm text-zinc-500'>{selected?.name}</span>
 					</button>
 				)}
 				{addItemopen && (
