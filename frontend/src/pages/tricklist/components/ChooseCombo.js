@@ -65,15 +65,15 @@ const ChooseCombo = ({ setOpen, open, tricklist_id }) => {
 
 					<div>Choose Combo to Add</div>
 				</div>
-				<div className='no-scrollbar max-h-[25vh] w-full overflow-scroll rounded-lg bg-zinc-400 p-2'>
-					<div className='flex flex-col gap-2'>
+				<div className='no-scrollbar max-h-[25vh] w-full overflow-scroll rounded-lg p-2'>
+					<div className='flex flex-col gap-4'>
 						{Array.isArray(comboArr) &&
 							comboArr.length > 0 &&
 							comboArr.map((combo) => (
 								<div
 									// onPointerEnter={() => setShowCombo(true)}
 									// onPointerLeave={() => setShowCombo(false)}
-									className='rounded-md bg-zinc-800 p-1'
+									className='neumorphic flex flex-col rounded-md bg-zinc-700 p-1'
 									key={combo.combo_id.substring(24)}
 									onClick={() => {
 										addComboDB({
@@ -83,7 +83,7 @@ const ChooseCombo = ({ setOpen, open, tricklist_id }) => {
 										});
 										console.log(combo);
 									}}>
-									<div className='flex place-content-center place-items-center justify-between'>
+									<div className='flex place-content-center place-items-center justify-between p-2'>
 										<div>{combo.name}</div>
 										{/* <div>
 										{combo?.defaultAnimation && (

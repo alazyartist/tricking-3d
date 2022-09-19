@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ChooseCombo from "./ChooseTrick";
+import ChooseCombo from "./ChooseCombo";
 
 const AddComboItemToTricklist = ({
 	tricklist_id,
