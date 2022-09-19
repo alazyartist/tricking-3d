@@ -10,7 +10,7 @@ export const useLogin = () => {
 	return useMutation(
 		["login"],
 		async (loginData) => {
-			const { data } = api.post(
+			const { data } = await api.post(
 				"/user/login",
 				{ ...loginData },
 				{
@@ -23,8 +23,8 @@ export const useLogin = () => {
 		{
 			onSuccess: (data) => {
 				console.log("OnSuccess", data);
-				setAccessToken(data.data.accessToken);
-				setUser(data.data.username);
+				setAccessToken(data?.data?.accessToken);
+				setUser(data?.data?.username);
 				queryClient.invalidateQueries(["userInfo"]);
 			},
 		}

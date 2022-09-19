@@ -8,30 +8,34 @@ function LoginForm() {
 	const [password, setPassword] = useState("");
 	const [isVisible, setIsVisible] = useState();
 	const [data, setData] = useState();
+	const [loginError, setLoginError] = useState();
 	const accessTokenStore = useUserStore((s) => s.accessToken);
 	const user = useUserStore((s) => s.user);
 	const [persist, setPersist] = useLocalStorage("persist", false);
 	const nav = useNavigate();
 	const location = useLocation();
 	const from = "/home";
-	const { mutate: login, data: response } = useLogin();
+	const { mutateAsync: login, data: response, error } = useLogin();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
-		login({
-			email: email.toString(),
-			password: password.toString(),
-		});
-		nav("/home");
-		// try {
-
-		// 	setTimeout(() => {
-		// 		nav("/dash", { replace: true });
-		// 	}, 100);
-		// } catch (err) {
-		// 	console.log(err);
-		// }
+		try {
+			await login({
+				email: email.toString(),
+				password: password.toString(),
+			});
+		} catch (err) {
+			console.log(err);
+		}
 	};
+	useEffect(() => {
+		setLoginError(error?.response?.data?.message);
+	}, [error]);
+
+	useEffect(() => {
+		if (response?.message === "You are logged in!") {
+			nav("/home");
+		}
+	}, [response]);
 	useEffect(() => {
 		console.log(response);
 		console.log(accessTokenStore, user, from);
@@ -96,6 +100,7 @@ function LoginForm() {
 					{/* <div>{data.accessToken}</div> */}
 				</div>
 			</form>
+			{loginError}
 			<div>
 				<label htmlFor='persist'>Remember this Device</label>
 				<input
