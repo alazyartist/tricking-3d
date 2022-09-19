@@ -14,6 +14,7 @@ import useUserInfo from "../../api/useUserInfo";
 import { IoIosArrowBack } from "react-icons/io";
 import PublicHomePage from "./components/PublicHomePage";
 import EnterSandboxLink from "./components/EnterSandboxLink";
+import ClaimTricks from "../claimtricks/ClaimTricks";
 
 function Home() {
 	useUserInfo();
@@ -24,7 +25,7 @@ function Home() {
 
 	const [openCaptures, setOpenCaptures] = useState(false);
 	const [openTricklists, setOpenTricklists] = useState(false);
-	const [openClaimedtricks, setOpenClaimedtricks] = useState(false);
+	const [openClaimtricks, setOpenClaimtricks] = useState(false);
 	const [openComboMaker, setOpenComboMaker] = useState(false);
 	console.log("uuid: ", uuid);
 	return (
@@ -55,6 +56,7 @@ function Home() {
 						<>
 							<div className='text-zinc-300'>
 								<div className='mb-4 grid w-full grid-cols-2 grid-rows-4 place-content-center place-items-center gap-4'>
+									{/* Captures */}
 									{openCaptures ? (
 										<div
 											className={`${
@@ -67,7 +69,8 @@ function Home() {
 										</div>
 									) : (
 										!openTricklists &&
-										!openComboMaker && (
+										!openComboMaker &&
+										!openClaimtricks && (
 											<div
 												onClick={() => setOpenCaptures(!openCaptures)}
 												className={`neumorphic active:neumorphicIn flex h-full w-full flex-col place-content-center  place-items-center rounded-lg bg-zinc-800 text-4xl `}>
@@ -76,6 +79,8 @@ function Home() {
 											</div>
 										)
 									)}
+
+									{/* Tricklists */}
 									{openTricklists ? (
 										<div
 											className={`neumorphicIn relative my-2 flex flex-col place-items-center gap-2 rounded-xl bg-zinc-800 pt-[3vh] ${
@@ -89,7 +94,8 @@ function Home() {
 										</div>
 									) : (
 										!openCaptures &&
-										!openComboMaker && (
+										!openComboMaker &&
+										!openClaimtricks && (
 											<div
 												onClick={() => setOpenTricklists(!openTricklists)}
 												className='neumorphic active:neumorphicIn flex h-full w-full flex-col place-content-center place-items-center rounded-lg bg-zinc-800 text-4xl '>
@@ -98,14 +104,35 @@ function Home() {
 											</div>
 										)
 									)}
-									{!openTricklists && !openCaptures && !openComboMaker && (
-										<div className='neumorphic active:neumorphicIn flex h-full w-full flex-col place-content-center place-items-center rounded-lg bg-zinc-800 text-4xl'>
-											<BsClipboardCheck />
-											<div className='text-lg font-bold'>Claim Tricks</div>
+									{/* ClaimTricks */}
+
+									{openClaimtricks ? (
+										<div
+											className={`neumorphicIn relative my-2 flex flex-col place-items-center gap-2 rounded-xl bg-zinc-800 pt-[3vh] ${
+												openClaimtricks ? "col-span-2 row-span-2" : ""
+											}`}>
+											<IoIosArrowBack
+												className='absolute top-4 left-1 text-4xl'
+												onClick={() => setOpenClaimtricks(!openClaimtricks)}
+											/>
+											<ClaimTricks user_id={uuid} />
 										</div>
+									) : (
+										!openTricklists &&
+										!openCaptures &&
+										!openComboMaker && (
+											<div
+												onClick={() => setOpenClaimtricks(!openClaimtricks)}
+												className='neumorphic active:neumorphicIn flex h-full w-full flex-col place-content-center place-items-center rounded-lg bg-zinc-800 text-4xl'>
+												<BsClipboardCheck />
+												<div className='text-lg font-bold'>Claim Tricks</div>
+											</div>
+										)
 									)}
+									{/* ComboMaker */}
 									{openComboMaker ? (
 										<div
+											onClick={() => setOpenComboMaker(!openComboMaker)}
 											className={`neumorphicIn relative my-2 flex flex-col place-items-center gap-2 rounded-xl bg-zinc-800 pt-[3vh] ${
 												openComboMaker ? "col-span-2 row-span-2" : ""
 											}`}>
@@ -117,7 +144,8 @@ function Home() {
 										</div>
 									) : (
 										!openTricklists &&
-										!openCaptures && (
+										!openCaptures &&
+										!openClaimtricks && (
 											<div
 												className='neumorphic  active:neumorphicIn min-h-36 flex h-full w-full flex-col place-content-center place-items-center rounded-lg bg-zinc-800 p-4 text-4xl'
 												onClick={() => setOpenComboMaker(!openComboMaker)}>
