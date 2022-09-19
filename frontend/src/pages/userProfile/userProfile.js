@@ -84,7 +84,8 @@ const UserProfile = () => {
 				<TricklistsAndClamiedContainer
 					profileuuid={uuid}
 					MyTricklists={profileInfo?.MyTricklists}
-					Claimed={profileInfo?.CombosClaimed}
+					ClaimedCombos={profileInfo?.CombosClaimed}
+					ClaimedTricks={profileInfo?.TricksClaimed}
 				/>
 			</div>
 

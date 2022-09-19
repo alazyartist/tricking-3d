@@ -3,7 +3,8 @@ import TricklistPage from "../../tricklist/TricklistPage";
 import ClaimedDisplay from "./ClaimedDisplay";
 const TricklistsAndClamiedContainer = ({
 	MyTricklists,
-	Claimed,
+	ClaimedCombos,
+	ClaimedTricks,
 	profileuuid,
 	isUsersPage,
 }) => {
@@ -26,7 +27,7 @@ const TricklistsAndClamiedContainer = ({
 						activePane === "Claimed" ? "bg-zinc-600" : "bg-zinc-800"
 					}`}>
 					<div>Claimed</div>
-					<div>{Claimed?.length}</div>
+					<div>{ClaimedCombos?.length + ClaimedTricks?.length}</div>
 				</div>
 			</div>
 			{activePane === "Tricklists" && (
@@ -48,7 +49,7 @@ const TricklistsAndClamiedContainer = ({
 			{activePane === "Claimed" && (
 				<div
 					className={`flex h-[37vh] w-[80vw] flex-col place-content-start place-items-center bg-zinc-600`}>
-					<ClaimedDisplay Claimed={Claimed} />
+					<ClaimedDisplay Claimed={[...ClaimedCombos, ...ClaimedTricks]} />
 				</div>
 			)}
 		</>
