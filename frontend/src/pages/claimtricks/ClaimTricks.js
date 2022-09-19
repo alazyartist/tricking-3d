@@ -28,6 +28,7 @@ const ClaimTricks = ({ user_id }) => {
 				<input
 					id='searchBar'
 					type={"text"}
+					placeholder='Search for a Trick...'
 					className={
 						"neumorphicIn w-full rounded-xl p-2 text-xl focus:outline-none"
 					}
@@ -35,22 +36,28 @@ const ClaimTricks = ({ user_id }) => {
 					onChange={handleFilter}
 				/>
 			</div>
-			<div>
-				{searchedItems?.map((trick) => (
-					<div className=' grid h-full w-[70vw] grid-cols-5 place-content-center justify-between p-2 odd:bg-zinc-700'>
-						<div className='col-span-3 flex place-items-center'>
-							{trick?.name}
-						</div>
-						<div className='col-span-1 flex place-items-center'>
-							{trick?.type}
-						</div>
-						<div className='relative col-span-1 flex h-full place-content-end place-items-center gap-2'>
-							{trick.type === "Trick" && (
-								<ClaimedTricks trick_id={trick.trick_id} user_id={user_id} />
-							)}
-						</div>
-					</div>
-				))}
+			<div className='flex flex-col place-items-center p-2'>
+				{searchedItems?.map(
+					(trick) =>
+						trick.type === "Trick" && (
+							<div className=' grid h-full w-[88vw] grid-cols-5 place-content-center justify-between rounded-xl p-2 odd:bg-zinc-700'>
+								<div className='col-span-3 flex place-items-center'>
+									{trick?.name}
+								</div>
+								<div className='col-span-1 flex place-items-center'>
+									{trick?.type}
+								</div>
+								<div className='relative col-span-1 flex h-full place-content-end place-items-center gap-2'>
+									{trick.type === "Trick" && (
+										<ClaimedTricks
+											trick_id={trick.trick_id}
+											user_id={user_id}
+										/>
+									)}
+								</div>
+							</div>
+						)
+				)}
 			</div>
 		</div>
 	);

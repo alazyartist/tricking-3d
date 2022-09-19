@@ -23,7 +23,7 @@ const TricklistsAndClamiedContainer = ({
 				</div>
 				<div
 					onClick={(e) => setActivePane("Claimed")}
-					className={`flex w-full select-none justify-between rounded-t-md p-2 ${
+					className={`flex w-full select-none justify-between rounded-t-xl p-2 ${
 						activePane === "Claimed" ? "bg-zinc-600" : "bg-zinc-800"
 					}`}>
 					<div>Claimed</div>
@@ -32,7 +32,7 @@ const TricklistsAndClamiedContainer = ({
 			</div>
 			{activePane === "Tricklists" && (
 				<div
-					className={`flex h-[40vh] w-[80vw] flex-col place-items-center py-4 ${
+					className={`flex h-[40vh] w-[80vw] flex-col place-items-center rounded-b-xl py-4 ${
 						MyTricklists?.length
 							? "place-content-start"
 							: "place-content-center"

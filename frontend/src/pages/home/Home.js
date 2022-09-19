@@ -55,7 +55,7 @@ function Home() {
 						// LoggedIn
 						<>
 							<div className='text-zinc-300'>
-								<div className='mb-4 grid w-full grid-cols-2 grid-rows-4 place-content-center place-items-center gap-4'>
+								<div className='mb-4 grid w-full grid-cols-2 grid-rows-3 place-content-center place-items-center gap-4'>
 									{/* Captures */}
 									{openCaptures ? (
 										<div
@@ -87,7 +87,7 @@ function Home() {
 												openTricklists ? "col-span-2 row-span-2" : ""
 											}`}>
 											<IoIosArrowBack
-												className='absolute top-4 left-1 text-4xl'
+												className='absolute top-4 right-1 text-4xl'
 												onClick={() => setOpenTricklists(!openTricklists)}
 											/>
 											<TricklistPage profileuuid={uuid} />
@@ -112,7 +112,7 @@ function Home() {
 												openClaimtricks ? "col-span-2 row-span-2" : ""
 											}`}>
 											<IoIosArrowBack
-												className='absolute top-4 left-1 text-4xl'
+												className='absolute top-4 right-1 text-4xl'
 												onClick={() => setOpenClaimtricks(!openClaimtricks)}
 											/>
 											<ClaimTricks user_id={uuid} />
@@ -132,7 +132,6 @@ function Home() {
 									{/* ComboMaker */}
 									{openComboMaker ? (
 										<div
-											onClick={() => setOpenComboMaker(!openComboMaker)}
 											className={`neumorphicIn relative my-2 flex flex-col place-items-center gap-2 rounded-xl bg-zinc-800 pt-[3vh] ${
 												openComboMaker ? "col-span-2 row-span-2" : ""
 											}`}>

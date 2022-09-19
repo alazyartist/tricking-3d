@@ -43,48 +43,59 @@ const Captures = () => {
 					Captured You
 				</div>
 			</div>
-			<div className='flex w-[80vw] flex-row place-content-center place-items-start overflow-x-auto'>
-				{!!captured &&
-					display === "captures" &&
-					Object.keys(captured).map((key) => (
-						<div
-							onClick={() => nav(`/userProfile/${captured[key].uuid}`)}
-							key={`${captured[key].username}`}
-							className='flex flex-row gap-3'>
-							<CapturedCard
-								name={captured[key].first_name + " " + captured[key].last_name}
-								src={
-									captured[key].profilePic
-										? `./images/${captured[key].uuid}/${captured[key].profilePic}`
-										: `./images/noimg.jpeg`
-								}
-								username={`${captured[key].username}`}
-							/>
-						</div>
-					))}
-			</div>
+			<div className='w-[80vw] overflow-x-auto'>
+				<div
+					className={`flex w-full flex-row ${
+						captured?.length >= 4
+							? "place-content-start"
+							: "place-content-center"
+					}`}>
+					{!!captured &&
+						display === "captures" &&
+						Object.keys(captured).map((key) => (
+							<div
+								onClick={() => nav(`/userProfile/${captured[key].uuid}`)}
+								key={`${captured[key].username}`}
+								className='flex flex-row gap-3'>
+								<CapturedCard
+									name={
+										captured[key].first_name + " " + captured[key].last_name
+									}
+									src={
+										captured[key].profilePic
+											? `./images/${captured[key].uuid}/${captured[key].profilePic}`
+											: `./images/noimg.jpeg`
+									}
+									username={`${captured[key].username}`}
+								/>
+							</div>
+						))}
+				</div>
 
-			<div className='flex w-[80vw] flex-row place-content-center place-items-start overflow-x-auto'>
-				{!!capturedYou &&
-					display === "captured me" &&
-					Object.keys(capturedYou).map((key) => (
-						<div
-							onClick={() => nav(`/userProfile/${capturedYou[key].uuid}`)}
-							key={`${capturedYou[key].username}`}
-							className='flex  flex-row gap-3'>
-							<CapturedCard
-								name={
-									capturedYou[key].first_name + " " + capturedYou[key].last_name
-								}
-								src={
-									capturedYou[key].profilePic
-										? `./images/${capturedYou[key].uuid}/${capturedYou[key].profilePic}`
-										: `./images/noimg.jpeg`
-								}
-								username={`${capturedYou[key].username}`}
-							/>
-						</div>
-					))}
+				<div className='flex w-[80vw] flex-row place-content-center place-items-start overflow-x-auto'>
+					{!!capturedYou &&
+						display === "captured me" &&
+						Object.keys(capturedYou).map((key) => (
+							<div
+								onClick={() => nav(`/userProfile/${capturedYou[key].uuid}`)}
+								key={`${capturedYou[key].username}`}
+								className='flex  flex-row gap-3'>
+								<CapturedCard
+									name={
+										capturedYou[key].first_name +
+										" " +
+										capturedYou[key].last_name
+									}
+									src={
+										capturedYou[key].profilePic
+											? `./images/${capturedYou[key].uuid}/${capturedYou[key].profilePic}`
+											: `./images/noimg.jpeg`
+									}
+									username={`${capturedYou[key].username}`}
+								/>
+							</div>
+						))}
+				</div>
 			</div>
 		</div>
 	);

@@ -24,7 +24,7 @@ const MakeNewTrickList = ({ setOpen }) => {
 			onClick={(e) => handleClick(e)}
 			className=' h-full w-full rounded-xl bg-zinc-800 bg-opacity-40 p-2 '>
 			<label
-				className='flex place-items-center text-2xl md:left-[35%] lg:left-[45%]'
+				className='flex place-items-center gap-4 text-2xl md:left-[35%] lg:left-[45%]'
 				htmlFor='name-input'>
 				<div onClick={() => setOpen(false)}>
 					<IoIosArrowBack />
@@ -37,11 +37,11 @@ const MakeNewTrickList = ({ setOpen }) => {
 					className='flex place-content-center gap-2'>
 					<input
 						id={"name-input"}
-						className='rounded-xl p-1 pl-2 text-zinc-800'
+						className='neumorphicIn rounded-xl p-1 pl-2 text-zinc-400'
 						onChange={(e) => {
 							setName(e.target.value);
 						}}
-						placeholder={"name"}
+						placeholder={"Tricklist Name"}
 						value={name}
 						type={"text"}
 					/>

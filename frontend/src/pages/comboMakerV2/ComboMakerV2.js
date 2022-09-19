@@ -33,7 +33,7 @@ const ComboMakerV2 = () => {
 			{/* {v2 ? ( */}
 			<div className='flex h-[90%] w-[98%] flex-col font-inter text-zinc-300'>
 				<div
-					onClick={() => setV2(!v2)}
+					// onClick={() => setV2(!v2)}
 					id='pageTitle'
 					className='select-none text-2xl font-bold text-zinc-400'>
 					ComboMakerV2

@@ -8,14 +8,16 @@ const DataList = () => {
 	const { data: combos } = useGetCombos();
 	return (
 		<div className='no-scrollbar flex max-h-[50vh] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl pb-14'>
-			<h1 className='sticky top-0 h-full w-full bg-zinc-800 text-center text-2xl font-bold'>
+			<h1 className='sticky top-0 h-full w-full bg-zinc-800 p-2 text-center text-xl font-bold'>
 				TRICKS, STANCES, &#38; TRANSITIONS
 			</h1>
 			<div>
 				{tricks?.map((trick) => (
-					<div className=' grid  w-[70vw] grid-cols-5 justify-between p-2 odd:bg-zinc-700'>
+					<div className=' grid  w-[70vw] grid-cols-6 justify-between p-2 odd:bg-zinc-700'>
 						<div className='col-span-3'>{trick?.name}</div>
-						<div className='col-span-1'>{trick?.type}</div>
+						<div className='col-span-2 flex place-items-center text-sm'>
+							{trick?.type}
+						</div>
 						<div className='col-span-1 flex place-content-end place-items-center gap-2'>
 							DA
 							{trick?.defaultAnimation ? (
@@ -27,7 +29,7 @@ const DataList = () => {
 					</div>
 				))}
 			</div>
-			<h1 className='sticky top-0 h-full w-full bg-zinc-800 text-center text-2xl font-bold'>
+			<h1 className='sticky top-0 h-full w-full bg-zinc-800 p-2 text-center text-xl font-bold'>
 				Combos
 			</h1>
 			<div>
