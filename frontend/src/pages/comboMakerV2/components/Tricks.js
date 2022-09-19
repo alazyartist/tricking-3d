@@ -29,7 +29,7 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 	return (
 		<>
 			<div
-				className=' place-items-center flex gap-2 rounded-xl bg-zinc-900 p-2'
+				className=' flex place-items-center gap-2 rounded-xl bg-zinc-900 p-2'
 				onClick={() =>
 					setCurrentItem((s) => [
 						...s,
@@ -40,7 +40,7 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 			</div>
 			<div
 				onClick={() => document.getElementById("searchBar").focus()}
-				className='place-content-center place-items-center flex gap-2 rounded-xl bg-zinc-800 p-2'>
+				className='flex place-content-center place-items-center gap-2 rounded-xl bg-zinc-800 p-2'>
 				<FaSearch />
 				<input
 					id='searchBar'
@@ -70,7 +70,7 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 								className='flex w-full justify-between'
 								onClick={() => setCurrentItem((s) => [...s, trick])}>
 								<div>{trick?.name}</div>
-								<div className='place-content-center place-items-center flex gap-2 text-zinc-500'>
+								<div className='flex place-content-center place-items-center gap-2 text-zinc-500'>
 									{trick?.type === "Transition" && trick?.fromLeg}
 									{trick?.type}
 									{trick?.defaultAnimation && (
@@ -81,11 +81,11 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 						</div>
 					))}
 			</div>
-			<div className='absolute bottom-16 flex gap-2'>
+			{/* <div className='absolute bottom-16 flex gap-2'>
 				<MdOutlineArrowUpward />
 				From Database
 				<MdOutlineArrowUpward />
-			</div>
+			</div> */}
 		</>
 	);
 };

@@ -51,7 +51,7 @@ const ProfileCode = ({ setProfileCodeOpen, profileCodeOpen }) => {
 						{showQR && <QRGenerator />}
 						{showQrReader && <QRReader />}
 					</div>
-					<div className='py-2'>
+					<div className='py-2 text-xl'>
 						<Captures />
 					</div>
 				</div>

@@ -30,42 +30,42 @@ const ComboMakerV2 = () => {
 	}, [currentItem]);
 	return (
 		<>
-			{v2 ? (
-				<div className='flex h-[90vh] w-[98vw] flex-col font-inter text-zinc-300'>
-					<div
-						onClick={() => setV2(!v2)}
-						id='pageTitle'
-						className='select-none text-2xl font-bold text-zinc-400'>
-						ComboMakerV2
-					</div>
-					<div
-						id='app-content'
-						className='place-items-center flex h-[80vh] w-full flex-col place-content-start overflow-y-auto overflow-x-hidden rounded-lg  p-2 text-zinc-300 '>
-						{accessToken && (
-							<SaveCombo
-								save={save}
-								setSave={setSave}
-								setComboName={setComboName}
-								comboName={comboName}
-							/>
-						)}
-						<NewComboDisplay
-							setDeleteLast={setDeleteLast}
-							newCombo={currentItem}
-						/>
-						<Tricks
-							lastItem={currentItem[currentItem.length - 1]}
-							setCurrentItem={setCurrentItem}
-							filteredTricks={filteredTricks}
-							allTricks={tricks}
-						/>
-						<ComboStructure />
-					</div>
+			{/* {v2 ? ( */}
+			<div className='flex h-[90%] w-[98%] flex-col font-inter text-zinc-300'>
+				<div
+					onClick={() => setV2(!v2)}
+					id='pageTitle'
+					className='select-none text-2xl font-bold text-zinc-400'>
+					ComboMakerV2
 				</div>
-			) : (
+				<div
+					id='app-content'
+					className='flex h-[80vh] w-full flex-col place-content-start place-items-center overflow-y-auto overflow-x-hidden rounded-lg  p-2 text-zinc-300 '>
+					{accessToken && (
+						<SaveCombo
+							save={save}
+							setSave={setSave}
+							setComboName={setComboName}
+							comboName={comboName}
+						/>
+					)}
+					<NewComboDisplay
+						setDeleteLast={setDeleteLast}
+						newCombo={currentItem}
+					/>
+					<Tricks
+						lastItem={currentItem[currentItem.length - 1]}
+						setCurrentItem={setCurrentItem}
+						filteredTricks={filteredTricks}
+						allTricks={tricks}
+					/>
+					<ComboStructure />
+				</div>
+			</div>
+			{/* ) : (
 				// comboMaker original
 				<ComboMaker setV2={setV2} v2={v2} />
-			)}
+			)} */}
 		</>
 	);
 };
