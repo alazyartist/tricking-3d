@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../../api/api.js";
+import useRegister from "../../../api/useRegister.js";
 function RegisterForm() {
 	const [validPassword, setValidPassword] = useState(false);
 	const [isVisible, setIsVisible] = useState();
 	const [data, setData] = useState();
 	const nav = useNavigate();
+	const { mutateAsync: register } = useRegister();
 	const [userData, setUserData] = useState({
 		username: null,
 		first_name: null,
@@ -20,30 +22,24 @@ function RegisterForm() {
 		console.log("Attempting to Register");
 		// if (
 		// 	userData.password !== null &&
-		// 	userData.email !== null &&
+		// userData.email !== null &&
 		// 	userData.username !== null &&
 		// 	userData.first_name !== null &&
 		// 	userData.last_name !== null
 		// ) {
 		try {
 			console.log("Trying CREATE");
-			api
-				.post("/user", {
-					username: userData.username,
-					first_name: userData.first_name,
-					last_name: userData.last_name,
-					email: userData.email,
-					password: userData.password,
-				})
-				.then((createdUser) => {
-					setData(createdUser.data);
-					return createdUser;
-				})
-				.then((createdUser) => {
-					if (createdUser.status === 201) {
-						nav("/login");
-					}
-				});
+			const data = await register({
+				username: userData.username,
+				first_name: userData.first_name,
+				last_name: userData.last_name,
+				email: userData.email,
+				password: userData.password,
+			});
+			console.log(await data);
+			if ((await data) === "Successfully Registered New User") {
+				nav("/login");
+			}
 		} catch (err) {
 			console.log(err);
 			// }
@@ -120,6 +116,7 @@ function RegisterForm() {
 					/>
 					<div className='relative right-0'>
 						<button
+							type='button'
 							onClick={() => setIsVisible(!isVisible)}
 							className='p-2 text-xs text-white'>
 							{!isVisible ? "Show" : "Hide"}
