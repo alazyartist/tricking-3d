@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useLocation } from "react-router-dom";
 import ChangePassword from "./components/ChangePassword";
+import DeleteUserAccount from "./components/DeleteUserAccount";
 
 const UserSettings = () => {
 	const location = useLocation();
@@ -17,6 +18,7 @@ const UserSettings = () => {
 				<div>User Settings</div>
 			</div>
 			<ChangePassword />
+			<DeleteUserAccount />
 		</div>
 	);
 };

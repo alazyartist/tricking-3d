@@ -29,7 +29,7 @@ const ChangePassword = () => {
 			<div
 				onClick={() => setChangePasswordOpen(!changePasswordOpen)}
 				className='neumorphic active:neumorphicIn mx-4 py-2 px-4 text-xl'>
-				ChangePassword
+				Change Password
 			</div>
 			{changePasswordOpen && (
 				<div

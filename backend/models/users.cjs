@@ -123,7 +123,7 @@ module.exports = (sequelize) => {
 		{
 			sequelize,
 			underscored: false,
-			paranoid: false,
+			paranoid: true,
 			modelName: "Users",
 		}
 	);

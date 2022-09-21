@@ -338,18 +338,37 @@ export const checkPassword = async (req, res) => {
 };
 
 export const deleteUser = async (req, res) => {
-	let username = req.body.username;
-	user
-		.destroy({ where: { username: username } })
-		.then((deleted) => {
-			if (deleted >= 1) {
-				res.status(201).send("Deleted User");
+	const user_id = await req.params.user_id;
+	const username = req.body.username;
+	const authHeader = req.headers.authorization;
+	if (!authHeader) return res.sendStatus(400);
+	const token = authHeader.split(" ")[1];
+
+	if (req.cookies) {
+		jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, decoded) => {
+			if (err) return res.sendStatus(401);
+			if (decoded?.username) {
+				const selectedUser = await user.findOne({
+					where: { username: decoded.username },
+				});
+				if (selectedUser.dataValues.uuid === user_id) {
+					console.log("GONNA DELETE THIS SHIT");
+					selectedUser
+						.destroy()
+						.then((deleted) => {
+							if (deleted >= 1) {
+								res.status(201).send("Deleted User");
+							}
+							if (deleted === 0) {
+								res.status(200).send("User Already Deleted");
+							}
+						})
+						.catch((err) => res.status(400).send(err));
+				}
 			}
-			if (deleted === 0) {
-				res.status(200).send("User Already Deleted");
-			}
-		})
-		.catch((err) => res.status(400).send(err));
+			console.log(decoded.username, user_id);
+		});
+	}
 };
 
 export const updateUserInfo = async (req, res) => {

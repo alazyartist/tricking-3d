@@ -2,8 +2,7 @@
 @tailwind components;
 
 @tailwind utilities;
-
-@layer utilities {
+@layer components {
 	.neumorphicIn {
 		border-radius: 24px;
 		background: #242427;
@@ -14,6 +13,8 @@
 		background: #242427;
 		box-shadow: 5px 5px 4px #1b1b1e, -5px -5px 4px #2d2d30;
 	}
+}
+@layer utilities {
 	.no-scrollbar::-webkit-scrollbar {
 		display: none;
 	}
