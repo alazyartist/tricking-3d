@@ -202,7 +202,7 @@ export const findAll = async (req, res) => {
 				"first_name",
 				"last_name",
 				"email",
-				"profile_pic",
+				"profilePic",
 			],
 		})
 		.then((users) => {
@@ -494,5 +494,41 @@ export const updateProfilePic = async (req, res) => {
 		//Check username and password exists
 	} catch (err) {
 		console.log(err);
+	}
+};
+
+export const changeUserPassword = async (req, res) => {
+	const { user_id } = await req.params;
+	const passwords = await req.body;
+	//Check username and password exists
+	console.log("Attemting to Change Password");
+	if ((req.body && !passwords?.oldPassword) || !passwords?.newPassword) {
+		console.log(passwords?.oldPassword, passwords?.newPassword);
+		return res.status(400).json({ message: "Old & New Passwords Required" });
+	}
+	//selects user from db
+	const selectedUser = await user.findOne({ where: { uuid: user_id } });
+	const hash = await bcrypt.hash(passwords.newPassword.toString(), 10);
+	if (selectedUser) {
+		Promise.resolve(selectedUser)
+			.then((u) => u.dataValues.password)
+			.catch((err) => res.send(err))
+			.then((pass) => {
+				bcrypt
+					.compare(passwords.oldPassword, pass)
+					.then((match) => {
+						if (match) {
+							selectedUser.update({ password: hash });
+							res
+								.status(200)
+								.json({ message: "Password Successfully Changed" });
+						} else {
+							res.status(401).json({ message: "oldPassword Not Valid" });
+						}
+					})
+					.catch((err) => console.log(err));
+			});
+	} else {
+		res.status(400).json({ message: "Try logging back in" });
 	}
 };

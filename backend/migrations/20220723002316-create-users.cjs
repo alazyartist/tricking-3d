@@ -10,6 +10,7 @@ module.exports = {
 			},
 			username: {
 				type: Sequelize.STRING,
+				unique: true,
 			},
 			first_name: {
 				type: Sequelize.STRING,
@@ -19,6 +20,7 @@ module.exports = {
 			},
 			email: {
 				type: Sequelize.STRING,
+				unique: true,
 			},
 			password: {
 				type: Sequelize.STRING,

@@ -4,7 +4,7 @@ import { BiCube } from "react-icons/bi";
 import { FaGraduationCap, FaToolbox } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RiAdminLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { ReactComponent as ComboMakerBlueprint } from "../../data/ComboMakerBlueprint.svg";
 import { animated, config, useSpring, useTransition } from "react-spring";
 import useLogout from "../../hooks/useLogout";
@@ -14,6 +14,8 @@ function TabBar() {
 	const [openHamburger, setOpenHamburger] = useState();
 	const [openNav, setOpenNav] = useState(true);
 	const logout = useLogout();
+	const nav = useNavigate();
+	const location = useLocation();
 	const userInfo = useUserStore((s) => s.userInfo);
 
 	const hamburger = useTransition(openHamburger, {
@@ -83,9 +85,18 @@ function TabBar() {
 								<Link to='/about'>About</Link>
 								<Link to='/contribute'>Contibute</Link>
 								<Link to='/learnMore'>Learn More</Link>
+								<Link
+									to='/userSettings'
+									state={{ from: location }}
+									replace={true}>
+									User Settings
+								</Link>
 								<button
 									className='absolute bottom-2 left-3'
-									onClick={() => logout()}>
+									onClick={() => {
+										logout();
+										nav("/home");
+									}}>
 									Logout
 								</button>
 							</animated.div>
