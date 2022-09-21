@@ -18,9 +18,9 @@ function Transitions() {
 					{transArr.map((e) => {
 						return (
 							<div className=' my-2 flex flex-row gap-2 rounded-xl bg-zinc-500 bg-opacity-40 p-1'>
-								<div className='text-2xl'>{e.name}</div>
-								<div className='text-2xl'>{e.fromLeg}</div>
-								<div className='text-2xl'>{e.toLeg}</div>
+								<div className='text-lg'>{e.name}</div>
+								<div className='text-lg'>{e.fromLeg}</div>
+								<div className='text-lg'>{e.toLeg}</div>
 
 								{/* {Object.keys(e).map((key, i) => (
 									<table className='bg-zinc-400' id={i}>

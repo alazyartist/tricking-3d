@@ -51,6 +51,7 @@ import UserProfile from "./pages/userProfile/userProfile";
 import TheoryIndexInstructions from "./pages/theory/TheoryIndexInstructions";
 import TestSections from "./pages/TestSections";
 import AdminIndex from "./admin/AdminIndex";
+import UserSettings from "./pages/userSettings/UserSettings";
 
 function App() {
 	const accessToken = useUserStore((s) => s.accessToken);
@@ -75,7 +76,7 @@ function App() {
 	}, [location.pathname]);
 	useEffect(() => {
 		location.pathname.includes("/sandbox")
-			? setIsSandbox(true)
+			? setIsSandbox(false)
 			: setIsSandbox(false);
 		location.pathname.includes("/sandbox")
 			? setIsUserProfile(true)
@@ -85,7 +86,7 @@ function App() {
 	return (
 		<>
 			<QueryClientProvider client={queryClient}>
-				<ReactQueryDevtools initialIsOpen />
+				{/* <ReactQueryDevtools initialIsOpen /> */}
 				<AppBackground />
 				{!location.pathname.includes("/admin") && <UserIcon />}
 				{!location.pathname.includes("/home") &&
@@ -117,6 +118,7 @@ function App() {
 							</Route>
 							<Route path={"/home"} element={<Home />} />
 							<Route path={"/userProfile/:uuid"} element={<UserProfile />} />
+							<Route path={"/userSettings"} element={<UserSettings />} />
 							<Route path={"/learnmore"} element={<LearnMore />} />
 							<Route path={"/about"} element={<AboutUs />} />
 

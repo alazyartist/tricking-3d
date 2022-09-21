@@ -5,7 +5,7 @@ import useRegister from "../../../api/useRegister.js";
 function RegisterForm() {
 	const [validPassword, setValidPassword] = useState(false);
 	const [isVisible, setIsVisible] = useState();
-	const [data, setData] = useState();
+	const [registerError, setRegisterError] = useState();
 	const nav = useNavigate();
 	const { mutateAsync: register } = useRegister();
 	const [userData, setUserData] = useState({
@@ -41,7 +41,11 @@ function RegisterForm() {
 				nav("/login");
 			}
 		} catch (err) {
-			console.log(err);
+			setRegisterError(
+				err?.response?.data?.message +
+					" " +
+					err?.response?.data?.error?.errors?.[0]?.message
+			);
 			// }
 		}
 	};
@@ -139,9 +143,8 @@ function RegisterForm() {
 				</div>
 
 				<div className='flex flex-col gap-2 text-zinc-300'>
-					{/* {data && JSON.stringify(data[1].user_name)} */}
-					<div className='flex place-self-center'>
-						{data && JSON.stringify(data)}
+					<div className='flex place-self-center text-center'>
+						{registerError && registerError}
 					</div>
 				</div>
 			</form>

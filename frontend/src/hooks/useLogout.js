@@ -1,11 +1,13 @@
 import api from "../api/api";
 import useApiCreds from "./useApiCreds";
 import { useUserStore } from "../store/userStore";
+import { useNavigate } from "react-router-dom";
 
 function useLogout() {
 	const setUser = useUserStore((s) => s.setUser);
 	const setUserInfo = useUserStore((s) => s.setUserInfo);
 	const setAccessToken = useUserStore((s) => s.setAccessToken);
+	const nav = useNavigate();
 	// const apiPrivate = useApiCreds();
 	const logout = async () => {
 		const response = await api.get("/logout", {
