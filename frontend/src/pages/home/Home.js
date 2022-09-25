@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { lazy, useState } from "react";
 import { HomeScene } from "../../scenes/HomeScene";
 import { useNavigate, Link } from "react-router-dom";
 import { FaClipboardList, FaGraduationCap, FaQrcode } from "react-icons/fa";
@@ -13,9 +13,9 @@ import ComboMakerV2 from "../comboMakerV2/ComboMakerV2";
 import useUserInfo from "../../api/useUserInfo";
 import { IoIosArrowBack } from "react-icons/io";
 import PublicHomePage from "./components/PublicHomePage";
-import EnterSandboxLink from "./components/EnterSandboxLink";
 import ClaimTricks from "../claimtricks/ClaimTricks";
 
+const EnterSandboxLink = lazy(() => import("./components/EnterSandboxLink"));
 function Home() {
 	useUserInfo();
 	const user = useUserStore((s) => s.userInfo?.username);
