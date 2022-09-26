@@ -1,4 +1,4 @@
-import React, { lazy, useState } from "react";
+import React, { lazy, Suspense, useState } from "react";
 import { HomeScene } from "../../scenes/HomeScene";
 import { useNavigate, Link } from "react-router-dom";
 import { FaClipboardList, FaGraduationCap, FaQrcode } from "react-icons/fa";
@@ -46,7 +46,14 @@ function Home() {
 					className='m-2 rounded-3xl bg-indigo-600 px-2 py-0 font-inter font-semibold text-zinc-300'>
 					Learn More
 				</Link>
-				<EnterSandboxLink />
+				<Suspense
+					fallback={
+						<div className='text-center font-inter text-4xl font-black text-zinc-300'>
+							Listen. theres a lot here.
+						</div>
+					}>
+					<EnterSandboxLink />
+				</Suspense>
 
 				<div className='flex w-[90vw] flex-col place-content-center'>
 					{!accessToken ? (

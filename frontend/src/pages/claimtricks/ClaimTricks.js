@@ -36,11 +36,13 @@ const ClaimTricks = ({ user_id }) => {
 					onChange={handleFilter}
 				/>
 			</div>
-			<div className='flex flex-col place-items-center p-2'>
+			<div className='flex w-[88vw] flex-col place-items-center p-2'>
 				{searchedItems?.map(
 					(trick) =>
 						trick.type === "Trick" && (
-							<div className=' grid h-full w-[88vw] grid-cols-5 place-content-center justify-between rounded-xl p-2 odd:bg-zinc-700'>
+							<div
+								key={trick.trick_id}
+								className=' grid h-full w-full grid-cols-5 place-content-center justify-between rounded-xl p-2 odd:bg-zinc-700'>
 								<div className='col-span-3 flex place-items-center'>
 									{trick?.name}
 								</div>
@@ -50,6 +52,7 @@ const ClaimTricks = ({ user_id }) => {
 								<div className='relative col-span-1 flex h-full place-content-end place-items-center gap-2'>
 									{trick.type === "Trick" && (
 										<ClaimedTricks
+											key={"claim" + trick.trick_id}
 											trick_id={trick.trick_id}
 											user_id={user_id}
 										/>
