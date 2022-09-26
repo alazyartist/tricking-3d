@@ -203,6 +203,78 @@ export const findAll = async (req, res) => {
 				"last_name",
 				"email",
 				"profilePic",
+				"uuid",
+			],
+			include: [
+				{
+					model: db.sequelize.models.Tricks,
+					as: "TricksClaimed",
+					through: { attributes: [] },
+				},
+				{
+					model: db.sequelize.models.Combo,
+					as: "CombosClaimed",
+					through: { attributes: [] },
+					include: { model: db.sequelize.models.Animations },
+				},
+				{
+					model: db.sequelize.models.Tricklist,
+					as: "Tricklists",
+					through: { attributes: [] },
+				},
+				{
+					model: db.sequelize.models.Tricklist,
+					as: "MyTricklists",
+					include: [
+						{
+							model: db.sequelize.models.Users,
+							as: "Owner",
+							attributes: ["username"],
+						},
+					],
+				},
+				{
+					model: db.sequelize.models.Users,
+					as: "CapturedMe",
+					through: { attributes: [] },
+					attributes: {
+						exclude: [
+							"password",
+							"refreshToken",
+							"createdAt",
+							"updatedAt",
+							"deletedAt",
+							"id",
+						],
+					},
+				},
+				{
+					model: db.sequelize.models.Profile,
+					attributes: {
+						exclude: ["id", "user_id", "createdAt", "updatedAt", "deletedAt"],
+					},
+				},
+				{
+					model: db.sequelize.models.Users,
+					as: "Captured",
+					through: { attributes: [] },
+					attributes: {
+						exclude: [
+							"password",
+							"refreshToken",
+							"createdAt",
+							"updatedAt",
+							"deletedAt",
+							"id",
+						],
+					},
+				},
+				{
+					model: db.sequelize.models.Profile,
+					attributes: {
+						exclude: ["user_id", "createdAt", "updatedAt", "id"],
+					},
+				},
 			],
 		})
 		.then((users) => {
