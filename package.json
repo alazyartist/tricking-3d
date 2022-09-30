@@ -6,6 +6,7 @@
 		"spinup": "concurrently \"npm run start\" \"npm run server\""
 	},
 	"dependencies": {
+		"ably": "^1.2.29",
 		"axios": "^0.27.2",
 		"concurrently": "^7.2.1"
 	}
