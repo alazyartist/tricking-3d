@@ -78,13 +78,16 @@ function LoginForm() {
 						type={isVisible ? "text" : "password"}
 					/>
 					<button
+						type='button'
 						onClick={() => setIsVisible(!isVisible)}
 						className='p-2 text-xs text-white'>
 						{!isVisible ? "Show" : "Hide"}
 					</button>
 				</div>
 				<div className='flex w-full justify-around'>
-					<button className='text=zinc-700 w-fit rounded bg-sky-500 p-2 '>
+					<button
+						type='submit'
+						className='text=zinc-700 w-fit rounded bg-sky-500 p-2 '>
 						Submit
 					</button>
 					<Link
