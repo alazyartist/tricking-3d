@@ -22,7 +22,7 @@ export const makeNewTricklist = async (req, res) => {
 		.then(async (data) => {
 			console.log(data);
 			const owner = await users.findOne({ where: { uuid: uuid } });
-			feedChannel.publish("message", {
+			feedChannel.publish("public", {
 				...data[0].dataValues,
 				owner: owner.username,
 			});

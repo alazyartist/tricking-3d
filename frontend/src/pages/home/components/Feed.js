@@ -5,30 +5,27 @@ const ably = new Ably.Realtime(
 	"JGiS4w.Vg6zNA:TtwxohPIqL_TBzkPu0Gr0STE2cm6Ah-xfek0FkqY40s"
 );
 const Feed = () => {
-	const [message, setMessage] = useState("");
-	const [messageArr, setMessageArr] = useState([]);
+	const [feedArr, updateFeedArr] = useState([]);
 	const feedChannel = ably.channels.get("feed");
-	const handlePublish = () => {
-		feedChannel.publish("message", message);
-	};
+
 	useEffect(() => {
 		const subscribe = async () => {
-			await feedChannel.subscribe("message", (m) => {
-				console.log(m, messageArr);
-				const newMessages = messageArr.slice(-4);
+			await feedChannel.subscribe("public", (m) => {
+				console.log(m, feedArr);
+				const newMessages = feedArr.slice(-4);
 				newMessages.push(m);
-				setMessageArr(newMessages);
+				updateFeedArr(newMessages);
 			});
 		};
 		subscribe();
 
-		return () => feedChannel.unsubscribe("message");
+		return () => feedChannel.unsubscribe();
 	});
 	return (
 		<div className='flex flex-col p-2'>
 			<div className='p-2 text-2xl text-zinc-300'>Feed</div>
 			<div className='no-scrollbar flex h-fit flex-col overflow-y-scroll'>
-				{messageArr?.map((mes) => (
+				{feedArr?.map((mes) => (
 					<div className='text-zinc-200' key={mes.id}>
 						{mes?.data?.name} <span className='text-xs'> created by </span>
 						{mes?.data?.owner}
