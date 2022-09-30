@@ -1,7 +1,6 @@
 import React from "react";
 import { useUserStore } from "../store/userStore";
-import DataList from "./components/DataList";
-import UserList from "./components/UserList";
+import AdminDisplay from "./components/AdminDisplay";
 
 const AdminIndex = () => {
 	const userInfo = useUserStore((s) => s.userInfo);
@@ -14,8 +13,7 @@ const AdminIndex = () => {
 					<div className='text-center text-3xl'>
 						Welcome {userInfo?.username}. Good Luck Today
 					</div>
-					<DataList />
-					<UserList />
+					<AdminDisplay />
 				</div>
 			) : (
 				<div className='col flex h-[100vh] w-[100vw] place-content-center place-items-center bg-red-500 font-inter text-5xl font-bold text-zinc-900'>
