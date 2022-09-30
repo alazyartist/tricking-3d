@@ -14,6 +14,7 @@ import useUserInfo from "../../api/useUserInfo";
 import { IoIosArrowBack } from "react-icons/io";
 import PublicHomePage from "./components/PublicHomePage";
 import ClaimTricks from "../claimtricks/ClaimTricks";
+import Feed from "./components/Feed";
 
 const EnterSandboxLink = lazy(() => import("./components/EnterSandboxLink"));
 function Home() {
@@ -55,6 +56,7 @@ function Home() {
 					<EnterSandboxLink />
 				</Suspense>
 
+				<Feed />
 				<div className='flex w-[90vw] flex-col place-content-center'>
 					{!accessToken ? (
 						<PublicHomePage />
@@ -166,7 +168,6 @@ function Home() {
 										)
 									)}
 								</div>
-
 								<>
 									{/* <div className='flex flex-col gap-2 rounded-xl bg-zinc-700 p-2'>
 											<UpdateStatusInput />
