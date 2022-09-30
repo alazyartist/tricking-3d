@@ -7,7 +7,7 @@ const UserList = () => {
 		console.log(allUsers);
 	}, [allUsers]);
 	return (
-		<div className='h-[20vh] w-full overflow-scroll p-4'>
+		<div className='no-scrollbar h-[20vh] w-full overflow-scroll p-4'>
 			<div>UserList</div>
 			<div className='flex flex-col gap-2 p-2'>
 				{Array.isArray(allUsers) &&
