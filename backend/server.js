@@ -14,6 +14,7 @@ import { captureRoutes } from "./routes/captures.routes.js";
 import { trickRoutes } from "./routes/trick.routes.js";
 import { tricklistRoutes } from "./routes/tricklist.routes.js";
 import { comboRoutes } from "./routes/combo.routes.js";
+import ablyAuth from "./controllers/ably.controller.js";
 const corsOptions = {
 	origin: [
 		"http://localhost:3000",
@@ -39,7 +40,7 @@ app.use((req, res, next) => {
 });
 
 //Middlewares
-
+app.get("/api/ablyAuth", ablyAuth);
 app.use("/api", userRoutes);
 app.use("/api/tricks", trickRoutes);
 app.use("/api/tricklist", verifyJWT, tricklistRoutes);
