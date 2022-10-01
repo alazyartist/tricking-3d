@@ -1,13 +1,29 @@
 import React, { useEffect, useState } from "react";
 import Ably from "ably/promises";
 import { FaArrowUp } from "react-icons/fa";
-const ably = new Ably.Realtime(
-	"JGiS4w.Vg6zNA:TtwxohPIqL_TBzkPu0Gr0STE2cm6Ah-xfek0FkqY40s"
-);
+import { useUserStore } from "../../../store/userStore";
+import { apiPrivate } from "../../../api/api";
+const authUrl = `/api/ablyAuth`;
+const ably = new Ably.Realtime({
+	authCallback: async (tokenParams, callback) => {
+		try {
+			const tokenDetails = await apiPrivate.get("/ablyAuth");
+			console.log(tokenDetails);
+			tokenDetails && callback(null, tokenDetails?.data);
+		} catch (error) {
+			callback(error, null);
+		}
+	},
+});
 const Feed = () => {
+	const { uuid } = useUserStore((s) => s.userInfo);
 	const [feedArr, updateFeedArr] = useState([]);
 	const feedChannel = ably.channels.get("feed");
 
+	ably.connection.once("connected", () => {
+		const { tokenDetails } = ably.auth;
+		console.log("Client connected to Ably using JWT", tokenDetails);
+	});
 	useEffect(() => {
 		const subscribe = async () => {
 			await feedChannel.subscribe("public", (m) => {
