@@ -28,7 +28,7 @@ function Home() {
 	const [openTricklists, setOpenTricklists] = useState(false);
 	const [openClaimtricks, setOpenClaimtricks] = useState(false);
 	const [openComboMaker, setOpenComboMaker] = useState(false);
-	console.log("uuid: ", uuid);
+	// console.log("uuid: ", uuid);
 	return (
 		<div className='no-scrollbar sticky mt-0 h-[100vh] w-full overflow-y-scroll '>
 			<div

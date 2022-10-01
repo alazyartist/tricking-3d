@@ -33,7 +33,7 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 								<>
 									<div className='p-1'>
 										<TrickList
-											key={list.tricklist_id}
+											key={list.tricklist_id + Math.random().toString()}
 											data={list}
 											date={_getDate(list)}
 											last={i == data.length - 1}

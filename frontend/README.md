@@ -1,8 +1,14 @@
-# Tricking-3d
+      ::::::::::: :::::::::  ::::::::::: ::::::::  :::    ::: :::::::::: :::::::::  :::::::::: :::    :::
+         :+:     :+:    :+:     :+:    :+:    :+: :+:   :+:  :+:        :+:    :+: :+:        :+:    :+:
+        +:+     +:+    +:+     +:+    +:+        +:+  +:+   +:+        +:+    +:+ +:+         +:+  +:+
+       +#+     +#++:++#:      +#+    +#+        +#++:++    +#++:++#   +#+    +:+ +#++:++#     +#++:+
+      +#+     +#+    +#+     +#+    +#+        +#+  +#+   +#+        +#+    +#+ +#+         +#+  +#+
+     #+#     #+#    #+#     #+#    #+#    #+# #+#   #+#  #+#        #+#    #+# #+#        #+#    #+#
+    ###     ###    ### ########### ########  ###    ### ########## #########  ########## ###    ###
 
 An interactive learning tool aimed at abscracting some of the more complex nuances of the _**Tricking** Terminology_.
 
-A live version is available at [torquetricking.com/3d](http://torquetricking.com/3d/)
+A live version is available at [trickedex.app](https://trickedex.app/)
 
 ## Project Aim
 
@@ -248,15 +254,6 @@ Release of Initial Beta
 **PUBLIC RELEASE OF FINAL PRODUCT!**
 
 ---
-
-### ToDo:
-
-- [x] Animated Model
-- [x] Selectable Animations
-- [x] Timescale Settings
-- [x] Slider for Animation
-- [ ] Orthographic / Perspective Toggle
-- [x] Trick Information beside Player
 
 ## What is **Tricking**
 
