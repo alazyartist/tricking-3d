@@ -31,9 +31,9 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 						data.map((list, i) => {
 							return (
 								<>
-									<div className='p-1'>
+									<div key={list.tricklist_id + "div"} className='p-1'>
 										<TrickList
-											key={list.tricklist_id + Math.random().toString()}
+											key={"tricklist" + list.tricklist_id}
 											data={list}
 											date={_getDate(list)}
 											last={i == data.length - 1}

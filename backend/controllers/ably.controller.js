@@ -9,9 +9,8 @@ const ablyAuth = async (req, res) => {
 	const jwtOptions = { expiresIn, keyid: keyId };
 	console.log("Successfully connected to the server auth endpoint");
 
-	const randomId = Math.random().toString(16).slice(-8);
-	const clientId = req.query.clientId || randomId;
-
+	const clientId = req.query.clientId;
+	console.log(clientId);
 	const jwtPayload = {
 		"x-ably-capability": '{"*":["*"]}',
 		"x-ably-clientId": clientId,

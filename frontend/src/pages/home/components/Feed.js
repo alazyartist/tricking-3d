@@ -4,10 +4,11 @@ import { FaArrowUp } from "react-icons/fa";
 import { useUserStore } from "../../../store/userStore";
 import { apiPrivate } from "../../../api/api";
 const authUrl = `/api/ablyAuth`;
+const cid = useUserStore.getState().userInfo.uuid;
 const ably = new Ably.Realtime({
-	authCallback: async (tokenParams, callback) => {
+	authCallback: async ({ tokenDetails }, callback) => {
 		try {
-			const tokenDetails = await apiPrivate.get("/ablyAuth");
+			const tokenDetails = await apiPrivate.get(`/ablyAuth?clientId=${cid}`);
 			console.log(tokenDetails);
 			tokenDetails && callback(null, tokenDetails?.data);
 		} catch (error) {
@@ -36,7 +37,7 @@ const Feed = () => {
 		subscribe();
 
 		return () => feedChannel.unsubscribe();
-	});
+	}, [feedChannel]);
 	return (
 		<div className='flex flex-col p-2'>
 			<div className='p-2 text-2xl text-zinc-300'>Feed</div>
