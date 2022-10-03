@@ -20,7 +20,7 @@ export const claimCombo = async (req, res) => {
 			.then(async (ComboClaimed) => {
 				const activeUser = await user.findOne({ where: { uuid: user_id } });
 				feedChannel.publish("public", {
-					...data[0].dataValues,
+					...ComboClaimed?.[0]?.dataValues,
 					owner: activeUser.username,
 				});
 				console.log(activeUser);

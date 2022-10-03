@@ -130,7 +130,9 @@ const TrickList_Component = ({ data, open, date, last, fn, drag_offset }) => {
 
 			{/* MAIN ELEMENT */}
 			<animated.div
-				className={"relative flex w-full flex-row items-center justify-center"}
+				className={
+					"relative flex h-full w-full flex-row items-center justify-center"
+				}
 				{...bind()}
 				style={{ x, touchAction: "none" }}>
 				<button

@@ -16,7 +16,7 @@ const Claimed = ({ displayOnly, combo, combo_id, user_id }) => {
 		isClaimed ? unclaim({ user_id, combo_id }) : claim({ user_id, combo_id });
 	};
 	return (
-		<div
+		<button
 			onClick={() => {
 				// console.log(
 				// "Claim",
@@ -25,9 +25,9 @@ const Claimed = ({ displayOnly, combo, combo_id, user_id }) => {
 				setClaimed(!claimed);
 				!displayOnly && handleClaim();
 			}}
-			className='absolute right-4 h-full w-8 translate-y-[-50%] text-3xl text-emerald-500'>
+			className='absolute top-0 right-4 z-[100] h-full w-8 text-3xl text-emerald-500'>
 			{isClaimed ? <MdCheckCircle /> : <MdCircle className='text-yellow-500' />}
-		</div>
+		</button>
 	);
 };
 
