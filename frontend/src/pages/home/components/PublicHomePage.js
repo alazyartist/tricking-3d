@@ -6,9 +6,9 @@ import MultiDonateButton from "../../../components/info/MultiDonateButton";
 
 const PublicHomePage = () => {
 	return (
-		<div className='flex flex-col place-items-center'>
+		<div className='flex max-w-[600px] flex-col place-items-center'>
 			<Link className='' to='/instructions'>
-				<div className='flex w-[90vw] flex-col place-items-center justify-center gap-5 rounded-2xl bg-gradient-to-b from-zinc-800 to-zinc-800 p-2 font-bold text-zinc-300'>
+				<div className='flex w-[90vw] max-w-[600px] flex-col place-items-center justify-center gap-5 rounded-2xl bg-gradient-to-b from-zinc-800 to-zinc-800 p-2 font-bold text-zinc-300'>
 					<div>Instructions</div>
 				</div>
 			</Link>

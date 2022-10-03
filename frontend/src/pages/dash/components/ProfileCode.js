@@ -27,7 +27,7 @@ const ProfileCode = ({ setProfileCodeOpen, profileCodeOpen }) => {
 				onClick={() => setProfileCodeOpen(false)}
 				className=' h-full w-full bg-zinc-800 opacity-90'
 			/> */}
-			<div className='neumorphicIn relative flex h-full flex-col place-items-center rounded-xl bg-zinc-800 p-2'>
+			<div className='neumorphicIn relative flex h-full max-w-[600px] flex-col place-items-center rounded-xl bg-zinc-800 p-2'>
 				<IoIosArrowBack
 					className='absolute top-4 right-1 text-4xl'
 					onClick={() => setProfileCodeOpen(!profileCodeOpen)}

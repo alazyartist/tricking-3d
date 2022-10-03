@@ -46,7 +46,7 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 						})}
 				</div>
 			</div>
-			<div className='flex max-h-[30vh] min-h-[10vh] w-[90vw] items-center justify-center rounded-lg'>
+			<div className='flex max-h-[30vh] min-h-[10vh] w-[90vw] max-w-[800px] items-center justify-center rounded-lg'>
 				{!selected && (
 					<AddListButton setOpen={setOpenNewList} open={openNewList} />
 				)}

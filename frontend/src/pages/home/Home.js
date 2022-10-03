@@ -31,45 +31,46 @@ function Home() {
 	// console.log("uuid: ", uuid);
 
 	const logoAnim = useSpring({
-		to: { width: accessToken ? "50vw" : "100vw" },
+		to: { width: accessToken === null ? "50vw" : "100vw" },
 	});
 	return (
 		<div className='no-scrollbar sticky mt-0 h-[100vh] w-full overflow-y-scroll '>
 			<div
 				id='AppBackground-flex'
-				className='flex h-screen w-screen flex-col place-items-center'>
-				<div className='w-full text-center text-zinc-200'>
+				className='flex h-screen w-screen flex-col place-items-center justify-around xl:flex-row'>
+				<div className='w-full text-center text-zinc-200 xl:absolute xl:top-0'>
 					<animated.h1
 						style={{ ...logoAnim }}
-						className='flex flex-col text-center text-xl '>
+						className='left-0 flex max-w-[300px] flex-col text-center text-xl '>
 						{!accessToken && "Welcome to the"}
-						<TrickedexLogo className='-m-2px flex w-full place-self-center' />
+						<TrickedexLogo className='-m-2px flex w-full  place-self-center' />
 					</animated.h1>
 				</div>
+				<div className='flex flex-col place-items-center'>
+					<Link
+						to='/learnmore'
+						className='m-2 rounded-3xl bg-indigo-600 px-2 py-0 font-inter font-semibold text-zinc-300'>
+						Learn More
+					</Link>
+					<Suspense
+						fallback={
+							<div className='text-center font-inter text-4xl font-black text-zinc-300'>
+								Listen. theres a lot here.
+							</div>
+						}>
+						<EnterSandboxLink />
+					</Suspense>
 
-				<Link
-					to='/learnmore'
-					className='m-2 rounded-3xl bg-indigo-600 px-2 py-0 font-inter font-semibold text-zinc-300'>
-					Learn More
-				</Link>
-				<Suspense
-					fallback={
-						<div className='text-center font-inter text-4xl font-black text-zinc-300'>
-							Listen. theres a lot here.
-						</div>
-					}>
-					<EnterSandboxLink />
-				</Suspense>
-
-				<Feed />
-				<div className='flex w-[90vw] flex-col place-content-center'>
+					<Feed />
+				</div>
+				<div className='flex w-[90vw] max-w-[700px] flex-col place-content-center'>
 					{!accessToken ? (
 						<PublicHomePage />
 					) : (
 						// LoggedIn
 						<>
-							<div className='text-zinc-300'>
-								<div className='mb-4 grid w-full grid-cols-2 grid-rows-2 place-content-center place-items-center gap-4'>
+							<div className='flex flex-grow-0 justify-around text-zinc-300'>
+								<div className='mb-4 grid w-full max-w-[600px] grid-cols-2 grid-rows-2 place-content-center place-items-center gap-4'>
 									{/* Captures */}
 									{openCaptures ? (
 										<div
@@ -87,7 +88,7 @@ function Home() {
 										!openClaimtricks && (
 											<div
 												onClick={() => setOpenCaptures(!openCaptures)}
-												className={`neumorphic active:neumorphicIn flex h-full w-full flex-col place-content-center  place-items-center rounded-lg bg-zinc-800 text-4xl `}>
+												className={`neumorphic active:neumorphicIn flex h-full w-full max-w-[600px] flex-col place-content-center   place-items-center rounded-lg bg-zinc-800 text-4xl `}>
 												<FaQrcode />
 												<div className='text-lg font-bold'>Capture</div>
 											</div>
@@ -97,7 +98,7 @@ function Home() {
 									{/* Tricklists */}
 									{openTricklists ? (
 										<div
-											className={`neumorphicIn relative my-2 flex flex-col place-items-center gap-2 rounded-xl bg-zinc-800 pt-[3vh] ${
+											className={`neumorphicIn relative my-2 flex max-w-[600px] flex-col place-items-center gap-2 rounded-xl bg-zinc-800 pt-[3vh] ${
 												openTricklists ? "col-span-2 row-span-2" : ""
 											}`}>
 											<IoIosArrowBack
@@ -122,7 +123,7 @@ function Home() {
 
 									{openClaimtricks ? (
 										<div
-											className={`neumorphicIn relative my-2 flex flex-col place-items-center gap-2 rounded-xl bg-zinc-800 pt-[3vh] ${
+											className={`neumorphicIn relative my-2 flex max-w-[600px] flex-col place-items-center gap-2 rounded-xl bg-zinc-800 pt-[3vh] ${
 												openClaimtricks ? "col-span-2 row-span-2" : ""
 											}`}>
 											<IoIosArrowBack
@@ -146,7 +147,7 @@ function Home() {
 									{/* ComboMaker */}
 									{openComboMaker ? (
 										<div
-											className={`neumorphicIn relative my-2 flex flex-col place-items-center gap-2 rounded-xl bg-zinc-800 pt-[3vh] ${
+											className={`neumorphicIn relative my-2 flex max-w-[600px] flex-col place-items-center gap-2 rounded-xl bg-zinc-800 pt-[3vh] ${
 												openComboMaker ? "col-span-2 row-span-2" : ""
 											}`}>
 											<IoIosArrowBack

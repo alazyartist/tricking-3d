@@ -38,7 +38,7 @@ const EnterSandboxLink = () => {
 				</div>
 				<FaExpandArrowsAlt
 					onClick={() => setExpanded(!expanded)}
-					className='absolute bottom-2 left-2 fill-zinc-300'
+					className='absolute bottom-2 left-2 fill-zinc-300 md:hidden'
 				/>
 			</animated.div>
 		</animated.div>

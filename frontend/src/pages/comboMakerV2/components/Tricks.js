@@ -50,7 +50,7 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 					onChange={handleFilter}
 				/>
 			</div>
-			<div className='no-scrollbar flex h-[60vh] w-[60vw] flex-col gap-3 overflow-y-auto rounded-xl p-2 peer-hover:bg-red-500'>
+			<div className='no-scrollbar flex h-[60vh] w-[60vw] max-w-[560px] flex-col gap-3 overflow-y-auto rounded-xl p-2 peer-hover:bg-red-500'>
 				{/* TODO Current Leg should go here-ish */}
 				<p className='place-self-end text-sm text-zinc-500'>
 					{

@@ -12,7 +12,7 @@ const AddListButton = ({ setOpen, open }) => {
 				<button
 					className=' 
 					fit neumorphic active:neumorphicIn flex
-					h-[10vw] w-[60vw] flex-row items-center justify-center rounded-full bg-zinc-800 font-inter text-lg font-semibold text-zinc-400
+					h-[7vh] max-h-[80px] w-[60vw] max-w-[500px] flex-row items-center justify-center rounded-full bg-zinc-800 font-inter text-lg font-semibold text-zinc-400
 					'
 					onClick={() => {
 						setOpen(!open);
