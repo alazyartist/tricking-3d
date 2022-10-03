@@ -37,14 +37,15 @@ const Feed = () => {
 		subscribe();
 
 		return () => feedChannel.unsubscribe();
-	}, [feedChannel]);
+	});
 	return (
 		<div className='flex flex-col p-2'>
 			<div className='p-2 text-2xl text-zinc-300'>Feed</div>
 			<div className='no-scrollbar flex h-fit flex-col overflow-y-scroll'>
 				{feedArr?.map((mes) => (
 					<div className='text-zinc-200' key={mes.id}>
-						{mes?.data?.name} <span className='text-xs'> created by </span>
+						{mes?.data?.name}{" "}
+						<span className='text-xs'> {mes?.data?.type} </span>
 						{mes?.data?.owner}
 					</div>
 				))}

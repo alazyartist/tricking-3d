@@ -1,5 +1,7 @@
 import db from "../models/index.js";
 import Ably from "ably/promises.js";
+import env from "dotenv";
+env.config();
 const tricklist = await db.sequelize.models.Tricklist;
 const tricklist_combos = await db.sequelize.models.Tricklist_Combos;
 const tricks = await db.sequelize.models.Tricks;
@@ -8,9 +10,7 @@ const users = await db.sequelize.models.Users;
 // db.sequelize.models.Tricks.associate(db.sequelize.models);
 // db.sequelize.models.Stances.associate(db.sequelize.models);
 // db.sequelize.models.Variations.associate(db.sequelize.models);
-const ably = new Ably.Realtime(
-	"JGiS4w.Vg6zNA:TtwxohPIqL_TBzkPu0Gr0STE2cm6Ah-xfek0FkqY40s"
-);
+const ably = new Ably.Realtime(process.env.ABLY_API_KEY);
 export const makeNewTricklist = async (req, res) => {
 	const { name, uuid } = req.body.data;
 	const feedChannel = ably.channels.get("feed");
@@ -22,9 +22,11 @@ export const makeNewTricklist = async (req, res) => {
 		.then(async (data) => {
 			console.log(data);
 			const owner = await users.findOne({ where: { uuid: uuid } });
+
 			feedChannel.publish("public", {
 				...data[0].dataValues,
 				owner: owner.username,
+				type: "created by",
 			});
 			res.json(data);
 		})
