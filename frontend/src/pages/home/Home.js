@@ -31,7 +31,7 @@ function Home() {
 	// console.log("uuid: ", uuid);
 
 	const logoAnim = useSpring({
-		to: { width: accessToken === null ? "50vw" : "100vw" },
+		to: { width: accessToken ? "50vw" : "100vw" },
 	});
 	return (
 		<div className='no-scrollbar sticky mt-0 h-[100vh] w-full overflow-y-scroll '>

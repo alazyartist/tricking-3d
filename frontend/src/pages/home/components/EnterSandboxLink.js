@@ -14,7 +14,7 @@ const EnterSandboxLink = () => {
 	const expandPos = useSpring({
 		to: {
 			position: expanded ? "absolute" : "relative",
-			zIndex: expanded ? "10" : "0",
+			top: 0,
 		},
 	});
 	return (
