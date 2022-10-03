@@ -15,7 +15,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import PublicHomePage from "./components/PublicHomePage";
 import ClaimTricks from "../claimtricks/ClaimTricks";
 import Feed from "./components/Feed";
-
+import { useSpring, animated } from "react-spring";
 const EnterSandboxLink = lazy(() => import("./components/EnterSandboxLink"));
 function Home() {
 	useUserInfo();
@@ -29,17 +29,22 @@ function Home() {
 	const [openClaimtricks, setOpenClaimtricks] = useState(false);
 	const [openComboMaker, setOpenComboMaker] = useState(false);
 	// console.log("uuid: ", uuid);
+
+	const logoAnim = useSpring({
+		to: { width: accessToken ? "50vw" : "100vw" },
+	});
 	return (
 		<div className='no-scrollbar sticky mt-0 h-[100vh] w-full overflow-y-scroll '>
 			<div
 				id='AppBackground-flex'
 				className='flex h-screen w-screen flex-col place-items-center'>
 				<div className='w-full text-center text-zinc-200'>
-					<h1 className='flex flex-col text-xl '>
-						Welcome to the
-						<TrickedexLogo className='-m-2px flex w-[80vw] place-self-center' />
-						<div className='font-black text-zinc-300'>{user}</div>
-					</h1>
+					<animated.h1
+						style={{ ...logoAnim }}
+						className='flex flex-col text-center text-xl '>
+						{!accessToken && "Welcome to the"}
+						<TrickedexLogo className='-m-2px flex w-full place-self-center' />
+					</animated.h1>
 				</div>
 
 				<Link
@@ -64,7 +69,7 @@ function Home() {
 						// LoggedIn
 						<>
 							<div className='text-zinc-300'>
-								<div className='mb-4 grid w-full grid-cols-2 grid-rows-3 place-content-center place-items-center gap-4'>
+								<div className='mb-4 grid w-full grid-cols-2 grid-rows-2 place-content-center place-items-center gap-4'>
 									{/* Captures */}
 									{openCaptures ? (
 										<div
