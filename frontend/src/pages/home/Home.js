@@ -43,7 +43,7 @@ function Home() {
 						style={{ ...logoAnim }}
 						className='left-0 flex max-w-[300px] flex-col text-center text-xl '>
 						{!accessToken && "Welcome to the"}
-						<TrickedexLogo className='-m-2px flex w-full  place-self-center' />
+						<TrickedexLogo className='-m-2px flex w-full place-self-center' />
 					</animated.h1>
 				</div>
 				<div className='flex flex-col place-items-center'>

@@ -61,9 +61,8 @@ export function Sandbox() {
 					className='absolute top-[5.2rem] right-4 z-[1005] p-1'>
 					<ShowHideToggle />
 				</div>
-				{showUI && <UI />}
+				{showUI ? <UI /> : <MinimalUI />}
 				{showInfo && <TrickInfo />}
-				{!showUI && <MinimalUI />}
 				<div
 					id='full-screen-canvas'
 					className='aboslute top-0  order-1 h-[screen] min-h-min w-full min-w-full max-w-full justify-around overflow-hidden bg-zinc-900 md:relative md:order-2 md:min-h-screen md:min-w-fit '>
