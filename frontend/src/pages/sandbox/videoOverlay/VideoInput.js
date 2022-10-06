@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useStore } from "../../../store/store";
+import { useVideoStore } from "./useVideoStore";
 import { useUserStore } from "../../../store/userStore";
+import VideoControls from "./VideoControls";
 const VideoInput = () => {
 	const [file, setFile] = useState();
 	const { uuid } = useUserStore((s) => s.userInfo);
-	const [filename, setFilename] = useState("Change Profile Pic");
-	const vidSrc = useStore((s) => s.videoSource);
-	const setVidSrc = useStore((s) => s.setVideoSource);
+	const [filename, setFilename] = useState("Select Video");
+	const vidSrc = useVideoStore((s) => s.videoSource);
+	const setVidSrc = useVideoStore((s) => s.setVideoSource);
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		const formData = new FormData();
 		formData.append("file", file);
 		formData.append("uuid", uuid);
+	};
+	const clearSrc = () => {
+		setVidSrc("");
+		setFilename("Select Video");
 	};
 	const onChange = (e) => {
 		console.log(e);
@@ -28,7 +33,7 @@ const VideoInput = () => {
 	}, [file]);
 
 	return (
-		<>
+		<div className='absolute bottom-[18vh] flex w-full flex-col'>
 			{/* {file && (
 				<video
 					src={vidSrc}
@@ -42,7 +47,7 @@ const VideoInput = () => {
 			)} */}
 			<form
 				id='form'
-				className='absolute bottom-[18vh] z-[4] flex w-full gap-2'
+				className='] z-[4] flex w-full gap-2 p-2'
 				onSubmit={onSubmit}>
 				<label
 					className='mb-2 flex w-3/4 place-content-center place-items-center rounded-xl bg-zinc-800 p-2 text-sm text-zinc-300'
@@ -57,14 +62,24 @@ const VideoInput = () => {
 						accept='video/*'
 					/>
 				</label>
-				<label
+
+				<button
+					className='mb-2 flex w-1/4 place-content-center place-items-center rounded-xl bg-zinc-800 p-2 text-sm text-zinc-300'
+					onClick={() => clearSrc()}
+					type='button'>
+					Clear Video
+				</button>
+				{/* <label
 					className='mb-2 flex w-1/4 place-content-center place-items-center rounded-xl bg-zinc-800 p-2 text-sm text-zinc-300'
 					htmlFor='upload'>
 					Upload
 					<input id='upload' className='hidden' type={"submit"} />
-				</label>
+				</label> */}
 			</form>
-		</>
+			<div className='z-[4] flex w-full place-content-center place-items-center gap-2 text-zinc-300'>
+				<VideoControls />
+			</div>
+		</div>
 	);
 };
 
