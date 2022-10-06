@@ -12,5 +12,9 @@ export default function LoadActiveBackground(props) {
 		return <BluesBackground />;
 	} else if (activeBackground === "JapanShrine") {
 		return <JapanShrine />;
+	} else if (activeBackground === "The Void") {
+		return (
+			<gridHelper args={[10, 10, `black`, `gainsboro`]} position={[0, 0, 0]} />
+		);
 	} else return;
 }
