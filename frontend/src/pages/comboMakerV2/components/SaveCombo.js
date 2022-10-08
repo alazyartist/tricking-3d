@@ -8,7 +8,7 @@ const SaveCombo = ({ setComboName, comboName, setSave, save }) => {
         place-items-center justify-between'>
 			<input
 				onChange={(e) => setComboName(e.target.value)}
-				className={"w-[75vw] rounded-xl bg-transparent p-2"}
+				className={"w-[75%] rounded-xl bg-transparent p-2"}
 				type={"text"}
 				placeholder='Name You Combo'
 				value={comboName}
