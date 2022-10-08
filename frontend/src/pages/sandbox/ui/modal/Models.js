@@ -1,12 +1,11 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 import { useStore } from "../../../../store/store";
 
 const Models = () => {
 	const selectAnim = useStore((s) => s.selectAnim);
 	const modelArray = useStore((state) => state.modelArray);
 	const selectModel = useStore((s) => s.setModel);
-	const navigate = useNavigate();
 	return (
 		<div
 			className='no-scrollbar fixed top-[10vh] left-[10vw] 
@@ -20,7 +19,7 @@ const Models = () => {
 						onClick={() => {
 							selectAnim("Backflip");
 							selectModel(e);
-							navigate(`/sandbox/${e}/Backflip`);
+							redirect(`/sandbox/${e}/Backflip`);
 						}}
 						key={i}>
 						{e}

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { redirect, useNavigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 import { useStore } from "../../../../store/store";
 import useCreateVersions from "./useCreateVersions";
 
@@ -8,7 +8,6 @@ const Animations = () => {
 	const currentModel = useStore((s) => s.activeModel);
 	const currVersions = useStore((s) => s.currVersions);
 
-	const navigate = useNavigate();
 	const animSet = useCreateVersions();
 
 	return (

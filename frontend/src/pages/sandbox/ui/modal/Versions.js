@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 import { useStore } from "../../../../store/store";
 
 const Versions = () => {
@@ -8,7 +8,6 @@ const Versions = () => {
 	const currentAnim = useStore((s) => s.currentAnim);
 	const currentModel = useStore((s) => s.activeModel);
 	const currVersions = useStore((s) => s.currVersions);
-	const navigate = useNavigate();
 
 	useEffect(() => {}, []);
 	return (
@@ -23,7 +22,7 @@ const Versions = () => {
 						className='mt-1 mb-2 flex h-fit w-full justify-center rounded-lg font-inter text-xl font-light text-zinc-200 hover:text-zinc-400'
 						onClick={() => {
 							selectAnim(e);
-							navigate(`/sandbox/${currentModel}/${e}`);
+							redirect(`/sandbox/${currentModel}/${e}`);
 						}}
 						key={i}>
 						{e}
