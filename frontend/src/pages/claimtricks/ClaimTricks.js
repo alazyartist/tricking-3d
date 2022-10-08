@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import useGetTricks from "../../api/useGetTricks";
-import { FaCheck, FaCircle } from "react-icons/fa";
 import ClaimedTricks from "./components/ClaimedTricks";
 
 const ClaimTricks = ({ user_id }) => {
@@ -12,7 +11,7 @@ const ClaimTricks = ({ user_id }) => {
 		if ((tricks !== undefined && !searchTerm) || searchedItems?.length === 0) {
 			setSearchedItems(tricks);
 		}
-	}, [tricks, searchedItems]);
+	}, [tricks, searchedItems, searchTerm]);
 	const handleFilter = (event) => {
 		const searchTerm = event.target.value;
 		const newFilter = tricks.filter((trick) => {

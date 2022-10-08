@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useUpdateProfileInfo } from "../../../api/useUpdateProfileInfo";
 
 const ProfileInfoCardEditable = ({ userInfo, setEditing }) => {
@@ -21,6 +21,7 @@ const ProfileInfoCardEditable = ({ userInfo, setEditing }) => {
 	return (
 		<form onSubmit={handleSave} className='flex h-full flex-col'>
 			<img
+				alt='user profile'
 				src={
 					userInfo?.profilePic
 						? `/images/${userInfo?.uuid}/${userInfo?.profilePic}`
@@ -28,7 +29,7 @@ const ProfileInfoCardEditable = ({ userInfo, setEditing }) => {
 				}
 				className='relative top-8 left-2 h-12 w-12 rounded-full'
 			/>
-			<div className='flex w-fit min-w-[35vw] max-w-[48vw] flex-col place-content-center place-items-start gap-2 rounded-xl bg-red-200 p-2 pt-2 text-sm text-zinc-900'>
+			<div className='flex w-fit min-w-[35vw] max-w-[48vw] flex-col place-content-center place-items-start gap-2 rounded-xl bg-zinc-100 p-2 pt-2 text-sm text-zinc-900'>
 				<div className='pl-14 font-bold'>
 					<input
 						type={"text"}
@@ -89,13 +90,8 @@ const ProfileInfoCardEditable = ({ userInfo, setEditing }) => {
 							setEditedInfo({ ...editedInfo, age: e.target.value });
 						}}
 					/>
-					{/* <div>
-						{userInfo?.Profile?.name ||
-							userInfo?.first_name + " " + userInfo?.last_name}
-					</div>
-					<div className=''>{userInfo?.Profile?.age}</div> */}
 				</div>
-				<div className='blur-sm'>Level</div>
+				<div className=''>Level</div>
 				{/* BIFW */}
 				{userInfo?.Profile?.brands && (
 					<div className='w-full rounded-md bg-zinc-800 p-2'>
@@ -103,7 +99,7 @@ const ProfileInfoCardEditable = ({ userInfo, setEditing }) => {
 					</div>
 				)}
 				{/* Status */}
-				<div className='w-full rounded-md bg-red-800 p-2 blur-sm'>
+				<div className='w-full rounded-md bg-zinc-800 p-2 text-zinc-300 '>
 					{userInfo?.Profile?.status || "I'm New Here"}
 				</div>
 				<div className='flex w-full place-content-center'>

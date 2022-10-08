@@ -2,8 +2,9 @@ import React from "react";
 
 const ProfileInfoCard = ({ userInfo }) => {
 	return (
-		<div className='flex h-full flex-col'>
+		<div className='h-fullmax-w-[800px] flex flex-col'>
 			<img
+				alt='user profile'
 				src={
 					userInfo?.profilePic
 						? `/images/${userInfo?.uuid}/${userInfo?.profilePic}`
@@ -11,7 +12,7 @@ const ProfileInfoCard = ({ userInfo }) => {
 				}
 				className='relative top-8 left-2 h-12 w-12 rounded-full'
 			/>
-			<div className='place-content-center flex w-fit min-w-[35vw] max-w-[48vw] flex-col place-items-start gap-2 rounded-xl bg-zinc-700 p-2 pt-2 text-sm'>
+			<div className='flex w-fit min-w-[35vw] max-w-[48vw] flex-col place-content-center place-items-start gap-2 rounded-xl bg-zinc-700 p-2 pt-2 text-sm lg:max-w-[30vw]'>
 				<div className='w-full pl-14 font-bold'>
 					<div className='w-[100%] text-center'>{userInfo?.username}</div>
 					<div className='text-center text-xs font-normal'>

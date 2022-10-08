@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { MdOutlineClose } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import { useTransition, animated } from "react-spring";
@@ -7,19 +7,14 @@ import { useUserStore } from "../../store/userStore";
 import ProfileInfoCard from "./components/ProfileInfoCard";
 import ProfileInfoCardEditable from "./components/ProfileInfoCardEditable";
 import TricklistsAndClamiedContainer from "./components/TricklistsAndClaimedContainer";
-import UserAvatarDisplay from "./components/UserAvatarDisplay";
-import TricklistPage from "../tricklist/TricklistPage";
 
-import { useStore } from "../../store/store.js";
-import AddListButton from "../tricklist/components/AddListButton";
-import AddComboItemToTricklist from "../tricklist/components/AddComboItemToTricklist";
-
+const UserAvatarDisplay = lazy(() => import("./components/UserAvatarDisplay"));
 const UserProfile = () => {
 	const { uuid } = useParams();
 	const { uuid: loggedInUUID } = useUserStore((s) => s.userInfo);
 	const { data: profileInfo } = useUserInfoByUUID(uuid);
-	const selected = useStore((s) => s.selected_TrickList);
 	const [editing, setEditing] = useState(false);
+	const [pageLoaded, setPageLoaded] = useState(false);
 	const editView = useTransition(editing, {
 		from: { top: -400, opacity: 0 },
 		enter: { top: 0, opacity: 100 },
@@ -29,17 +24,18 @@ const UserProfile = () => {
 		exitBeforeEnter: true,
 	});
 	const isUsersPage = uuid === loggedInUUID;
-	/* addNewList/Combo */
-	const [addItemopen, setAddItemopen] = useState(false);
-	const [openNewList, setOpenNewList] = useState(false);
 
 	useEffect(() => {
-		console.log("Current(uP): ", selected);
-	}, [selected]);
+		if (document.readyState === "complete") {
+			setPageLoaded(true);
+		} else {
+			window.addEventListener("load", setPageLoaded(true));
+		}
+	}, []);
 
 	return (
-		<div className='m-4  pt-[3.4rem] font-inter text-zinc-300'>
-			<div className=' flex flex-row justify-between gap-4 pb-4'>
+		<div className='m-4 flex flex-col place-items-center pt-[3.4rem] font-inter text-zinc-300'>
+			<div className=' flex max-w-[1200px] flex-row justify-between gap-4 pb-4'>
 				<div className='flex flex-col'>
 					{editView((styles, editing) =>
 						editing ? (
@@ -76,11 +72,12 @@ const UserProfile = () => {
 						)
 					)}
 				</div>
-				<UserAvatarDisplay />
+				<Suspense>
+					<div>{pageLoaded && <UserAvatarDisplay />}</div>
+				</Suspense>
 			</div>
 
 			<div className='flex w-full flex-col place-items-center rounded-lg'>
-				{/* @TODO: Wrap this with profile info container */}
 				<TricklistsAndClamiedContainer
 					profileuuid={uuid}
 					MyTricklists={profileInfo?.MyTricklists}
@@ -88,19 +85,6 @@ const UserProfile = () => {
 					ClaimedTricks={profileInfo?.TricksClaimed}
 				/>
 			</div>
-
-			{/* <div className='fixed bottom-0 flex max-h-[30vh] min-h-[10vh] w-[90vw] items-center justify-center rounded-lg border-t-4 border-zinc-900 bg-zinc-700'>
-				{!selected && (
-					<AddListButton setOpen={setOpenNewList} open={openNewList} />
-				)}
-				{selected && (
-					<AddComboItemToTricklist
-						tricklist_id={selected.tricklist_id}
-						addItemopen={addItemopen}
-						setAddItemopen={setAddItemopen}
-					/>
-				)}
-			</div> */}
 		</div>
 	);
 };
