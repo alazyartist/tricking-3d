@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { useStore } from "../../../../store/store";
 import useCreateVersions from "./useCreateVersions";
 
@@ -23,7 +23,7 @@ const Animations = () => {
 						className='mt-1 mb-2 flex h-fit w-full justify-center rounded-lg font-inter text-xl font-light text-zinc-200 hover:text-zinc-400'
 						onClick={() => {
 							selectAnim(e);
-							navigate(`/sandbox/${currentModel}/${e}`);
+							redirect(`/sandbox/${currentModel}/${e}`);
 						}}
 						key={i}>
 						{e}

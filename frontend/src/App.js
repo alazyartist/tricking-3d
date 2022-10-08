@@ -52,6 +52,7 @@ import TheoryIndexInstructions from "./pages/theory/TheoryIndexInstructions";
 import TestSections from "./pages/TestSections";
 import AdminIndex from "./admin/AdminIndex";
 import UserSettings from "./pages/userSettings/UserSettings";
+import { TorqueScene } from "./scenes/TorqueScene";
 
 function App() {
 	const accessToken = useUserStore((s) => s.accessToken);
@@ -123,9 +124,7 @@ function App() {
 							<Route path={"/about"} element={<AboutUs />} />
 
 							<Route path={"/sandbox"} element={<Sandbox />}>
-								<Route path=':model'>
-									<Route path=':trick' element={<Sandbox />} />
-								</Route>
+								<Route path=':model/:trick' element={<TorqueScene />} />
 							</Route>
 							<Route
 								path={"/comboMaker"}

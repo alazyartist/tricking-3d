@@ -2,10 +2,10 @@ const CACHE_NAME = "tricking-3d-v2";
 const urlsToCache = [
 	"index.html",
 	"offline.html",
-	"Kerwood40.glb",
-	"Frank.glb",
-	"Andrew.glb",
-	"SceneBackground.glb",
+	// "Kerwood40.glb",
+	// "Frank.glb",
+	// "Andrew.glb",
+	// "SceneBackground.glb",
 ];
 const self = this;
 //Install Service Worker

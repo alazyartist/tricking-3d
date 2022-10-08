@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef } from "react";
+import React, { Suspense, useEffect, useRef, useMemo } from "react";
 import {
 	OrbitControls,
 	Environment,
@@ -15,7 +15,19 @@ import { useStore } from "../store/store";
 import { useFrame, useThree } from "@react-three/fiber";
 import LoadActiveBackground from "../components/media/BackgroundSelector";
 // import Model from "../animations/KerwoodCC3Tpose";
+import { useParams, useSearchParams } from "react-router-dom";
+
 export function TorqueScene({ gizmoHelper }) {
+	const { model, trick } = useParams();
+
+	const setModel = useStore((s) => s.setModel);
+	const setAnim = useStore((s) => s.selectAnim);
+
+	useMemo(() => {
+		model && setModel(model);
+		trick && setAnim(trick);
+	}, [model, trick]);
+
 	const light = useRef();
 	const light2 = useRef();
 	const gizmoRef = useRef();
@@ -27,6 +39,8 @@ export function TorqueScene({ gizmoHelper }) {
 			<PerspectiveCamera ref={gizmoRef} position={[0, -1, 0]}>
 				<Suspense fallback={<ModelLoader />}>
 					<LoadActiveModel />
+				</Suspense>
+				<Suspense fallback={<ModelLoader />}>
 					<LoadActiveBackground />
 				</Suspense>
 				<ambientLight intensity={0.3} />

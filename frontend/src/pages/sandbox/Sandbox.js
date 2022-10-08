@@ -12,16 +12,16 @@ import { useVideoStore } from "./videoOverlay/useVideoStore.js";
 import useVideoControls from "./videoOverlay/useVideoControls.js";
 
 export function Sandbox() {
-	const { model, trick } = useParams();
+	// const { model, trick } = useParams();
 	const showUI = useStore((s) => s.showUI);
 	const showInfo = useStore((s) => s.showInfo);
-	const setModel = useStore((s) => s.setModel);
-	const setAnim = useStore((s) => s.selectAnim);
+	// const setModel = useStore((s) => s.setModel);
+	// const setAnim = useStore((s) => s.selectAnim);
 
-	useMemo(() => {
-		model && setModel(model);
-		trick && setAnim(trick);
-	}, [model, trick]);
+	// useMemo(() => {
+	// 	model && setModel(model);
+	// 	trick && setAnim(trick);
+	// }, [model, trick]);
 
 	// function useQueryParam(key) {
 	// 	let [searchParams, setSearchParams] = useSearchParams();
