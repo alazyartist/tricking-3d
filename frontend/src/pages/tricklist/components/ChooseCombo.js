@@ -42,7 +42,7 @@ const ChooseCombo = ({ setOpen, open, tricklist_id }) => {
 		<div
 			onClick={(e) => handleClick(e)}
 			id='addItemBackground'
-			className='max-h-[30vh] w-[80vw]'>
+			className='max-h-[30vh] w-[80vw] max-w-[540px]'>
 			{/*
 					//className=' place-content-center place-items-center sticky top-0 left-0 flex h-full w-full rounded-xl bg-zinc-800 bg-opacity-40'>
 					//<div className='place-content-center place-items-center flex flex-col'>
