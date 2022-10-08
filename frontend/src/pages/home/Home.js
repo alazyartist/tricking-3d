@@ -38,7 +38,7 @@ function Home() {
 			<div
 				id='AppBackground-flex'
 				className='flex h-screen w-screen flex-col place-items-center justify-around xl:flex-row'>
-				<div className='w-full text-center text-zinc-200 xl:absolute xl:top-0'>
+				<div className='flex w-full place-content-center text-center text-zinc-200 xl:absolute xl:top-0'>
 					<animated.h1
 						style={{ ...logoAnim }}
 						className='left-0 flex max-w-[300px] flex-col text-center text-xl '>

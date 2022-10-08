@@ -9,6 +9,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import MinimalUI from "./ui/MinimalUI";
 import TrickInfo from "../../components/info/TrickInfo";
 import { useVideoStore } from "./videoOverlay/useVideoStore.js";
+import useVideoControls from "./videoOverlay/useVideoControls.js";
 
 export function Sandbox() {
 	const { model, trick } = useParams();
@@ -55,20 +56,20 @@ export function Sandbox() {
 
 	//General Design Handled Here
 
-	const timescale = useStore((s) => s.timescale);
 	const vidSrc = useVideoStore((s) => s.videoSource);
 	const setVidSrc = useVideoStore((s) => s.setVideoSource);
-	const videoPlaying = useVideoStore((s) => s.videoPlaying);
+	const videoOpacity = useVideoStore((s) => s.videoOpacity);
+	const canvasOpacity = useVideoStore((s) => s.canvasOpacity);
+	const setVideoOpacity = useVideoStore((s) => s.setVideoOpacity);
+	const setCanvasOpacity = useVideoStore((s) => s.setCanvasOpacity);
+	const setVidTime = useVideoStore((s) => s.setVidTime);
+	const vidTime = useVideoStore((s) => s.vidTime);
+	const setVidDuration = useVideoStore((s) => s.setVidDuration);
 	let vid = document.getElementById("video");
+	useVideoControls(vid);
 	useEffect(() => {
-		if (vid) {
-			videoPlaying ? vid.play() : vid.pause();
-
-			if (timescale > 0.1 && timescale < 2) {
-				vid.playbackRate = timescale;
-			}
-		}
-	}, [videoPlaying, timescale]);
+		setVidDuration(vid?.duration);
+	}, [vid]);
 	return (
 		<>
 			<div id='Root-Container' className='fixed h-screen w-screen bg-zinc-900'>
@@ -79,17 +80,22 @@ export function Sandbox() {
 				</div>
 				{showUI ? <UI /> : <MinimalUI />}
 				{showInfo && <TrickInfo />}
-				<video
-					id={"video"}
-					src={vidSrc}
-					controls={false}
-					muted
-					loop
-					playsInline
-					autoPlay
-					className={`absolute top-0 left-0 z-[-1] h-full w-full `}
-				/>
+				{vidSrc && (
+					<video
+						style={{ opacity: videoOpacity }}
+						id={"video"}
+						src={vidSrc}
+						controls={false}
+						muted
+						onTimeUpdate={() => setVidTime(vid?.currentTime)}
+						loop
+						playsInline
+						autoPlay
+						className={`absolute top-0 left-0 z-[-1] h-full w-full `}
+					/>
+				)}
 				<div
+					style={{ opacity: canvasOpacity }}
 					id='full-screen-canvas'
 					className='absolute top-0  order-1 h-[screen] min-h-min w-full min-w-full max-w-full justify-around overflow-hidden  md:relative md:order-2 md:min-h-screen md:min-w-fit '>
 					<CanvasComponent />

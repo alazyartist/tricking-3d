@@ -76,9 +76,6 @@ const VideoInput = () => {
 					<input id='upload' className='hidden' type={"submit"} />
 				</label> */}
 			</form>
-			<div className='z-[4] flex w-full place-content-center place-items-center gap-2 text-zinc-300'>
-				<VideoControls />
-			</div>
 		</div>
 	);
 };
