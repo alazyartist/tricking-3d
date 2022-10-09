@@ -23,6 +23,11 @@ const Animations = () => {
 						onClick={() => {
 							selectAnim(e);
 							redirect(`/sandbox/${currentModel}/${e}`);
+							window.history.replaceState(
+								"",
+								"",
+								`/sandbox/${currentModel}/${e}`
+							);
 						}}
 						key={i}>
 						{e}

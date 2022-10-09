@@ -20,6 +20,7 @@ const Models = () => {
 							selectAnim("Backflip");
 							selectModel(e);
 							redirect(`/sandbox/${e}/Backflip`);
+							window.history.replaceState("", "", `/sandbox/${e}/Backflip`);
 						}}
 						key={i}>
 						{e}

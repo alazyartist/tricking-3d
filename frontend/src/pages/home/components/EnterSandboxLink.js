@@ -30,7 +30,7 @@ const EnterSandboxLink = () => {
 					</Canvas>
 				</Suspense>
 				<div className='translate-y-[-5vh] lg:translate-y-[-6vh] 2xl:translate-y-[-10vh] '>
-					<Link to='/sandbox/' id='canvas-container'>
+					<Link to='/sandbox/Frank/touchdown-Raiz' id='canvas-container'>
 						<h1 className='l:text-4xl text-center text-xl font-black text-zinc-300 md:text-2xl'>
 							Enter Sandbox
 						</h1>
