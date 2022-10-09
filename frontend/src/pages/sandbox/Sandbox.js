@@ -11,7 +11,7 @@ import TrickInfo from "../../components/info/TrickInfo";
 import { useVideoStore } from "./videoOverlay/useVideoStore.js";
 import useVideoControls from "./videoOverlay/useVideoControls.js";
 
-export function Sandbox() {
+export default function Sandbox() {
 	// const { model, trick } = useParams();
 	const showUI = useStore((s) => s.showUI);
 	const showInfo = useStore((s) => s.showInfo);

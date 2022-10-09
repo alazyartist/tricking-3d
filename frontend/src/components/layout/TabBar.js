@@ -61,7 +61,9 @@ function TabBar() {
 							{/* <FaToolbox /> */}
 							<ComboMakerBlueprint className='h-10 w-10' fill='#ffffff' />
 						</Link>
-						<Link onClick={() => setOpenHamburger(false)} to='/sandbox'>
+						<Link
+							onClick={() => setOpenHamburger(false)}
+							to='/sandbox/Frank/touchdown-Raiz'>
 							<BiCube />
 						</Link>
 						<Link onClick={() => setOpenHamburger(false)} to='/theory'>

@@ -1,7 +1,7 @@
 import Home from "./pages/home/Home";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { TestPage } from "./pages/TestPage";
-import { Sandbox } from "./pages/sandbox/Sandbox";
+// import { Sandbox } from "./pages/sandbox/Sandbox";
 import Contribute from "./pages/contribute/Contribute";
 import ComingSoon from "./pages/ComingSoon";
 import InstructionsPage from "./pages/instructrions/InstructionsPage";
@@ -30,10 +30,9 @@ import Sequential from "./pages/theory/transitions/components/Sequential";
 import Unified from "./pages/theory/transitions/components/Unified";
 import All from "./pages/theory/transitions/components/All";
 import { TransitionList } from "./pages/TransitionList";
-import ComboMaker from "./pages/comboMaker/ComboMaker";
 import TabBar from "./components/layout/TabBar";
 import { animated, useTransition } from "react-spring";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import TheoryTabBar from "./components/layout/TheoryTabBar";
 import AnimationsNeeded from "./pages/AnimationsNeeded";
 import Login from "./pages/login/Login";
@@ -44,16 +43,19 @@ import PersistLogin from "./auth/PersistLogin";
 import UserIcon from "./components/layout/UserIcon";
 import { useUserStore } from "./store/userStore";
 import Axes from "./pages/theory/axes/Axes";
-import ComboMakerV2 from "./pages/comboMakerV2/ComboMakerV2";
+// import ComboMakerV2 from "./pages/comboMakerV2/ComboMakerV2";
+
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import UserProfile from "./pages/userProfile/userProfile";
+// import UserProfile from "./pages/userProfile/userProfile";
 import TheoryIndexInstructions from "./pages/theory/TheoryIndexInstructions";
 import TestSections from "./pages/TestSections";
 import AdminIndex from "./admin/AdminIndex";
 import UserSettings from "./pages/userSettings/UserSettings";
 import { TorqueScene } from "./scenes/TorqueScene";
-
+const UserProfile = lazy(() => import("./pages/userProfile/userProfile"));
+const Sandbox = lazy(() => import("./pages/sandbox/Sandbox"));
+const ComboMakerV2 = lazy(() => import("./pages/comboMakerV2/ComboMakerV2"));
 function App() {
 	const accessToken = useUserStore((s) => s.accessToken);
 	const location = useLocation();
@@ -107,7 +109,15 @@ function App() {
 									// <Navigate replace to='/3d/sandbox' />
 								}
 							/>
-							<Route path='/' element={<Home />} />
+							<Route
+								path='/'
+								element={
+									<Suspense>
+										<Home />
+									</Suspense>
+								}
+							/>
+
 							<Route path='/admin' element={<AdminIndex />} />
 							<Route path={"/register"} element={<Register />} />
 							<Route element={<PersistLogin />}>
@@ -118,30 +128,38 @@ function App() {
 								</Route>
 							</Route>
 							<Route path={"/home"} element={<Home />} />
-							<Route path={"/userProfile/:uuid"} element={<UserProfile />} />
+							<Route
+								path={"/userProfile/:uuid"}
+								element={
+									<Suspense>
+										<UserProfile />
+									</Suspense>
+								}
+							/>
 							<Route path={"/userSettings"} element={<UserSettings />} />
 							<Route path={"/learnmore"} element={<LearnMore />} />
 							<Route path={"/about"} element={<AboutUs />} />
 
-							<Route path={"/sandbox"} element={<Sandbox />}>
+							<Route
+								path={"/sandbox"}
+								element={
+									<Suspense>
+										<Sandbox />
+									</Suspense>
+								}>
 								<Route path=':model/:trick' element={<TorqueScene />} />
 							</Route>
 							<Route
 								path={"/comboMaker"}
 								element={
 									<div className=' mt-14 flex h-full w-full place-content-center'>
-										<ComboMakerV2 />
+										<Suspense>
+											<ComboMakerV2 />
+										</Suspense>
 									</div>
 								}
 							/>
-							{/* <Route
-							path={"/comboMaker"}
-							element={
-								<div className=' mt-14 flex h-full w-full place-content-center'>
-									<ComboMaker />
-								</div>
-							}
-						/> */}
+
 							<Route path={"/test"} element={<TestSections />} />
 							<Route path={"/need"} element={<AnimationsNeeded />} />
 							<Route path={"/theory"} element={<TheoryPage />}>
