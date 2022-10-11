@@ -74,7 +74,7 @@ const TrickDetailDisplay = ({ trick, trick_id, comboTrick }) => {
 							</div>
 							<div className='flex flex-col'>
 								{details?.Variations.map((v) => (
-									<div>{v.Variation?.name}</div>
+									<div key={v.Variation?.name}>{v.Variation?.name}</div>
 								))}
 							</div>
 						</div>

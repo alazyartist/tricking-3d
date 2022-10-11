@@ -60,9 +60,7 @@ function TabBar() {
 						<Link onClick={() => setOpenHamburger(false)} to='/comboMaker'>
 							<ComboMakerBlueprint className='h-10 w-10' fill='#ffffff' />
 						</Link>
-						<Link
-							onClick={() => setOpenHamburger(false)}
-							to='/sandbox/Frank/touchdown-Raiz'>
+						<Link onClick={() => setOpenHamburger(false)} to='/sandbox'>
 							<BiCube />
 						</Link>
 						<Link onClick={() => setOpenHamburger(false)} to='/theory'>

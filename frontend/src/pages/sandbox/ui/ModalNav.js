@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdInfo, MdInfoOutline, MdSettings } from "react-icons/md";
 import { useStore } from "../../../store/store";
 import TrickInfo from "../../../components/info/TrickInfo";
@@ -42,7 +42,7 @@ const ModalNav = () => {
 
 	const handleOpen = (caseNum) => {
 		setActiveView(caseNum);
-		setOpen(!open);
+		setOpen(true);
 		setVisible(false);
 	};
 
@@ -51,6 +51,10 @@ const ModalNav = () => {
 		setOpen(false);
 		setVisible(true);
 	};
+	// useEffect(() => {
+	// 	setOpen(false);
+	// 	setVisible(true);
+	// }, [currentAnim, currentModel]);
 
 	return (
 		<div

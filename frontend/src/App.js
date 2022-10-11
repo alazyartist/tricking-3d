@@ -142,6 +142,7 @@ function App() {
 									</Suspense>
 								}>
 								<Route path=':model/:trick' element={<TorqueScene />} />
+								<Route index element={<TorqueScene />} />
 							</Route>
 							<Route
 								path={"/comboMaker"}
