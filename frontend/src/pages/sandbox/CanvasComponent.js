@@ -84,7 +84,7 @@ function CanvasComponent() {
 	// 		window.removeEventListener("touchmove", scaleMobile);
 	// 	}
 	// }, []);
-	console.log("i reran the canvas");
+	// console.log("i reran the canvas");
 	return (
 		<>
 			<div id='canvas-container' className='sticky h-screen md:flex'>

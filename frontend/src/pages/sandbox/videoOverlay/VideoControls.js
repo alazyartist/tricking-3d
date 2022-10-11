@@ -17,11 +17,11 @@ const VideoControls = () => {
 			</div>
 			<DraggableOpacity drag_offset_limit={80}>
 				<div className='select-none'>Video</div>
-				<span className='text-xs'>{videoOpacity?.toPrecision(2) * 100}%</span>
+				<span className='text-xs'>{Math.trunc(videoOpacity * 100)}%</span>
 			</DraggableOpacity>
 			<DraggableOpacity canvas drag_offset_limit={80}>
 				<div>3D</div>
-				<span className='text-xs'>{canvasOpacity?.toPrecision(2) * 100}%</span>
+				<span className='text-xs'>{Math.trunc(canvasOpacity * 100)}%</span>
 			</DraggableOpacity>
 			<span>
 				{parseInt(vidTime)} /{parseInt(vidDuration)}
