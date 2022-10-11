@@ -35,13 +35,16 @@ function Home() {
 		<div className='no-scrollbar sticky mt-0 h-[100vh] w-full overflow-y-scroll '>
 			<div
 				id='AppBackground-flex'
-				className='flex h-screen w-screen flex-col place-items-center justify-around xl:flex-row'>
-				<div className='flex w-full place-content-center text-center text-zinc-200 xl:absolute xl:top-0'>
+				className='flex h-screen w-screen flex-col place-items-center xl:flex-row'>
+				<div
+					className={`flex w-full  ${
+						accessToken ? "place-self-start" : "place-self-center"
+					} text-center text-zinc-200 xl:absolute xl:top-0`}>
 					<animated.h1
 						style={{ ...logoAnim }}
 						className='left-0 flex max-w-[300px] flex-col text-center text-xl '>
 						{!accessToken && "Welcome to the"}
-						<TrickedexLogo className='-m-2px flex w-full place-self-center' />
+						<TrickedexLogo className={`-m-2px flex`} />
 					</animated.h1>
 				</div>
 				<div className='flex flex-col place-items-center'>
