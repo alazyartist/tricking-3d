@@ -61,7 +61,7 @@ function Home() {
 						<EnterSandboxLink />
 					</Suspense>
 
-					<Feed />
+					{/* <Feed /> */}
 				</div>
 				<div className='flex w-[90vw] max-w-[700px] flex-col place-content-center'>
 					{!accessToken ? (

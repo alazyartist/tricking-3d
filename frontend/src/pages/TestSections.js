@@ -88,7 +88,7 @@ const TestSections = () => {
 						{changeHeight.ht1 === "20vh" ? <MdExpandMore /> : <MdExpandLess />}
 					</div>
 				</animated.div>
-				{/* <div
+				<div
 					onClick={() => openSideDrawer(!isOpenSideDrawer)}
 					className='relative top-[1vh] left-[2vh] z-[200] h-0 w-fit text-zinc-400'>
 					<FaHamburger />
@@ -97,7 +97,7 @@ const TestSections = () => {
 					onClick={() => setNavOpen(!navOpen)}
 					className='relative top-[4vh] left-[2vh] z-[200] h-0 w-fit text-zinc-400'>
 					<FaCompass />
-				</div> */}
+				</div>
 				<animated.div
 					ref={ref2}
 					style={{ height: ht2 }}
