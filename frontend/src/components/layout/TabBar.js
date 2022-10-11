@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { AiOutlineHome } from "react-icons/ai";
 import { BiCube } from "react-icons/bi";
-import { FaGraduationCap, FaToolbox } from "react-icons/fa";
+import { FaGraduationCap } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RiAdminLine } from "react-icons/ri";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ReactComponent as ComboMakerBlueprint } from "../../data/ComboMakerBlueprint.svg";
-import { animated, config, useSpring, useTransition } from "react-spring";
+import { animated, useSpring, useTransition } from "react-spring";
 import useLogout from "../../hooks/useLogout";
 import { useUserStore } from "../../store/userStore";
 
@@ -58,7 +58,6 @@ function TabBar() {
 							<AiOutlineHome />
 						</Link>
 						<Link onClick={() => setOpenHamburger(false)} to='/comboMaker'>
-							{/* <FaToolbox /> */}
 							<ComboMakerBlueprint className='h-10 w-10' fill='#ffffff' />
 						</Link>
 						<Link

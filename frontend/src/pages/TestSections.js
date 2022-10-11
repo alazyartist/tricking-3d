@@ -1,10 +1,8 @@
 import { Canvas } from "@react-three/fiber";
-import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
-import { FaCompass, FaExpand, FaHamburger } from "react-icons/fa";
-import { GrNavigate } from "react-icons/gr";
+import React, { useEffect, useState, useRef } from "react";
+import { FaCompass, FaHamburger } from "react-icons/fa";
 import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import { useSpring, animated, config } from "react-spring";
-import useMeasure from "react-use-measure";
 import AdvancedStanceCircle from "../components/theory/AdvancedStanceCircle";
 import { TorqueScene } from "../scenes/TorqueScene";
 import AnatomyNav from "./theory/components/AnatomyNavSVG";
@@ -17,7 +15,6 @@ const TestSections = () => {
 	const [lastSelected, setLast] = useState();
 	const [isOpenSideDrawer, openSideDrawer] = useState(false);
 	const [navOpen, setNavOpen] = useState(false);
-	// const [ref1, bounds] = useMeasure();
 	const ref1 = useRef();
 	const ref2 = useRef();
 	const ref3 = useRef();

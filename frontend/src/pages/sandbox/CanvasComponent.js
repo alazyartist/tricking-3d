@@ -1,10 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
-import { TorqueScene } from "../../scenes/TorqueScene";
 import Loader from "../../components/loaders/Loader";
 import { AiFillDownCircle } from "react-icons/ai";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 function CanvasComponent() {
 	// const min = 54;
 	// let initialWidth = 0,

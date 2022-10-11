@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { redirect } from "react-router-dom";
 import { useStore } from "../../../../store/store";
 import useCreateVersions from "./useCreateVersions";
@@ -6,7 +6,6 @@ import useCreateVersions from "./useCreateVersions";
 const Animations = () => {
 	const selectAnim = useStore((s) => s.selectAnim);
 	const currentModel = useStore((s) => s.activeModel);
-	const currVersions = useStore((s) => s.currVersions);
 
 	const animSet = useCreateVersions();
 

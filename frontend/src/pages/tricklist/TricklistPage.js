@@ -14,7 +14,7 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 	const [openNewList, setOpenNewList] = useState(false);
 	useEffect(() => {
 		setData(lists);
-		console.log(selected);
+		// console.log(selected);
 	}, [lists, selected]);
 
 	const _getDate = (e) => {
@@ -36,7 +36,7 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 											key={"tricklist" + list.tricklist_id}
 											data={list}
 											date={_getDate(list)}
-											last={i == data.length - 1}
+											last={i === data.length - 1}
 											// @TODO: Drag shouldn't be hardcoded
 											drag_offset={60}
 										/>

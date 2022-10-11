@@ -102,13 +102,7 @@ function App() {
 				{transitions(({ opacity }, curLocation) => (
 					<animated.div style={{ opacity }}>
 						<Routes location={curLocation}>
-							<Route
-								path='*'
-								element={
-									<ComingSoon />
-									// <Navigate replace to='/3d/sandbox' />
-								}
-							/>
+							<Route path='*' element={<ComingSoon />} />
 							<Route
 								path='/'
 								element={

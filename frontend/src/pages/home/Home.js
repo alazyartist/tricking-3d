@@ -1,14 +1,12 @@
 import React, { lazy, Suspense, useState } from "react";
-import { HomeScene } from "../../scenes/HomeScene";
 import { useNavigate, Link } from "react-router-dom";
-import { FaClipboardList, FaGraduationCap, FaQrcode } from "react-icons/fa";
+import { FaClipboardList, FaQrcode } from "react-icons/fa";
 import { BsClipboardCheck } from "react-icons/bs";
 import { useUserStore } from "../../store/userStore";
 import { ReactComponent as ComboMakerBlueprint } from "../../data/ComboMakerBlueprint.svg";
 import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
 import TricklistPage from "../tricklist/TricklistPage";
 import ProfileCode from "../dash/components/ProfileCode";
-import UpdateStatusInput from "../../components/UpdateStatusInput";
 import ComboMakerV2 from "../comboMakerV2/ComboMakerV2";
 import useUserInfo from "../../api/useUserInfo";
 import { IoIosArrowBack } from "react-icons/io";
