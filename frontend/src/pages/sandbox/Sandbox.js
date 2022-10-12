@@ -67,9 +67,7 @@ export default function Sandbox() {
 	const setVidDuration = useVideoStore((s) => s.setVidDuration);
 	let vid = document.getElementById("video");
 	useVideoControls(vid);
-	useEffect(() => {
-		setVidDuration(vid?.duration);
-	}, [vid]);
+
 	return (
 		<>
 			<div id='Root-Container' className='fixed h-screen w-screen bg-zinc-900'>
@@ -90,7 +88,6 @@ export default function Sandbox() {
 						onTimeUpdate={() => setVidTime(vid?.currentTime)}
 						loop
 						playsInline
-						autoPlay
 						className={`absolute top-0 left-0 z-[-1] h-full w-full `}
 					/>
 				)}

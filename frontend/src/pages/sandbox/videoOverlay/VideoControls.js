@@ -16,13 +16,15 @@ const VideoControls = () => {
 		to: { width: time },
 		config: config.stiff,
 	});
-	const [start, setStart] = useState(0);
-	const [end, setEnd] = useState(vidDuration);
+	const setStart = useVideoStore((s) => s.setStartTime);
+	const setEnd = useVideoStore((s) => s.setEndTime);
+	const start = useVideoStore((s) => s.startTime);
+	const end = useVideoStore((s) => s.endTime);
 	return (
 		<div className='flex flex-col'>
 			<div className='flex place-content-center place-items-center gap-2 rounded-lg bg-zinc-800 p-2'>
 				<div onClick={() => setVideoPlaying()}>
-					{videoPlaying ? <FaPauseCircle /> : <FaPlayCircle />}
+					{videoPlaying ? <FaPlayCircle /> : <FaPauseCircle />}
 				</div>
 				<DraggableOpacity drag_offset_limit={80}>
 					<div className='select-none'>Video</div>

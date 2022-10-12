@@ -8,6 +8,7 @@ const VideoInput = () => {
 	const [filename, setFilename] = useState("Select Video");
 	const vidSrc = useVideoStore((s) => s.videoSource);
 	const setVidSrc = useVideoStore((s) => s.setVideoSource);
+
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		const formData = new FormData();

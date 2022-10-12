@@ -13,6 +13,10 @@ export const useVideoStore = create((set, api) => ({
 	setCanvasOpacity: (value) => set(() => ({ canvasOpacity: value })),
 	vidTime: 0,
 	setVidTime: (value) => set(() => ({ vidTime: value })),
+	startTime: 0,
+	setStartTime: (value) => set(() => ({ startTime: value })),
+	endTime: 0,
+	setEndTime: (value) => set(() => ({ endTime: value })),
 	vidDuration: 0,
 	setVidDuration: (value) => set(() => ({ vidDuration: value })),
 }));
