@@ -9,12 +9,14 @@ const VideoControls = () => {
 	const videoOpacity = useVideoStore((s) => s.videoOpacity);
 	const canvasOpacity = useVideoStore((s) => s.canvasOpacity);
 	const vidTime = useVideoStore((s) => s.vidTime);
+	const setVidTime = useVideoStore((s) => s.setVidTime);
 	const vidDuration = useVideoStore((s) => s.vidDuration);
 	let time = Math.trunc((vidTime / vidDuration) * 100).toString() + "%";
 	const timeSpring = useSpring({
 		to: { width: time },
 		config: config.stiff,
 	});
+
 	return (
 		<div className='flex flex-col'>
 			<div className='flex place-content-center place-items-center gap-2 rounded-lg bg-zinc-800 p-2'>
@@ -33,7 +35,43 @@ const VideoControls = () => {
 					{parseInt(vidTime)} /{parseInt(vidDuration)}
 				</span>
 			</div>
-			<div className='h-3 w-full bg-zinc-300'>
+			<div className='relative h-3 w-full bg-zinc-300'>
+				<input
+					id='playhead'
+					className='absolute z-[12] w-full bg-transparent'
+					vid='true'
+					type='range'
+					min='0'
+					onChange={(e) => setVidTime(e.target.value)}
+					max={vidDuration}
+					value={vidTime}
+					step='0.0001'
+				/>
+				<input
+					id='start'
+					double={"true"}
+					vid='true'
+					className='absolute z-[1] w-full rounded-none bg-transparent '
+					type='range'
+					min='0'
+					onChange={(e) => setVidTime(e.target.value)}
+					max={vidDuration}
+					value={0}
+					step='0.001'
+				/>
+				<input
+					id='end'
+					vid='true'
+					double={"true"}
+					className='absolute z-[5] w-full bg-transparent '
+					type='range'
+					min='0'
+					onChange={(e) => setVidTime(e.target.value)}
+					max={vidDuration}
+					value={vidDuration}
+					step='0.001'
+				/>
+
 				<animated.div
 					style={{ ...timeSpring }}
 					className={`h-full bg-teal-500`}></animated.div>

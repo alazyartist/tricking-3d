@@ -13,14 +13,6 @@
 		background: #242427;
 		box-shadow: 5px 5px 4px #1b1b1e, -5px -5px 4px #2d2d30;
 	}
-}
-@layer utilities {
-	.no-scrollbar::-webkit-scrollbar {
-		display: none;
-	}
-	.resize-detail::-webkit-resizer {
-		background: red;
-	}
 	/*Remove base Styling for input sliders*/
 	input[type="range"] {
 		@apply appearance-none;
@@ -28,6 +20,12 @@
 	/*Apply Custom Styling*/
 	input[type="range"]::-webkit-slider-runnable-track {
 		@apply pointer-events-auto h-4 w-6 appearance-none rounded-lg bg-gray-800
+			align-middle;
+		border-radius: 30px;
+	}
+	/*Apply Custom Styling*/
+	input[vid="true"]::-webkit-slider-runnable-track {
+		@apply pointer-events-auto h-4 w-6 appearance-none rounded-lg bg-transparent
 			align-middle;
 		border-radius: 30px;
 	}
@@ -58,5 +56,13 @@
 	/*End Thumb Track*/
 	input[id="end"]::-webkit-slider-runnable-track {
 		@apply pointer-events-none appearance-none rounded-lg bg-transparent;
+	}
+}
+@layer utilities {
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+	.resize-detail::-webkit-resizer {
+		background: red;
 	}
 }

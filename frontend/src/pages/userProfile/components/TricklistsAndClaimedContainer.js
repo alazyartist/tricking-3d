@@ -27,7 +27,7 @@ const TricklistsAndClamiedContainer = ({
 						activePane === "Claimed" ? "bg-zinc-600" : "bg-zinc-800"
 					}`}>
 					<div>Claimed</div>
-					<div>{ClaimedCombos?.length + ClaimedTricks?.length}</div>
+					<div>{ClaimedCombos?.length + ClaimedTricks?.length || 0}</div>
 				</div>
 			</div>
 			{activePane === "Tricklists" && (

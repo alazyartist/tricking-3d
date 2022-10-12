@@ -26,11 +26,8 @@ const UserProfile = () => {
 	const isUsersPage = uuid === loggedInUUID;
 
 	useEffect(() => {
-		if (document.readyState === "complete") {
-			setPageLoaded(true);
-		} else {
-			window.addEventListener("load", setPageLoaded(true));
-		}
+		window.addEventListener("load", setPageLoaded(true));
+		return window.removeEventListener("load", setPageLoaded(true));
 	}, []);
 
 	return (
