@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPauseCircle, FaPlayCircle } from "react-icons/fa";
 import DraggableOpacity from "../ui/DraggableOpacity";
 import { useVideoStore } from "./useVideoStore";
@@ -16,7 +16,8 @@ const VideoControls = () => {
 		to: { width: time },
 		config: config.stiff,
 	});
-
+	const [start, setStart] = useState(0);
+	const [end, setEnd] = useState(vidDuration);
 	return (
 		<div className='flex flex-col'>
 			<div className='flex place-content-center place-items-center gap-2 rounded-lg bg-zinc-800 p-2'>
@@ -35,46 +36,48 @@ const VideoControls = () => {
 					{parseInt(vidTime)} /{parseInt(vidDuration)}
 				</span>
 			</div>
-			<div className='relative h-3 w-full bg-zinc-300'>
-				<input
-					id='playhead'
-					className='absolute z-[12] w-full bg-transparent'
-					vid='true'
-					type='range'
-					min='0'
-					onChange={(e) => setVidTime(e.target.value)}
-					max={vidDuration}
-					value={vidTime}
-					step='0.0001'
-				/>
-				<input
-					id='start'
-					double={"true"}
-					vid='true'
-					className='absolute z-[1] w-full rounded-none bg-transparent '
-					type='range'
-					min='0'
-					onChange={(e) => setVidTime(e.target.value)}
-					max={vidDuration}
-					value={0}
-					step='0.001'
-				/>
-				<input
-					id='end'
-					vid='true'
-					double={"true"}
-					className='absolute z-[5] w-full bg-transparent '
-					type='range'
-					min='0'
-					onChange={(e) => setVidTime(e.target.value)}
-					max={vidDuration}
-					value={vidDuration}
-					step='0.001'
-				/>
+			<div className='relative h-4 w-full p-[3px]'>
+				<div className='h-full w-full bg-zinc-300'>
+					<input
+						id='playhead'
+						className='pointer-events-none absolute top-0 z-[0] w-full bg-transparent'
+						vid='true'
+						type='range'
+						min='0'
+						onChange={(e) => setVidTime(e.target.value)}
+						max={vidDuration}
+						value={vidTime}
+						step='0.0001'
+					/>
+					<input
+						id='start'
+						double={"true"}
+						vid='true'
+						className='pointer-events-none absolute top-0 z-[1] w-full rounded-none bg-transparent '
+						type='range'
+						min='0'
+						onChange={(e) => setStart(e.target.value)}
+						max={vidDuration}
+						value={start}
+						step='0.001'
+					/>
+					<input
+						id='end'
+						vid='true'
+						double={"true"}
+						className='pointer-events-none absolute top-0 z-[5] w-full bg-transparent '
+						type='range'
+						min='0'
+						onChange={(e) => setEnd(e.target.value)}
+						max={vidDuration}
+						value={end}
+						step='0.001'
+					/>
 
-				<animated.div
-					style={{ ...timeSpring }}
-					className={`h-full bg-teal-500`}></animated.div>
+					<animated.div
+						style={{ ...timeSpring }}
+						className={`h-full bg-teal-500`}></animated.div>
+				</div>
 			</div>
 		</div>
 	);
