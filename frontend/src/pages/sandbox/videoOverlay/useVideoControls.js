@@ -9,6 +9,7 @@ const useVideoControls = (vid) => {
 	const vidTime = useVideoStore((s) => s.vidTime);
 	const vidSrc = useVideoStore((s) => s.videoSource);
 	const setEndTime = useVideoStore((s) => s.setEndTime);
+	const setStartTime = useVideoStore((s) => s.setStartTime);
 	const setVidDuration = useVideoStore((s) => s.setVidDuration);
 	useEffect(() => {
 		if (vidTime > endTime) {
@@ -19,8 +20,10 @@ const useVideoControls = (vid) => {
 		}
 	}, [vidTime]);
 	useEffect(() => {
-		if (vid) {
+		if (vid?.duration) {
 			setVidDuration(vid?.duration);
+			setStartTime(0);
+			setEndTime(vid?.duration);
 		}
 	}, [vidSrc]);
 	useEffect(() => {
