@@ -24,7 +24,7 @@ const VideoControls = () => {
 	return (
 		<div className='flex flex-col'>
 			<div className='flex w-[400px] place-content-center place-items-center gap-2 rounded-lg bg-zinc-800 p-2'>
-				<div onClick={() => setVideoPlaying()}>
+				<div className='text-3xl' onClick={() => setVideoPlaying()}>
 					{videoPlaying ? <FaPlayCircle /> : <FaPauseCircle />}
 				</div>
 				<DraggableOpacity drag_offset_limit={80}>
