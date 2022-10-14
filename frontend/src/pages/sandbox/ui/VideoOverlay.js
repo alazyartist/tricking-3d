@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosVideocam } from "react-icons/io";
 import { useStore } from "../../../store/store";
 import SyncPlayerControls from "../videoOverlay/SyncPlayerControls";
@@ -11,10 +11,12 @@ const VideoOverlay = () => {
 	const setFollowCam = useStore((s) => s.setFollowCam);
 	const handleUpdate = () => {
 		setVideoInput(!videoInput);
-		setBackground("The Void");
 		setFollowCam(false);
 	};
 	const videoSource = useVideoStore((s) => s.videoSource);
+	useEffect(() => {
+		setBackground("The Void");
+	}, [videoSource]);
 
 	return (
 		<>

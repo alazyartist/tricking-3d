@@ -53,11 +53,11 @@ const VideoInput = () => {
 				<label
 					className='mb-2 flex w-3/4 place-content-center place-items-center rounded-xl bg-zinc-800 p-2 text-sm text-zinc-300'
 					placeholder='Select Video'
-					htmlFor='profilePic'>
+					htmlFor='selectVideo'>
 					{filename}
 					<input
 						onChange={onChange}
-						id={"profilePic"}
+						id={"selectVideo"}
 						className='hidden'
 						type={"file"}
 						accept='video/*'
