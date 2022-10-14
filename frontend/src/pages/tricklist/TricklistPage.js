@@ -24,7 +24,7 @@ const TricklistPage = ({ displayOnly, profileuuid }) => {
 
 	return (
 		<>
-			<div className='no-scrollbar neumorphic flex h-[38vh] max-h-[38vh] w-[90%] flex-col items-center justify-center overflow-scroll rounded-lg bg-zinc-800 p-2'>
+			<div className='no-scrollbar neumorphic flex h-[38vh] max-h-[38vh] w-[80%] flex-col items-center justify-center overflow-scroll rounded-lg bg-zinc-800 p-2'>
 				<div className='no-scrollbar  h-full w-full overflow-scroll rounded-lg'>
 					{Array.isArray(data) &&
 						data.length > 0 &&
