@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { IoIosVideocam } from "react-icons/io";
 import { useStore } from "../../../store/store";
+import SyncPlayerControls from "../videoOverlay/SyncPlayerControls";
 import { useVideoStore } from "../videoOverlay/useVideoStore";
 import VideoControls from "../videoOverlay/VideoControls";
 import VideoInput from "../videoOverlay/VideoInput";
@@ -14,13 +15,15 @@ const VideoOverlay = () => {
 		setFollowCam(false);
 	};
 	const videoSource = useVideoStore((s) => s.videoSource);
+
 	return (
 		<>
-			<div className='absolute bottom-[35vh] right-5 z-[1000] '>
+			<div className='absolute bottom-[35vh] right-5 z-[1000] flex flex-col gap-2 '>
 				<IoIosVideocam
 					onClick={() => handleUpdate()}
 					className='text-xl text-zinc-300'
 				/>
+				{videoSource && <SyncPlayerControls />}
 			</div>
 			{videoInput && <VideoInput />}
 			{videoSource && (

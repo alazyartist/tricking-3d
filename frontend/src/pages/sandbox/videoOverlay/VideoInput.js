@@ -16,7 +16,7 @@ const VideoInput = () => {
 		formData.append("uuid", uuid);
 	};
 	const clearSrc = () => {
-		setVidSrc("");
+		setVidSrc();
 		setFilename("Select Video");
 	};
 	const onChange = (e) => {
@@ -25,7 +25,7 @@ const VideoInput = () => {
 		setFilename(e.target.files[0].name);
 	};
 	useEffect(() => {
-		if (file) {
+		if (file !== undefined) {
 			const url = URL.createObjectURL(file);
 			console.log(url);
 			console.log(file);

@@ -22,7 +22,7 @@ const VideoControls = () => {
 	const end = useVideoStore((s) => s.endTime);
 	return (
 		<div className='flex flex-col'>
-			<div className='flex place-content-center place-items-center gap-2 rounded-lg bg-zinc-800 p-2'>
+			<div className='flex w-[400px] place-content-center place-items-center gap-2 rounded-lg bg-zinc-800 p-2'>
 				<div onClick={() => setVideoPlaying()}>
 					{videoPlaying ? <FaPlayCircle /> : <FaPauseCircle />}
 				</div>

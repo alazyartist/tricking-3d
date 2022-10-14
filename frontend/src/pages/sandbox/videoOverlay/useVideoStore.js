@@ -19,4 +19,6 @@ export const useVideoStore = create((set, api) => ({
 	setEndTime: (value) => set(() => ({ endTime: value })),
 	vidDuration: 0,
 	setVidDuration: (value) => set(() => ({ vidDuration: value })),
+	playBoth: false,
+	setPlayBoth: (value) => set(() => ({ playBoth: value })),
 }));

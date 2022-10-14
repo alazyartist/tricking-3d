@@ -15,7 +15,7 @@ import DragableWrapper from "../../pages/sandbox/ui/DraggableSlowMo.js";
 
 function Controller() {
 	const setIsPaused = useStore((state) => state.setIsPaused);
-	const setIsPlaying = useStore((state) => state.setIsPaused);
+	const setIsPlaying = useStore((state) => state.setIsPlaying);
 	const setTrimToggle = useStore((state) => state.setTrimToggle);
 	const trimToggle = useStore((state) => state.trimToggle);
 	const setBounce = useStore((state) => state.setBounce);
@@ -41,7 +41,7 @@ function Controller() {
 				<MediaButton
 					id='bounce-button'
 					f={setFollowCam}
-          hide={speedControl}
+					hide={speedControl}
 					content={
 						isFollowCam ? (
 							<MdCenterFocusStrong className='text-xl text-[hotpink]' />
@@ -53,7 +53,7 @@ function Controller() {
 				<MediaButton
 					id='reverse-button'
 					f={() => setTimescale(-timescale)}
-          hide={speedControl}
+					hide={speedControl}
 					content={
 						timescale < 0 ? (
 							<MdLoop className='text-2xl text-zinc-300' />
@@ -66,16 +66,21 @@ function Controller() {
 				<MediaButton
 					id='FrameBack-button'
 					f={() => {
-              if (isPaused)
-                setCurrentTime(currentTime - 0.05 * timescale * Math.sign(timescale));
-              else {
-                setIsPlaying(true);
-              }
-            }
-          }
-          hide={speedControl}
+						if (isPaused)
+							setCurrentTime(
+								currentTime - 0.05 * timescale * Math.sign(timescale)
+							);
+						else {
+							setIsPlaying(true);
+						}
+					}}
+					hide={speedControl}
 					content={
-						<FaStepBackward className={`${isPaused ? "opacity-100" : "opacity-40"} fill-slate-200 text-xl hover:fill-white'`} />
+						<FaStepBackward
+							className={`${
+								isPaused ? "opacity-100" : "opacity-40"
+							} hover:fill-white' fill-slate-200 text-xl`}
+						/>
 					}
 				/>
 
@@ -83,7 +88,7 @@ function Controller() {
 					id='play-pause-button'
 					class='rounded'
 					f={setIsPaused}
-          hide={speedControl}
+					hide={speedControl}
 					content={
 						!isPaused ? (
 							<FaPause className='fill-gray-800 p-0' />
@@ -97,19 +102,24 @@ function Controller() {
 				<MediaButton
 					id='FrameForward-button'
 					f={() => {
-              if (isPaused)
-                setCurrentTime(currentTime + 0.05 * timescale * Math.sign(timescale));
-              else {
-                setIsPlaying(true);
-              }
-            }
-          }
-          hide={speedControl}
+						if (isPaused)
+							setCurrentTime(
+								currentTime + 0.05 * timescale * Math.sign(timescale)
+							);
+						else {
+							setIsPlaying(true);
+						}
+					}}
+					hide={speedControl}
 					mD={() => {
 						console.log("MOUSDOWN");
 					}}
 					content={
-						<FaStepForward className={`${isPaused ? "opacity-100" : "opacity-40"} fill-slate-200 text-xl hover:fill-white'`} />
+						<FaStepForward
+							className={`${
+								isPaused ? "opacity-100" : "opacity-40"
+							} hover:fill-white' fill-slate-200 text-xl`}
+						/>
 					}
 				/>
 
@@ -130,8 +140,14 @@ function Controller() {
 				<MediaButton
 					id='toggle-playback-button'
 					f={() => setTrimToggle(!trimToggle)}
-          hide={speedControl}
-					content={<AiOutlineColumnWidth className={`${trimToggle ? "fill-yellow-400" : "fill-zinc-300"} text-2xl`}/>}
+					hide={speedControl}
+					content={
+						<AiOutlineColumnWidth
+							className={`${
+								trimToggle ? "fill-yellow-400" : "fill-zinc-300"
+							} text-2xl`}
+						/>
+					}
 				/>
 			</div>
 		</div>
