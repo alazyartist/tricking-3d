@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { redirect } from "react-router-dom";
 import { useStore } from "../../../../store/store";
 
-const Versions = () => {
+const Versions = ({ handleClose }) => {
 	const animationsArray = useStore((s) => s.animationsArray);
 	const selectAnim = useStore((s) => s.selectAnim);
 	const currentAnim = useStore((s) => s.currentAnim);
@@ -28,6 +28,7 @@ const Versions = () => {
 								"",
 								`/sandbox/${currentModel}/${e}`
 							);
+							handleClose();
 						}}
 						key={i}>
 						{e}

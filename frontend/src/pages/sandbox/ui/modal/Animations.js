@@ -3,7 +3,7 @@ import { redirect } from "react-router-dom";
 import { useStore } from "../../../../store/store";
 import useCreateVersions from "./useCreateVersions";
 
-const Animations = () => {
+const Animations = ({ handleClose }) => {
 	const selectAnim = useStore((s) => s.selectAnim);
 	const currentModel = useStore((s) => s.activeModel);
 
@@ -27,6 +27,7 @@ const Animations = () => {
 								"",
 								`/sandbox/${currentModel}/${e}`
 							);
+							handleClose();
 						}}
 						key={i}>
 						{e}

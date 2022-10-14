@@ -2,7 +2,7 @@ import React from "react";
 import { redirect } from "react-router-dom";
 import { useStore } from "../../../../store/store";
 
-const Models = () => {
+const Models = ({ handleClose }) => {
 	const selectAnim = useStore((s) => s.selectAnim);
 	const modelArray = useStore((state) => state.modelArray);
 	const selectModel = useStore((s) => s.setModel);
@@ -21,6 +21,7 @@ const Models = () => {
 							selectModel(e);
 							redirect(`/sandbox/${e}/Backflip`);
 							window.history.replaceState("", "", `/sandbox/${e}/Backflip`);
+							handleClose();
 						}}
 						key={i}>
 						{e}

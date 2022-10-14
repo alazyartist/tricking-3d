@@ -23,23 +23,6 @@ const ModalNav = () => {
 	const [visible, setVisible] = useState(true);
 	const [activeView, setActiveView] = useState(0);
 
-	function getViewContent(caseNum) {
-		switch (caseNum) {
-			case 0:
-				return <Animations />;
-			case 1:
-				return <TrickInfo />;
-			case 2:
-				return <Models />;
-			case 3:
-				return <Versions />;
-			case 4:
-				return <Settings />;
-			default:
-				return null;
-		}
-	} //takes care of rendering stateful logic when switching views
-
 	const handleOpen = (caseNum) => {
 		setActiveView(caseNum);
 		setOpen(true);
@@ -55,6 +38,22 @@ const ModalNav = () => {
 	// 	setOpen(false);
 	// 	setVisible(true);
 	// }, [currentAnim, currentModel]);
+	function getViewContent(caseNum) {
+		switch (caseNum) {
+			case 0:
+				return <Animations handleClose={handleClose} />;
+			case 1:
+				return <TrickInfo />;
+			case 2:
+				return <Models handleClose={handleClose} />;
+			case 3:
+				return <Versions handleClose={handleClose} />;
+			case 4:
+				return <Settings />;
+			default:
+				return null;
+		}
+	} //takes care of rendering stateful logic when switching views
 
 	return (
 		<div
