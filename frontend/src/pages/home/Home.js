@@ -38,7 +38,7 @@ function Home() {
 				className='flex h-screen w-screen flex-col place-items-center xl:flex-row'>
 				<div
 					className={`flex w-full  ${
-						accessToken ? "place-self-start" : "place-self-center"
+						accessToken ? "place-content-start" : "place-content-center"
 					} text-center text-zinc-200 xl:absolute xl:top-0`}>
 					<animated.h1
 						style={{ ...logoAnim }}
