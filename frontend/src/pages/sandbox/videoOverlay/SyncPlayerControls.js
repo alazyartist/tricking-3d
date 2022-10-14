@@ -10,7 +10,7 @@ const SyncPlayerControls = () => {
 	const setCanvasPlaying = useStore((s) => s.setIsPaused);
 
 	useEffect(() => {
-		if (playBoth) {
+		if (playBoth === true) {
 			setVideoPlaying(true);
 			setCanvasPlaying(true);
 		} else {
@@ -22,9 +22,9 @@ const SyncPlayerControls = () => {
 	return (
 		<div className='text-xl text-zinc-300'>
 			{playBoth ? (
-				<FaPlayCircle onClick={() => setPlayBoth(!playBoth)} />
+				<FaPauseCircle onClick={() => setPlayBoth(false)} />
 			) : (
-				<FaPauseCircle onClick={() => setPlayBoth(!playBoth)} />
+				<FaPlayCircle onClick={() => setPlayBoth(true)} />
 			)}
 		</div>
 	);

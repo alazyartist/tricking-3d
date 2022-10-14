@@ -9,6 +9,7 @@ const VideoControls = () => {
 	const videoOpacity = useVideoStore((s) => s.videoOpacity);
 	const canvasOpacity = useVideoStore((s) => s.canvasOpacity);
 	const vidTime = useVideoStore((s) => s.vidTime);
+	const setScrubbing = useVideoStore((s) => s.setScrubbing);
 	const setVidTime = useVideoStore((s) => s.setVidTime);
 	const vidDuration = useVideoStore((s) => s.vidDuration);
 	let time = Math.trunc((vidTime / vidDuration) * 100).toString() + "%";
@@ -46,6 +47,8 @@ const VideoControls = () => {
 						vid='true'
 						type='range'
 						min='0'
+						onPointerDown={() => setScrubbing(true)}
+						onPointerUp={() => setScrubbing(false)}
 						onChange={(e) => setVidTime(e.target.value)}
 						max={vidDuration}
 						value={vidTime}

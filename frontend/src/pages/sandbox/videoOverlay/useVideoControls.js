@@ -7,11 +7,17 @@ const useVideoControls = (vid) => {
 	const startTime = useVideoStore((s) => s.startTime);
 	const endTime = useVideoStore((s) => s.endTime);
 	const vidTime = useVideoStore((s) => s.vidTime);
+	const scrubbing = useVideoStore((s) => s.scrubbing);
 	const vidSrc = useVideoStore((s) => s.videoSource);
 	const setEndTime = useVideoStore((s) => s.setEndTime);
 	const setStartTime = useVideoStore((s) => s.setStartTime);
 	const setVidDuration = useVideoStore((s) => s.setVidDuration);
 	useEffect(() => {
+		if (scrubbing) {
+			vid.pause();
+			vid.currentTime = vidTime;
+			vid.play();
+		}
 		if (vidTime > endTime) {
 			vid.currentTime = startTime;
 		}
