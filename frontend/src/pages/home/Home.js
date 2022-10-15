@@ -35,7 +35,7 @@ function Home() {
 		<div className='no-scrollbar sticky mt-0 h-[100vh] w-full overflow-y-scroll '>
 			<div
 				id='AppBackground-flex'
-				className='flex h-screen w-screen flex-col place-items-center xl:flex-row'>
+				className='flex h-screen w-screen flex-col place-items-center'>
 				<div
 					className={`flex w-full  ${
 						accessToken ? "place-content-start" : "place-content-center"
