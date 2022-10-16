@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { FaGraduationCap } from "react-icons/fa";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import AnatomySVG from "../../data/AnatomySVG";
 import AnatomyNav from "./components/AnatomyNavSVG";
 import AnatomySketch from "./components/AnatomySketchSVG";
 function TheoryPage() {
 	const location = useLocation();
+	const nav = useNavigate();
 	useEffect(() => {
 		console.log(location.pathname);
 	}, [location]);
@@ -18,6 +20,11 @@ function TheoryPage() {
 					Theory
 				</Link>
 				<div className='text-zinc-300'>Theory !=== Reality</div> */}
+				<div
+					onClick={() => nav("/theory")}
+					className='absolute top-20 left-5 text-3xl text-zinc-300 '>
+					<FaGraduationCap />
+				</div>
 				<div className='flex flex-col place-items-center gap-4 p-4'>
 					{/* <AnatomySVG className=' h-full w-[80vw] text-zinc-300' /> */}
 					{location.pathname === "/theory" && (
