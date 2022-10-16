@@ -35,7 +35,7 @@ export function ArrayDisplay(props) {
 						props.isCollapsable && isOpen
 							? "fixed top-[20vh] left-0 z-[10] max-h-[70vh] overflow-y-auto p-4 "
 							: ""
-					} flex w-full flex-col place-items-center `}>
+					} no-scrollbar flex w-full flex-col place-items-center `}>
 					<div>{isEmpty && "Select Valid Stance"}</div>
 					{isOpen &&
 						props.arr.map((arrV, i) => (
@@ -45,7 +45,7 @@ export function ArrayDisplay(props) {
 									props.isCollapsable
 										? "z-[50] text-zinc-800"
 										: "bg-opacity-20 text-zinc-800"
-								} my-1 flex w-fit place-items-center rounded-lg bg-zinc-300 p-1`}
+								} my-1 flex w-fit place-items-center rounded-lg bg-neutral-400 p-1`}
 								onClick={() => {
 									props.f(arrV);
 									console.log(arrV);
