@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import { transArr, transitions } from "../../../data/TricklistClass";
+import { whichLeg } from "../../comboMaker/components/ArrayDisplay";
 function Transitions() {
 	console.table(transArr);
 	return (
@@ -17,10 +18,14 @@ function Transitions() {
 					<div>Transitions Array</div>
 					{transArr.map((e) => {
 						return (
-							<div className=' my-2 flex flex-row gap-2 rounded-xl bg-zinc-500 bg-opacity-40 p-1'>
-								<div className='text-lg'>{e.name}</div>
-								<div className='text-lg'>{e.fromLeg}</div>
-								<div className='text-lg'>{e.toLeg}</div>
+							<div className=' my-2 flex flex-row place-content-center place-items-center justify-around gap-2 rounded-xl bg-zinc-500 bg-opacity-40 p-1'>
+								<div className='w-[150px] text-xl font-bold'>{e.name}</div>
+								<div className='text-sm text-zinc-400'>
+									{e.fromLeg && whichLeg(e.fromLeg)}
+								</div>
+								<div className='text-sm text-zinc-400'>
+									{e.toLeg && whichLeg(e.toLeg)}
+								</div>
 
 								{/* {Object.keys(e).map((key, i) => (
 									<table className='bg-zinc-400' id={i}>
@@ -38,7 +43,7 @@ function Transitions() {
 						);
 					})}
 				</div>
-				<Outlet />
+				{/* <Outlet /> */}
 			</div>
 		</>
 	);
