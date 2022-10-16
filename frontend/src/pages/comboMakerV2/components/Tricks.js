@@ -46,6 +46,7 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 	const handleAddType = (type) => {
 		if (activeTypes?.includes(type)) {
 			console.log("already in there");
+
 			return;
 		} else {
 			console.log("adding");

@@ -13,7 +13,9 @@ const DataList = () => {
 			</h1>
 			<div>
 				{tricks?.map((trick) => (
-					<div className=' grid  w-full grid-cols-6 justify-between p-2 odd:bg-zinc-700'>
+					<div
+						key={Math.random()}
+						className=' grid  w-full grid-cols-6 justify-between p-2 odd:bg-zinc-700'>
 						<div className='col-span-3'>{trick?.name}</div>
 						<div className='col-span-2 flex place-items-center text-sm'>
 							{trick?.type}
@@ -34,7 +36,9 @@ const DataList = () => {
 			</h1>
 			<div>
 				{combos?.map((combo) => (
-					<div className='grid w-[70vw] grid-cols-4 justify-between p-2 odd:bg-zinc-700'>
+					<div
+						key={Math.random()}
+						className='grid w-[70vw] grid-cols-4 justify-between p-2 odd:bg-zinc-700'>
 						<div className='col-span-2'>{combo?.name}</div>
 						<div className='flex place-content-end place-items-center gap-2'>
 							DA
