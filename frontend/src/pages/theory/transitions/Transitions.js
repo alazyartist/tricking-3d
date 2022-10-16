@@ -14,7 +14,7 @@ function Transitions() {
 					<Link to='sequential'>Sequential</Link>
 					<Link to='unified'>Unified</Link>
 				</div>
-				<div className='my-2 flex h-[27vh] w-full flex-col overflow-y-auto rounded-md '>
+				<div className='my-2 flex h-[55vh] w-full flex-col overflow-y-auto rounded-md '>
 					<div>Transitions Array</div>
 					{transArr.map((e) => {
 						return (
