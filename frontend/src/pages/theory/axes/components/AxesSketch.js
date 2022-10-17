@@ -128,7 +128,7 @@ const AxesSketch = (props) => (
 					whiteSpace: "pre",
 				}}
 				direction='ltr'>
-				{"90"}
+				{"0"}
 			</text>
 		</g>
 		<g
@@ -145,17 +145,15 @@ const AxesSketch = (props) => (
 				style={{
 					whiteSpace: "pre",
 				}}
-				direction='ltr'>
-				{"180"}
-			</text>
+				direction='ltr'></text>
 		</g>
 		<g
 			strokeOpacity={0.5}
 			fillOpacity={0.5}
 			transform='translate(1379.9998474121094 639.1666412353516) rotate(0 30 54)'>
 			<text
-				x={0}
-				y={76}
+				x={-50}
+				y={110}
 				fontFamily='Virgil, Segoe UI Emoji'
 				fontSize='86px'
 				fill='#d4d4d8'
@@ -164,7 +162,7 @@ const AxesSketch = (props) => (
 					whiteSpace: "pre",
 				}}
 				direction='ltr'>
-				{"0"}
+				{"90"}
 			</text>
 		</g>
 		<g

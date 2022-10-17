@@ -14,7 +14,7 @@ import PublicHomePage from "./components/PublicHomePage";
 import ClaimTricks from "../claimtricks/ClaimTricks";
 import Feed from "./components/Feed";
 import { useSpring, animated } from "react-spring";
-const EnterSandboxLink = lazy(() => import("./components/EnterSandboxLink"));
+// const EnterSandboxLink = lazy(() => import("./components/EnterSandboxLink"));
 function Home() {
 	useUserInfo();
 	const user = useUserStore((s) => s.userInfo?.username);
