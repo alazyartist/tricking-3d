@@ -47,7 +47,7 @@ const DataList = () => {
 							)}
 						</div>
 						<div className='flex place-content-end place-items-center gap-2'>
-							C
+							CA
 							{combo?.comboArray ? (
 								<FaCheck className='text-emerald-500' />
 							) : (
