@@ -9,10 +9,8 @@ export default function LoadActiveModel(props) {
 	// console.log("ModelSelector", activeModel);
 	if (activeModel === "Frank") {
 		return <Frank />;
-	} else if (activeModel === "KerwoodNew") {
-		return <KerwoodNew />;
 	} else if (activeModel === "Kerwood") {
-		return <Kerwood40 />;
+		return <KerwoodNew />;
 	} else if (activeModel === "Andrew") {
 		return <Andrew />;
 	} else return <h1>DIDNT FIND ANYTHING</h1>;
