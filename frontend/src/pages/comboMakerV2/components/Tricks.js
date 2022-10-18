@@ -10,7 +10,7 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [searchedItems, setSearchedItems] = useState();
 	const [typedItems, setTypedItems] = useState();
-	const [activeTypes, setActiveTypes] = useState(["Tricks"]);
+	const [activeTypes, setActiveTypes] = useState(["All"]);
 	useEffect(() => {
 		if (
 			(allTricks !== undefined && !searchTerm) ||
@@ -25,6 +25,7 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 	}, [activeTypes, searchedItems, allTricks]);
 	const typeFilter = (arr) => {
 		if (activeTypes.length) {
+			if (activeTypes?.includes("All")) return setTypedItems(searchedItems);
 			activeTypes?.map((type) => {
 				let temp = arr?.filter((value) => {
 					console.log(value.type);
@@ -50,7 +51,7 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 			return;
 		} else {
 			console.log("adding");
-			setActiveTypes([...activeTypes, type]);
+			setActiveTypes([type]);
 		}
 	};
 	return (
@@ -112,6 +113,11 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 					))}
 			</div>
 			<div className='absolute left-4 bottom-[20vh] flex w-fit flex-col gap-2 text-xs font-bold'>
+				<div
+					onClick={() => handleAddType("All")}
+					className='flex h-16 place-content-center place-items-center rounded-xl bg-zinc-700 p-1'>
+					All
+				</div>
 				<div
 					onClick={() => handleAddType("Trick")}
 					className='flex h-16 place-content-center place-items-center rounded-xl bg-zinc-700 p-1'>

@@ -14,7 +14,7 @@ import PublicHomePage from "./components/PublicHomePage";
 import ClaimTricks from "../claimtricks/ClaimTricks";
 import Feed from "./components/Feed";
 import { useSpring, animated } from "react-spring";
-// const EnterSandboxLink = lazy(() => import("./components/EnterSandboxLink"));
+const EnterSandboxLink = lazy(() => import("./components/EnterSandboxLink"));
 function Home() {
 	useUserInfo();
 	const user = useUserStore((s) => s.userInfo?.username);
@@ -53,14 +53,14 @@ function Home() {
 						className='m-2 rounded-3xl bg-indigo-600 px-2 py-0 font-inter font-semibold text-zinc-300'>
 						Learn More
 					</Link>
-					{/* <Suspense
+					<Suspense
 						fallback={
 							<div className='text-center font-inter text-4xl font-black text-zinc-300'>
 								Listen. theres a lot here.
 							</div>
 						}>
 						<EnterSandboxLink />
-					</Suspense> */}
+					</Suspense>
 
 					<Feed />
 				</div>
