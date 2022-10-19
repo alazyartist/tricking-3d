@@ -1,5 +1,6 @@
 import env from "dotenv";
 import jwt from "jsonwebtoken";
+import { v4 as uuidv4 } from "uuid";
 env.config();
 
 const ablyAuth = async (req, res) => {
@@ -8,9 +9,13 @@ const ablyAuth = async (req, res) => {
 	const expiresIn = 10000;
 	const jwtOptions = { expiresIn, keyid: keyId };
 	console.log("Successfully connected to the server auth endpoint");
+	let rnduuid = uuidv4();
 
-	const clientId = req.query.clientId;
-	console.log(clientId);
+	const clientId =
+		req?.query?.clientId !== (undefined || "undefined")
+			? req.query.clientId
+			: rnduuid;
+	console.log(clientId, "clientid");
 	const jwtPayload = {
 		"x-ably-capability": '{"*":["*"]}',
 		"x-ably-clientId": clientId,
