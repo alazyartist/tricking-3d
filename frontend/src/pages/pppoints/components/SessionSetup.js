@@ -20,7 +20,7 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 	const createSession = () => {
 		let sessionId = uuidv4();
 		console.log(sessionId);
-		const sessionChannel = ably.channels.get(`${sessionId}`);
+		const sessionChannel = ably.channels.get(`points:${sessionId}`);
 		liveSessionsChannel.publish("newSession", {
 			hostID: userInfo,
 			team1: team1,
@@ -29,6 +29,15 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 			sessionID: sessionId,
 			duration: sessionTimer,
 		});
+		sessionChannel.publish("points", {
+			hostID: userInfo,
+			team1: team1,
+			team2: team2,
+			judges: judges,
+			sessionID: sessionId,
+			duration: sessionTimer,
+		});
+
 		setSetupVisible(false);
 
 		//make uuid
