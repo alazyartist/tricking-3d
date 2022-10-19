@@ -1,23 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useAblyStore from "../../hooks/useAblyStore";
 import { useUserStore } from "../../store/userStore";
 import HostSession from "./components/HostSession";
 import LiveSessions from "./components/LiveSessions";
-
-import Ably from "ably/promises";
-import { apiPrivate } from "../../api/api";
-const cid = useUserStore.getState().userInfo.uuid;
-const ably = new Ably.Realtime({
-	authCallback: async ({ tokenDetails }, callback) => {
-		try {
-			const tokenDetails = await apiPrivate.get(`/ablyAuth?clientId=${cid}`);
-			console.log(tokenDetails);
-			tokenDetails && callback(null, tokenDetails?.data);
-		} catch (error) {
-			callback(error, null);
-		}
-	},
-});
+const ably = useAblyStore.getState().ably;
 const PointsPage = () => {
 	const userInfo = useUserStore((s) => s.userInfo);
 	return (

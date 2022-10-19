@@ -1,21 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Ably from "ably/promises";
 import { FaArrowUp } from "react-icons/fa";
 import { useUserStore } from "../../../store/userStore";
-import { apiPrivate } from "../../../api/api";
-const authUrl = `/api/ablyAuth`;
-const cid = useUserStore.getState().userInfo.uuid;
-const ably = new Ably.Realtime({
-	authCallback: async ({ tokenDetails }, callback) => {
-		try {
-			const tokenDetails = await apiPrivate.get(`/ablyAuth?clientId=${cid}`);
-			console.log(tokenDetails);
-			tokenDetails && callback(null, tokenDetails?.data);
-		} catch (error) {
-			callback(error, null);
-		}
-	},
-});
+import useAblyStore from "../../../hooks/useAblyStore";
+const ably = useAblyStore.getState().ably;
 const Feed = () => {
 	const { uuid } = useUserStore((s) => s.userInfo);
 	const [feedArr, updateFeedArr] = useState([]);
