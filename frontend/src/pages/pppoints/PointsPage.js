@@ -4,16 +4,30 @@ import { useUserStore } from "../../store/userStore";
 import HostSession from "./components/HostSession";
 import LiveSessions from "./components/LiveSessions";
 
+import Ably from "ably/promises";
+import { apiPrivate } from "../../api/api";
+const cid = useUserStore.getState().userInfo.uuid;
+const ably = new Ably.Realtime({
+	authCallback: async ({ tokenDetails }, callback) => {
+		try {
+			const tokenDetails = await apiPrivate.get(`/ablyAuth?clientId=${cid}`);
+			console.log(tokenDetails);
+			tokenDetails && callback(null, tokenDetails?.data);
+		} catch (error) {
+			callback(error, null);
+		}
+	},
+});
 const PointsPage = () => {
 	const userInfo = useUserStore((s) => s.userInfo);
 	return (
 		<div className='flex h-screen w-screen flex-col place-items-center p-2 pt-14 text-zinc-300'>
 			<div className=' font-inter text-3xl font-black '>PointsPage</div>
 			<div className='neumorphicIn w-[70vw] rounded-xl p-4  font-bold text-zinc-300'>
-				<LiveSessions />
+				<LiveSessions ably={ably} />
 			</div>
 			<div className='flex gap-5'>
-				{userInfo.uuid && <HostSession />}
+				{userInfo.uuid && <HostSession ably={ably} />}
 				<div>Join Session</div>
 				{!userInfo.uuid && <Link to='/login'>Login</Link>}
 			</div>
