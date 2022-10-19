@@ -63,6 +63,11 @@ function Home() {
 					</Suspense>
 
 					<Feed />
+					<Link
+						to={"/pppoints"}
+						className=' w-[90vw] rounded-xl bg-zinc-800 p-2 text-center text-zinc-300 '>
+						Pppoints
+					</Link>
 				</div>
 				<div className='flex w-[90vw] max-w-[700px] flex-col place-content-center'>
 					{!accessToken ? (
