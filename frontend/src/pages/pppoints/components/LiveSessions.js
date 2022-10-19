@@ -2,12 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const LiveSessions = ({ ably }) => {
-	const liveSessionsChannel = ably?.channels.get(`LiveSessions`);
-	liveSessionsChannel.setOptions({
-		params: {
-			rewind: "4",
-		},
-	});
+	const liveSessionsChannel = ably?.channels.get("[?rewind=10m]LiveSessions");
+
 	const [liveSessionsFeed, updateLiveSessionsFeed] = useState([]);
 
 	useEffect(() => {
@@ -27,7 +23,7 @@ const LiveSessions = ({ ably }) => {
 	return (
 		<div>
 			<div>Live Sessions</div>
-			<div className='rounded-md bg-zinc-900 p-1 font-normal text-zinc-300'>
+			<div className='flex flex-col rounded-md bg-zinc-900 p-1 font-normal text-zinc-300'>
 				{liveSessionsFeed.length < 1 && "No Sessions Available"}
 				{liveSessionsFeed?.map((m) => (
 					<Link to={`${m.sessionID}`}>

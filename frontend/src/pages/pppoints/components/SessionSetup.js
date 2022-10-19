@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { MdClose } from "react-icons/md";
 import { v4 as uuidv4 } from "uuid";
 import useGetAllUsers from "../../../api/useGetAllUsers";
+import { useUserStore } from "../../../store/userStore";
 import DurationSetup from "../sessionSetup/DurationSetup";
 
 const SessionSetup = ({ setSetupVisible, ably }) => {
+	const userInfo = useUserStore((s) => s.userInfo);
 	const [sessionTimer, setSessionTimer] = useState(60);
 	const [team1, setTeam1] = useState([]);
 	const [team2, setTeam2] = useState([]);
@@ -20,6 +22,7 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 		console.log(sessionId);
 		const sessionChannel = ably.channels.get(`${sessionId}`);
 		liveSessionsChannel.publish("newSession", {
+			hostID: userInfo,
 			team1: team1,
 			team2: team2,
 			judges: judges,
