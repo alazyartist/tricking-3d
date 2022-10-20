@@ -36,9 +36,7 @@ const SessionPage = () => {
 			});
 			await sessionChannel.subscribe("timer", (t) => {
 				console.log(t);
-				if (t.data.pollsOpen) {
-					setPollsOpen(t.data.pollsOpen);
-				}
+				setPollsOpen(t.data.pollsOpen);
 				setTimer(t.data.timer);
 			});
 			await sessionChannel.subscribe("points", (m) => {
