@@ -15,7 +15,6 @@ const PointsPage = () => {
 			</div>
 			<div className='flex gap-5'>
 				{userInfo.uuid && <HostSession ably={ably} />}
-				<div>Join Session</div>
 				{!userInfo.uuid && <Link to='/login'>Login</Link>}
 			</div>
 		</div>

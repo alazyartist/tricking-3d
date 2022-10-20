@@ -65,7 +65,7 @@ function Home() {
 					<Feed />
 					<Link
 						to={"/pppoints"}
-						className=' w-[90vw] rounded-xl bg-zinc-800 p-2 text-center text-zinc-300 '>
+						className=' neumorphic mb-8 w-[70vw] rounded-xl bg-zinc-800 p-2 text-center text-zinc-300 '>
 						Pppoints
 					</Link>
 				</div>

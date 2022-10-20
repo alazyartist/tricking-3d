@@ -10,9 +10,10 @@ const SessionPage = () => {
 	const [team1, setTeam1] = useState([]);
 	const [team2, setTeam2] = useState([]);
 	const [timer, setTimer] = useState(0);
+	const [pollsOpen, setPollsOpen] = useState(false);
 	const [hostTimer, setHostTimer] = useState(0);
+	const [duration, setDuration] = useState(0);
 	const userUUID = useUserStore((s) => s.userInfo.uuid);
-	const username = useUserStore((s) => s.userInfo.username);
 	const { sessionID } = useParams();
 	const sessionChannel = ably.channels.get(`[?rewind=10m]points:${sessionID}`);
 	const [team1points, setTeam1points] = useState(0);
@@ -20,6 +21,7 @@ const SessionPage = () => {
 	const [publicTeam1Points, setPublicTeam1points] = useState(0);
 	const [publicTeam2Points, setPublicTeam2points] = useState(0);
 	let isHost = host?.uuid === userUUID;
+	let isJudge = judges.some((j) => j.uuid === userUUID);
 	useEffect(() => {
 		const subscribe = async () => {
 			await sessionChannel.subscribe("newSession", (ns) => {
@@ -29,15 +31,18 @@ const SessionPage = () => {
 				setTeam2([...ns.data.team2]);
 				setHostTimer(ns.data.duration);
 				setTimer(ns.data.duration);
+				setDuration(ns.data.duration);
 				setHost(ns.data.hostID);
 			});
 			await sessionChannel.subscribe("timer", (t) => {
 				console.log(t);
-
+				if (t.data.pollsOpen) {
+					setPollsOpen(t.data.pollsOpen);
+				}
 				setTimer(t.data.timer);
 			});
 			await sessionChannel.subscribe("points", (m) => {
-				if (m?.data?.user) {
+				if (m?.data?.judge) {
 					if (m?.data?.team === "Team1") {
 						setTeam1points((prevPoints) => prevPoints + 1);
 					}
@@ -52,18 +57,37 @@ const SessionPage = () => {
 						setPublicTeam2points((prevPoints) => prevPoints + 1);
 					}
 				}
-				console.log(m, "sessionMessage points");
 			});
 		};
 		subscribe();
 		return () => sessionChannel.unsubscribe();
 	});
 	const handleUserClick = (team) => {
-		sessionChannel.publish("points", { user: userUUID, team: team, points: 1 });
+		if (pollsOpen === true) {
+			sessionChannel.publish("points", {
+				user: userUUID,
+				team: team,
+				points: 1,
+			});
+		}
+	};
+	const handleJudgeClick = (team) => {
+		if (pollsOpen === true) {
+			sessionChannel.publish("points", {
+				judge: userUUID,
+				team: team,
+				points: 1,
+			});
+		}
 	};
 	useEffect(() => {
-		sessionChannel.publish("timer", { timer: hostTimer });
-	}, [hostTimer]);
+		if (hostTimer && duration && hostTimer > 0 && hostTimer !== duration) {
+			sessionChannel.publish("timer", { timer: hostTimer, pollsOpen: true });
+		}
+		if (hostTimer === 0 || hostTimer === duration) {
+			sessionChannel.publish("timer", { timer: hostTimer, pollsOpen: false });
+		}
+	}, [hostTimer, duration]);
 	const handleTimer = () => {
 		setHostTimer((prevTime) => {
 			if (prevTime > 0) {
@@ -90,16 +114,13 @@ const SessionPage = () => {
 					{team2.map((m) => m.username)}
 				</div>
 				<div>{timer}</div>
-				{isHost && timer && (
+				{isHost && !!timer && (
 					<div onClick={() => handleTimer()}>"Start Timer"</div>
 				)}
 			</div>
+			{`${pollsOpen ? "true" : "false"}`}
 			<div>
-				{userUUID
-					? `${
-							judges.some((j) => j.username === username) ? "Judge" : "Audience"
-					  }`
-					: "You are Anonymous"}
+				{userUUID ? `${isJudge ? "Judge" : "Audience"}` : "You are Anonymous"}
 			</div>
 			{/* <div>
 				{judges.map((p) => (
@@ -107,7 +128,7 @@ const SessionPage = () => {
 				))}
 			</div> */}
 
-			{/* <div className='flex flex-col gap-2'>
+			<div className='flex flex-col gap-2'>
 				<div className='flex gap-2'>
 					<div>{publicTeam1Points}</div>
 					<div>{publicTeam2Points}</div>
@@ -116,11 +137,13 @@ const SessionPage = () => {
 					<div>{team1points}</div>
 					<div>{team2points}</div>
 				</div>
-			</div> */}
+			</div>
 			<div className='flex w-full justify-around gap-2'>
 				<div
 					className='w-1/2 rounded-xl bg-zinc-900 p-2 text-center'
-					onClick={() => handleUserClick("Team1")}>
+					onClick={() =>
+						isJudge ? handleJudgeClick("Team1") : handleUserClick("Team1")
+					}>
 					<div>
 						{team1.map((p) => (
 							<PlayerMap player={p} />
@@ -129,7 +152,9 @@ const SessionPage = () => {
 				</div>
 				<div
 					className='w-1/2 rounded-xl bg-zinc-900 p-2 text-center'
-					onClick={() => handleUserClick("Team2")}>
+					onClick={() =>
+						isJudge ? handleJudgeClick("Team2") : handleUserClick("Team2")
+					}>
 					<div>
 						{team2.map((p) => (
 							<PlayerMap player={p} />
