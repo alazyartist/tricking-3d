@@ -29,7 +29,7 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 			sessionID: sessionId,
 			duration: sessionTimer,
 		});
-		sessionChannel.publish("points", {
+		sessionChannel.publish("newSession", {
 			hostID: userInfo,
 			team1: team1,
 			team2: team2,
@@ -66,7 +66,7 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 		} else {
 			setAvailableUsers(users);
 		}
-	}, [users, team1, team2]);
+	}, [users, team1, team2, judges]);
 	useEffect(() => {
 		console.log(users);
 		console.log(team1);
