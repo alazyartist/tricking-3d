@@ -41,13 +41,62 @@ export const getRooms = async (req, res) => {
 };
 export const getRoombySessionid = async (req, res) => {
 	const sessionid = req.params.sessionid;
+	console.log(sessionid);
+	try {
+		const room = await battlerooms.findOne({ where: { sessionid } });
+		res.json(room);
+	} catch (err) {
+		console.log(err);
+	}
+
 	//save battleroom config
 };
 export const updateRoomStats = async (req, res) => {
 	const sessionid = req.params.sessionid;
+	const {
+		team1Score,
+		team2Score,
+		team1AudienceScore,
+		team2AudienceScore,
+		winner,
+		audienceWinner,
+	} = req.body.data;
+	try {
+		const roomStats = await battleroomstats.findOrCreate({
+			where: {
+				sessionid,
+				team1Score,
+				team2Score,
+				team1AudienceScore,
+				team2AudienceScore,
+				winner,
+				audienceWinner,
+			},
+		});
+
+		res.json(roomStats);
+	} catch (err) {
+		console.log(err);
+	}
 	//create/update battle stats
+	/*
+    sessionid
+    team1Score
+    team2Score
+    team1AudienceScore
+    team2AudienceScore
+    winner
+    audienceWinner
+    */
 };
 export const setRoomInactive = async (req, res) => {
 	const sessionid = req.params.sessionid;
 	//set battlerooms isOpen to false
+	try {
+		const room = await battlerooms.findOne({ where: { sessionid } });
+		const closedroom = await room.update({ isOpen: false });
+		res.json(closedroom);
+	} catch (err) {
+		console.log(err);
+	}
 };

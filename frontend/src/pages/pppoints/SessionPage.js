@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
+import {
+	useBattleRoomClose,
+	useBattleRoomUpdate,
+	useGetBattleRoombySessionid,
+} from "../../api/useBattleRoom";
 import useAblyStore from "../../hooks/useAblyStore";
 import { useUserStore } from "../../store/userStore";
 const ably = useAblyStore.getState().ably;
@@ -20,24 +25,58 @@ const SessionPage = () => {
 	const [team2points, setTeam2points] = useState(0);
 	const [publicTeam1Points, setPublicTeam1points] = useState(0);
 	const [publicTeam2Points, setPublicTeam2points] = useState(0);
-	let isHost = host?.uuid === userUUID;
+	let isHost = host === userUUID;
 	let isJudge = judges.some((j) => j.uuid === userUUID);
+	const { data: roomSetup } = useGetBattleRoombySessionid(sessionID);
+	const { mutate: closeRoom } = useBattleRoomClose(sessionID);
+	const { mutate: updateRoomStats } = useBattleRoomUpdate(sessionID);
+	useEffect(() => {
+		console.log(roomSetup);
+		Array.isArray(roomSetup?.judges) && setJudges([...roomSetup?.judges]);
+		Array.isArray(roomSetup?.team1) && setTeam1([...roomSetup?.team1]);
+		Array.isArray(roomSetup?.team2) && setTeam2([...roomSetup?.team2]);
+		setHostTimer(roomSetup?.duration);
+		setTimer(roomSetup?.duration);
+		setDuration(roomSetup?.duration);
+		setHost(roomSetup?.host);
+	}, [roomSetup]);
+	const getWinners = () => {
+		let winner, audienceWinner;
+		if (team1points > team2points) {
+			winner = "Team1";
+		}
+		if (team2points > team1points) {
+			winner = "Team2";
+		}
+		if (publicTeam1Points > publicTeam2Points) {
+			audienceWinner = "Team1";
+		}
+		if (publicTeam2Points > publicTeam1Points) {
+			audienceWinner = "Team2";
+		}
+		return { winner, audienceWinner };
+	};
 	useEffect(() => {
 		const subscribe = async () => {
-			await sessionChannel.subscribe("newSession", (ns) => {
-				console.log(ns, "newSession");
-				setJudges([...ns.data.judges]);
-				setTeam1([...ns.data.team1]);
-				setTeam2([...ns.data.team2]);
-				setHostTimer(ns.data.duration);
-				setTimer(ns.data.duration);
-				setDuration(ns.data.duration);
-				setHost(ns.data.hostID);
-			});
 			await sessionChannel.subscribe("timer", (t) => {
 				console.log(t);
 				setPollsOpen(t.data.pollsOpen);
 				setTimer(t.data.timer);
+			});
+			await sessionChannel.subscribe("close", (m) => {
+				//close battleRoom & Total
+				if (isHost) {
+					const { winner, audienceWinner } = getWinners();
+					updateRoomStats({
+						team1Score: team1points,
+						team2Score: team2points,
+						team1AudienceScore: publicTeam1Points,
+						team2AudienceScore: publicTeam2Points,
+						winner,
+						audienceWinner,
+					});
+					closeRoom();
+				}
 			});
 			await sessionChannel.subscribe("points", (m) => {
 				if (m?.data?.judge) {
@@ -85,7 +124,10 @@ const SessionPage = () => {
 		if (hostTimer === 0 || hostTimer === duration) {
 			sessionChannel.publish("timer", { timer: hostTimer, pollsOpen: false });
 		}
-	}, [hostTimer, duration]);
+		if (duration && hostTimer === 0 && pollsOpen === false) {
+			sessionChannel.publish("close", { message: "Close" });
+		}
+	}, [hostTimer, duration, pollsOpen]);
 	const handleTimer = () => {
 		setHostTimer((prevTime) => {
 			if (prevTime > 0) {
@@ -101,27 +143,27 @@ const SessionPage = () => {
 	};
 	// const { ably, session } = location?.state;
 	return (
-		<div className='flex h-screen w-screen flex-col place-items-center p-2 pt-14 text-zinc-300'>
+		<div className='fixed top-0 left-0 flex h-screen w-screen flex-col place-items-center p-2 pt-14 text-zinc-300'>
 			<Link className='absolute top-20 left-4 text-3xl' to={-1}>
 				<IoIosArrowBack />
 			</Link>
 			<div className=' font-inter text-3xl font-black '>Pppoints</div>
-			<div className='neumorphicIn flex w-[70vw] flex-col rounded-xl p-4 text-center  font-bold text-zinc-300'>
+			<div className='neumorphicIn flex w-[70vw] flex-col place-items-center rounded-xl p-4 text-center  font-bold text-zinc-300'>
 				<div>
 					{team1.map((m) => m.username)} vs.
 					{team2.map((m) => m.username)}
 				</div>
 				<div>{timer}</div>
-				{isHost && !!timer && (
+				{isHost && !!timer && !pollsOpen && (
 					<button
-						className='rounded-xl bg-emerald-500 p-2'
+						className='w-full max-w-[400px] rounded-xl bg-emerald-500 p-2'
 						onClick={() => handleTimer()}>
 						Start Timer
 					</button>
 				)}
 			</div>
 
-			<div>
+			<div className='left-50 absolute top-0 font-black text-zinc-700'>
 				{userUUID ? `${isJudge ? "Judge" : "Audience"}` : "You are Anonymous"}
 			</div>
 			{/* <div>

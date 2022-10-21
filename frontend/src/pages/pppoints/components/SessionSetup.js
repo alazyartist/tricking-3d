@@ -16,7 +16,6 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 	const [availableUsers, setAvailableUsers] = useState([]);
 	const [activeTeam, setActiveTeam] = useState("Team1");
 	const { mutate: saveSessionSetup } = useBattleRoomSetup();
-	const liveSessionsChannel = ably.channels.get(`LiveSessions`);
 	const { data: users } = useGetAllUsers();
 	const nav = useNavigate();
 	const createSession = () => {
@@ -32,7 +31,6 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 			duration: sessionTimer,
 		};
 		saveSessionSetup(newSession);
-		liveSessionsChannel.publish("newSession", newSession);
 		sessionChannel.publish("newSession", newSession);
 
 		setSetupVisible(false);

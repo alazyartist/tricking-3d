@@ -34,9 +34,10 @@ const LiveSessions = ({ ably }) => {
 						battleRooms?.every((r) => r.isOpen == false)) &&
 					"No Sessions Available"}
 				{battleRooms?.map((room) => {
+					console.log(room);
 					if (room.isOpen) {
 						return (
-							<Link to={`${room.sessionID}`}>
+							<Link to={`${room.sessionid}`}>
 								{room?.team1?.map((user) => (
 									<span key={user.uuid}>
 										{user.username} {room?.team1.length > 1 && "&"}{" "}
