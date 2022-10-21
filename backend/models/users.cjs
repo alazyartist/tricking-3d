@@ -17,6 +17,7 @@ module.exports = (sequelize) => {
 			Combo,
 			User_Tricklists,
 			Profile,
+			BattleRooms,
 		}) {
 			// define association here
 			this.belongsToMany(Users, {
@@ -34,6 +35,11 @@ module.exports = (sequelize) => {
 				otherKey: "user_id",
 				sourceKey: "id",
 				targetKey: "id",
+			});
+			this.hasMany(BattleRooms, {
+				foreignKey: "host",
+				sourceKey: "uuid",
+				targetKey: "host",
 			});
 			this.hasMany(Tricklist, {
 				as: "MyTricklists",
