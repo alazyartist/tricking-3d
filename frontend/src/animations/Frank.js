@@ -11,7 +11,7 @@ export function Frank({ ...props }) {
 	const group = useRef();
 	//HipsRef attached to skeletons Hips
 	const hipsRef = useRef();
-	const { nodes, materials, animations } = useGLTF("/FrankNew.glb");
+	const { nodes, materials, animations } = useGLTF("/Frank2.glb");
 	const { actions, names, mixer } = useAnimations(animations, group);
 
 	useMediaController(actions, names, mixer);
@@ -32,7 +32,7 @@ export function Frank({ ...props }) {
 	);
 }
 
-useGLTF.preload("/Frank.glb");
+useGLTF.preload("/Frank2.glb");
 
 // FOLLOW CAMERA CODE 4 later
 // let vecPos = new Vector3(

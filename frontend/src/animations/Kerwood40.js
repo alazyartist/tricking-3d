@@ -1,7 +1,4 @@
 import React, { useRef, useEffect, useMemo } from "react";
-import { useFrame } from "@react-three/fiber";
-import { useStore } from "../store/store";
-import * as THREE from "three";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import useFollowCam from "../hooks/useFollowCam";
 import useMediaController from "../hooks/useMediaController";
