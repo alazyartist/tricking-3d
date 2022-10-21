@@ -39,7 +39,7 @@ export const useStore = create(
 		isPaused: false,
 		isScrubbing: 0, // 0: No, 1: Start, 2: End
 		loop: true,
-		modelArray: ["Frank", "Kerwood", "Andrew"],
+		modelArray: ["Frank", "Kerwood", "Andrew", "Sam Caspio"],
 		backgroundArray: ["Torque", "BluesBackground", "JapanShrine", "The Void"],
 		setModel: (value) => set(() => ({ activeModel: value })),
 		setBackground: (value) => set(() => ({ activeBackground: value })),

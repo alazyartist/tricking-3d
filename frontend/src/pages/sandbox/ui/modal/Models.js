@@ -17,10 +17,26 @@ const Models = ({ handleClose }) => {
 						id='dropdown-item'
 						className='mt-1 mb-2 flex h-fit w-full justify-center rounded-lg font-inter text-xl font-light text-zinc-200 hover:text-zinc-400'
 						onClick={() => {
-							selectAnim("Backflip");
-							selectModel(e);
-							redirect(`/sandbox/${e}/Backflip`);
-							window.history.replaceState("", "", `/sandbox/${e}/Backflip`);
+							if (e === "Sam Caspio") {
+								selectAnim("Cart>Full-feilong");
+								selectModel(e);
+								redirect(`/sandbox/${e}/Cart>Full-feilong`);
+								window.history.replaceState(
+									"",
+									"",
+									`/sandbox/${e}/Cart>Full-feilong`
+								);
+							} else if (e === "Frank") {
+								selectAnim("Cork");
+								selectModel(e);
+								redirect(`/sandbox/${e}/Cork`);
+								window.history.replaceState("", "", `/sandbox/${e}/Cork`);
+							} else {
+								selectAnim("Backflip");
+								selectModel(e);
+								redirect(`/sandbox/${e}/Backflip`);
+								window.history.replaceState("", "", `/sandbox/${e}/Backflip`);
+							}
 							handleClose();
 						}}
 						key={i}>
