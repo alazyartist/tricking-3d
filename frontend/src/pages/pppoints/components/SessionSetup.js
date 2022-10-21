@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MdClose } from "react-icons/md";
 import { v4 as uuidv4 } from "uuid";
+import useBattleRoomSetup from "../../../api/useBattleRoom";
 import useGetAllUsers from "../../../api/useGetAllUsers";
 import { useUserStore } from "../../../store/userStore";
 import DurationSetup from "../sessionSetup/DurationSetup";
@@ -13,7 +14,7 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 	const [judges, setJudges] = useState([]);
 	const [availableUsers, setAvailableUsers] = useState([]);
 	const [activeTeam, setActiveTeam] = useState("Team1");
-
+	const { mutate: saveSessionSetup } = useBattleRoomSetup();
 	const liveSessionsChannel = ably.channels.get(`LiveSessions`);
 	const { data: users } = useGetAllUsers();
 	const createSession = () => {
@@ -25,13 +26,14 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 			team1: team1,
 			team2: team2,
 			judges: judges,
-			sessionID: sessionId,
+			sessionid: sessionId,
 			duration: sessionTimer,
 		};
+		saveSessionSetup(newSession);
 		liveSessionsChannel.publish("newSession", newSession);
 		sessionChannel.publish("newSession", newSession);
 
-		setSetupVisible(false);
+		// setSetupVisible(false);
 
 		//make uuid
 		//get feed channel for uuid
