@@ -19,6 +19,7 @@ const LiveSessions = ({ ably }) => {
 
 		return () => liveSessionsChannel.unsubscribe();
 	});
+
 	//Connect to liveSessions channel
 	return (
 		<div>
@@ -28,7 +29,7 @@ const LiveSessions = ({ ably }) => {
 				{liveSessionsFeed?.map((m) => (
 					<Link to={`${m.sessionID}`}>
 						{m?.team1?.map((user) => (
-							<span>
+							<span key={user.uuid}>
 								{user.username} {m?.team1.length > 1 && "&"}{" "}
 							</span>
 						))}{" "}

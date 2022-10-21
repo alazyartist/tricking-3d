@@ -113,10 +113,14 @@ const SessionPage = () => {
 				</div>
 				<div>{timer}</div>
 				{isHost && !!timer && (
-					<div onClick={() => handleTimer()}>"Start Timer"</div>
+					<button
+						className='rounded-xl bg-emerald-500 p-2'
+						onClick={() => handleTimer()}>
+						Start Timer
+					</button>
 				)}
 			</div>
-			{`${pollsOpen ? "true" : "false"}`}
+
 			<div>
 				{userUUID ? `${isJudge ? "Judge" : "Audience"}` : "You are Anonymous"}
 			</div>

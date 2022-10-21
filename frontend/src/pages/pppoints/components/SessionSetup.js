@@ -13,30 +13,23 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 	const [judges, setJudges] = useState([]);
 	const [availableUsers, setAvailableUsers] = useState([]);
 	const [activeTeam, setActiveTeam] = useState("Team1");
-	//team1 = 1 or more users
-	//team2 =[uuid,uuid2...]
+
 	const liveSessionsChannel = ably.channels.get(`LiveSessions`);
 	const { data: users } = useGetAllUsers();
 	const createSession = () => {
 		let sessionId = uuidv4();
 		console.log(sessionId);
 		const sessionChannel = ably.channels.get(`points:${sessionId}`);
-		liveSessionsChannel.publish("newSession", {
+		let newSession = {
 			hostID: userInfo,
 			team1: team1,
 			team2: team2,
 			judges: judges,
 			sessionID: sessionId,
 			duration: sessionTimer,
-		});
-		sessionChannel.publish("newSession", {
-			hostID: userInfo,
-			team1: team1,
-			team2: team2,
-			judges: judges,
-			sessionID: sessionId,
-			duration: sessionTimer,
-		});
+		};
+		liveSessionsChannel.publish("newSession", newSession);
+		sessionChannel.publish("newSession", newSession);
 
 		setSetupVisible(false);
 
