@@ -3,7 +3,35 @@ const battlerooms = await db.sequelize.models.BattleRooms;
 const battleroomstats = await db.sequelize.models.BattleRoomStats;
 
 export const makeNewRoom = async (req, res) => {
-	const sessionid = req?.body?.sessionid;
+	let hostid = req.body.data.hostID.uuid;
+	const { sessionid, team1, team2, judges, duration } = req?.body?.data;
+	let isOpen = true;
+
+	try {
+		const sessionSetup = await battlerooms.findOrCreate({
+			where: {
+				host: hostid,
+				sessionid,
+				team1,
+				team2,
+				judges,
+				duration,
+				isOpen,
+			},
+		});
+		res.json(sessionSetup);
+	} catch (err) {
+		console.log(err);
+		res.send("error");
+	}
+	/*
+    hostid
+    sessionid
+    team1
+    team2
+    judges
+    isOpen 
+    */
 	//save battleroom config
 };
 export const getRoombySessionid = async (req, res) => {

@@ -23,6 +23,9 @@ module.exports = {
 			judges: {
 				type: Sequelize.JSON,
 			},
+			duration: {
+				type: Sequelize.INTEGER,
+			},
 			isOpen: {
 				type: Sequelize.BOOLEAN,
 			},

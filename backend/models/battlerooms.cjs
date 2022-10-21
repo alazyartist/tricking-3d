@@ -7,8 +7,13 @@ module.exports = (sequelize) => {
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
-		static associate({ BattleRoomStats }) {
+		static associate({ BattleRoomStats, Users }) {
 			// define association here
+			this.belongsTo(Users, {
+				foreignKey: "host",
+				sourceKey: "host",
+				targetKey: "uuid",
+			});
 			this.hasOne(BattleRoomStats, {
 				foreignKey: "sessionid",
 				sourceKey: "sessionid",
@@ -28,6 +33,7 @@ module.exports = (sequelize) => {
 			team1: DataTypes.JSON,
 			team2: DataTypes.JSON,
 			judges: DataTypes.JSON,
+			duration: DataTypes.INTEGER,
 			isOpen: DataTypes.BOOLEAN,
 			createdAt: {
 				type: DataTypes.DATE,
