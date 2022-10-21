@@ -34,6 +34,11 @@ export const makeNewRoom = async (req, res) => {
     */
 	//save battleroom config
 };
+export const getRooms = async (req, res) => {
+	const availableRooms = await battlerooms.findAll();
+	console.log(availableRooms);
+	res.json(availableRooms);
+};
 export const getRoombySessionid = async (req, res) => {
 	const sessionid = req.params.sessionid;
 	//save battleroom config

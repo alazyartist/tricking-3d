@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MdClose } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import useBattleRoomSetup from "../../../api/useBattleRoom";
 import useGetAllUsers from "../../../api/useGetAllUsers";
@@ -17,6 +18,7 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 	const { mutate: saveSessionSetup } = useBattleRoomSetup();
 	const liveSessionsChannel = ably.channels.get(`LiveSessions`);
 	const { data: users } = useGetAllUsers();
+	const nav = useNavigate();
 	const createSession = () => {
 		let sessionId = uuidv4();
 		console.log(sessionId);
@@ -33,7 +35,8 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 		liveSessionsChannel.publish("newSession", newSession);
 		sessionChannel.publish("newSession", newSession);
 
-		// setSetupVisible(false);
+		setSetupVisible(false);
+		nav(`${sessionId}`);
 
 		//make uuid
 		//get feed channel for uuid

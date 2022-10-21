@@ -18,5 +18,14 @@ const useBattleRoomSetup = () => {
 		}
 	);
 };
+export const useGetBattleRooms = () => {
+	const apiPrivate = useApiCreds();
+	return useQuery(["BattleRooms"], async () => {
+		const { data } = await apiPrivate.get("/battlerooms", {
+			withCredentials: true,
+		});
+		return data;
+	});
+};
 
 export default useBattleRoomSetup;
