@@ -1,36 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { animated, useSpring } from "react-spring";
 const ScoreDisplay = ({ team1Score, team2Score }) => {
-	let rteam1Score = Math.round(team1Score);
-	let rteam2Score = Math.round(team2Score);
-	const width1 = useSpring({
-		width: `${team1Score}%`,
-	});
-	const width2 = useSpring({
-		width: `${team2Score}%`,
-	});
 	const [nums, numApi] = useSpring(() => ({
 		from: {
 			num1: 50,
 			num2: 50,
 		},
 		to: {
-			num1: rteam1Score,
-			num2: rteam2Score,
+			num1: team1Score === team2Score ? 50 : team1Score,
+			num2: team2Score === team1Score ? 50 : team2Score,
 		},
 		config: { tension: 80, friction: 40 },
 	}));
+	useEffect(() => {
+		numApi.start({
+			to: {
+				num1: team1Score === team2Score ? 50 : team1Score,
+				num2: team2Score === team1Score ? 50 : team2Score,
+			},
+		});
+	}, [team1Score, team2Score]);
 	return (
 		<div className='flex w-[80%] place-items-center'>
 			<animated.div
-				style={{ ...width1 }}
+				style={{ width: nums.num1.to((num) => `${num}%`) }}
 				className={`flex w-1/2 place-content-center place-items-center bg-cyan-500`}>
-				{nums.num1.interpolate((num) => Math.floor(num))}
+				{nums.num1.to((num) => Math.round(num))}
 			</animated.div>
 			<animated.div
-				style={{ ...width2 }}
+				style={{ width: nums.num2.to((num) => `${num}%`) }}
 				className={`flex w-1/2 place-content-center place-items-center bg-pink-500`}>
-				{nums.num2.interpolate((num) => Math.floor(num))}
+				{nums.num2.to((num) => Math.round(num))}
 			</animated.div>
 		</div>
 	);
