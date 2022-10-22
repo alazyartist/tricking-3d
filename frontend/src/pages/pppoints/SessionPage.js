@@ -8,6 +8,7 @@ import {
 } from "../../api/useBattleRoom";
 import useAblyStore from "../../hooks/useAblyStore";
 import { useUserStore } from "../../store/userStore";
+import { animated, config, useSpring } from "react-spring";
 const ably = useAblyStore.getState().ably;
 const SessionPage = () => {
 	const [host, setHost] = useState();
@@ -15,6 +16,7 @@ const SessionPage = () => {
 	const [team1, setTeam1] = useState([]);
 	const [team2, setTeam2] = useState([]);
 	const [timer, setTimer] = useState(0);
+	const [showResults, setShowResults] = useState(false);
 	const [pollsOpen, setPollsOpen] = useState(false);
 	const [hostTimer, setHostTimer] = useState(0);
 	const [duration, setDuration] = useState(0);
@@ -67,14 +69,23 @@ const SessionPage = () => {
 	const getPointsNormalized = (team1Points, team2Points) => {
 		let totalPoints = team1Points + team2Points;
 		let team1PointsNormalized =
-			(team1Points / totalPoints).toPrecision(2) * 100;
+			(team1Points / totalPoints).toPrecision(2) * 100 || 0;
 		let team2PointsNormalized =
-			(team2Points / totalPoints).toPrecision(2) * 100;
+			(team2Points / totalPoints).toPrecision(2) * 100 || 0;
 		console.log("Total", totalPoints);
 		console.log("1", team1PointsNormalized);
 		console.log("2", team2PointsNormalized);
 		return [team1PointsNormalized, team2PointsNormalized];
 	};
+	//Handle Animation
+	const [imgGrow1, api1] = useSpring(() => ({
+		from: { scale: 1, borderColor: "none" },
+		config: { ...config.stiff },
+	}));
+	const [imgGrow2, api2] = useSpring(() => ({
+		from: { scale: 1, borderColor: "none" },
+		config: { ...config.stiff },
+	}));
 	useEffect(() => {
 		const subscribe = async () => {
 			if (userUUID) {
@@ -102,6 +113,7 @@ const SessionPage = () => {
 					team1AudiencepointsNormal,
 					team2AudiencepointsNormal)
 				) {
+					setShowResults(true);
 					setTeam1points(() => team1pointsNormal);
 					setTeam2points(() => team2pointsNormal);
 					setPublicTeam1points(() => team1AudiencepointsNormal);
@@ -144,7 +156,19 @@ const SessionPage = () => {
 			}
 			await sessionChannel.subscribe("closeRoom", (m) => {
 				//close battleRoom & Total
+				if (isHost) {
+					//clearPoints before getting totals
+					setTeam1points(0);
+					setTeam2points(0);
+					setPublicTeam1points(0);
+					setPublicTeam2points(0);
+					setTimeout(() => {
+						sessionChannel.publish("getTotals", { message: "getTotals" });
+						closeRoom();
+					}, 2000);
+				}
 				setTimeout(() => {
+					//publish data after clearingHostdata
 					if (isJudge) {
 						let [team1PointsNormal, team2PointsNormal] = getPointsNormalized(
 							team1points,
@@ -167,34 +191,20 @@ const SessionPage = () => {
 						});
 					}
 				}, 69);
-				if (isHost) {
-					setTeam1points(0);
-					setTeam2points(0);
-					setPublicTeam1points(0);
-					setPublicTeam2points(0);
-					setTimeout(() => {
-						sessionChannel.publish("getTotals", { message: "getTotals" });
-						closeRoom();
-					}, 2000);
-				}
 			});
 			await sessionChannel.subscribe("points", (m) => {
-				//TODO Handle Animation here
-				// if (m?.data?.judge) {
-				// 	if (m?.data?.team === "Team1") {
-				// 		setTeam1points((prevPoints) => prevPoints + 1);
-				// 	}
-				// 	if (m?.data?.team === "Team2") {
-				// 		setTeam2points((prevPoints) => prevPoints + 1);
-				// 	}
-				// } else {
-				// 	if (m?.data?.team === "Team1") {
-				// 		setPublicTeam1points((prevPoints) => prevPoints + 1);
-				// 	}
-				// 	if (m?.data?.team === "Team2") {
-				// 		setPublicTeam2points((prevPoints) => prevPoints + 1);
-				// 	}
-				// }
+				if (m.data.team === "Team1") {
+					api1.start({
+						from: { scale: 1.2 },
+						to: { scale: 1 },
+					});
+				}
+				if (m.data.team === "Team2") {
+					api2.start({
+						from: { scale: 1.2 },
+						to: { scale: 1 },
+					});
+				}
 			});
 		};
 		subscribe();
@@ -202,34 +212,51 @@ const SessionPage = () => {
 	});
 	const handleUserClick = (team) => {
 		if (pollsOpen === true) {
-			// sessionChannel.publish("points", {
-			// 	user: userUUID,
-			// 	team: team,
-			// 	points: 1,
-			// });
+			sessionChannel.publish("points", {
+				user: userUUID,
+				team: team,
+				points: 1,
+			});
 			if (team === "Team1") {
 				setPublicTeam1points((prevPoints) => prevPoints + 1);
+				api1.start({
+					from: { scale: 1.5 },
+					to: { scale: 1 },
+				});
 			}
 			if (team === "Team2") {
 				setPublicTeam2points((prevPoints) => prevPoints + 1);
+				api2.start({
+					from: { scale: 1.2 },
+					to: { scale: 1 },
+				});
 			}
 		}
 	};
 	const handleJudgeClick = (team) => {
 		if (pollsOpen === true) {
-			// sessionChannel.publish("points", {
-			// 	judge: userUUID,
-			// 	team: team,
-			// 	points: 1,
-			// });
+			sessionChannel.publish("points", {
+				judge: userUUID,
+				team: team,
+				points: 1,
+			});
 			if (team === "Team1") {
 				setTeam1points((prevPoints) => prevPoints + 1);
+				api1.start({
+					from: { scale: 1.5, borderColor: "#f05033", borderWidth: "4px" },
+					to: { scale: 1, borderWidth: "0px" },
+				});
 			}
 			if (team === "Team2") {
 				setTeam2points((prevPoints) => prevPoints + 1);
+				api2.start({
+					from: { scale: 1.5, borderColor: "#f05033", borderWidth: "4px" },
+					to: { scale: 1, borderWidth: "0px" },
+				});
 			}
 		}
 	};
+
 	useEffect(() => {
 		if (hostTimer && duration && hostTimer > 0 && hostTimer !== duration) {
 			sessionChannel.publish("timer", { timer: hostTimer, pollsOpen: true });
@@ -255,7 +282,7 @@ const SessionPage = () => {
 			}
 		}, 1000);
 	};
-	// const { ably, session } = location?.state;
+
 	return (
 		<div className='fixed top-0 left-0 flex h-screen w-screen flex-col place-items-center p-2 pt-14 text-zinc-300'>
 			<Link className='absolute top-20 left-4 text-3xl' to={-1}>
@@ -280,57 +307,66 @@ const SessionPage = () => {
 			<div className='left-50 absolute top-0 font-black text-zinc-700'>
 				{userUUID ? `${isJudge ? "Judge" : "Audience"}` : "You are Anonymous"}
 			</div>
-			{/* <div>
-				{judges.map((p) => (
-					<PlayerMap player={p} />
-				))}
-			</div> */}
 
-			<div className='flex flex-col gap-2'>
-				<div className='flex gap-2'>
-					<div>{publicTeam1Points}</div>
-					<div>{publicTeam2Points}</div>
-				</div>
-				<div className='flex gap-2'>
-					<div>{team1points}</div>
-					<div>{team2points}</div>
-				</div>
-			</div>
-			<div className='flex w-full justify-around gap-2'>
-				<div
-					className='w-1/2 rounded-xl bg-zinc-900 p-2 text-center'
-					onClick={() =>
-						isJudge ? handleJudgeClick("Team1") : handleUserClick("Team1")
-					}>
-					<div>
-						{team1.map((p) => (
-							<PlayerMap player={p} />
-						))}
+			{showResults && (
+				<div className='flex flex-col gap-2'>
+					<div className='flex gap-2'>
+						<div>{publicTeam1Points}</div>
+						<div>{publicTeam2Points}</div>
+					</div>
+					<div className='flex gap-2'>
+						<div>{team1points}</div>
+						<div>{team2points}</div>
 					</div>
 				</div>
+			)}
+			{!showResults && (
 				<div
-					className='w-1/2 rounded-xl bg-zinc-900 p-2 text-center'
-					onClick={() =>
-						isJudge ? handleJudgeClick("Team2") : handleUserClick("Team2")
-					}>
-					<div>
-						{team2.map((p) => (
-							<PlayerMap player={p} />
-						))}
+					id={"teamButtonContainer"}
+					className='flex w-full justify-around gap-2'>
+					<div
+						className='w-1/2 rounded-xl bg-zinc-900 p-2 text-center'
+						onClick={() =>
+							isJudge ? handleJudgeClick("Team1") : handleUserClick("Team1")
+						}>
+						<div>
+							{team1.map((p) => (
+								<PlayerMap imgGrow={imgGrow1} player={p} />
+							))}
+						</div>
+					</div>
+					<div
+						className='w-1/2 rounded-xl bg-zinc-900 p-2 text-center'
+						onClick={() =>
+							isJudge ? handleJudgeClick("Team2") : handleUserClick("Team2")
+						}>
+						<div>
+							{team2.map((p) => (
+								<PlayerMap imgGrow={imgGrow2} player={p} />
+							))}
+						</div>
 					</div>
 				</div>
-			</div>
+			)}
+			{showResults && (
+				<div className='absolute bottom-10'>
+					{judges.map((p) => (
+						<PlayerMap player={p} />
+					))}
+				</div>
+			)}
 		</div>
 	);
 };
 
 export default SessionPage;
 
-function PlayerMap({ player }) {
+function PlayerMap({ player, imgGrow }) {
 	return (
 		<div className='flex flex-col place-items-center text-zinc-300'>
 			<div>{player.username}</div>
-			<img
+			<animated.img
+				style={{ ...imgGrow }}
 				className='h-14 w-14 rounded-full'
 				src={
 					player.profilePic !== (undefined || null)

@@ -120,42 +120,49 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 							))}
 						</div>
 					</div>
-					<div className='w-full text-center'>Competitors</div>
-					<div className='w-full text-center text-sm'>Add Competitors</div>
-					<div className='flex w-full place-content-center gap-2'>
+
+					<div className='h-20 w-full text-center'>
+						<h1
+							className={`font-bold ${
+								activeTeam === "Judges" ? "text-teal-500" : "text-zinc-300"
+							}`}
+							onClick={() => setActiveTeam("Judges")}>
+							Judges
+						</h1>
+						{judges?.map((member, index) => (
+							<div
+								onClick={() =>
+									setJudges((prevTeam) => {
+										console.log(member);
+										return prevTeam.filter((mem) => mem !== member);
+									})
+								}>
+								{member?.username}
+							</div>
+						))}
+					</div>
+					<DurationSetup
+						setSessionTimer={setSessionTimer}
+						sessionTimer={sessionTimer}
+					/>
+					<div
+						className={`absolute bottom-20 flex w-full place-content-start gap-2 overflow-x-auto  px-4`}>
 						{availableUsers?.map((user) => (
 							<div
 								onClick={() => handleAdd(user)}
 								className='flex flex-col place-items-center'>
-								<div className='h-10 w-10 rounded-full bg-red-500' />
+								<img
+									className='h-10 w-10 rounded-full'
+									src={
+										user.profilePic !== (undefined || null)
+											? `/images/${user.uuid}/${user.profilePic}`
+											: "/images/noimg.jpeg"
+									}
+								/>
 								<div>{user?.username}</div>
 							</div>
 						))}
 					</div>
-				</div>
-				<DurationSetup
-					setSessionTimer={setSessionTimer}
-					sessionTimer={sessionTimer}
-				/>
-				<div className='h-20 w-full text-center'>
-					<h1
-						className={`font-bold ${
-							activeTeam === "Judges" ? "text-teal-500" : "text-zinc-300"
-						}`}
-						onClick={() => setActiveTeam("Judges")}>
-						Judges
-					</h1>
-					{judges?.map((member, index) => (
-						<div
-							onClick={() =>
-								setJudges((prevTeam) => {
-									console.log(member);
-									return prevTeam.filter((mem) => mem !== member);
-								})
-							}>
-							{member?.username}
-						</div>
-					))}
 				</div>
 				<div
 					onClick={() => createSession()}
