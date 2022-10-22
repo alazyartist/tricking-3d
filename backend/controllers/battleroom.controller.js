@@ -43,7 +43,10 @@ export const getRoombySessionid = async (req, res) => {
 	const sessionid = req.params.sessionid;
 	console.log(sessionid);
 	try {
-		const room = await battlerooms.findOne({ where: { sessionid } });
+		const room = await battlerooms.findOne({
+			where: { sessionid },
+			include: { model: db.sequelize.models.BattleRoomStats },
+		});
 		res.json(room);
 	} catch (err) {
 		console.log(err);
