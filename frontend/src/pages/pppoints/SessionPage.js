@@ -104,6 +104,7 @@ const SessionPage = () => {
 
 			await sessionChannel.subscribe("finalScore", (final) => {
 				console.log(final);
+
 				let [team1pointsNormal, team2pointsNormal] = getPointsNormalized(
 					final.data.team1Score,
 					final.data.team2Score
@@ -113,18 +114,14 @@ const SessionPage = () => {
 						final.data.team1AudienceScore,
 						final.data.team2AudienceScore
 					);
-				if (
-					(team1pointsNormal,
-					team1pointsNormal,
-					team1AudiencepointsNormal,
-					team2AudiencepointsNormal)
-				) {
-					setShowResults(true);
-					setTeam1points(() => team1pointsNormal);
-					setTeam2points(() => team2pointsNormal);
-					setPublicTeam1points(() => team1AudiencepointsNormal);
-					setPublicTeam2points(() => team2AudiencepointsNormal);
-				}
+
+				setShowResults(true);
+				setTeam1points(() => team1pointsNormal);
+				setTeam2points(() => team2pointsNormal);
+				setPublicTeam1points(() => team1AudiencepointsNormal);
+				setPublicTeam2points(() => team2AudiencepointsNormal);
+				setWinner(final.data.winner);
+				addJudgeMessage(final?.data?.judgeMessages);
 			});
 			if (isHost) {
 				await sessionChannel.subscribe("total", (t) => {
@@ -157,8 +154,8 @@ const SessionPage = () => {
 							team2AudienceScore: publicTeam2Points,
 							winner: winner,
 							audienceWinner: audienceWinner,
+							judgeMessages: judgeMessages,
 						});
-						setWinner(winner);
 					}
 				});
 			}
@@ -298,12 +295,15 @@ const SessionPage = () => {
 			</Link>
 			<div className=' font-inter text-3xl font-black '>Pppoints</div>
 			<div className='neumorphicIn flex w-[70vw] flex-col place-items-center rounded-xl p-4 text-center  font-bold text-zinc-300'>
-				<div>
-					{team1.map((m) => m.username)} vs.
-					{team2.map((m) => m.username)}
-				</div>
-				<div>{timer}</div>
-				<div>{winner}</div>
+				{!showResults && (
+					<div>
+						{team1.map((m) => m.username)} vs.
+						{team2.map((m) => m.username)}
+					</div>
+				)}
+				<div>{!!timer && timer}</div>
+				<div>{winner === "Team1" && team1.map((m) => m.username)}</div>
+				<div>{winner === "Team2" && team1.map((m) => m.username)}</div>
 				{isHost && !!timer && !pollsOpen && (
 					<button
 						className='w-full max-w-[400px] rounded-xl bg-emerald-500 p-2'
@@ -363,10 +363,22 @@ const SessionPage = () => {
 				</div>
 			)}
 			{showResults && (
-				<div className='absolute bottom-10'>
-					{judges.map((p) => (
-						<PlayerMap player={p} />
-					))}
+				<div className='absolute bottom-10 flex gap-2'>
+					{judges.map((p) => {
+						let judgeTeam1 = judgeMessages.filter(
+							(m) => m.judge === p.uuid && m.team1
+						)[0]?.team1;
+						let judgeTeam2 = judgeMessages.filter(
+							(m) => m.judge === p.uuid && m.team2
+						)[0]?.team2;
+						console.log(judgeTeam1, judgeTeam2);
+						return (
+							<div className='flex w-full flex-col place-items-center'>
+								<ScoreDisplay team1Score={judgeTeam1} team2Score={judgeTeam2} />
+								<PlayerMap player={p} />
+							</div>
+						);
+					})}
 				</div>
 			)}
 		</div>
