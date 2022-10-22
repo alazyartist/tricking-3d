@@ -77,6 +77,7 @@ export const updateRoomStats = async (req, res) => {
 		res.json(roomStats);
 	} catch (err) {
 		console.log(err);
+		res.status(403).json(err);
 	}
 	//create/update battle stats
 	/*

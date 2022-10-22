@@ -61,7 +61,7 @@ export const useGetBattleRooms = () => {
 };
 export const useGetBattleRoombySessionid = (sessionid) => {
 	const apiPrivate = useApiCreds();
-	return useQuery(["BattleRooms"], async () => {
+	return useQuery(["BattleRoom", sessionid], async () => {
 		const { data } = await apiPrivate.get(`/battlerooms/${sessionid}`, {
 			withCredentials: true,
 		});

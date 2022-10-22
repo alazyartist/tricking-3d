@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -30,14 +30,16 @@ const SessionPage = () => {
 	const { data: roomSetup } = useGetBattleRoombySessionid(sessionID);
 	const { mutate: closeRoom } = useBattleRoomClose(sessionID);
 	const { mutate: updateRoomStats } = useBattleRoomUpdate(sessionID);
-	useEffect(() => {
+	useMemo(() => {
 		console.log(roomSetup);
 		Array.isArray(roomSetup?.judges) && setJudges([...roomSetup?.judges]);
 		Array.isArray(roomSetup?.team1) && setTeam1([...roomSetup?.team1]);
 		Array.isArray(roomSetup?.team2) && setTeam2([...roomSetup?.team2]);
 		setHostTimer(roomSetup?.duration);
-		setTimer(roomSetup?.duration);
-		setDuration(roomSetup?.duration);
+		if (duration === 0 || duration !== roomSetup.duration) {
+			setTimer(roomSetup?.duration);
+			setDuration(roomSetup?.duration);
+		}
 		setHost(roomSetup?.host);
 	}, [roomSetup]);
 	const getWinners = () => {
@@ -48,11 +50,17 @@ const SessionPage = () => {
 		if (team2points > team1points) {
 			winner = "Team2";
 		}
+		if (team2points === team1points) {
+			winner = "Tie";
+		}
 		if (publicTeam1Points > publicTeam2Points) {
 			audienceWinner = "Team1";
 		}
 		if (publicTeam2Points > publicTeam1Points) {
 			audienceWinner = "Team2";
+		}
+		if (publicTeam2Points === publicTeam1Points) {
+			audienceWinner = "Tie";
 		}
 		return { winner, audienceWinner };
 	};
@@ -69,54 +77,109 @@ const SessionPage = () => {
 	};
 	useEffect(() => {
 		const subscribe = async () => {
+			if (userUUID) {
+				sessionChannel.presence.enter({ user: userUUID });
+			}
 			await sessionChannel.subscribe("timer", (t) => {
 				setPollsOpen(t.data.pollsOpen);
 				setTimer(t.data.timer);
 			});
+
+			await sessionChannel.subscribe("finalScore", (final) => {
+				console.log(final);
+				let [team1pointsNormal, team2pointsNormal] = getPointsNormalized(
+					final.data.team1Score,
+					final.data.team2Score
+				);
+				let [team1AudiencepointsNormal, team2AudiencepointsNormal] =
+					getPointsNormalized(
+						final.data.team1AudienceScore,
+						final.data.team2AudienceScore
+					);
+				if (
+					(team1pointsNormal,
+					team1pointsNormal,
+					team1AudiencepointsNormal,
+					team2AudiencepointsNormal)
+				) {
+					setTeam1points(() => team1pointsNormal);
+					setTeam2points(() => team2pointsNormal);
+					setPublicTeam1points(() => team1AudiencepointsNormal);
+					setPublicTeam2points(() => team2AudiencepointsNormal);
+				}
+			});
 			if (isHost) {
 				await sessionChannel.subscribe("total", (t) => {
 					console.log(t);
+					if (t?.data?.judge) {
+						setTeam1points((prevPoints) => prevPoints + t.data.team1);
+						setTeam2points((prevPoints) => prevPoints + t.data.team2);
+					} else {
+						setPublicTeam1points((prevPoints) => prevPoints + t.data.team1);
+						setPublicTeam2points((prevPoints) => prevPoints + t.data.team2);
+					}
 				});
-			}
-			await sessionChannel.subscribe("closeRoom", (m) => {
-				//close battleRoom & Total
-				if (isJudge) {
-					let [team1PointsNormal, team2PointsNormal] = getPointsNormalized(
-						team1points,
-						team2points
-					);
-					sessionChannel.publish("total", {
-						judge: userUUID,
-						team1: team1PointsNormal,
-						team2: team2PointsNormal,
-					});
-				} else {
-					let [team1PointsNormal, team2PointsNormal] = getPointsNormalized(
-						publicTeam1Points,
-						publicTeam2Points
-					);
-					sessionChannel.publish("total", {
-						judge: userUUID,
-						team1: team1PointsNormal,
-						team2: team2PointsNormal,
-					});
-				}
-				if (isHost) {
-					setTimeout(() => {
+
+				await sessionChannel.subscribe("getTotals", (t) => {
+					if (t.data.message === "getTotals") {
 						const { winner, audienceWinner } = getWinners();
 						updateRoomStats({
 							team1Score: team1points,
 							team2Score: team2points,
 							team1AudienceScore: publicTeam1Points,
 							team2AudienceScore: publicTeam2Points,
-							winner,
-							audienceWinner,
+							winner: winner,
+							audienceWinner: audienceWinner,
 						});
+						sessionChannel.publish("finalScore", {
+							team1Score: team1points,
+							team2Score: team2points,
+							team1AudienceScore: publicTeam1Points,
+							team2AudienceScore: publicTeam2Points,
+							winner: winner,
+							audienceWinner: audienceWinner,
+						});
+					}
+				});
+			}
+			await sessionChannel.subscribe("closeRoom", (m) => {
+				//close battleRoom & Total
+				setTimeout(() => {
+					if (isJudge) {
+						let [team1PointsNormal, team2PointsNormal] = getPointsNormalized(
+							team1points,
+							team2points
+						);
+						sessionChannel.publish("total", {
+							judge: userUUID,
+							team1: team1PointsNormal,
+							team2: team2PointsNormal,
+						});
+					} else {
+						let [team1PointsNormal, team2PointsNormal] = getPointsNormalized(
+							publicTeam1Points,
+							publicTeam2Points
+						);
+						sessionChannel.publish("total", {
+							user: userUUID,
+							team1: team1PointsNormal,
+							team2: team2PointsNormal,
+						});
+					}
+				}, 69);
+				if (isHost) {
+					setTeam1points(0);
+					setTeam2points(0);
+					setPublicTeam1points(0);
+					setPublicTeam2points(0);
+					setTimeout(() => {
+						sessionChannel.publish("getTotals", { message: "getTotals" });
 						closeRoom();
-					}, 30000);
+					}, 2000);
 				}
 			});
 			await sessionChannel.subscribe("points", (m) => {
+				//TODO Handle Animation here
 				// if (m?.data?.judge) {
 				// 	if (m?.data?.team === "Team1") {
 				// 		setTeam1points((prevPoints) => prevPoints + 1);
@@ -178,6 +241,7 @@ const SessionPage = () => {
 			sessionChannel.publish("closeRoom", { message: "Close" });
 		}
 	}, [hostTimer, duration, pollsOpen]);
+
 	const handleTimer = () => {
 		setHostTimer((prevTime) => {
 			if (prevTime > 0) {
