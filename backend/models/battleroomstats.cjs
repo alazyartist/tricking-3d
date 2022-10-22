@@ -18,7 +18,12 @@ module.exports = (sequelize) => {
 	}
 	BattleRoomStats.init(
 		{
-			sessionid: DataTypes.UUID,
+			id: {
+				type: DataTypes.INTEGER,
+				primaryKey: true,
+				autoIncrement: true,
+			},
+			sessionid: { type: DataTypes.UUID, unique: true },
 			team1Score: DataTypes.INTEGER,
 			team2Score: DataTypes.INTEGER,
 			team1AudienceScore: DataTypes.INTEGER,

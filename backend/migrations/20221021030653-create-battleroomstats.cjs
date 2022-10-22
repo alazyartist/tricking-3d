@@ -10,6 +10,7 @@ module.exports = {
 			},
 			sessionid: {
 				type: Sequelize.UUID,
+				unique: true,
 			},
 			team1Score: {
 				type: Sequelize.INTEGER,

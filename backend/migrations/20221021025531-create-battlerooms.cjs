@@ -13,6 +13,7 @@ module.exports = {
 			},
 			sessionid: {
 				type: Sequelize.UUID,
+				unique: true,
 			},
 			team1: {
 				type: Sequelize.JSON,
