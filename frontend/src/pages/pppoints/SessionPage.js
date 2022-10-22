@@ -56,44 +56,82 @@ const SessionPage = () => {
 		}
 		return { winner, audienceWinner };
 	};
+	const getPointsNormalized = (team1Points, team2Points) => {
+		let totalPoints = team1Points + team2Points;
+		let team1PointsNormalized =
+			(team1Points / totalPoints).toPrecision(2) * 100;
+		let team2PointsNormalized =
+			(team2Points / totalPoints).toPrecision(2) * 100;
+		console.log("Total", totalPoints);
+		console.log("1", team1PointsNormalized);
+		console.log("2", team2PointsNormalized);
+		return [team1PointsNormalized, team2PointsNormalized];
+	};
 	useEffect(() => {
 		const subscribe = async () => {
 			await sessionChannel.subscribe("timer", (t) => {
-				console.log(t);
 				setPollsOpen(t.data.pollsOpen);
 				setTimer(t.data.timer);
 			});
-			await sessionChannel.subscribe("close", (m) => {
+			if (isHost) {
+				await sessionChannel.subscribe("total", (t) => {
+					console.log(t);
+				});
+			}
+			await sessionChannel.subscribe("closeRoom", (m) => {
 				//close battleRoom & Total
-				if (isHost) {
-					const { winner, audienceWinner } = getWinners();
-					updateRoomStats({
-						team1Score: team1points,
-						team2Score: team2points,
-						team1AudienceScore: publicTeam1Points,
-						team2AudienceScore: publicTeam2Points,
-						winner,
-						audienceWinner,
+				if (isJudge) {
+					let [team1PointsNormal, team2PointsNormal] = getPointsNormalized(
+						team1points,
+						team2points
+					);
+					sessionChannel.publish("total", {
+						judge: userUUID,
+						team1: team1PointsNormal,
+						team2: team2PointsNormal,
 					});
-					closeRoom();
+				} else {
+					let [team1PointsNormal, team2PointsNormal] = getPointsNormalized(
+						publicTeam1Points,
+						publicTeam2Points
+					);
+					sessionChannel.publish("total", {
+						judge: userUUID,
+						team1: team1PointsNormal,
+						team2: team2PointsNormal,
+					});
+				}
+				if (isHost) {
+					setTimeout(() => {
+						const { winner, audienceWinner } = getWinners();
+						updateRoomStats({
+							team1Score: team1points,
+							team2Score: team2points,
+							team1AudienceScore: publicTeam1Points,
+							team2AudienceScore: publicTeam2Points,
+							winner,
+							audienceWinner,
+						});
+						closeRoom();
+					}, 30000);
 				}
 			});
 			await sessionChannel.subscribe("points", (m) => {
-				if (m?.data?.judge) {
-					if (m?.data?.team === "Team1") {
-						setTeam1points((prevPoints) => prevPoints + 1);
-					}
-					if (m?.data?.team === "Team2") {
-						setTeam2points((prevPoints) => prevPoints + 1);
-					}
-				} else {
-					if (m?.data?.team === "Team1") {
-						setPublicTeam1points((prevPoints) => prevPoints + 1);
-					}
-					if (m?.data?.team === "Team2") {
-						setPublicTeam2points((prevPoints) => prevPoints + 1);
-					}
-				}
+				// if (m?.data?.judge) {
+				// 	if (m?.data?.team === "Team1") {
+				// 		setTeam1points((prevPoints) => prevPoints + 1);
+				// 	}
+				// 	if (m?.data?.team === "Team2") {
+				// 		setTeam2points((prevPoints) => prevPoints + 1);
+				// 	}
+				// } else {
+				// 	if (m?.data?.team === "Team1") {
+				// 		setPublicTeam1points((prevPoints) => prevPoints + 1);
+				// 	}
+				// 	if (m?.data?.team === "Team2") {
+				// 		setPublicTeam2points((prevPoints) => prevPoints + 1);
+				// 	}
+				// }
 			});
 		};
 		subscribe();
@@ -101,31 +139,43 @@ const SessionPage = () => {
 	});
 	const handleUserClick = (team) => {
 		if (pollsOpen === true) {
-			sessionChannel.publish("points", {
-				user: userUUID,
-				team: team,
-				points: 1,
-			});
+			// sessionChannel.publish("points", {
+			// 	user: userUUID,
+			// 	team: team,
+			// 	points: 1,
+			// });
+			if (team === "Team1") {
+				setPublicTeam1points((prevPoints) => prevPoints + 1);
+			}
+			if (team === "Team2") {
+				setPublicTeam2points((prevPoints) => prevPoints + 1);
+			}
 		}
 	};
 	const handleJudgeClick = (team) => {
 		if (pollsOpen === true) {
-			sessionChannel.publish("points", {
-				judge: userUUID,
-				team: team,
-				points: 1,
-			});
+			// sessionChannel.publish("points", {
+			// 	judge: userUUID,
+			// 	team: team,
+			// 	points: 1,
+			// });
+			if (team === "Team1") {
+				setTeam1points((prevPoints) => prevPoints + 1);
+			}
+			if (team === "Team2") {
+				setTeam2points((prevPoints) => prevPoints + 1);
+			}
 		}
 	};
 	useEffect(() => {
 		if (hostTimer && duration && hostTimer > 0 && hostTimer !== duration) {
 			sessionChannel.publish("timer", { timer: hostTimer, pollsOpen: true });
 		}
-		if (hostTimer === 0 || hostTimer === duration) {
+		if (hostTimer === 0 && pollsOpen === true) {
 			sessionChannel.publish("timer", { timer: hostTimer, pollsOpen: false });
 		}
 		if (duration && hostTimer === 0 && pollsOpen === false) {
-			sessionChannel.publish("close", { message: "Close" });
+			sessionChannel.publish("closeRoom", { message: "Close" });
 		}
 	}, [hostTimer, duration, pollsOpen]);
 	const handleTimer = () => {

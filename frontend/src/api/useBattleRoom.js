@@ -45,7 +45,7 @@ export const useBattleRoomUpdate = (sessionid) => {
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries(["BattleRooms"]);
-				console.log("closeBattleRoom");
+				console.log("updateBattleRoomStats");
 			},
 		}
 	);
