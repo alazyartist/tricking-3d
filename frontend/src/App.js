@@ -55,6 +55,7 @@ import UserSettings from "./pages/userSettings/UserSettings";
 import { TorqueScene } from "./scenes/TorqueScene";
 import PointsPage from "./pages/pppoints/PointsPage";
 import SessionPage from "./pages/pppoints/SessionPage";
+import SessionRoomStats from "./pages/pppoints/components/SessionRoomStats";
 const UserProfile = lazy(() => import("./pages/userProfile/userProfile"));
 const Sandbox = lazy(() => import("./pages/sandbox/Sandbox"));
 const ComboMakerV2 = lazy(() => import("./pages/comboMakerV2/ComboMakerV2"));
@@ -117,6 +118,10 @@ function App() {
 							<Route path='/admin' element={<AdminIndex />} />
 							<Route path={"/register"} element={<Register />} />
 							<Route path={"/pppoints"} element={<PointsPage />} />
+							<Route
+								path={"/pppoints/stats/:sessionID"}
+								element={<SessionRoomStats />}
+							/>
 							<Route path={"/pppoints/:sessionID"} element={<SessionPage />} />
 							<Route element={<PersistLogin />}>
 								<Route path={"/login"} element={<Login />} />

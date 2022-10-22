@@ -11,6 +11,17 @@ import { useUserStore } from "../../store/userStore";
 import { animated, config, useSpring } from "react-spring";
 import ScoreDisplay from "./components/ScoreDisplay";
 const ably = useAblyStore.getState().ably;
+export const getPointsNormalized = (team1Points, team2Points) => {
+	let totalPoints = team1Points + team2Points;
+	let team1PointsNormalized =
+		(team1Points / totalPoints).toPrecision(2) * 100 || 0;
+	let team2PointsNormalized =
+		(team2Points / totalPoints).toPrecision(2) * 100 || 0;
+	console.log("Total", totalPoints);
+	console.log("1", team1PointsNormalized);
+	console.log("2", team2PointsNormalized);
+	return [team1PointsNormalized, team2PointsNormalized];
+};
 const SessionPage = () => {
 	const [host, setHost] = useState();
 	const [judges, setJudges] = useState([]);
@@ -68,17 +79,6 @@ const SessionPage = () => {
 			audienceWinner = "Tie";
 		}
 		return { winner, audienceWinner };
-	};
-	const getPointsNormalized = (team1Points, team2Points) => {
-		let totalPoints = team1Points + team2Points;
-		let team1PointsNormalized =
-			(team1Points / totalPoints).toPrecision(2) * 100 || 0;
-		let team2PointsNormalized =
-			(team2Points / totalPoints).toPrecision(2) * 100 || 0;
-		console.log("Total", totalPoints);
-		console.log("1", team1PointsNormalized);
-		console.log("2", team2PointsNormalized);
-		return [team1PointsNormalized, team2PointsNormalized];
 	};
 	//Handle Animation
 	const [imgGrow1, api1] = useSpring(() => ({

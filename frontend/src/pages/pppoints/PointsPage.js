@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import useAblyStore from "../../hooks/useAblyStore";
 import { useUserStore } from "../../store/userStore";
+import ClosedSessions from "./components/ClosedSessions";
 import HostSession from "./components/HostSession";
 import LiveSessions from "./components/LiveSessions";
 const ably = useAblyStore.getState().ably;
@@ -16,6 +17,9 @@ const PointsPage = () => {
 			<div className='flex gap-5'>
 				{userInfo.uuid && <HostSession ably={ably} />}
 				{!userInfo.uuid && <Link to='/login'>Login</Link>}
+			</div>
+			<div className='neumorphicIn w-[70vw] rounded-xl p-4  font-bold text-zinc-300'>
+				<ClosedSessions ably={ably} />
 			</div>
 		</div>
 	);
