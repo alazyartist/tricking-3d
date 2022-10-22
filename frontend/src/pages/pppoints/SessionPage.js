@@ -9,6 +9,7 @@ import {
 import useAblyStore from "../../hooks/useAblyStore";
 import { useUserStore } from "../../store/userStore";
 import { animated, config, useSpring } from "react-spring";
+import ScoreDisplay from "./components/ScoreDisplay";
 const ably = useAblyStore.getState().ably;
 const SessionPage = () => {
 	const [host, setHost] = useState();
@@ -19,6 +20,8 @@ const SessionPage = () => {
 	const [showResults, setShowResults] = useState(false);
 	const [pollsOpen, setPollsOpen] = useState(false);
 	const [hostTimer, setHostTimer] = useState(0);
+	const [winner, setWinner] = useState();
+	const [judgeMessages, addJudgeMessage] = useState([]);
 	const [duration, setDuration] = useState(0);
 	const userUUID = useUserStore((s) => s.userInfo.uuid);
 	const { sessionID } = useParams();
@@ -38,7 +41,7 @@ const SessionPage = () => {
 		Array.isArray(roomSetup?.team1) && setTeam1([...roomSetup?.team1]);
 		Array.isArray(roomSetup?.team2) && setTeam2([...roomSetup?.team2]);
 		setHostTimer(roomSetup?.duration);
-		if (duration === 0 || duration !== roomSetup.duration) {
+		if (duration === 0 || duration !== roomSetup?.duration) {
 			setTimer(roomSetup?.duration);
 			setDuration(roomSetup?.duration);
 		}
@@ -87,6 +90,9 @@ const SessionPage = () => {
 		config: { ...config.stiff },
 	}));
 	useEffect(() => {
+		console.log(judgeMessages);
+	}, [judgeMessages]);
+	useEffect(() => {
 		const subscribe = async () => {
 			if (userUUID) {
 				sessionChannel.presence.enter({ user: userUUID });
@@ -124,6 +130,7 @@ const SessionPage = () => {
 				await sessionChannel.subscribe("total", (t) => {
 					console.log(t);
 					if (t?.data?.judge) {
+						addJudgeMessage((jms) => [...jms, t.data]);
 						setTeam1points((prevPoints) => prevPoints + t.data.team1);
 						setTeam2points((prevPoints) => prevPoints + t.data.team2);
 					} else {
@@ -151,6 +158,7 @@ const SessionPage = () => {
 							winner: winner,
 							audienceWinner: audienceWinner,
 						});
+						setWinner(winner);
 					}
 				});
 			}
@@ -295,6 +303,7 @@ const SessionPage = () => {
 					{team2.map((m) => m.username)}
 				</div>
 				<div>{timer}</div>
+				<div>{winner}</div>
 				{isHost && !!timer && !pollsOpen && (
 					<button
 						className='w-full max-w-[400px] rounded-xl bg-emerald-500 p-2'
@@ -309,15 +318,20 @@ const SessionPage = () => {
 			</div>
 
 			{showResults && (
-				<div className='flex flex-col gap-2'>
-					<div className='flex gap-2'>
+				<div className='flex w-full flex-col place-items-center gap-2 pt-4'>
+					<ScoreDisplay
+						team1Score={publicTeam1Points}
+						team2Score={publicTeam2Points}
+					/>
+					<ScoreDisplay team1Score={team1points} team2Score={team2points} />
+					{/* <div className='flex gap-2'>
 						<div>{publicTeam1Points}</div>
 						<div>{publicTeam2Points}</div>
 					</div>
 					<div className='flex gap-2'>
 						<div>{team1points}</div>
 						<div>{team2points}</div>
-					</div>
+					</div> */}
 				</div>
 			)}
 			{!showResults && (

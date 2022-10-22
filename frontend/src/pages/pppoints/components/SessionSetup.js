@@ -76,8 +76,8 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 				className='absolute top-2 right-2 text-2xl'
 			/>
 			<div className='text-2xl'>SetupSession </div>
-			<div className='w-full place-self-start p-2'>
-				<div className='flex flex-col gap-2'>
+			<div className=' w-full place-self-start p-2'>
+				<div className='flex h-[90vh] flex-col gap-2'>
 					<div className='flex place-content-center gap-3'>
 						<div className='h-20 w-1/2 text-center'>
 							<h1
@@ -146,7 +146,7 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 						sessionTimer={sessionTimer}
 					/>
 					<div
-						className={`absolute bottom-20 flex w-full place-content-start gap-2 overflow-x-auto  px-4`}>
+						className={`flex h-full w-full place-content-start gap-2 overflow-x-auto px-4`}>
 						{availableUsers?.map((user) => (
 							<div
 								onClick={() => handleAdd(user)}
