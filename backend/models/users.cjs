@@ -40,6 +40,7 @@ module.exports = (sequelize) => {
 				foreignKey: "host",
 				sourceKey: "uuid",
 				targetKey: "host",
+				constraints: false,
 			});
 			this.hasMany(Tricklist, {
 				as: "MyTricklists",
