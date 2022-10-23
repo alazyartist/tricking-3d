@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
-		static associate({ BattleRoomStats, Users }) {
+		static associate({ BattleRoomStats, Users, UserScores, JudgeScores }) {
 			// define association here
 			this.belongsTo(Users, {
 				foreignKey: "host",
@@ -18,6 +18,16 @@ module.exports = (sequelize) => {
 				foreignKey: "sessionid",
 				sourceKey: "sessionid",
 				targetkey: "sessionid",
+			});
+			this.belongsToMany(UserScores, {
+				through: "RoomUserScores",
+				foreignKey: "sessionid",
+				targetKey: "sessionid",
+			});
+			this.belongsToMany(JudgeScores, {
+				through: "RoomUserScores",
+				foreignKey: "sessionid",
+				targetKey: "sessionid",
 			});
 		}
 	}
