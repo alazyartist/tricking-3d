@@ -30,6 +30,7 @@ const SessionPage = () => {
 	const [team2, setTeam2] = useState([]);
 	const [timer, setTimer] = useState(0);
 	const [showResults, setShowResults] = useState(false);
+	const [resultsPending, setResultsPending] = useState(false);
 	const [pollsOpen, setPollsOpen] = useState(false);
 	const [hostTimer, setHostTimer] = useState(0);
 	const [winner, setWinner] = useState();
@@ -91,9 +92,7 @@ const SessionPage = () => {
 		from: { scale: 1, borderColor: "none" },
 		config: { ...config.stiff },
 	}));
-	useEffect(() => {
-		console.log(judgeMessages);
-	}, [judgeMessages]);
+
 	useEffect(() => {
 		const subscribe = async () => {
 			if (userUUID) {
@@ -116,10 +115,11 @@ const SessionPage = () => {
 						final.data.team1AudienceScore,
 						final.data.team2AudienceScore
 					);
-
+				setResultsPending(true);
 				setTimeout(() => {
+					setResultsPending(false);
 					setShowResults(true);
-				}, 1000);
+				}, 4000);
 				setTeam1points(() => team1pointsNormal);
 				setTeam2points(() => team2pointsNormal);
 				setPublicTeam1points(() => team1AudiencepointsNormal);
@@ -331,18 +331,14 @@ const SessionPage = () => {
 						<div>{winner === "Tie" && "Tie"}</div>
 					</>
 				) : (
-					<div>
-						{team1.map((m) => m.username)} vs.
-						{team2.map((m) => m.username)}
-					</div>
+					<VsDisplay team1={team1} team2={team2} />
 				)}
-				{isHost && !!timer && !pollsOpen && (
-					<button
-						className='w-full max-w-[400px] rounded-xl bg-emerald-500 p-2'
-						onClick={() => handleTimer()}>
-						Start Timer
-					</button>
-				)}
+				<TimerButton
+					handleTimer={handleTimer}
+					isHost={isHost}
+					pollsOpen={pollsOpen}
+					timer={timer}
+				/>
 			</div>
 
 			<div className='left-50 absolute top-0 font-black text-zinc-700'>
@@ -350,18 +346,19 @@ const SessionPage = () => {
 			</div>
 
 			{showResults ? (
-				<>
-					<div className='flex w-full flex-col place-items-center gap-2 pt-4'>
-						<ScoreDisplay
-							team1Score={publicTeam1Points}
-							team2Score={publicTeam2Points}
-						/>
-						<ScoreDisplay team1Score={team1points} team2Score={team2points} />
-					</div>
-					<div className='absolute bottom-10 flex gap-2'>
-						<JudgeDisplay judges={judges} judgeMessages={judgeMessages} />
-					</div>
-				</>
+				<ResultScoreDisplay
+					judgeMessages={judgeMessages}
+					judges={judges}
+					publicTeam1Points={publicTeam1Points}
+					publicTeam2Points={publicTeam2Points}
+					team1points={team1points}
+					team2points={team2points}
+				/>
+			) : resultsPending ? (
+				<div className='text-center font-inter text-6xl font-black text-emerald-500'>
+					Calculating
+					<br /> Results
+				</div>
 			) : (
 				<div
 					id={"teamButtonContainer"}
@@ -369,16 +366,18 @@ const SessionPage = () => {
 					<TeamButton
 						isJudge={isJudge}
 						team={team1}
+						teamString={"Team1"}
 						imgGrow={imgGrow1}
 						handleJudgeClick={handleJudgeClick}
-						handleUserClick={handleJudgeClick}
+						handleUserClick={handleUserClick}
 					/>
 					<TeamButton
 						isJudge={isJudge}
 						team={team2}
+						teamString={"Team2"}
 						imgGrow={imgGrow2}
 						handleJudgeClick={handleJudgeClick}
-						handleUserClick={handleJudgeClick}
+						handleUserClick={handleUserClick}
 					/>
 				</div>
 			)}
@@ -388,6 +387,7 @@ const SessionPage = () => {
 function TeamButton({
 	isJudge,
 	team,
+	teamString,
 	imgGrow,
 	handleJudgeClick,
 	handleUserClick,
@@ -396,7 +396,9 @@ function TeamButton({
 		<div
 			className='w-1/2 rounded-xl bg-zinc-900 p-2 text-center'
 			onClick={() =>
-				isJudge ? handleJudgeClick("Team1") : handleUserClick("Team1")
+				isJudge
+					? handleJudgeClick(`${teamString}`)
+					: handleUserClick(`${teamString}`)
 			}>
 			<div className='flex place-items-center justify-around gap-2'>
 				{team.map((p) => (
@@ -404,6 +406,29 @@ function TeamButton({
 				))}
 			</div>
 		</div>
+	);
+}
+function ResultScoreDisplay({
+	publicTeam1Points,
+	publicTeam2Points,
+	team1points,
+	team2points,
+	judges,
+	judgeMessages,
+}) {
+	return (
+		<>
+			<div className='flex w-full flex-col place-items-center gap-2 pt-4'>
+				<ScoreDisplay
+					team1Score={publicTeam1Points}
+					team2Score={publicTeam2Points}
+				/>
+				<ScoreDisplay team1Score={team1points} team2Score={team2points} />
+			</div>
+			<div className='absolute bottom-10 flex gap-2'>
+				<JudgeDisplay judges={judges} judgeMessages={judgeMessages} />
+			</div>
+		</>
 	);
 }
 export function PlayerMap({ player, imgGrow }) {
@@ -445,4 +470,25 @@ function JudgeDisplay({ judges, judgeMessages }) {
 	);
 }
 
+function TimerButton({ isHost, timer, pollsOpen, handleTimer }) {
+	return (
+		isHost &&
+		!!timer &&
+		!pollsOpen && (
+			<button
+				className='w-full max-w-[400px] rounded-xl bg-emerald-500 p-2'
+				onClick={() => handleTimer()}>
+				Start Timer
+			</button>
+		)
+	);
+}
+function VsDisplay({ team1, team2 }) {
+	return (
+		<div>
+			{team1.map((m) => m.username)} vs.
+			{team2.map((m) => m.username)}
+		</div>
+	);
+}
 export default SessionPage;
