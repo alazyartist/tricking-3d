@@ -1,6 +1,8 @@
 import db from "../models/index.js";
 const battlerooms = await db.sequelize.models.BattleRooms;
 const battleroomstats = await db.sequelize.models.BattleRoomStats;
+const userscores = await db.sequelize.models.UserScores;
+const judgescores = await db.sequelize.models.JudgeScores;
 
 export const makeNewRoom = async (req, res) => {
 	let hostid = req.body.data.hostID.uuid;
@@ -36,12 +38,10 @@ export const makeNewRoom = async (req, res) => {
 };
 export const getRooms = async (req, res) => {
 	const availableRooms = await battlerooms.findAll();
-	console.log(availableRooms);
 	res.json(availableRooms);
 };
 export const getRoombySessionid = async (req, res) => {
 	const sessionid = req.params.sessionid;
-	console.log(sessionid);
 	try {
 		const room = await battlerooms.findOne({
 			where: { sessionid },
@@ -89,6 +89,47 @@ export const updateRoomStats = async (req, res) => {
     team2Score
     team1AudienceScore
     team2AudienceScore
+    winner
+    audienceWinner
+    */
+};
+export const updateRoomScore = async (req, res) => {
+	const sessionid = req.params.sessionid;
+	const { user, judge, team, score } = req.body.data;
+	console.log(user, judge, team, score);
+	try {
+		if (user) {
+			const userScore = await userscores.findOrCreate({
+				where: {
+					sessionid: sessionid,
+					userid: user,
+					team: team,
+					score: score,
+				},
+			});
+			res.json(userScore);
+		}
+		if (judge) {
+			const judgeScore = await judgescores.findOrCreate({
+				where: {
+					sessionid: sessionid,
+					judge: judge,
+					team: team,
+					score: score,
+				},
+			});
+			res.json(judgeScore);
+		}
+	} catch (err) {
+		console.log(err);
+		res.status(403).json(err);
+	}
+	//create/update battle stats
+	/*
+    sessionid
+	judge or user
+	team
+	score
     winner
     audienceWinner
     */
