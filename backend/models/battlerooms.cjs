@@ -13,6 +13,7 @@ module.exports = (sequelize) => {
 				foreignKey: "host",
 				sourceKey: "host",
 				targetKey: "uuid",
+				constraints: false,
 			});
 			this.hasOne(BattleRoomStats, {
 				foreignKey: "sessionid",
