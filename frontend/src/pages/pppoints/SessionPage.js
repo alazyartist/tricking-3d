@@ -323,19 +323,18 @@ const SessionPage = () => {
 			</Link>
 			<div className=' font-inter text-3xl font-black '>Pppoints</div>
 			<div className='neumorphicIn flex w-[70vw] flex-col place-items-center rounded-xl p-4 text-center  font-bold text-zinc-300'>
-				{!showResults && (
+				<div>{!!timer && timer}</div>
+				{showResults ? (
+					<>
+						<div>{winner === "Team1" && team1.map((m) => m.username)}</div>
+						<div>{winner === "Team2" && team2.map((m) => m.username)}</div>
+						<div>{winner === "Tie" && "Tie"}</div>
+					</>
+				) : (
 					<div>
 						{team1.map((m) => m.username)} vs.
 						{team2.map((m) => m.username)}
 					</div>
-				)}
-				<div>{!!timer && timer}</div>
-				{showResults && (
-					<>
-						<div>{winner === "Team1" && team1.map((m) => m.username)}</div>
-						<div>{winner === "Team2" && team1.map((m) => m.username)}</div>
-						<div>{winner === "Tie" && "Tie"}</div>
-					</>
 				)}
 				{isHost && !!timer && !pollsOpen && (
 					<button
@@ -350,68 +349,63 @@ const SessionPage = () => {
 				{userUUID ? `${isJudge ? "Judge" : "Audience"}` : "You are Anonymous"}
 			</div>
 
-			{showResults && (
-				<div className='flex w-full flex-col place-items-center gap-2 pt-4'>
-					<ScoreDisplay
-						team1Score={publicTeam1Points}
-						team2Score={publicTeam2Points}
-					/>
-					<ScoreDisplay team1Score={team1points} team2Score={team2points} />
-				</div>
-			)}
-			{!showResults && (
+			{showResults ? (
+				<>
+					<div className='flex w-full flex-col place-items-center gap-2 pt-4'>
+						<ScoreDisplay
+							team1Score={publicTeam1Points}
+							team2Score={publicTeam2Points}
+						/>
+						<ScoreDisplay team1Score={team1points} team2Score={team2points} />
+					</div>
+					<div className='absolute bottom-10 flex gap-2'>
+						<JudgeDisplay judges={judges} judgeMessages={judgeMessages} />
+					</div>
+				</>
+			) : (
 				<div
 					id={"teamButtonContainer"}
 					className='flex w-full justify-around gap-2'>
-					<div
-						className='w-1/2 rounded-xl bg-zinc-900 p-2 text-center'
-						onClick={() =>
-							isJudge ? handleJudgeClick("Team1") : handleUserClick("Team1")
-						}>
-						<div>
-							{team1.map((p) => (
-								<PlayerMap imgGrow={imgGrow1} player={p} />
-							))}
-						</div>
-					</div>
-					<div
-						className='w-1/2 rounded-xl bg-zinc-900 p-2 text-center'
-						onClick={() =>
-							isJudge ? handleJudgeClick("Team2") : handleUserClick("Team2")
-						}>
-						<div>
-							{team2.map((p) => (
-								<PlayerMap imgGrow={imgGrow2} player={p} />
-							))}
-						</div>
-					</div>
-				</div>
-			)}
-			{showResults && (
-				<div className='absolute bottom-10 flex gap-2'>
-					{judges.map((p) => {
-						let judgeTeam1 = judgeMessages.filter(
-							(m) => m.judge === p.uuid && m.team1
-						)[0]?.team1;
-						let judgeTeam2 = judgeMessages.filter(
-							(m) => m.judge === p.uuid && m.team2
-						)[0]?.team2;
-						console.log(judgeTeam1, judgeTeam2);
-						return (
-							<div className='flex w-full flex-col place-items-center'>
-								<ScoreDisplay team1Score={judgeTeam1} team2Score={judgeTeam2} />
-								<PlayerMap player={p} />
-							</div>
-						);
-					})}
+					<TeamButton
+						isJudge={isJudge}
+						team={team1}
+						imgGrow={imgGrow1}
+						handleJudgeClick={handleJudgeClick}
+						handleUserClick={handleJudgeClick}
+					/>
+					<TeamButton
+						isJudge={isJudge}
+						team={team2}
+						imgGrow={imgGrow2}
+						handleJudgeClick={handleJudgeClick}
+						handleUserClick={handleJudgeClick}
+					/>
 				</div>
 			)}
 		</div>
 	);
 };
-
-export default SessionPage;
-
+function TeamButton({
+	isJudge,
+	team,
+	imgGrow,
+	handleJudgeClick,
+	handleUserClick,
+}) {
+	return (
+		<div
+			className='w-1/2 rounded-xl bg-zinc-900 p-2 text-center'
+			onClick={() =>
+				isJudge ? handleJudgeClick("Team1") : handleUserClick("Team1")
+			}>
+			<div className='flex place-items-center justify-around gap-2'>
+				{team.map((p) => (
+					<PlayerMap imgGrow={imgGrow} player={p} />
+				))}
+			</div>
+		</div>
+	);
+}
 export function PlayerMap({ player, imgGrow }) {
 	return (
 		<div className='flex flex-col place-items-center text-zinc-300'>
@@ -428,3 +422,27 @@ export function PlayerMap({ player, imgGrow }) {
 		</div>
 	);
 }
+
+function JudgeDisplay({ judges, judgeMessages }) {
+	return (
+		<>
+			{judges.map((p) => {
+				let judgeTeam1 = judgeMessages.filter(
+					(m) => m.judge === p.uuid && m.team1
+				)[0]?.team1;
+				let judgeTeam2 = judgeMessages.filter(
+					(m) => m.judge === p.uuid && m.team2
+				)[0]?.team2;
+				console.log(judgeTeam1, judgeTeam2);
+				return (
+					<div className='flex w-full flex-col place-items-center'>
+						<ScoreDisplay team1Score={judgeTeam1} team2Score={judgeTeam2} />
+						<PlayerMap player={p} />
+					</div>
+				);
+			})}
+		</>
+	);
+}
+
+export default SessionPage;
