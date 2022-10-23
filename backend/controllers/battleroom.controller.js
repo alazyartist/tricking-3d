@@ -45,7 +45,10 @@ export const getRoombySessionid = async (req, res) => {
 	try {
 		const room = await battlerooms.findOne({
 			where: { sessionid },
-			include: { model: db.sequelize.models.BattleRoomStats },
+			include: [
+				{ model: db.sequelize.models.BattleRoomStats },
+				{ model: db.sequelize.models.JudgeScores },
+			],
 		});
 		res.json(room);
 	} catch (err) {

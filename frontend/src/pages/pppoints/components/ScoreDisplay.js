@@ -19,19 +19,18 @@ const ScoreDisplay = ({ team1Score, team2Score }) => {
 				num2: team2Score === team1Score ? 50 : team2Score ? team2Score : 0,
 			},
 		});
-		console.log(team1Score, team2Score);
 	}, [team1Score, team2Score]);
 	return (
 		<div className='flex w-[80%] place-items-center'>
 			<animated.div
 				style={{ width: nums.num1.to((num) => `${num}%`) }}
 				className={`flex w-1/2 place-content-center place-items-center bg-cyan-500`}>
-				{nums.num1.to((num) => Math.round(num))}
+				{nums.num1.to((num) => num !== 0 && Math.round(num))}
 			</animated.div>
 			<animated.div
 				style={{ width: nums.num2.to((num) => `${num}%`) }}
 				className={`flex w-1/2 place-content-center place-items-center bg-pink-500`}>
-				{nums.num2.to((num) => Math.round(num))}
+				{nums.num2.to((num) => num !== 0 && Math.round(num))}
 			</animated.div>
 		</div>
 	);

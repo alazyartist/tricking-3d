@@ -19,15 +19,15 @@ module.exports = (sequelize) => {
 				sourceKey: "sessionid",
 				targetkey: "sessionid",
 			});
-			this.belongsToMany(UserScores, {
-				through: "RoomUserScores",
+			this.hasMany(UserScores, {
 				foreignKey: "sessionid",
 				targetKey: "sessionid",
+				sourceKey: "sessionid",
 			});
-			this.belongsToMany(JudgeScores, {
-				through: "RoomUserScores",
+			this.hasMany(JudgeScores, {
 				foreignKey: "sessionid",
 				targetKey: "sessionid",
+				sourceKey: "sessionid",
 			});
 		}
 	}

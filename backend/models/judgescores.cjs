@@ -9,10 +9,10 @@ module.exports = (sequelize) => {
 		 */
 		static associate({ BattleRooms }) {
 			// define association here
-			this.belongsToMany(BattleRooms, {
-				through: "RoomJudgeScores",
+			this.belongsTo(BattleRooms, {
 				foreignKey: "sessionid",
 				targetKey: "sessionid",
+				sourceKey: "sessionid",
 			});
 		}
 	}
