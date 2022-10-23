@@ -50,6 +50,22 @@ export const useBattleRoomUpdate = (sessionid) => {
 		}
 	);
 };
+export const useBattleRoomUpdateScore = (sessionid) => {
+	const apiPrivate = useApiCreds();
+	const queryClient = useQueryClient();
+	return useMutation(
+		["updateBattleRoomScore"],
+		async (data) => {
+			return apiPrivate.post(`/battlerooms/${sessionid}/score`, { data });
+		},
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries(["BattleRooms"]);
+				console.log("updateBattleRoomStats");
+			},
+		}
+	);
+};
 export const useGetBattleRooms = () => {
 	const apiPrivate = useApiCreds();
 	return useQuery(["BattleRooms"], async () => {
