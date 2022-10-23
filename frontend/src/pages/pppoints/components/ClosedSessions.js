@@ -6,7 +6,7 @@ const ClosedSessions = () => {
 	const { data: battleRooms } = useGetBattleRooms();
 	return (
 		<div>
-			<div>Live Sessions</div>
+			<div>Battle Results</div>
 			<div className='flex max-h-[50vh] flex-col overflow-y-auto rounded-md bg-zinc-900 p-1 font-normal text-zinc-300'>
 				{(battleRooms?.length < 1 ||
 					battleRooms?.every((r) => r.isOpen == true)) &&

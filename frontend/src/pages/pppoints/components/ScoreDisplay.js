@@ -25,12 +25,18 @@ const ScoreDisplay = ({ team1Score, team2Score }) => {
 			<animated.div
 				style={{ width: nums.num1.to((num) => `${num}%`) }}
 				className={`flex w-1/2 place-content-center place-items-center bg-cyan-500`}>
-				{nums.num1.to((num) => num !== 0 && Math.round(num))}
+				{nums.num1.to((num) => {
+					if (num === 0) return "";
+					if (num !== 0) return Math.round(num);
+				})}
 			</animated.div>
 			<animated.div
 				style={{ width: nums.num2.to((num) => `${num}%`) }}
 				className={`flex w-1/2 place-content-center place-items-center bg-pink-500`}>
-				{nums.num2.to((num) => num !== 0 && Math.round(num))}
+				{nums.num2.to((num) => {
+					if (num === 0) return "";
+					if (num !== 0) return Math.round(num);
+				})}
 			</animated.div>
 		</div>
 	);
