@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import {
 	useBattleRoomClose,
 	useBattleRoomUpdate,
+	useBattleRoomUpdateScore,
 	useGetBattleRoombySessionid,
 } from "../../api/useBattleRoom";
 import useAblyStore from "../../hooks/useAblyStore";
@@ -46,6 +47,7 @@ const SessionPage = () => {
 	const { data: roomSetup } = useGetBattleRoombySessionid(sessionID);
 	const { mutate: closeRoom } = useBattleRoomClose(sessionID);
 	const { mutate: updateRoomStats } = useBattleRoomUpdate(sessionID);
+	const { mutate: updateRoomScore } = useBattleRoomUpdateScore(sessionID);
 	useMemo(() => {
 		console.log(roomSetup);
 		Array.isArray(roomSetup?.judges) && setJudges([...roomSetup?.judges]);
@@ -115,7 +117,9 @@ const SessionPage = () => {
 						final.data.team2AudienceScore
 					);
 
-				setShowResults(true);
+				setTimeout(() => {
+					setShowResults(true);
+				}, 1000);
 				setTeam1points(() => team1pointsNormal);
 				setTeam2points(() => team2pointsNormal);
 				setPublicTeam1points(() => team1AudiencepointsNormal);
@@ -128,9 +132,33 @@ const SessionPage = () => {
 					console.log(t);
 					if (t?.data?.judge) {
 						addJudgeMessage((jms) => [...jms, t.data]);
+						//TODOupdateJudgeScores
+						updateRoomScore({
+							judge: t.data.judge,
+							team: "Team1",
+							score: t.data.team1,
+						});
+						updateRoomScore({
+							judge: t.data.judge,
+							team: "Team2",
+							score: t.data.team2,
+						});
 						setTeam1points((prevPoints) => prevPoints + t.data.team1);
 						setTeam2points((prevPoints) => prevPoints + t.data.team2);
 					} else {
+						//TODOupdateUserScores
+						if (userUUID) {
+							updateRoomScore({
+								user: userUUID,
+								team: "Team1",
+								score: t.data.team1,
+							});
+							updateRoomScore({
+								user: userUUID,
+								team: "Team2",
+								score: t.data.team2,
+							});
+						}
 						setPublicTeam1points((prevPoints) => prevPoints + t.data.team1);
 						setPublicTeam2points((prevPoints) => prevPoints + t.data.team2);
 					}
@@ -302,8 +330,13 @@ const SessionPage = () => {
 					</div>
 				)}
 				<div>{!!timer && timer}</div>
-				<div>{winner === "Team1" && team1.map((m) => m.username)}</div>
-				<div>{winner === "Team2" && team1.map((m) => m.username)}</div>
+				{showResults && (
+					<>
+						<div>{winner === "Team1" && team1.map((m) => m.username)}</div>
+						<div>{winner === "Team2" && team1.map((m) => m.username)}</div>
+						<div>{winner === "Tie" && "Tie"}</div>
+					</>
+				)}
 				{isHost && !!timer && !pollsOpen && (
 					<button
 						className='w-full max-w-[400px] rounded-xl bg-emerald-500 p-2'
@@ -324,14 +357,6 @@ const SessionPage = () => {
 						team2Score={publicTeam2Points}
 					/>
 					<ScoreDisplay team1Score={team1points} team2Score={team2points} />
-					{/* <div className='flex gap-2'>
-						<div>{publicTeam1Points}</div>
-						<div>{publicTeam2Points}</div>
-					</div>
-					<div className='flex gap-2'>
-						<div>{team1points}</div>
-						<div>{team2points}</div>
-					</div> */}
 				</div>
 			)}
 			{!showResults && (
@@ -387,7 +412,7 @@ const SessionPage = () => {
 
 export default SessionPage;
 
-function PlayerMap({ player, imgGrow }) {
+export function PlayerMap({ player, imgGrow }) {
 	return (
 		<div className='flex flex-col place-items-center text-zinc-300'>
 			<div>{player.username}</div>

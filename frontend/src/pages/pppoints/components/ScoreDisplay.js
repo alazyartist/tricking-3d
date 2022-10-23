@@ -7,18 +7,19 @@ const ScoreDisplay = ({ team1Score, team2Score }) => {
 			num2: 50,
 		},
 		to: {
-			num1: team1Score === team2Score ? 50 : team1Score,
-			num2: team2Score === team1Score ? 50 : team2Score,
+			num1: team1Score === team2Score ? 50 : team1Score ? team1Score : 0,
+			num2: team2Score === team1Score ? 50 : team2Score ? team2Score : 0,
 		},
 		config: { tension: 80, friction: 40 },
 	}));
 	useEffect(() => {
 		numApi.start({
 			to: {
-				num1: team1Score === team2Score ? 50 : team1Score,
-				num2: team2Score === team1Score ? 50 : team2Score,
+				num1: team1Score === team2Score ? 50 : team1Score ? team1Score : 0,
+				num2: team2Score === team1Score ? 50 : team2Score ? team2Score : 0,
 			},
 		});
+		console.log(team1Score, team2Score);
 	}, [team1Score, team2Score]);
 	return (
 		<div className='flex w-[80%] place-items-center'>

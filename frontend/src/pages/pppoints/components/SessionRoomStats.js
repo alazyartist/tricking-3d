@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
 import { useGetBattleRoombySessionid } from "../../../api/useBattleRoom";
-import { getPointsNormalized } from "../SessionPage";
+import { getPointsNormalized, PlayerMap } from "../SessionPage";
 import ScoreDisplay from "./ScoreDisplay";
 
 const SessionRoomStats = () => {
@@ -26,11 +26,14 @@ const SessionRoomStats = () => {
 		});
 	}, [battleRoomDetails]);
 	let battleStats = battleRoomDetails?.BattleRoomStat;
+	let updatedAt = new Date(battleRoomDetails?.updatedAt).toDateString();
+
 	return (
 		<div className='fixed top-0 left-0 flex h-screen w-screen flex-col place-items-center p-2 pt-14 text-zinc-300'>
 			<Link className='absolute top-20 left-4 text-3xl' to={-1}>
 				<IoIosArrowBack />
 			</Link>
+			<div>{updatedAt}</div>
 			<div>
 				<span>{battleRoomDetails?.team1?.map((m) => m?.username)}</span>
 				{" vs "}
@@ -47,6 +50,15 @@ const SessionRoomStats = () => {
 					team1Score={teamScores?.team1AudienceScore}
 					team2Score={teamScores?.team2AudienceScore}
 				/>
+			</div>
+			<div className='flex place-items-center gap-2 text-zinc-300'>
+				{battleRoomDetails?.judges?.map((judge) => {
+					return (
+						<div className='flex flex-col place-items-center'>
+							<PlayerMap player={judge} />
+						</div>
+					);
+				})}
 			</div>
 		</div>
 	);
