@@ -26,6 +26,7 @@ const SessionRoomStats = () => {
 			team1AudienceScore,
 			team2AudienceScore,
 		});
+		console.log(battleRoomDetails);
 	}, [battleRoomDetails]);
 	let battleStats = battleRoomDetails?.BattleRoomStat;
 	let updatedAt = new Date(battleRoomDetails?.updatedAt).toDateString();

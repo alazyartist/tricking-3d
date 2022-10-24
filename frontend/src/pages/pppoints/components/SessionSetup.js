@@ -34,7 +34,9 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 		sessionChannel.publish("newSession", newSession);
 
 		setSetupVisible(false);
-		nav(`${sessionId}`);
+		setTimeout(() => {
+			nav(`${sessionId}`);
+		}, 69);
 
 		//make uuid
 		//get feed channel for uuid
@@ -75,7 +77,7 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 				onClick={() => setSetupVisible(false)}
 				className='absolute top-2 right-2 text-2xl'
 			/>
-			<div className='text-2xl'>SetupSession </div>
+			<div className='text-2xl'>Prepare BattleRoom </div>
 			<div className=' w-full place-self-start p-2'>
 				<div className='flex h-[90vh] flex-col gap-2'>
 					<div className='flex place-content-center gap-3'>
@@ -159,7 +161,13 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 											: "/images/noimg.jpeg"
 									}
 								/>
-								<div>{user?.username}</div>
+								<div
+									className={`${
+										user.uuid === userInfo?.uuid ? "text-emerald-500" : ""
+									}`}>
+									{user?.username?.slice(0, 8)}
+									{user?.username?.length > 8 && "..."}
+								</div>
 							</div>
 						))}
 					</div>

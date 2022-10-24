@@ -8,9 +8,6 @@ const DurationSetup = ({ setSessionTimer, sessionTimer }) => {
 			<select
 				onChange={(e) => setSessionTimer(e.target.value)}
 				className='w-fit bg-transparent'>
-				<option className='bg-zinc-800 active:bg-zinc-500' value={15}>
-					Test 15
-				</option>
 				<option className='bg-zinc-800 active:bg-zinc-500' value={60}>
 					1 Minute
 				</option>
