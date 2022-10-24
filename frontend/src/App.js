@@ -94,9 +94,11 @@ function App() {
 			<QueryClientProvider client={queryClient}>
 				{/* <ReactQueryDevtools initialIsOpen /> */}
 				<AppBackground />
-				{!location.pathname.includes("/admin") && <UserIcon />}
+				{!location.pathname.includes("/admin") &&
+					!location.pathname.includes("/pppoints") && <UserIcon />}
 				{!location.pathname.includes("/home") &&
 					!location.pathname.includes("/admin") &&
+					!location.pathname.includes("/pppoints") &&
 					location.pathname !== "/" && <Header />}
 				{tabBar
 					? (!isSandbox || !isUserProfile) && <TabBar />
