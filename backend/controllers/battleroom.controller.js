@@ -48,6 +48,7 @@ export const getRoombySessionid = async (req, res) => {
 			include: [
 				{ model: db.sequelize.models.BattleRoomStats },
 				{ model: db.sequelize.models.JudgeScores },
+				{ model: db.sequelize.models.UserScores },
 			],
 		});
 		res.json(room);
