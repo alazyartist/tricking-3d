@@ -65,8 +65,8 @@ function Home() {
 					<Feed />
 					<Link
 						to={"/pppoints"}
-						className=' neumorphic mb-8 w-[70vw] rounded-xl bg-zinc-800 p-2 text-center text-zinc-300 '>
-						Pppoints
+						className='neumorphic mb-8 w-[70vw] rounded-xl bg-zinc-800 p-2 text-center font-titan text-4xl text-zinc-300 '>
+						POINTS ++
 					</Link>
 				</div>
 				<div className='flex w-[90vw] max-w-[700px] flex-col place-content-center'>

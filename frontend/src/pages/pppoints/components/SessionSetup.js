@@ -77,8 +77,8 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 				onClick={() => setSetupVisible(false)}
 				className='absolute top-2 right-2 text-2xl'
 			/>
-			<div className='text-2xl'>Prepare BattleRoom </div>
-			<div className=' w-full place-self-start p-2'>
+			<div className='font-titan text-2xl'>Prepare BattleRoom </div>
+			<div className='w-full place-self-start p-2'>
 				<div className='flex h-[90vh] flex-col gap-2'>
 					<div className='flex place-content-center gap-3'>
 						<div className='h-20 w-1/2 text-center'>
@@ -174,8 +174,8 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 				</div>
 				<div
 					onClick={() => createSession()}
-					className='absolute bottom-5 left-0 w-full rounded-b-md bg-emerald-500 p-2 text-center font-bold text-zinc-900'>
-					Create
+					className='absolute bottom-5 left-0 w-full rounded-b-md bg-emerald-500 p-2 text-center font-titan text-2xl text-zinc-900'>
+					CREATE
 				</div>
 			</div>
 		</>

@@ -5,6 +5,7 @@ module.exports = {
 			fontFamily: {
 				inter: ["Inter"],
 				virgil: ["Virgil"],
+				titan: ["Titan One"],
 			},
 		},
 	},

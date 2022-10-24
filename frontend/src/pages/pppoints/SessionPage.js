@@ -375,7 +375,7 @@ const SessionPage = () => {
 			<Link className='absolute top-20 left-4 text-3xl' to={-1}>
 				<IoIosArrowBack />
 			</Link>
-			<div className=' font-inter text-3xl font-black '>Pppoints</div>
+			<div className=' font-titan text-3xl font-black '>Pppoints</div>
 			<div className='neumorphicIn relative flex w-[70vw] flex-col place-items-center rounded-xl p-4 text-center  font-bold text-zinc-300'>
 				<div>{!!timer && timer}</div>
 				<MovingPoint movePoint={movePoint} api3={api3} />
