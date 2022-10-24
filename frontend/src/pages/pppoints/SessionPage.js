@@ -98,6 +98,23 @@ const SessionPage = () => {
 		from: { x: 0, y: 0, opacity: 0, backgroundColor: "#fcd34d" },
 		config: { ...config.stiff },
 	}));
+	const [
+		{
+			pendingTeam1score,
+			pendingTeam2score,
+			pendingTeam1judgescore,
+			pendingTeam2judgescore,
+		},
+		apipending,
+	] = useSpring(() => ({
+		from: {
+			pendingTeam1score: 50,
+			pendingTeam2score: 50,
+			pendingTeam1judgescore: 50,
+			pendingTeam2judgescore: 50,
+		},
+		config: { ...config.stiff },
+	}));
 
 	useEffect(() => {
 		const subscribe = async () => {
@@ -125,7 +142,7 @@ const SessionPage = () => {
 				setTimeout(() => {
 					setResultsPending(false);
 					setShowResults(true);
-				}, 4000);
+				}, 7000);
 				setTeam1points(() => team1pointsNormal);
 				setTeam2points(() => team2pointsNormal);
 				setPublicTeam1points(() => team1AudiencepointsNormal);
@@ -334,6 +351,25 @@ const SessionPage = () => {
 	useEffect(() => {
 		console.log(bounds1, bounds2);
 	}, [bounds1, bounds2]);
+	useEffect(() => {
+		function startPending() {
+			let rnd = Math.random() * 100;
+			let rnd2 = Math.random() * 100;
+			if (resultsPending) {
+				setTimeout(() => {
+					startPending();
+				}, 2000);
+
+				apipending.start({
+					pendingTeam1score: rnd,
+					pendingTeam2score: 100 - rnd,
+					pendingTeam1judgescore: rnd2,
+					pendingTeam2judgescore: 100 - rnd2,
+				});
+			}
+		}
+		startPending();
+	}, [resultsPending]);
 	return (
 		<div className='fixed top-0 left-0 flex h-screen w-screen flex-col place-items-center p-2 pt-14 text-zinc-300'>
 			<Link className='absolute top-20 left-4 text-3xl' to={-1}>
@@ -372,11 +408,21 @@ const SessionPage = () => {
 					publicTeam2Points={publicTeam2Points}
 					team1points={team1points}
 					team2points={team2points}
+					winner={winner !== "Tie" && winner === "Team1" ? team1 : team2}
 				/>
 			) : resultsPending ? (
-				<div className='text-center font-inter text-6xl font-black text-emerald-500'>
-					Calculating
-					<br /> Results
+				<div className='flex w-[90vw] flex-col place-items-center gap-3 p-4'>
+					<ScoreDisplay
+						team1Score={pendingTeam1score}
+						team2Score={pendingTeam2score}
+					/>
+					<ScoreDisplay
+						team1Score={pendingTeam1judgescore}
+						team2Score={pendingTeam2judgescore}
+					/>
+					<h1 className='font-inter text-4xl font-black text-zinc-600'>
+						Calculating Results...
+					</h1>
 				</div>
 			) : (
 				<div
@@ -419,7 +465,7 @@ const TeamButton = React.forwardRef(
 						? handleJudgeClick(`${teamString}`)
 						: handleUserClick(`${teamString}`)
 				}>
-				<div className='flex h-full w-full place-content-center place-items-center justify-around gap-2'>
+				<div className='flex h-full w-full flex-col place-content-center place-items-center justify-around gap-2'>
 					{team.map((p) => (
 						<PlayerMap imgGrow={imgGrow} player={p} />
 					))}
@@ -435,7 +481,9 @@ function ResultScoreDisplay({
 	team2points,
 	judges,
 	judgeMessages,
+	winner,
 }) {
+	console.log(winner);
 	return (
 		<>
 			<div className='flex w-full flex-col place-items-center gap-2 pt-4'>
@@ -444,6 +492,22 @@ function ResultScoreDisplay({
 					team2Score={publicTeam2Points}
 				/>
 				<ScoreDisplay team1Score={team1points} team2Score={team2points} />
+				{winner.map((winner) => {
+					return (
+						<>
+							<img
+								key={winner.uuid}
+								className='h-[40vw] w-[40vw] rounded-full'
+								src={
+									winner.profilePic !== (undefined || null)
+										? `/images/${winner.uuid}/${winner.profilePic}`
+										: "/images/noimg.jpeg"
+								}
+							/>
+							<div>{winner.username}</div>
+						</>
+					);
+				})}
 			</div>
 			<div className='absolute bottom-10 flex gap-2'>
 				<JudgeDisplay judges={judges} judgeMessages={judgeMessages} />
@@ -457,7 +521,7 @@ export function PlayerMap({ player, imgGrow }) {
 			<div>{player.username}</div>
 			<animated.img
 				style={{ ...imgGrow }}
-				className='h-14 w-14 rounded-full'
+				className='h-[20vw] w-[20vw] rounded-full'
 				src={
 					player.profilePic !== (undefined || null)
 						? `/images/${player.uuid}/${player.profilePic}`
