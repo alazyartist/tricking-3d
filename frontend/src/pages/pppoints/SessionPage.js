@@ -11,6 +11,7 @@ import useAblyStore from "../../hooks/useAblyStore";
 import { useUserStore } from "../../store/userStore";
 import { animated, config, useSpring } from "react-spring";
 import ScoreDisplay from "./components/ScoreDisplay";
+import MovingPoint from "./components/MovingPoint";
 const ably = useAblyStore.getState().ably;
 export const getPointsNormalized = (team1Points, team2Points) => {
 	let totalPoints = team1Points + team2Points;
@@ -49,7 +50,7 @@ const SessionPage = () => {
 	const { mutate: closeRoom } = useBattleRoomClose(sessionID);
 	const { mutate: updateRoomStats } = useBattleRoomUpdate(sessionID);
 	const { mutate: updateRoomScore } = useBattleRoomUpdateScore(sessionID);
-	useMemo(() => {
+	useEffect(() => {
 		console.log(roomSetup);
 		Array.isArray(roomSetup?.judges) && setJudges([...roomSetup?.judges]);
 		Array.isArray(roomSetup?.team1) && setTeam1([...roomSetup?.team1]);
@@ -90,6 +91,10 @@ const SessionPage = () => {
 	}));
 	const [imgGrow2, api2] = useSpring(() => ({
 		from: { scale: 1, borderColor: "none" },
+		config: { ...config.stiff },
+	}));
+	const [movePoint, api3] = useSpring(() => ({
+		from: { x: 0, y: 0, opacity: 0, backgroundColor: "#fcd34d" },
 		config: { ...config.stiff },
 	}));
 
@@ -227,14 +232,22 @@ const SessionPage = () => {
 			});
 			await sessionChannel.subscribe("points", (m) => {
 				if (m.data.team === "Team1") {
+					api3.start({
+						from: { x: -89, y: 333, opacity: 1 },
+						to: { x: 0, y: 0, opacity: 0, backgroundColor: "#ec4899" },
+					});
 					api1.start({
-						from: { scale: 1.2 },
+						from: { scale: 1.3 },
 						to: { scale: 1 },
 					});
 				}
 				if (m.data.team === "Team2") {
+					api3.start({
+						from: { x: 89, y: 333, opacity: 1 },
+						to: { x: 0, y: 0, opacity: 0, backgroundColor: "#06b6d4" },
+					});
 					api2.start({
-						from: { scale: 1.2 },
+						from: { scale: 1.3 },
 						to: { scale: 1 },
 					});
 				}
@@ -253,14 +266,14 @@ const SessionPage = () => {
 			if (team === "Team1") {
 				setPublicTeam1points((prevPoints) => prevPoints + 1);
 				api1.start({
-					from: { scale: 1.5 },
+					from: { scale: 1.6 },
 					to: { scale: 1 },
 				});
 			}
 			if (team === "Team2") {
 				setPublicTeam2points((prevPoints) => prevPoints + 1);
 				api2.start({
-					from: { scale: 1.2 },
+					from: { scale: 1.6 },
 					to: { scale: 1 },
 				});
 			}
@@ -276,14 +289,14 @@ const SessionPage = () => {
 			if (team === "Team1") {
 				setTeam1points((prevPoints) => prevPoints + 1);
 				api1.start({
-					from: { scale: 1.5, borderColor: "#f05033", borderWidth: "4px" },
+					from: { scale: 1.6, borderColor: "#f05033", borderWidth: "4px" },
 					to: { scale: 1, borderWidth: "0px" },
 				});
 			}
 			if (team === "Team2") {
 				setTeam2points((prevPoints) => prevPoints + 1);
 				api2.start({
-					from: { scale: 1.5, borderColor: "#f05033", borderWidth: "4px" },
+					from: { scale: 1.6, borderColor: "#f05033", borderWidth: "4px" },
 					to: { scale: 1, borderWidth: "0px" },
 				});
 			}
@@ -322,8 +335,9 @@ const SessionPage = () => {
 				<IoIosArrowBack />
 			</Link>
 			<div className=' font-inter text-3xl font-black '>Pppoints</div>
-			<div className='neumorphicIn flex w-[70vw] flex-col place-items-center rounded-xl p-4 text-center  font-bold text-zinc-300'>
+			<div className='neumorphicIn relative flex w-[70vw] flex-col place-items-center rounded-xl p-4 text-center  font-bold text-zinc-300'>
 				<div>{!!timer && timer}</div>
+				<MovingPoint movePoint={movePoint} api3={api3} />
 				{showResults ? (
 					<>
 						<div>{winner === "Team1" && team1.map((m) => m.username)}</div>
@@ -362,7 +376,7 @@ const SessionPage = () => {
 			) : (
 				<div
 					id={"teamButtonContainer"}
-					className='flex w-full justify-around gap-2'>
+					className='flex h-full w-full justify-around gap-2 py-2'>
 					<TeamButton
 						isJudge={isJudge}
 						team={team1}
@@ -400,7 +414,7 @@ function TeamButton({
 					? handleJudgeClick(`${teamString}`)
 					: handleUserClick(`${teamString}`)
 			}>
-			<div className='flex place-items-center justify-around gap-2'>
+			<div className='flex h-full w-full place-content-center place-items-center justify-around gap-2'>
 				{team.map((p) => (
 					<PlayerMap imgGrow={imgGrow} player={p} />
 				))}
