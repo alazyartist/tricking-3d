@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
+import useMeasure from "react-use-measure";
 import { Link, useParams } from "react-router-dom";
 import {
 	useBattleRoomClose,
@@ -233,7 +234,7 @@ const SessionPage = () => {
 			await sessionChannel.subscribe("points", (m) => {
 				if (m.data.team === "Team1") {
 					api3.start({
-						from: { x: -89, y: 333, opacity: 1 },
+						from: { x: -bounds1.width / 2, y: 333, opacity: 1 },
 						to: { x: 0, y: 0, opacity: 0, backgroundColor: "#ec4899" },
 					});
 					api1.start({
@@ -243,7 +244,7 @@ const SessionPage = () => {
 				}
 				if (m.data.team === "Team2") {
 					api3.start({
-						from: { x: 89, y: 333, opacity: 1 },
+						from: { x: bounds2.width / 2, y: 333, opacity: 1 },
 						to: { x: 0, y: 0, opacity: 0, backgroundColor: "#06b6d4" },
 					});
 					api2.start({
@@ -328,7 +329,11 @@ const SessionPage = () => {
 			}
 		}, 1000);
 	};
-
+	const [team1ref, bounds1] = useMeasure();
+	const [team2ref, bounds2] = useMeasure();
+	useEffect(() => {
+		console.log(bounds1, bounds2);
+	}, [bounds1, bounds2]);
 	return (
 		<div className='fixed top-0 left-0 flex h-screen w-screen flex-col place-items-center p-2 pt-14 text-zinc-300'>
 			<Link className='absolute top-20 left-4 text-3xl' to={-1}>
@@ -378,6 +383,7 @@ const SessionPage = () => {
 					id={"teamButtonContainer"}
 					className='flex h-full w-full justify-around gap-2 py-2'>
 					<TeamButton
+						ref={team1ref}
 						isJudge={isJudge}
 						team={team1}
 						teamString={"Team1"}
@@ -386,6 +392,7 @@ const SessionPage = () => {
 						handleUserClick={handleUserClick}
 					/>
 					<TeamButton
+						ref={team2ref}
 						isJudge={isJudge}
 						team={team2}
 						teamString={"Team2"}
@@ -398,30 +405,29 @@ const SessionPage = () => {
 		</div>
 	);
 };
-function TeamButton({
-	isJudge,
-	team,
-	teamString,
-	imgGrow,
-	handleJudgeClick,
-	handleUserClick,
-}) {
-	return (
-		<div
-			className='w-1/2 rounded-xl bg-zinc-900 p-2 text-center'
-			onClick={() =>
-				isJudge
-					? handleJudgeClick(`${teamString}`)
-					: handleUserClick(`${teamString}`)
-			}>
-			<div className='flex h-full w-full place-content-center place-items-center justify-around gap-2'>
-				{team.map((p) => (
-					<PlayerMap imgGrow={imgGrow} player={p} />
-				))}
+const TeamButton = React.forwardRef(
+	(
+		{ isJudge, team, teamString, imgGrow, handleJudgeClick, handleUserClick },
+		ref
+	) => {
+		return (
+			<div
+				className='w-1/2 rounded-xl bg-zinc-900 p-2 text-center'
+				ref={ref}
+				onClick={() =>
+					isJudge
+						? handleJudgeClick(`${teamString}`)
+						: handleUserClick(`${teamString}`)
+				}>
+				<div className='flex h-full w-full place-content-center place-items-center justify-around gap-2'>
+					{team.map((p) => (
+						<PlayerMap imgGrow={imgGrow} player={p} />
+					))}
+				</div>
 			</div>
-		</div>
-	);
-}
+		);
+	}
+);
 function ResultScoreDisplay({
 	publicTeam1Points,
 	publicTeam2Points,

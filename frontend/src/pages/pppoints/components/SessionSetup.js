@@ -174,7 +174,7 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 				</div>
 				<div
 					onClick={() => createSession()}
-					className='absolute bottom-5 w-full bg-emerald-500 p-2 text-center font-bold text-zinc-900'>
+					className='absolute bottom-5 left-0 w-full rounded-b-md bg-emerald-500 p-2 text-center font-bold text-zinc-900'>
 					Create
 				</div>
 			</div>
