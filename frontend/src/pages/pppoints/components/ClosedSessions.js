@@ -45,16 +45,21 @@ const ClosedSessions = () => {
 								className='flex w-full place-items-center justify-around gap-2 rounded-md bg-zinc-900 p-2'
 								to={`stats/${room.sessionid}`}>
 								<span>
-									{room?.team1?.map((user) => (
+									{room?.team1?.map((user, index) => (
 										<span key={user.uuid}>
-											{user.username} {room?.team1.length > 1 && "&"}{" "}
+											{user.username}{" "}
+											{room?.team1.length > 1 &&
+												room?.team1.length - 1 !== index &&
+												"&"}{" "}
 										</span>
 									))}
 									<span className='text-xs text-zinc-400'> vs </span>
-									{room?.team2?.map((user) => (
+									{room?.team2?.map((user, index) => (
 										<span>
 											{user.username}
-											{room?.team2.length > 1 && "&"}{" "}
+											{room?.team2.length > 1 &&
+												room?.team2.length - 1 !== index &&
+												"&"}{" "}
 										</span>
 									))}
 								</span>

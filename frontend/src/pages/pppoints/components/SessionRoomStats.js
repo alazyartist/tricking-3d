@@ -52,36 +52,49 @@ const SessionRoomStats = () => {
 };
 
 function WinnersDisplay({ battleStats, teamScores, battleRoomDetails }) {
+	let winner =
+		battleStats?.winner !== "Tie" && battleStats?.winner === "Team1"
+			? battleRoomDetails?.team1
+			: battleRoomDetails?.team2;
 	return (
 		<div className='flex w-full flex-col place-items-center'>
-			<div>
-				{battleStats?.winner === "Team1" && (
-					<span>{battleRoomDetails?.team1?.map((m) => m?.username)}</span>
-				)}
-			</div>
-			<div>
-				{battleStats?.winner === "Team2" && (
-					<span>{battleRoomDetails?.team2?.map((m) => m?.username)}</span>
-				)}
-			</div>
+			<WinnerUserName
+				battleRoomDetails={battleRoomDetails}
+				battleStats={battleStats}
+				winner={battleStats?.winner}
+			/>
 			<ScoreDisplay
 				team1Score={teamScores?.team1Score}
 				team2Score={teamScores?.team2Score}
 			/>
-			<div>
-				{battleStats?.audienceWinner === "Team1" && (
-					<span>{battleRoomDetails?.team1?.map((m) => m?.username)}</span>
-				)}
-			</div>
-			<div>
-				{battleStats?.audienceWinner === "Team2" && (
-					<span>{battleRoomDetails?.team2?.map((m) => m?.username)}</span>
-				)}
-			</div>
+			<WinnerUserName
+				battleRoomDetails={battleRoomDetails}
+				battleStats={battleStats}
+				winner={battleStats?.audienceWinner}
+			/>
+
 			<ScoreDisplay
 				team1Score={teamScores?.team1AudienceScore}
 				team2Score={teamScores?.team2AudienceScore}
 			/>
+			<div className='flex gap-2 p-2'>
+				{winner?.map((winner) => {
+					return (
+						<div className='flex flex-col place-items-center gap-2'>
+							<img
+								key={winner.uuid}
+								className='h-[30vw] max-h-[160px] w-[30vw] max-w-[160px] rounded-full'
+								src={
+									winner.profilePic !== (undefined || null)
+										? `/images/${winner.uuid}/${winner.profilePic}`
+										: "/images/noimg.jpeg"
+								}
+							/>
+							<div>{winner.username}</div>
+						</div>
+					);
+				})}
+			</div>
 		</div>
 	);
 }
@@ -89,9 +102,27 @@ function WinnersDisplay({ battleStats, teamScores, battleRoomDetails }) {
 function VsDisplay({ battleRoomDetails }) {
 	return (
 		<div>
-			<span>{battleRoomDetails?.team1?.map((m) => m?.username)}</span>
+			<span>
+				{battleRoomDetails?.team1?.map((m, index) => (
+					<span>
+						{m?.username}{" "}
+						{battleRoomDetails?.team1.length > 1 &&
+							battleRoomDetails?.team1.length - 1 !== index &&
+							"&"}{" "}
+					</span>
+				))}
+			</span>
 			{" vs "}
-			<span>{battleRoomDetails?.team2?.map((m) => m?.username)}</span>
+			<span>
+				{battleRoomDetails?.team2?.map((m, index) => (
+					<span>
+						{m?.username}{" "}
+						{battleRoomDetails?.team2.length > 1 &&
+							battleRoomDetails?.team2.length - 1 !== index &&
+							"&"}{" "}
+					</span>
+				))}
+			</span>
 		</div>
 	);
 }
@@ -113,6 +144,40 @@ function JudgeScoreDisplay({ battleRoomDetails }) {
 					</div>
 				);
 			})}
+		</>
+	);
+}
+function WinnerUserName({ battleStats, battleRoomDetails, winner }) {
+	return (
+		<>
+			<div>
+				{winner === "Team1" && (
+					<span>
+						{battleRoomDetails?.team1?.map((m, index) => (
+							<span>
+								{m?.username}{" "}
+								{battleRoomDetails?.team1.length > 1 &&
+									battleRoomDetails?.team1.length - 1 !== index &&
+									"&"}{" "}
+							</span>
+						))}
+					</span>
+				)}
+			</div>
+			<div>
+				{winner === "Team2" && (
+					<span>
+						{battleRoomDetails?.team2?.map((m, index) => (
+							<span>
+								{m?.username}{" "}
+								{battleRoomDetails?.team2.length > 1 &&
+									battleRoomDetails?.team2.length - 1 !== index &&
+									"&"}{" "}
+							</span>
+						))}
+					</span>
+				)}
+			</div>
 		</>
 	);
 }

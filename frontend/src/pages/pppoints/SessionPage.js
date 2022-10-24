@@ -492,22 +492,24 @@ function ResultScoreDisplay({
 					team2Score={publicTeam2Points}
 				/>
 				<ScoreDisplay team1Score={team1points} team2Score={team2points} />
-				{winner.map((winner) => {
-					return (
-						<>
-							<img
-								key={winner.uuid}
-								className='h-[40vw] w-[40vw] rounded-full'
-								src={
-									winner.profilePic !== (undefined || null)
-										? `/images/${winner.uuid}/${winner.profilePic}`
-										: "/images/noimg.jpeg"
-								}
-							/>
-							<div>{winner.username}</div>
-						</>
-					);
-				})}
+				<span className='flex gap-2'>
+					{winner?.map((winner) => {
+						return (
+							<div className='flex flex-col place-items-center gap-2'>
+								<img
+									key={winner.uuid}
+									className='h-[30vw] max-h-[160px] w-[30vw] max-w-[160px] rounded-full'
+									src={
+										winner.profilePic !== (undefined || null)
+											? `/images/${winner.uuid}/${winner.profilePic}`
+											: "/images/noimg.jpeg"
+									}
+								/>
+								<div>{winner.username}</div>
+							</div>
+						);
+					})}
+				</span>
 			</div>
 			<div className='absolute bottom-10 flex gap-2'>
 				<JudgeDisplay judges={judges} judgeMessages={judgeMessages} />
@@ -521,7 +523,7 @@ export function PlayerMap({ player, imgGrow }) {
 			<div>{player.username}</div>
 			<animated.img
 				style={{ ...imgGrow }}
-				className='h-[20vw] w-[20vw] rounded-full'
+				className='h-[20vw] max-h-[100px] w-[20vw] max-w-[100px] rounded-full'
 				src={
 					player.profilePic !== (undefined || null)
 						? `/images/${player.uuid}/${player.profilePic}`
