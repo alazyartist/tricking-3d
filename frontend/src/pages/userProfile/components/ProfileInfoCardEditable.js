@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useUpdateProfileInfo } from "../../../api/useUpdateProfileInfo";
+import { useChangeProfilePic } from "../../../api/useUserInfo";
 
 const ProfileInfoCardEditable = ({ userInfo, setEditing }) => {
 	const [editedInfo, setEditedInfo] = useState({
@@ -12,23 +13,46 @@ const ProfileInfoCardEditable = ({ userInfo, setEditing }) => {
 		uuid: userInfo?.uuid,
 	});
 	const { mutate: updateProfileInfo } = useUpdateProfileInfo();
-
-	const handleSave = () => {
+	const { mutate: changePic } = useChangeProfilePic();
+	const [file, setFile] = useState();
+	const [filename, setFilename] = useState();
+	const handleSave = (e) => {
+		e.preventDefault();
+		const formData = new FormData();
+		formData.append("file", file);
+		formData.append("uuid", userInfo?.uuid);
+		changePic(formData);
 		updateProfileInfo({ ...editedInfo });
 		setEditing(false);
 	};
 
+	const onChange = (e) => {
+		setFile(e.target.files[0]);
+		setFilename(e.target.files[0].name);
+	};
+
 	return (
 		<form onSubmit={handleSave} className='flex h-full flex-col'>
-			<img
-				alt='user profile'
-				src={
-					userInfo?.profilePic
-						? `/images/${userInfo?.uuid}/${userInfo?.profilePic}`
-						: `/images/noimg.jpeg`
-				}
-				className='relative top-8 left-2 h-12 w-12 rounded-full'
+			<input
+				onChange={onChange}
+				id={"profilePic"}
+				className='hidden'
+				type={"file"}
+				accept='image/png, image/jpeg'
 			/>
+			<label className='' htmlFor='profilePic'>
+				<img
+					alt='user profile'
+					src={
+						file
+							? URL.createObjectURL(file)
+							: userInfo?.profilePic
+							? `/images/${userInfo?.uuid}/${userInfo?.profilePic}`
+							: `/images/noimg.jpeg`
+					}
+					className='relative top-8 left-2 h-12 w-12 rounded-full'
+				/>
+			</label>
 			<div className='flex w-fit min-w-[35vw] max-w-[48vw] flex-col place-content-center place-items-start gap-2 rounded-xl bg-zinc-100 p-2 pt-2 text-sm text-zinc-900'>
 				<div className='pl-14 font-bold'>
 					<input
