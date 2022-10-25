@@ -13,6 +13,7 @@ import { useUserStore } from "../../store/userStore";
 import { animated, config, useSpring } from "react-spring";
 import ScoreDisplay from "./components/ScoreDisplay";
 import MovingPoint from "./components/MovingPoint";
+import { FaUsers, FaUsersSlash } from "react-icons/fa";
 const ably = useAblyStore.getState().ably;
 export const getPointsNormalized = (team1Points, team2Points) => {
 	let totalPoints = team1Points + team2Points;
@@ -484,13 +485,10 @@ function ResultScoreDisplay({
 	winner,
 }) {
 	console.log(winner);
+	const [showAudienceScore, setShowAudienceScore] = useState(false);
 	return (
 		<>
 			<div className='flex w-full flex-col place-items-center gap-2 pt-4'>
-				<ScoreDisplay
-					team1Score={publicTeam1Points}
-					team2Score={publicTeam2Points}
-				/>
 				<ScoreDisplay team1Score={team1points} team2Score={team2points} />
 				<span className='flex gap-2'>
 					{winner?.map((winner) => {
@@ -511,6 +509,27 @@ function ResultScoreDisplay({
 					})}
 				</span>
 			</div>
+			{showAudienceScore && (
+				<ScoreDisplay
+					team1Score={publicTeam1Points}
+					team2Score={publicTeam2Points}
+				/>
+			)}
+			{showAudienceScore ? (
+				<FaUsers
+					onClick={() => setShowAudienceScore(!showAudienceScore)}
+					className={`absolute bottom-16 left-5 text-3xl ${
+						showAudienceScore ? "text-zinc-300" : "text-zinc-500"
+					}`}
+				/>
+			) : (
+				<FaUsersSlash
+					onClick={() => setShowAudienceScore(!showAudienceScore)}
+					className={`absolute bottom-16 left-5 text-3xl ${
+						showAudienceScore ? "text-zinc-300" : "text-zinc-500"
+					}`}
+				/>
+			)}
 			<div className='absolute bottom-10 flex gap-2'>
 				<JudgeDisplay judges={judges} judgeMessages={judgeMessages} />
 			</div>

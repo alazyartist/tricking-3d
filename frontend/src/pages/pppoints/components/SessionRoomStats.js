@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { FaUsers, FaUsersSlash } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
 import { useGetBattleRoombySessionid } from "../../../api/useBattleRoom";
@@ -36,7 +37,7 @@ const SessionRoomStats = () => {
 			<Link className='absolute top-20 left-4 text-3xl' to={-1}>
 				<IoIosArrowBack />
 			</Link>
-			<div>{updatedAt}</div>
+			<div className='font-titan text-3xl text-zinc-500'>{updatedAt}</div>
 			<VsDisplay battleRoomDetails={battleRoomDetails} />
 			<WinnersDisplay
 				battleRoomDetails={battleRoomDetails}
@@ -56,6 +57,7 @@ function WinnersDisplay({ battleStats, teamScores, battleRoomDetails }) {
 		battleStats?.winner !== "Tie" && battleStats?.winner === "Team1"
 			? battleRoomDetails?.team1
 			: battleRoomDetails?.team2;
+	const [showAudienceScore, setShowAudienceScore] = useState(false);
 	return (
 		<div className='flex w-full flex-col place-items-center'>
 			<WinnerUserName
@@ -67,16 +69,14 @@ function WinnersDisplay({ battleStats, teamScores, battleRoomDetails }) {
 				team1Score={teamScores?.team1Score}
 				team2Score={teamScores?.team2Score}
 			/>
-			<WinnerUserName
-				battleRoomDetails={battleRoomDetails}
-				battleStats={battleStats}
-				winner={battleStats?.audienceWinner}
-			/>
-
-			<ScoreDisplay
-				team1Score={teamScores?.team1AudienceScore}
-				team2Score={teamScores?.team2AudienceScore}
-			/>
+			<div
+				className={`font-titan text-3xl ${
+					battleStats?.winner !== "Tie" && battleStats?.winner === "Team1"
+						? "text-cyan-500"
+						: "text-pink-500"
+				}`}>
+				Winner
+			</div>
 			<div className='flex gap-2 p-2'>
 				{winner?.map((winner) => {
 					return (
@@ -95,6 +95,36 @@ function WinnersDisplay({ battleStats, teamScores, battleRoomDetails }) {
 					);
 				})}
 			</div>
+			{showAudienceScore && (
+				<>
+					<div className='font-titan text-3xl'>Audience Score</div>
+					<WinnerUserName
+						battleRoomDetails={battleRoomDetails}
+						battleStats={battleStats}
+						winner={battleStats?.audienceWinner}
+					/>
+
+					<ScoreDisplay
+						team1Score={teamScores?.team1AudienceScore}
+						team2Score={teamScores?.team2AudienceScore}
+					/>
+				</>
+			)}
+			{showAudienceScore ? (
+				<FaUsers
+					onClick={() => setShowAudienceScore(!showAudienceScore)}
+					className={`absolute bottom-16 left-5 text-3xl ${
+						showAudienceScore ? "text-zinc-300" : "text-zinc-500"
+					}`}
+				/>
+			) : (
+				<FaUsersSlash
+					onClick={() => setShowAudienceScore(!showAudienceScore)}
+					className={`absolute bottom-16 left-5 text-3xl ${
+						showAudienceScore ? "text-zinc-300" : "text-zinc-500"
+					}`}
+				/>
+			)}
 		</div>
 	);
 }
@@ -104,7 +134,7 @@ function VsDisplay({ battleRoomDetails }) {
 		<div>
 			<span>
 				{battleRoomDetails?.team1?.map((m, index) => (
-					<span>
+					<span className='font-inter font-black text-cyan-500'>
 						{m?.username}{" "}
 						{battleRoomDetails?.team1.length > 1 &&
 							battleRoomDetails?.team1.length - 1 !== index &&
@@ -115,7 +145,7 @@ function VsDisplay({ battleRoomDetails }) {
 			{" vs "}
 			<span>
 				{battleRoomDetails?.team2?.map((m, index) => (
-					<span>
+					<span className='font-inter font-black text-pink-500'>
 						{m?.username}{" "}
 						{battleRoomDetails?.team2.length > 1 &&
 							battleRoomDetails?.team2.length - 1 !== index &&
@@ -152,7 +182,7 @@ function WinnerUserName({ battleStats, battleRoomDetails, winner }) {
 		<>
 			<div>
 				{winner === "Team1" && (
-					<span>
+					<span className='font-inter font-black text-cyan-500'>
 						{battleRoomDetails?.team1?.map((m, index) => (
 							<span>
 								{m?.username}{" "}
@@ -166,7 +196,7 @@ function WinnerUserName({ battleStats, battleRoomDetails, winner }) {
 			</div>
 			<div>
 				{winner === "Team2" && (
-					<span>
+					<span className='font-inter font-black text-pink-500'>
 						{battleRoomDetails?.team2?.map((m, index) => (
 							<span>
 								{m?.username}{" "}

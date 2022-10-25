@@ -4,7 +4,7 @@ import SessionSetup from "./SessionSetup";
 const HostSession = ({ hostuuid, ably }) => {
 	const [setupVisible, setSetupVisible] = useState(false);
 	return setupVisible ? (
-		<div className=' absolute top-[5vh] left-[10vw] z-[1005] flex h-[90vh] w-[80vw] flex-col place-items-center rounded-md bg-zinc-800'>
+		<div className=' absolute top-[5vh] left-[10vw] z-[1005] flex h-[80vh] w-[80vw] flex-col place-items-center rounded-md bg-zinc-800'>
 			<SessionSetup ably={ably} setSetupVisible={setSetupVisible} />
 		</div>
 	) : (
