@@ -90,6 +90,9 @@ function TabBar() {
 									replace={true}>
 									User Settings
 								</Link>
+								<Link to='/dash' state={{ from: location }} replace={true}>
+									Dashboard
+								</Link>
 								<button
 									className='absolute bottom-2 left-3'
 									onClick={() => {
