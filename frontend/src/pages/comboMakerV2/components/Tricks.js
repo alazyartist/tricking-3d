@@ -54,6 +54,26 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 			setActiveTypes([type]);
 		}
 	};
+	const addRandomItem = () => {
+		let rndTrick = filteredTricks.filter((ft) => ft.type === "Trick")[
+			Math.floor(Math.random() * filteredTricks.length)
+		];
+		let rndTransition = filteredTricks.filter((ft) => ft.type === "Transition")[
+			Math.floor(Math.random() * filteredTricks.length)
+		];
+		let rndStance = filteredTricks.filter((ft) => ft.type === "Stance")[
+			Math.floor(Math.random() * filteredTricks.length)
+		];
+		if (lastItem?.type === "Trick") {
+			return Math.random() > 0.5 ? rndStance : rndTransition;
+		} else if (lastItem?.type === "Transition") {
+			return Math.random() > 0.5 ? rndStance : rndTrick;
+		} else if (lastItem?.type === "Stance") {
+			return Math.random() > 0.5 ? rndTrick : rndTransition;
+		} else {
+			return rndTrick;
+		}
+	};
 	return (
 		<>
 			<div
@@ -112,6 +132,7 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 					</div>
 				</div>
 				<p className='place-self-end text-sm text-zinc-500'>
+					{lastItem?.name}
 					{
 						stances[lastItem?.landingStance]?.leg
 						// || lastItem?.toLeg

@@ -20,7 +20,7 @@ function NewComboDisplay({ newCombo, setDeleteLast }) {
 					{newCombo?.map((e, i) => (
 						<div
 							ref={ref}
-							key={`${Math.floor(Math.random() * 1000)} + ${e.name} + i`}
+							key={`${Math.floor(Math.random() * 1000)} + ${e?.name} + i`}
 							onClick={() => console.log(e)}
 							className=' flex h-fit w-fit flex-row place-items-center gap-2 p-2 pr-0 pt-0 text-zinc-300'>
 							<div>{`${e?.name || e || "Nope"}`}</div>

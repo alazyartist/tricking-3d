@@ -8,6 +8,7 @@ const useComboMakerV2 = () => {
 	const [deleteLast, setDeleteLast] = useState(0);
 
 	useEffect(() => {
+		//deletes most recent addition
 		if (currentItem.length >= 1) {
 			setCurrentItem([...currentItem.slice(0, currentItem.length - 1)]);
 		}
@@ -15,17 +16,21 @@ const useComboMakerV2 = () => {
 		}
 	}, [deleteLast]);
 	useEffect(() => {
+		//creates item filter
 		if (currentItem.length > 0) {
+			//sets filter to the leg of the last item
 			const lastItem = currentItem[currentItem.length - 1];
+			// stance leg||transition leg||trick leg options
 			setFilter(
 				stances[lastItem?.landingStance]?.leg ||
 					lastItem?.toLeg ||
 					lastItem?.leg
 			);
 
-			console.log("V2", lastItem, filter);
+			console.log("V2", lastItem, filter, stances[lastItem?.landingStance]);
 		}
 	}, [currentItem]);
+
 	const [tricks, setTricks] = useState([]);
 	const [filteredTricks, setFilteredTricks] = useState([]);
 
@@ -36,6 +41,7 @@ const useComboMakerV2 = () => {
 		setFilteredTricks(data);
 	}, [data, status, isSuccess]);
 	useEffect(() => {
+		//resets filter items if items or filtered tricks <1
 		if (currentItem.length < 1 || filteredTricks.length < 1) {
 			setFilteredTricks([...tricks]);
 		}
