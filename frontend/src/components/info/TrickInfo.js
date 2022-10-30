@@ -6,15 +6,19 @@ import TrickInfoComments from "./TrickInfoComments";
 import { useGetTricksById } from "../../api/useGetTricks";
 import { useGetComboById } from "../../api/useGetCombos";
 import TrickOrComboDetails from "./trickInfo/TrickOrComboDetails";
-
+import useGetTricks from "../../api/useGetTricks";
+import useGetCombos from "../../api/useGetCombos";
 export default function TrickInfo() {
 	const setInfo = useStore((state) => state.setInfo);
 	const [count, setCount] = useState(0);
 	const trick_id = useStore((state) => state.trick_id);
 	const trickOrCombo = useStore((state) => state.trickOrCombo);
-	const currentAnim = useStore((state) => state.currentAnim);
 	const [details, setDetails] = useState();
-
+	const currentAnim = useStore((s) => s.currentAnim);
+	const setTrick_id = useStore((s) => s.setTrick_id);
+	const setTrickOrCombo = useStore((s) => s.setTrickOrCombo);
+	const { data: tricks } = useGetTricks();
+	const { data: combos } = useGetCombos();
 	const { data: trickDetails } = useGetTricksById(trick_id);
 	const { data: comboDetails } = useGetComboById(trick_id);
 	useEffect(() => {
@@ -24,7 +28,33 @@ export default function TrickInfo() {
 			setDetails(comboDetails);
 		}
 	}, [trick_id, comboDetails, trickDetails]);
-	useEffect(() => {}, [details]);
+	useEffect(() => {
+		console.log(details);
+	}, [details]);
+
+	useEffect(() => {
+		let tid =
+			(tricks?.length &&
+				combos?.length &&
+				tricks?.filter((trick) =>
+					trick.name.toLowerCase().includes(currentAnim.toLowerCase())
+				)[0]?.trick_id) ||
+			combos?.filter((trick) =>
+				trick.name.toLowerCase().includes(currentAnim.toLowerCase())
+			)[0]?.combo_id;
+		let comboOrTrick =
+			(tricks?.length &&
+				combos?.length &&
+				tricks?.filter((trick) =>
+					trick.name.toLowerCase().includes(currentAnim.toLowerCase())
+				)[0]?.type) ||
+			combos?.filter((trick) =>
+				trick.name.toLowerCase().includes(currentAnim.toLowerCase())
+			)[0]?.type;
+
+		setTrick_id(tid);
+		setTrickOrCombo(comboOrTrick);
+	}, [tricks, currentAnim]);
 	const TrickInfoText = TrickInformation[currentAnim]?.toString();
 	return (
 		<>
@@ -40,7 +70,7 @@ export default function TrickInfo() {
 							className='justify-center text-3xl font-black '>
 							{currentAnim}
 						</h2>
-						<div className='flex gap-3'>
+						<div className='my-2 flex gap-3'>
 							<h5>{trickOrCombo}</h5>
 							{details?.[0]?.trickType && (
 								<h5>
@@ -54,8 +84,8 @@ export default function TrickInfo() {
 							trickOrCombo={trickOrCombo}
 						/>
 
-						<TrickInfoComments count={count} />
-						<Interact count={count} setCount={setCount} />
+						{/* <TrickInfoComments count={count} />
+						<Interact count={count} setCount={setCount} /> */}
 					</div>
 				</div>
 			</div>

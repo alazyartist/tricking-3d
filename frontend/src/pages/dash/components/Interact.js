@@ -3,20 +3,14 @@ import { FaArrowUp } from "react-icons/fa";
 import { useUserStore } from "../../../store/userStore";
 import { useStore } from "../../../store/store";
 import { useInteraction } from "../../../api/useInteractions";
-import useGetTricks from "../../../api/useGetTricks";
-import useGetCombos from "../../../api/useGetCombos";
 
 const Interact = () => {
 	const { userInfo, accessToken } = useUserStore();
-	const currentAnim = useStore((s) => s.currentAnim);
 	const { uuid } = userInfo;
 	const [content, setContent] = useState();
 	const trick_id = useStore((s) => s.trick_id);
-	const setTrick_id = useStore((s) => s.setTrick_id);
-	const setTrickOrCombo = useStore((s) => s.setTrickOrCombo);
+
 	const { mutate: comment } = useInteraction();
-	const { data: tricks } = useGetTricks();
-	const { data: combos } = useGetCombos();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
@@ -35,29 +29,6 @@ const Interact = () => {
 			console.log(err);
 		}
 	};
-	useEffect(() => {
-		let tid =
-			(tricks?.length &&
-				combos?.length &&
-				tricks?.filter((trick) =>
-					trick.name.toLowerCase().includes(currentAnim.toLowerCase())
-				)[0]?.trick_id) ||
-			combos?.filter((trick) =>
-				trick.name.toLowerCase().includes(currentAnim.toLowerCase())
-			)[0]?.combo_id;
-		let comboOrTrick =
-			(tricks?.length &&
-				combos?.length &&
-				tricks?.filter((trick) =>
-					trick.name.toLowerCase().includes(currentAnim.toLowerCase())
-				)[0]?.type) ||
-			combos?.filter((trick) =>
-				trick.name.toLowerCase().includes(currentAnim.toLowerCase())
-			)[0]?.type;
-
-		setTrick_id(tid);
-		setTrickOrCombo(comboOrTrick);
-	}, [tricks, currentAnim]);
 
 	return (
 		trick_id && (

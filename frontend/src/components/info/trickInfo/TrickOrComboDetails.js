@@ -67,32 +67,38 @@ const TrickDetailDisplay = ({ trick, trick_id, comboTrick }) => {
 										v.Variation.variationType === "Rotation" &&
 										parseInt(v.Variation.value)
 								)?.reduce((pv, cv) => pv + cv)}
-							<div>{details?.base_id} </div>
-							<div className='flex gap-2'>
+							<div className='flex items-center  gap-2 border-2 border-teal-300'>
 								<StanceRemap stance={details?.takeoffStance} />
+								<div className='flex flex-col'>
+									<div className='border-2 border-zinc-400 p-[0.5px] px-4 text-center'>
+										{details?.base_id}{" "}
+									</div>
+									{details?.Variations.map((v) => (
+										<div
+											className='border-2 border-purple-400 p-[0.5px] px-4 text-center'
+											key={v.Variation?.name}>
+											{v.Variation?.name}
+										</div>
+									))}
+								</div>
 								<StanceRemap stance={details?.landingStance} />
-							</div>
-							<div className='flex flex-col'>
-								{details?.Variations.map((v) => (
-									<div key={v.Variation?.name}>{v.Variation?.name}</div>
-								))}
 							</div>
 						</div>
 				  )
 				: details?.base_id && (
 						<div className='flex flex-col gap-4'>
-							<div className='text-center'>
-								{(details?.base_id !== details?.name && details?.base_id) ||
-									`Base Trick`}
-							</div>
 							<div className='flex gap-2'>
 								<StanceRemap stance={details?.takeoffStance} />
+								<div className='flex flex-col'>
+									<div className='border-2 border-zinc-400 p-[0.5px] px-4 text-center'>
+										{(details?.base_id !== details?.name && details?.base_id) ||
+											`Base Trick`}
+									</div>
+									{details?.Variations.map((v) => (
+										<div>{v.Variation.name}</div>
+									))}
+								</div>
 								<StanceRemap stance={details?.landingStance} />
-							</div>
-							<div className='flex flex-col'>
-								{details?.Variations.map((v) => (
-									<div>{v.Variation.name}</div>
-								))}
 							</div>
 						</div>
 				  )}
