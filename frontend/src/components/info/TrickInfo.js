@@ -8,6 +8,7 @@ import { useGetComboById } from "../../api/useGetCombos";
 import TrickOrComboDetails from "./trickInfo/TrickOrComboDetails";
 import useGetTricks from "../../api/useGetTricks";
 import useGetCombos from "../../api/useGetCombos";
+import { FaKey } from "react-icons/fa";
 export default function TrickInfo() {
 	const setInfo = useStore((state) => state.setInfo);
 	const [count, setCount] = useState(0);
@@ -78,7 +79,6 @@ export default function TrickInfo() {
 								</h5>
 							)}
 						</div>
-
 						<TrickOrComboDetails
 							details={details?.[0]}
 							trickOrCombo={trickOrCombo}
@@ -88,7 +88,35 @@ export default function TrickInfo() {
 						<Interact count={count} setCount={setCount} /> */}
 					</div>
 				</div>
+				<InfoKey />
 			</div>
 		</>
 	);
 }
+
+const InfoKey = () => {
+	const [keyVisible, showKey] = useState(false);
+	return keyVisible ? (
+		<div
+			onClick={() => showKey(!keyVisible)}
+			className='absolute left-5 top-5 flex flex-col gap-2 text-zinc-300'>
+			<div className='flex items-center gap-2 text-sm'>
+				<div className='h-6 w-6 rounded-full bg-zinc-400' />
+				<span>Base</span>
+			</div>
+			<div className='flex items-center gap-2 text-sm'>
+				<div className='h-6 w-6 rounded-full bg-purple-400' />
+				<span>Variation</span>
+			</div>
+			<div className='flex items-center gap-2 text-sm'>
+				<div className='h-6 w-6 rounded-full bg-zinc-700' />
+				<span>Trick</span>
+			</div>
+		</div>
+	) : (
+		<FaKey
+			onClick={() => showKey(!keyVisible)}
+			className='absolute left-5 top-5 text-zinc-300'
+		/>
+	);
+};
