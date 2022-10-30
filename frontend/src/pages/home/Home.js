@@ -32,7 +32,7 @@ function Home() {
 		to: { width: accessToken ? "50vw" : "100vw" },
 	});
 	return (
-		<div className='no-scrollbar sticky mt-0 h-[100vh] w-full overflow-y-scroll '>
+		<div className='no-scrollbar stick h-[100vh] w-full overflow-y-scroll md:mt-[15vh] '>
 			<div
 				id='AppBackground-flex'
 				className='flex h-screen w-screen flex-col place-items-center'>
@@ -53,7 +53,7 @@ function Home() {
 						className='m-2 rounded-3xl bg-indigo-600 px-2 py-0 font-inter font-semibold text-zinc-300'>
 						Learn More
 					</Link>
-					<Suspense
+					{/* <Suspense
 						fallback={
 							<div className='text-center font-inter text-4xl font-black text-zinc-300'>
 								Listen. theres a lot here.
@@ -62,10 +62,10 @@ function Home() {
 						<EnterSandboxLink />
 					</Suspense>
 
-					<Feed />
+					<Feed /> */}
 					<Link
 						to={"/pppoints"}
-						className='neumorphic mb-8 w-[70vw] rounded-xl bg-zinc-800 p-2 text-center font-titan text-4xl text-zinc-300 '>
+						className='neumorphic mt-4 mb-8 w-[70vw] rounded-xl bg-zinc-800 p-2 text-center font-titan text-4xl text-zinc-300 '>
 						POINTS ++
 					</Link>
 				</div>
