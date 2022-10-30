@@ -99,7 +99,7 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 				/>
 			</div>
 
-			<div className='no-scrollbar flex h-[60vh] w-[60vw] max-w-[560px] flex-col gap-1 overflow-y-auto rounded-xl p-2 peer-hover:bg-red-500'>
+			<div className='no-scrollbar flex h-[100vh] w-[80vw] max-w-[560px] flex-col gap-1 overflow-y-auto rounded-xl p-2 peer-hover:bg-red-500'>
 				{/* TODO Current Leg should go here-ish */}
 				<div className='flex w-full justify-between gap-3 pt-2 text-[0.6rem] font-bold'>
 					<div

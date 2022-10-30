@@ -47,13 +47,17 @@ function Home() {
 						<TrickedexLogo className={`-m-2px flex`} />
 					</animated.h1>
 				</div>
-				<div className='flex flex-col place-items-center'>
-					<Link
-						to='/learnmore'
-						className='m-2 rounded-3xl bg-indigo-600 px-2 py-0 font-inter font-semibold text-zinc-300'>
-						Learn More
-					</Link>
-					{/* <Suspense
+				{!openCaptures &&
+					!openComboMaker &&
+					!openClaimtricks &&
+					!openTricklists && (
+						<div className='flex flex-col place-items-center'>
+							<Link
+								to='/learnmore'
+								className='m-2 rounded-3xl bg-indigo-600 px-2 py-0 font-inter font-semibold text-zinc-300'>
+								Learn More
+							</Link>
+							{/* <Suspense
 						fallback={
 							<div className='text-center font-inter text-4xl font-black text-zinc-300'>
 								Listen. theres a lot here.
@@ -63,12 +67,13 @@ function Home() {
 					</Suspense>
 
 					<Feed /> */}
-					<Link
-						to={"/pppoints"}
-						className='neumorphic mt-4 mb-8 w-[70vw] rounded-xl bg-zinc-800 p-2 text-center font-titan text-4xl text-zinc-300 '>
-						POINTS ++
-					</Link>
-				</div>
+							<Link
+								to={"/pppoints"}
+								className='neumorphic mt-4 mb-8 w-[70vw] rounded-xl bg-zinc-800 p-2 text-center font-titan text-4xl text-zinc-300 '>
+								POINTS ++
+							</Link>
+						</div>
+					)}
 				<div className='flex w-[90vw] max-w-[700px] flex-col place-content-center'>
 					{!accessToken ? (
 						<PublicHomePage />
