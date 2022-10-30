@@ -4,7 +4,7 @@ import { FaCheck, FaSearch } from "react-icons/fa";
 import { MdOutlineArrowUpward } from "react-icons/md";
 import { stances } from "../../../data/trickDataModel/TrickObjects";
 import { useComboMakerStore } from "../../../store/comboMakerStore";
-import useComboMakerV2 from "../useComboMakerV2";
+import useComboMakerV2, { getStanceLeg } from "../useComboMakerV2";
 
 const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 	const [searchTerm, setSearchTerm] = useState("");
@@ -22,7 +22,7 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 	}, [allTricks, searchedItems]);
 	useEffect(() => {
 		typeFilter(searchedItems);
-	}, [activeTypes, searchedItems, allTricks]);
+	}, [activeTypes, searchedItems, allTricks, filteredTricks]);
 	const typeFilter = (arr) => {
 		if (activeTypes.length) {
 			if (activeTypes?.includes("All")) return setTypedItems(searchedItems);
@@ -134,7 +134,7 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 				<p className='place-self-end text-sm text-zinc-500'>
 					{lastItem?.name}
 					{
-						stances[lastItem?.landingStance]?.leg
+						getStanceLeg(lastItem?.landingStance)
 						// || lastItem?.toLeg
 						// ||
 						// lastItem?.leg

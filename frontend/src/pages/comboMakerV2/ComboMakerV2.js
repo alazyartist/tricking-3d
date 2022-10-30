@@ -19,7 +19,7 @@ const ComboMakerV2 = () => {
 			setComboName(
 				currentItem
 					.map((item) => {
-						return item.name;
+						return item?.name;
 					})
 					.join(">")
 					.toString()
@@ -54,7 +54,7 @@ const ComboMakerV2 = () => {
 						newCombo={currentItem}
 					/>
 					<Tricks
-						lastItem={currentItem[currentItem.length - 1]}
+						lastItem={currentItem[currentItem?.length - 1]}
 						setCurrentItem={setCurrentItem}
 						filteredTricks={filteredTricks}
 						allTricks={tricks}
