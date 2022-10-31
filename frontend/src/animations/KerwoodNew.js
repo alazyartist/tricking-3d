@@ -39,4 +39,4 @@ export function KerwoodNew(props) {
 	);
 }
 
-useGLTF.preload("/KerwoodNew.glb");
+// useGLTF.preload("/KerwoodNew.glb");

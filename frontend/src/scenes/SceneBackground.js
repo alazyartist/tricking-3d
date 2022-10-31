@@ -86,4 +86,4 @@ export default function SceneBackground({ ...props }) {
 	);
 }
 
-useGLTF.preload("/SceneBackground.glb");
+// useGLTF.preload("/SceneBackground.glb");

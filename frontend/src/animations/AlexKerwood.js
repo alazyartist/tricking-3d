@@ -171,4 +171,4 @@ export default function AlexKerwood({ ...props }) {
 	);
 }
 
-useGLTF.preload("/AlexKerwood.gltf");
+// useGLTF.preload("/AlexKerwood.gltf");

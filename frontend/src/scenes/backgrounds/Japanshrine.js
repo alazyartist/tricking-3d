@@ -48,4 +48,4 @@ export function JapanShrine(props) {
 	);
 }
 
-useGLTF.preload("/japanshrine.glb");
+// useGLTF.preload("/japanshrine.glb");

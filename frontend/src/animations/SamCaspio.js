@@ -110,4 +110,4 @@ export function SamCaspio(props) {
 	);
 }
 
-useGLTF.preload("/SamCaspio.glb");
+// useGLTF.preload("/SamCaspio.glb");

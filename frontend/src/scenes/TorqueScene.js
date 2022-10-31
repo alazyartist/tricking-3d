@@ -11,7 +11,7 @@ import { useStore } from "../store/store";
 import LoadActiveBackground from "../components/media/BackgroundSelector";
 import { useParams } from "react-router-dom";
 
-export function TorqueScene({ gizmoHelper }) {
+export default function TorqueScene({ gizmoHelper }) {
 	const { model, trick } = useParams();
 
 	const setModel = useStore((s) => s.setModel);

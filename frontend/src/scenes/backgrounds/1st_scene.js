@@ -98,4 +98,4 @@ export default function BluesBackground({ ...props }) {
 	);
 }
 
-useGLTF.preload("/1st_scene.glb");
+// useGLTF.preload("/1st_scene.glb");
