@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { MdOutlineBackspace } from "react-icons/md";
+import { MdOutlineBackspace } from "../../../data/icons/MdIcons";
 
 function NewComboDisplay({ newCombo, setDeleteLast }) {
 	const ref = useRef();

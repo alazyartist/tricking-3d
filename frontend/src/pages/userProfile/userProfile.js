@@ -1,5 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
-import { MdOutlineClose } from "react-icons/md";
+import { MdOutlineClose } from "../../data/icons/MdIcons";
 import { useParams } from "react-router-dom";
 import { useTransition, animated } from "react-spring";
 import useUserInfoByUUID from "../../api/useUserInfoById";
@@ -26,8 +26,8 @@ const UserProfile = () => {
 	const isUsersPage = uuid === loggedInUUID;
 
 	useEffect(() => {
-		window.addEventListener("load", setPageLoaded(true));
-		return window.removeEventListener("load", setPageLoaded(true));
+		// window.addEventListener("load", setPageLoaded(true));
+		// return window.removeEventListener("load", setPageLoaded(true));
 	}, []);
 
 	return (
@@ -70,7 +70,7 @@ const UserProfile = () => {
 					)}
 				</div>
 				<Suspense>
-					<div>{pageLoaded && <UserAvatarDisplay />}</div>
+					<div>{/* <UserAvatarDisplay /> */}</div>
 				</Suspense>
 			</div>
 

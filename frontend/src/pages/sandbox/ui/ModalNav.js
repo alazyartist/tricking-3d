@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MdInfo, MdInfoOutline, MdSettings } from "react-icons/md";
+import { MdInfo, MdInfoOutline, MdSettings } from "../../../data/icons/MdIcons";
 import { useStore } from "../../../store/store";
 import TrickInfo from "../../../components/info/TrickInfo";
 import Animations from "./modal/Animations";

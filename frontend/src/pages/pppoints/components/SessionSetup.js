@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { MdClose } from "react-icons/md";
+import { MdClose } from "../../../data/icons/MdIcons";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import useBattleRoomSetup from "../../../api/useBattleRoom";

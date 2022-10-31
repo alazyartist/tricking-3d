@@ -26,7 +26,7 @@ const useApiCreds = () => {
 				if (error?.response?.status === 401 && !prevRequest?.sent) {
 					prevRequest.sent = true;
 					prevRequest.withCredentials = true;
-					const newAccessToken = await refresh();
+					await refresh();
 					prevRequest.headers["Authorization"] = `Bearer ${accessToken}`;
 					return apiPrivate(prevRequest);
 				}

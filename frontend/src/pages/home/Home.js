@@ -12,15 +12,15 @@ import useUserInfo from "../../api/useUserInfo";
 import { IoIosArrowBack } from "react-icons/io";
 import PublicHomePage from "./components/PublicHomePage";
 import ClaimTricks from "../claimtricks/ClaimTricks";
-import Feed from "./components/Feed";
+// import Feed from "./components/Feed";
 import { useSpring, animated } from "react-spring";
-const EnterSandboxLink = lazy(() => import("./components/EnterSandboxLink"));
+// const EnterSandboxLink = lazy(() => import("./components/EnterSandboxLink"));
 function Home() {
-	useUserInfo();
 	const user = useUserStore((s) => s.userInfo?.username);
 	const { uuid } = useUserStore((s) => s.userInfo);
 	const accessToken = useUserStore((s) => s.accessToken);
 	const navigate = useNavigate();
+	useUserInfo();
 
 	const [openCaptures, setOpenCaptures] = useState(false);
 	const [openTricklists, setOpenTricklists] = useState(false);
@@ -69,7 +69,7 @@ function Home() {
 					<Feed /> */}
 							<Link
 								to={"/pppoints"}
-								className='neumorphic mt-4 mb-8 w-[70vw] rounded-xl bg-zinc-800 p-2 text-center font-titan text-4xl text-zinc-300 '>
+								className='neumorphic mt-4 mb-8 w-[70vw] rounded-xl bg-zinc-800 p-2 text-center font-titan text-3xl text-zinc-300 '>
 								POINTS ++
 							</Link>
 						</div>

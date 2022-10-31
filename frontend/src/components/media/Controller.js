@@ -1,15 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useStore } from "../../store/store.js";
 import { AiOutlineColumnWidth } from "react-icons/ai";
 import { FaPlay, FaPause, FaStepBackward, FaStepForward } from "react-icons/fa";
-import { BiRevision } from "react-icons/bi";
-import { ImLoop } from "react-icons/im";
 import {
 	MdSpeed,
 	MdLoop,
 	MdCenterFocusWeak,
 	MdCenterFocusStrong,
-} from "react-icons/md";
+} from "../../data/icons/MdIcons";
 import { MediaButton } from "./MediaButton.js";
 import DragableWrapper from "../../pages/sandbox/ui/DraggableSlowMo.js";
 

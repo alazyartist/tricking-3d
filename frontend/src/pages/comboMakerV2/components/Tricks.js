@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlinePlusSquare } from "react-icons/ai";
 import { FaCheck, FaSearch } from "react-icons/fa";
-import { MdOutlineArrowUpward } from "react-icons/md";
 import { stances } from "../../../data/trickDataModel/TrickObjects";
 import { useComboMakerStore } from "../../../store/comboMakerStore";
 import useComboMakerV2, { getStanceLeg } from "../useComboMakerV2";

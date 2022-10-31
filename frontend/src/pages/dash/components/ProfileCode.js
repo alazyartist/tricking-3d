@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
-import { MdOutlineQrCode2, MdQrCodeScanner } from "react-icons/md";
+import { MdOutlineQrCode2, MdQrCodeScanner } from "../../../data/icons/MdIcons";
 import QRGenerator from "../components/QRGenerator";
 import QRReader from "../components/QRReader";
 import Captures from "./Captures";

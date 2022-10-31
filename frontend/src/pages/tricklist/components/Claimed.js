@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { MdCircle, MdCheckCircle } from "react-icons/md";
+import { MdCircle, MdCheckCircle } from "../../../data/icons/MdIcons";
 import { useClaimCombo, useUnClaimCombo } from "../../../api/useClaimCombo";
 import useUserInfoByUUID from "../../../api/useUserInfoById";
 

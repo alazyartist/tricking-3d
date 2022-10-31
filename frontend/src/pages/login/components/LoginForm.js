@@ -108,7 +108,7 @@ function LoginForm() {
 				<label htmlFor='persist'>Remember this Device</label>
 				<input
 					className='mx-2 rounded-2xl bg-red-500'
-					id={persist}
+					id={"persist"}
 					type='checkbox'
 					onChange={() => togglePersist()}
 					checked={persist}

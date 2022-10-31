@@ -1,6 +1,6 @@
 import React, { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { TorqueScene } from "../../../scenes/TorqueScene";
+import TorqueScene from "../../../scenes/TorqueScene";
 import Loader from "../../../components/loaders/Loader";
 import { Link } from "react-router-dom";
 import { FaExpandArrowsAlt } from "react-icons/fa";

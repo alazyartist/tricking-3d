@@ -1,10 +1,9 @@
 import { Canvas } from "@react-three/fiber";
 import React, { useEffect, useState, useRef } from "react";
 import { FaCompass, FaHamburger } from "react-icons/fa";
-import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import { useSpring, animated, config } from "react-spring";
 import AdvancedStanceCircle from "../components/theory/AdvancedStanceCircle";
-import { TorqueScene } from "../scenes/TorqueScene";
+import TorqueScene from "../scenes/TorqueScene";
 import AnatomyNav from "./theory/components/AnatomyNavSVG";
 const TestSections = () => {
 	const [changeHeight, setChangeHeight] = useState({
@@ -82,7 +81,7 @@ const TestSections = () => {
 							});
 						}}
 						className=' relative z-[200] flex w-full place-content-end px-3 text-3xl text-zinc-400'>
-						{changeHeight.ht1 === "20vh" ? <MdExpandMore /> : <MdExpandLess />}
+						{/* {changeHeight.ht1 === "20vh" ? <MdExpandMore /> : <MdExpandLess />} */}
 					</div>
 				</animated.div>
 				<div
@@ -109,7 +108,7 @@ const TestSections = () => {
 							});
 						}}
 						className=' absolute bottom-[1vh] z-[200] flex w-full place-content-end px-3 text-3xl text-zinc-600'>
-						{changeHeight.ht2 === "60vh" ? <MdExpandMore /> : <MdExpandLess />}
+						{/* {changeHeight.ht2 === "60vh" ? <MdExpandMore /> : <MdExpandLess />} */}
 					</div>
 				</animated.div>
 				<animated.div
@@ -125,7 +124,7 @@ const TestSections = () => {
 							});
 						}}
 						className=' relative flex h-0  w-full translate-y-[3vh] place-content-end px-3 text-3xl text-zinc-400'>
-						{changeHeight.ht3 === "20vh" ? <MdExpandMore /> : <MdExpandLess />}
+						{/* {changeHeight.ht3 === "20vh" ? <MdExpandMore /> : <MdExpandLess />} */}
 					</div>
 				</animated.div>
 			</div>

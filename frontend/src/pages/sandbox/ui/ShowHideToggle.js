@@ -1,6 +1,9 @@
 import React from "react";
 import { MediaButton } from "../../../components/media/MediaButton";
-import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
+import {
+	MdOutlineVisibility,
+	MdOutlineVisibilityOff,
+} from "../../../data/icons/MdIcons";
 import { useStore } from "../../../store/store";
 function ShowHideToggle() {
 	const showUI = useStore((s) => s.showUI);

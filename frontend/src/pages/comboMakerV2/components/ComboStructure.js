@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MdInfo } from "react-icons/md";
+import { MdInfo } from "../../../data/icons/MdIcons";
 const ComboStructure = () => {
 	const [info, setInfo] = useState(false);
 
