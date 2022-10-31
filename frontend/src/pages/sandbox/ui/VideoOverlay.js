@@ -15,7 +15,9 @@ const VideoOverlay = () => {
 	};
 	const videoSource = useVideoStore((s) => s.videoSource);
 	useEffect(() => {
-		setBackground("The Void");
+		if (videoSource !== "" || undefined || null) {
+			setBackground("The Void");
+		}
 	}, [videoSource]);
 
 	return (
