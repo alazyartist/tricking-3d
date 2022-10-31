@@ -6,7 +6,7 @@ const ModalButton = ({ handleOpen, content, isDropdown }) => {
 			<button
 				id='dropdown-link'
 				onClick={handleOpen}
-				className='flex w-full items-center justify-center  text-left align-middle text-xl font-semibold text-zinc-300 '>
+				className='flex w-full items-center justify-center  text-left align-middle text-lg font-semibold text-zinc-300 '>
 				{isDropdown && <FaAngleDown className={"hover:fill-gray-600"} />}
 				{content}
 			</button>
