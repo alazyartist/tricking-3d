@@ -28,9 +28,9 @@ function TheoryPage() {
 				<div className='flex flex-col place-items-center gap-4 p-4'>
 					{/* <AnatomySVG className=' h-full w-[80vw] text-zinc-300' /> */}
 					{location.pathname === "/theory" && (
-						<AnatomySketch className='h-full w-[80vw] text-zinc-300' />
+						<AnatomySketch className='h-full w-[80vw] max-w-[540px] text-zinc-300' />
 					)}
-					<AnatomyNav className=' h-full w-[80vw] text-zinc-300' />
+					<AnatomyNav className=' h-full w-[80vw] max-w-[540px] text-zinc-300' />
 					<Outlet />
 				</div>
 			</div>

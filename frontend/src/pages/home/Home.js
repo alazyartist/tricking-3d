@@ -14,6 +14,7 @@ import PublicHomePage from "./components/PublicHomePage";
 import ClaimTricks from "../claimtricks/ClaimTricks";
 // import Feed from "./components/Feed";
 import { useSpring, animated } from "react-spring";
+import BiCube from "../../data/icons/BiCube";
 // const EnterSandboxLink = lazy(() => import("./components/EnterSandboxLink"));
 function Home() {
 	const user = useUserStore((s) => s.userInfo?.username);
@@ -68,8 +69,15 @@ function Home() {
 
 					<Feed /> */}
 							<Link
+								to={"/sandbox"}
+								className='neumorphic mt-4 mb-4 w-[70vw] max-w-[600px]  rounded-xl bg-zinc-800 p-2 text-center font-titan text-3xl text-zinc-300 '>
+								<span className='flex place-content-center items-center gap-2'>
+									Sandbox <BiCube />
+								</span>
+							</Link>
+							<Link
 								to={"/pppoints"}
-								className='neumorphic mt-4 mb-8 w-[70vw] rounded-xl bg-zinc-800 p-2 text-center font-titan text-3xl text-zinc-300 '>
+								className='neumorphic mt-4 mb-8 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 p-2 text-center font-titan text-3xl text-zinc-300 '>
 								POINTS ++
 							</Link>
 						</div>

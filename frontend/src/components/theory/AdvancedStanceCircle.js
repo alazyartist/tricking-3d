@@ -76,10 +76,10 @@ function AdvancedStanceCircle() {
 	return (
 		<div className='flex flex-col place-items-center'>
 			{/* <div className=' fixed left-0 top-0 z-[10] h-14 w-full bg-opacity-20 bg-gradient-to-b from-zinc-900 to-transparent' /> */}
-			<animated.div style={rotateSpring} className={`w-[75vw]`}>
+			<animated.div style={rotateSpring} className={`w-[75vw] max-w-[540px]`}>
 				<div className=''>
 					<StanceCircleSelector
-						className='absolute w-[80vw] opacity-0'
+						className='absolute w-[80vw] max-w-[540px] opacity-0'
 						onClick={(e) => {
 							// e.target.id !== "Layer_1" && nav(e.target.id);
 
@@ -101,7 +101,7 @@ function AdvancedStanceCircle() {
 			</animated.div>
 			<animated.div
 				style={zAnim}
-				className='absolute flex w-[75vw] flex-col place-items-center p-2'>
+				className='absolute flex w-[75vw] max-w-[540px] flex-col place-items-center p-2'>
 				<HalfCircle
 					onClick={() => setIsFolded(false)}
 					isFolded={isFolded}
