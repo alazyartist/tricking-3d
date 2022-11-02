@@ -45,7 +45,7 @@ function Home() {
 						style={{ ...logoAnim }}
 						className='left-0 flex max-w-[300px] flex-col text-center text-xl '>
 						{!accessToken && "Welcome to the"}
-						<TrickedexLogo className={`-m-2px flex`} />
+						<TrickedexLogo className={`-m-2px flex fill-zinc-300`} />
 					</animated.h1>
 				</div>
 				{!openCaptures &&

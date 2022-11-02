@@ -7,9 +7,9 @@ export const TrickedexLogo = (props) => (
 		{...props}>
 		<defs>
 			<style>
-				{
+				{/* {
 					"\r\n      .b96d6e2a-d947-4a1e-9a1d-bd986212090b {\r\n        fill: #d4d4d8;\r\n      }\r\n    "
-				}
+				} */}
 			</style>
 		</defs>
 		<g id='ab6f9091-3bd6-4990-9926-83638fcd82ed' data-name='Layer 1'>

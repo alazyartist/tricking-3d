@@ -9,6 +9,7 @@ import TheoryTabBar from "./components/layout/TheoryTabBar";
 import { useUserStore } from "./store/userStore";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { TransitionList } from "./pages/TransitionList";
+import LandingPage from "./pages/landing/LandingPage";
 const Contribute = lazy(() => import("./pages/contribute/Contribute"));
 const ComingSoon = lazy(() => import("./pages/ComingSoon"));
 const InstructionsPage = lazy(() =>
@@ -131,7 +132,7 @@ function App() {
 										path='/'
 										element={
 											<Suspense fallback={<Loading />}>
-												<Home />
+												<LandingPage />
 											</Suspense>
 										}
 									/>

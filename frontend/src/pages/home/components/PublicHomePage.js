@@ -19,9 +19,9 @@ const PublicHomePage = () => {
 					className='flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-zinc-800  text-4xl'
 					to='/comboMaker'>
 					{/* UnderConstruction Label */}
-					<div className='relative top-7 right-8 -rotate-[22deg] rounded-md bg-red-500 bg-opacity-70 p-2 text-sm'>
+					{/* <div className='relative top-7 right-8 -rotate-[22deg] rounded-md bg-red-500 bg-opacity-70 p-2 text-sm'>
 						Under Construction
-					</div>
+					</div> */}
 					<ComboMakerBlueprint fill={"#d4d4d8"} />
 					<div className='mt-[-14px] text-sm font-bold'>Combo Maker</div>
 				</Link>
