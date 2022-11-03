@@ -8,6 +8,7 @@ import AnatomyOfATrick from "../theory/anatomy/AnatomyOfATrick";
 import AnatomyNav from "../theory/components/AnatomyNavSVG";
 import AnatomySketch from "../theory/components/AnatomySketchSVG";
 import TheoryPage from "../theory/TheoryPage";
+import DetailCard from "./components/DetailCard";
 const LandingPage = () => {
 	return (
 		<div className='no-scrollbar fixed top-0 flex h-[100vh] w-[100vw] flex-col items-center justify-between gap-2 overflow-y-scroll bg-zinc-100 text-zinc-800'>
@@ -34,38 +35,27 @@ const LandingPage = () => {
 					<div className='h-[200px] w-[100px] flex-shrink-0 rounded-md bg-zinc-900'></div>
 				</div>
 			</div>
-			<div className='relative ml-3  w-[300px] flex-shrink-0 place-self-start rounded-md '>
-				<div className='h-[200px] w-[300px] flex-shrink-0 rounded-md bg-zinc-900'>
-					<Canvas className='h-[200px] w-[300px] flex-shrink-0 rounded-md bg-zinc-900'>
-						<TorqueScene />
-					</Canvas>
-				</div>
-				<h1 className='px-2 font-black text-zinc-800'>Explore Tricks in 3D</h1>
-				<p className='px-2'>
-					See Tricks like never before. Study the movements how you want to
-					figure them out!
-				</p>
-			</div>
-			<div className='relative mt-2 mr-3 h-[200px] w-[300px] flex-shrink-0 place-self-end rounded-md bg-zinc-900'>
-				{/* <AnatomyNav className={"w-[300px] pt-12"} /> */}
+
+			<DetailCard
+				left
+				title={"Explore Tricks in 3D"}
+				description="See Tricks like never before. Study the movement's your way.">
+				<Canvas className='h-[200px] w-[300px] flex-shrink-0 rounded-md bg-zinc-900'>
+					<TorqueScene />
+				</Canvas>
+			</DetailCard>
+			<DetailCard
+				title={"Have Quick Access to the Theory"}
+				description='Fully Searchable and at you fingertips.'>
 				<AnatomySketch className={"h-[200px] w-[300px] "} />
-				<div className='absolute top-[-5px] p-4 font-black text-zinc-300'>
-					Have Quick Access to the Theory
-				</div>
-			</div>
-			<div className='relative ml-3  mt-2 flex h-[200px] w-[300px] flex-shrink-0 place-content-center items-center place-self-start rounded-md bg-zinc-900'>
-				<div className='absolute left-0 top-[-5px] p-4 font-black text-zinc-300'>
-					Track your progress
-				</div>
-				<div className=' text-zinc-300'>Image of Progress Tracking Screen</div>
-			</div>
-			<div className='relative mr-3  mt-2 flex h-[200px] w-[300px] flex-shrink-0 place-content-center items-center place-self-end rounded-md bg-zinc-900'>
-				<div className='absolute left-0 top-[-5px] p-4 font-black text-zinc-300'>
-					Follow Your Friends
-				</div>
-				<div className=' text-zinc-300'>Image of Progress Tracking Screen</div>
-			</div>
-			<div />
+			</DetailCard>
+			<DetailCard
+				left
+				title={"Track your progress"}
+				description="Easily see what tricks you've"></DetailCard>
+			<DetailCard
+				title={"Have Quick Access to the Theory"}
+				description='Fully Searchable and at you fingertips.'></DetailCard>
 		</div>
 	);
 };
