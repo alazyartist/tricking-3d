@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
 import EnterSandboxLink from "../../pages/home/components/EnterSandboxLink";
 import TorqueScene from "../../scenes/TorqueScene";
+import TheoryPage from "../theory/TheoryPage";
 const LandingPage = () => {
 	return (
 		<div className='no-scrollbar fixed top-0 flex h-[100vh] w-[100vw] flex-col items-center justify-between gap-2 overflow-y-scroll bg-zinc-100 text-zinc-800'>
@@ -46,7 +47,7 @@ const LandingPage = () => {
 			</div>
 			<div className='relative mt-2 mr-3 h-[200px] w-[300px] flex-shrink-0 place-self-end rounded-md bg-zinc-900'>
 				<div className='absolute top-[-5px] p-4 font-black text-zinc-300'>
-					Have quick access to the theory.
+					<TheoryPage />
 				</div>
 			</div>
 			<div className='relative ml-3  mt-2 flex h-[200px] w-[300px] flex-shrink-0 place-content-center items-center place-self-start rounded-md bg-zinc-900'>
