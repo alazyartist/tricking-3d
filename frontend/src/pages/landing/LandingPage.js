@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
 import EnterSandboxLink from "../../pages/home/components/EnterSandboxLink";
 import TorqueScene from "../../scenes/TorqueScene";
+import AnatomyOfATrick from "../theory/anatomy/AnatomyOfATrick";
+import AnatomyNav from "../theory/components/AnatomyNavSVG";
+import AnatomySketch from "../theory/components/AnatomySketchSVG";
 import TheoryPage from "../theory/TheoryPage";
 const LandingPage = () => {
 	return (
@@ -37,17 +40,17 @@ const LandingPage = () => {
 						<TorqueScene />
 					</Canvas>
 				</div>
-				<div className='px-2 font-black text-zinc-800'>
-					Explore Tricks in 3D
-				</div>
-				<h1 className='px-2'>
+				<h1 className='px-2 font-black text-zinc-800'>Explore Tricks in 3D</h1>
+				<p className='px-2'>
 					See Tricks like never before. Study the movements how you want to
 					figure them out!
-				</h1>
+				</p>
 			</div>
 			<div className='relative mt-2 mr-3 h-[200px] w-[300px] flex-shrink-0 place-self-end rounded-md bg-zinc-900'>
+				{/* <AnatomyNav className={"w-[300px] pt-12"} /> */}
+				<AnatomySketch className={"h-[200px] w-[300px] "} />
 				<div className='absolute top-[-5px] p-4 font-black text-zinc-300'>
-					<TheoryPage />
+					Have Quick Access to the Theory
 				</div>
 			</div>
 			<div className='relative ml-3  mt-2 flex h-[200px] w-[300px] flex-shrink-0 place-content-center items-center place-self-start rounded-md bg-zinc-900'>
