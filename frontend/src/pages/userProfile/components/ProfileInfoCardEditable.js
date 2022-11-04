@@ -123,9 +123,9 @@ const ProfileInfoCardEditable = ({ userInfo, setEditing }) => {
 					</div>
 				)}
 				{/* Status */}
-				<div className='w-full rounded-md bg-zinc-800 p-2 text-zinc-300 '>
+				{/* <div className='w-full rounded-md bg-zinc-800 p-2 text-zinc-300 '>
 					{userInfo?.Profile?.status || "I'm New Here"}
-				</div>
+				</div> */}
 				<div className='flex w-full place-content-center'>
 					<button>Save</button>
 				</div>

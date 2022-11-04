@@ -31,7 +31,7 @@ const UserProfile = () => {
 	}, []);
 
 	return (
-		<div className='m-2 flex w-full flex-col place-items-center font-inter text-zinc-300'>
+		<div className='flex w-full flex-col place-items-center p-2 font-inter text-zinc-300'>
 			<div className='flex flex-col'>
 				{editView((styles, editing) =>
 					editing ? (
@@ -69,13 +69,21 @@ const UserProfile = () => {
 				)}
 			</div>
 
-			<div className='flex w-full flex-col place-items-center rounded-lg'>
-				<TricklistsAndClamiedContainer
+			<div className='flex w-full flex-col place-items-center gap-4 rounded-lg p-2'>
+				<div className='h-[40vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2'>
+					{" "}
+					Overall Stats
+				</div>
+				<div className='h-[20vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2'>
+					{" "}
+					Last Session Stats
+				</div>
+				{/* <TricklistsAndClamiedContainer
 					profileuuid={uuid}
 					MyTricklists={profileInfo?.MyTricklists}
 					ClaimedCombos={profileInfo?.CombosClaimed}
 					ClaimedTricks={profileInfo?.TricksClaimed}
-				/>
+				/> */}
 			</div>
 		</div>
 	);

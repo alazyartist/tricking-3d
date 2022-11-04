@@ -25,16 +25,18 @@ const ProfileInfoCard = ({ userInfo }) => {
 							<div>{userInfo?.Profile?.city}</div>
 						</div>
 					</div>
-					<div className='flex w-full justify-between'>
+					{/* <div className='flex w-full justify-between'>
 						<div>
 							{userInfo?.Profile?.name ||
 								userInfo?.first_name + " " + userInfo?.last_name}
 						</div>
 						<div className=''>{userInfo?.Profile?.age}</div>
-					</div>
-					<div>Level</div>
-					<div className='w-fit flex-grow-0 border-2 border-zinc-300 p-[2px] px-[6px]'>
-						4
+					</div> */}
+					<div className='flex place-content-center items-center justify-between'>
+						<div>Level</div>
+						<div className='w-fit flex-grow-0 border-2 border-zinc-300 p-[2px] px-[6px]'>
+							4
+						</div>
 					</div>
 					{/* BIFW */}
 					{userInfo?.Profile?.brands && (
@@ -49,7 +51,7 @@ const ProfileInfoCard = ({ userInfo }) => {
 				</div>
 				<div
 					id='badgeContainer'
-					className='neumorphicIn grid h-full min-h-[150px] w-[200px] grid-cols-5 grid-rows-2 rounded-lg p-3'>
+					className='neumorphicIn grid h-full min-h-[100px] w-[200px] grid-cols-5 grid-rows-2 rounded-lg p-3'>
 					{/* Badge Goes Here */}
 					<div className='h-8 w-8 rounded-lg bg-zinc-900' />
 				</div>
