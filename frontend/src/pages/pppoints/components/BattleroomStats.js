@@ -7,7 +7,7 @@ import { useUserStore } from "../../../store/userStore";
 import { getPointsNormalized, PlayerMap } from "../SessionPage";
 import ScoreDisplay from "./ScoreDisplay";
 
-const SessionRoomStats = () => {
+const BattleroomStats = () => {
 	const { sessionID } = useParams();
 	const userUUID = useUserStore((s) => s.userInfo.uuid);
 	const { data: battleRoomDetails } = useGetBattleRoombySessionid(sessionID);
@@ -211,4 +211,4 @@ function WinnerUserName({ battleStats, battleRoomDetails, winner }) {
 		</>
 	);
 }
-export default SessionRoomStats;
+export default BattleroomStats;

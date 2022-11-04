@@ -73,7 +73,7 @@ const TorqueScene = lazy(() => import("./scenes/TorqueScene"));
 const PointsPage = lazy(() => import("./pages/pppoints/PointsPage"));
 const SessionPage = lazy(() => import("./pages/pppoints/SessionPage"));
 const SessionRoomStats = lazy(() =>
-	import("./pages/pppoints/components/SessionRoomStats")
+	import("./pages/pppoints/components/BattleroomStats")
 );
 const UserProfile = lazy(() => import("./pages/userProfile/userProfile"));
 const Sandbox = lazy(() => import("./pages/sandbox/Sandbox"));

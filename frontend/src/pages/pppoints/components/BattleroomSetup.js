@@ -7,7 +7,7 @@ import useGetAllUsers from "../../../api/useGetAllUsers";
 import { useUserStore } from "../../../store/userStore";
 import DurationSetup from "../sessionSetup/DurationSetup";
 
-const SessionSetup = ({ setSetupVisible, ably }) => {
+const BattleroomSetup = ({ setSetupVisible, ably }) => {
 	const userInfo = useUserStore((s) => s.userInfo);
 	const [sessionTimer, setSessionTimer] = useState(60);
 	const [team1, setTeam1] = useState([]);
@@ -182,4 +182,4 @@ const SessionSetup = ({ setSetupVisible, ably }) => {
 	);
 };
 
-export default SessionSetup;
+export default BattleroomSetup;
