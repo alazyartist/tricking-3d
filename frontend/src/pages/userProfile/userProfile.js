@@ -24,7 +24,7 @@ const UserProfile = () => {
 		exitBeforeEnter: true,
 	});
 	const isUsersPage = uuid === loggedInUUID;
-
+	const [activeView, setActiveView] = useState("Stats");
 	useEffect(() => {
 		// window.addEventListener("load", setPageLoaded(true));
 		// return window.removeEventListener("load", setPageLoaded(true));
@@ -71,12 +71,24 @@ const UserProfile = () => {
 
 			<div className='flex w-full flex-col place-items-center gap-4 rounded-lg p-2'>
 				<div className='h-[40vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2'>
-					{" "}
-					Overall Stats
+					{activeView === "Stats" ? (
+						<div onClick={() => setActiveView("Sessions")}>Overall Stats</div>
+					) : null}
+					{activeView === "Sessions" ? (
+						<div onClick={() => setActiveView("Stats")}>Sessions</div>
+					) : null}
 				</div>
 				<div className='h-[20vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2'>
-					{" "}
-					Last Session Stats
+					{activeView === "Stats" ? (
+						<div onClick={() => setActiveView("Sessions")}>
+							Last Session Stats
+						</div>
+					) : null}
+					{activeView === "Sessions" ? (
+						<div onClick={() => setActiveView("Stats")}>
+							Selected Session Stats
+						</div>
+					) : null}
 				</div>
 				{/* <TricklistsAndClamiedContainer
 					profileuuid={uuid}
