@@ -20,7 +20,7 @@ const UserProfile = () => {
 		enter: { top: 0, opacity: 100 },
 		leave: { top: -400 },
 		reverse: editing,
-		config: { durration: 300, tension: 260, friction: 50 },
+		config: { durration: 100, tension: 260, friction: 50 },
 		exitBeforeEnter: true,
 	});
 	const isUsersPage = uuid === loggedInUUID;
@@ -31,47 +31,42 @@ const UserProfile = () => {
 	}, []);
 
 	return (
-		<div className='m-4 flex flex-col place-items-center pt-[3.4rem] font-inter text-zinc-300'>
-			<div className=' flex max-w-[1200px] flex-row justify-between gap-4 pb-4'>
-				<div className='flex flex-col'>
-					{editView((styles, editing) =>
-						editing ? (
-							<animated.div
-								style={styles}
-								className='relative flex flex-col place-items-center gap-2'>
-								<ProfileInfoCardEditable
-									setEditing={setEditing}
-									userInfo={profileInfo}
-								/>
-								{isUsersPage && (
-									<>
-										{editing}
-										<div
-											className='flex place-content-center place-items-center gap-1'
-											onClick={() => setEditing(!editing)}>
-											<MdOutlineClose /> <div>Close</div>
-										</div>
-									</>
-								)}
-							</animated.div>
-						) : (
-							<animated.div
-								style={styles}
-								className='relative flex flex-col place-items-center gap-2'>
-								<ProfileInfoCard userInfo={profileInfo} />
-								{isUsersPage && (
-									<>
-										{editing}
-										<div onClick={() => setEditing(!editing)}>Edit Info</div>
-									</>
-								)}
-							</animated.div>
-						)
-					)}
-				</div>
-				<Suspense>
-					<div>{/* <UserAvatarDisplay /> */}</div>
-				</Suspense>
+		<div className='m-2 flex w-full flex-col place-items-center font-inter text-zinc-300'>
+			<div className='flex flex-col'>
+				{editView((styles, editing) =>
+					editing ? (
+						<animated.div
+							style={styles}
+							className='relative flex flex-col place-items-center gap-2'>
+							<ProfileInfoCardEditable
+								setEditing={setEditing}
+								userInfo={profileInfo}
+							/>
+							{isUsersPage && (
+								<>
+									{editing}
+									<div
+										className='flex place-content-center place-items-center gap-1'
+										onClick={() => setEditing(!editing)}>
+										<MdOutlineClose /> <div>Close</div>
+									</div>
+								</>
+							)}
+						</animated.div>
+					) : (
+						<animated.div
+							style={styles}
+							className='relative flex flex-col place-items-center gap-2'>
+							<ProfileInfoCard userInfo={profileInfo} />
+							{isUsersPage && (
+								<>
+									{editing}
+									<div onClick={() => setEditing(!editing)}>Edit Info</div>
+								</>
+							)}
+						</animated.div>
+					)
+				)}
 			</div>
 
 			<div className='flex w-full flex-col place-items-center rounded-lg'>

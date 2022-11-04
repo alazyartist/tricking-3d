@@ -52,10 +52,11 @@ const LandingPage = () => {
 			<DetailCard
 				left
 				title={"Track your progress"}
-				description="Easily see what tricks you've"></DetailCard>
+				description="Easily see what tricks you've done and track your goals"></DetailCard>
 			<DetailCard
-				title={"Have Quick Access to the Theory"}
-				description='Fully Searchable and at you fingertips.'></DetailCard>
+				title={"Follow your friends"}
+				description='Keep track of your progress as a group.'></DetailCard>
+			<div className='h-[40px]' />
 		</div>
 	);
 };

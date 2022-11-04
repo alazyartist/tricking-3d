@@ -53,7 +53,7 @@ const ProfileInfoCardEditable = ({ userInfo, setEditing }) => {
 					className='relative top-8 left-2 h-12 w-12 rounded-full'
 				/>
 			</label>
-			<div className='flex w-fit min-w-[35vw] max-w-[48vw] flex-col place-content-center place-items-start gap-2 rounded-xl bg-zinc-100 p-2 pt-2 text-sm text-zinc-900'>
+			<div className='flex w-[80vw] min-w-[35vw] max-w-[1200px] flex-col place-content-center place-items-start gap-2 rounded-xl bg-zinc-100 p-2 pt-2 text-sm text-zinc-900'>
 				<div className='pl-14 font-bold'>
 					<input
 						type={"text"}
