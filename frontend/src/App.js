@@ -71,7 +71,7 @@ const AdminIndex = lazy(() => import("./admin/AdminIndex"));
 const UserSettings = lazy(() => import("./pages/userSettings/UserSettings"));
 const TorqueScene = lazy(() => import("./scenes/TorqueScene"));
 const PointsPage = lazy(() => import("./pages/pppoints/PointsPage"));
-const SessionPage = lazy(() => import("./pages/pppoints/SessionPage"));
+const SessionPage = lazy(() => import("./pages/pppoints/BattleroomPage"));
 const SessionRoomStats = lazy(() =>
 	import("./pages/pppoints/components/BattleroomStats")
 );

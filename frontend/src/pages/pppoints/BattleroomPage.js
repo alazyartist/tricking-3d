@@ -26,7 +26,7 @@ export const getPointsNormalized = (team1Points, team2Points) => {
 	console.log("2", team2PointsNormalized);
 	return [team1PointsNormalized, team2PointsNormalized];
 };
-const SessionPage = () => {
+const BattleroomPage = () => {
 	const [host, setHost] = useState();
 	const [judges, setJudges] = useState([]);
 	const [team1, setTeam1] = useState([]);
@@ -596,4 +596,4 @@ function VsDisplay({ team1, team2 }) {
 		</div>
 	);
 }
-export default SessionPage;
+export default BattleroomPage;

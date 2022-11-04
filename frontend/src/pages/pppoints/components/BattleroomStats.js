@@ -4,7 +4,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
 import { useGetBattleRoombySessionid } from "../../../api/useBattleRoom";
 import { useUserStore } from "../../../store/userStore";
-import { getPointsNormalized, PlayerMap } from "../SessionPage";
+import { getPointsNormalized, PlayerMap } from "../BattleroomPage";
 import ScoreDisplay from "./ScoreDisplay";
 
 const BattleroomStats = () => {

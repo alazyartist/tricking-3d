@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import useBattleRoomSetup from "../../../api/useBattleRoom";
 import useGetAllUsers from "../../../api/useGetAllUsers";
 import { useUserStore } from "../../../store/userStore";
-import DurationSetup from "../sessionSetup/DurationSetup";
+import DurationSetup from "../BattleroomSetup/DurationSetup";
 
 const BattleroomSetup = ({ setSetupVisible, ably }) => {
 	const userInfo = useUserStore((s) => s.userInfo);
