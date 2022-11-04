@@ -57,6 +57,12 @@
 	input[id="end"]::-webkit-slider-runnable-track {
 		@apply pointer-events-none appearance-none rounded-lg bg-transparent;
 	}
+	input[type="date"]::-webkit-calendar-picker-indicator {
+		filter: invert(1);
+	}
+	input[type="time"]::-webkit-calendar-picker-indicator {
+		filter: invert(1);
+	}
 }
 @layer utilities {
 	.no-scrollbar::-webkit-scrollbar {
