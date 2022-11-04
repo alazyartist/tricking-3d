@@ -10,6 +10,7 @@ import { useUserStore } from "./store/userStore";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { TransitionList } from "./pages/TransitionList";
 import LandingPage from "./pages/landing/LandingPage";
+const AddSessionPage = lazy(() => import("./pages/sessions/AddSessionPage"));
 const Contribute = lazy(() => import("./pages/contribute/Contribute"));
 const ComingSoon = lazy(() => import("./pages/ComingSoon"));
 const InstructionsPage = lazy(() =>
@@ -158,6 +159,14 @@ function App() {
 										element={
 											<Suspense fallback={<Loading />}>
 												<PointsPage />
+											</Suspense>
+										}
+									/>
+									<Route
+										path={"/addSession"}
+										element={
+											<Suspense fallback={<Loading />}>
+												<AddSessionPage />
 											</Suspense>
 										}
 									/>

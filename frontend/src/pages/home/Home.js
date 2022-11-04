@@ -48,6 +48,7 @@ function Home() {
 						<TrickedexLogo className={`-m-2px flex fill-zinc-300`} />
 					</animated.h1>
 				</div>
+
 				{!openCaptures &&
 					!openComboMaker &&
 					!openClaimtricks &&
@@ -77,8 +78,13 @@ function Home() {
 							</Link>
 							<Link
 								to={"/pppoints"}
-								className='neumorphic mt-4 mb-8 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 p-2 text-center font-titan text-3xl text-zinc-300 '>
+								className='neumorphic mt-4 mb-4 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 p-2 text-center font-titan text-3xl text-zinc-300 '>
 								POINTS ++
+							</Link>
+							<Link
+								to={"/addSession"}
+								className='neumorphic mt-4 mb-8 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 p-2 text-center font-titan text-3xl text-zinc-300 '>
+								Add Session
 							</Link>
 						</div>
 					)}
