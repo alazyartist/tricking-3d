@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BattleroomSetup from "./BattleroomSetup";
 
-const HostSession = ({ hostuuid, ably }) => {
+const HostBattleroom = ({ hostuuid, ably }) => {
 	const [setupVisible, setSetupVisible] = useState(false);
 	return setupVisible ? (
 		<div className=' absolute top-[5vh] left-[10vw] z-[1005] flex h-[80vh] w-[80vw] flex-col place-items-center rounded-md bg-zinc-800'>
@@ -16,4 +16,4 @@ const HostSession = ({ hostuuid, ably }) => {
 	);
 };
 
-export default HostSession;
+export default HostBattleroom;

@@ -5,7 +5,7 @@ import { IoCheckmark, IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { FaCheck, FaGavel } from "react-icons/fa";
 import { useUserStore } from "../../../store/userStore";
 
-const ClosedSessions = () => {
+const ClosedBattlerooms = () => {
 	const { data: battleRooms } = useGetBattleRooms();
 	const userUUID = useUserStore((s) => s.userInfo.uuid);
 
@@ -82,4 +82,4 @@ const ClosedSessions = () => {
 	);
 };
 
-export default ClosedSessions;
+export default ClosedBattlerooms;

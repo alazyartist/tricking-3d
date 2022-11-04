@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useGetBattleRooms } from "../../../api/useBattleRoom";
 import { useUserStore } from "../../../store/userStore";
 import { FaGavel } from "react-icons/fa";
-const LiveSessions = ({ ably }) => {
+const LiveBattlerooms = ({ ably }) => {
 	const liveSessionsChannel = ably?.channels.get("[?rewind=10m]LiveSessions");
 	const userUUID = useUserStore((s) => s.userInfo.uuid);
 
@@ -90,4 +90,4 @@ const LiveSessions = ({ ably }) => {
 	);
 };
 
-export default LiveSessions;
+export default LiveBattlerooms;
