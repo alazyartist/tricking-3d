@@ -51,10 +51,8 @@ const SessionSourceDisplay = ({ source, playerVisible, setPlayerVisible }) => {
 		}
 	};
 	useEffect(() => {
-		if (vidRef?.current) {
-			handleTimeUpdate();
-		}
-	}, []);
+		handleTimeUpdate();
+	});
 	return (
 		<div key={source.srcid + "1"} className='flex flex-col gap-2'>
 			{playerVisible === source?.vidsrc ? (
@@ -74,6 +72,7 @@ const SessionSourceDisplay = ({ source, playerVisible, setPlayerVisible }) => {
 							muted
 							width={"70vw"}
 							height={"40vw"}
+							onPlay={() => handleTimeUpdate()}
 							loop
 							playsInline
 							url={source?.vidsrc}
