@@ -1,5 +1,6 @@
 import db from "../models/index.js";
 import { v4 as uuidv4 } from "uuid";
+import sequelize from "sequelize";
 const sessionsummaries = await db.sequelize.models.SessionSummaries;
 const sessionsources = await db.sequelize.models.SessionSources;
 const sessiondata = await db.sequelize.models.SessionData;
@@ -47,7 +48,9 @@ export const submitSessionforReview = async (req, res) => {
 };
 
 export const getAllSessions = async (req, res) => {
-	const allSessions = await sessionsummaries.findAll();
+	const allSessions = await sessionsummaries.findAll({
+		order: sequelize.col("createdAt"),
+	});
 	res.json(allSessions);
 };
 

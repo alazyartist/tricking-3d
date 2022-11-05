@@ -24,6 +24,7 @@ const AdminSessionReview = () => {
 									{source?.vidsrc.replace(/^(\w+).*\.com\/watch\?v=/g, "")}
 								</div>
 								<ReactPlayer
+									config={{ facebook: { appId: "508164441188790" } }}
 									id={"video"}
 									controls={false}
 									muted
