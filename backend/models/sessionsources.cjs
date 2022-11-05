@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
 	}
 	SessionSources.init(
 		{
-			srcid: DataTypes.UUID,
+			srcid: { primaryKey: true, type: DataTypes.UUID },
 			sessionid: DataTypes.UUID,
 			vidsrc: DataTypes.STRING,
 			createdAt: DataTypes.DATE,

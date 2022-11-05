@@ -1,5 +1,6 @@
 "use strict";
 const { Model, DataTypes } = require("sequelize");
+const { v4: uuidv4 } = require("uuid");
 module.exports = (sequelize) => {
 	class SessionData extends Model {
 		/**
@@ -32,7 +33,7 @@ module.exports = (sequelize) => {
 	}
 	SessionData.init(
 		{
-			id: DataTypes.UUID,
+			id: { type: DataTypes.UUID, primaryKey: true, defaultValue: uuidv4() },
 			srcid: DataTypes.UUID,
 			sessionid: DataTypes.UUID,
 			clipLabel: DataTypes.UUID,

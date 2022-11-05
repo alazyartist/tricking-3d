@@ -44,6 +44,7 @@ module.exports = {
 		});
 	},
 	async down(queryInterface, Sequelize) {
+		await queryInterface.dropTable("RoomUserScores");
 		await queryInterface.dropTable("battlerooms");
 	},
 };

@@ -29,6 +29,7 @@ module.exports = (sequelize) => {
 				foreignKey: "sessionid",
 				targetKey: "sessionid",
 				sourceKey: "sessionid",
+				constraints: false,
 			});
 		}
 	}

@@ -31,7 +31,7 @@ module.exports = (sequelize) => {
 	}
 	SessionSummaries.init(
 		{
-			sessionid: DataTypes.UUID,
+			sessionid: { primaryKey: true, type: DataTypes.UUID },
 			name: DataTypes.STRING,
 			user_id: DataTypes.UUID,
 			admin: DataTypes.UUID,
