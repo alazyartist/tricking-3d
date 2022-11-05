@@ -5,7 +5,7 @@ import "@algolia/autocomplete-theme-classic";
 
 const CommandBar = () => {
 	return (
-		<div className='absolute bottom-0 left-[40vw] h-[8vh] w-[20vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400'>
+		<div className='absolute bottom-[10vh] left-[40vw] h-[8vh] w-[20vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400'>
 			<Autocomplete
 				openOnFocus={true}
 				getSources={({ query }) => [
@@ -72,7 +72,7 @@ const Autocomplete = (props) => {
 
 	return (
 		<div ref={panelRootRef}>
-			<div className='bg-red-500' ref={commandBarRef} />;
+			<div ref={commandBarRef} />
 		</div>
 	);
 };
