@@ -5,6 +5,7 @@
 	"private": true,
 	"proxy": "http://localhost:3000",
 	"dependencies": {
+		"@algolia/autocomplete-js": "^1.7.3",
 		"@react-three/drei": "^9.34.0",
 		"@react-three/fiber": "^8.8.9",
 		"@tanstack/react-query": "^4.10.1",
@@ -13,6 +14,7 @@
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
 		"@use-gesture/react": "^10.2.20",
+		"algoliasearch": "^4.14.2",
 		"browserslist": "^4.21.4",
 		"glob-parent": "^6.0.2",
 		"react": "^18.2.0",

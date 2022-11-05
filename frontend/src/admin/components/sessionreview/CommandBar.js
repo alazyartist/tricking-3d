@@ -1,11 +1,85 @@
-import React from "react";
+import React, { Fragment, useEffect, useRef, createElement } from "react";
+import { autocomplete } from "@algolia/autocomplete-js";
+import { createRoot } from "react-dom/client";
 
 const CommandBar = () => {
 	return (
-		<div className='absolute bottom-0 left-[40vw] w-[20vw] rounded-md rounded-b-none bg-zinc-900 p-4 font-titan text-zinc-400'>
-			CommandBar
+		<div className='absolute bottom-0 left-[40vw] h-[8vh] w-[20vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400'>
+			<Autocomplete
+				openOnFocus={true}
+				// getSources={({ query }) => [
+				// 	{
+				// 		sourceId: "actions",
+				// 		getItems() {
+				// 			return [{ test: 1 }, { test: 2 }];
+				// 		},
+				// 		templates: {
+				// 			item({ item, components }) {
+				// 				return <ProductItem hit={item} components={components} />;
+				// 			},
+				// 		},
+				// 	},
+				// ]}
+			/>
 		</div>
 	);
 };
 
+const Autocomplete = (props) => {
+	const commandBarRef = useRef(null);
+	const panelRootRef = useRef(null);
+	const rootRef = useRef(null);
+
+	useEffect(() => {
+		if (!commandBarRef.current) {
+			return undefined;
+		}
+
+		const search = autocomplete({
+			placeholder: "/p to play",
+			container: commandBarRef.current,
+			renderer: { createElement, Fragment, render: () => {} },
+			render({ children }, root) {
+				if (!panelRootRef.current || rootRef.current !== root) {
+					rootRef.current = root;
+
+					panelRootRef.current?.unmount();
+					panelRootRef.current = createRoot(root);
+				}
+
+				panelRootRef.current.render(children);
+			},
+			getSources: () => [
+				{
+					sourceId: "actions",
+					templates: {
+						items({ item }) {
+							return <p className='text-zinc-300'>{item.command}</p>;
+						},
+					},
+					getItems: () => [{ command: "/p", placeholder: "press p to play" }],
+				},
+			],
+			...props,
+		});
+
+		return () => {
+			search.destroy();
+		};
+	}, [props]);
+
+	return <div ref={commandBarRef} />;
+};
 export default CommandBar;
+
+export function ProductItem({ hit, components }) {
+	return (
+		<a href={hit.url} className='aa-ItemLink'>
+			<div className='aa-ItemContent'>
+				<div className='aa-ItemTitle'>
+					<components.Highlight hit={hit} attribute='name' />
+				</div>
+			</div>
+		</a>
+	);
+}

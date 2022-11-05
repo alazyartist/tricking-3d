@@ -48,12 +48,17 @@ const SessionSourceDisplay = ({ source, playerVisible, setPlayerVisible }) => {
 	useEffect(() => console.log(vidRef?.current), []);
 	const handleTimeUpdate = () => {
 		setCurrentTime(vidRef.current?.getCurrentTime());
-		if (vidRef?.current?.getCurrentTime() < vidRef.current?.getDuration()) {
+		if (
+			vidRef?.current?.player?.isPlaying &&
+			vidRef?.current?.getCurrentTime() < vidRef.current?.getDuration()
+		) {
 			setTimeout(() => handleTimeUpdate(), 50);
 		}
 	};
 	useEffect(() => {
-		handleTimeUpdate();
+		if (vidRef?.current?.player?.isPlaying) {
+			handleTimeUpdate();
+		}
 	});
 	return (
 		<div key={source.srcid + "1"} className='flex flex-col gap-2'>
