@@ -19,3 +19,11 @@ export const useSubmitSessionForReview = () => {
 		}
 	);
 };
+
+export const useGetAllSessions = () => {
+	const apiPrivate = useApiCreds();
+	const queryClient = useQueryClient();
+	return useQuery(["SessionSummaries"], async () => {
+		return apiPrivate.get("/sessionsummaries");
+	});
+};

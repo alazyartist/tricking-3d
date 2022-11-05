@@ -1,5 +1,9 @@
 import express from "express";
-import { submitSessionforReview } from "../controllers/sessionsummaries.controller.js";
+import {
+	getAllSessions,
+	submitSessionforReview,
+} from "../controllers/sessionsummaries.controller.js";
 
 export const sessionSummariesRoutes = express.Router();
+sessionSummariesRoutes.get("/", getAllSessions);
 sessionSummariesRoutes.post("/", submitSessionforReview);

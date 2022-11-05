@@ -45,3 +45,8 @@ export const submitSessionforReview = async (req, res) => {
 		res.status(409).json(err);
 	}
 };
+
+export const getAllSessions = async (req, res) => {
+	const allSessions = await sessionsummaries.findAll();
+	res.json(allSessions);
+};
