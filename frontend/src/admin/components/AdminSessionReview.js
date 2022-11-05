@@ -9,6 +9,7 @@ const AdminSessionReview = () => {
 	const { data } = useGetSessionDetailsbySessionid(sessionid);
 	const sessionDetails = data?.data;
 	// console.log(sessionDetails);
+	const [playerVisible, setPlayerVisible] = useState(false);
 	return (
 		<div>
 			<Link to={-1}>
@@ -19,7 +20,11 @@ const AdminSessionReview = () => {
 					<div>{sessionDetails?.name}</div>
 					<div className='absolute left-2 top-[20vh]'>
 						{sessionDetails?.SessionSources?.map((source) => (
-							<SessionSourceDisplay source={source} />
+							<SessionSourceDisplay
+								playerVisible={playerVisible}
+								setPlayerVisible={setPlayerVisible}
+								source={source}
+							/>
 						))}
 					</div>
 				</div>
@@ -30,14 +35,14 @@ const AdminSessionReview = () => {
 
 export default AdminSessionReview;
 
-const SessionSourceDisplay = ({ source }) => {
-	const [playerVisible, setPlayerVisible] = useState(false);
+const SessionSourceDisplay = ({ source, playerVisible, setPlayerVisible }) => {
+	const vidsrcRegex = /(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)/g;
 	return (
 		<div key={source.srcid + "1"} className=''>
-			{playerVisible ? (
+			{playerVisible === source?.vidsrc ? (
 				<div className='absolute top-[-12vh] left-[15vw] w-[80vw]'>
-					<div onClick={() => setPlayerVisible(!playerVisible)}>
-						{source?.vidsrc.replace(/^(\w+).*\.com\/watch\?v=/g, "")}
+					<div onClick={() => setPlayerVisible(false)}>
+						{source?.vidsrc.replace(vidsrcRegex, "")}
 					</div>
 					<ReactPlayer
 						config={{ facebook: { appId: "508164441188790" } }}
@@ -54,12 +59,13 @@ const SessionSourceDisplay = ({ source }) => {
 				</div>
 			) : (
 				<div
-					key={source?.vidsrc.replace(/^(\w+).*\.com\/watch\?v=/g, "")}
-					className='flex flex-col gap-2 bg-zinc-900'>
-					<div onClick={() => setPlayerVisible(!playerVisible)}>
-						{source?.vidsrc.replace(/^(\w+).*\.com\/watch\?v=/g, "")}
+					key={source?.vidsrc.replace(vidsrcRegex, "")}
+					className='flex flex-col gap-4 rounded-md p-2 pl-0'>
+					<div
+						className='rounded-md rounded-l-none bg-zinc-500 p-2'
+						onClick={() => setPlayerVisible(source.vidsrc)}>
+						{source?.vidsrc.replace(vidsrcRegex, "")}
 					</div>
-					<div onClick={() => setPlayerVisible(true)}>Show Player</div>
 				</div>
 			)}
 		</div>
