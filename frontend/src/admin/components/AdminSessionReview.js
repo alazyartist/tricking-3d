@@ -20,7 +20,7 @@ const AdminSessionReview = () => {
 			{sessionDetails && (
 				<div className='mt-8 flex flex-col place-items-center text-zinc-300'>
 					<div>{sessionDetails?.name}</div>
-					<div className='absolute left-2 top-[20vh]'>
+					<div className='absolute left-2 top-[20vh] min-w-[6vw]'>
 						<SessionDetailDisplay sessionDetails={sessionDetails} />
 
 						{sessionDetails?.SessionSources?.map((source) => (
@@ -42,37 +42,56 @@ export default AdminSessionReview;
 const SessionSourceDisplay = ({ source, playerVisible, setPlayerVisible }) => {
 	const vidsrcRegex = /(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)/g;
 	const vidRef = useRef();
-	useEffect(() => console.log(vidRef), []);
+	const [currentTime, setCurrentTime] = useState(0);
+	useEffect(() => console.log(vidRef?.current), []);
+	const handleTimeUpdate = () => {
+		setCurrentTime(vidRef.current?.getCurrentTime());
+		if (vidRef?.current?.getCurrentTime() < vidRef.current?.getDuration()) {
+			setTimeout(() => handleTimeUpdate(), 50);
+		}
+	};
+	useEffect(() => {
+		if (vidRef?.current) {
+			handleTimeUpdate();
+		}
+	}, []);
 	return (
 		<div key={source.srcid + "1"} className='flex flex-col gap-2'>
 			{playerVisible === source?.vidsrc ? (
-				<div className='absolute top-[-15vh] left-[15vw] flex w-[80vw] flex-col gap-2'>
-					<div
-						className='flex place-items-center gap-2'
-						onClick={() => setPlayerVisible(false)}>
-						{playerVisible === source?.vidsrc && <MdClose />}{" "}
-						{source?.vidsrc.replace(vidsrcRegex, "")}
+				<div className='absolute top-[-15vh] left-[15vw] w-[70vw]'>
+					<div className='relative flex flex-col gap-2'>
+						<div
+							className='flex place-items-center gap-2'
+							onClick={() => setPlayerVisible(false)}>
+							{playerVisible === source?.vidsrc && <MdClose />}{" "}
+							{source?.vidsrc.replace(vidsrcRegex, "")}
+						</div>
+						<ReactPlayer
+							ref={vidRef}
+							config={{ facebook: { appId: "508164441188790" } }}
+							id={"video"}
+							controls={false}
+							muted
+							width={"70vw"}
+							height={"40vw"}
+							loop
+							playsInline
+							url={source?.vidsrc}
+						/>
+						<input
+							id='sessionSummary'
+							type='range'
+							step={0.001}
+							onChange={(e) => {
+								setCurrentTime(e.target.value);
+								vidRef?.current?.seekTo(e.target.value);
+							}}
+							value={currentTime}
+							min={0}
+							max={vidRef?.current?.getDuration()}
+							className={`w-[70vw] bg-transparent`}
+						/>
 					</div>
-					<ReactPlayer
-						ref={vidRef}
-						config={{ facebook: { appId: "508164441188790" } }}
-						id={"video"}
-						controls={false}
-						muted
-						width={"70vw"}
-						height={"39.5vw"}
-						loop
-						playsInline
-						className={`h-full w-full`}
-						url={source?.vidsrc}
-					/>
-					<input
-						id='sessionSummary'
-						type='range'
-						min={0}
-						max={vidRef?.current}
-						className={`w-[70vw] bg-transparent`}
-					/>
 				</div>
 			) : (
 				<div
@@ -105,8 +124,9 @@ const SessionDetailDisplay = ({ sessionDetails }) => {
 
 	return (
 		<animated.div
+			key={sessionDetails.sessionid + "details"}
 			onClick={() => setDetailsVisible(!detailsVisible)}
-			style={{ ...showDetails }}
+			style={{ left: showDetails.left, opacity: showDetails.opacity }}
 			className='relative flex flex-col gap-2 rounded-md rounded-l-none bg-zinc-700 p-1 font-inter text-xs'>
 			<div>{sessionDetails?.name}</div>
 			<div>{sessionDetails?.user_id?.slice(-4)}</div>
