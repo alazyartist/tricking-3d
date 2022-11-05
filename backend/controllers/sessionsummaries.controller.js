@@ -50,3 +50,15 @@ export const getAllSessions = async (req, res) => {
 	const allSessions = await sessionsummaries.findAll();
 	res.json(allSessions);
 };
+
+export const getSessionDetailsBySessionid = async (req, res) => {
+	const { sessionid } = req.params;
+	const sessionDetails = await sessionsummaries.findOne({
+		where: { sessionid },
+		include: [
+			{ model: db.sequelize.models.SessionSources },
+			{ model: db.sequelize.models.SessionData },
+		],
+	});
+	res.json(sessionDetails);
+};

@@ -27,3 +27,10 @@ export const useGetAllSessions = () => {
 		return apiPrivate.get("/sessionsummaries");
 	});
 };
+export const useGetSessionDetailsbySessionid = (sessionid) => {
+	const apiPrivate = useApiCreds();
+	const queryClient = useQueryClient();
+	return useQuery(["SessionSummaries"], async () => {
+		return apiPrivate.get(`/sessionsummaries/${sessionid}`);
+	});
+};

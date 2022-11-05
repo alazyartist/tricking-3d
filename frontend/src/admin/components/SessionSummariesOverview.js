@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useGetAllSessions } from "../../api/useSessionSummaries";
 import useUserInfoByUUID from "../../api/useUserInfoById";
 
@@ -25,7 +26,9 @@ const SessionDisplay = ({ s }) => {
 	const { data: u } = useUserInfoByUUID(s.user_id);
 	console.log("u", u);
 	return (
-		<div className='mt-2 flex place-content-center place-items-center gap-2 rounded-md bg-zinc-700 p-1'>
+		<Link
+			to={`/admin/sessionReview/${s?.sessionid}`}
+			className='mt-2 flex place-content-center place-items-center gap-2 rounded-md bg-zinc-700 p-1'>
 			<div>{s?.name}</div>
 			<div>{s?.sessionDate}</div>
 			<div className='flex place-items-center gap-1'>
@@ -45,6 +48,6 @@ const SessionDisplay = ({ s }) => {
 					/>
 				</div>
 			</div>
-		</div>
+		</Link>
 	);
 };
