@@ -39,7 +39,7 @@ export const submitSessionforReview = async (req, res) => {
 			})
 		);
 		console.log(sessionSetup, sourcesSetup);
-		res.json({ sessionSetup, sourcesSetup });
+		res.json({ sessionSetup, sourcesSetup, message: "Submitted" });
 	} catch (err) {
 		console.log(err);
 		res.status(409).json(err);
