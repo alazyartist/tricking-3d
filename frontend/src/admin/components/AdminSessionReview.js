@@ -5,6 +5,7 @@ import ReactPlayer from "react-player";
 import { useGetSessionDetailsbySessionid } from "../../api/useSessionSummaries";
 import { MdClose } from "../../data/icons/MdIcons";
 import { useTransition, animated, useSpring } from "react-spring";
+import CommandBar from "./sessionreview/CommandBar";
 
 const AdminSessionReview = () => {
 	const { sessionid } = useParams();
@@ -33,6 +34,7 @@ const AdminSessionReview = () => {
 					</div>
 				</div>
 			)}
+			<CommandBar />
 		</div>
 	);
 };
