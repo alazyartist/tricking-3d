@@ -1,25 +1,26 @@
 import React, { Fragment, useEffect, useRef, createElement } from "react";
 import { autocomplete } from "@algolia/autocomplete-js";
 import { createRoot } from "react-dom/client";
+import "@algolia/autocomplete-theme-classic";
 
 const CommandBar = () => {
 	return (
 		<div className='absolute bottom-0 left-[40vw] h-[8vh] w-[20vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400'>
 			<Autocomplete
 				openOnFocus={true}
-				// getSources={({ query }) => [
-				// 	{
-				// 		sourceId: "actions",
-				// 		getItems() {
-				// 			return [{ test: 1 }, { test: 2 }];
-				// 		},
-				// 		templates: {
-				// 			item({ item, components }) {
-				// 				return <ProductItem hit={item} components={components} />;
-				// 			},
-				// 		},
-				// 	},
-				// ]}
+				getSources={({ query }) => [
+					{
+						sourceId: "actions",
+						getItems() {
+							return [{ test: 1 }, { test: 2 }];
+						},
+						templates: {
+							item({ item, components }) {
+								return <ProductItem hit={item} components={components} />;
+							},
+						},
+					},
+				]}
 			/>
 		</div>
 	);
@@ -37,6 +38,7 @@ const Autocomplete = (props) => {
 
 		const search = autocomplete({
 			placeholder: "/p to play",
+			detachedMediaQuery: "",
 			container: commandBarRef.current,
 			renderer: { createElement, Fragment, render: () => {} },
 			render({ children }, root) {
@@ -68,7 +70,11 @@ const Autocomplete = (props) => {
 		};
 	}, [props]);
 
-	return <div ref={commandBarRef} />;
+	return (
+		<div ref={panelRootRef}>
+			<div className='bg-red-500' ref={commandBarRef} />;
+		</div>
+	);
 };
 export default CommandBar;
 
