@@ -6,23 +6,12 @@ import "../../../autocomplete.css";
 
 const CommandBar = () => {
 	return (
-		<div className='absolute bottom-0 left-[40vw] h-[8vh] w-[20vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400'>
+		<div className='absolute bottom-[14vh] left-[40vw] h-[8vh] w-[20vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400'>
 			<Autocomplete
-				debug
+				debug={true}
+				placeholder='/p to play'
 				openOnFocus={true}
-				getSources={({ query }) => [
-					{
-						sourceId: "actions",
-						getItems() {
-							return [{ test: 1 }, { test: 2 }];
-						},
-						templates: {
-							item({ item, components }) {
-								return <ProductItem hit={item} components={components} />;
-							},
-						},
-					},
-				]}
+				autoFocus={true}
 			/>
 		</div>
 	);
@@ -32,6 +21,23 @@ const Autocomplete = (props) => {
 	const commandBarRef = useRef(null);
 	const panelRootRef = useRef(null);
 	const rootRef = useRef(null);
+	const handleSlash = (e) => {
+		if (!commandBarRef.current) {
+			return;
+		}
+		if (e.key !== "/" || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)
+			return;
+		// if (/^(?:input|textarea|select|button)$/i.test(e.target.tagName)) return;
+		if (commandBarRef?.current) {
+			console.log("I swear im trying to focus", commandBarRef);
+			e.preventDefault();
+			document.querySelector(".aa-Input").focus();
+		}
+	};
+	useEffect(() => {
+		document.addEventListener("keyup", (e) => handleSlash(e));
+		return () => document.removeEventListener("keyup", (e) => handleSlash(e));
+	}, []);
 
 	useEffect(() => {
 		if (!commandBarRef.current) {
@@ -39,9 +45,8 @@ const Autocomplete = (props) => {
 		}
 
 		const search = autocomplete({
-			placeholder: "/p to play",
-			// detachedMediaQuery: "none",
-			detachedMediaQuery: "",
+			detachedMediaQuery: "none",
+			// detachedMediaQuery: "",
 			container: commandBarRef.current,
 			renderer: { createElement, Fragment, render: () => {} },
 			render({ children }, root) {
@@ -54,15 +59,45 @@ const Autocomplete = (props) => {
 
 				panelRootRef.current.render(children);
 			},
-			getSources: () => [
+			getSources: ({ query }) => [
 				{
 					sourceId: "actions",
 					templates: {
-						items({ item }) {
-							return <p className='text-zinc-300'>{item.command}</p>;
+						item({ item }) {
+							return (
+								<p>
+									{item?.label} {item.placeholder}
+								</p>
+							);
 						},
 					},
-					getItems: () => [{ command: "/p", placeholder: "press p to play" }],
+					onSelect(params) {
+						const { item, setQuery } = params;
+						item.onSelect(params);
+						setQuery("");
+					},
+					getItems() {
+						return [
+							{
+								label: "/h",
+								placeholder: "press h to hideDetails",
+								onSelect: (params) => {
+									console.log(query);
+									console.log(params);
+									console.log("Hiding Details");
+								},
+							},
+							{
+								label: "/p",
+								placeholder: "press p to play",
+								onSelect: (params) => {
+									console.log(query);
+									console.log("Playing");
+									console.log(params);
+								},
+							},
+						];
+					},
 				},
 			],
 			...props,
@@ -74,9 +109,12 @@ const Autocomplete = (props) => {
 	}, [props]);
 
 	return (
-		<div ref={panelRootRef}>
-			<div ref={commandBarRef} />
-		</div>
+		// <div ref={panelRootRef}>
+		<>
+			<div id='commandbar' ref={commandBarRef} />
+			<div onClick={handleSlash}>test</div>
+		</>
+		// </div>
 	);
 };
 export default CommandBar;
