@@ -2,11 +2,13 @@ import React, { Fragment, useEffect, useRef, createElement } from "react";
 import { autocomplete } from "@algolia/autocomplete-js";
 import { createRoot } from "react-dom/client";
 import "@algolia/autocomplete-theme-classic";
+import "../../../autocomplete.css";
 
 const CommandBar = () => {
 	return (
-		<div className='absolute bottom-[10vh] left-[40vw] h-[8vh] w-[20vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400'>
+		<div className='absolute bottom-0 left-[40vw] h-[8vh] w-[20vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400'>
 			<Autocomplete
+				debug
 				openOnFocus={true}
 				getSources={({ query }) => [
 					{
@@ -38,6 +40,7 @@ const Autocomplete = (props) => {
 
 		const search = autocomplete({
 			placeholder: "/p to play",
+			// detachedMediaQuery: "none",
 			detachedMediaQuery: "",
 			container: commandBarRef.current,
 			renderer: { createElement, Fragment, render: () => {} },
