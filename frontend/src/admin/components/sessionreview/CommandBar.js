@@ -8,7 +8,7 @@ const CommandBar = () => {
 	return (
 		<div className='absolute bottom-[14vh] left-[40vw] h-[8vh] w-[20vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400'>
 			<Autocomplete
-				debug={true}
+				defaultActiveItemId='0'
 				placeholder='/p to play'
 				openOnFocus={true}
 				autoFocus={true}
@@ -16,7 +16,18 @@ const CommandBar = () => {
 		</div>
 	);
 };
-
+const getQueryPattern = (query, flags = "i") => {
+	const pattern = new RegExp(
+		`(${query
+			.trim()
+			.toLowerCase()
+			.split(" ")
+			.map((token) => `${token}`)
+			.join("|")})`,
+		flags
+	);
+	return pattern;
+};
 const Autocomplete = (props) => {
 	const commandBarRef = useRef(null);
 	const panelRootRef = useRef(null);
@@ -27,7 +38,7 @@ const Autocomplete = (props) => {
 		}
 		if (e.key !== "/" || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)
 			return;
-		if (/^(?:input|textarea|select|button)$/i.test(e.target.tagName)) return;
+		// if (/^(?:input|textarea|select|button)$/i.test(e.target.tagName)) return;
 		if (commandBarRef?.current) {
 			e.preventDefault();
 			document.querySelector(".aa-Input").focus();
@@ -75,6 +86,7 @@ const Autocomplete = (props) => {
 						setQuery("");
 					},
 					getItems() {
+						const pattern = getQueryPattern(query);
 						return [
 							{
 								label: "/h",
@@ -94,7 +106,7 @@ const Autocomplete = (props) => {
 									console.log(params);
 								},
 							},
-						];
+						].filter((i) => pattern.test(i.label));
 					},
 				},
 			],
