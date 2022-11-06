@@ -6,7 +6,7 @@ import "../../../autocomplete.css";
 
 const CommandBar = () => {
 	return (
-		<div className='absolute bottom-[14vh] left-[40vw] h-[8vh] w-[20vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400'>
+		<div className='absolute bottom-[0vh] left-[40vw] h-[8vh] w-[20vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400'>
 			<Autocomplete
 				defaultActiveItemId='0'
 				placeholder='/p to play'
@@ -104,6 +104,14 @@ const Autocomplete = (props) => {
 									console.log(query);
 									console.log("Playing");
 									console.log(params);
+								},
+							},
+							{
+								label: "/v",
+								placeholder: "press v to select vid",
+								onSelect: (params) => {
+									console.log("selectVideo");
+									document.getElementById("video").focus();
 								},
 							},
 						].filter((i) => pattern.test(i.label));
