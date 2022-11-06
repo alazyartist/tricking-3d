@@ -21,7 +21,7 @@ const AdminSessionReview = () => {
 			{sessionDetails && (
 				<div className='mt-8 flex flex-col place-items-center text-zinc-300'>
 					<div>{sessionDetails?.name}</div>
-					<div className='absolute left-2 top-[20vh] min-w-[6vw]'>
+					<div className='absolute left-2 top-[20vh] min-w-[135px]'>
 						<SessionDetailDisplay sessionDetails={sessionDetails} />
 
 						{sessionDetails?.SessionSources?.map((source) => (
@@ -102,7 +102,7 @@ const SessionSourceDisplay = ({ source, playerVisible, setPlayerVisible }) => {
 			) : (
 				<div
 					key={source?.vidsrc.replace(vidsrcRegex, "")}
-					className='flex flex-col gap-4 rounded-md p-2 pl-0'>
+					className='mt-2 flex w-full flex-col gap-4 rounded-md pl-0'>
 					<div
 						className='rounded-md rounded-l-none bg-zinc-700 p-2'
 						onClick={() => setPlayerVisible(source.vidsrc)}>
@@ -133,7 +133,7 @@ const SessionDetailDisplay = ({ sessionDetails }) => {
 			key={sessionDetails.sessionid + "details"}
 			onClick={() => setDetailsVisible(!detailsVisible)}
 			style={{ left: showDetails.left, opacity: showDetails.opacity }}
-			className='relative flex flex-col gap-2 rounded-md rounded-l-none bg-zinc-700 p-1 font-inter text-xs'>
+			className='relative flex w-full flex-col gap-2 rounded-md rounded-l-none bg-zinc-700 p-1 font-inter text-xs'>
 			<div>{sessionDetails?.name}</div>
 			<div>{sessionDetails?.user_id?.slice(-4)}</div>
 			<div>{new Date(sessionDetails?.sessionDate).toDateString()}</div>
