@@ -27,9 +27,8 @@ const Autocomplete = (props) => {
 		}
 		if (e.key !== "/" || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)
 			return;
-		// if (/^(?:input|textarea|select|button)$/i.test(e.target.tagName)) return;
+		if (/^(?:input|textarea|select|button)$/i.test(e.target.tagName)) return;
 		if (commandBarRef?.current) {
-			console.log("I swear im trying to focus", commandBarRef);
 			e.preventDefault();
 			document.querySelector(".aa-Input").focus();
 		}
@@ -56,7 +55,6 @@ const Autocomplete = (props) => {
 					panelRootRef.current?.unmount();
 					panelRootRef.current = createRoot(root);
 				}
-
 				panelRootRef.current.render(children);
 			},
 			getSources: ({ query }) => [
@@ -109,12 +107,9 @@ const Autocomplete = (props) => {
 	}, [props]);
 
 	return (
-		// <div ref={panelRootRef}>
 		<>
 			<div id='commandbar' ref={commandBarRef} />
-			<div onClick={handleSlash}>test</div>
 		</>
-		// </div>
 	);
 };
 export default CommandBar;
