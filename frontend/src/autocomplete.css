@@ -26,3 +26,15 @@
 	--aa-muted-color-rgb: 128, 126, 163;
 	--aa-muted-color-alpha: 0.6;
 }
+.aa-Panel {
+	max-height: 130px !important;
+}
+/*
+	transform: translate(0px, -200px) !important;
+	position: relative;
+.aaPanel--scrollable {
+	position: relative;
+	width: 30vw;
+	left: 35vw;
+	top: -10vh;
+}*/

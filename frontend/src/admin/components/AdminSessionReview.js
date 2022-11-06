@@ -14,7 +14,7 @@ const AdminSessionReview = () => {
 	// console.log(sessionDetails);
 	const [playerVisible, setPlayerVisible] = useState(false);
 	return (
-		<div>
+		<div className='no-scrollbar fixed top-0 left-0 h-screen w-screen overflow-scroll'>
 			<Link to={-1}>
 				<IoIosArrowBack className='absolute top-4 left-2 text-3xl text-zinc-300' />
 			</Link>
