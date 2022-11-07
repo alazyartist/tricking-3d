@@ -75,25 +75,26 @@ const Autocomplete = (props) => {
 		if (e.key === "0") {
 			e.preventDefault();
 			setCount(0);
-			setVidsrc(sessionSources[0]?.vidsrc);
+			// setVidsrc(sessionSources[0]?.vidsrc);
 		}
 
 		if (e.key === "-") {
 			e.preventDefault();
-			setCount((count) => (count - 1 > 0 ? count - 1 : 0));
-			setVidsrc(sessionSources[count - 1 > 0 ? count - 1 : 0]?.vidsrc);
+			setCount((count) => (count > 0 ? count - 1 : 0));
 		}
 
 		if (e.key === "=") {
 			e.preventDefault();
-			setCount((count) => (count + 1) % sessionSources.length);
-			setVidsrc(sessionSources[count + 1]?.vidsrc);
+			setCount((count) => count + 1);
 		}
 		if (e.key === "k") {
 			e.preventDefault();
 			setVidIsPlaying();
 		}
 	};
+	useEffect(() => {
+		setVidsrc(sessionSources[count % sessionSources?.length]?.vidsrc);
+	}, [count]);
 	useEffect(() => {
 		document.addEventListener("keyup", (e) => handleSlash(e));
 		return () => document.removeEventListener("keyup", (e) => handleSlash(e));

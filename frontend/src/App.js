@@ -169,13 +169,20 @@ function App() {
 										}
 									/>
 									<Route
-										path={"/addSession"}
 										element={
 											<Suspense fallback={<Loading />}>
-												<AddSessionPage />
+												<RequireAuth />
 											</Suspense>
-										}
-									/>
+										}>
+										<Route
+											path={"/addSession"}
+											element={
+												<Suspense fallback={<Loading />}>
+													<AddSessionPage />
+												</Suspense>
+											}
+										/>
+									</Route>
 									<Route
 										path={"/pppoints/stats/:sessionID"}
 										element={
