@@ -38,6 +38,9 @@ const getQueryPattern = (query, flags = "i") => {
 const Autocomplete = (props) => {
 	const sessionSources = useSessionSummariesStore((s) => s.sessionSources);
 	const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
+	const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
+	const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
+
 	const vidIsPlaying = useSessionSummariesStore((s) => s.vidIsPlaying);
 	const setVidIsPlaying = useSessionSummariesStore((s) => s.setVidIsPlaying);
 	const setDetailsVisible = useSessionSummariesStore(
@@ -142,22 +145,25 @@ const Autocomplete = (props) => {
 							return [
 								{
 									label: "/h",
-									placeholder: "press h to hideDetails",
+									placeholder: " or press h to hideDetails",
 									onSelect: (params) => {
 										setDetailsVisible();
 									},
 								},
 								{
 									label: "/p",
-									placeholder: "press p to play",
+									placeholder: " or press k to play/pause",
 									onSelect: (params) => {
 										setVidIsPlaying();
 									},
 								},
 								{
-									label: "/v",
-									placeholder: "press v to select vid",
-									onSelect: (params) => {
+									label: "/s",
+									placeholder: "seekTo time",
+									onSelect: ({ itemInputValue }) => {
+										let seekTime = itemInputValue.split(" ")[1];
+										console.log(seekTime);
+										setSeekTime(seekTime);
 										// console.log("selectVideo");
 										// document.getElementById("video").focus();
 									},

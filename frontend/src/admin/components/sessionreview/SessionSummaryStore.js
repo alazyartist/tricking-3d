@@ -15,6 +15,8 @@ export const useSessionSummariesStore = create(
 				vidIsPlaying: false,
 				setVidIsPlaying: (value) =>
 					set((s) => ({ vidIsPlaying: !s.vidIsPlaying })),
+				seekTime: 0,
+				setSeekTime: (value) => set(() => ({ seekTime: value })),
 				currentTime: 0,
 				setCurrentTime: (value) => set(() => ({ currentTime: value })),
 				sessionData: [{}],

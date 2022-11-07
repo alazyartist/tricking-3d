@@ -6,11 +6,19 @@ import { useSessionSummariesStore } from "./SessionSummaryStore";
 const SessionSourceDisplay = ({ source }) => {
 	const vidsrcRegex = /(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)/g;
 	const vidRef = useRef();
-	const [currentTime, setCurrentTime] = useState(0);
+	const seekTime = useSessionSummariesStore((s) => s.seekTime);
+	const currentTime = useSessionSummariesStore((s) => s.currentTime);
+	const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
+
 	const vidIsPlaying = useSessionSummariesStore((s) => s.vidIsPlaying);
 	const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
 	const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
 	useEffect(() => console.log(vidRef?.current), []);
+	useEffect(() => {
+		setCurrentTime(seekTime);
+		vidRef?.current?.seekTo(seekTime);
+	}, [seekTime]);
+
 	const handleTimeUpdate = () => {
 		setCurrentTime(vidRef.current?.getCurrentTime());
 		if (vidRef?.current?.getCurrentTime() < vidRef.current?.getDuration()) {
