@@ -28,11 +28,12 @@
 }
 .aa-Panel {
 	max-height: 130px !important;
-	width: 100%;
+	width: 100% !important;
 	transform: translate(0px, -190px) !important;
 }
 .aa-Panel--scrollable {
 	height: 130px;
+	width: 100% !important;
 	display: flex;
 	flex-direction: column-reverse;
 }

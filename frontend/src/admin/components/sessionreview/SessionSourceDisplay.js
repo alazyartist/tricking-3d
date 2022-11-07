@@ -7,16 +7,12 @@ const SessionSourceDisplay = ({ source }) => {
 	const vidsrcRegex = /(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)/g;
 	const vidRef = useRef();
 	const [currentTime, setCurrentTime] = useState(0);
-	//removePlayer visible to currentVidsrc
 	const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
 	const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
 	useEffect(() => console.log(vidRef?.current), []);
 	const handleTimeUpdate = () => {
 		setCurrentTime(vidRef.current?.getCurrentTime());
-		if (
-			vidRef?.current?.player?.isPlaying &&
-			vidRef?.current?.getCurrentTime() < vidRef.current?.getDuration()
-		) {
+		if (vidRef?.current?.getCurrentTime() < vidRef.current?.getDuration()) {
 			setTimeout(() => handleTimeUpdate(), 50);
 		}
 	};

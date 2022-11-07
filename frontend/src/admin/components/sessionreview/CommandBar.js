@@ -74,17 +74,15 @@ const Autocomplete = (props) => {
 		if (e.key === "-") {
 			console.log("video go down", count);
 			e.preventDefault();
-			setCount((count) =>
-				(count - 1) % sessionSources.length > 0 ? count - 1 : 0
-			);
-			setVidsrc(sessionSources[(count - 1) % sessionSources.length]?.vidsrc);
+			setCount((count) => (count - 1 > 0 ? count - 1 : 0));
+			setVidsrc(sessionSources[count - 1 > 0 ? count - 1 : 0]?.vidsrc);
 		}
 
 		if (e.key === "=") {
 			console.log("video go up", count);
-			setCount((count) => (count + 1) % (sessionSources.length - 1));
+			setCount((count) => (count + 1) % sessionSources.length);
 			e.preventDefault();
-			setVidsrc(sessionSources[count]?.vidsrc);
+			setVidsrc(sessionSources[count + 1]?.vidsrc);
 		}
 	};
 	useEffect(() => {

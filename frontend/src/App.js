@@ -122,7 +122,8 @@ function App() {
 						!location.pathname.includes("/pppoints") &&
 						location.pathname !== "/" && <Header />}
 					{tabBar
-						? (!isSandbox || !isUserProfile) && <TabBar />
+						? (!isSandbox || !isUserProfile) &&
+						  !location.pathname.includes("/admin/sessionReview") && <TabBar />
 						: !isSandbox && <TheoryTabBar />}
 
 					{transitions(({ opacity }, curLocation) => (
