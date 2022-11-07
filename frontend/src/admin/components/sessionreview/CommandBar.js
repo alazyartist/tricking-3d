@@ -11,6 +11,7 @@ import { createRoot } from "react-dom/client";
 import "@algolia/autocomplete-theme-classic";
 import "../../../autocomplete.css";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
+import useGetTricks from "../../../api/useGetTricks";
 
 const CommandBar = () => {
 	return (
@@ -46,6 +47,7 @@ const Autocomplete = (props) => {
 	const activeClipData = useSessionSummariesStore((s) => s.clipData);
 	const vidIsPlaying = useSessionSummariesStore((s) => s.vidIsPlaying);
 	const setVidIsPlaying = useSessionSummariesStore((s) => s.setVidIsPlaying);
+	const { data: tricks } = useGetTricks();
 	const setDetailsVisible = useSessionSummariesStore(
 		(s) => s.setDetailsVisible
 	);
@@ -234,6 +236,28 @@ const Autocomplete = (props) => {
 									},
 								},
 							].filter((i) => pattern.test(i.label));
+						},
+					},
+					{
+						sourceId: "Tricks",
+						templates: {
+							header() {
+								return <p>Tricks</p>;
+							},
+							item({ item }) {
+								return <p>{item.name}</p>;
+							},
+						},
+						getItems: async () => {
+							const pattern = getQueryPattern(query);
+
+							return tricks.filter((t) => pattern.test(t.name));
+						},
+						onSelect(params) {
+							const { item, setQuery } = params;
+							console.log(item);
+							// item.onSelect(params);
+							setQuery("");
 						},
 					},
 				],
