@@ -6,7 +6,7 @@ import "../../../autocomplete.css";
 
 const CommandBar = () => {
 	return (
-		<div className='absolute bottom-[0vh] left-[40vw] h-[8vh] w-[20vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400'>
+		<div className='absolute bottom-[0vh] left-[20vw] h-[8vh] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 sm:w-[60vw] md:left-[40vw] md:w-[20vw]'>
 			<Autocomplete
 				defaultActiveItemId='0'
 				placeholder='/p to play'
@@ -39,10 +39,8 @@ const Autocomplete = (props) => {
 		if (e.key !== "/" || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)
 			return;
 		// if (/^(?:input|textarea|select|button)$/i.test(e.target.tagName)) return;
-		if (commandBarRef?.current) {
-			e.preventDefault();
-			document.querySelector(".aa-Input").focus();
-		}
+		e.preventDefault();
+		document.querySelector(".aa-Input").focus();
 	};
 	useEffect(() => {
 		document.addEventListener("keyup", (e) => handleSlash(e));
@@ -54,72 +52,75 @@ const Autocomplete = (props) => {
 			return undefined;
 		}
 
-		const search = autocomplete({
-			detachedMediaQuery: "none",
-			// detachedMediaQuery: "",
-			container: commandBarRef.current,
-			renderer: { createElement, Fragment, render: () => {} },
-			render({ children }, root) {
-				if (!panelRootRef.current || rootRef.current !== root) {
-					rootRef.current = root;
+		const search = autocomplete(
+			{
+				detachedMediaQuery: "none",
+				// detachedMediaQuery: "",
+				container: commandBarRef.current,
+				renderer: { createElement, Fragment, render: () => {} },
+				render({ children }, root) {
+					if (!panelRootRef.current || rootRef.current !== root) {
+						rootRef.current = root;
 
-					panelRootRef.current?.unmount();
-					panelRootRef.current = createRoot(root);
-				}
-				panelRootRef.current.render(children);
-			},
-			getSources: ({ query }) => [
-				{
-					sourceId: "actions",
-					templates: {
-						item({ item }) {
-							return (
-								<p>
-									{item?.label} {item.placeholder}
-								</p>
-							);
+						panelRootRef.current?.unmount();
+						panelRootRef.current = createRoot(root);
+					}
+					panelRootRef.current.render(children);
+				},
+				getSources: ({ query }) => [
+					{
+						sourceId: "actions",
+						templates: {
+							item({ item }) {
+								return (
+									<p>
+										{item?.label} {item.placeholder}
+									</p>
+								);
+							},
+						},
+						onSelect(params) {
+							const { item, setQuery } = params;
+							item.onSelect(params);
+							setQuery("");
+						},
+						getItems() {
+							const pattern = getQueryPattern(query);
+							return [
+								{
+									label: "/h",
+									placeholder: "press h to hideDetails",
+									onSelect: (params) => {
+										console.log(query);
+										console.log(params);
+										console.log("Hiding Details");
+									},
+								},
+								{
+									label: "/p",
+									placeholder: "press p to play",
+									onSelect: (params) => {
+										console.log(query);
+										console.log("Playing");
+										console.log(params);
+									},
+								},
+								{
+									label: "/v",
+									placeholder: "press v to select vid",
+									onSelect: (params) => {
+										console.log("selectVideo");
+										document.getElementById("video").focus();
+									},
+								},
+							].filter((i) => pattern.test(i.label));
 						},
 					},
-					onSelect(params) {
-						const { item, setQuery } = params;
-						item.onSelect(params);
-						setQuery("");
-					},
-					getItems() {
-						const pattern = getQueryPattern(query);
-						return [
-							{
-								label: "/h",
-								placeholder: "press h to hideDetails",
-								onSelect: (params) => {
-									console.log(query);
-									console.log(params);
-									console.log("Hiding Details");
-								},
-							},
-							{
-								label: "/p",
-								placeholder: "press p to play",
-								onSelect: (params) => {
-									console.log(query);
-									console.log("Playing");
-									console.log(params);
-								},
-							},
-							{
-								label: "/v",
-								placeholder: "press v to select vid",
-								onSelect: (params) => {
-									console.log("selectVideo");
-									document.getElementById("video").focus();
-								},
-							},
-						].filter((i) => pattern.test(i.label));
-					},
-				},
-			],
-			...props,
-		});
+				],
+				...props,
+			},
+			[]
+		);
 
 		return () => {
 			search.destroy();
