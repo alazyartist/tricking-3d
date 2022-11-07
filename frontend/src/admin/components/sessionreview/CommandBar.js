@@ -38,6 +38,11 @@ const getQueryPattern = (query, flags = "i") => {
 const Autocomplete = (props) => {
 	const sessionSources = useSessionSummariesStore((s) => s.sessionSources);
 	const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
+	const vidIsPlaying = useSessionSummariesStore((s) => s.vidIsPlaying);
+	const setVidIsPlaying = useSessionSummariesStore((s) => s.setVidIsPlaying);
+	const setDetailsVisible = useSessionSummariesStore(
+		(s) => s.setDetailsVisible
+	);
 	const commandBarRef = useRef(null);
 	const panelRootRef = useRef(null);
 	const rootRef = useRef(null);
@@ -48,7 +53,6 @@ const Autocomplete = (props) => {
 		}
 		if (e.key !== "/" || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)
 			return;
-		// if (/^(?:input|textarea|select|button)$/i.test(e.target.tagName)) return;
 		e.preventDefault();
 		document.querySelector(".aa-Input").focus();
 	};
@@ -57,7 +61,7 @@ const Autocomplete = (props) => {
 			return;
 		}
 		if (
-			!["0", "-", "="].includes(e.key) ||
+			!["0", "-", "=", "k"].includes(e.key) ||
 			e.ctrlKey ||
 			e.shiftKey ||
 			e.altKey ||
@@ -72,17 +76,19 @@ const Autocomplete = (props) => {
 		}
 
 		if (e.key === "-") {
-			console.log("video go down", count);
 			e.preventDefault();
 			setCount((count) => (count - 1 > 0 ? count - 1 : 0));
 			setVidsrc(sessionSources[count - 1 > 0 ? count - 1 : 0]?.vidsrc);
 		}
 
 		if (e.key === "=") {
-			console.log("video go up", count);
-			setCount((count) => (count + 1) % sessionSources.length);
 			e.preventDefault();
+			setCount((count) => (count + 1) % sessionSources.length);
 			setVidsrc(sessionSources[count + 1]?.vidsrc);
+		}
+		if (e.key === "k") {
+			e.preventDefault();
+			setVidIsPlaying();
 		}
 	};
 	useEffect(() => {
@@ -138,18 +144,14 @@ const Autocomplete = (props) => {
 									label: "/h",
 									placeholder: "press h to hideDetails",
 									onSelect: (params) => {
-										console.log(query);
-										console.log(params);
-										console.log("Hiding Details");
+										setDetailsVisible();
 									},
 								},
 								{
 									label: "/p",
 									placeholder: "press p to play",
 									onSelect: (params) => {
-										console.log(query);
-										console.log("Playing");
-										console.log(params);
+										setVidIsPlaying();
 									},
 								},
 								{

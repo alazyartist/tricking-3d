@@ -9,17 +9,19 @@ export const useSessionSummariesStore = create(
 				setSessionSources: (value) => set(() => ({ sessionSources: value })),
 				vidsrc: "",
 				setVidsrc: (value) => set(() => ({ vidsrc: value })),
-				detailsVisible: "",
-				setDetailsVisible: (value) => set(() => ({ DetailsVisible: value })),
-				vidisPlaying: false,
-				setVidIsPlaying: (value) => set(() => ({ vidisPlaying: value })),
+				detailsVisible: false,
+				setDetailsVisible: (value) =>
+					set((s) => ({ detailsVisible: !s.detailsVisible })),
+				vidIsPlaying: false,
+				setVidIsPlaying: (value) =>
+					set((s) => ({ vidIsPlaying: !s.vidIsPlaying })),
 				currentTime: 0,
 				setCurrentTime: (value) => set(() => ({ currentTime: value })),
 				sessionData: [{}],
 				setSessionData: (value) => set((s) => ({ sessionData: [...s, value] })),
-				activeSessionData: {},
-				setActiveSessionData: (value) =>
-					set((s) => ({ activeSessionData: { ...value } })),
+				activeClipData: {},
+				setActiveClipData: (value) =>
+					set((s) => ({ activeClipData: { ...value } })),
 				source: "",
 			}),
 			{ name: "SessionSummaryStore" }

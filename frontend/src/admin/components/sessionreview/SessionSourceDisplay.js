@@ -7,6 +7,7 @@ const SessionSourceDisplay = ({ source }) => {
 	const vidsrcRegex = /(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)/g;
 	const vidRef = useRef();
 	const [currentTime, setCurrentTime] = useState(0);
+	const vidIsPlaying = useSessionSummariesStore((s) => s.vidIsPlaying);
 	const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
 	const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
 	useEffect(() => console.log(vidRef?.current), []);
@@ -49,6 +50,7 @@ const SessionSourceDisplay = ({ source }) => {
 								config={{ facebook: { appId: "508164441188790" } }}
 								id={"video"}
 								controls={false}
+								playing={vidIsPlaying}
 								muted
 								width={"70vw"}
 								height={"40vw"}

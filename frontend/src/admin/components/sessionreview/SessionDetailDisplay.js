@@ -1,8 +1,12 @@
 import { animated, useSpring } from "react-spring";
 import React, { useState } from "react";
+import { useSessionSummariesStore } from "./SessionSummaryStore";
 
 const SessionDetailDisplay = ({ sessionDetails }) => {
-	const [detailsVisible, setDetailsVisible] = useState(true);
+	const detailsVisible = useSessionSummariesStore((s) => s.detailsVisible);
+	const setDetailsVisible = useSessionSummariesStore(
+		(s) => s.setDetailsVisible
+	);
 	const showDetails = useSpring({
 		from: { spanOpacity: 1, opacity: 0, left: "-10vw" },
 		to: {
@@ -18,7 +22,7 @@ const SessionDetailDisplay = ({ sessionDetails }) => {
 	return (
 		<animated.div
 			key={sessionDetails.sessionid + "details"}
-			onClick={() => setDetailsVisible(!detailsVisible)}
+			onClick={() => setDetailsVisible()}
 			style={{ left: showDetails.left, opacity: showDetails.opacity }}
 			className='relative flex w-full flex-col gap-2 rounded-md rounded-l-none bg-zinc-700 p-1 font-inter text-xs'>
 			<div>{sessionDetails?.name}</div>
