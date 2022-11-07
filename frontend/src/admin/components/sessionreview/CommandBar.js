@@ -39,6 +39,7 @@ const Autocomplete = (props) => {
 	const sessionSources = useSessionSummariesStore((s) => s.sessionSources);
 	const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
 	const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
+	const currentTime = useSessionSummariesStore((s) => s.currentTime);
 	const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
 
 	const vidIsPlaying = useSessionSummariesStore((s) => s.vidIsPlaying);
@@ -64,7 +65,7 @@ const Autocomplete = (props) => {
 			return;
 		}
 		if (
-			!["0", "-", "=", "k"].includes(e.key) ||
+			!["0", "-", "=", "k", "j", "l"].includes(e.key) ||
 			e.ctrlKey ||
 			e.shiftKey ||
 			e.altKey ||
@@ -90,6 +91,16 @@ const Autocomplete = (props) => {
 		if (e.key === "k") {
 			e.preventDefault();
 			setVidIsPlaying();
+		}
+		if (e.key === "j") {
+			e.preventDefault();
+			setSeekTime(parseInt(currentTime) - 5);
+			setCurrentTime(parseInt(currentTime) - 5);
+		}
+		if (e.key === "l") {
+			e.preventDefault();
+			setSeekTime(parseInt(currentTime) + 5);
+			setCurrentTime(parseInt(currentTime) + 5);
 		}
 	};
 	useEffect(() => {
