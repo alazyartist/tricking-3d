@@ -3,12 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
 
 const ActiveClipDisplay = () => {
-	const activeClipData = useSessionSummariesStore((s) => s.activeClipData);
+	const activeClipData = useSessionSummariesStore((s) => s.clipData);
 	const currentTime = useSessionSummariesStore((s) => s.currentTime);
 
-	const setActiveClipData = useSessionSummariesStore(
-		(s) => s.setActiveClipData
-	);
+	const setActiveClipData = useSessionSummariesStore((s) => s.setClipData);
 	const clipDetailsVisible = useSessionSummariesStore(
 		(s) => s.clipDetailsVisible
 	);
@@ -26,11 +24,14 @@ const ActiveClipDisplay = () => {
 		config: { tension: 280, friction: 40 },
 		// onRest: () => setOpenHamburger(!openHamburger),
 	});
-	useEffect(() => console.log(activeClipData), [activeClipData]);
+	useEffect(() => console.log(activeClipData, "activeClip"), [activeClipData]);
 	return (
 		<animated.div
 			key={activeClipData?.sessionid + "details"}
-			onClick={() => setClipDetailsVisible()}
+			onClick={() => {
+				setClipDetailsVisible();
+				console.log(activeClipData);
+			}}
 			style={{ right: showDetails.right, opacity: showDetails.opacity }}
 			className='absolute top-[20vh] right-2 flex w-[139px] flex-col gap-2 rounded-md rounded-r-none bg-zinc-700 p-1 pl-6 font-inter text-xs text-zinc-300'>
 			<div>{activeClipData?.name}</div>

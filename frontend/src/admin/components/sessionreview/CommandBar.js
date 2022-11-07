@@ -4,6 +4,7 @@ import React, {
 	useRef,
 	createElement,
 	useState,
+	useCallback,
 } from "react";
 import { autocomplete } from "@algolia/autocomplete-js";
 import { createRoot } from "react-dom/client";
@@ -41,7 +42,8 @@ const Autocomplete = (props) => {
 	const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
 	const currentTime = useSessionSummariesStore((s) => s.currentTime);
 	const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
-
+	const setActiveClipData = useSessionSummariesStore((s) => s.setClipData);
+	const activeClipData = useSessionSummariesStore((s) => s.clipData);
 	const vidIsPlaying = useSessionSummariesStore((s) => s.vidIsPlaying);
 	const setVidIsPlaying = useSessionSummariesStore((s) => s.setVidIsPlaying);
 	const setDetailsVisible = useSessionSummariesStore(
@@ -50,10 +52,19 @@ const Autocomplete = (props) => {
 	const setClipDetailsVisible = useSessionSummariesStore(
 		(s) => s.setClipDetailsVisible
 	);
+	const timeRef = useRef(currentTime);
 	const commandBarRef = useRef(null);
 	const panelRootRef = useRef(null);
 	const rootRef = useRef(null);
 	const [count, setCount] = useState(0);
+
+	const syncTime = useCallback(
+		(time) => {
+			setCurrentTime(time);
+			timeRef.current = time;
+		},
+		[currentTime]
+	);
 	const handleSlash = (e) => {
 		if (!commandBarRef.current) {
 			return;
@@ -98,12 +109,12 @@ const Autocomplete = (props) => {
 		if (e.key === "j") {
 			e.preventDefault();
 			setSeekTime(parseInt(currentTime) - 5);
-			setCurrentTime(parseInt(currentTime) - 5);
+			syncTime(parseInt(currentTime) - 5);
 		}
 		if (e.key === "l") {
 			e.preventDefault();
 			setSeekTime(parseInt(currentTime) + 5);
-			setCurrentTime(parseInt(currentTime) + 5);
+			syncTime(parseInt(currentTime) + 5);
 		}
 	};
 	useEffect(() => {
@@ -177,6 +188,30 @@ const Autocomplete = (props) => {
 									placeholder: " or press k to play/pause",
 									onSelect: (params) => {
 										setVidIsPlaying();
+									},
+								},
+								{
+									label: "/i",
+									placeholder: " set clipStart",
+									onSelect: (params) => {
+										console.log(timeRef);
+										setActiveClipData({
+											startTime: useSessionSummariesStore
+												.getState()
+												.currentTime.toFixed(2),
+										});
+									},
+								},
+								{
+									label: "/o",
+									placeholder: " set clipStart",
+									onSelect: (params) => {
+										console.log(timeRef);
+										setActiveClipData({
+											endTime: useSessionSummariesStore
+												.getState()
+												.currentTime.toFixed(2),
+										});
 									},
 								},
 								{
