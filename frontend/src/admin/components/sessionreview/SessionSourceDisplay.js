@@ -67,19 +67,49 @@ const SessionSourceDisplay = ({ source }) => {
 								playsInline
 								url={source?.vidsrc}
 							/>
-							<input
-								id='sessionSummary'
-								type='range'
-								step={0.001}
-								onChange={(e) => {
-									setCurrentTime(e.target.value);
-									vidRef?.current?.seekTo(e.target.value);
-								}}
-								value={currentTime}
-								min={0}
-								max={vidRef?.current?.getDuration()}
-								className={`w-[70vw] bg-transparent`}
-							/>
+							<div className='relative w-[70vw]'>
+								<div className=' w-full bg-red-500'>
+									{[
+										{
+											width: "w-[90px]",
+											left: "left-[20px]",
+											color: "bg-teal-300",
+										},
+										{
+											width: "w-[20px]",
+											left: "left-[740px]",
+											color: "bg-emerald-300",
+										},
+										{
+											width: "w-[200px]",
+											left: "left-[440px]",
+											color: "bg-pink-300",
+										},
+										{
+											width: "w-[40px]",
+											left: "left-[120px]",
+											color: "bg-indigo-300",
+										},
+									].map((e, i) => (
+										<div
+											key={`${i}+ 'data'`}
+											className={`absolute top-[4px] h-3 ${e.width} rounded-md ${e.color} ${e.left} `}></div>
+									))}
+								</div>
+								<input
+									id='sessionSummary'
+									type='range'
+									step={0.001}
+									onChange={(e) => {
+										setCurrentTime(e.target.value);
+										vidRef?.current?.seekTo(e.target.value);
+									}}
+									value={currentTime}
+									min={0}
+									max={vidRef?.current?.getDuration()}
+									className={`w-[70vw] bg-transparent`}
+								/>
+							</div>
 						</div>
 					</div>
 				) : null
