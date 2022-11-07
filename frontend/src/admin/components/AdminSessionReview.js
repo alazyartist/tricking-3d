@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
 import { useGetSessionDetailsbySessionid } from "../../api/useSessionSummaries";
+import ActiveClipDisplay from "./sessionreview/ActiveClipDisplay";
 import CommandBar from "./sessionreview/CommandBar";
 import SessionDetailDisplay from "./sessionreview/SessionDetailDisplay";
 import SessionSourceDisplay from "./sessionreview/SessionSourceDisplay";
@@ -37,6 +38,7 @@ const AdminSessionReview = () => {
 					</div>
 				</div>
 			)}
+			<ActiveClipDisplay />
 			<CommandBar />
 		</div>
 	);

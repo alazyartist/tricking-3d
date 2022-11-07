@@ -18,18 +18,18 @@ const SessionSourceDisplay = ({ source }) => {
 		setCurrentTime(seekTime);
 		vidRef?.current?.seekTo(seekTime);
 	}, [seekTime]);
-
-	const handleTimeUpdate = () => {
-		setCurrentTime(vidRef.current?.getCurrentTime());
-		if (vidRef?.current?.getCurrentTime() < vidRef.current?.getDuration()) {
-			setTimeout(() => handleTimeUpdate(), 50);
-		}
-	};
-	useEffect(() => {
-		if (vidRef?.current?.player?.isPlaying) {
-			handleTimeUpdate();
-		}
-	}, []);
+	let colors = ["bg-teal-300", "bg-emerald-300", "bg-indigo-300", "bg-sky-300"];
+	// const handleTimeUpdate = () => {
+	// 	setCurrentTime(vidRef.current?.getCurrentTime());
+	// 	if (vidRef?.current?.getCurrentTime() < vidRef.current?.getDuration()) {
+	// 		setTimeout(() => handleTimeUpdate(), 50);
+	// 	}
+	// };
+	// useEffect(() => {
+	// 	if (vidRef?.current?.player?.isPlaying) {
+	// 		handleTimeUpdate();
+	// 	}
+	// }, []);
 	return (
 		<div key={source.srcid + "1"} className='flex flex-col gap-2'>
 			<div
@@ -57,38 +57,42 @@ const SessionSourceDisplay = ({ source }) => {
 								ref={vidRef}
 								config={{ facebook: { appId: "508164441188790" } }}
 								id={"video"}
-								controls={false}
+								controls={true}
 								playing={vidIsPlaying}
 								muted
 								width={"70vw"}
 								height={"40vw"}
-								onPlay={() => handleTimeUpdate()}
+								onProgress={({ playedSeconds }) =>
+									setCurrentTime(playedSeconds)
+								}
+								// onPlay={() => handleTimeUpdate()}
 								loop
 								playsInline
 								url={source?.vidsrc}
 							/>
 							<div className='relative w-[70vw]'>
-								<div className=' w-full bg-red-500'>
+								<div className=' w-full'>
+									{/* switch for sessionData */}
 									{[
 										{
-											width: "w-[90px]",
-											left: "left-[20px]",
-											color: "bg-teal-300",
+											width: "w-[12%]",
+											left: "left-[22%]",
+											color: colors[3],
 										},
 										{
 											width: "w-[20px]",
 											left: "left-[740px]",
-											color: "bg-emerald-300",
+											color: colors[1],
 										},
 										{
 											width: "w-[200px]",
 											left: "left-[440px]",
-											color: "bg-pink-300",
+											color: colors[3],
 										},
 										{
 											width: "w-[40px]",
 											left: "left-[120px]",
-											color: "bg-indigo-300",
+											color: colors[0],
 										},
 									].map((e, i) => (
 										<div

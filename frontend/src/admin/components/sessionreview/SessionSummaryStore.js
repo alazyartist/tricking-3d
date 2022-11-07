@@ -5,6 +5,8 @@ export const useSessionSummariesStore = create(
 	devtools(
 		persist(
 			(set) => ({
+				activeClipData: "test",
+				setActiveClipData: (value) => set((s) => ({ activeClipData: value })),
 				sessionSources: [],
 				setSessionSources: (value) => set(() => ({ sessionSources: value })),
 				vidsrc: "",
@@ -12,6 +14,9 @@ export const useSessionSummariesStore = create(
 				detailsVisible: false,
 				setDetailsVisible: (value) =>
 					set((s) => ({ detailsVisible: !s.detailsVisible })),
+				clipDetailsVisible: false,
+				setClipDetailsVisible: (value) =>
+					set((s) => ({ clipDetailsVisible: !s.clipDetailsVisible })),
 				vidIsPlaying: false,
 				setVidIsPlaying: (value) =>
 					set((s) => ({ vidIsPlaying: !s.vidIsPlaying })),
@@ -21,9 +26,6 @@ export const useSessionSummariesStore = create(
 				setCurrentTime: (value) => set(() => ({ currentTime: value })),
 				sessionData: [{}],
 				setSessionData: (value) => set((s) => ({ sessionData: [...s, value] })),
-				activeClipData: {},
-				setActiveClipData: (value) =>
-					set((s) => ({ activeClipData: { ...value } })),
 				source: "",
 			}),
 			{ name: "SessionSummaryStore" }
