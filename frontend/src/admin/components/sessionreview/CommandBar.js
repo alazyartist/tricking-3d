@@ -47,6 +47,9 @@ const Autocomplete = (props) => {
 	const setDetailsVisible = useSessionSummariesStore(
 		(s) => s.setDetailsVisible
 	);
+	const setClipDetailsVisible = useSessionSummariesStore(
+		(s) => s.setClipDetailsVisible
+	);
 	const commandBarRef = useRef(null);
 	const panelRootRef = useRef(null);
 	const rootRef = useRef(null);
@@ -160,6 +163,13 @@ const Autocomplete = (props) => {
 									placeholder: " or press h to hideDetails",
 									onSelect: (params) => {
 										setDetailsVisible();
+									},
+								},
+								{
+									label: "/ha",
+									placeholder: " hide ActiveClip Detials",
+									onSelect: (params) => {
+										setClipDetailsVisible();
 									},
 								},
 								{
