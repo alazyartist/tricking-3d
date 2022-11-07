@@ -163,8 +163,16 @@ const Autocomplete = (props) => {
 									placeholder: "seekTo time",
 									onSelect: ({ itemInputValue }) => {
 										let seekTime = itemInputValue.split(" ")[1];
-										console.log(seekTime);
-										setSeekTime(seekTime);
+										let time;
+										if (seekTime.includes(":")) {
+											let min = seekTime.split(":")[0];
+											let sec = seekTime.split(":")[1];
+											time = parseInt(min) * 60 + parseInt(sec);
+										} else {
+											time = seekTime;
+										}
+										console.log(time);
+										setSeekTime(time);
 										// console.log("selectVideo");
 										// document.getElementById("video").focus();
 									},
