@@ -5,10 +5,10 @@ export const useSessionSummariesStore = create(
 	devtools(
 		persist(
 			(set) => ({
-				playerVisible: false,
-				setPlayerVisible: (value) => set(() => ({ playerVisible: value })),
+				sessionSources: [],
+				setSessionSources: (value) => set(() => ({ sessionSources: value })),
 				vidsrc: "",
-				setVidSrc: (value) => set(() => ({ vidSrc: value })),
+				setVidsrc: (value) => set(() => ({ vidsrc: value })),
 				detailsVisible: "",
 				setDetailsVisible: (value) => set(() => ({ DetailsVisible: value })),
 				vidisPlaying: false,

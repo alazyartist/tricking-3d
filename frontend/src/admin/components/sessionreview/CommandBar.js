@@ -1,8 +1,15 @@
-import React, { Fragment, useEffect, useRef, createElement } from "react";
+import React, {
+	Fragment,
+	useEffect,
+	useRef,
+	createElement,
+	useState,
+} from "react";
 import { autocomplete } from "@algolia/autocomplete-js";
 import { createRoot } from "react-dom/client";
 import "@algolia/autocomplete-theme-classic";
 import "../../../autocomplete.css";
+import { useSessionSummariesStore } from "./SessionSummaryStore";
 
 const CommandBar = () => {
 	return (
@@ -29,9 +36,12 @@ const getQueryPattern = (query, flags = "i") => {
 	return pattern;
 };
 const Autocomplete = (props) => {
+	const sessionSources = useSessionSummariesStore((s) => s.sessionSources);
+	const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
 	const commandBarRef = useRef(null);
 	const panelRootRef = useRef(null);
 	const rootRef = useRef(null);
+	const [count, setCount] = useState(0);
 	const handleSlash = (e) => {
 		if (!commandBarRef.current) {
 			return;
@@ -42,9 +52,48 @@ const Autocomplete = (props) => {
 		e.preventDefault();
 		document.querySelector(".aa-Input").focus();
 	};
+	const handleSource = (e) => {
+		if (!commandBarRef.current) {
+			return;
+		}
+		if (
+			!["0", "-", "="].includes(e.key) ||
+			e.ctrlKey ||
+			e.shiftKey ||
+			e.altKey ||
+			e.metaKey
+		) {
+			return;
+		}
+		if (e.key === "0") {
+			e.preventDefault();
+			setCount(0);
+			setVidsrc(sessionSources[0]?.vidsrc);
+		}
+
+		if (e.key === "-") {
+			console.log("video go down", count);
+			e.preventDefault();
+			setCount((count) =>
+				(count - 1) % sessionSources.length > 0 ? count - 1 : 0
+			);
+			setVidsrc(sessionSources[(count - 1) % sessionSources.length]?.vidsrc);
+		}
+
+		if (e.key === "=") {
+			console.log("video go up", count);
+			setCount((count) => (count + 1) % (sessionSources.length - 1));
+			e.preventDefault();
+			setVidsrc(sessionSources[count]?.vidsrc);
+		}
+	};
 	useEffect(() => {
 		document.addEventListener("keyup", (e) => handleSlash(e));
 		return () => document.removeEventListener("keyup", (e) => handleSlash(e));
+	}, []);
+	useEffect(() => {
+		document.addEventListener("keyup", (e) => handleSource(e));
+		return () => document.removeEventListener("keyup", (e) => handleSource(e));
 	}, []);
 
 	useEffect(() => {
@@ -109,8 +158,8 @@ const Autocomplete = (props) => {
 									label: "/v",
 									placeholder: "press v to select vid",
 									onSelect: (params) => {
-										console.log("selectVideo");
-										document.getElementById("video").focus();
+										// console.log("selectVideo");
+										// document.getElementById("video").focus();
 									},
 								},
 							].filter((i) => pattern.test(i.label));
