@@ -6,6 +6,8 @@ export const useSessionSummariesStore = create(
 		// persist(
 		(set) => ({
 			clipData: { name: "testName", startTime: 10, endTime: 20 },
+			sessionid: "",
+			setSessionid: (value) => set(() => ({ sessionid: value })),
 			setClipData: (value) =>
 				set((s) => ({ clipData: { ...s.clipData, ...value } })),
 			sessionSources: [],

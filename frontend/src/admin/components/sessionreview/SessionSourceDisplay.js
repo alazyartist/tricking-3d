@@ -156,6 +156,9 @@ export default SessionSourceDisplay;
 
 const SessionDataDetails = ({ e, i, duration }) => {
 	const [seeDetails, setSeeDetails] = useState(false);
+	const clipData = useSessionSummariesStore((s) => s.clipData);
+	const setClipData = useSessionSummariesStore((s) => s.setClipData);
+
 	let w = `${(
 		((parseInt(e.endTime) - parseInt(e.startTime)) / parseInt(duration)) *
 		100
@@ -187,6 +190,7 @@ const SessionDataDetails = ({ e, i, duration }) => {
 			)}
 			<div
 				key={`${i}+${Math.random()}`}
+				onClick={() => setClipData(e)}
 				onMouseOver={() => setSeeDetails(true)}
 				onMouseLeave={() => setSeeDetails(false)}
 				style={{ width: w, left: l }}

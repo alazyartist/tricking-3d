@@ -12,11 +12,15 @@ const AdminSessionReview = () => {
 	const { sessionid } = useParams();
 	const { data } = useGetSessionDetailsbySessionid(sessionid);
 	const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
+	const setSessionid = useSessionSummariesStore((s) => s.setSessionid);
 	const setSessionSources = useSessionSummariesStore(
 		(s) => s.setSessionSources
 	);
 	const sessionDetails = data?.data;
 	// console.log(sessionDetails);
+	useEffect(() => {
+		setSessionid(sessionid);
+	}, [sessionid]);
 	useEffect(() => {
 		setSessionSources(sessionDetails?.SessionSources);
 		setVidsrc(sessionDetails?.SessionSources[0]?.vidsrc);

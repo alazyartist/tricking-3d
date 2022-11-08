@@ -8,6 +8,7 @@ const ActiveClipDisplay = () => {
 	const currentTime = useSessionSummariesStore((s) => s.currentTime);
 	const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
 	const sessionData = useSessionSummariesStore((s) => s.sessionData);
+	const clipCombo = useSessionSummariesStore((s) => s.clipCombo);
 
 	const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
 	const { sessionid } = useParams();
@@ -34,7 +35,7 @@ const ActiveClipDisplay = () => {
 		<animated.div
 			key={activeClipData?.sessionid + "details"}
 			style={{ right: showDetails.right, opacity: showDetails.opacity }}
-			className='absolute top-[20vh] right-2 flex w-[139px] flex-col gap-2 rounded-md rounded-r-none bg-zinc-700 p-1 pl-6 font-inter text-xs text-zinc-300'>
+			className='absolute top-[20vh] right-2 flex  w-[139px] flex-col gap-2 rounded-md rounded-r-none bg-zinc-700 p-1 pl-6 font-inter text-xs text-zinc-300'>
 			<div
 				onClick={() => {
 					setClipDetailsVisible();
@@ -42,11 +43,13 @@ const ActiveClipDisplay = () => {
 				}}
 				className='absolute left-[-4px] h-full w-[25px] '
 			/>
-			<div>clipLabel</div>
+			<div className='whitespace-pre-wrap'>
+				{clipCombo.map((e) => e.name).join(">")}
+			</div>
 			<div>{activeClipData?.name}</div>
 			<div>{activeClipData?.user_id?.slice(-4)}</div>
-			<div>{sessionid}</div>
-			<div>{vidsrc}</div>
+			<div>{activeClipData?.sessionid}</div>
+			<div>{activeClipData?.vidsrc}</div>
 			<div className='flex justify-around gap-2 text-center font-bold'>
 				<div
 					onClick={() => setSeekTime(activeClipData?.startTime)}
@@ -70,8 +73,9 @@ const ActiveClipDisplay = () => {
 			<div className='flex flex-col'>
 				{sessionData.map((e, i) => (
 					<div className='flex gap-1'>
-						<div className='py-1'>{i}</div>
-						<div className='relative whitespace-nowrap p-1 transition delay-75 duration-[1400ms] ease-in-out hover:translate-x-[-100%] hover:bg-zinc-900'>
+						<div
+							onClick={() => console.log(e)}
+							className='relative whitespace-nowrap p-1 transition delay-75 duration-[1400ms] ease-in-out hover:translate-x-[-100%] hover:bg-zinc-900'>
 							{e.name}
 						</div>
 					</div>

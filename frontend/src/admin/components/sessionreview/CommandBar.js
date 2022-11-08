@@ -13,6 +13,7 @@ import "../../../autocomplete.css";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
 import useGetTricks from "../../../api/useGetTricks";
 import { tagsPlugin } from "./CommandTagPlugin";
+import { v4 as uuidv4 } from "uuid";
 
 const CommandBar = () => {
 	const { data: tricks } = useGetTricks();
@@ -272,9 +273,11 @@ const Autocomplete = (props) => {
 										let combo = useSessionSummariesStore.getState().clipCombo;
 										let name = combo.map((c) => c.name).join(">");
 										setClipData({
+											id: uuidv4(),
 											clipLabel: combo,
 											name: name,
-											srcId: useSessionSummariesStore.getState().srcid,
+											sessionid: useSessionSummariesStore.getState().sessionid,
+											srcId: useSessionSummariesStore.getState().vidsrc,
 										});
 										setSessionData(
 											useSessionSummariesStore.getState().clipData
