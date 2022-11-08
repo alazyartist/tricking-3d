@@ -25,9 +25,18 @@ export const useSessionSummariesStore = create(
 			setSeekTime: (value) => set(() => ({ seekTime: value })),
 			currentTime: 0,
 			setCurrentTime: (value) => set(() => ({ currentTime: value })),
-			sessionData: [{}],
-			setSessionData: (value) => set((s) => ({ sessionData: [...s, value] })),
+			sessionData: [],
+			setSessionData: (value) =>
+				set((s) => ({ sessionData: [...s.sessionData, value] })),
 			source: "",
+			clipCombo: [],
+			setClipCombo: (value) =>
+				set((s) => ({ clipCombo: [...s.clipCombo, value] })),
+			removeClipfromCombo: (value) =>
+				set((s) => ({
+					clipCombo: [...s.clipCombo].filter((t, i) => i !== value),
+				})),
+			clearClipCombo: (value) => set((s) => ({ clipCombo: [] })),
 		})
 		// { name: "SessionSummaryStore" }
 		// )
