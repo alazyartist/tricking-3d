@@ -100,7 +100,8 @@ const SessionSourceDisplay = ({ source }) => {
 									max={vidRef?.current?.getDuration()}
 									className={`w-[70vw] bg-transparent`}
 								/>
-								<div className=' w-full'>
+
+								<div id='sessionTimelineDisplay' className=' w-full'>
 									{sessionData.map((e, i) => {
 										return (
 											<SessionDataDetails
