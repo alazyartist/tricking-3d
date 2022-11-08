@@ -6,6 +6,7 @@
 	"proxy": "http://localhost:3000",
 	"dependencies": {
 		"@algolia/autocomplete-js": "^1.7.3",
+		"@algolia/autocomplete-plugin-tags": "^1.7.3",
 		"@algolia/autocomplete-theme-classic": "^1.7.3",
 		"@react-three/drei": "^9.34.0",
 		"@react-three/fiber": "^8.8.9",

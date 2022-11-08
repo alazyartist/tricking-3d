@@ -12,11 +12,14 @@ import "@algolia/autocomplete-theme-classic";
 import "../../../autocomplete.css";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
 import useGetTricks from "../../../api/useGetTricks";
+import { tagsPlugin } from "./CommandTagPlugin";
 
 const CommandBar = () => {
+	const { data: tricks } = useGetTricks();
 	return (
 		<div className='absolute bottom-[0vh] left-[20vw] h-[8vh] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 sm:w-[60vw] md:left-[40vw] md:w-[20vw]'>
 			<Autocomplete
+				tricks={tricks}
 				defaultActiveItemId='0'
 				placeholder='/p to play'
 				openOnFocus={true}
@@ -38,16 +41,24 @@ const getQueryPattern = (query, flags = "i") => {
 	return pattern;
 };
 const Autocomplete = (props) => {
+	const { tricks } = props;
+	const removeClipfromCombo = useSessionSummariesStore(
+		(s) => s.removeClipfromCombo
+	);
 	const sessionSources = useSessionSummariesStore((s) => s.sessionSources);
 	const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
 	const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
 	const currentTime = useSessionSummariesStore((s) => s.currentTime);
 	const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
 	const setActiveClipData = useSessionSummariesStore((s) => s.setClipData);
+	const sessionData = useSessionSummariesStore((s) => s.sessionData);
+	const clipData = useSessionSummariesStore((s) => s.clipData);
+	const setSessionData = useSessionSummariesStore((s) => s.setSessionData);
+	const setClipCombo = useSessionSummariesStore((s) => s.setClipCombo);
+	const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
 	const activeClipData = useSessionSummariesStore((s) => s.clipData);
 	const vidIsPlaying = useSessionSummariesStore((s) => s.vidIsPlaying);
 	const setVidIsPlaying = useSessionSummariesStore((s) => s.setVidIsPlaying);
-	const { data: tricks } = useGetTricks();
 	const setDetailsVisible = useSessionSummariesStore(
 		(s) => s.setDetailsVisible
 	);
@@ -59,7 +70,9 @@ const Autocomplete = (props) => {
 	const panelRootRef = useRef(null);
 	const rootRef = useRef(null);
 	const [count, setCount] = useState(0);
-
+	useEffect(() => {
+		console.log(sessionData);
+	}, [sessionData]);
 	const syncTime = useCallback(
 		(time) => {
 			setCurrentTime(time);
@@ -141,6 +154,7 @@ const Autocomplete = (props) => {
 				detachedMediaQuery: "none",
 				// detachedMediaQuery: "",
 				container: commandBarRef.current,
+				// plugins: [tagsPlugin],/
 				renderer: { createElement, Fragment, render: () => {} },
 				render({ children }, root) {
 					if (!panelRootRef.current || rootRef.current !== root) {
@@ -193,6 +207,13 @@ const Autocomplete = (props) => {
 									},
 								},
 								{
+									label: "/c",
+									placeholder: "clear clipCombo",
+									onSelect: (params) => {
+										clearClipCombo("");
+									},
+								},
+								{
 									label: "/i",
 									placeholder: " set clipStart",
 									onSelect: (params) => {
@@ -202,7 +223,7 @@ const Autocomplete = (props) => {
 												.getState()
 												.currentTime.toFixed(2),
 										});
-									},
+									}, //
 								},
 								{
 									label: "/o",
@@ -235,6 +256,23 @@ const Autocomplete = (props) => {
 										// document.getElementById("video").focus();
 									},
 								},
+								{
+									label: "/r",
+									placeholder: "remove item",
+									onSelect: ({ itemInputValue }) => {
+										let index = itemInputValue.split(" ")[1];
+										removeClipfromCombo(index - 1);
+									},
+								},
+								{
+									label: "/a",
+									placeholder: "add clip to sesison",
+									onSelect: ({ itemInputValue }) => {
+										setSessionData(
+											useSessionSummariesStore.getState().clipData
+										);
+									},
+								},
 							].filter((i) => pattern.test(i.label));
 						},
 					},
@@ -250,12 +288,14 @@ const Autocomplete = (props) => {
 						},
 						getItems: async () => {
 							const pattern = getQueryPattern(query);
+							await tricks;
 
 							return tricks.filter((t) => pattern.test(t.name));
 						},
 						onSelect(params) {
 							const { item, setQuery } = params;
 							console.log(item);
+							setClipCombo(item);
 							// item.onSelect(params);
 							setQuery("");
 						},
@@ -269,7 +309,7 @@ const Autocomplete = (props) => {
 		return () => {
 			search.destroy();
 		};
-	}, [props]);
+	}, [props, tricks]);
 
 	return (
 		<>
