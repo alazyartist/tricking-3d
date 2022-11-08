@@ -10,6 +10,7 @@ const SessionSourceDisplay = ({ source }) => {
 	const currentTime = useSessionSummariesStore((s) => s.currentTime);
 	const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
 	const clipData = useSessionSummariesStore((s) => s.clipData);
+	const setVidIsPlaying = useSessionSummariesStore((s) => s.SetVidIsPlaying);
 	const vidIsPlaying = useSessionSummariesStore((s) => s.vidIsPlaying);
 	const setClipCombo = useSessionSummariesStore((s) => s.setClipCombo);
 	const removeClipfromCombo = useSessionSummariesStore(
@@ -86,16 +87,20 @@ const SessionSourceDisplay = ({ source }) => {
 								url={source?.vidsrc}
 							/>
 							<div className='relative w-[70vw]'>
+								<input
+									id='sessionSummary'
+									type='range'
+									step={0.001}
+									onChange={(e) => {
+										setCurrentTime(e.target.value);
+										vidRef.current.seekTo(e.target.value);
+									}}
+									value={currentTime}
+									min={0}
+									max={vidRef?.current?.getDuration()}
+									className={`w-[70vw] bg-transparent`}
+								/>
 								<div className=' w-full'>
-									<div
-										style={{
-											width: activeWidth,
-
-											left: activeLeft,
-										}}
-										id={`activeSessionClip'`}
-										key={`activeSessionClip'`}
-										className={`absolute top-[4px] z-20 h-3 rounded-md bg-teal-300  `}></div>
 									{/* switch for sessionData */}
 									{
 										// [
@@ -123,35 +128,31 @@ const SessionSourceDisplay = ({ source }) => {
 
 										sessionData.map((e, i) => {
 											return (
-												<div
+												<SessionDataDetails
+													id='sesionDataDetails'
 													key={`${i}+ 'data'`}
-													className={`absolute top-[4px] h-3 w-[${
-														parseInt(e.endTime) - parseInt(e.startTime)
-													}%] rounded-md bg-indigo-300 left-[${(
-														(parseInt(e.startTime) /
-															vidRef.current.getDuration()) *
-														100
-													).toFixed(0)}%] `}></div>
+													e={e}
+													i={i}
+													duration={vidRef.current?.getDuration()}
+												/>
 											);
 										})
 									}
-									<input
-										id='sessionSummary'
-										type='range'
-										step={0.001}
-										onChange={(e) => {
-											// setCurrentTime(e.target.value);
+									<div
+										style={{
+											width: activeWidth,
+
+											left: activeLeft,
 										}}
-										value={currentTime}
-										min={0}
-										max={vidRef?.current?.getDuration()}
-										className={`w-[70vw] bg-transparent`}
-									/>
+										id={`activeSessionClip'`}
+										key={`activeSessionClip'`}
+										className={`absolute top-[4px] h-3 rounded-md bg-teal-300  `}></div>
 								</div>
 							</div>
 							<div className='neumorphicIn flex w-full gap-2 rounded-md p-2 text-zinc-300'>
 								{clipCombo.map((item, index) => (
 									<span
+										key={item.trick_id}
 										onClick={() => {
 											removeClipfromCombo(index);
 										}}>
@@ -177,3 +178,35 @@ const SessionSourceDisplay = ({ source }) => {
 };
 
 export default SessionSourceDisplay;
+
+const SessionDataDetails = ({ e, i, duration }) => {
+	const [seeDetails, setSeeDetails] = useState(false);
+	let w = `${(
+		((parseInt(e.endTime) - parseInt(e.startTime)) / parseInt(duration)) *
+		100
+	).toFixed(2)}%`;
+	let l = `${((parseInt(e.startTime) / parseInt(duration)) * 100).toFixed(0)}%`;
+	return (
+		<>
+			{seeDetails && (
+				<div
+					style={{ width: "fit", left: l }}
+					key={`${e.trick_id}detaildropdown`}
+					className='absolute top-[20px] flex flex-col rounded bg-zinc-900 bg-opacity-40'>
+					<div className=' '>{e.name}</div>
+					<div className=' '>{e.startTime}</div>
+					<div className=' '>{e.endTime}</div>
+					{/* <div className=' '>{e.takeoffStance}</div>
+					<div className=' '>{e.landingStance}</div>
+					<div className=' '>{e.base_id}</div> */}
+				</div>
+			)}
+			<div
+				key={`${i}+${Math.random()}`}
+				onMouseOver={() => setSeeDetails(true)}
+				onMouseLeave={() => setSeeDetails(false)}
+				style={{ width: w, left: l }}
+				className={`absolute top-[4px] h-3 rounded-md bg-indigo-300 `}></div>
+		</>
+	);
+};

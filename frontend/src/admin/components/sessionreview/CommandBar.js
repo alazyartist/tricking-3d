@@ -52,6 +52,7 @@ const Autocomplete = (props) => {
 	const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
 	const setActiveClipData = useSessionSummariesStore((s) => s.setClipData);
 	const sessionData = useSessionSummariesStore((s) => s.sessionData);
+	const setClipData = useSessionSummariesStore((s) => s.setClipData);
 	const clipData = useSessionSummariesStore((s) => s.clipData);
 	const setSessionData = useSessionSummariesStore((s) => s.setSessionData);
 	const setClipCombo = useSessionSummariesStore((s) => s.setClipCombo);
@@ -268,6 +269,9 @@ const Autocomplete = (props) => {
 									label: "/a",
 									placeholder: "add clip to sesison",
 									onSelect: ({ itemInputValue }) => {
+										let combo = useSessionSummariesStore.getState().clipCombo;
+										let name = combo.map((c) => c.name).join(">");
+										setClipData({ clipLabel: combo, name: name });
 										setSessionData(
 											useSessionSummariesStore.getState().clipData
 										);

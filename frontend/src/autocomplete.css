@@ -34,5 +34,5 @@
 .aa-Panel--scrollable {
 	height: 130px;
 	display: flex;
-	flex-direction: column-reverse;
+	flex-direction: column;
 }
