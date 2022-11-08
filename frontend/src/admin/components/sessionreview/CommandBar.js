@@ -271,10 +271,21 @@ const Autocomplete = (props) => {
 									onSelect: ({ itemInputValue }) => {
 										let combo = useSessionSummariesStore.getState().clipCombo;
 										let name = combo.map((c) => c.name).join(">");
-										setClipData({ clipLabel: combo, name: name });
+										setClipData({
+											clipLabel: combo,
+											name: name,
+											srcId: useSessionSummariesStore.getState().srcid,
+										});
 										setSessionData(
 											useSessionSummariesStore.getState().clipData
 										);
+										setClipData({
+											name: "",
+											startTime: 0,
+											endTime: 0,
+											clipLabel: [],
+											srcId: "",
+										});
 									},
 								},
 							].filter((i) => pattern.test(i.label));

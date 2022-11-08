@@ -62,7 +62,7 @@ const SessionSourceDisplay = ({ source }) => {
 			{
 				vidsrc === source?.vidsrc ? (
 					<div className='absolute top-[-15vh] left-[15vw] w-[70vw]'>
-						<div className='relative flex max-h-[80vh] flex-col gap-2 overflow-hidden'>
+						<div className='relative flex max-h-[80vh] flex-col gap-2'>
 							<div
 								className='flex place-items-center gap-2'
 								onClick={() => setVidsrc(false)}>
@@ -101,43 +101,17 @@ const SessionSourceDisplay = ({ source }) => {
 									className={`w-[70vw] bg-transparent`}
 								/>
 								<div className=' w-full'>
-									{/* switch for sessionData */}
-									{
-										// [
-										// 	{
-										// 		width: "w-[12%]",
-										// 		left: "left-[22%]",
-										// 		color: colors[3],
-										// 	},
-										// 	{
-										// 		width: "w-[20px]",
-										// 		left: "left-[740px]",
-										// 		color: colors[1],
-										// 	},
-										// 	{
-										// 		width: "w-[200px]",
-										// 		left: "left-[440px]",
-										// 		color: colors[3],
-										// 	},
-										// 	{
-										// 		width: "w-[40px]",
-										// 		left: "left-[120px]",
-										// 		color: colors[0],
-										// 	},
-										// ]
-
-										sessionData.map((e, i) => {
-											return (
-												<SessionDataDetails
-													id='sesionDataDetails'
-													key={`${i}+ 'data'`}
-													e={e}
-													i={i}
-													duration={vidRef.current?.getDuration()}
-												/>
-											);
-										})
-									}
+									{sessionData.map((e, i) => {
+										return (
+											<SessionDataDetails
+												id='sesionDataDetails'
+												key={`${i}+ 'data'`}
+												e={e}
+												i={i}
+												duration={vidRef.current?.getDuration()}
+											/>
+										);
+									})}
 									<div
 										style={{
 											width: activeWidth,
@@ -192,10 +166,19 @@ const SessionDataDetails = ({ e, i, duration }) => {
 				<div
 					style={{ width: "fit", left: l }}
 					key={`${e.trick_id}detaildropdown`}
-					className='absolute top-[20px] flex flex-col rounded bg-zinc-900 bg-opacity-40'>
-					<div className=' '>{e.name}</div>
-					<div className=' '>{e.startTime}</div>
-					<div className=' '>{e.endTime}</div>
+					className='absolute top-[20px] flex rounded bg-zinc-900 bg-opacity-40 p-2'>
+					<div className='flex h-full flex-col gap-1 text-sm'>
+						<div className=' '>{e.name}</div>
+						<div className='flex justify-between'>
+							<div className='bg-emerald-300 p-1 text-zinc-800 '>
+								{e.startTime.slice(-2)}
+							</div>
+							<div className='bg-red-300 p-1 text-zinc-800 '>
+								{e.endTime.slice(-2)}
+							</div>
+						</div>
+						<div className=' '>{e.admin}</div>
+					</div>
 					{/* <div className=' '>{e.takeoffStance}</div>
 					<div className=' '>{e.landingStance}</div>
 					<div className=' '>{e.base_id}</div> */}
