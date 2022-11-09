@@ -62,8 +62,12 @@ const Autocomplete = (props) => {
 	const setSessionData = useSessionSummariesStore((s) => s.setSessionData);
 	const setClipCombo = useSessionSummariesStore((s) => s.setClipCombo);
 	const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
+	const trickMakerOpen = useSessionSummariesStore((s) => s.trickMakerOpen);
 	const activeClipData = useSessionSummariesStore((s) => s.clipData);
 	const vidIsPlaying = useSessionSummariesStore((s) => s.vidIsPlaying);
+	const setTrickMakerOpen = useSessionSummariesStore(
+		(s) => s.setTrickMakerOpen
+	);
 	const setVidIsPlaying = useSessionSummariesStore((s) => s.setVidIsPlaying);
 	const setDetailsVisible = useSessionSummariesStore(
 		(s) => s.setDetailsVisible
@@ -169,219 +173,264 @@ const Autocomplete = (props) => {
 					}
 					panelRootRef.current.render(children);
 				},
-				getSources: ({ query }) => [
-					{
-						sourceId: "actions",
-						templates: {
-							item({ item }) {
-								return (
-									<p>
-										{item?.label} {item.placeholder}
-									</p>
-								);
+				getSources: ({ query }) => {
+					if (trickMakerOpen) {
+						return [
+							{
+								sourceId: "actions",
+								templates: {
+									item({ item }) {
+										return (
+											<p>
+												{item?.label} {item.placeholder}
+											</p>
+										);
+									},
+								},
+								onSelect(params) {
+									const { item, setQuery } = params;
+									item.onSelect(params);
+									setQuery("");
+								},
+								getItems() {
+									const pattern = getQueryPattern(query);
+
+									return [
+										{
+											label: "/exit",
+											placeholder: " close trickMaker",
+											onSelect: (params) => {
+												setTrickMakerOpen(false);
+											},
+										},
+									].filter((t) => pattern.test(t.label));
+								},
 							},
-						},
-						onSelect(params) {
-							const { item, setQuery } = params;
-							item.onSelect(params);
-							setQuery("");
-						},
-						getItems() {
-							const pattern = getQueryPattern(query);
-							return [
-								{
-									label: "/h",
-									placeholder: " or press h to hideDetails",
-									onSelect: (params) => {
-										setDetailsVisible();
+						];
+					} else
+						return [
+							{
+								sourceId: "actions",
+								templates: {
+									item({ item }) {
+										return (
+											<p>
+												{item?.label} {item.placeholder}
+											</p>
+										);
 									},
 								},
-								{
-									label: "/ha",
-									placeholder: " hide ActiveClip Detials",
-									onSelect: (params) => {
-										setClipDetailsVisible();
+								onSelect(params) {
+									const { item, setQuery } = params;
+									item.onSelect(params);
+									setQuery("");
+								},
+								getItems() {
+									const pattern = getQueryPattern(query);
+									return [
+										{
+											label: "/h",
+											placeholder: " or press h to hideDetails",
+											onSelect: (params) => {
+												setDetailsVisible();
+											},
+										},
+										{
+											label: "/ha",
+											placeholder: " hide ActiveClip Detials",
+											onSelect: (params) => {
+												setClipDetailsVisible();
+											},
+										},
+										{
+											label: "/p",
+											placeholder: " or press k to play/pause",
+											onSelect: (params) => {
+												setVidIsPlaying();
+											},
+										},
+										{
+											label: "/c",
+											placeholder: "clear clipCombo",
+											onSelect: (params) => {
+												clearClipCombo("");
+											},
+										},
+										{
+											label: "/cio",
+											placeholder: "clear in/out markers",
+											onSelect: (params) => {
+												setClipData({ startTime: 0, endTime: 0 });
+											},
+										},
+										{
+											label: "/m",
+											placeholder: "open TrickMaker",
+											onSelect: (params) => {
+												setTrickMakerOpen(true);
+											},
+										},
+										{
+											label: "/i",
+											placeholder: " set clipStart",
+											onSelect: (params) => {
+												console.log(timeRef);
+												setActiveClipData({
+													startTime: useSessionSummariesStore
+														.getState()
+														.currentTime.toFixed(2),
+												});
+											}, //
+										},
+										{
+											label: "/o",
+											placeholder: " set clipStart",
+											onSelect: (params) => {
+												console.log(timeRef);
+												setActiveClipData({
+													endTime: useSessionSummariesStore
+														.getState()
+														.currentTime.toFixed(2),
+												});
+											},
+										},
+										{
+											label: "/s",
+											placeholder: "seekTo time",
+											onSelect: ({ itemInputValue }) => {
+												let seekTime = itemInputValue.split(" ")[1];
+												let time;
+												if (seekTime.includes(":")) {
+													let min = seekTime.split(":")[0];
+													let sec = seekTime.split(":")[1];
+													time = parseInt(min) * 60 + parseInt(sec);
+												} else {
+													time = seekTime;
+												}
+												console.log(time);
+												setSeekTime(time);
+												// console.log("selectVideo");
+												// document.getElementById("video").focus();
+											},
+										},
+										{
+											label: "/r",
+											placeholder: "remove item",
+											onSelect: ({ itemInputValue }) => {
+												let index = itemInputValue.split(" ")[1];
+												removeClipfromCombo(index - 1);
+											},
+										},
+										{
+											label: "/save",
+											placeholder: "saveSessionDetails",
+											onSelect: ({ itemInputValue }) => {
+												saveSessionDetails(
+													sessionData,
+													useSessionSummariesStore.getState().sessionid
+												);
+											},
+										},
+										{
+											label: "/a",
+											placeholder: "add clip to sesison",
+											onSelect: ({ itemInputValue }) => {
+												let combo =
+													useSessionSummariesStore.getState().clipCombo;
+												let name = combo.map((c) => c.name).join(">");
+												setClipData({
+													id: uuidv4(),
+													admin: adminuuid,
+													clipLabel: combo,
+													name: name,
+													sessionid:
+														useSessionSummariesStore.getState().sessionid,
+													srcid: useSessionSummariesStore.getState().srcid,
+													vidsrc: useSessionSummariesStore.getState().vidsrc,
+												});
+												setSessionData(
+													useSessionSummariesStore.getState().clipData
+												);
+												setClipData({
+													name: "",
+													startTime: 0,
+													endTime: 0,
+													clipLabel: [],
+													srcid: "",
+													vidsrc: "",
+												});
+												clearClipCombo();
+											},
+										},
+									].filter((i) => pattern.test(i.label));
+								},
+							},
+							{
+								sourceId: "Tricks",
+								templates: {
+									header() {
+										return <p>Tricks</p>;
 									},
-								},
-								{
-									label: "/p",
-									placeholder: " or press k to play/pause",
-									onSelect: (params) => {
-										setVidIsPlaying();
-									},
-								},
-								{
-									label: "/c",
-									placeholder: "clear clipCombo",
-									onSelect: (params) => {
-										clearClipCombo("");
-									},
-								},
-								{
-									label: "/cio",
-									placeholder: "clear in/out markers",
-									onSelect: (params) => {
-										setClipData({ startTime: 0, endTime: 0 });
-									},
-								},
-								{
-									label: "/i",
-									placeholder: " set clipStart",
-									onSelect: (params) => {
-										console.log(timeRef);
-										setActiveClipData({
-											startTime: useSessionSummariesStore
-												.getState()
-												.currentTime.toFixed(2),
-										});
-									}, //
-								},
-								{
-									label: "/o",
-									placeholder: " set clipStart",
-									onSelect: (params) => {
-										console.log(timeRef);
-										setActiveClipData({
-											endTime: useSessionSummariesStore
-												.getState()
-												.currentTime.toFixed(2),
-										});
-									},
-								},
-								{
-									label: "/s",
-									placeholder: "seekTo time",
-									onSelect: ({ itemInputValue }) => {
-										let seekTime = itemInputValue.split(" ")[1];
-										let time;
-										if (seekTime.includes(":")) {
-											let min = seekTime.split(":")[0];
-											let sec = seekTime.split(":")[1];
-											time = parseInt(min) * 60 + parseInt(sec);
-										} else {
-											time = seekTime;
+									item({ item }) {
+										if (item.type === "Transition") {
+											return (
+												<span className='flex justify-between'>
+													<p>{item.name}</p>
+													<span className='flex gap-2'>
+														<p className='text-2xs'>{item.fromLeg}</p>
+														<p className='text-2xs'>{item.toLeg}</p>
+													</span>
+												</span>
+											);
 										}
-										console.log(time);
-										setSeekTime(time);
-										// console.log("selectVideo");
-										// document.getElementById("video").focus();
-									},
-								},
-								{
-									label: "/r",
-									placeholder: "remove item",
-									onSelect: ({ itemInputValue }) => {
-										let index = itemInputValue.split(" ")[1];
-										removeClipfromCombo(index - 1);
-									},
-								},
-								{
-									label: "/save",
-									placeholder: "saveSessionDetails",
-									onSelect: ({ itemInputValue }) => {
-										saveSessionDetails(
-											sessionData,
-											useSessionSummariesStore.getState().sessionid
-										);
-									},
-								},
-								{
-									label: "/a",
-									placeholder: "add clip to sesison",
-									onSelect: ({ itemInputValue }) => {
-										let combo = useSessionSummariesStore.getState().clipCombo;
-										let name = combo.map((c) => c.name).join(">");
-										setClipData({
-											id: uuidv4(),
-											admin: adminuuid,
-											clipLabel: combo,
-											name: name,
-											sessionid: useSessionSummariesStore.getState().sessionid,
-											srcid: useSessionSummariesStore.getState().srcid,
-											vidsrc: useSessionSummariesStore.getState().vidsrc,
-										});
-										setSessionData(
-											useSessionSummariesStore.getState().clipData
-										);
-										setClipData({
-											name: "",
-											startTime: 0,
-											endTime: 0,
-											clipLabel: [],
-											srcid: "",
-											vidsrc: "",
-										});
-										clearClipCombo();
-									},
-								},
-							].filter((i) => pattern.test(i.label));
-						},
-					},
-					{
-						sourceId: "Tricks",
-						templates: {
-							header() {
-								return <p>Tricks</p>;
-							},
-							item({ item }) {
-								if (item.type === "Transition") {
-									return (
-										<span className='flex justify-between'>
-											<p>{item.name}</p>
-											<span className='flex gap-2'>
-												<p className='text-2xs'>{item.fromLeg}</p>
-												<p className='text-2xs'>{item.toLeg}</p>
+										return (
+											<span className='flex justify-between'>
+												<p>{item.name}</p>
+												<p>{item.type}</p>
 											</span>
-										</span>
-									);
-								}
-								return (
-									<span className='flex justify-between'>
-										<p>{item.name}</p>
-										<p>{item.type}</p>
-									</span>
-								);
+										);
+									},
+								},
+								getItems: async () => {
+									const pattern = getQueryPattern(query);
+									await tricks;
+									if (query.length > 0) {
+										return tricks
+											.filter((t) => pattern.test(t.name))
+											.sort((a, b) => {
+												if (a.name.length < b.name.length) return -1;
+												if (a.name.length > b.name.length) return 1;
+												if (a.name > b.name) return 1;
+												if (a.name < b.name) return -1;
+												//check your filters
+												//then check the length
+
+												return 0;
+											});
+									} else
+										return tricks
+											.filter((t) => pattern.test(t.name))
+											.sort((a, b) => {
+												if (a.name > b.name) return 1;
+												if (a.name < b.name) return -1;
+												if (a.name.length < b.name.length) return -1;
+												if (a.name.length > b.name.length) return 1;
+												//check your filters
+												//then check the length
+
+												return 0;
+											});
+								},
+								onSelect(params) {
+									const { item, setQuery } = params;
+									console.log(item);
+									setClipCombo(item);
+									// item.onSelect(params);
+									setQuery("");
+								},
 							},
-						},
-						getItems: async () => {
-							const pattern = getQueryPattern(query);
-							await tricks;
-							if (query.length > 0) {
-								return tricks
-									.filter((t) => pattern.test(t.name))
-									.sort((a, b) => {
-										if (a.name.length < b.name.length) return -1;
-										if (a.name.length > b.name.length) return 1;
-										if (a.name > b.name) return 1;
-										if (a.name < b.name) return -1;
-										//check your filters
-										//then check the length
-
-										return 0;
-									});
-							} else
-								return tricks
-									.filter((t) => pattern.test(t.name))
-									.sort((a, b) => {
-										if (a.name > b.name) return 1;
-										if (a.name < b.name) return -1;
-										if (a.name.length < b.name.length) return -1;
-										if (a.name.length > b.name.length) return 1;
-										//check your filters
-										//then check the length
-
-										return 0;
-									});
-						},
-						onSelect(params) {
-							const { item, setQuery } = params;
-							console.log(item);
-							setClipCombo(item);
-							// item.onSelect(params);
-							setQuery("");
-						},
-					},
-				],
+						];
+				},
 				...props,
 			},
 			[]
@@ -390,7 +439,7 @@ const Autocomplete = (props) => {
 		return () => {
 			search.destroy();
 		};
-	}, [props, tricks]);
+	}, [props, tricks, trickMakerOpen]);
 
 	return (
 		<>

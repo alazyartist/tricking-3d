@@ -5,6 +5,8 @@ export const useSessionSummariesStore = create(
 	devtools(
 		// persist(
 		(set) => ({
+			trickMakerOpen: false,
+			setTrickMakerOpen: (value) => set(() => ({ trickMakerOpen: value })),
 			clipData: { name: "testName", startTime: 10, endTime: 20 },
 			sessionid: "",
 			setSessionid: (value) => set(() => ({ sessionid: value })),
