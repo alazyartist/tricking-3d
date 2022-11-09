@@ -203,6 +203,41 @@ const Autocomplete = (props) => {
 												setTrickMakerOpen(false);
 											},
 										},
+										{
+											label: "/t",
+											placeholder: " setTakeoffStance",
+											onSelect: (params) => {
+												//dosomething here
+											},
+										},
+										{
+											label: "/l",
+											placeholder: " setLandingStance",
+											onSelect: (params) => {
+												//dosomething here
+											},
+										},
+										{
+											label: "/b",
+											placeholder: " setBase",
+											onSelect: (params) => {
+												//dosomething here
+											},
+										},
+										{
+											label: "/v",
+											placeholder: " addVariation",
+											onSelect: (params) => {
+												//dosomething here
+											},
+										},
+										{
+											label: "/vr",
+											placeholder: " removeVariation",
+											onSelect: (params) => {
+												//dosomething here
+											},
+										},
 									].filter((t) => pattern.test(t.label));
 								},
 							},
