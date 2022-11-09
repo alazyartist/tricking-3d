@@ -14,6 +14,8 @@ import { useSessionSummariesStore } from "./SessionSummaryStore";
 import useGetTricks from "../../../api/useGetTricks";
 import { tagsPlugin } from "./CommandTagPlugin";
 import { v4 as uuidv4 } from "uuid";
+import { useSaveSessionDetails } from "../../../api/useSessionSummaries";
+import { useUserStore } from "../../../store/userStore";
 
 const CommandBar = () => {
 	const { data: tricks } = useGetTricks();
@@ -43,6 +45,8 @@ const getQueryPattern = (query, flags = "i") => {
 };
 const Autocomplete = (props) => {
 	const { tricks } = props;
+	const adminuuid = useUserStore((s) => s?.userInfo?.uuid);
+	const { mutate: saveSessionDetails } = useSaveSessionDetails();
 	const removeClipfromCombo = useSessionSummariesStore(
 		(s) => s.removeClipfromCombo
 	);
@@ -272,6 +276,16 @@ const Autocomplete = (props) => {
 									},
 								},
 								{
+									label: "/save",
+									placeholder: "saveSessionDetails",
+									onSelect: ({ itemInputValue }) => {
+										saveSessionDetails(
+											sessionData,
+											useSessionSummariesStore.getState().sessionid
+										);
+									},
+								},
+								{
 									label: "/a",
 									placeholder: "add clip to sesison",
 									onSelect: ({ itemInputValue }) => {
@@ -279,6 +293,7 @@ const Autocomplete = (props) => {
 										let name = combo.map((c) => c.name).join(">");
 										setClipData({
 											id: uuidv4(),
+											admin: adminuuid,
 											clipLabel: combo,
 											name: name,
 											sessionid: useSessionSummariesStore.getState().sessionid,
@@ -309,14 +324,54 @@ const Autocomplete = (props) => {
 								return <p>Tricks</p>;
 							},
 							item({ item }) {
-								return <p>{item.name}</p>;
+								if (item.type === "Transition") {
+									return (
+										<span className='flex justify-between'>
+											<p>{item.name}</p>
+											<span className='flex gap-2'>
+												<p className='text-2xs'>{item.fromLeg}</p>
+												<p className='text-2xs'>{item.toLeg}</p>
+											</span>
+										</span>
+									);
+								}
+								return (
+									<span className='flex justify-between'>
+										<p>{item.name}</p>
+										<p>{item.type}</p>
+									</span>
+								);
 							},
 						},
 						getItems: async () => {
 							const pattern = getQueryPattern(query);
 							await tricks;
+							if (query.length > 0) {
+								return tricks
+									.filter((t) => pattern.test(t.name))
+									.sort((a, b) => {
+										if (a.name.length < b.name.length) return -1;
+										if (a.name.length > b.name.length) return 1;
+										if (a.name > b.name) return 1;
+										if (a.name < b.name) return -1;
+										//check your filters
+										//then check the length
 
-							return tricks.filter((t) => pattern.test(t.name));
+										return 0;
+									});
+							} else
+								return tricks
+									.filter((t) => pattern.test(t.name))
+									.sort((a, b) => {
+										if (a.name > b.name) return 1;
+										if (a.name < b.name) return -1;
+										if (a.name.length < b.name.length) return -1;
+										if (a.name.length > b.name.length) return 1;
+										//check your filters
+										//then check the length
+
+										return 0;
+									});
 						},
 						onSelect(params) {
 							const { item, setQuery } = params;

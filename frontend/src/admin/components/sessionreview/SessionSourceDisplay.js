@@ -181,11 +181,9 @@ const SessionDataDetails = ({ e, i, duration, source }) => {
 						<div className=' '>{e.name}</div>
 						<div className='flex justify-between'>
 							<div className='bg-emerald-300 p-1 text-zinc-800 '>
-								{e.startTime.toString().slice(-2)}
+								{e.startTime}
 							</div>
-							<div className='bg-red-300 p-1 text-zinc-800 '>
-								{e.endTime.slice(-2)}
-							</div>
+							<div className='bg-red-300 p-1 text-zinc-800 '>{e.endTime}</div>
 						</div>
 						<div className=' '>{e.admin}</div>
 					</div>
