@@ -7,6 +7,7 @@ import { useUserStore } from "../../store/userStore";
 import ProfileInfoCard from "./components/ProfileInfoCard";
 import ProfileInfoCardEditable from "./components/ProfileInfoCardEditable";
 import TricklistsAndClamiedContainer from "./components/TricklistsAndClaimedContainer";
+import ProfileSessionInfo from "./components/ProfileSessionInfo";
 
 const UserAvatarDisplay = lazy(() => import("./components/UserAvatarDisplay"));
 const UserProfile = () => {
@@ -15,6 +16,7 @@ const UserProfile = () => {
 	const { data: profileInfo } = useUserInfoByUUID(uuid);
 	const [editing, setEditing] = useState(false);
 	const [pageLoaded, setPageLoaded] = useState(false);
+	const [activeSummary, setActiveSummary] = useState();
 	const editView = useTransition(editing, {
 		from: { top: -400, opacity: 0 },
 		enter: { top: 0, opacity: 100 },
@@ -26,9 +28,11 @@ const UserProfile = () => {
 	const isUsersPage = uuid === loggedInUUID;
 	const [activeView, setActiveView] = useState("Stats");
 	useEffect(() => {
+		console.log(profileInfo);
+		console.log(activeSummary);
 		// window.addEventListener("load", setPageLoaded(true));
 		// return window.removeEventListener("load", setPageLoaded(true));
-	}, []);
+	}, [profileInfo]);
 
 	return (
 		<div className='flex w-full flex-col place-items-center p-2 font-inter text-zinc-300'>
@@ -75,7 +79,14 @@ const UserProfile = () => {
 						<div onClick={() => setActiveView("Sessions")}>Overall Stats</div>
 					) : null}
 					{activeView === "Sessions" ? (
-						<div onClick={() => setActiveView("Stats")}>Sessions</div>
+						<div>
+							<span onClick={() => setActiveView("Stats")}>Sessions</span>
+							{profileInfo.SessionSummaries.map((summary) => (
+								<div onClick={() => setActiveSummary(summary)}>
+									{summary.name}
+								</div>
+							))}
+						</div>
 					) : null}
 				</div>
 				<div className='h-[20vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2'>
@@ -85,8 +96,13 @@ const UserProfile = () => {
 						</div>
 					) : null}
 					{activeView === "Sessions" ? (
-						<div onClick={() => setActiveView("Stats")}>
-							Selected Session Stats
+						<div
+							className='no-scrollbar relative h-full w-full overflow-hidden overflow-y-scroll'
+							onClick={() => setActiveView("Stats")}>
+							<div className='sticky top-0 w-[100%] bg-zinc-800 bg-opacity-70'>
+								Selected Session Stats
+							</div>
+							<ProfileSessionInfo summary={activeSummary} />
 						</div>
 					) : null}
 				</div>
