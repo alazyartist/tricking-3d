@@ -100,7 +100,7 @@ const UserProfile = () => {
 							className='no-scrollbar relative h-full w-full overflow-hidden overflow-y-scroll'
 							onClick={() => setActiveView("Stats")}>
 							<div className='sticky top-0 w-[100%] bg-zinc-800 bg-opacity-70'>
-								Selected Session Stats
+								Selected Session Overview
 							</div>
 							<ProfileSessionInfo summary={activeSummary} />
 						</div>
