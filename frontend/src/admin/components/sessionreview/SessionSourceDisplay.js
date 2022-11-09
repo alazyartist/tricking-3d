@@ -16,6 +16,7 @@ const SessionSourceDisplay = ({ source }) => {
 	const removeClipfromCombo = useSessionSummariesStore(
 		(s) => s.removeClipfromCombo
 	);
+
 	const sessionData = useSessionSummariesStore((s) => s.sessionData);
 	const clipCombo = useSessionSummariesStore((s) => s.clipCombo);
 	const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
@@ -26,7 +27,6 @@ const SessionSourceDisplay = ({ source }) => {
 		setCurrentTime(seekTime);
 		vidRef?.current?.seekTo(seekTime);
 	}, [seekTime]);
-	if (!vidRef) return null;
 	let colors = ["bg-teal-300", "bg-emerald-300", "bg-indigo-300", "bg-sky-300"];
 	let activeWidth = `${(
 		((parseInt(clipData.endTime) - parseInt(clipData.startTime)) /
@@ -154,8 +154,14 @@ const SessionDataDetails = ({ e, i, duration, source }) => {
 	const [seeDetails, setSeeDetails] = useState(false);
 	const clipData = useSessionSummariesStore((s) => s.clipData);
 	const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
+	const setClipComboRaw = useSessionSummariesStore((s) => s.setClipComboRaw);
 	const setClipData = useSessionSummariesStore((s) => s.setClipData);
 	const setSrcid = useSessionSummariesStore((s) => s.setSrcid);
+	const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
+
+	const removeSessionData = useSessionSummariesStore(
+		(s) => s.removeSessionData
+	);
 	useEffect(() => {
 		setSrcid(source?.srcid);
 	}, [source, vidsrc]);
@@ -193,6 +199,9 @@ const SessionDataDetails = ({ e, i, duration, source }) => {
 				onClick={() => {
 					setSrcid(source.srcid);
 					setClipData(e);
+					clearClipCombo();
+					setClipComboRaw(e.clipLabel);
+					removeSessionData(e);
 				}}
 				onMouseOver={() => setSeeDetails(true)}
 				onMouseLeave={() => setSeeDetails(false)}

@@ -296,6 +296,7 @@ const Autocomplete = (props) => {
 											srcid: "",
 											vidsrc: "",
 										});
+										clearClipCombo();
 									},
 								},
 							].filter((i) => pattern.test(i.label));

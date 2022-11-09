@@ -33,11 +33,15 @@ export const useSessionSummariesStore = create(
 			setSessionData: (value) =>
 				set((s) => ({ sessionData: [...s.sessionData, value] })),
 			removeSessionData: (value) =>
-				set((s) => ({ sessionData: [...s.sessionData, value] })),
+				set((s) => ({
+					sessionData: [...s.sessionData].filter((data) => value !== data),
+				})),
 			source: "",
 			clipCombo: [],
+			clearClipCombo: () => set((s) => ({ clipCombo: null })),
 			setClipCombo: (value) =>
 				set((s) => ({ clipCombo: [...s.clipCombo, value] })),
+			setClipComboRaw: (value) => set((s) => ({ clipCombo: value })),
 			removeClipfromCombo: (value) =>
 				set((s) => ({
 					clipCombo: [...s.clipCombo].filter((t, i) => i !== value),
