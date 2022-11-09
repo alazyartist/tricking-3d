@@ -45,6 +45,5 @@ export const useSessionSummariesStore = create(
 			clearClipCombo: (value) => set((s) => ({ clipCombo: [] })),
 		})
 		// { name: "SessionSummaryStore" }
-		// )
 	)
 );

@@ -20,23 +20,14 @@ const SessionSourceDisplay = ({ source }) => {
 	const clipCombo = useSessionSummariesStore((s) => s.clipCombo);
 	const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
 	const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
-	useEffect(() => console.log(vidRef?.current), [sessionData]);
+	const setSrcid = useSessionSummariesStore((s) => s.setSrcid);
+	useEffect(() => console.log(vidRef?.current), [sessionData, vidRef]);
 	useEffect(() => {
 		setCurrentTime(seekTime);
 		vidRef?.current?.seekTo(seekTime);
 	}, [seekTime]);
+	if (!vidRef) return null;
 	let colors = ["bg-teal-300", "bg-emerald-300", "bg-indigo-300", "bg-sky-300"];
-	// const handleTimeUpdate = () => {
-	// 	setCurrentTime(vidRef.current?.getCurrentTime());
-	// 	if (vidRef?.current?.getCurrentTime() < vidRef.current?.getDuration()) {
-	// 		setTimeout(() => handleTimeUpdate(), 50);
-	// 	}
-	// };
-	// useEffect(() => {
-	// 	if (vidRef?.current?.player?.isPlaying) {
-	// 		handleTimeUpdate();
-	// 	}
-	// }, []);
 	let activeWidth = `${(
 		((parseInt(clipData.endTime) - parseInt(clipData.startTime)) /
 			vidRef.current?.getDuration()) *
@@ -78,6 +69,7 @@ const SessionSourceDisplay = ({ source }) => {
 								muted
 								width={"70vw"}
 								height={"40vw"}
+								onReady={() => setSrcid(source?.srcid)}
 								onProgress={({ playedSeconds }) =>
 									setCurrentTime(playedSeconds)
 								}
@@ -102,18 +94,21 @@ const SessionSourceDisplay = ({ source }) => {
 								/>
 
 								<div id='sessionTimelineDisplay' className=' w-full'>
-									{sessionData.map((e, i) => {
-										return (
-											<SessionDataDetails
-												source={source}
-												id='sesionDataDetails'
-												key={`${i}+ 'data'`}
-												e={e}
-												i={i}
-												duration={vidRef.current?.getDuration()}
-											/>
-										);
-									})}
+									{sessionData &&
+										sessionData.map((e, i) => {
+											return (
+												e.vidsrc === vidsrc && (
+													<SessionDataDetails
+														source={source}
+														id='sesionDataDetails'
+														key={`${e.id}+ 'data'`}
+														e={e}
+														i={i}
+														duration={vidRef.current?.getDuration()}
+													/>
+												)
+											);
+										})}
 									<div
 										style={{
 											width: activeWidth,
@@ -158,11 +153,12 @@ export default SessionSourceDisplay;
 const SessionDataDetails = ({ e, i, duration, source }) => {
 	const [seeDetails, setSeeDetails] = useState(false);
 	const clipData = useSessionSummariesStore((s) => s.clipData);
+	const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
 	const setClipData = useSessionSummariesStore((s) => s.setClipData);
 	const setSrcid = useSessionSummariesStore((s) => s.setSrcid);
 	useEffect(() => {
 		setSrcid(source?.srcid);
-	}, [source]);
+	}, [source, vidsrc]);
 	let w = `${(
 		((parseInt(e.endTime) - parseInt(e.startTime)) / parseInt(duration)) *
 		100
@@ -193,7 +189,7 @@ const SessionDataDetails = ({ e, i, duration, source }) => {
 				</div>
 			)}
 			<div
-				key={`${i}+${Math.random()}`}
+				key={`${e.id}+${Math.random()}`}
 				onClick={() => {
 					setSrcid(source.srcid);
 					setClipData(e);

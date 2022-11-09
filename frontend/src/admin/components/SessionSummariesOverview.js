@@ -24,7 +24,6 @@ export default SessionSummariesOverview;
 
 const SessionDisplay = ({ s }) => {
 	const { data: u } = useUserInfoByUUID(s.user_id);
-	console.log("u", u);
 	return (
 		<Link
 			to={`/admin/sessionReview/${s?.sessionid}`}

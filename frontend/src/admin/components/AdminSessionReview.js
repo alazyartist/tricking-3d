@@ -37,7 +37,7 @@ const AdminSessionReview = () => {
 						<SessionDetailDisplay sessionDetails={sessionDetails} />
 
 						{sessionDetails?.SessionSources?.map((source) => (
-							<SessionSourceDisplay source={source} />
+							<SessionSourceDisplay key={source.srcid} source={source} />
 						))}
 					</div>
 				</div>

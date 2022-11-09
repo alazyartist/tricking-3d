@@ -77,8 +77,8 @@ const Autocomplete = (props) => {
 	}, [sessionData]);
 	const syncTime = useCallback(
 		(time) => {
-			setSeekTime(time);
 			setCurrentTime(time);
+			setSeekTime(time);
 			timeRef.current = time;
 		},
 		[currentTime]
@@ -94,7 +94,7 @@ const Autocomplete = (props) => {
 	};
 	const handleSource = (e) => {
 		if (
-			!["0", "-", "=", "k", "j", "l"].includes(e.key) ||
+			!["0", "[", "]", "k", "j", "l"].includes(e.key) ||
 			e.ctrlKey ||
 			e.shiftKey ||
 			e.altKey ||
@@ -108,12 +108,12 @@ const Autocomplete = (props) => {
 			// setVidsrc(sessionSources[0]?.vidsrc);
 		}
 
-		if (e.key === "-") {
+		if (e.key === "[") {
 			e.preventDefault();
 			setCount((count) => (count > 0 ? count - 1 : 0));
 		}
 
-		if (e.key === "=") {
+		if (e.key === "]") {
 			e.preventDefault();
 			setCount((count) => count + 1);
 		}
