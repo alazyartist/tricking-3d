@@ -19,6 +19,24 @@ export const useSubmitSessionForReview = () => {
 		}
 	);
 };
+export const useSaveSessionDetails = () => {
+	const apiPrivate = useApiCreds();
+	const queryClient = useQueryClient();
+	return useMutation(
+		["saveSessionDetails"],
+		async (data, sessionid) => {
+			return apiPrivate.post(`/sessionsummaries/${sessionid}`, {
+				...data,
+			});
+		},
+		{
+			onSuccess: (data) => {
+				queryClient.invalidateQueries(["sessionsummaries"]);
+				console.log("succeeded submiting SessionDetails", data);
+			},
+		}
+	);
+};
 
 export const useGetAllSessions = () => {
 	const apiPrivate = useApiCreds();
