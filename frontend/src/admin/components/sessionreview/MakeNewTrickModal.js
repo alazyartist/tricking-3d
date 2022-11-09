@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useGetTrickParts } from "../../../api/useGetTricks";
 import StanceRemap from "../../../components/info/trickInfo/StanceRemap";
-import { MdClose } from "../../../data/icons/MdIcons";
+import { MdClose, MdSave } from "../../../data/icons/MdIcons";
 import { useTrickMakerStore } from "../trickMaker/TrickMakerStore";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
 const details = {
@@ -39,6 +39,9 @@ const MakeNewTrickModal = () => {
 			<MdClose
 				className={`absolute top-2 right-2 text-5xl text-zinc-300`}
 				onClick={() => setTrickMakerOpen()}
+			/>
+			<MdSave
+				className={`absolute top-[10vh] right-2 text-5xl text-zinc-300`}
 			/>
 			<div className='flex w-full place-content-center '>
 				<input
