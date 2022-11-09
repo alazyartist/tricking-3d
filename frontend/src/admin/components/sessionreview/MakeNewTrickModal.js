@@ -19,9 +19,12 @@ const MakeNewTrickModal = () => {
 	const setTrickMakerOpen = useSessionSummariesStore(
 		(s) => s.setTrickMakerOpen
 	);
-	console.log(trickParts);
+	let bases = trickParts.filter((e) => e.base_id);
+	let stances = trickParts.filter((e) => e.type === "Stance");
+	let variations = trickParts.filter((e) => e.type === "Variation");
+	console.log(bases, stances, variations);
 	return trickMakerOpen ? (
-		<div className='z-100 absolute top-[5vh] left-[15vw] h-[80vh] w-[70vw] rounded-xl bg-zinc-800'>
+		<div className='z-100 absolute top-[5vh] left-[15vw] h-[80vh] w-[70vw] rounded-xl bg-zinc-800 font-inter'>
 			<MdClose
 				className={`absolute top-2 right-2 text-5xl text-zinc-300`}
 				onClick={() => setTrickMakerOpen()}
@@ -52,6 +55,39 @@ const MakeNewTrickModal = () => {
 						</div>
 					</div>
 					<StanceRemap trickMaker={true} stance={details?.landingStance} />
+				</div>
+				<div className='flex gap-2 text-base text-zinc-800'>
+					<div className='rounded-md bg-indigo-300 p-1'>
+						{bases.map((stance) => (
+							<p className='mt-2 rounded-md bg-zinc-800 bg-opacity-20 p-1 first:mt-0'>
+								{stance.name}
+							</p>
+						))}
+					</div>
+					<div className='rounded-md  bg-emerald-300 p-1'>
+						{stances.map((stance) => (
+							<p className='mt-2 rounded-md bg-zinc-800 bg-opacity-20 p-1 first:mt-0'>
+								{stance.name}
+							</p>
+						))}
+					</div>
+					<div className='columns-3 rounded-md bg-teal-300 p-1'>
+						{variations
+							.sort((a, b) => {
+								if (a.variationType < b.variationType) return -1;
+								if (a.variationType > b.variationType) return 1;
+								if (a.name < b.name) return -1;
+								if (a.name > b.name) return 1;
+								return 0;
+							})
+							.map((stance) => (
+								<div className='mt-2 flex place-items-center justify-between gap-2 rounded-md bg-zinc-800 bg-opacity-20 p-1 first:mt-0'>
+									<p className='w-1/3'>{stance.name}</p>
+									<p className='w-1/3'>{stance.variationType}</p>
+									<p className='w-1/6 text-xs'>{stance.pos}</p>
+								</div>
+							))}
+					</div>
 				</div>
 			</div>
 		</div>
