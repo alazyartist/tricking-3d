@@ -22,7 +22,7 @@ const CommandBar = () => {
 			<Autocomplete
 				tricks={tricks}
 				defaultActiveItemId='0'
-				placeholder='/p to play'
+				placeholder='/ to open cmdBar'
 				openOnFocus={true}
 				autoFocus={true}
 			/>
@@ -77,6 +77,7 @@ const Autocomplete = (props) => {
 	}, [sessionData]);
 	const syncTime = useCallback(
 		(time) => {
+			setSeekTime(time);
 			setCurrentTime(time);
 			timeRef.current = time;
 		},
@@ -92,9 +93,6 @@ const Autocomplete = (props) => {
 		document.querySelector(".aa-Input").focus();
 	};
 	const handleSource = (e) => {
-		if (!commandBarRef.current) {
-			return;
-		}
 		if (
 			!["0", "-", "=", "k", "j", "l"].includes(e.key) ||
 			e.ctrlKey ||
@@ -125,12 +123,12 @@ const Autocomplete = (props) => {
 		}
 		if (e.key === "j") {
 			e.preventDefault();
-			setSeekTime(parseInt(currentTime) - 5);
+			// setSeekTime(parseInt(currentTime) - 5);
 			syncTime(parseInt(currentTime) - 5);
 		}
 		if (e.key === "l") {
 			e.preventDefault();
-			setSeekTime(parseInt(currentTime) + 5);
+			// setSeekTime(parseInt(currentTime) + 5);
 			syncTime(parseInt(currentTime) + 5);
 		}
 	};
@@ -216,6 +214,13 @@ const Autocomplete = (props) => {
 									},
 								},
 								{
+									label: "/cio",
+									placeholder: "clear in/out markers",
+									onSelect: (params) => {
+										setClipData({ startTime: 0, endTime: 0 });
+									},
+								},
+								{
 									label: "/i",
 									placeholder: " set clipStart",
 									onSelect: (params) => {
@@ -277,7 +282,8 @@ const Autocomplete = (props) => {
 											clipLabel: combo,
 											name: name,
 											sessionid: useSessionSummariesStore.getState().sessionid,
-											srcId: useSessionSummariesStore.getState().vidsrc,
+											srcid: useSessionSummariesStore.getState().srcid,
+											vidsrc: useSessionSummariesStore.getState().vidsrc,
 										});
 										setSessionData(
 											useSessionSummariesStore.getState().clipData
@@ -287,7 +293,8 @@ const Autocomplete = (props) => {
 											startTime: 0,
 											endTime: 0,
 											clipLabel: [],
-											srcId: "",
+											srcid: "",
+											vidsrc: "",
 										});
 									},
 								},

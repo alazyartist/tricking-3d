@@ -105,6 +105,7 @@ const SessionSourceDisplay = ({ source }) => {
 									{sessionData.map((e, i) => {
 										return (
 											<SessionDataDetails
+												source={source}
 												id='sesionDataDetails'
 												key={`${i}+ 'data'`}
 												e={e}
@@ -154,11 +155,14 @@ const SessionSourceDisplay = ({ source }) => {
 
 export default SessionSourceDisplay;
 
-const SessionDataDetails = ({ e, i, duration }) => {
+const SessionDataDetails = ({ e, i, duration, source }) => {
 	const [seeDetails, setSeeDetails] = useState(false);
 	const clipData = useSessionSummariesStore((s) => s.clipData);
 	const setClipData = useSessionSummariesStore((s) => s.setClipData);
-
+	const setSrcid = useSessionSummariesStore((s) => s.setSrcid);
+	useEffect(() => {
+		setSrcid(source?.srcid);
+	}, [source]);
 	let w = `${(
 		((parseInt(e.endTime) - parseInt(e.startTime)) / parseInt(duration)) *
 		100
@@ -175,7 +179,7 @@ const SessionDataDetails = ({ e, i, duration }) => {
 						<div className=' '>{e.name}</div>
 						<div className='flex justify-between'>
 							<div className='bg-emerald-300 p-1 text-zinc-800 '>
-								{e.startTime.slice(-2)}
+								{e.startTime.toString().slice(-2)}
 							</div>
 							<div className='bg-red-300 p-1 text-zinc-800 '>
 								{e.endTime.slice(-2)}
@@ -190,7 +194,10 @@ const SessionDataDetails = ({ e, i, duration }) => {
 			)}
 			<div
 				key={`${i}+${Math.random()}`}
-				onClick={() => setClipData(e)}
+				onClick={() => {
+					setSrcid(source.srcid);
+					setClipData(e);
+				}}
 				onMouseOver={() => setSeeDetails(true)}
 				onMouseLeave={() => setSeeDetails(false)}
 				style={{ width: w, left: l }}

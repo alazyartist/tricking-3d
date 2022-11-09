@@ -12,6 +12,8 @@ export const useSessionSummariesStore = create(
 				set((s) => ({ clipData: { ...s.clipData, ...value } })),
 			sessionSources: [],
 			setSessionSources: (value) => set(() => ({ sessionSources: value })),
+			srcid: "",
+			setSrcid: (value) => set(() => ({ srcid: value })),
 			vidsrc: "",
 			setVidsrc: (value) => set(() => ({ vidsrc: value })),
 			detailsVisible: false,
