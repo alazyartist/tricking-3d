@@ -4,7 +4,7 @@ import sequelize from "sequelize";
 const sessionsummaries = await db.sequelize.models.SessionSummaries;
 const sessionsources = await db.sequelize.models.SessionSources;
 const sessiondata = await db.sequelize.models.SessionData;
-const combo = await db.sequelize.models.combo;
+const combo = await db.sequelize.models.Combo;
 export const submitSessionforReview = async (req, res) => {
 	const { user_id, sessionid, name, sessionDate, startTime, endTime, url } =
 		await req?.body;
@@ -64,4 +64,54 @@ export const getSessionDetailsBySessionid = async (req, res) => {
 		],
 	});
 	res.json(sessionDetails);
+};
+
+export const saveSessionDetails = async (req, res) => {
+	const sd = req.body;
+	try {
+		Object.keys(req.body).map(async (i) => {
+			let curData = sd[i];
+			let foundCombo = await combo.findOne({ where: { name: curData.name } });
+			if (!foundCombo) {
+				let madeCombo = await combo.findOrCreate({
+					where: {
+						name: curData.name,
+						comboArray: curData.clipLabel,
+						creator: curData.admin ?? "admin696-8c94-4ca7-b163-9alazyartist",
+					},
+				});
+				if (madeCombo) {
+					await sessiondata.findOrCreate({
+						where: {
+							id: curData.id,
+							srcid: curData.srcid,
+							clipLabel: madeCombo.dataValues.combo_id,
+							sessionid: curData.sessionid,
+							clipStart: curData.startTime,
+							clipEnd: curData.endTime,
+							admin: curData.admin ?? "admin696-8c94-4ca7-b163-9alazyartist",
+						},
+					});
+					console.log("savedmadeCombodata");
+				}
+			} else {
+				await sessiondata.findOrCreate({
+					where: {
+						id: curData.id,
+						srcid: curData.srcid,
+						clipLabel: foundCombo.dataValues.combo_id,
+						sessionid: curData.sessionid,
+						clipStart: curData.startTime,
+						clipEnd: curData.endTime,
+						admin: curData.admin ?? "admin696-8c94-4ca7-b163-9alazyartist",
+					},
+				});
+				console.log("savedfoundCombodata");
+			}
+		});
+		res.send("TestWorked");
+	} catch (err) {
+		console.log(err);
+		res.status(501).send(err);
+	}
 };
