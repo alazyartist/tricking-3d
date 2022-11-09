@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-const StanceRemap = ({ stance }) => {
+const StanceRemap = ({ stance, trickMaker }) => {
 	const textcolor = {
 		Backside: `text-[#07b9e9]`,
 		Inside: `text-[#06d8b7]`,
@@ -16,7 +16,13 @@ const StanceRemap = ({ stance }) => {
 	};
 	const [showFullStance, setShowFullStance] = useState(false);
 
-	return (
+	return trickMaker ? (
+		<div>
+			<div className={`${textcolor[stance]} p-2 text-center text-3xl`}>
+				{stance}
+			</div>
+		</div>
+	) : (
 		<div>
 			<div
 				onClick={() => setShowFullStance(!showFullStance)}

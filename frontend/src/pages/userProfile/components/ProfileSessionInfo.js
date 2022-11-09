@@ -22,7 +22,6 @@ const ProfileSessionInfo = ({ summary }) => {
 export default ProfileSessionInfo;
 
 const DataDetails = ({ d }) => {
-	console.log(d);
 	return (
 		<div className='flex place-items-center justify-between rounded-md bg-teal-100 bg-opacity-10 p-1'>
 			<div className='w-1/3 '>{d?.ClipLabel?.name}</div>

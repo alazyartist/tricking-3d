@@ -13,6 +13,18 @@ const useGetTricks = () => {
 		{ onSuccess: (data) => console.log("I Got all them Tricks.") }
 	);
 };
+export const useGetTrickParts = () => {
+	const apiPrivate = useApiCreds();
+
+	return useQuery(
+		["trickParts"],
+		async () => {
+			const { data } = await apiPrivate.get("/tricks/parts");
+			return data;
+		},
+		{ onSuccess: (data) => console.log("I Got all them TricksParts.") }
+	);
+};
 export const useGetTricksById = (trick_id) => {
 	const apiPrivate = useApiCreds();
 
