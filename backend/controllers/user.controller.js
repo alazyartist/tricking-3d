@@ -129,6 +129,19 @@ export const getUserInfoByUUID = async (req, res) => {
 						through: { attributes: [] },
 					},
 					{
+						model: db.sequelize.models.SessionSummaries,
+						include: [
+							{
+								model: db.sequelize.models.SessionData,
+								include: [
+									{ model: db.sequelize.models.Combo, as: "ClipLabel" },
+									{ model: db.sequelize.models.SessionSources },
+								],
+							},
+							{ model: db.sequelize.models.SessionSources },
+						],
+					},
+					{
 						model: db.sequelize.models.Tricklist,
 						as: "MyTricklists",
 						include: [
