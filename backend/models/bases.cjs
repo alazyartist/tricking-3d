@@ -44,7 +44,7 @@ module.exports = (sequelize) => {
 			landingStance: {
 				type: DataTypes.STRING,
 			},
-			pointValue: DataTypes.INTEGER,
+			pointValue: DataTypes.FLOAT,
 		},
 		{
 			sequelize,

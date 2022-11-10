@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
 			comboArray: DataTypes.JSON,
 			createdAt: DataTypes.DATE,
 			updatedAt: DataTypes.DATE,
-			pointValue: DataTypes.INTEGER,
+			pointValue: DataTypes.FLOAT,
 		},
 		{
 			sequelize,

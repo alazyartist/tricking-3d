@@ -27,6 +27,7 @@ module.exports = (sequelize) => {
 			fromLeg: DataTypes.STRING,
 			toLeg: DataTypes.STRING,
 			rotation: DataTypes.INTEGER,
+			pointValue: DataTypes.FLOAT,
 		},
 		{ timestamps: false, sequelize, modelName: "Transitions" }
 	);

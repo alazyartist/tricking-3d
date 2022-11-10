@@ -11,7 +11,7 @@ const TrickPointEditor = () => {
 	const { data: tricks } = useGetTricks();
 	if (isLoading) return <p>Loading...</p>;
 	return (
-		<div className='no-scrollbar h-[50vh] w-[80vw] overflow-hidden overflow-y-scroll'>
+		<div className='no-scrollbar h-[80vh] w-[80vw] overflow-hidden overflow-y-scroll'>
 			{trickParts?.length &&
 				trickParts?.map((trick) => {
 					return <PointInput trick={trick} />;
@@ -30,7 +30,7 @@ const TrickPointEditor = () => {
 export default TrickPointEditor;
 
 const PointInput = ({ trick }) => {
-	const [pointValue, setPointValue] = useState();
+	const [pointValue, setPointValue] = useState(trick?.pointValue);
 	//updatepointValue
 	const { mutate: updatePoints } = useUpdateTrickPoints();
 	const debouncedValue = useDebounce(pointValue, 500);
@@ -76,8 +76,7 @@ const PointInput = ({ trick }) => {
 				on
 				onChange={(e) => setPointValue(e.target.value)}
 				value={pointValue}
-				className='w-1/4 bg-zinc-800 p-2 text-zinc-300'
-				placeholder={trick?.pointValue}
+				className='w-1/4 bg-zinc-800 p-2 text-center text-zinc-300'
 			/>
 		</div>
 	);

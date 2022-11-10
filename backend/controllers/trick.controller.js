@@ -153,30 +153,34 @@ export const makeNewTrick = async (req, res) => {
 };
 
 export const updateTrickPartPoints = async (req, res) => {
-	const { pointValue, type, id } = req.body;
+	const { pointValue, type, id } = await req.body;
 	try {
+		console.log(type);
 		if (type === "Transition") {
 			await transitions.update(
 				{ pointValue: pointValue },
 				{ where: { id: id } }
 			);
-		} else if (type === "Stances") {
+			res.send("UpdatedPointValue");
+		} else if (type === "Stance") {
 			await stances.update(
 				{ pointValue: pointValue },
 				{ where: { stance_id: id } }
 			);
+			res.send("UpdatedPointValue");
 		} else if (type === "Base") {
 			await bases.update(
 				{ pointValue: pointValue },
 				{ where: { base_id: id } }
 			);
+			res.send("UpdatedPointValue");
 		} else if (type === "Variation") {
 			await variations.update(
 				{ pointValue: pointValue },
 				{ where: { id: id } }
 			);
+			res.send("UpdatedPointValue");
 		}
-		res.send("UpdatedPointValue");
 	} catch (err) {
 		console.log(err);
 		res.send(err);

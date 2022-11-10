@@ -78,6 +78,7 @@ module.exports = (sequelize) => {
 			takeoffStance: DataTypes.STRING,
 			landingStance: DataTypes.STRING,
 			defaultAnimation: DataTypes.UUID,
+			pointValue: { type: DataTypes.FLOAT },
 		},
 		{ timestamps: false, sequelize, modelName: "Tricks" }
 	);

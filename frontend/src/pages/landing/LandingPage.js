@@ -11,7 +11,7 @@ import TheoryPage from "../theory/TheoryPage";
 import DetailCard from "./components/DetailCard";
 const LandingPage = () => {
 	return (
-		<div className='no-scrollbar fixed top-0 flex h-[100vh] w-[100vw] flex-col items-center justify-between gap-2 overflow-y-scroll bg-zinc-100 text-zinc-800'>
+		<div className='no-scrollbar fixed top-0 flex h-[100vh] w-[100vw] flex-col place-items-center justify-between gap-2 overflow-y-scroll bg-zinc-100 text-zinc-800'>
 			<div
 				id='abovethefold'
 				className='flex h-[100vh] flex-shrink-0 flex-col items-center gap-2'>
@@ -35,24 +35,26 @@ const LandingPage = () => {
 					className='rounded-md bg-indigo-400 p-2 font-bold text-zinc-100'>
 					Home
 				</Link>
-				<div className='flex w-[100vw] flex-shrink-0  gap-2 overflow-hidden'>
+				{/* <div className='flex w-[100vw] flex-shrink-0  gap-2 overflow-hidden'>
 					<div className='h-[200px] w-[300px] flex-shrink-0 rounded-md bg-zinc-900'></div>
 					<div className='h-[200px] w-[100px] flex-shrink-0 rounded-md bg-zinc-900'></div>
-				</div>
+				</div> */}
 			</div>
 
 			<DetailCard
 				left
 				title={"Explore Tricks in 3D"}
 				description="See Tricks like never before. Study the movement's your way.">
-				<Canvas className='h-[200px] w-[300px] flex-shrink-0 rounded-md bg-zinc-900'>
+				<Canvas className='min-h-[400px] rounded-md bg-zinc-900'>
 					<TorqueScene />
 				</Canvas>
 			</DetailCard>
 			<DetailCard
 				title={"Have Quick Access to the Theory"}
 				description='Fully Searchable and at you fingertips.'>
-				<AnatomySketch className={"h-[200px] w-[300px] "} />
+				<AnatomySketch
+					className={"h-[200px] w-[300px] md:h-[400px] md:w-[600px] "}
+				/>
 			</DetailCard>
 			<DetailCard
 				left

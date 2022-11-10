@@ -71,6 +71,7 @@ export const useUpdateTrickPoints = (trickInfo) => {
 		{
 			onSuccess: (data) => {
 				queryClient.invalidateQueries(["trickParts"]);
+				queryClient.invalidateQueries(["tricks"]);
 				console.log("SavedTrick", data);
 			},
 		}
