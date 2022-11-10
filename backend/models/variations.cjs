@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
 			name: DataTypes.STRING,
 			value: DataTypes.STRING,
 			pos: DataTypes.STRING,
-			pointsValue: DataTypes.INTEGER,
+			pointValue: DataTypes.INTEGER,
 		},
 		{
 			timestamps: false,

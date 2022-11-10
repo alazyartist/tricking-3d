@@ -40,6 +40,7 @@ module.exports = (sequelize) => {
 			clipStart: DataTypes.STRING,
 			clipEnd: DataTypes.STRING,
 			admin: DataTypes.UUID,
+			bail: DataTypes.INTEGER,
 			createdAt: DataTypes.DATE,
 			updatedAt: DataTypes.DATE,
 		},
