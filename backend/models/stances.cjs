@@ -20,6 +20,7 @@ module.exports = (sequelize) => {
 			leg: DataTypes.STRING,
 			direction: DataTypes.STRING,
 			stanceRotation: DataTypes.INTEGER,
+			pointsValue: DataTypes.INTEGER,
 		},
 		{
 			sequelize,

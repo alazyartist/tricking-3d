@@ -30,6 +30,7 @@ module.exports = (sequelize) => {
 			direction: DataTypes.STRING,
 			fromLeg: DataTypes.STRING,
 			toLeg: DataTypes.STRING,
+			pointsValue: DataTypes.INTEGER,
 			rotation: DataTypes.INTEGER,
 			stance_id: {
 				type: DataTypes.STRING,
@@ -44,6 +45,7 @@ module.exports = (sequelize) => {
 			landingStance: {
 				type: DataTypes.STRING,
 			},
+			pointsValue: DataTypes.INTEGER,
 		},
 		{
 			sequelize,

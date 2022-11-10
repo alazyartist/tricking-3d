@@ -123,6 +123,16 @@ module.exports = (sequelize) => {
 			profilePic: {
 				type: DataTypes.STRING,
 			},
+			isAdmin: {
+				type: DataTypes.BOOLEAN,
+				defaultValue: false,
+				allowNull: false,
+			},
+			adminAccess: {
+				type: DataTypes.INTEGER,
+				defaultValue: 0,
+				allowNull: false,
+			},
 
 			createdAt: {
 				type: DataTypes.DATE,

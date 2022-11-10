@@ -7,11 +7,11 @@ const DataList = () => {
 	const { data: tricks } = useGetTricks();
 	const { data: combos } = useGetCombos();
 	return (
-		<div className='no-scrollbar flex max-h-[50vh] w-[70vw] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl pb-14'>
+		<div className='no-scrollbar flex max-h-[50vh] w-full flex-col place-items-center gap-2 overflow-y-scroll rounded-xl pb-14'>
 			<h1 className='sticky top-0 h-full w-full bg-zinc-800 p-2 text-center text-xl font-bold'>
 				TRICKS, STANCES, &#38; TRANSITIONS
 			</h1>
-			<div>
+			<div className='w-full'>
 				{tricks?.map((trick) => (
 					<div
 						key={Math.random()}

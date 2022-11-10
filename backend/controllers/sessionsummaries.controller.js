@@ -85,7 +85,7 @@ export const saveSessionDetails = async (req, res) => {
 						where: {
 							id: curData.id,
 							srcid: curData.srcid,
-							clipLabel: madeCombo.dataValues.combo_id,
+							clipLabel: madeCombo[0].dataValues.combo_id,
 							sessionid: curData.sessionid,
 							clipStart: curData.startTime,
 							clipEnd: curData.endTime,
