@@ -53,6 +53,21 @@ export const getAllSessions = async (req, res) => {
 	});
 	res.json(allSessions);
 };
+export const changeSessionStatus = async (req, res) => {
+	let { sessionid } = req.params;
+	let { status } = await req.body;
+	console.log(req.body);
+	try {
+		const changedSession = await sessionsummaries.update(
+			{ status: status },
+			{ where: { sessionid: sessionid } }
+		);
+		res.json(changedSession);
+	} catch (err) {
+		console.log(err);
+		res.json(err);
+	}
+};
 
 export const getSessionDetailsBySessionid = async (req, res) => {
 	const { sessionid } = req.params;
@@ -72,41 +87,48 @@ export const saveSessionDetails = async (req, res) => {
 		Object.keys(req.body).map(async (i) => {
 			let curData = sd[i];
 			let foundCombo = await combo.findOne({ where: { name: curData.name } });
-			if (!foundCombo) {
-				let madeCombo = await combo.findOrCreate({
-					where: {
-						name: curData.name,
-						comboArray: curData.clipLabel,
-						creator: curData.admin ?? "admin696-8c94-4ca7-b163-9alazyartist",
-					},
-				});
-				if (madeCombo) {
+			try {
+				if (!foundCombo) {
+					let madeCombo = await combo.findOrCreate({
+						where: {
+							name: curData.name,
+							comboArray: curData.clipLabel,
+							creator: curData.admin ?? "admin696-8c94-4ca7-b163-9alazyartist",
+						},
+					});
+					if (madeCombo) {
+						await sessiondata.findOrCreate({
+							where: {
+								id: curData.id,
+								srcid: curData.srcid,
+								clipLabel: madeCombo[0].dataValues.combo_id,
+								sessionid: curData.sessionid,
+								bail: curData.bail ?? 0,
+								clipStart: curData.startTime,
+								clipEnd: curData.endTime,
+								admin: curData.admin ?? "admin696-8c94-4ca7-b163-9alazyartist",
+							},
+						});
+						console.log("savedmadeCombodata");
+					}
+				} else {
 					await sessiondata.findOrCreate({
 						where: {
 							id: curData.id,
 							srcid: curData.srcid,
-							clipLabel: madeCombo[0].dataValues.combo_id,
+							clipLabel: foundCombo.dataValues.combo_id,
 							sessionid: curData.sessionid,
 							clipStart: curData.startTime,
 							clipEnd: curData.endTime,
+							bail: curData?.bail ?? 0,
 							admin: curData.admin ?? "admin696-8c94-4ca7-b163-9alazyartist",
 						},
 					});
-					console.log("savedmadeCombodata");
+					console.log("savedfoundCombodata");
 				}
-			} else {
-				await sessiondata.findOrCreate({
-					where: {
-						id: curData.id,
-						srcid: curData.srcid,
-						clipLabel: foundCombo.dataValues.combo_id,
-						sessionid: curData.sessionid,
-						clipStart: curData.startTime,
-						clipEnd: curData.endTime,
-						admin: curData.admin ?? "admin696-8c94-4ca7-b163-9alazyartist",
-					},
-				});
-				console.log("savedfoundCombodata");
+			} catch (err) {
+				console.log(err);
+				res.send(err);
 			}
 		});
 		res.send("SavedSessionDetails");

@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useSessionSummariesStore } from "../admin/components/sessionreview/SessionSummaryStore";
 import useApiCreds from "../hooks/useApiCreds";
 
 export const useSubmitSessionForReview = () => {
@@ -27,6 +28,26 @@ export const useSaveSessionDetails = () => {
 		async (data, sessionid) => {
 			return apiPrivate.post(`/sessionsummaries/${sessionid}`, {
 				...data,
+			});
+		},
+		{
+			onSuccess: (data) => {
+				queryClient.invalidateQueries(["sessionsummaries"]);
+				console.log("succeeded submiting SessionDetails", data);
+			},
+		}
+	);
+};
+export const useChangeSessionStatus = () => {
+	const apiPrivate = useApiCreds();
+	const queryClient = useQueryClient();
+	const sessionid = useSessionSummariesStore((s) => s.sessionid);
+	return useMutation(
+		["changeseSessionStatus"],
+		async (status) => {
+			return apiPrivate.put(`/sessionsummaries/${sessionid}`, {
+				status,
+				sessionid,
 			});
 		},
 		{

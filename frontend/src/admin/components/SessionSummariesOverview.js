@@ -33,7 +33,13 @@ const SessionDisplay = ({ s }) => {
 			<div className='flex place-items-center gap-1'>
 				<div>
 					{s?.status === "In Queue" && (
-						<div className='h-6 w-6 rounded-full bg-amber-600' />
+						<div className='h-6 w-6 rounded-full bg-yellow-600' />
+					)}
+					{s?.status === "In Review" && (
+						<div className='h-6 w-6 rounded-full bg-orange-600' />
+					)}
+					{s?.status === "Reviewed" && (
+						<div className='h-6 w-6 rounded-full bg-emerald-600' />
 					)}
 				</div>
 				<div>

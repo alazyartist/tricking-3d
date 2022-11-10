@@ -14,7 +14,10 @@ import { useSessionSummariesStore } from "./SessionSummaryStore";
 import useGetTricks from "../../../api/useGetTricks";
 import { tagsPlugin } from "./CommandTagPlugin";
 import { v4 as uuidv4 } from "uuid";
-import { useSaveSessionDetails } from "../../../api/useSessionSummaries";
+import {
+	useChangeSessionStatus,
+	useSaveSessionDetails,
+} from "../../../api/useSessionSummaries";
 import { useUserStore } from "../../../store/userStore";
 
 const CommandBar = () => {
@@ -46,6 +49,7 @@ const getQueryPattern = (query, flags = "i") => {
 const Autocomplete = (props) => {
 	const { tricks } = props;
 	const adminuuid = useUserStore((s) => s?.userInfo?.uuid);
+	const { mutate: changeSessionStatus } = useChangeSessionStatus();
 	const { mutate: saveSessionDetails } = useSaveSessionDetails();
 	const removeClipfromCombo = useSessionSummariesStore(
 		(s) => s.removeClipfromCombo
@@ -363,6 +367,48 @@ const Autocomplete = (props) => {
 											},
 										},
 										{
+											label: "/completed",
+											placeholder: " change status to completed",
+											onSelect: ({ itemInputValue }) => {
+												let status = "Reviewed";
+												changeSessionStatus(
+													status,
+													useSessionSummariesStore.getState().sessionid
+												);
+
+												// console.log("selectVideo");
+												// document.getElementById("video").focus();
+											},
+										},
+										{
+											label: "/in review",
+											placeholder: " change status to In Review",
+											onSelect: ({ itemInputValue }) => {
+												let status = "In Review";
+												changeSessionStatus(
+													status,
+													useSessionSummariesStore.getState().sessionid
+												);
+
+												// console.log("selectVideo");
+												// document.getElementById("video").focus();
+											},
+										},
+										{
+											label: "/b",
+											placeholder: "set bail amount",
+											onSelect: ({ itemInputValue }) => {
+												let bailAmount = itemInputValue.split(" ")[1];
+												if (bailAmount > 5) {
+													bailAmount = 5;
+												}
+												if (bailAmount < 1) {
+													bailAmount = 0;
+												}
+												setClipData({ bail: bailAmount });
+											},
+										},
+										{
 											label: "/r",
 											placeholder: "remove item",
 											onSelect: ({ itemInputValue }) => {
@@ -407,6 +453,7 @@ const Autocomplete = (props) => {
 													clipLabel: [],
 													srcid: "",
 													vidsrc: "",
+													bail: 0,
 												});
 												clearClipCombo();
 											},

@@ -49,6 +49,7 @@ const ActiveClipDisplay = () => {
 			<div>{activeClipData?.name}</div>
 			<div>{activeClipData?.user_id?.slice(-4)}</div>
 			<div>{activeClipData?.sessionid}</div>
+			<div>{activeClipData?.bail > 0 && activeClipData?.bail}</div>
 			<div>{activeClipData?.vidsrc}</div>
 			<div className='flex justify-around gap-2 text-center font-bold'>
 				<div
