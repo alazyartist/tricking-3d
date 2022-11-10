@@ -1,12 +1,29 @@
 import create from "zustand";
 
-export const useTrickMakerStore = create((set) => ({
-	trickType: "",
-	name: "",
+export const useTrickMakerStore = create((set, get) => ({
+	trickType: "Invert",
+	name: null,
 	takeoffStance: "",
 	landingStance: "",
 	variationsArr: [],
 	base_id: "",
+	getTrickInfo: () => ({
+		trickType: get().trickType,
+		name: get().name,
+		takeoffStance: get().takeoffStance,
+		landingStance: get().landingStance,
+		variationsArr: get().variationsArr,
+		base_id: get().base_id,
+	}),
+	clearTrickInfo: () =>
+		set((s) => ({
+			trickType: s.trickType,
+			name: s.name,
+			takeoffStance: s.takeoffStance,
+			landingStance: s.landingStance,
+			variationsArr: s.variationsArr,
+			base_id: s.base_id,
+		})),
 	setTrickType: (value) => set(() => ({ trickType: value })),
 	setName: (value) => set(() => ({ name: value })),
 	setTakeoffStance: (value) => set(() => ({ takeoffStance: value })),

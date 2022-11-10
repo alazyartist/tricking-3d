@@ -204,40 +204,54 @@ const Autocomplete = (props) => {
 											},
 										},
 										{
-											label: "/t",
-											placeholder: " setTakeoffStance",
+											label: "/save",
+											placeholder: " save trick",
 											onSelect: (params) => {
-												//dosomething here
+												//call api here
 											},
 										},
-										{
-											label: "/l",
-											placeholder: " setLandingStance",
-											onSelect: (params) => {
-												//dosomething here
-											},
-										},
-										{
-											label: "/b",
-											placeholder: " setBase",
-											onSelect: (params) => {
-												//dosomething here
-											},
-										},
-										{
-											label: "/v",
-											placeholder: " addVariation",
-											onSelect: (params) => {
-												//dosomething here
-											},
-										},
-										{
-											label: "/vr",
-											placeholder: " removeVariation",
-											onSelect: (params) => {
-												//dosomething here
-											},
-										},
+										// {
+										// 	label: "/t",
+										// 	placeholder: " setTakeoffStance",
+										// 	onSelect: (params) => {
+										// 		//dosomething here
+										// 	},
+										// },
+										// {
+										// 	label: "/l",
+										// 	placeholder: " setLandingStance",
+										// 	onSelect: (params) => {
+										// 		//dosomething here
+										// 	},
+										// },
+										// {
+										// 	label: "/b",
+										// 	placeholder: " setBase",
+										// 	onSelect: (params) => {
+										// 		//dosomething here
+										// 	},
+										// },
+										// {
+										// 	label: "/v",
+										// 	placeholder: " addVariation",
+										// 	onSelect: (params) => {
+										// 		//dosomething here
+										// 	},
+										// },
+										// {
+										// 	label: "/vr",
+										// 	placeholder: " removeVariation",
+										// 	onSelect: (params) => {
+										// 		//dosomething here
+										// 	},
+										// },
+										// {
+										// 	label: "/k",
+										// 	placeholder: " switchType",
+										// 	onSelect: (params) => {
+										// 		//dosomething here
+										// 	},
+										// },
 									].filter((t) => pattern.test(t.label));
 								},
 							},

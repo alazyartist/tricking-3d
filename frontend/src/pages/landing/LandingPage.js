@@ -30,6 +30,11 @@ const LandingPage = () => {
 					className='rounded-md bg-indigo-600 p-2 font-bold text-zinc-100'>
 					Sandbox
 				</Link>
+				<Link
+					to='/home'
+					className='rounded-md bg-indigo-400 p-2 font-bold text-zinc-100'>
+					Home
+				</Link>
 				<div className='flex w-[100vw] flex-shrink-0  gap-2 overflow-hidden'>
 					<div className='h-[200px] w-[300px] flex-shrink-0 rounded-md bg-zinc-900'></div>
 					<div className='h-[200px] w-[100px] flex-shrink-0 rounded-md bg-zinc-900'></div>

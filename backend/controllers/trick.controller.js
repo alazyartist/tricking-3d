@@ -4,6 +4,7 @@ const stances = await db.sequelize.models.Stances;
 const transitions = await db.sequelize.models.Transitions;
 // db.sequelize.models.Tricks.associate(db.sequelize.models);
 const bases = await db.sequelize.models.Bases;
+const trick_variations = await db.sequelize.models.Trick_Variations;
 const variations = await db.sequelize.models.Variations;
 export const getTrickByTrickId = async (req, res) => {
 	const { trick_id } = req.params;
@@ -82,5 +83,79 @@ export const getAllTricks = async (req, res) => {
 			.catch((err) => console.log(err));
 	} catch (err) {
 		console.log(err);
+	}
+};
+
+export const makeNewTrick = async (req, res) => {
+	try {
+		const {
+			name,
+			base_id,
+			trickType,
+			takeoffStance,
+			variationsArr,
+			landingStance,
+			useruuid,
+		} = await req.body;
+		console.log(
+			name,
+			variationsArr,
+			base_id,
+			trickType,
+			takeoffStance,
+			landingStance,
+			useruuid
+		);
+		//take trick info create trick getTrick_id
+		let newTrick = await tricks.findOrCreate({ where: { name } });
+
+		Promise.resolve(newTrick).then((newTrick) => {
+			console.log(newTrick[0]);
+			if (newTrick) {
+				newTrick[0].update({
+					base_id,
+					trickType,
+					stance_id: takeoffStance,
+					takeoffStance,
+					landingStance,
+				});
+			}
+		});
+		try {
+			await variationsArr.map(async (variation) => {
+				Promise.resolve(newTrick).then(async (newTrick) => {
+					let variation_id = variation.id;
+
+					let trick_id = await newTrick[0]?.dataValues?.trick_id;
+					await trick_variations.findOrCreate({
+						where: { variation_id, trick_id },
+					});
+				});
+			});
+			//take variationsArr map over and associate with trick
+		} catch (err) {
+			console.log(err);
+			res.json({ message: "Issue Saving variation to trick", error: err });
+		}
+		console.log(newTrick[0].dataValues.trick_id, "newTrick check");
+		let trick_id = newTrick[0].dataValues.trick_id;
+		if (trick_id !== undefined) {
+			let madeTrick = await tricks.findOne({
+				where: { trick_id: trick_id },
+				include: {
+					model: db.sequelize.models.Trick_Variations,
+					as: "Variations",
+					include: [
+						{
+							model: db.sequelize.models.Variations,
+						},
+					],
+				},
+			});
+			res.json({ message: "savedNewTrick", trick: madeTrick });
+		}
+	} catch (err) {
+		console.log(err);
+		res.send(err);
 	}
 };

@@ -109,7 +109,7 @@ export const saveSessionDetails = async (req, res) => {
 				console.log("savedfoundCombodata");
 			}
 		});
-		res.send("TestWorked");
+		res.send("SavedSessionDetails");
 	} catch (err) {
 		console.log(err);
 		res.status(501).send(err);

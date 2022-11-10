@@ -1,5 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useApiCreds from "../hooks/useApiCreds";
+import { useUserStore } from "../store/userStore";
 
 const useGetTricks = () => {
 	const apiPrivate = useApiCreds();
@@ -35,6 +36,25 @@ export const useGetTricksById = (trick_id) => {
 			return data;
 		},
 		{ onSuccess: (data) => console.log("I Got all them Tricks by ID.") }
+	);
+};
+
+export const useSaveTrick = (trickInfo) => {
+	const apiPrivate = useApiCreds();
+	const userInfo = useUserStore((s) => s.userInfo);
+	const queryClient = useQueryClient();
+
+	return useMutation(
+		["saveTrick"],
+		async (data) => {
+			return apiPrivate.post(`/tricks`, { ...data, useruuid: userInfo.uuid });
+		},
+		{
+			onSuccess: (data) => {
+				queryClient.invalidateQueries(["tricks"]);
+				console.log("SavedTrick", data);
+			},
+		}
 	);
 };
 

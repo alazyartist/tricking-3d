@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useGetTrickParts } from "../../../api/useGetTricks";
+import React, { useEffect, useState } from "react";
+import { useGetTrickParts, useSaveTrick } from "../../../api/useGetTricks";
 import StanceRemap from "../../../components/info/trickInfo/StanceRemap";
 import { MdClose, MdSave } from "../../../data/icons/MdIcons";
 import { useTrickMakerStore } from "../trickMaker/TrickMakerStore";
@@ -14,6 +14,8 @@ const details = {
 const MakeNewTrickModal = () => {
 	const { data: trickParts } = useGetTrickParts();
 	const trickType = useTrickMakerStore((s) => s.trickType);
+	const getTrickInfo = useTrickMakerStore((s) => s.getTrickInfo);
+	const clearTrickInfo = useTrickMakerStore((s) => s.clearTrickInfo);
 	const name = useTrickMakerStore((s) => s.name);
 	const takeoffStance = useTrickMakerStore((s) => s.takeoffStance);
 	const landingStance = useTrickMakerStore((s) => s.landingStance);
@@ -33,7 +35,16 @@ const MakeNewTrickModal = () => {
 	let bases = trickParts?.filter((e) => e.base_id);
 	let stances = trickParts?.filter((e) => e.type === "Stance");
 	let variations = trickParts?.filter((e) => e.type === "Variation");
-	console.log(bases, stances, variations);
+	let trickInfo = getTrickInfo();
+	const { mutate: saveTrick, data: response } = useSaveTrick();
+	// console.log("re-ran", getTrickInfo());
+	useEffect(() => {
+		console.log(response);
+		if (response?.status === 200) {
+			clearTrickInfo();
+			setTrickMakerOpen(false);
+		}
+	}, [response]);
 	return trickMakerOpen ? (
 		<div className='z-100 absolute top-[5vh] left-[15vw] h-[80vh] w-[70vw] rounded-xl bg-zinc-800 font-inter'>
 			<MdClose
@@ -41,17 +52,28 @@ const MakeNewTrickModal = () => {
 				onClick={() => setTrickMakerOpen()}
 			/>
 			<MdSave
+				onClick={() => saveTrick(trickInfo)}
 				className={`absolute top-[10vh] right-2 text-5xl text-zinc-300`}
 			/>
+			<div
+				onClick={() =>
+					trickType === "Invert" ? setTrickType("Kick") : setTrickType("Invert")
+				}
+				className={`absolute top-[10vh] left-4 rounded-md bg-zinc-700 p-1 text-3xl text-zinc-300`}>
+				{trickType}
+			</div>
 			<div className='flex w-full place-content-center '>
 				<input
+					spellcheck='false'
+					placeholder='set trick name'
+					onChange={(e) => setName(e.target.value)}
 					type={"text"}
 					value={name}
 					className=' bg-transparent text-center font-titan text-3xl text-zinc-300'
 				/>
 			</div>
-			<div className='m-2 flex flex-col items-center gap-4 text-3xl text-zinc-300'>
-				<div className='flex items-center gap-2 rounded-md border-2 border-zinc-700'>
+			<div className='m-2 flex  flex-col items-center gap-4 text-3xl text-zinc-300'>
+				<div className='flex min-h-[15vh] items-center gap-2 rounded-md border-2 border-zinc-700'>
 					<StanceRemap trickMaker={true} stance={takeoffStance} />
 					<div className='flex flex-col gap-2'>
 						<div className='rounded-md border-[1px] border-zinc-400 p-1 px-4 text-center'>
@@ -71,7 +93,7 @@ const MakeNewTrickModal = () => {
 					<StanceRemap trickMaker={true} stance={landingStance} />
 				</div>
 				<div className='flex gap-2 text-base text-zinc-800'>
-					<div className='rounded-md bg-indigo-300 p-1'>
+					<div className='rounded-md bg-zinc-300 p-1'>
 						{bases?.map((base) => (
 							<p
 								onClick={() => setBase_id(base.name)}
@@ -85,7 +107,7 @@ const MakeNewTrickModal = () => {
 							<ChooseStance stance={stance} />
 						))}
 					</div>
-					<div className='columns-3 rounded-md bg-teal-300 p-1'>
+					<div className='columns-3 rounded-md bg-purple-300 p-1'>
 						{variations
 							?.sort((a, b) => {
 								if (a.variationType < b.variationType) return -1;
@@ -130,10 +152,10 @@ const ChooseStance = ({ stance }) => {
 	const setLandingStance = useTrickMakerStore((s) => s.setLandingStance);
 	return (
 		<div className='mt-2 first:mt-0'>
-			{choosingStance && (
-				<div className='flex gap-2 p-1'>
+			{choosingStance ? (
+				<div className='flex gap-2'>
 					<div
-						className='rounded-md bg-zinc-800 bg-opacity-20 p-1'
+						className='w-1/2 rounded-md bg-zinc-800 bg-opacity-40 p-1 hover:bg-emerald-600'
 						onClick={() => {
 							setTakeoffStance(stance.name);
 							setChoosingStance(false);
@@ -141,7 +163,7 @@ const ChooseStance = ({ stance }) => {
 						Takeoff
 					</div>
 					<div
-						className='rounded-md bg-zinc-800 bg-opacity-20 p-1'
+						className='w-1/2 rounded-md bg-zinc-800 bg-opacity-40 p-1 hover:bg-emerald-600'
 						onClick={() => {
 							setLandingStance(stance.name);
 							setChoosingStance(false);
@@ -149,12 +171,13 @@ const ChooseStance = ({ stance }) => {
 						Landing
 					</div>
 				</div>
+			) : (
+				<p
+					onClick={() => setChoosingStance(true)}
+					className=' rounded-md bg-zinc-800 bg-opacity-20 p-1'>
+					{stance.name}
+				</p>
 			)}
-			<p
-				onClick={() => setChoosingStance(true)}
-				className=' rounded-md bg-zinc-800 bg-opacity-20 p-1'>
-				{stance.name}
-			</p>
 		</div>
 	);
 };
