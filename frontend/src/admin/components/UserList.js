@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import useGetAllUsers from "../../api/useGetAllUsers";
+import { MdCheckCircle } from "../../data/icons/MdIcons";
 
 const UserList = () => {
 	const { data: allUsers } = useGetAllUsers();
@@ -15,7 +16,12 @@ const UserList = () => {
 						<div
 							key={user.uuid}
 							className='flex w-full flex-shrink-0 gap-2 whitespace-nowrap text-xs odd:bg-zinc-700'>
-							<div className='w-1/3 '>{user.username}</div>
+							<div className='flex w-1/3 place-items-center gap-2 '>
+								{user.isAdmin && (
+									<MdCheckCircle className='text-3xl text-emerald-500' />
+								)}
+								{user.username}
+							</div>
 							<div className='w-1/3'>
 								{user.first_name} {user.last_name}
 							</div>

@@ -97,15 +97,7 @@ export const makeNewTrick = async (req, res) => {
 			landingStance,
 			useruuid,
 		} = await req.body;
-		console.log(
-			name,
-			variationsArr,
-			base_id,
-			trickType,
-			takeoffStance,
-			landingStance,
-			useruuid
-		);
+
 		//take trick info create trick getTrick_id
 		let newTrick = await tricks.findOrCreate({ where: { name } });
 
@@ -154,6 +146,37 @@ export const makeNewTrick = async (req, res) => {
 			});
 			res.json({ message: "savedNewTrick", trick: madeTrick });
 		}
+	} catch (err) {
+		console.log(err);
+		res.send(err);
+	}
+};
+
+export const updateTrickPartPoints = async (req, res) => {
+	const { pointValue, type, id } = req.body;
+	try {
+		if (type === "Transition") {
+			await transitions.update(
+				{ pointValue: pointValue },
+				{ where: { id: id } }
+			);
+		} else if (type === "Stances") {
+			await stances.update(
+				{ pointValue: pointValue },
+				{ where: { stance_id: id } }
+			);
+		} else if (type === "Base") {
+			await bases.update(
+				{ pointValue: pointValue },
+				{ where: { base_id: id } }
+			);
+		} else if (type === "Variation") {
+			await variations.update(
+				{ pointValue: pointValue },
+				{ where: { id: id } }
+			);
+		}
+		res.send("UpdatedPointValue");
 	} catch (err) {
 		console.log(err);
 		res.send(err);

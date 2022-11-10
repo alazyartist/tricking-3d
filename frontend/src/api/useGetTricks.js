@@ -58,4 +58,23 @@ export const useSaveTrick = (trickInfo) => {
 	);
 };
 
+export const useUpdateTrickPoints = (trickInfo) => {
+	const apiPrivate = useApiCreds();
+	const userInfo = useUserStore((s) => s.userInfo);
+	const queryClient = useQueryClient();
+
+	return useMutation(
+		["updateTrickPoints"],
+		async (data) => {
+			return apiPrivate.put(`/tricks/parts`, { ...data });
+		},
+		{
+			onSuccess: (data) => {
+				queryClient.invalidateQueries(["trickParts"]);
+				console.log("SavedTrick", data);
+			},
+		}
+	);
+};
+
 export default useGetTricks;

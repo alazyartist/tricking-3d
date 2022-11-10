@@ -8,7 +8,8 @@ const AdminIndex = () => {
 	return (
 		<>
 			{userInfo?.uuid === "admin696-8c94-4ca7-b163-9alazyartist" ||
-			userInfo?.uuid === "admin696-8c94-4ca7-b163-969420Tohzt" ? (
+			userInfo?.uuid === "admin696-8c94-4ca7-b163-969420Tohzt" ||
+			userInfo?.uuid === "f3a88233-3d1a-48d8-9409-0fa6112389d5" ? (
 				<div className='no-scrollbar flex h-[100vh] w-[100vw] flex-col place-content-start place-items-center gap-4 overflow-auto font-inter font-bold text-zinc-300'>
 					<div className='text-center text-3xl'>
 						Welcome {userInfo?.username}. Good Luck Today
