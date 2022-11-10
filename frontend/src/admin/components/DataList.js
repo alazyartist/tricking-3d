@@ -13,30 +13,40 @@ const DataList = () => {
 				TRICKS, STANCES, &#38; TRANSITIONS
 			</h1>
 			<div className='w-full'>
-				{tricks?.map((trick) => (
-					<div
-						key={Math.random()}
-						onClick={() => console.log(trick)}
-						className=' grid  w-full grid-cols-6 justify-between p-2 odd:bg-zinc-700'>
-						<div className='col-span-3'>{trick?.name}</div>
-						<div className='col-span-1 flex place-items-center text-sm'>
-							{trick?.type}
+				{tricks
+					?.sort((a, b) => {
+						if (a.type < b.type) return 1;
+						if (a.type > b.type) return -1;
+						if (a.name < b.name) return -1;
+						if (a.name > b.name) return 1;
+						return 0;
+					})
+					?.map((trick) => (
+						<div
+							key={Math.random()}
+							onClick={() => console.log(trick)}
+							className=' grid  w-full grid-cols-6 justify-between p-2 odd:bg-zinc-700'>
+							<div className='col-span-3'>{trick?.name}</div>
+							<div className='col-span-1 flex place-items-center text-sm'>
+								{trick?.type}
+							</div>
+							<div className='col-span-1'>
+								{trickPoints?.map((tp) => {
+									return tp?.name === trick?.name && tp?.Total;
+								})}
+								{trick.type === "Stance" && trick.pointValue}
+								{trick.type === "Transition" && trick.pointValue}
+							</div>
+							<div className='col-span-1 flex place-content-end place-items-center gap-2'>
+								DA
+								{trick?.defaultAnimation ? (
+									<FaCheck className='text-emerald-500' />
+								) : (
+									<FaCircle className='text-red-700' />
+								)}
+							</div>
 						</div>
-						<div className='col-span-1'>
-							{trickPoints?.[0]?.map((tp) => {
-								return tp?.name === trick?.name && tp?.Total;
-							})}
-						</div>
-						<div className='col-span-1 flex place-content-end place-items-center gap-2'>
-							DA
-							{trick?.defaultAnimation ? (
-								<FaCheck className='text-emerald-500' />
-							) : (
-								<FaCircle className='text-red-700' />
-							)}
-						</div>
-					</div>
-				))}
+					))}
 			</div>
 			<h1 className='sticky top-0 h-full w-full bg-zinc-800 p-2 text-center text-xl font-bold'>
 				Combos
