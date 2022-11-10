@@ -26,6 +26,18 @@ export const useGetTrickParts = () => {
 		{ onSuccess: (data) => console.log("I Got all them TricksParts.") }
 	);
 };
+export const useGetTrickPoints = () => {
+	const apiPrivate = useApiCreds();
+
+	return useQuery(
+		["trickPoints"],
+		async () => {
+			const { data } = await apiPrivate.get("/tricks/points");
+			return data;
+		},
+		{ onSuccess: (data) => console.log("I Got all them TricksPoints.", data) }
+	);
+};
 export const useGetTricksById = (trick_id) => {
 	const apiPrivate = useApiCreds();
 

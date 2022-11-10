@@ -1,11 +1,12 @@
 import React from "react";
 import { FaCheck, FaCircle } from "react-icons/fa";
 import useGetCombos from "../../api/useGetCombos";
-import useGetTricks from "../../api/useGetTricks";
+import useGetTricks, { useGetTrickPoints } from "../../api/useGetTricks";
 
 const DataList = () => {
 	const { data: tricks } = useGetTricks();
 	const { data: combos } = useGetCombos();
+	const { data: trickPoints } = useGetTrickPoints();
 	return (
 		<div className='no-scrollbar flex max-h-[50vh] w-full flex-col place-items-center gap-2 overflow-y-scroll rounded-xl pb-14'>
 			<h1 className='sticky top-0 h-full w-full bg-zinc-800 p-2 text-center text-xl font-bold'>
@@ -15,10 +16,16 @@ const DataList = () => {
 				{tricks?.map((trick) => (
 					<div
 						key={Math.random()}
+						onClick={() => console.log(trick)}
 						className=' grid  w-full grid-cols-6 justify-between p-2 odd:bg-zinc-700'>
 						<div className='col-span-3'>{trick?.name}</div>
-						<div className='col-span-2 flex place-items-center text-sm'>
+						<div className='col-span-1 flex place-items-center text-sm'>
 							{trick?.type}
+						</div>
+						<div className='col-span-1'>
+							{trickPoints?.[0]?.map((tp) => {
+								return tp?.name === trick?.name && tp?.Total;
+							})}
 						</div>
 						<div className='col-span-1 flex place-content-end place-items-center gap-2'>
 							DA

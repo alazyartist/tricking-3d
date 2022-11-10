@@ -1,3 +1,4 @@
+import QueryTypes from "sequelize";
 import db from "../models/index.js";
 const tricks = await db.sequelize.models.Tricks;
 const stances = await db.sequelize.models.Stances;
@@ -185,4 +186,12 @@ export const updateTrickPartPoints = async (req, res) => {
 		console.log(err);
 		res.send(err);
 	}
+};
+
+export const getTrickPointsValue = async (req, res) => {
+	const points = await db.sequelize.query(
+		"select tricks.name,(sum(variations.pointValue) +bases.pointValue +takeoff.pointValue +landing.pointValue) as Total,tricks.pointValue as tp,sum(variations.pointValue) as vartiationpoints, bases.pointValue as bp,takeoff.pointValue as tsp,landing.pointValue as lsp from tricks join trick_variations on tricks.trick_id = trick_variations.trick_id join variations on trick_variations.variation_id = variations.id join bases on bases.base_id=tricks.base_id join stances as landing on landing.stance_id=tricks.landingStance join stances as takeoff on takeoff.stance_id=tricks.takeoffStance group by name;",
+		{ type: QueryTypes.SELECT }
+	);
+	res.json(points);
 };

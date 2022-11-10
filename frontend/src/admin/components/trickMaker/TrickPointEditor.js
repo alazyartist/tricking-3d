@@ -35,7 +35,7 @@ const PointInput = ({ trick }) => {
 	const { mutate: updatePoints } = useUpdateTrickPoints();
 	const debouncedValue = useDebounce(pointValue, 500);
 	useEffect(() => {
-		if (pointValue) {
+		if (pointValue !== trick?.pointValue) {
 			if (trick.type === "Transition") {
 				updatePoints({
 					pointValue: debouncedValue,
