@@ -23,7 +23,7 @@ import { useUserStore } from "../../../store/userStore";
 const CommandBar = () => {
 	const { data: tricks } = useGetTricks();
 	return (
-		<div className='absolute bottom-[0vh] left-[20vw] h-[8vh] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 sm:w-[60vw] md:left-[40vw] md:w-[20vw]'>
+		<div className='fixed bottom-[0vh] left-[20vw] h-[8vh] w-[60vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:left-[20vw] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]'>
 			<Autocomplete
 				tricks={tricks}
 				defaultActiveItemId='0'
@@ -458,7 +458,18 @@ const Autocomplete = (props) => {
 												clearClipCombo();
 											},
 										},
-									].filter((i) => pattern.test(i.label));
+									]
+										.sort((a, b) => {
+											if (a.label.length < b.label.length) return -1;
+											if (a.label.length > b.label.length) return 1;
+											if (a.label > b.label) return 1;
+											if (a.label < b.label) return -1;
+											//check your filters
+											//then check the length
+
+											return 0;
+										})
+										.filter((i) => pattern.test(i.label));
 								},
 							},
 							{

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { animated, useSpring } from "react-spring";
 import ReactPlayer from "react-player";
 import { MdClose } from "../../../data/icons/MdIcons";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
@@ -37,22 +38,40 @@ const SessionSourceDisplay = ({ source }) => {
 		(parseInt(clipData.startTime) / vidRef?.current?.getDuration()) *
 		100
 	).toFixed(2)}%`;
+
+	const detailsVisible = useSessionSummariesStore((s) => s.detailsVisible);
+	const setDetailsVisible = useSessionSummariesStore(
+		(s) => s.setDetailsVisible
+	);
+	const showDetails = useSpring({
+		from: { spanOpacity: 1, opacity: 0, left: "-10vw" },
+		to: {
+			spanOpacity: !detailsVisible ? 1 : 0,
+			opacity: detailsVisible ? 1 : 1,
+			left: detailsVisible ? "0" : "-122px",
+		},
+		delay: 100,
+		config: { tension: 280, friction: 40 },
+		// onRest: () => setOpenHamburger(!openHamburger),
+	});
+
 	return (
 		<div key={source.srcid + "1"} className='flex flex-col gap-2'>
-			<div
+			<animated.div
+				style={{ left: showDetails.left, opacity: showDetails.opacity }}
 				key={source?.vidsrc.replace(vidsrcRegex, "")}
-				className='mt-2 flex w-full flex-col gap-4 rounded-md pl-0'>
+				className='relative mt-2 flex w-full flex-col gap-4 rounded-md pl-0'>
 				<div
 					className={`rounded-md rounded-l-none ${
 						vidsrc === source.vidsrc ? "bg-zinc-900" : "bg-zinc-700"
 					}  p-2`}
 					onClick={() => setVidsrc(source.vidsrc)}>
-					{source?.vidsrc.replace(vidsrcRegex, "")}
+					{source?.vidsrc.replace(vidsrcRegex, "").slice(0, 11)}
 				</div>
-			</div>
+			</animated.div>
 			{
 				vidsrc === source?.vidsrc ? (
-					<div className='absolute top-[-15vh] left-[15vw] w-[70vw]'>
+					<div className='absolute top-[-35vh] left-[15vw] w-[70vw] md:top-[-15vh]'>
 						<div className='relative flex max-h-[80vh] flex-col gap-2'>
 							<div
 								className='flex place-items-center gap-2'

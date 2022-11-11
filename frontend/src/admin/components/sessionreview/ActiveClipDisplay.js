@@ -35,7 +35,7 @@ const ActiveClipDisplay = () => {
 		<animated.div
 			key={activeClipData?.sessionid + "details"}
 			style={{ right: showDetails.right, opacity: showDetails.opacity }}
-			className='absolute top-[20vh] right-2 flex  w-[139px] flex-col gap-2 rounded-md rounded-r-none bg-zinc-700 p-1 pl-6 font-inter text-xs text-zinc-300'>
+			className='absolute top-[40vh] right-2 flex w-[139px]  flex-col gap-2 rounded-md rounded-r-none bg-zinc-700 p-1 pl-6 font-inter text-xs text-zinc-300 md:top-[20vh]'>
 			<div
 				onClick={() => {
 					setClipDetailsVisible();
