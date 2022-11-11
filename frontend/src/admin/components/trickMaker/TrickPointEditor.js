@@ -11,7 +11,7 @@ const TrickPointEditor = () => {
 	const { data: tricks } = useGetTricks();
 	if (isLoading) return <p>Loading...</p>;
 	return (
-		<div className='no-scrollbar h-[80vh] w-[80vw] overflow-hidden overflow-y-scroll'>
+		<div className='no-scrollbar h-[80vh] w-[70vw] overflow-hidden overflow-y-scroll md:w-[80vw]'>
 			{trickParts?.length &&
 				trickParts?.map((trick) => {
 					return <PointInput trick={trick} />;
@@ -68,7 +68,7 @@ const PointInput = ({ trick }) => {
 		}
 	}, [debouncedValue]);
 	return (
-		<div className='flex gap-2'>
+		<div className='flex place-items-center justify-between gap-2 p-1 odd:bg-zinc-800'>
 			<div onClick={() => console.log(trick)} className='w-1/4'>
 				{trick?.name}
 			</div>
@@ -76,7 +76,7 @@ const PointInput = ({ trick }) => {
 				on
 				onChange={(e) => setPointValue(e.target.value)}
 				value={pointValue}
-				className='w-1/4 bg-zinc-800 p-2 text-center text-zinc-300'
+				className='w-1/4 bg-transparent p-1 text-center text-zinc-300'
 			/>
 		</div>
 	);
