@@ -49,7 +49,7 @@ function TabBar() {
 						style={navToggle}
 						className='relative left-0 z-[100] flex h-12 w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300'>
 						{(userInfo?.uuid === "admin696-8c94-4ca7-b163-9alazyartist" ||
-							userInfo?.uuid === "f3a88233-3d1a-48d8-9409-0fa6112389d5" ||
+							userInfo?.uuid === "baf6a9c6-432f-4a08-8260-717249d5b71c" ||
 							userInfo?.uuid === "admin696-8c94-4ca7-b163-969420Tohzt") && (
 							<Link onClick={() => setOpenHamburger(false)} to='/admin'>
 								<AdminLockIcon />
