@@ -18,9 +18,7 @@ const StanceRemap = ({ stance, trickMaker }) => {
 
 	return trickMaker ? (
 		<div>
-			<div className={`${textcolor[stance]} p-2 text-center text-3xl`}>
-				{stance}
-			</div>
+			<div className={`${textcolor[stance]} p-2 text-center`}>{stance}</div>
 		</div>
 	) : (
 		<div>

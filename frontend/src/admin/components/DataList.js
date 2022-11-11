@@ -12,7 +12,7 @@ const DataList = () => {
 			<h1 className='sticky top-0 h-full w-full bg-zinc-800 p-2 text-center text-xl font-bold'>
 				TRICKS, STANCES, &#38; TRANSITIONS
 			</h1>
-			<div className='w-full'>
+			<div className='w-[70vw]'>
 				{tricks
 					?.sort((a, b) => {
 						if (a.type < b.type) return 1;
@@ -32,10 +32,10 @@ const DataList = () => {
 							</div>
 							<div className='col-span-1'>
 								{trickPoints?.map((tp) => {
-									return tp?.name === trick?.name && tp?.Total;
+									return tp?.name === trick?.name && tp?.Total?.toFixed(2);
 								})}
-								{trick.type === "Stance" && trick.pointValue}
-								{trick.type === "Transition" && trick.pointValue}
+								{trick.type === "Stance" && trick.pointValue?.toFixed(2)}
+								{trick.type === "Transition" && trick.pointValue?.toFixed(2)}
 							</div>
 							<div className='col-span-1 flex place-content-end place-items-center gap-2'>
 								DA

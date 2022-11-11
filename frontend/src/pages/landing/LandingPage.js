@@ -21,8 +21,8 @@ const LandingPage = () => {
 						Tricking is <span className='font-black'>complicated.</span>
 					</div>
 					<div className='font-light'>
-						The trickedex gives you all the tools <br />
-						to make sense of it faster in one place
+						The trickedex gives you the tools <br />
+						to make sense of it in one place
 					</div>
 				</div>
 				<Link
@@ -53,7 +53,9 @@ const LandingPage = () => {
 				title={"Have Quick Access to the Theory"}
 				description='Fully Searchable and at you fingertips.'>
 				<AnatomySketch
-					className={"h-[200px] w-[300px] md:h-[400px] md:w-[600px] "}
+					className={
+						"h-[200px] w-[300px] rounded-md bg-zinc-900 md:h-[400px] md:w-[600px] "
+					}
 				/>
 			</DetailCard>
 			<DetailCard

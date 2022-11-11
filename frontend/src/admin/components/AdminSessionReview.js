@@ -32,9 +32,9 @@ const AdminSessionReview = () => {
 				<IoIosArrowBack className='absolute top-4 left-2 text-3xl text-zinc-300' />
 			</Link>
 			{sessionDetails && (
-				<div className='mt-8 flex flex-col place-items-center text-zinc-300'>
+				<div className='mt-4 flex flex-col place-items-center text-zinc-300 md:mt-8'>
 					<div>{sessionDetails?.name}</div>
-					<div className='absolute left-2 top-[20vh] min-w-[135px]'>
+					<div className='absolute left-2  top-[40vh] w-[135px] md:top-[20vh]'>
 						<SessionDetailDisplay sessionDetails={sessionDetails} />
 
 						{sessionDetails?.SessionSources?.map((source) => (
