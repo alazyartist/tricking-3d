@@ -93,15 +93,15 @@ export const MovingBackground = () => {
 	return (
 		<>
 			<animated.div
-				style={{ opacity: anim.o1, left: anim.l1 }}
+				style={{ opacity: anim.o1, top: anim.l1 }}
 				className={`absolute top-[55vh] left-[60vw] -z-10 h-[369px] w-[369px] translate-x-[-50%] rounded-full bg-teal-300 blur-3xl`}
 			/>
 			<animated.div
-				style={{ opacity: anim.o2, left: anim.l2 }}
+				style={{ opacity: anim.o2, top: anim.l2 }}
 				className={`absolute top-[35vh] left-[20vw] -z-10 h-[369px] w-[369px] translate-x-[-50%] rounded-full bg-sky-300 blur-3xl`}
 			/>
 			<animated.div
-				style={{ opacity: anim.o3, left: anim.l3 }}
+				style={{ opacity: anim.o3, top: anim.l3 }}
 				className={`absolute top-[15vh] left-[60vw] -z-10 h-[369px] w-[369px] translate-x-[-50%] rounded-full bg-emerald-300 blur-3xl`}
 			/>
 		</>
