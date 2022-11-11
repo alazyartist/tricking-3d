@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
 import EnterSandboxLink from "../../pages/home/components/EnterSandboxLink";
+import { animated, useSpring } from "react-spring";
 import TorqueScene from "../../scenes/TorqueScene";
 import AnatomyOfATrick from "../theory/anatomy/AnatomyOfATrick";
 import AnatomyNav from "../theory/components/AnatomyNavSVG";
@@ -35,6 +36,8 @@ const LandingPage = () => {
 					className='rounded-md bg-indigo-400 p-2 font-bold text-zinc-100'>
 					Home
 				</Link>
+				<MovingBackground />
+
 				{/* <div className='flex w-[100vw] flex-shrink-0  gap-2 overflow-hidden'>
 					<div className='h-[200px] w-[300px] flex-shrink-0 rounded-md bg-zinc-900'></div>
 					<div className='h-[200px] w-[100px] flex-shrink-0 rounded-md bg-zinc-900'></div>
@@ -45,9 +48,9 @@ const LandingPage = () => {
 				left
 				title={"Explore Tricks in 3D"}
 				description="See Tricks like never before. Study the movement's your way.">
-				<Canvas className='min-h-[400px] rounded-md bg-zinc-900'>
+				{/* <Canvas className='rounded-md bg-zinc-900 md:min-h-[400px]'>
 					<TorqueScene />
-				</Canvas>
+				</Canvas> */}
 			</DetailCard>
 			<DetailCard
 				title={"Have Quick Access to the Theory"}
@@ -71,3 +74,36 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
+
+export const MovingBackground = () => {
+	const anim = useSpring({
+		loop: true,
+		to: [
+			{ o1: 0.8, o2: 0.8, o3: 0.8, l1: "40vw", l2: "40vw", l3: "40vw" },
+			{ o1: 0.5, o2: 0.45, o3: 0.8, l1: "40vw", l2: "20vw", l3: "40vw" },
+			{ o1: 0.45, o2: 0.5, o3: 0.8, l1: "60vw", l2: "40vw", l3: "20vw" },
+			{ o1: 0.75, o2: 0.8, o3: 0.5, l1: "20vw", l2: "60vw", l3: "40vw" },
+			{ o1: 0.8, o2: 0.75, o3: 0.5, l1: "60vw", l2: "40vw", l3: "20vw" },
+			{ o1: 0.8, o2: 0.8, o3: 0.8, l1: "40vw", l2: "20vw", l3: "60vw" },
+		],
+		from: { o1: 1, o2: 1, o3: 1, l1: "40vw", l2: "20vw", l3: "60vw" },
+		config: { tension: 65, mass: 1, duration: 1500, friction: 20 },
+		// onRest: () => setOpenHamburger(!openHamburger),
+	});
+	return (
+		<>
+			<animated.div
+				style={{ opacity: anim.o1, left: anim.l1 }}
+				className={`absolute top-[55vh] left-[60vw] -z-10 h-[369px] w-[369px] translate-x-[-50%] rounded-full bg-teal-300 blur-3xl`}
+			/>
+			<animated.div
+				style={{ opacity: anim.o2, left: anim.l2 }}
+				className={`absolute top-[35vh] left-[20vw] -z-10 h-[369px] w-[369px] translate-x-[-50%] rounded-full bg-sky-300 blur-3xl`}
+			/>
+			<animated.div
+				style={{ opacity: anim.o3, left: anim.l3 }}
+				className={`absolute top-[15vh] left-[60vw] -z-10 h-[369px] w-[369px] translate-x-[-50%] rounded-full bg-emerald-300 blur-3xl`}
+			/>
+		</>
+	);
+};
