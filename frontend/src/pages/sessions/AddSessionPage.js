@@ -156,9 +156,9 @@ export default AddSessionPage;
 const SessionSubmitted = () => {
 	return (
 		<div className='flex h-full flex-col place-content-center place-items-center gap-2 font-titan'>
-			<div className='text-3xl'>You're Session was Submitted</div>
+			<div className='text-3xl'>Your Session was Submitted</div>
 			<MdCheckCircle className={"text-8xl text-emerald-500"} />
-			<div className='text-3xl'>Please check back later for your Summary</div>
+			<div className='text-3xl'>Please check back later for the Summary</div>
 			<Link to={"/home"} className={"rounded-md bg-zinc-700 p-1"}>
 				Home
 			</Link>

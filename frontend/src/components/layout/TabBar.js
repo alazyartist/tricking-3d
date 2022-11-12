@@ -39,7 +39,7 @@ function TabBar() {
 
 	return (
 		<>
-			<div className='absolute bottom-0 w-[100%] overflow-hidden'>
+			<div className='fixed bottom-0 w-[100%] overflow-hidden'>
 				<animated.div style={navToggle} className='relative'>
 					<button
 						style={navToggle}
