@@ -69,6 +69,7 @@ const LandingPage = () => {
 				title={"Follow your friends"}
 				description='Keep track of your progress as a group.'></DetailCard>
 			<div className='h-[40px]' />
+			<MovingBackground />
 		</div>
 	);
 };
@@ -91,19 +92,19 @@ export const MovingBackground = () => {
 		// onRest: () => setOpenHamburger(!openHamburger),
 	});
 	return (
-		<>
+		<div className='absolute -z-10 h-[50vh] w-[100vw]'>
 			<animated.div
 				style={{ opacity: anim.o1, top: anim.l1, left: anim.l3 }}
 				className={`absolute top-[55vh] left-[60vw] -z-10 h-[369px] w-[369px] translate-x-[-50%] rounded-full bg-teal-300 blur-3xl md:h-[60vw] md:w-[60vw]`}
 			/>
 			<animated.div
-				style={{ opacity: anim.o2, left: anim.l2, top: anim.l1 }}
+				style={{ opacity: anim.o2, left: anim.l2, top: anim.l3 }}
 				className={`absolute top-[35vh] left-[20vw] -z-10 h-[469px] w-[469px] translate-x-[-50%] rounded-full bg-sky-300 blur-3xl md:h-[60vw] md:w-[60vw]`}
 			/>
 			<animated.div
-				style={{ opacity: anim.o3, top: anim.l3, left: anim.l1 }}
+				style={{ opacity: anim.o3, top: anim.l3, left: -anim.l1 }}
 				className={`absolute top-[15vh] left-[60vw] -z-10 h-[369px] w-[369px] translate-x-[-50%] rounded-full bg-emerald-300 blur-3xl md:h-[60vw] md:w-[60vw]`}
 			/>
-		</>
+		</div>
 	);
 };

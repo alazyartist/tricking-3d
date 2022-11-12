@@ -13,8 +13,8 @@ function LearnMore() {
 	return (
 		<>
 			<div id='sticky-header' className='sticky top-0 h-14 bg-zinc-900'></div>
-			<div className='no-scrollbar m-0 flex h-[88vh] justify-center overflow-y-scroll p-1'>
-				<div className='flex h-full w-[80vw] flex-col place-content-start place-items-center gap-5 font-inter text-zinc-300'>
+			<div className='no-scrollbar m-0 flex h-[88vh] w-full flex-col place-items-center justify-center overflow-y-scroll p-1'>
+				<div className='flex h-full w-[80vw] max-w-[600px] flex-col place-content-start place-items-center gap-5 font-inter text-zinc-300'>
 					<h1 className='text-5xl font-bold'>Road to Trickedex</h1>
 					<p className='indent-4 text-base font-light'>
 						In order to get where we would like to have this project it will
