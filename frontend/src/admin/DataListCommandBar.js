@@ -13,6 +13,7 @@ import "../autocomplete.css";
 import { useSessionSummariesStore } from "./components/sessionreview/SessionSummaryStore";
 import useGetTricks from "../api/useGetTricks";
 import { useTrickMakerStore } from "./components/trickMaker/TrickMakerStore";
+import { handleSlash } from "./components/sessionreview/CommandBar";
 
 const DataListCommandBar = () => {
 	const { data: tricks } = useGetTricks();
@@ -55,6 +56,10 @@ const Autocomplete = (props) => {
 	const commandBarRef = useRef(null);
 	const panelRootRef = useRef(null);
 	const rootRef = useRef(null);
+	useEffect(() => {
+		document.addEventListener("keyup", (e) => handleSlash(e));
+		return () => document.removeEventListener("keyup", (e) => handleSlash(e));
+	}, []);
 	useEffect(() => {
 		if (!commandBarRef.current) {
 			return undefined;
@@ -119,6 +124,36 @@ const Autocomplete = (props) => {
 						];
 					} else
 						return [
+							{
+								sourceId: "actions",
+								templates: {
+									item({ item }) {
+										return (
+											<p>
+												{item?.label} {item.placeholder}
+											</p>
+										);
+									},
+								},
+								onSelect(params) {
+									const { item, setQuery } = params;
+									item.onSelect(params);
+									setQuery("");
+								},
+								getItems() {
+									const pattern = getQueryPattern(query);
+
+									return [
+										{
+											label: "/m",
+											placeholder: " open trickMaker",
+											onSelect: (params) => {
+												setTrickMakerOpen(true);
+											},
+										},
+									].filter((t) => pattern.test(t.label));
+								},
+							},
 							{
 								sourceId: "Tricks",
 								templates: {

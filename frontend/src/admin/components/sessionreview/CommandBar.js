@@ -34,6 +34,11 @@ const CommandBar = () => {
 		</div>
 	);
 };
+export const handleSlash = (e) => {
+	if (e.key !== "/" || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey) return;
+	e.preventDefault();
+	document.querySelector(".aa-Input").focus();
+};
 const getQueryPattern = (query, flags = "i") => {
 	const pattern = new RegExp(
 		`(${query
@@ -95,15 +100,6 @@ const Autocomplete = (props) => {
 		},
 		[currentTime]
 	);
-	const handleSlash = (e) => {
-		if (!commandBarRef.current) {
-			return;
-		}
-		if (e.key !== "/" || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)
-			return;
-		e.preventDefault();
-		document.querySelector(".aa-Input").focus();
-	};
 	const handleSource = (e) => {
 		if (
 			!["0", "[", "]", "k", "j", "l"].includes(e.key) ||
