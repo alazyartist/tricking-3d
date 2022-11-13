@@ -2,11 +2,15 @@ import React from "react";
 import { FaCheck, FaCircle } from "react-icons/fa";
 import useGetCombos from "../../api/useGetCombos";
 import useGetTricks, { useGetTrickPoints } from "../../api/useGetTricks";
+import DataListCommandBar from "../DataListCommandBar";
+import MakeNewTrickModal from "./sessionreview/MakeNewTrickModal";
+import { useSessionSummariesStore } from "./sessionreview/SessionSummaryStore";
 
 const DataList = () => {
 	const { data: tricks } = useGetTricks();
 	const { data: combos } = useGetCombos();
 	const { data: trickPoints } = useGetTrickPoints();
+	let trickMakerOpen = useSessionSummariesStore((s) => s.trickMakerOpen);
 	return (
 		<div className='no-scrollbar flex max-h-[50vh] w-full flex-col place-items-center gap-2 overflow-y-scroll rounded-xl pb-14'>
 			<h1 className='sticky top-0 h-full w-full bg-zinc-800 p-2 text-center text-xl font-bold'>
@@ -55,7 +59,7 @@ const DataList = () => {
 				{combos?.map((combo) => (
 					<div
 						key={Math.random()}
-						className='grid w-[70vw] grid-cols-4 justify-between p-2 odd:bg-zinc-700'>
+						className='grid w-[70vw] grid-cols-5 justify-between p-2 odd:bg-zinc-700'>
 						<div className='col-span-2'>{combo?.name}</div>
 						<div className='flex place-content-end place-items-center gap-2'>
 							DA
@@ -63,6 +67,7 @@ const DataList = () => {
 								<FaCheck className='text-emerald-500' />
 							)}
 						</div>
+						<div className='text-center'>{combo?.pointValue}</div>
 						<div className='flex place-content-end place-items-center gap-2'>
 							CA
 							{combo?.comboArray ? (
@@ -74,6 +79,8 @@ const DataList = () => {
 					</div>
 				))}
 			</div>
+			<DataListCommandBar />
+			{trickMakerOpen ? <MakeNewTrickModal /> : null}
 		</div>
 	);
 };
