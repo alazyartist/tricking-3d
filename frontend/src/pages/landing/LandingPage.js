@@ -1,8 +1,7 @@
 import { Canvas } from "@react-three/fiber";
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
-import EnterSandboxLink from "../../pages/home/components/EnterSandboxLink";
 import { animated, useSpring } from "react-spring";
 import TorqueScene from "../../scenes/TorqueScene";
 import AnatomyOfATrick from "../theory/anatomy/AnatomyOfATrick";
@@ -10,6 +9,9 @@ import AnatomyNav from "../theory/components/AnatomyNavSVG";
 import AnatomySketch from "../theory/components/AnatomySketchSVG";
 import TheoryPage from "../theory/TheoryPage";
 import DetailCard from "./components/DetailCard";
+const EnterSandboxLink = lazy(() =>
+	import("../../pages/home/components/EnterSandboxLink")
+);
 const LandingPage = () => {
 	return (
 		<div className='no-scrollbar fixed top-0 flex h-[100vh] w-[100vw] flex-col place-items-center justify-between gap-2 overflow-y-scroll bg-zinc-100 text-zinc-800'>
@@ -102,7 +104,7 @@ export const MovingBackground = () => {
 				className={`absolute top-[35vh] left-[20vw] -z-10 h-[469px] w-[469px] translate-x-[-50%] rounded-full bg-sky-300 blur-3xl md:h-[60vw] md:w-[60vw]`}
 			/>
 			<animated.div
-				style={{ opacity: anim.o3, top: anim.l3, left: -anim.l1 }}
+				style={{ opacity: anim.o3, top: anim.l3, left: anim.l1 }}
 				className={`absolute top-[15vh] left-[60vw] -z-10 h-[369px] w-[369px] translate-x-[-50%] rounded-full bg-emerald-300 blur-3xl md:h-[60vw] md:w-[60vw]`}
 			/>
 		</div>

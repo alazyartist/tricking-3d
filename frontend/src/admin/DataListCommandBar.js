@@ -17,7 +17,7 @@ import { useTrickMakerStore } from "./components/trickMaker/TrickMakerStore";
 const DataListCommandBar = () => {
 	const { data: tricks } = useGetTricks();
 	return (
-		<div className='fixed bottom-[4vh] left-[20vw] h-[8vh] w-[60vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:left-[20vw] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]'>
+		<div className='fixed bottom-[48px] left-[20vw] h-[8vh] w-[60vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:left-[20vw] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]'>
 			<Autocomplete
 				tricks={tricks}
 				defaultActiveItemId='0'

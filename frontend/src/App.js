@@ -9,8 +9,10 @@ import TheoryTabBar from "./components/layout/TheoryTabBar";
 import { useUserStore } from "./store/userStore";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { TransitionList } from "./pages/TransitionList";
-import LandingPage from "./pages/landing/LandingPage";
-import AdminSessionReview from "./admin/components/AdminSessionReview";
+const LandingPage = lazy(() => import("./pages/landing/LandingPage"));
+const AdminSessionReview = lazy(() =>
+	import("./admin/components/AdminSessionReview")
+);
 const AddSessionPage = lazy(() => import("./pages/sessions/AddSessionPage"));
 const Contribute = lazy(() => import("./pages/contribute/Contribute"));
 const ComingSoon = lazy(() => import("./pages/ComingSoon"));

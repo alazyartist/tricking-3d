@@ -207,14 +207,11 @@ export const getTrickPointsValue = async (req, res) => {
 		allCombos.map(async (c) => {
 			//going through comboArray
 			let newComboArr = await c.comboArray.map(async (t) => {
-				console.log(t.name);
-
 				let updatedTrick = await tricks
 					.findOne({
 						where: { name: t?.name },
 					})
 					.catch((err) => console.log(err));
-				// console.log(t.trick_id, c.name, updatedTrick.dataValues);
 				let resolvedTrick = await Promise.resolve(updatedTrick);
 				return resolvedTrick?.dataValues;
 			});
