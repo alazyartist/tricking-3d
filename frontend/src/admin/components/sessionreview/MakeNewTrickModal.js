@@ -24,7 +24,10 @@ const MakeNewTrickModal = () => {
 	const setTrickType = useTrickMakerStore((s) => s.setTrickType);
 	const setName = useTrickMakerStore((s) => s.setName);
 
+	const basePoints = useTrickMakerStore((s) => s.basePoints);
+	const landingStancePoints = useTrickMakerStore((s) => s.landingStancePoints);
 	const setBase_id = useTrickMakerStore((s) => s.setBase_id);
+	const setBasePoints = useTrickMakerStore((s) => s.setBasePoints);
 	const setVariationsArr = useTrickMakerStore((s) => s.setVariationsArr);
 	const addVariation = useTrickMakerStore((s) => s.addVariation);
 	const removeVariation = useTrickMakerStore((s) => s.removeVariation);
@@ -72,6 +75,14 @@ const MakeNewTrickModal = () => {
 				className={`relative left-[40%] w-fit rounded-md bg-zinc-700 p-1 text-xl text-zinc-300 md:absolute md:left-2 md:top-[10vh] md:text-3xl`}>
 				{trickType}
 			</div>
+			<div className='relative left-[10%] top-[12vh]'>
+				{(variationsArr.length &&
+					variationsArr?.reduce((sum, b) => {
+						return sum + b.pointValue;
+					}, 0)) +
+					landingStancePoints +
+					basePoints}
+			</div>
 			<div className='text-md m-2 flex flex-col items-center gap-4 text-zinc-300 md:text-3xl'>
 				<div className='flex min-h-[15vh] items-center gap-2 rounded-md border-2 border-zinc-700'>
 					<StanceRemap trickMaker={true} stance={takeoffStance} />
@@ -96,7 +107,10 @@ const MakeNewTrickModal = () => {
 					<div className='rounded-md bg-zinc-300 p-1'>
 						{bases?.map((base) => (
 							<p
-								onClick={() => setBase_id(base.name)}
+								onClick={() => {
+									setBase_id(base.name);
+									setBasePoints(base.pointValue);
+								}}
 								className='mt-2 rounded-md bg-zinc-800 bg-opacity-20 p-1 first:mt-0'>
 								{base.name}
 							</p>
@@ -150,6 +164,9 @@ const ChooseStance = ({ stance }) => {
 	const [choosingStance, setChoosingStance] = useState(false);
 	const setTakeoffStance = useTrickMakerStore((s) => s.setTakeoffStance);
 	const setLandingStance = useTrickMakerStore((s) => s.setLandingStance);
+	const setLandingStancePoints = useTrickMakerStore(
+		(s) => s.setLandingStancePoints
+	);
 	return (
 		<div className='mt-2 first:mt-0'>
 			{choosingStance ? (
@@ -166,6 +183,7 @@ const ChooseStance = ({ stance }) => {
 						className='w-1/2 rounded-md bg-zinc-800 bg-opacity-40 p-1 hover:bg-emerald-600'
 						onClick={() => {
 							setLandingStance(stance.name);
+							setLandingStancePoints(stance.pointValue);
 							setChoosingStance(false);
 						}}>
 						Landing

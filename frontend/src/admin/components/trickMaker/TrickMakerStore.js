@@ -5,7 +5,9 @@ export const useTrickMakerStore = create((set, get) => ({
 	name: null,
 	takeoffStance: "",
 	landingStance: "",
+	landingStancePoints: 0,
 	variationsArr: [],
+	basePoints: 0,
 	base_id: "",
 	getTrickInfo: () => ({
 		trickType: get().trickType,
@@ -28,6 +30,8 @@ export const useTrickMakerStore = create((set, get) => ({
 	setName: (value) => set(() => ({ name: value })),
 	setTakeoffStance: (value) => set(() => ({ takeoffStance: value })),
 	setLandingStance: (value) => set(() => ({ landingStance: value })),
+	setLandingStancePoints: (value) =>
+		set(() => ({ landingStancePoints: value })),
 	setVariationsArr: (value) => set((s) => ({ variationsArr: value })),
 	addVariation: (value) =>
 		set((s) => ({ variationsArr: [...s.variationsArr, value] })),
@@ -36,4 +40,5 @@ export const useTrickMakerStore = create((set, get) => ({
 			variationsArr: [...s.variationsArr]?.filter((t, i) => t !== value),
 		})),
 	setBase_id: (value) => set(() => ({ base_id: value })),
+	setBasePoints: (value) => set(() => ({ basePoints: value })),
 }));
