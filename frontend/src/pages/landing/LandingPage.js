@@ -2,13 +2,13 @@ import { Canvas } from "@react-three/fiber";
 import React, { lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
-import { animated, useSpring } from "react-spring";
 import TorqueScene from "../../scenes/TorqueScene";
 import AnatomyOfATrick from "../theory/anatomy/AnatomyOfATrick";
 import AnatomyNav from "../theory/components/AnatomyNavSVG";
 import AnatomySketch from "../theory/components/AnatomySketchSVG";
 import TheoryPage from "../theory/TheoryPage";
 import DetailCard from "./components/DetailCard";
+const MovingBackground = lazy(() => import("./components/MovingBackground"));
 const EnterSandboxLink = lazy(() =>
 	import("../../pages/home/components/EnterSandboxLink")
 );
@@ -38,7 +38,12 @@ const LandingPage = () => {
 					className='rounded-md bg-indigo-400 p-2 font-bold text-zinc-100'>
 					Home
 				</Link>
-				<MovingBackground />
+				<Suspense
+					fallback={
+						<div className='absolute top-[50vh] -z-20 h-[60vw] w-[60vw] rounded-full bg-teal-300 blur-3xl' />
+					}>
+					<MovingBackground />
+				</Suspense>
 
 				{/* <div className='flex w-[100vw] flex-shrink-0  gap-2 overflow-hidden'>
 					<div className='h-[200px] w-[300px] flex-shrink-0 rounded-md bg-zinc-900'></div>
@@ -71,42 +76,14 @@ const LandingPage = () => {
 				title={"Follow your friends"}
 				description='Keep track of your progress as a group.'></DetailCard>
 			<div className='h-[40px]' />
-			<MovingBackground />
+			<Suspense
+				fallback={
+					<div className='absolute top-[50vh] -z-20 h-[60vw] w-[60vw] rounded-full bg-teal-300 blur-3xl' />
+				}>
+				<MovingBackground />
+			</Suspense>
 		</div>
 	);
 };
 
 export default LandingPage;
-
-export const MovingBackground = () => {
-	const anim = useSpring({
-		loop: true,
-
-		to: [
-			{ o1: 0.8, o2: 0.8, o3: 0.8, l1: "40vw", l2: "60vw", l3: "40vw" },
-			{ o1: 0.5, o2: 0.45, o3: 0.8, l1: "40vw", l2: "20vw", l3: "40vw" },
-
-			{ o1: 0.8, o2: 0.75, o3: 0.5, l1: "80vw", l2: "40vw", l3: "20vw" },
-			{ o1: 0.8, o2: 0.8, o3: 0.8, l1: "40vw", l2: "20vw", l3: "60vw" },
-		],
-		from: { o1: 1, o2: 1, o3: 1, l1: "40vw", l2: "20vw", l3: "60vw" },
-		config: { bounce: 10, tension: 25, mass: 1.2, friction: 25 },
-		// onRest: () => setOpenHamburger(!openHamburger),
-	});
-	return (
-		<div className='absolute -z-10 h-[50vh] w-[100vw]'>
-			<animated.div
-				style={{ opacity: anim.o1, top: anim.l1, left: anim.l3 }}
-				className={`absolute top-[55vh] left-[60vw] -z-10 h-[369px] w-[369px] translate-x-[-50%] rounded-full bg-teal-300 blur-3xl md:h-[60vw] md:w-[60vw]`}
-			/>
-			<animated.div
-				style={{ opacity: anim.o2, left: anim.l2, top: anim.l3 }}
-				className={`absolute top-[35vh] left-[20vw] -z-10 h-[469px] w-[469px] translate-x-[-50%] rounded-full bg-sky-300 blur-3xl md:h-[60vw] md:w-[60vw]`}
-			/>
-			<animated.div
-				style={{ opacity: anim.o3, top: anim.l3, left: anim.l1 }}
-				className={`absolute top-[15vh] left-[60vw] -z-10 h-[369px] w-[369px] translate-x-[-50%] rounded-full bg-emerald-300 blur-3xl md:h-[60vw] md:w-[60vw]`}
-			/>
-		</div>
-	);
-};

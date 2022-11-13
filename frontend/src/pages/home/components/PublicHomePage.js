@@ -7,14 +7,14 @@ import TheoryCap from "../../../data/icons/TheoryCap";
 
 const PublicHomePage = () => {
 	return (
-		<div className='flex max-w-[600px] flex-col place-items-center'>
+		<div className='flex flex-col place-content-center place-items-center'>
 			<Link className='' to='/instructions'>
-				<div className='flex w-[90vw] max-w-[600px] flex-col place-items-center justify-center gap-5 rounded-2xl bg-gradient-to-b from-zinc-800 to-zinc-800 p-2 font-bold text-zinc-300'>
+				<div className='flex w-[90vw] max-w-[610px] flex-col place-items-center justify-center gap-5 rounded-2xl bg-gradient-to-b from-zinc-800 to-zinc-800 p-2 font-bold text-zinc-300'>
 					<div>Instructions</div>
 				</div>
 			</Link>
 
-			<div className='m-2 flex w-full place-content-center gap-4 rounded-xl p-2 text-zinc-300'>
+			<div className='m-2 flex w-full max-w-[620px] place-content-center gap-4 rounded-xl p-2 text-zinc-300'>
 				<Link
 					className='flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-zinc-800  text-4xl'
 					to='/comboMaker'>
