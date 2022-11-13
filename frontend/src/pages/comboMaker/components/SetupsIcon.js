@@ -10,7 +10,7 @@ const SetupsIcon = (props) => (
 		<defs>
 			<style>
 				{
-					'\r\n      @font-face {\r\n        font-family: "Virgil";\r\n        src: url("https://excalidraw.com/Virgil.woff2");\r\n      }\r\n      @font-face {\r\n        font-family: "Cascadia";\r\n        src: url("https://excalidraw.com/Cascadia.woff2");\r\n      }\r\n    '
+					'\r\n      @font-face {\r\n        font-family: "Virgil";\r\n \r\n      }\r\n      @font-face {\r\n        font-family: "Cascadia";\r\n        src: url("https://excalidraw.com/Cascadia.woff2");\r\n      }\r\n    '
 				}
 			</style>
 		</defs>
