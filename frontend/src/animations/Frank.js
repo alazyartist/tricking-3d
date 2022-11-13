@@ -1,9 +1,5 @@
-import React, { useRef, useEffect, useMemo, useLayoutEffect } from "react";
+import React, { useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
-import { useStore } from "../store/store";
-import * as THREE from "three";
-import { Vector3 } from "three";
 import { useFrankFollowCam } from "../hooks/useFollowCam";
 import useMediaController from "../hooks/useMediaController";
 

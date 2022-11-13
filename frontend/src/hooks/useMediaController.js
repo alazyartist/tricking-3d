@@ -1,7 +1,7 @@
 import { useFrame } from "@react-three/fiber";
-import React, { useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useStore } from "../store/store";
-import * as THREE from "three";
+import { LoopOnce, LoopPingPong, LoopRepeat } from "three";
 function useMediaController(actions, names, mixer) {
 	//Use Store
 	const bounce = useStore((s) => s.bounce);
@@ -35,15 +35,15 @@ function useMediaController(actions, names, mixer) {
 	//bounce uE
 	useEffect(() => {
 		bounce
-			? actions[currentAnim]?.setLoop(THREE.LoopPingPong)
-			: actions[currentAnim]?.setLoop(THREE.LoopRepeat);
+			? actions[currentAnim]?.setLoop(LoopPingPong)
+			: actions[currentAnim]?.setLoop(LoopRepeat);
 	}, [bounce, actions, currentAnim]);
 
 	//loop uE
 	useEffect(() => {
 		loop
-			? actions[currentAnim]?.setLoop(THREE.LoopRepeat)
-			: actions[currentAnim]?.setLoop(THREE.LoopOnce);
+			? actions[currentAnim]?.setLoop(LoopRepeat)
+			: actions[currentAnim]?.setLoop(LoopOnce);
 	}, [loop, actions, currentAnim]);
 
 	//Timescale (SlowMo, FullSpeed, Timeslider) && Play Pause uE

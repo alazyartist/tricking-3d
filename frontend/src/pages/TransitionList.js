@@ -1,12 +1,11 @@
 import { Canvas } from "@react-three/fiber";
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useState, lazy } from "react";
 import Loader from "../components/loaders/Loader";
 import { transArr } from "../data/TricklistClass";
-import { TrickListScene } from "../scenes/TrickListScene";
-import { ReactComponent as AOAT } from "../data/AnatomyOfATrick.svg";
 import { Link } from "react-router-dom";
 import { animated, config, useTransition } from "react-spring";
-export function TransitionList() {
+const TrickListScene = lazy(() => import("../scenes/TrickListScene"));
+export default function TransitionList() {
 	const [filteredTricks, setFilteredTricks] = useState([...transArr]);
 	const handleFilter = (event) => {
 		const searchTerm = event.target.value;
@@ -41,7 +40,7 @@ export function TransitionList() {
 			/>
 			<div
 				id={"TransitionListContainer"}
-				className='font-inter mt-4 flex max-h-[80vh] flex-col place-content-center place-items-center font-bold '>
+				className='mt-4 flex max-h-[80vh] flex-col place-content-center place-items-center font-inter font-bold '>
 				<div
 					id='scrollContainer'
 					className='flex max-h-[69vh] w-full flex-col  place-items-center overflow-hidden overflow-y-scroll font-bold text-white'>

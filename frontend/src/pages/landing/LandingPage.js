@@ -1,17 +1,13 @@
-import { Canvas } from "@react-three/fiber";
+// import { Canvas } from "@react-three/fiber";
 import React, { lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
-import TorqueScene from "../../scenes/TorqueScene";
-import AnatomyOfATrick from "../theory/anatomy/AnatomyOfATrick";
-import AnatomyNav from "../theory/components/AnatomyNavSVG";
 import AnatomySketch from "../theory/components/AnatomySketchSVG";
-import TheoryPage from "../theory/TheoryPage";
 import DetailCard from "./components/DetailCard";
 const MovingBackground = lazy(() => import("./components/MovingBackground"));
-const EnterSandboxLink = lazy(() =>
-	import("../../pages/home/components/EnterSandboxLink")
-);
+// const EnterSandboxLink = lazy(() =>
+// 	import("../../pages/home/components/EnterSandboxLink")
+// );
 const LandingPage = () => {
 	return (
 		<div className='no-scrollbar fixed top-0 flex h-[100vh] w-[100vw] flex-col place-items-center justify-between gap-2 overflow-y-scroll bg-zinc-100 text-zinc-800'>

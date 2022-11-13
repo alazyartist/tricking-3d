@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useStore } from "../store/store";
-import * as THREE from "three";
 import { useGLTF, useAnimations, Html } from "@react-three/drei";
 import { Vector3 } from "three";
 

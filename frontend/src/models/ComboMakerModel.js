@@ -1,9 +1,6 @@
-import React, { useRef, useEffect, useMemo } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
-import { useStore } from "../store/store";
-import * as THREE from "three";
-import { useGLTF, useAnimations, Html } from "@react-three/drei";
-import { Vector3 } from "three";
+import React, { useRef, useEffect } from "react";
+import { LoopOnce } from "three";
+import { useGLTF, useAnimations } from "@react-three/drei";
 import useMediaController from "../hooks/useMediaController";
 import useFollowCam from "../hooks/useFollowCam";
 
@@ -29,7 +26,7 @@ export default function ComboMakerModel({ ...props }) {
 		mixer.stopAllAction();
 
 		actions[anims[i]].clampWhenFinished = true;
-		actions[anims[i]]?.setLoop(THREE.LoopOnce, 1);
+		actions[anims[i]]?.setLoop(LoopOnce, 1);
 		actions[anims[i]].play();
 		num++;
 		// actions["Doublecork"].crossFadeFrom(actions["Btwist"], 20).play();

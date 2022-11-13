@@ -18,7 +18,7 @@ import { Frank } from "../animations/Frank";
 import TrickListModel from "../animations/TrickListModel";
 
 // import Model from "../animations/KerwoodCC3Tpose";
-export function TrickListScene(props) {
+function TrickListScene(props) {
 	const light = useRef();
 	const light2 = useRef();
 	// useHelper(light2, SpotLightHelper, "red");
@@ -58,3 +58,4 @@ export function TrickListScene(props) {
 		</>
 	);
 }
+export default TrickListScene;

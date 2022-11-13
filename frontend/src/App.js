@@ -2,13 +2,12 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { animated, useTransition } from "react-spring";
-import { TestPage } from "./pages/TestPage";
 import UserIcon from "./components/layout/UserIcon";
 import TabBar from "./components/layout/TabBar";
-import TheoryTabBar from "./components/layout/TheoryTabBar";
 import { useUserStore } from "./store/userStore";
 import { lazy, Suspense, useEffect, useState } from "react";
-import { TransitionList } from "./pages/TransitionList";
+const TransitionList = lazy(() => import("./pages/TransitionList"));
+const TheoryTabBar = lazy(() => import("./components/layout/TheoryTabBar"));
 const LandingPage = lazy(() => import("./pages/landing/LandingPage"));
 const AdminSessionReview = lazy(() =>
 	import("./admin/components/AdminSessionReview")
