@@ -89,7 +89,7 @@ const UserProfile = () => {
 						</div>
 					) : null}
 				</div>
-				<div className='h-[20vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2'>
+				<div className='h-[27vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2'>
 					{activeView === "Stats" ? (
 						<div onClick={() => setActiveView("Sessions")}>
 							Last Session Stats
