@@ -193,7 +193,7 @@ export const getTrickPointsValue = async (req, res) => {
 	try {
 		//production query
 		const points = await db.sequelize.query(
-			"select Tricks.name,abs((ifNull(avg(Bases.pointValue),0) + (ifNull(avg(Landing.pointValue),0) - ifNull(avg(Takeoff.pointValue),0)) + sum(ifNull(Variations.pointValue,0)))) as Total,ifNull(avg(Tricks.pointValue),0) as tp,sum(ifNull(Variations.pointValue,0)) as vartiationpoints, ifNull(avg(Bases.pointValue),0) as bp,ifNull(avg(Takeoff.pointValue),0) as tsp,ifNull(avg(Landing.pointValue),0) as lsp from Tricks left join Trick_Variations on Tricks.trick_id = Trick_Variations.trick_id left join Variations on Trick_Variations.variation_id = Variations.id left join Bases on Bases.base_id=Tricks.base_id left join Stances as Landing on Landing.stance_id=Tricks.landingStance left join Stances as Takeoff on Takeoff.stance_id=Tricks.takeoffStance group by Tricks.name;",
+			"select Tricks.name,abs((ifNull(avg(Bases.pointValue),0) + ifNull(avg(Landing.pointValue),0) + sum(ifNull(Variations.pointValue,0)))) as Total,ifNull(avg(Tricks.pointValue),0) as tp,sum(ifNull(Variations.pointValue,0)) as vartiationpoints, ifNull(avg(Bases.pointValue),0) as bp,ifNull(avg(Takeoff.pointValue),0) as tsp,ifNull(avg(Landing.pointValue),0) as lsp from Tricks left join Trick_Variations on Tricks.trick_id = Trick_Variations.trick_id left join Variations on Trick_Variations.variation_id = Variations.id left join Bases on Bases.base_id=Tricks.base_id left join Stances as Landing on Landing.stance_id=Tricks.landingStance left join Stances as Takeoff on Takeoff.stance_id=Tricks.takeoffStance group by Tricks.name;",
 			{ type: QueryTypes.SELECT }
 		);
 		// keeps tricks up to date with point value

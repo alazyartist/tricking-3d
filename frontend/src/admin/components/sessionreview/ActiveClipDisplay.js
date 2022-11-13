@@ -47,6 +47,11 @@ const ActiveClipDisplay = () => {
 				{clipCombo.map((e) => e.name).join(">")}
 			</div>
 			<div>{activeClipData?.name}</div>
+			<div>
+				Points:
+				{clipCombo.length &&
+					clipCombo.reduce((sum, b) => sum + b.pointValue, 0)}
+			</div>
 			<div>{activeClipData?.user_id?.slice(-4)}</div>
 			<div>{activeClipData?.sessionid}</div>
 			<div>{activeClipData?.bail > 0 && activeClipData?.bail}</div>
