@@ -1,5 +1,6 @@
 import QueryTypes from "sequelize";
 import db from "../models/index.js";
+const combos = await db.sequelize.models.Combo;
 const tricks = await db.sequelize.models.Tricks;
 const stances = await db.sequelize.models.Stances;
 const transitions = await db.sequelize.models.Transitions;
@@ -192,14 +193,56 @@ export const getTrickPointsValue = async (req, res) => {
 	try {
 		//production query
 		const points = await db.sequelize.query(
-			"select Tricks.name,(ifNull(avg(Bases.pointValue),0) + (ifNull(avg(Landing.pointValue),0) - ifNull(avg(Takeoff.pointValue),0)) + sum(ifNull(Variations.pointValue,0))) as Total,ifNull(avg(Tricks.pointValue),0) as tp,sum(ifNull(Variations.pointValue,0)) as vartiationpoints, ifNull(avg(Bases.pointValue),0) as bp,ifNull(avg(Takeoff.pointValue),0) as tsp,ifNull(avg(Landing.pointValue),0) as lsp from Tricks left join Trick_Variations on Tricks.trick_id = Trick_Variations.trick_id left join Variations on Trick_Variations.variation_id = Variations.id left join Bases on Bases.base_id=Tricks.base_id left join Stances as Landing on Landing.stance_id=Tricks.landingStance left join Stances as Takeoff on Takeoff.stance_id=Tricks.takeoffStance group by Tricks.name;",
+			"select Tricks.name,abs((ifNull(avg(Bases.pointValue),0) + (ifNull(avg(Landing.pointValue),0) - ifNull(avg(Takeoff.pointValue),0)) + sum(ifNull(Variations.pointValue,0)))) as Total,ifNull(avg(Tricks.pointValue),0) as tp,sum(ifNull(Variations.pointValue,0)) as vartiationpoints, ifNull(avg(Bases.pointValue),0) as bp,ifNull(avg(Takeoff.pointValue),0) as tsp,ifNull(avg(Landing.pointValue),0) as lsp from Tricks left join Trick_Variations on Tricks.trick_id = Trick_Variations.trick_id left join Variations on Trick_Variations.variation_id = Variations.id left join Bases on Bases.base_id=Tricks.base_id left join Stances as Landing on Landing.stance_id=Tricks.landingStance left join Stances as Takeoff on Takeoff.stance_id=Tricks.takeoffStance group by Tricks.name;",
 			{ type: QueryTypes.SELECT }
 		);
+		// keeps tricks up to date with point value
+		points[0].map(async (p) => {
+			let curTrick = await tricks.findOne({ where: { name: p.name } });
+			await curTrick.update({ pointValue: p.Total });
+		});
+		//keeps combos up to date with trick values
+		let allCombos = await combos.findAll();
+		//mappint over each combo
+		allCombos.map(async (c) => {
+			//going through comboArray
+			let newComboArr = await c.comboArray.map(async (t) => {
+				console.log(t.name);
+
+				let updatedTrick = await tricks
+					.findOne({
+						where: { name: t?.name },
+					})
+					.catch((err) => console.log(err));
+				// console.log(t.trick_id, c.name, updatedTrick.dataValues);
+				let resolvedTrick = await Promise.resolve(updatedTrick);
+				return resolvedTrick?.dataValues;
+			});
+			let resolvedComboArr = await Promise.all(newComboArr);
+			let comboToUpdate = await combos
+				.findOne({
+					where: { combo_id: c.combo_id },
+				})
+				.catch((err) => console.log(err));
+			comboToUpdate
+				.update({ comboArr: resolvedComboArr })
+				.catch((err) => console.log(err));
+			let comboPV = resolvedComboArr.reduce(
+				(sum, cur) => sum + (cur?.pointValue || 0),
+				0
+			);
+			comboToUpdate
+				.update({ pointValue: comboPV })
+				.catch((err) => console.log(err));
+
+			// console.log(resolvedComboArr, c.name, c.combo_id, comboToUpdate);
+		});
 		//local query
 		// const points = await db.sequelize.query(
 		// 	"select tricks.name,(ifNull(bases.pointValue,0) + ifNull(takeoff.pointValue,0) + ifNull(landing.pointValue,0)) as Total,ifNull(tricks.pointValue,0) as tp,sum(ifNull(variations.pointValue,0)) as vartiationpoints, ifNull(bases.pointValue,0) as bp,takeoff.pointValue as tsp,ifNull(landing.pointValue,0) as lsp from tricks left join trick_variations on tricks.trick_id = trick_variations.trick_id left join variations on trick_variations.variation_id = variations.id left join bases on bases.base_id=tricks.base_id left join stances as landing on landing.stance_id=tricks.landingStance left join stances as takeoff on takeoff.stance_id=tricks.takeoffStance group by name;",
 		// 	{ type: QueryTypes.SELECT }
 		// );
+
 		res.json(points[0]);
 	} catch (err) {
 		console.log(err);
