@@ -12,11 +12,11 @@ const DataList = () => {
 	const { data: trickPoints } = useGetTrickPoints();
 	let trickMakerOpen = useSessionSummariesStore((s) => s.trickMakerOpen);
 	return (
-		<div className='no-scrollbar flex max-h-[50vh] w-full flex-col place-items-center gap-2 overflow-y-scroll rounded-xl pb-14'>
+		<div className='no-scrollbar flex max-h-[70vh] w-full flex-col place-items-center gap-2 overflow-y-scroll rounded-xl pb-14'>
 			<h1 className='sticky top-0 h-full w-full bg-zinc-800 p-2 text-center text-xl font-bold'>
 				TRICKS, STANCES, &#38; TRANSITIONS
 			</h1>
-			<div className='w-[70vw]'>
+			<div className='w-[70vw] text-sm'>
 				{tricks
 					?.sort((a, b) => {
 						if (a.type < b.type) return 1;
@@ -29,10 +29,10 @@ const DataList = () => {
 						<div
 							key={Math.random()}
 							onClick={() => console.log(trick)}
-							className=' grid  w-full grid-cols-6 justify-between p-2 odd:bg-zinc-700'>
-							<div className='col-span-3'>{trick?.name}</div>
+							className=' grid  w-full grid-cols-6 place-items-center justify-between p-2 odd:bg-zinc-700'>
+							<div className='col-span-3 max-w-[1/3]'>{trick?.name}</div>
 							<div className='col-span-1 flex place-items-center text-sm'>
-								{trick?.type}
+								{trick?.type.slice(0, 5)}
 							</div>
 							<div className='col-span-1'>
 								{trickPoints?.map((tp) => {
@@ -59,8 +59,10 @@ const DataList = () => {
 				{combos?.map((combo) => (
 					<div
 						key={Math.random()}
-						className='grid w-[70vw] grid-cols-5 justify-between p-2 odd:bg-zinc-700'>
-						<div className='col-span-2'>{combo?.name}</div>
+						className='grid w-[70vw] grid-cols-4 place-content-center place-items-center justify-between p-2 text-sm odd:bg-zinc-700'>
+						<div className=' col-span-2 max-w-[120px] overflow-hidden whitespace-pre-wrap'>
+							{combo?.name}
+						</div>
 						<div className='flex place-content-end place-items-center gap-2'>
 							DA
 							{combo?.defaultAnimation && (
@@ -68,14 +70,14 @@ const DataList = () => {
 							)}
 						</div>
 						<div className='text-center'>{combo?.pointValue}</div>
-						<div className='flex place-content-end place-items-center gap-2'>
+						{/* <div className='flex place-content-end place-items-center gap-2'>
 							CA
 							{combo?.comboArray ? (
 								<FaCheck className='text-emerald-500' />
 							) : (
 								<FaCircle className='text-red-700' />
 							)}
-						</div>
+						</div> */}
 					</div>
 				))}
 			</div>
