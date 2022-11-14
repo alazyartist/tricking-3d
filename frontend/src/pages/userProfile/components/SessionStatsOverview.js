@@ -35,47 +35,53 @@ const SessionStatsOverview = ({ summary }) => {
 		if (a.pointValue < b.pointValue) return 1;
 		return 0;
 	});
-
-	console.log(tricksByPoints?.[0]);
-
-	// .map((c) => console.log(c.ClipLabel.comboArray));
+	let totalPoints = summary?.SessionData?.reduce(
+		(sum, b) => sum + b?.ClipLabel?.pointValue,
+		0
+	);
+	let trickPercentage = (tricksByPoints?.[0]?.pointValue / totalPoints) * 100;
+	let comboPercentage = (greatestCombo.pointValue / totalPoints) * 100;
 	return (
-		<div className='flex w-full flex-col gap-1'>
-			<div>
-				<span className='text-zinc-400'>Session Total Points: </span>
-				<span>
-					{summary?.SessionData?.reduce(
-						(sum, b) => sum + b?.ClipLabel?.pointValue,
-						0
-					)}
-				</span>
+		<div className='grid w-full grid-cols-2 flex-col gap-1 text-xs'>
+			<div className='col-span-2 place-self-center'>
+				<span className='text-zinc-400'>TP: </span>
+				<span>{totalPoints}</span>
 			</div>
-			<div className='flex justify-between'>
+			<div className='relative col-span-2 h-[4px] w-full rounded-md bg-indigo-300'>
+				<div
+					style={{ width: `${comboPercentage}%` }}
+					className='absolute top-0 left-0 col-span-2 h-[4px] rounded-md bg-indigo-500'
+				/>
+				<div
+					style={{ width: `${trickPercentage}%` }}
+					className='absolute top-0 left-0 col-span-2 h-[4px] rounded-md bg-indigo-700'
+				/>
+			</div>
+			<div className='flex flex-col'>
 				<div>
-					<span className='text-zinc-400'>Combos: </span>
+					<span className='text-zinc-400'>#C: </span>
 					{sessionCombosArr?.length}
 				</div>
 				<div>
-					<div>
-						<span className='text-zinc-400'>Tricks:</span>{" "}
-						{sessionTricksArr?.length}
-					</div>{" "}
-					<div>
-						<span className='text-zinc-400'>U Tricks: </span>
-						{uniqueTricks?.filter((t) => t?.type === "Trick").length}
-					</div>
-					<div>
-						<span className='text-zinc-400'>U Transitions: </span>
-						{uniqueTricks?.filter((t) => t?.type === "Transition")?.length}
-					</div>
+					<span className='text-zinc-400'>#T:</span> {sessionTricksArr?.length}
 				</div>
 			</div>
-			<div>
+			<div className='grid gap-2'>
+				<div className='rounded-md bg-zinc-900 p-2'>
+					<span className='text-zinc-400'>UT: </span>
+					{uniqueTricks?.filter((t) => t?.type === "Trick").length}
+				</div>
+				<div className='rounded-md bg-zinc-900 p-2'>
+					<span className='text-zinc-400'>UTr: </span>
+					{uniqueTricks?.filter((t) => t?.type === "Transition")?.length}
+				</div>
+			</div>
+			<div className='col-span-2'>
 				<span className='text-zinc-400'>Greatest Trick: </span>
 				{tricksByPoints?.[0]?.name}
 			</div>
 
-			<div>
+			<div className='col-span-2 w-[100%] whitespace-pre-wrap break-words'>
 				<span className='text-zinc-400'>
 					Longest {longestCombo?.name === greatestCombo?.name && "& Greatest"}{" "}
 					Combo:
