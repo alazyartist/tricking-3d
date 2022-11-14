@@ -54,10 +54,11 @@ const SessionStatsOverview = ({ summary }) => {
 	);
 	return (
 		<div className='grid w-full grid-cols-2 flex-col gap-1 text-xs'>
-			<div className='col-span-2 place-self-center'>
-				<span className='text-zinc-400'>TP: </span>
-				<span>{totalPoints}</span>
+			<div className='col-span-2 flex w-full place-content-center place-items-center place-self-center rounded-md bg-zinc-900 p-2 text-2xl'>
+				<span className='font-black text-zinc-400'>TP: </span>
+				{totalPoints}
 			</div>
+			Points
 			<div className='relative col-span-2 h-[4px] w-full rounded-md bg-indigo-300'>
 				<div
 					style={{ width: `${comboPercentage}%`, left: `${trickPercentage}%` }}
@@ -68,6 +69,7 @@ const SessionStatsOverview = ({ summary }) => {
 					className='absolute top-0 left-0 col-span-2 h-[4px] rounded-md bg-indigo-700'
 				/>
 			</div>
+			Tricks
 			<div className='relative col-span-2 h-[4px] w-full rounded-md bg-teal-300'>
 				<div
 					style={{
@@ -83,22 +85,22 @@ const SessionStatsOverview = ({ summary }) => {
 					className='absolute top-0 left-0 col-span-2 h-[4px] rounded-md bg-teal-700'
 				/>
 			</div>
-			<div className='flex flex-col'>
-				<div>
+			<div className='grid gap-2 text-center'>
+				<div className='rounded-md bg-zinc-900 p-2'>
 					<span className='text-zinc-400'>#C: </span>
 					{sessionCombosArr?.length}
 				</div>
-				<div>
+				<div className='rounded-md bg-zinc-900 p-2'>
 					<span className='text-zinc-400'>#T:</span> {sessionTricksArr?.length}
 				</div>
 			</div>
-			<div className='grid gap-2'>
-				<div className='rounded-md bg-zinc-900 p-2'>
-					<span className='text-zinc-400'>UT: </span>
+			<div className='grid gap-2 text-center'>
+				<div className='rounded-md bg-teal-500 p-2 text-zinc-900'>
+					<span className='text-zinc-800'>UT: </span>
 					{uniqueTricks?.filter((t) => t?.type === "Trick").length}
 				</div>
-				<div className='rounded-md bg-zinc-900 p-2'>
-					<span className='text-zinc-400'>UTr: </span>
+				<div className='rounded-md bg-teal-700 p-2 text-zinc-200'>
+					<span className='text-zinc-300'>UTr: </span>
 					{uniqueTricks?.filter((t) => t?.type === "Transition")?.length}
 				</div>
 			</div>
@@ -106,7 +108,6 @@ const SessionStatsOverview = ({ summary }) => {
 				<span className='text-zinc-400'>Greatest Trick: </span>
 				{tricksByPoints?.[0]?.name}
 			</div>
-
 			<div className='col-span-2 w-[100%] whitespace-pre-wrap break-words'>
 				<span className='text-zinc-400'>
 					Longest {longestCombo?.name === greatestCombo?.name && "& Greatest"}{" "}
