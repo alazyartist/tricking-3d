@@ -43,13 +43,14 @@ const SessionStatsOverview = ({ summary }) => {
 		(tricksByPoints?.[0]?.pointValue / totalPoints) * 100
 	);
 	let comboPercentage = Math.floor(
-		(greatestCombo.pointValue / totalPoints) * 100
+		(greatestCombo?.pointValue / totalPoints) * 100
 	);
 	let uniqueTrickPercentage = Math.floor(
-		(uniqueTricks.filter((t) => t.type === "Trick").length / totalPoints) * 100
+		(uniqueTricks?.filter((t) => t.type === "Trick").length / totalPoints) * 100
 	);
 	let uniqueTransitionPercentage = Math.floor(
-		(uniqueTricks.filter((t) => t.type === "Transition").length / totalPoints) *
+		(uniqueTricks?.filter((t) => t.type === "Transition").length /
+			totalPoints) *
 			100
 	);
 	return (
