@@ -39,8 +39,19 @@ const SessionStatsOverview = ({ summary }) => {
 		(sum, b) => sum + b?.ClipLabel?.pointValue,
 		0
 	);
-	let trickPercentage = (tricksByPoints?.[0]?.pointValue / totalPoints) * 100;
-	let comboPercentage = (greatestCombo.pointValue / totalPoints) * 100;
+	let trickPercentage = Math.floor(
+		(tricksByPoints?.[0]?.pointValue / totalPoints) * 100
+	);
+	let comboPercentage = Math.floor(
+		(greatestCombo.pointValue / totalPoints) * 100
+	);
+	let uniqueTrickPercentage = Math.floor(
+		(uniqueTricks.filter((t) => t.type === "Trick").length / totalPoints) * 100
+	);
+	let uniqueTransitionPercentage = Math.floor(
+		(uniqueTricks.filter((t) => t.type === "Transition").length / totalPoints) *
+			100
+	);
 	return (
 		<div className='grid w-full grid-cols-2 flex-col gap-1 text-xs'>
 			<div className='col-span-2 place-self-center'>
@@ -49,12 +60,27 @@ const SessionStatsOverview = ({ summary }) => {
 			</div>
 			<div className='relative col-span-2 h-[4px] w-full rounded-md bg-indigo-300'>
 				<div
-					style={{ width: `${comboPercentage}%` }}
+					style={{ width: `${comboPercentage}%`, left: `${trickPercentage}%` }}
 					className='absolute top-0 left-0 col-span-2 h-[4px] rounded-md bg-indigo-500'
 				/>
 				<div
 					style={{ width: `${trickPercentage}%` }}
 					className='absolute top-0 left-0 col-span-2 h-[4px] rounded-md bg-indigo-700'
+				/>
+			</div>
+			<div className='relative col-span-2 h-[4px] w-full rounded-md bg-teal-300'>
+				<div
+					style={{
+						width: `${uniqueTrickPercentage}%`,
+						left: `${uniqueTransitionPercentage}%`,
+					}}
+					className='absolute top-0 left-0 col-span-2 h-[4px] rounded-md bg-teal-500'
+				/>
+				<div
+					style={{
+						width: `${uniqueTransitionPercentage}%`,
+					}}
+					className='absolute top-0 left-0 col-span-2 h-[4px] rounded-md bg-teal-700'
 				/>
 			</div>
 			<div className='flex flex-col'>

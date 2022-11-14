@@ -91,7 +91,7 @@ const UserProfile = () => {
 									</div>
 								))}
 							</div>
-							<div className='neumorphicIn w-1/2 rounded-md p-4'>
+							<div className='neumorphicIn no-scrollbar w-1/2 overflow-hidden overflow-y-scroll rounded-md p-4'>
 								<SessionStatsOverview summary={activeSummary} />
 							</div>
 						</div>
