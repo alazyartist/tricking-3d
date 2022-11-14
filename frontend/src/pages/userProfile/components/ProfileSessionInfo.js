@@ -6,10 +6,13 @@ const ProfileSessionInfo = ({ summary }) => {
 			<div className='sticky top-0 z-20 bg-zinc-800'>{summary?.name}</div>
 			<div className='flex flex-col gap-1'>
 				{summary?.SessionData.sort((a, b) => {
+					if (a.ClipLabel.pointValue > b.ClipLabel.pointValue) return -1;
+					if (a.ClipLabel.pointValue < b.ClipLabel.pointValue) return 1;
 					if (a.SessionSource?.vidsrc < b.SessionSource?.vidsrc) return -1;
 					if (a.SessionSource?.vidsrc > b.SessionSource?.vidsrc) return 1;
 					if (a.clipStart > b.clipStart) return 1;
 					if (a.clipStart < b.clipStart) return -1;
+
 					return 0;
 				}).map((d) => (
 					<DataDetails key={d.id} d={d} />
@@ -22,7 +25,7 @@ const ProfileSessionInfo = ({ summary }) => {
 export default ProfileSessionInfo;
 
 const DataDetails = ({ d }) => {
-	console.log(d);
+	// console.log(d);
 	return (
 		<div className='flex place-items-center justify-between rounded-md bg-teal-100 bg-opacity-10 p-1 text-sm md:text-inherit'>
 			<div className='w-[175px] overflow-y-scroll whitespace-pre-line p-1 md:w-1/3'>

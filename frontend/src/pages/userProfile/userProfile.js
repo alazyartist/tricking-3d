@@ -8,6 +8,7 @@ import ProfileInfoCard from "./components/ProfileInfoCard";
 import ProfileInfoCardEditable from "./components/ProfileInfoCardEditable";
 import TricklistsAndClamiedContainer from "./components/TricklistsAndClaimedContainer";
 import ProfileSessionInfo from "./components/ProfileSessionInfo";
+import SessionStatsOverview from "./components/SessionStatsOverview";
 
 const UserAvatarDisplay = lazy(() => import("./components/UserAvatarDisplay"));
 const UserProfile = () => {
@@ -79,13 +80,18 @@ const UserProfile = () => {
 						<div onClick={() => setActiveView("Sessions")}>Overall Stats</div>
 					) : null}
 					{activeView === "Sessions" ? (
-						<div>
-							<span onClick={() => setActiveView("Stats")}>Sessions</span>
-							{profileInfo.SessionSummaries.map((summary) => (
-								<div onClick={() => setActiveSummary(summary)}>
-									{summary.name}
-								</div>
-							))}
+						<div className='flex h-full w-full gap-2'>
+							<div className='w-1/2'>
+								<span onClick={() => setActiveView("Stats")}>Sessions</span>
+								{profileInfo.SessionSummaries.map((summary) => (
+									<div onClick={() => setActiveSummary(summary)}>
+										{summary.name}
+									</div>
+								))}
+							</div>
+							<div className='neumorphicIn w-1/2 rounded-md p-4'>
+								<SessionStatsOverview summary={activeSummary} />
+							</div>
 						</div>
 					) : null}
 				</div>
