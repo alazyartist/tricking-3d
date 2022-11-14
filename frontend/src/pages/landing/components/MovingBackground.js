@@ -16,7 +16,7 @@ export const MovingBackground = () => {
 		// onRest: () => setOpenHamburger(!openHamburger),
 	});
 	return (
-		<div className='absolute -z-10 h-[50vh] w-[100vw]'>
+		<div className='absolute top-0 -z-10 h-[50vh] w-[100vw]'>
 			<animated.div
 				style={{ opacity: anim.o1, top: anim.l1, left: anim.l3 }}
 				className={`absolute top-[55vh] left-[60vw] -z-10 h-[369px] w-[369px] translate-x-[-50%] rounded-full bg-teal-300 blur-3xl md:h-[60vw] md:w-[60vw]`}

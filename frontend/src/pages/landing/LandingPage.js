@@ -46,16 +46,16 @@ const LandingPage = () => {
 					<div className='h-[200px] w-[100px] flex-shrink-0 rounded-md bg-zinc-900'></div>
 				</div> */}
 			</div>
-
+			{/* 
 			<DetailCard
 				left
 				title={"Explore Tricks in 3D"}
 				description="See Tricks like never before. Study the movement's your way.">
-				{/* <Canvas className='rounded-md bg-zinc-900 md:min-h-[400px]'>
+					</DetailCard> */}
+			{/* <Canvas className='rounded-md bg-zinc-900 md:min-h-[400px]'>
 					<TorqueScene />
 				</Canvas> */}
-			</DetailCard>
-			<DetailCard
+			{/* <DetailCard
 				title={"Have Quick Access to the Theory"}
 				description='Fully Searchable and at you fingertips.'>
 				<AnatomySketch
@@ -78,6 +78,7 @@ const LandingPage = () => {
 				}>
 				<MovingBackground />
 			</Suspense>
+		*/}
 		</div>
 	);
 };

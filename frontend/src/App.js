@@ -105,7 +105,7 @@ function App() {
 		location.pathname.includes("/sandbox")
 			? setIsSandbox(false)
 			: setIsSandbox(false);
-		location.pathname.includes("/sandbox")
+		location.pathname.includes("/userProfile")
 			? setIsUserProfile(true)
 			: setIsUserProfile(false);
 	}, [location.pathname]);
@@ -123,8 +123,11 @@ function App() {
 						!location.pathname.includes("/pppoints") &&
 						location.pathname !== "/" && <Header />}
 					{tabBar
-						? (!isSandbox || !isUserProfile) &&
-						  !location.pathname.includes("/admin/sessionReview") && <TabBar />
+						? (isSandbox ||
+								!isUserProfile ||
+								!location.pathname.includes("/admin/sessionReview")) && (
+								<TabBar />
+						  )
 						: !isSandbox && <TheoryTabBar />}
 
 					{transitions(({ opacity }, curLocation) => (
