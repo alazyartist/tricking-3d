@@ -11,10 +11,22 @@ const SessionSummariesOverview = () => {
 			<div className=' rounded-md bg-zinc-700 p-2 font-titan text-lg font-thin text-zinc-300'>
 				Sessions in Queue
 			</div>
-			<div className='flex w-[70vw] flex-col gap-1'>
-				{sessions?.data?.map((s) => (
-					<SessionDisplay s={s} />
-				))}
+			<div className='flex h-[35vh] w-[70vw] flex-col gap-1'>
+				{sessions?.data
+					?.filter((s) => s.status !== "Reviewed")
+					?.map((s) => (
+						<SessionDisplay s={s} />
+					))}
+			</div>
+			<div className=' rounded-md bg-zinc-700 p-2 font-titan text-lg font-thin text-zinc-300'>
+				Reviewed
+			</div>
+			<div className='flex h-[35vh] w-[70vw] flex-col gap-1'>
+				{sessions?.data
+					?.filter((s) => s.status === "Reviewed")
+					?.map((s) => (
+						<SessionDisplay s={s} />
+					))}
 			</div>
 		</div>
 	);
@@ -25,34 +37,41 @@ export default SessionSummariesOverview;
 const SessionDisplay = ({ s }) => {
 	const { data: u } = useUserInfoByUUID(s.user_id);
 	return (
-		<Link
-			to={`/admin/sessionReview/${s?.sessionid}`}
-			className='mt-2 flex place-content-center place-items-center gap-2 rounded-md bg-zinc-700 p-1'>
-			<div>{s?.name}</div>
-			<div>{s?.sessionDate}</div>
-			<div className='flex place-items-center gap-1'>
-				<div>
-					{s?.status === "In Queue" && (
-						<div className='h-6 w-6 rounded-full bg-yellow-600' />
-					)}
-					{s?.status === "In Review" && (
-						<div className='h-6 w-6 rounded-full bg-orange-600' />
-					)}
-					{s?.status === "Reviewed" && (
-						<div className='h-6 w-6 rounded-full bg-emerald-600' />
-					)}
+		<div className='flex gap-2'>
+			<Link
+				to={`/admin/sessionReview/${s?.sessionid}`}
+				className='mt-2 flex place-content-center place-items-center gap-2 rounded-md bg-zinc-700 p-1'>
+				<div>{s?.name}</div>
+				<div>{s?.sessionDate}</div>
+				<div className='flex place-items-center gap-1'>
+					<div>
+						{s?.status === "In Queue" && (
+							<div className='h-6 w-6 rounded-full bg-yellow-600' />
+						)}
+						{s?.status === "In Review" && (
+							<div className='h-6 w-6 rounded-full bg-orange-600' />
+						)}
+						{s?.status === "Reviewed" && (
+							<div className='h-6 w-6 rounded-full bg-emerald-600' />
+						)}
+					</div>
+					<div>
+						<img
+							className='h-6 w-6 rounded-full'
+							src={
+								u?.profilePic !== null
+									? `/${u?.uuid}/${u?.profilePic}`
+									: `./noimg.jpeg`
+							}
+						/>
+					</div>
 				</div>
-				<div>
-					<img
-						className='h-6 w-6 rounded-full'
-						src={
-							u?.profilePic !== null
-								? `/${u?.uuid}/${u?.profilePic}`
-								: `./noimg.jpeg`
-						}
-					/>
-				</div>
+			</Link>
+			<div
+				onClick={() => console.log("delete", s)}
+				className='font-tian flex place-content-center place-items-center text-xl text-red-500'>
+				x
 			</div>
-		</Link>
+		</div>
 	);
 };
