@@ -1,5 +1,4 @@
 import React from "react";
-import { a } from "react-spring";
 
 const SessionStatsOverview = ({ summary }) => {
 	let sessionCombosArr = summary?.SessionData;

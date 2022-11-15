@@ -109,18 +109,18 @@ const Tricks = ({ allTricks, lastItem, setCurrentItem, filteredTricks }) => {
 						All
 					</div>
 					<div
-						onClick={() => handleAddType("Trick")}
-						className={`flex h-10 w-20 place-content-center place-items-center rounded-xl p-2 ${
-							activeTypes[0] === "Trick" ? "neumorphicIn" : "neumorphic"
-						}`}>
-						Tricks
-					</div>
-					<div
 						onClick={() => handleAddType("Transition")}
 						className={`flex h-10 w-20 place-content-center place-items-center rounded-xl p-2 ${
 							activeTypes[0] === "Transition" ? "neumorphicIn" : "neumorphic"
 						}`}>
 						Transitions
+					</div>
+					<div
+						onClick={() => handleAddType("Trick")}
+						className={`flex h-10 w-20 place-content-center place-items-center rounded-xl p-2 ${
+							activeTypes[0] === "Trick" ? "neumorphicIn" : "neumorphic"
+						}`}>
+						Tricks
 					</div>
 					<div
 						onClick={() => handleAddType("Stance")}
