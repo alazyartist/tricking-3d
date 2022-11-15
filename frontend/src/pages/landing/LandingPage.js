@@ -2,9 +2,9 @@
 import React, { lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
-import AnatomySketch from "../theory/components/AnatomySketchSVG";
-import DetailCard from "./components/DetailCard";
-const MovingBackground = lazy(() => import("./components/MovingBackground"));
+// import AnatomySketch from "../theory/components/AnatomySketchSVG";
+// import DetailCard from "./components/DetailCard";
+// const MovingBackground = lazy(() => import("./components/MovingBackground"));
 // const EnterSandboxLink = lazy(() =>
 // 	import("../../pages/home/components/EnterSandboxLink")
 // );
@@ -34,13 +34,13 @@ const LandingPage = () => {
 					className='rounded-md bg-indigo-400 p-2 font-bold text-zinc-100'>
 					Home
 				</Link>
-				<Suspense
+				{/* <Suspense
 					fallback={
 						<div className='absolute top-[50vh] -z-20 h-[60vw] w-[60vw] rounded-full bg-teal-300 blur-3xl' />
 					}>
 					<MovingBackground />
-				</Suspense>
-
+				</Suspense> */}
+				<div className='absolute top-[50vh] -z-20 h-[60vw] w-[60vw] rounded-full bg-teal-300 blur-3xl' />
 				{/* <div className='flex w-[100vw] flex-shrink-0  gap-2 overflow-hidden'>
 					<div className='h-[200px] w-[300px] flex-shrink-0 rounded-md bg-zinc-900'></div>
 					<div className='h-[200px] w-[100px] flex-shrink-0 rounded-md bg-zinc-900'></div>

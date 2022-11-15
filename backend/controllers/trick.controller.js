@@ -106,6 +106,9 @@ export const makeNewTrick = async (req, res) => {
 		Promise.resolve(newTrick).then((newTrick) => {
 			console.log(newTrick[0]);
 			if (newTrick) {
+				trick_variations.destroy({
+					where: { trick_id: newTrick[0].dataValues.trick_id },
+				});
 				newTrick[0].update({
 					base_id,
 					trickType,

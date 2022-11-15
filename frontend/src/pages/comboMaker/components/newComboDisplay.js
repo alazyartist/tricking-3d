@@ -17,6 +17,7 @@ function NewComboDisplay({ newCombo, setDeleteLast }) {
 				<div
 					id='comboStateArr'
 					className='no-scrollbar flex max-h-[12vh] w-[85vw] max-w-[560px] flex-row flex-wrap place-content-start overflow-x-auto rounded-lg bg-zinc-200 bg-opacity-[13%] pr-4 pt-2 backdrop-blur-xl'>
+					{newCombo.reduce((sum, b) => sum + b.pointValue, 0)}
 					{newCombo?.map((e, i) => (
 						<div
 							ref={ref}
