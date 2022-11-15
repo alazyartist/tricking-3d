@@ -45,6 +45,20 @@ const TrickPointEditor = () => {
 						})}
 			</div>
 			<div className='h-[70vh] w-[90%] min-w-[100px] overflow-y-scroll'>
+				<div className='sticky top-0 bg-zinc-900 text-2xl'>Variations</div>
+				{trickParts?.length &&
+					trickParts
+						?.filter((a) => a.type === "Variation")
+						?.sort((a, b) => {
+							if (a.name > b.name) return 1;
+							if (a.name < b.name) return -1;
+							return 0;
+						})
+						?.map((trick) => {
+							return <PointInput trick={trick} />;
+						})}
+			</div>
+			<div className='h-[70vh] w-[90%] min-w-[100px] overflow-y-scroll'>
 				<div className='sticky top-0 bg-zinc-900 text-2xl'>Transitions</div>
 				{tricks?.length &&
 					tricks
@@ -53,7 +67,6 @@ const TrickPointEditor = () => {
 							return <PointInput trick={trick} />;
 						})}
 			</div>
-			<MdSave className={"absolute top-4 right-4 text-7xl"} />
 		</div>
 	);
 };
