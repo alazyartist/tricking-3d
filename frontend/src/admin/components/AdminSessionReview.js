@@ -14,14 +14,30 @@ const AdminSessionReview = () => {
 	const { data } = useGetSessionDetailsbySessionid(sessionid);
 	const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
 	const setSessionid = useSessionSummariesStore((s) => s.setSessionid);
+	const setSessionData = useSessionSummariesStore((s) => s.setSessionData);
+	const clearSessionData = useSessionSummariesStore((s) => s.clearSessionData);
 	const setSessionSources = useSessionSummariesStore(
 		(s) => s.setSessionSources
 	);
 	const sessionDetails = data?.data;
-	// console.log(sessionDetails);
 	useEffect(() => {
 		setSessionid(sessionid);
-	}, [sessionid]);
+		clearSessionData();
+		sessionDetails?.SessionData?.map((sd) => {
+			console.log(sd);
+			setSessionData({
+				id: sd?.id,
+				sessionid: sd?.sessionid,
+				name: sd?.ClipLabel?.name,
+				startTime: sd?.clipStart,
+				endTime: sd?.clipEnd,
+				clipLabel: [...sd?.ClipLabel?.comboArray],
+				srcid: sd?.srcid,
+				vidsrc: sd?.SessionSource?.vidsrc,
+				bail: sd?.bail,
+			});
+		});
+	}, [sessionid, sessionDetails, data]);
 	useEffect(() => {
 		setSessionSources(sessionDetails?.SessionSources);
 		setVidsrc(sessionDetails?.SessionSources[0]?.vidsrc);

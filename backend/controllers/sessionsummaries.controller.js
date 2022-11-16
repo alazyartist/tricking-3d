@@ -88,21 +88,20 @@ export const getSessionDetailsBySessionid = async (req, res) => {
 };
 
 export const saveSessionDetails = async (req, res) => {
-	const sd = req.body;
+	const sd = await req.body;
 	try {
-		console.log(req.body[0].sessionid);
 		try {
 			await sessiondata.destroy({
-				where: { sessionid: req.body[0]?.sessionid },
+				where: { srcid: await sd[0]?.srcid },
 			});
 		} catch (err) {
+			res.status(501).send("Couldnt Destory");
 			console.log("CouldntDestroy");
 			console.log(err);
 		}
 
 		Object.keys(req.body).map(async (i) => {
 			let curData = sd[i];
-			console.log(curData);
 			let foundCombo = await combo.findOne({ where: { name: curData.name } });
 			try {
 				if (!foundCombo) {

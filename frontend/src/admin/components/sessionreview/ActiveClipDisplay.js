@@ -30,7 +30,10 @@ const ActiveClipDisplay = () => {
 		config: { tension: 280, friction: 40 },
 		// onRest: () => setOpenHamburger(!openHamburger),
 	});
-	useEffect(() => console.log(activeClipData, "activeClip"), [activeClipData]);
+	useEffect(
+		() => console.log(activeClipData, "activeClip"),
+		[activeClipData, sessionData]
+	);
 	return (
 		<animated.div
 			key={activeClipData?.sessionid + "details"}
@@ -77,8 +80,10 @@ const ActiveClipDisplay = () => {
 				Details
 			</animated.span>
 			<div className='flex flex-col'>
-				{sessionData.map((e, i) => (
-					<div className='flex gap-1'>
+				{sessionData?.map((e, i) => (
+					<div
+						key={sessionData?.id + `${Math.random()}`}
+						className='flex gap-1'>
 						<div
 							onClick={() => console.log(e)}
 							className='relative whitespace-nowrap p-1 transition delay-75 duration-[1400ms] ease-in-out hover:translate-x-[-100%] hover:bg-zinc-900'>

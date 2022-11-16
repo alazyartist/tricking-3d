@@ -85,6 +85,7 @@ const UserProfile = () => {
 								<span onClick={() => setActiveView("Stats")}>Sessions</span>
 								{profileInfo.SessionSummaries.map((summary) => (
 									<div
+										key={summary.id}
 										className='flex-col gap-2 rounded-md bg-zinc-900 p-2'
 										onClick={() => setActiveSummary(summary)}>
 										{summary.name}

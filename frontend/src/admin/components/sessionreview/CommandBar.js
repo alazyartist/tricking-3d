@@ -542,7 +542,7 @@ const Autocomplete = (props) => {
 		return () => {
 			search.destroy();
 		};
-	}, [props, tricks, trickMakerOpen]);
+	}, [props, tricks, trickMakerOpen, sessionData]);
 
 	return (
 		<>

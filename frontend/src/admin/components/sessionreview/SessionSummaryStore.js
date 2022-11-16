@@ -32,6 +32,7 @@ export const useSessionSummariesStore = create(
 			currentTime: 0,
 			setCurrentTime: (value) => set(() => ({ currentTime: value })),
 			sessionData: [],
+			clearSessionData: () => set(() => ({ sessionData: [] })),
 			setSessionData: (value) =>
 				set((s) => ({ sessionData: [...s.sessionData, value] })),
 			removeSessionData: (value) =>

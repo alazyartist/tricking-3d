@@ -32,6 +32,7 @@ export const useSaveSessionDetails = () => {
 		},
 		{
 			onSuccess: (data) => {
+				queryClient.invalidateQueries(["userProfile"]);
 				queryClient.invalidateQueries(["sessionsummaries"]);
 				console.log("succeeded submiting SessionDetails", data);
 			},
@@ -62,14 +63,14 @@ export const useChangeSessionStatus = () => {
 export const useGetAllSessions = () => {
 	const apiPrivate = useApiCreds();
 	const queryClient = useQueryClient();
-	return useQuery(["SessionSummaries"], async () => {
+	return useQuery(["sessionsummaries"], async () => {
 		return apiPrivate.get("/sessionsummaries");
 	});
 };
 export const useGetSessionDetailsbySessionid = (sessionid) => {
 	const apiPrivate = useApiCreds();
 	const queryClient = useQueryClient();
-	return useQuery(["SessionSummaries"], async () => {
+	return useQuery(["sessionsummaries"], async () => {
 		return apiPrivate.get(`/sessionsummaries/${sessionid}`);
 	});
 };
