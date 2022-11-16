@@ -79,7 +79,7 @@ const SessionRoomStats = lazy(() =>
 );
 const UserProfile = lazy(() => import("./pages/userProfile/userProfile"));
 const Sandbox = lazy(() => import("./pages/sandbox/Sandbox"));
-const ComboMakerV2 = lazy(() => import("./pages/comboMakerV2/ComboMakerV2"));
+const ComboMakerV2 = lazy(() => import("./pages/comboMakerV2/ComboMakerV3"));
 function App() {
 	const accessToken = useUserStore((s) => s.accessToken);
 	const location = useLocation();

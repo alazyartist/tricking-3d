@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { MdOutlineBackspace } from "../../../data/icons/MdIcons";
+import { TrickShapeDisplay } from "../../comboMakerV2/components/TrickShapes";
 
 function NewComboDisplay({ newCombo, setDeleteLast }) {
 	const ref = useRef();
@@ -13,18 +14,19 @@ function NewComboDisplay({ newCombo, setDeleteLast }) {
 	scrollToBottom();
 	return (
 		<>
-			<div className='m-2 flex h-full w-fit flex-grow'>
+			{newCombo.reduce((sum, b) => sum + b.pointValue, 0)}
+			<div className='m-2 flex h-full w-fit '>
 				<div
 					id='comboStateArr'
-					className='no-scrollbar flex max-h-[12vh] w-[85vw] max-w-[560px] flex-row flex-wrap place-content-start overflow-x-auto rounded-lg bg-zinc-200 bg-opacity-[13%] pr-4 pt-2 backdrop-blur-xl'>
-					{newCombo.reduce((sum, b) => sum + b.pointValue, 0)}
+					className='no-scrollbar flex h-[18vh] w-[85vw] max-w-[560px]  flex-row place-content-start overflow-x-auto rounded-lg bg-zinc-200 bg-opacity-[13%] backdrop-blur-xl'>
 					{newCombo?.map((e, i) => (
 						<div
 							ref={ref}
 							key={`${Math.floor(Math.random() * 1000)} + ${e?.name} + i`}
 							onClick={() => console.log(e)}
-							className=' flex h-fit w-fit flex-row place-items-center gap-2 p-2 pr-0 pt-0 text-zinc-300'>
-							<div>{`${e?.name || e || "Nope"}`}</div>
+							className='flex h-fit w-fit flex-row place-items-center place-self-end text-zinc-300'>
+							{/* <div>{`${e?.name || e || "Nope"}`}</div> */}
+							<TrickShapeDisplay i={i} trick={e} />
 							{/* <div>{`${e?.landingStance || e.toLeg || ""}`}</div> */}
 						</div>
 					))}
