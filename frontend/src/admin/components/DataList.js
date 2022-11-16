@@ -23,8 +23,11 @@ const DataList = () => {
 					?.sort((a, b) => {
 						if (a.type < b.type) return 1;
 						if (a.type > b.type) return -1;
-						if (a.name < b.name) return -1;
-						if (a.name > b.name) return 1;
+
+						return a.name?.localeCompare(b.name, undefined, {
+							numeric: true,
+							sensitivity: "base",
+						});
 						return 0;
 					})
 					?.map((trick) => (
