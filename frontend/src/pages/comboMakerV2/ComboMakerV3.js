@@ -3,6 +3,7 @@ import { useUserStore } from "../../store/userStore";
 import ComboMaker from "../comboMaker/ComboMaker";
 import NewComboDisplay from "../comboMaker/components/newComboDisplay";
 import ComboStructure from "./components/ComboStructure";
+import CompareTricks from "./components/CompareTricks";
 import SaveCombo from "./components/SaveCombo";
 import Tricks from "./components/Tricks";
 import TrickShapes from "./components/TrickShapes";
@@ -54,8 +55,10 @@ const ComboMakerV3 = () => {
 						setDeleteLast={setDeleteLast}
 						newCombo={currentItem}
 					/>
+					<CompareTricks newCombo={currentItem} />
 					<TrickShapes
 						lastItem={currentItem[currentItem?.length - 1]}
+						newCombo={currentItem}
 						setCurrentItem={setCurrentItem}
 						filteredTricks={filteredTricks}
 						allTricks={tricks}

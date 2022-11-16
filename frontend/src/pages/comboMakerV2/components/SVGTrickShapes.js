@@ -3,7 +3,8 @@ import React from "react";
 export const TricksShape = (props) => {
 	return (
 		<svg
-			width={209.322}
+			viewBox='0 0 250 90'
+			width={204.322}
 			height={80.179}
 			transform='translate(-10 -12)'
 			xmlns='http://www.w3.org/2000/svg'
@@ -44,6 +45,7 @@ export const TricksShape = (props) => {
 export const SetupShape = (props) => (
 	<svg
 		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 181 77'
 		width={181.322}
 		height={77.179}
 		{...props}>
@@ -84,6 +86,7 @@ export const StanceShape = (props) => (
 	<svg
 		xmlns='http://www.w3.org/2000/svg'
 		transform='translate(-10 -12)'
+		viewBox='0 0 128 80'
 		width={128.815}
 		height={80.347}
 		{...props}>
@@ -126,6 +129,7 @@ export const TransitionShape = (props) => {
 			xmlns='http://www.w3.org/2000/svg'
 			width={145.359}
 			height={76.853}
+			viewBox='0 0 145 76'
 			{...props}>
 			<defs>
 				<style>
