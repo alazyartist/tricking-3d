@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const CompareTricks = ({ newCombo }) => {
 	const [comboCompare, setComboCompare] = useState([]);
 	return (
-		<div className='no-scrollbar relative h-[60vw] w-[85vw] overflow-y-scroll rounded-md bg-zinc-300 bg-opacity-20 p-2'>
+		<div className='no-scrollbar relative h-[60vw] min-h-[80px] w-[85vw] overflow-y-scroll rounded-md bg-zinc-300 bg-opacity-20 p-2'>
 			<div
 				className='absolute top-[3vh]  right-2 h-fit font-titan text-4xl'
 				onClick={() => setComboCompare((s) => s.slice(0, s.length - 1))}>

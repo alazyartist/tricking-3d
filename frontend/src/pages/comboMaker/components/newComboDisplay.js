@@ -4,14 +4,14 @@ import { TrickShapeDisplay } from "../../comboMakerV2/components/TrickShapes";
 
 function NewComboDisplay({ newCombo, setDeleteLast }) {
 	const ref = useRef();
-	const scrollToBottom = () => {
-		ref?.current?.scrollIntoView({ behavior: "smooth" });
-	};
-	useEffect(() => {
-		scrollToBottom();
-	}, [newCombo]);
+	// const scrollToBottom = () => {
+	// 	ref?.current?.scrollIntoView({ behavior: "smooth" });
+	// };
+	// useEffect(() => {
+	// 	scrollToBottom();
+	// }, [newCombo]);
 
-	scrollToBottom();
+	// scrollToBottom();
 	return (
 		<>
 			{newCombo.reduce((sum, b) => sum + b.pointValue, 0)}
