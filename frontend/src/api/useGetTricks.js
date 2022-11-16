@@ -23,11 +23,16 @@ export const useGetTrickParts = () => {
 			const { data } = await apiPrivate.get("/tricks/parts");
 			return data;
 		},
-		{ onSuccess: (data) => console.log("I Got all them TricksParts.") }
+		{
+			onSuccess: (data) => {
+				console.log("I Got all them TricksParts.");
+			},
+		}
 	);
 };
 export const useGetTrickPoints = () => {
 	const apiPrivate = useApiCreds();
+	const queryClient = useQueryClient();
 
 	return useQuery(
 		["trickPoints"],
@@ -35,7 +40,13 @@ export const useGetTrickPoints = () => {
 			const { data } = await apiPrivate.get("/tricks/points");
 			return data;
 		},
-		{ onSuccess: (data) => console.log("I Got all them TricksPoints.", data) }
+		{
+			onSuccess: (data) => {
+				console.log("I Got all them TricksPoints.", data);
+				queryClient.invalidateQueries(["tricks"]);
+				queryClient.invalidateQueries(["trickParts"]);
+			},
+		}
 	);
 };
 export const useGetTricksById = (trick_id) => {
@@ -64,6 +75,8 @@ export const useSaveTrick = (trickInfo) => {
 		{
 			onSuccess: (data) => {
 				queryClient.invalidateQueries(["tricks"]);
+				queryClient.invalidateQueries(["trickParts"]);
+				queryClient.invalidateQueries(["trickPoints"]);
 				console.log("SavedTrick", data);
 			},
 		}
@@ -84,6 +97,7 @@ export const useUpdateTrickPoints = (trickInfo) => {
 			onSuccess: (data) => {
 				queryClient.invalidateQueries(["trickParts"]);
 				queryClient.invalidateQueries(["tricks"]);
+				queryClient.invalidateQueries(["trickPoints"]);
 				console.log("SavedTrick", data);
 			},
 		}

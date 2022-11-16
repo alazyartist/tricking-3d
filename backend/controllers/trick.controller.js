@@ -200,16 +200,16 @@ export const getTrickPointsValue = async (req, res) => {
 			{ type: QueryTypes.SELECT }
 		);
 		// keeps tricks up to date with point value
-		points[0].map(async (p) => {
+		await points?.[0]?.map(async (p) => {
 			let curTrick = await tricks.findOne({ where: { name: p.name } });
 			await curTrick.update({ pointValue: p.Total });
 		});
 		//keeps combos up to date with trick values
 		let allCombos = await combos.findAll();
 		//mappint over each combo
-		allCombos.map(async (c) => {
+		await allCombos?.map(async (c) => {
 			//going through comboArray
-			let newComboArr = await c.comboArray.map(async (t) => {
+			let newComboArr = await c.comboArray?.map(async (t) => {
 				let updatedTrick = await tricks
 					.findOne({
 						where: { name: t?.name },
@@ -218,23 +218,24 @@ export const getTrickPointsValue = async (req, res) => {
 				let resolvedTrick = await Promise.resolve(updatedTrick);
 				return resolvedTrick?.dataValues;
 			});
-			let resolvedComboArr = await Promise.all(newComboArr);
-			let comboToUpdate = await combos
-				.findOne({
-					where: { combo_id: c.combo_id },
-				})
-				.catch((err) => console.log(err));
-			comboToUpdate
-				.update({ comboArr: resolvedComboArr })
-				.catch((err) => console.log(err));
-			let comboPV = resolvedComboArr.reduce(
-				(sum, cur) => sum + (cur?.pointValue || 0),
-				0
-			);
-			comboToUpdate
-				.update({ pointValue: comboPV })
-				.catch((err) => console.log(err));
-
+			if (newComboArr) {
+				let resolvedComboArr = await Promise.all(newComboArr);
+				let comboToUpdate = await combos
+					.findOne({
+						where: { combo_id: c.combo_id },
+					})
+					.catch((err) => console.log(err));
+				await comboToUpdate
+					.update({ comboArr: resolvedComboArr })
+					.catch((err) => console.log(err));
+				let comboPV = resolvedComboArr.reduce(
+					(sum, cur) => sum + (cur?.pointValue || 0),
+					0
+				);
+				await comboToUpdate
+					.update({ pointValue: comboPV })
+					.catch((err) => console.log(err));
+			}
 			// console.log(resolvedComboArr, c.name, c.combo_id, comboToUpdate);
 		});
 		//local query
