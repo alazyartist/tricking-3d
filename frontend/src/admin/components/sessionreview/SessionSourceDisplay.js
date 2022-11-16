@@ -4,7 +4,7 @@ import ReactPlayer from "react-player";
 import { MdClose } from "../../../data/icons/MdIcons";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
 
-const SessionSourceDisplay = ({ source }) => {
+const SessionSourceDisplay = ({ source, mirrored }) => {
 	const vidsrcRegex = /(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)/g;
 	const vidRef = useRef();
 	const seekTime = useSessionSummariesStore((s) => s.seekTime);
@@ -69,6 +69,7 @@ const SessionSourceDisplay = ({ source }) => {
 					{source?.vidsrc.replace(vidsrcRegex, "").slice(0, 11)}
 				</div>
 			</animated.div>
+
 			{
 				vidsrc === source?.vidsrc ? (
 					<div className='absolute top-[-35vh] left-[15vw] w-[70vw] md:top-[-15vh]'>
@@ -81,6 +82,7 @@ const SessionSourceDisplay = ({ source }) => {
 							</div>
 							<ReactPlayer
 								ref={vidRef}
+								style={{ transform: mirrored ? "rotateY(180deg)" : "" }}
 								config={{ facebook: { appId: "508164441188790" } }}
 								id={"video"}
 								controls={true}

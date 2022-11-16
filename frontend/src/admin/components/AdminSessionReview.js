@@ -42,6 +42,7 @@ const AdminSessionReview = () => {
 		setSessionSources(sessionDetails?.SessionSources);
 		setVidsrc(sessionDetails?.SessionSources[0]?.vidsrc);
 	}, [sessionDetails]);
+	const [mirrored, toggleMirrored] = useState(false);
 	return (
 		<div className='no-scrollbar fixed top-0 left-0 h-screen w-screen overflow-scroll'>
 			<Link to={-1}>
@@ -52,9 +53,17 @@ const AdminSessionReview = () => {
 					<div>{sessionDetails?.name}</div>
 					<div className='absolute left-2  top-[40vh] w-[135px] md:top-[20vh]'>
 						<SessionDetailDisplay sessionDetails={sessionDetails} />
-
+						<div
+							onClick={() => toggleMirrored(!mirrored)}
+							className='absolute right-4 top-6 text-zinc-300'>
+							{mirrored ? "Mirrored" : "Normal"}
+						</div>
 						{sessionDetails?.SessionSources?.map((source) => (
-							<SessionSourceDisplay key={source.srcid} source={source} />
+							<SessionSourceDisplay
+								mirrored={mirrored}
+								key={source.srcid}
+								source={source}
+							/>
 						))}
 					</div>
 				</div>
