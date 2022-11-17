@@ -17,6 +17,8 @@ import { comboRoutes } from "./routes/combo.routes.js";
 import ablyAuth from "./controllers/ably.controller.js";
 import { battleroomRoutes } from "./routes/battleroom.routes.js";
 import { sessionSummariesRoutes } from "./routes/sessionsummaries.routes.js";
+import { webhookRoutes } from "./routes/webhook.routes.js";
+
 const corsOptions = {
 	origin: [
 		"http://localhost:3000",
@@ -53,6 +55,7 @@ app.use("/api/refresh", refreshRoutes);
 app.use("/api/logout", handleLogout);
 app.use("/api/loggedIn", verifyJWT, loginRoutes);
 app.use("/api/capture", verifyJWT, captureRoutes);
+app.use("/api/webhooks", webhookRoutes);
 
 //Synchronizes with DB
 await db.sequelize.sync({ alter: false }).then(() => {

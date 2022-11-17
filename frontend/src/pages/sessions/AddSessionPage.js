@@ -15,7 +15,11 @@ const AddSessionPage = () => {
 
 	const { mutateAsync: submitSession, data: response } =
 		useSubmitSessionForReview();
-	const { uuid: user_id } = useUserStore((s) => s.userInfo);
+	const { uuid: user_id, SessionReviewCredits } = useUserStore(
+		(s) => s.userInfo
+	);
+	const userInfo = useUserStore((s) => s.userInfo);
+	console.log(userInfo);
 	const [submitSuccess, setSubmitSucces] = useState(false);
 	const [formData, setFormData] = useState({
 		sessionDate: whatsToday(),
@@ -47,12 +51,13 @@ const AddSessionPage = () => {
 	return (
 		<div className='mt-14 flex h-[80vh] flex-col items-center text-zinc-300'>
 			{submitSuccess ? (
-				<SessionSubmitted />
+				<SessionSubmitted SessionReviewCredits={SessionReviewCredits} />
 			) : (
 				<>
 					<div className='p-2 text-center font-titan text-2xl'>
 						Submit Session
 					</div>
+					<div className='text-zinc-300'>Credits:{SessionReviewCredits}</div>
 					<form
 						onSubmit={onSubmit}
 						className='flex w-[80vw] flex-col gap-2 rounded-md bg-zinc-700 p-3'>
@@ -145,6 +150,11 @@ const AddSessionPage = () => {
 							Start Processing
 						</button>
 					</form>
+					<div className='flex flex-col place-items-center gap-2'>
+						<div>{response?.data?.message}</div>
+						{(response?.data?.message === "Out of Credits" ||
+							SessionReviewCredits === 0) && <OutOfCredits />}
+					</div>
 				</>
 			)}
 		</div>
@@ -153,15 +163,30 @@ const AddSessionPage = () => {
 
 export default AddSessionPage;
 
-const SessionSubmitted = () => {
+const SessionSubmitted = ({ SessionReviewCredits }) => {
 	return (
 		<div className='flex h-full flex-col place-content-center place-items-center gap-2 font-titan'>
-			<div className='text-3xl'>Your Session was Submitted</div>
+			<div className='text-center text-3xl'>Your Session was Submitted</div>
 			<MdCheckCircle className={"text-8xl text-emerald-500"} />
-			<div className='text-3xl'>Please check back later for the Summary</div>
+			<div className='text-center text-3xl'>
+				Please check back later for the Summary
+			</div>
+			<div>You have {SessionReviewCredits - 1} left</div>
 			<Link to={"/home"} className={"rounded-md bg-zinc-700 p-1"}>
 				Home
 			</Link>
 		</div>
+	);
+};
+
+const OutOfCredits = () => {
+	return (
+		<a
+			//testlink
+			href='https://buy.stripe.com/test_bIY7w414l3OG2QM5kk'
+			// production linkhref='https://buy.stripe.com/bIYdTd7yO57g2ly5kk'
+			className=' rounded-md bg-emerald-300 p-2 font-inter text-zinc-800'>
+			Add Credits
+		</a>
 	);
 };
