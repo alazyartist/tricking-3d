@@ -14,6 +14,7 @@ export const useSubmitSessionForReview = () => {
 		},
 		{
 			onSuccess: (data) => {
+				queryClient.invalidateQueries(["userInfo"]);
 				queryClient.invalidateQueries(["sessionsummaries"]);
 				console.log("succeeded submiting SessionSummary for Review", data);
 			},
