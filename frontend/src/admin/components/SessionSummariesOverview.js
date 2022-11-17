@@ -67,11 +67,11 @@ const SessionDisplay = ({ s }) => {
 					</div>
 				</div>
 			</Link>
-			<div
+			{/* <div
 				onClick={() => console.log("delete", s)}
 				className='font-tian flex place-content-center place-items-center text-xl text-red-500'>
 				x
-			</div>
+			</div> */}
 		</div>
 	);
 };
