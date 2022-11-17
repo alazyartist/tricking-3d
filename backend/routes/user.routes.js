@@ -32,7 +32,6 @@ userRoutes.route("/user/login").post(checkPassword);
 userRoutes.route("/user").get(verifyJWT, findAll).post(findOrCreate);
 userRoutes.route("/user/:user_id").delete(deleteUser);
 userRoutes.route("/user/:user_id/changePassword").put(changeUserPassword);
-
 userRoutes.route("/user/getInfo").get(verifyJWT, getUserInfo);
 userRoutes.route("/user/getInfo/:uuid").get(verifyJWT, getUserInfoByUUID);
 userRoutes.route("/user/getInfoById").post(getUserInfoById);
