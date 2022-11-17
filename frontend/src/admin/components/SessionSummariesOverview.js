@@ -7,21 +7,21 @@ const SessionSummariesOverview = () => {
 	const { data: sessions } = useGetAllSessions();
 	console.log(sessions);
 	return (
-		<div className='flex flex-col place-items-center text-xs'>
-			<div className=' rounded-md bg-zinc-700 p-2 font-titan text-lg font-thin text-zinc-300'>
+		<div className='flex w-[70vw] flex-col place-items-center text-xs'>
+			<div className=' w-full rounded-md bg-zinc-700 p-2 font-titan text-lg font-thin text-zinc-300'>
 				Sessions in Queue
 			</div>
-			<div className='flex h-[35vh] w-[70vw] flex-col gap-1'>
+			<div className='flex h-[35vh] w-full flex-col gap-1'>
 				{sessions?.data
 					?.filter((s) => s.status !== "Reviewed")
 					?.map((s) => (
 						<SessionDisplay s={s} />
 					))}
 			</div>
-			<div className=' rounded-md bg-zinc-700 p-2 font-titan text-lg font-thin text-zinc-300'>
+			<div className=' w-full rounded-md bg-zinc-700 p-2 font-titan text-lg font-thin text-zinc-300'>
 				Reviewed
 			</div>
-			<div className='flex h-[35vh] w-[70vw] flex-col gap-1'>
+			<div className='flex h-[35vh] w-full flex-col gap-1'>
 				{sessions?.data
 					?.filter((s) => s.status === "Reviewed")
 					?.map((s) => (
@@ -40,7 +40,7 @@ const SessionDisplay = ({ s }) => {
 		<div className='flex gap-2'>
 			<Link
 				to={`/admin/sessionReview/${s?.sessionid}`}
-				className='mt-2 flex place-content-center place-items-center gap-2 rounded-md bg-zinc-700 p-1'>
+				className='mt-2 flex w-full place-content-center place-items-center gap-2 rounded-md bg-zinc-700 p-1'>
 				<div>{s?.name}</div>
 				<div>{s?.sessionDate}</div>
 				<div className='flex place-items-center gap-1'>

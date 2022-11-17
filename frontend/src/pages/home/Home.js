@@ -185,9 +185,9 @@ function Home() {
 										!openTricklists &&
 										!openCaptures &&
 										!openClaimtricks && (
-											<div
-												className='neumorphic  active:neumorphicIn min-h-36 flex h-full w-full flex-col place-content-center place-items-center rounded-lg bg-zinc-800 p-4 text-4xl'
-												onClick={() => setOpenComboMaker(!openComboMaker)}>
+											<Link
+												to='/comboMaker'
+												className='neumorphic  active:neumorphicIn min-h-36 flex h-full w-full flex-col place-content-center place-items-center rounded-lg bg-zinc-800 p-4 text-4xl'>
 												<ComboMakerBlueprint
 													className='h-24'
 													fill={"#d4d4d8"}
@@ -195,7 +195,7 @@ function Home() {
 												<div className='mt-[-18px] text-lg font-bold'>
 													ComboMaker
 												</div>
-											</div>
+											</Link>
 										)
 									)}
 								</div>
