@@ -1,8 +1,10 @@
+import env from "dotenv";
+env.config();
 import Stripe from "stripe";
-const stripe = new Stripe("sk_test_nM3QfjPaJoR8vskDrOJEFxHn");
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const getSecretKey = async (req, res) => {
-	res.send("pk_test_M9IpiBluWrhTXqnVZHsTWTt8");
+	res.send(process.env.STRIPE_PUBLIC_KEY);
 };
 
 export const createCheckoutSession = async (req, res) => {
