@@ -1,4 +1,5 @@
 import React from "react";
+import ProgressBadge from "./ProgressBadge";
 
 const ProfileInfoCard = ({ userInfo }) => {
 	return (
@@ -39,11 +40,11 @@ const ProfileInfoCard = ({ userInfo }) => {
 						</div>
 					</div>
 					{/* BIFW */}
-					{userInfo?.Profile?.brands && (
+					{/* {userInfo?.Profile?.brands && (
 						<div className='w-full rounded-md bg-zinc-800 p-2'>
 							Brands I Fuck With
 						</div>
-					)}
+					)} */}
 					{/* Status */}
 					{/* <div className='w-full rounded-md bg-zinc-800 p-2'>
 					{userInfo?.Profile?.status || "I'm New Here"}
@@ -53,7 +54,7 @@ const ProfileInfoCard = ({ userInfo }) => {
 					id='badgeContainer'
 					className='neumorphicIn grid h-full min-h-[100px] w-[200px] grid-cols-5 grid-rows-2 rounded-lg p-3'>
 					{/* Badge Goes Here */}
-					<div className='h-8 w-8 rounded-lg bg-zinc-900' />
+					<ProgressBadge />
 				</div>
 			</div>
 		</div>
