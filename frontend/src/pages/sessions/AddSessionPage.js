@@ -5,6 +5,8 @@ import { v4 as uuidv4 } from "uuid";
 import { MdCheckCircle } from "../../data/icons/MdIcons";
 import { Link, useNavigate } from "react-router-dom";
 import PaymentEmbed from "../../admin/components/payments/PaymentEmbed";
+import useUserInfo from "../../api/useUserInfo";
+import { useQueryClient } from "@tanstack/react-query";
 const whatsToday = () => {
 	let today = new Date(Date.now());
 	return `${today.getFullYear()}-${("0" + (today.getMonth() + 1)).slice(-2)}-${(
@@ -181,9 +183,13 @@ const SessionSubmitted = ({ SessionReviewCredits }) => {
 };
 
 const OutOfCredits = () => {
+	const queryClient = useQueryClient();
 	const [showForm, setShowForm] = useState(false);
 	const [creditAmount, setcreditAmount] = useState(1);
-
+	useUserInfo();
+	useEffect(() => {
+		queryClient.invalidateQueries(["userInfo"]);
+	}, [showForm]);
 	return (
 		<>
 			{/* <a
