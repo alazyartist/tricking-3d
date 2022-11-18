@@ -1,5 +1,5 @@
 import db from "../models/index.js";
-const user = await db.sequelize.models.Users;
+const users = await db.sequelize.models.Users;
 import Stripe from "stripe";
 const stripe = new Stripe("sk_test_nM3QfjPaJoR8vskDrOJEFxHn");
 const endpointSecret =
@@ -14,29 +14,43 @@ export const purchaseSessionReviewCredit = async (req, res) => {
 		event = await stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
 		// Handle the event
 		switch (event.type) {
-			case "checkout.session.completed":
-				const session = event.data.object;
-				// console.log(session.charges.data);
-				const checkoutSessionDetails = await stripe.checkout.sessions.retrieve(
-					session.id,
-					{
-						expand: ["line_items"],
-					}
+			// case "checkout.session.completed":
+			// 	const session = event.data.object;
+			// 	// console.log(session.charges.data);
+			// 	const checkoutSessionDetails = await stripe.checkout.sessions.retrieve(
+			// 		session.id,
+			// 		{
+			// 			expand: ["line_items"],
+			// 		}
+			// 	);
+			// 	checkoutSessionDetails.line_items.data.map(async (itemDetails) => {
+			// 		console.log(itemDetails);
+			// 		if (itemDetails.description === "SessionReviewTest") {
+			// 			console.log("I AM GOING TO ADD A SESSION CREDIT");
+			// 		} else {
+			// 			console.log("You Need To Pay for That");
+			// 		}
+			// 	});
+			case "payment_intent.created":
+				console.log(event.data);
+			case "charge.succeeded":
+				const charge = event.data.object;
+				console.log(charge);
+				break;
+			case "payment_intent.succeeded":
+				const paymentIntent = await stripe.paymentIntents.retrieve(
+					event.data.object.id
 				);
-				checkoutSessionDetails.line_items.data.map(async (itemDetails) => {
-					console.log(itemDetails);
-					if (itemDetails.description === "SessionReviewTest") {
-						console.log("I AM GOING TO ADD A SESSION CREDIT");
-					} else {
-						console.log("You Need To Pay for That");
-					}
-				});
-				// const paymentIntent = await stripe.paymentIntents.retrieve(
-				// 	event.data.object.paymentIntent
-				// );
 				// Then define and call a function to handle the event payment_intent.succeeded
 				// console.log(line_items);
-				// console.log(paymentIntent);
+				console.log(paymentIntent.metadata.user_id);
+				let payingUser = await users.findOne({
+					where: { uuid: paymentIntent?.metadata.user_id },
+				});
+				payingUser.update({
+					SessionReviewCredits:
+						parseInt(payingUser.dataValues.SessionReviewCredits) + 1,
+				});
 				break;
 			// ... handle other event types
 			default:

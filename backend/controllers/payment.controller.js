@@ -14,12 +14,18 @@ export const createCheckoutSession = async (req, res) => {
 	});
 };
 export const createPaymentIntent = async (req, res) => {
+	console.log(req.body);
+	const { user_id } = req.body;
 	try {
 		const paymentIntent = await stripe.paymentIntents.create({
 			currency: "usd",
 			amount: 3000,
 			automatic_payment_methods: {
 				enabled: true,
+			},
+			metadata: {
+				user_id,
+				test: "SomeTestStrings",
 			},
 		});
 		res.send({ clientSecret: paymentIntent.client_secret });

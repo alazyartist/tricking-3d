@@ -16,17 +16,21 @@ const CheckoutForm = ({ setShowForm }) => {
 		if (!stripe || !elements) return;
 
 		setIsProcessing(true);
-		const { error } = await stripe.confirmPayment({
+		const { error, paymentIntent } = await stripe.confirmPayment({
 			elements,
 			confirmParams: {
-				return_url: `${window.location.origin}`,
+				return_url: `${window.location.origin}/addSession`,
 			},
+			redirect: "if_required",
 		});
 
 		if (error) {
 			setMessage(error.message);
-			setIsProcessing(false);
+		} else if (paymentIntent && paymentIntent.status === "succeeded") {
+			setMessage("Payment Status:" + paymentIntent.status);
+			setShowForm(false);
 		}
+		setIsProcessing(false);
 	};
 	return (
 		<>
@@ -49,7 +53,7 @@ const CheckoutForm = ({ setShowForm }) => {
 					Cancel
 				</button>
 			</form>
-			{message}
+			<div className='text-center'>{message}</div>
 		</>
 	);
 };
