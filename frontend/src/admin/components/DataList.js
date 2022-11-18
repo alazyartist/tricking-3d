@@ -23,12 +23,15 @@ const DataList = () => {
 					?.sort((a, b) => {
 						if (a.type < b.type) return 1;
 						if (a.type > b.type) return -1;
+						if (a.base_id > b.base_id) return 1;
+						if (a.base_id < b.base_id) return -1;
+						if (a.pointValue > b.pointValue) return 1;
+						if (b.pointValue < a.pointValue) return -1;
 
 						return a.name?.localeCompare(b.name, undefined, {
 							numeric: true,
 							sensitivity: "base",
 						});
-						return 0;
 					})
 					?.map((trick) => (
 						<div

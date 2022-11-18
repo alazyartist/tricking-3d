@@ -4,6 +4,7 @@ import { useSubmitSessionForReview } from "../../api/useSessionSummaries";
 import { v4 as uuidv4 } from "uuid";
 import { MdCheckCircle } from "../../data/icons/MdIcons";
 import { Link, useNavigate } from "react-router-dom";
+import PaymentEmbed from "../../admin/components/payments/PaymentEmbed";
 const whatsToday = () => {
 	let today = new Date(Date.now());
 	return `${today.getFullYear()}-${("0" + (today.getMonth() + 1)).slice(-2)}-${(
@@ -180,13 +181,28 @@ const SessionSubmitted = ({ SessionReviewCredits }) => {
 };
 
 const OutOfCredits = () => {
+	const [showForm, setShowForm] = useState(false);
 	return (
-		<a
-			//testlink
-			href='https://buy.stripe.com/test_bIY7w414l3OG2QM5kk'
-			// production linkhref='https://buy.stripe.com/bIYdTd7yO57g2ly5kk'
-			className=' rounded-md bg-emerald-300 p-2 font-inter text-zinc-800'>
-			Add Credits
-		</a>
+		<>
+			{/* <a
+				//testlink
+				href='https://buy.stripe.com/test_bIY7w414l3OG2QM5kk'
+				// production linkhref='https://buy.stripe.com/bIYdTd7yO57g2ly5kk'
+				className=' rounded-md bg-emerald-300 p-2 font-inter text-zinc-800'>
+				Add Credits
+			</a> */}
+			<button
+				type='button'
+				onClick={() => setShowForm(true)}
+				className='w-[200px] rounded-md bg-emerald-500 py-2 text-3xl'
+				id='submit'>
+				Add Credits
+			</button>
+			{showForm && (
+				<div className='absolute top-[0vh] left-[0vw] z-[1290] h-[100vh] w-[100vw] rounded-md bg-zinc-900 bg-opacity-40 p-8 backdrop-blur-md'>
+					<PaymentEmbed setShowForm={setShowForm} />
+				</div>
+			)}
+		</>
 	);
 };

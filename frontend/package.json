@@ -10,6 +10,8 @@
 		"@algolia/autocomplete-theme-classic": "^1.7.3",
 		"@react-three/drei": "^9.34.0",
 		"@react-three/fiber": "^8.8.9",
+		"@stripe/react-stripe-js": "^1.15.0",
+		"@stripe/stripe-js": "^1.44.1",
 		"@tanstack/react-query": "^4.10.1",
 		"@tanstack/react-query-devtools": "^4.10.1",
 		"@testing-library/jest-dom": "^5.16.5",

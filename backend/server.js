@@ -18,6 +18,7 @@ import ablyAuth from "./controllers/ably.controller.js";
 import { battleroomRoutes } from "./routes/battleroom.routes.js";
 import { sessionSummariesRoutes } from "./routes/sessionsummaries.routes.js";
 import { webhookRoutes } from "./routes/webhook.routes.js";
+import { paymentRoutes } from "./routes/payment.routes.js";
 
 const corsOptions = {
 	origin: [
@@ -31,6 +32,11 @@ const corsOptions = {
 	credentials: true,
 	exposedHeaders: ["*", "Authorization"],
 };
+app.use(
+	"/api/webhooks",
+	express.raw({ type: "application/json" }),
+	webhookRoutes
+);
 app.use(cors(corsOptions), express.json(), cookieParser());
 //Maybe dont need this. Still unsure. Keep for now
 app.use((req, res, next) => {
@@ -44,6 +50,7 @@ app.use((req, res, next) => {
 });
 
 //Middlewares
+app.use("/api/checkout", paymentRoutes);
 app.get("/api/ablyAuth", ablyAuth);
 app.use("/api", userRoutes);
 app.use("/api/battlerooms", battleroomRoutes);
@@ -55,7 +62,6 @@ app.use("/api/refresh", refreshRoutes);
 app.use("/api/logout", handleLogout);
 app.use("/api/loggedIn", verifyJWT, loginRoutes);
 app.use("/api/capture", verifyJWT, captureRoutes);
-app.use("/api/webhooks", webhookRoutes);
 
 //Synchronizes with DB
 await db.sequelize.sync({ alter: false }).then(() => {
