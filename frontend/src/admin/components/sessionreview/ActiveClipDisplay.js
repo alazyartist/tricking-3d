@@ -82,7 +82,7 @@ const ActiveClipDisplay = () => {
 			<div className='flex flex-col'>
 				{sessionData?.map((e, i) => (
 					<div
-						key={sessionData?.id + `${Math.random()}`}
+						key={sessionData[i].id + `${Math.random()}`}
 						className='flex gap-1'>
 						<div
 							onClick={() => console.log(e)}
