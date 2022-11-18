@@ -43,13 +43,14 @@ export const purchaseSessionReviewCredit = async (req, res) => {
 				);
 				// Then define and call a function to handle the event payment_intent.succeeded
 				// console.log(line_items);
-				console.log(paymentIntent.metadata.user_id);
+				console.log(paymentIntent.metadata);
 				let payingUser = await users.findOne({
 					where: { uuid: paymentIntent?.metadata.user_id },
 				});
-				payingUser.update({
+				await payingUser.update({
 					SessionReviewCredits:
-						parseInt(payingUser.dataValues.SessionReviewCredits) + 1,
+						parseInt(payingUser.dataValues.SessionReviewCredits) +
+						parseInt(paymentIntent.metadata.amount),
 				});
 				break;
 			// ... handle other event types

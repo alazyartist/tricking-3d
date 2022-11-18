@@ -4,7 +4,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import useApiCreds from "../../../hooks/useApiCreds";
 import CheckoutForm from "./CheckoutForm";
 import { useUserStore } from "../../../store/userStore";
-const PaymentEmbed = ({ setShowForm }) => {
+const PaymentEmbed = ({ setShowForm, creditAmount }) => {
 	const apiPrivate = useApiCreds();
 	const [stripePromise, setStripePromise] = useState(null);
 	const [clientSecret, setClientSecret] = useState(null);
@@ -16,20 +16,30 @@ const PaymentEmbed = ({ setShowForm }) => {
 	}, []);
 	useEffect(() => {
 		apiPrivate
-			.post("/checkout", { user_id: uuid })
+			.post("/checkout", {
+				user_id: uuid,
+				amount: creditAmount,
+			})
 			.then(async (response) => setClientSecret(response?.data?.clientSecret));
-	}, []);
+	}, [creditAmount]);
 	const appearance = {
 		theme: "night",
 		labels: "floating",
 	};
 	return (
-		<div>
-			{stripePromise && clientSecret && (
-				<Elements stripe={stripePromise} options={{ clientSecret, appearance }}>
-					<CheckoutForm setShowForm={setShowForm} />
-				</Elements>
-			)}
+		<div className='flex flex-col gap-2'>
+			<div className='flex place-content-center place-items-center gap-4 text-center font-inter text-4xl'>
+				{(creditAmount > 0 ? creditAmount : 1) * 5}$
+			</div>
+			<div className=''>
+				{stripePromise && clientSecret && (
+					<Elements
+						stripe={stripePromise}
+						options={{ clientSecret, appearance }}>
+						<CheckoutForm setShowForm={setShowForm} />
+					</Elements>
+				)}
+			</div>
 		</div>
 	);
 };

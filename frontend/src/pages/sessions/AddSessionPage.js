@@ -182,6 +182,8 @@ const SessionSubmitted = ({ SessionReviewCredits }) => {
 
 const OutOfCredits = () => {
 	const [showForm, setShowForm] = useState(false);
+	const [creditAmount, setcreditAmount] = useState(1);
+
 	return (
 		<>
 			{/* <a
@@ -191,6 +193,19 @@ const OutOfCredits = () => {
 				className=' rounded-md bg-emerald-300 p-2 font-inter text-zinc-800'>
 				Add Credits
 			</a> */}
+			<div className='flex place-content-center place-items-center gap-4 text-center font-inter text-4xl'>
+				<div
+					className='flex h-10 w-10 place-content-center place-items-center rounded-full bg-zinc-200 bg-opacity-10'
+					onClick={() => setcreditAmount((ca) => ca - 1)}>
+					-
+				</div>
+				{(creditAmount > 0 ? creditAmount : 1) * 5}$
+				<div
+					className='flex h-10 w-10 place-content-center place-items-center rounded-full bg-zinc-200 bg-opacity-10'
+					onClick={() => setcreditAmount((ca) => ca + 1)}>
+					+
+				</div>
+			</div>
 			<button
 				type='button'
 				onClick={() => setShowForm(true)}
@@ -200,7 +215,7 @@ const OutOfCredits = () => {
 			</button>
 			{showForm && (
 				<div className='absolute top-[0vh] left-[0vw] z-[1290] h-[100vh] w-[100vw] rounded-md bg-zinc-900 bg-opacity-40 p-8 backdrop-blur-md'>
-					<PaymentEmbed setShowForm={setShowForm} />
+					<PaymentEmbed creditAmount={creditAmount} setShowForm={setShowForm} />
 				</div>
 			)}
 		</>
