@@ -103,7 +103,7 @@ function App() {
 	}, [location.pathname]);
 	useEffect(() => {
 		location.pathname.includes("/sandbox")
-			? setIsSandbox(false)
+			? setIsSandbox(true)
 			: setIsSandbox(false);
 		location.pathname.includes("/userProfile")
 			? setIsUserProfile(true)
@@ -123,7 +123,7 @@ function App() {
 						!location.pathname.includes("/pppoints") &&
 						location.pathname !== "/" && <Header />}
 					{tabBar
-						? (isSandbox ||
+						? (!isSandbox ||
 								!isUserProfile ||
 								!location.pathname.includes("/admin/sessionReview")) && (
 								<TabBar />

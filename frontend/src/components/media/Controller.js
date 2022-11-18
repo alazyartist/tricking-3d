@@ -29,11 +29,10 @@ function Controller() {
 	// Envoke Player Controller
 
 	return (
-		<div className='sticky bottom-0'>
+		<div className='sticky bottom-0 z-[1012]'>
 			<div
 				id='controller-container'
-				className='
-        flex
+				className='flex
         justify-around text-sm
 		'>
 				<MediaButton
