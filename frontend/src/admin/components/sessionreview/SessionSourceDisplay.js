@@ -30,7 +30,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
 	}, [seekTime]);
 	let colors = ["bg-teal-300", "bg-emerald-300", "bg-indigo-300", "bg-sky-300"];
 	let activeWidth = `${(
-		((parseInt(clipData.endTime) - parseInt(clipData.startTime)) /
+		((parseFloat(clipData.endTime) - parseFloat(clipData.startTime)) /
 			vidRef.current?.getDuration()) *
 		100
 	).toFixed(2)}%`;
