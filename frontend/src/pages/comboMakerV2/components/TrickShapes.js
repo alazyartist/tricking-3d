@@ -20,7 +20,7 @@ const TrickShapes = ({
 		<>
 			{activeDropdown !== "" && (
 				<div
-					className='absolute top-[25vh] right-[20vw] text-4xl'
+					className='absolute top-[23vh] right-[15vw] text-4xl'
 					onClick={() => setActiveDropdown("")}>
 					<MdClose />
 				</div>
@@ -65,10 +65,11 @@ const TrickShapes = ({
 				*/}
 			</div>
 			{activeDropdown === "Trick" && (
-				<div className='no-scrollbar absolute bottom-[10vh] left-[10vw] flex h-[60vh] w-[80vw] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-900 bg-opacity-80 p-4 backdrop-blur-md'>
+				<div className='no-scrollbar absolute bottom-[10vh] left-[10vw] flex h-[62vh] w-[80vw] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-900 bg-opacity-80 p-4 backdrop-blur-md'>
 					{allTricks?.map((trick) =>
 						trick.type === "Trick" ? (
 							<div
+								className='w-full rounded-md bg-zinc-600 bg-opacity-10 p-2 text-center hover:bg-zinc-700'
 								onClick={() => {
 									setCurrentItem((s) => [...s, trick]);
 									setActiveDropdown("");
@@ -81,11 +82,11 @@ const TrickShapes = ({
 				</div>
 			)}
 			{activeDropdown === "Transition" && (
-				<div className='no-scrollbar absolute bottom-[10vh] left-[10vw] flex h-[60vh] w-[80vw] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-900 bg-opacity-80 p-4 backdrop-blur-md'>
+				<div className='no-scrollbar absolute bottom-[10vh] left-[10vw] flex h-[62vh] w-[80vw] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-900 bg-opacity-80 p-4 backdrop-blur-md'>
 					{allTricks?.map((trick) =>
 						trick.type === "Transition" ? (
 							<div
-								className='flex w-[69%] justify-between'
+								className='flex w-full justify-between rounded-md bg-zinc-600 bg-opacity-10 p-2 text-center'
 								onClick={() => {
 									setCurrentItem((s) => [...s, trick]);
 									setActiveDropdown("");
@@ -102,10 +103,11 @@ const TrickShapes = ({
 				</div>
 			)}
 			{activeDropdown === "Stance" && (
-				<div className='no-scrollbar absolute bottom-[10vh] left-[10vw] flex h-[60vh] w-[80vw] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-900 bg-opacity-80 p-4 backdrop-blur-md'>
+				<div className='no-scrollbar absolute bottom-[10vh] left-[10vw] flex h-[62vh] w-[80vw] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-900 bg-opacity-80 p-4 backdrop-blur-md'>
 					{allTricks?.map((trick) =>
 						trick.type === "Stance" ? (
 							<div
+								className='w-full rounded-md bg-zinc-600 bg-opacity-10 p-2 text-center'
 								onClick={() => {
 									setCurrentItem((s) => [...s, trick]);
 									setActiveDropdown("");

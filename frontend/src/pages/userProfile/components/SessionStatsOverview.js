@@ -55,7 +55,7 @@ const SessionStatsOverview = ({ summary }) => {
 	return (
 		<div className='grid w-full grid-cols-2 flex-col gap-1 text-xs'>
 			<div className='col-span-2 flex w-full place-content-center place-items-center place-self-center rounded-md bg-zinc-900 p-2 text-2xl'>
-				<span className='font-black text-zinc-400'>TP: </span>
+				<span className='font-black text-zinc-400'>Total Points: </span>
 				{totalPoints}
 			</div>
 			Points
@@ -87,20 +87,21 @@ const SessionStatsOverview = ({ summary }) => {
 			</div>
 			<div className='grid gap-2 text-center'>
 				<div className='rounded-md bg-zinc-900 p-2'>
-					<span className='text-zinc-400'>#C: </span>
+					<span className='text-zinc-400'>Combos: </span>
 					{sessionCombosArr?.length}
 				</div>
 				<div className='rounded-md bg-zinc-900 p-2'>
-					<span className='text-zinc-400'>#T:</span> {sessionTricksArr?.length}
+					<span className='text-zinc-400'>Tricks:</span>{" "}
+					{sessionTricksArr?.length}
 				</div>
 			</div>
 			<div className='grid gap-2 text-center'>
 				<div className='rounded-md bg-teal-500 p-2 text-zinc-900'>
-					<span className='text-zinc-800'>UT: </span>
+					<span className='text-zinc-800'>Unique Tricks: </span>
 					{uniqueTricks?.filter((t) => t?.type === "Trick").length}
 				</div>
 				<div className='rounded-md bg-teal-700 p-2 text-zinc-200'>
-					<span className='text-zinc-300'>UTr: </span>
+					<span className='text-zinc-300'>Unique Transitions: </span>
 					{uniqueTricks?.filter((t) => t?.type === "Transition")?.length}
 				</div>
 			</div>

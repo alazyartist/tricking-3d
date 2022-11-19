@@ -77,12 +77,20 @@ const UserProfile = () => {
 			<div className='flex w-full flex-col place-items-center gap-4 rounded-lg p-2'>
 				<div className='h-[40vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2'>
 					{activeView === "Stats" ? (
-						<div onClick={() => setActiveView("Sessions")}>Overall Stats</div>
+						<div
+							className='mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4'
+							onClick={() => setActiveView("Sessions")}>
+							Overall Stats
+						</div>
 					) : null}
 					{activeView === "Sessions" ? (
 						<div className='flex h-full w-full gap-2'>
 							<div className='w-1/2'>
-								<span onClick={() => setActiveView("Stats")}>Sessions</span>
+								<div
+									className='mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4'
+									onClick={() => setActiveView("Stats")}>
+									Sessions
+								</div>
 								{profileInfo.SessionSummaries.map((summary) => (
 									<div
 										key={summary.id}
@@ -100,7 +108,9 @@ const UserProfile = () => {
 				</div>
 				<div className='h-[27vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2'>
 					{activeView === "Stats" ? (
-						<div onClick={() => setActiveView("Sessions")}>
+						<div
+							className='mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4'
+							onClick={() => setActiveView("Sessions")}>
 							Last Session Stats
 						</div>
 					) : null}
@@ -108,7 +118,10 @@ const UserProfile = () => {
 						<div
 							className='no-scrollbar relative h-full w-full overflow-hidden overflow-y-scroll'
 							onClick={() => setActiveView("Stats")}>
-							<div className='sticky top-0 w-[100%] bg-zinc-800 bg-opacity-70'>
+							<div
+								className={
+									"sticky top-0 mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4"
+								}>
 								Selected Session Overview
 							</div>
 							<ProfileSessionInfo summary={activeSummary} />
