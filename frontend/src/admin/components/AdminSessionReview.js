@@ -52,12 +52,12 @@ const AdminSessionReview = () => {
 				<div className='mt-4 flex flex-col place-items-center text-zinc-300 md:mt-8'>
 					<div>{sessionDetails?.name}</div>
 					<div className='absolute left-2  top-[40vh] w-[135px] md:top-[20vh]'>
-						<SessionDetailDisplay sessionDetails={sessionDetails} />
-						<div
-							onClick={() => toggleMirrored(!mirrored)}
-							className='absolute right-4 top-6 text-zinc-300'>
-							{mirrored ? "Mirrored" : "Normal"}
-						</div>
+						<SessionDetailDisplay
+							mirrored={mirrored}
+							toggleMirrored={toggleMirrored}
+							sessionDetails={sessionDetails}
+						/>
+
 						{sessionDetails?.SessionSources?.map((source) => (
 							<SessionSourceDisplay
 								mirrored={mirrored}

@@ -2,7 +2,7 @@ import { animated, useSpring } from "react-spring";
 import React, { useState } from "react";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
 
-const SessionDetailDisplay = ({ sessionDetails }) => {
+const SessionDetailDisplay = ({ sessionDetails, mirrored, toggleMirrored }) => {
 	const detailsVisible = useSessionSummariesStore((s) => s.detailsVisible);
 	const setDetailsVisible = useSessionSummariesStore(
 		(s) => s.setDetailsVisible
@@ -22,10 +22,14 @@ const SessionDetailDisplay = ({ sessionDetails }) => {
 	return (
 		<animated.div
 			key={sessionDetails.sessionid + "details"}
-			onClick={() => setDetailsVisible()}
 			style={{ left: showDetails.left, opacity: showDetails.opacity }}
 			className='relative flex w-full flex-col gap-2 rounded-md rounded-l-none bg-zinc-700 p-1 font-inter text-xs'>
-			<div>{sessionDetails?.name}</div>
+			<div
+				onClick={() => toggleMirrored(!mirrored)}
+				className='absolute right-4 top-5 rounded-md bg-zinc-800 p-1 text-sm text-zinc-300'>
+				{mirrored ? "Mirrored" : "Normal"}
+			</div>
+			<div onClick={() => setDetailsVisible()}>{sessionDetails?.name}</div>
 			<div>{sessionDetails?.user_id?.slice(-4)}</div>
 			<div>{new Date(sessionDetails?.sessionDate).toDateString()}</div>
 			<div className='flex gap-2'>
