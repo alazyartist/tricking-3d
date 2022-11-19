@@ -33,7 +33,7 @@ const ComboMakerV3 = () => {
 	return (
 		<>
 			{/* {v2 ? ( */}
-			<div className='flex h-[90%] w-[98%] flex-col font-inter text-zinc-300'>
+			<div className='flex h-[100vh] w-[98%] flex-col  font-inter text-zinc-300'>
 				<div
 					// onClick={() => setV2(!v2)}
 					id='pageTitle'
@@ -42,7 +42,7 @@ const ComboMakerV3 = () => {
 				</div>
 				<div
 					id='app-content'
-					className='flex h-[70vh] w-full flex-col place-content-start place-items-center overflow-y-auto overflow-x-hidden rounded-lg  p-2 text-zinc-300 '>
+					className='no-scrollbar flex h-[75vh] w-full flex-col place-content-start place-items-center overflow-y-auto overflow-x-hidden rounded-lg p-2 text-zinc-300 '>
 					{accessToken && (
 						<SaveCombo
 							save={save}

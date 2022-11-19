@@ -65,7 +65,7 @@ const TrickShapes = ({
 				*/}
 			</div>
 			{activeDropdown === "Trick" && (
-				<div className='no-scrollbar absolute bottom-[10vh] left-[10vw] flex h-[62vh] w-[80vw] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-900 bg-opacity-80 p-4 backdrop-blur-md'>
+				<div className='no-scrollbar absolute bottom-[10vh] left-[10vw] z-[20] flex h-[62vh] w-[80vw] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-900 bg-opacity-80 p-4 backdrop-blur-md'>
 					{allTricks?.map((trick) =>
 						trick.type === "Trick" ? (
 							<div
@@ -82,7 +82,7 @@ const TrickShapes = ({
 				</div>
 			)}
 			{activeDropdown === "Transition" && (
-				<div className='no-scrollbar absolute bottom-[10vh] left-[10vw] flex h-[62vh] w-[80vw] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-900 bg-opacity-80 p-4 backdrop-blur-md'>
+				<div className='no-scrollbar absolute bottom-[10vh] left-[10vw] z-[20] flex h-[62vh] w-[80vw] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-900 bg-opacity-80 p-4 backdrop-blur-md'>
 					{allTricks?.map((trick) =>
 						trick.type === "Transition" ? (
 							<div
@@ -93,7 +93,7 @@ const TrickShapes = ({
 								}}
 								key={trick.trick_id}>
 								<div>{trick.name}</div>
-								<div className='flex w-1/4 justify-between gap-2'>
+								<div className='flex w-1/2 justify-between gap-2'>
 									<div className='w-[75px]'>{trick.fromLeg}</div>
 									<div className='w-[75px]'>{trick.toLeg}</div>
 								</div>
@@ -103,7 +103,7 @@ const TrickShapes = ({
 				</div>
 			)}
 			{activeDropdown === "Stance" && (
-				<div className='no-scrollbar absolute bottom-[10vh] left-[10vw] flex h-[62vh] w-[80vw] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-900 bg-opacity-80 p-4 backdrop-blur-md'>
+				<div className='no-scrollbar absolute bottom-[10vh] left-[10vw] z-[20] flex h-[62vh] w-[80vw] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-900 bg-opacity-80 p-4 backdrop-blur-md'>
 					{allTricks?.map((trick) =>
 						trick.type === "Stance" ? (
 							<div
