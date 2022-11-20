@@ -40,9 +40,9 @@ const SessionDisplay = ({ s }) => {
 		<div className='flex gap-2'>
 			<Link
 				to={`/admin/sessionReview/${s?.sessionid}`}
-				className='mt-2 flex w-full place-content-center place-items-center gap-2 rounded-md bg-zinc-700 p-1'>
-				<div>{s?.name}</div>
-				<div>{s?.sessionDate}</div>
+				className='mt-2 flex w-full place-content-center place-items-center justify-between gap-2 rounded-md bg-zinc-700 p-1'>
+				<div className='w-1/3'>{s?.name}</div>
+				<div className='w-1/3'>{s?.sessionDate}</div>
 				<div className='flex place-items-center gap-1'>
 					<div>
 						{s?.status === "In Queue" && (
