@@ -60,6 +60,9 @@ function RegisterForm() {
 
 	return (
 		<div className='w-[80vw]'>
+			<h1 className='text-center font-inter text-2xl font-bold text-zinc-300'>
+				Register
+			</h1>
 			<form
 				onSubmit={handleRegister}
 				className='flex w-full flex-col gap-2 text-zinc-800'>
