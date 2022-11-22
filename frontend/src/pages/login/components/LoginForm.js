@@ -92,8 +92,8 @@ function LoginForm() {
 				<div className='flex w-full justify-around'>
 					<button
 						type='submit'
-						className='text=zinc-700 w-fit rounded bg-white p-2 '>
-						Submit
+						className='text=zinc-700 w-fit rounded bg-white px-2 py-1 '>
+						Log In
 					</button>
 					<Link
 						className='place-self-end text-base text-zinc-300'
