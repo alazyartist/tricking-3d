@@ -66,14 +66,19 @@ function LoginForm() {
 			<form
 				onSubmit={handleSubmit}
 				className='flex flex-col gap-2 text-zinc-800'>
+				<h1 className='text-center font-inter text-2xl font-bold text-zinc-300'>
+					LOGIN
+				</h1>
 				<input
-					className='rounded-xl bg-zinc-200 p-2'
+					id='login'
+					className='rounded-xl p-2'
 					onChange={(e) => setEmail(e.target.value)}
 					type='email'
 				/>
 				<div>
 					<input
-						className='rounded-xl bg-zinc-200 p-2'
+						id='login'
+						className='rounded-xl p-2'
 						onChange={(e) => setPassword(e.target.value.toString())}
 						type={isVisible ? "text" : "password"}
 					/>
@@ -87,7 +92,7 @@ function LoginForm() {
 				<div className='flex w-full justify-around'>
 					<button
 						type='submit'
-						className='text=zinc-700 w-fit rounded bg-sky-500 p-2 '>
+						className='text=zinc-700 w-fit rounded bg-white p-2 '>
 						Submit
 					</button>
 					<Link
@@ -104,10 +109,10 @@ function LoginForm() {
 				</div>
 			</form>
 			{loginError}
-			<div>
+			<div className='flex w-full place-content-center place-items-center'>
 				<label htmlFor='persist'>Remember this Device</label>
 				<input
-					className='mx-2 rounded-2xl bg-red-500'
+					className='mx-2 rounded-2xl'
 					id={"persist"}
 					type='checkbox'
 					onChange={() => togglePersist()}
