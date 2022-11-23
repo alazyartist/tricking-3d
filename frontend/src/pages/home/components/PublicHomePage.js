@@ -9,7 +9,7 @@ const PublicHomePage = () => {
 	return (
 		<div className='flex flex-col place-content-center place-items-center'>
 			<Link className='' to='/instructions'>
-				<div className='flex w-[90vw] max-w-[610px] flex-col place-items-center justify-center gap-5 rounded-2xl bg-gradient-to-b from-zinc-800 to-zinc-800 p-2 font-bold text-zinc-300'>
+				<div className=' mt-4 mb-8 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-30 p-2 text-center font-titan text-3xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] '>
 					<div>Instructions</div>
 				</div>
 			</Link>
