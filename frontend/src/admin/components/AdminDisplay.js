@@ -7,20 +7,36 @@ const SessionSummariesOverview = lazy(() =>
 const TrickPointEditor = lazy(() => import("./trickMaker/TrickPointEditor"));
 const UserList = lazy(() => import("./UserList"));
 const AdminDisplay = () => {
-	const [displayItem, setItem] = useState();
+	const [displayItem, setItem] = useState("SessionSummaries");
 	return (
 		<>
 			<div className='absolute top-[30vh] left-0 z-[100] flex flex-col  gap-2 rounded-md rounded-l-none bg-zinc-900 p-2 text-2xl md:text-4xl'>
-				<IoIosList onClick={() => setItem("Tricks")} />
-				<IoIosPeople onClick={() => setItem("Users")} />
+				<IoIosList
+					className={`${
+						displayItem === "Tricks" ? "text-emerald-500" : "text-zinc-300"
+					}`}
+					onClick={() => setItem("Tricks")}
+				/>
+				<IoIosPeople
+					className={`${
+						displayItem === "Users" ? "text-emerald-500" : "text-zinc-300"
+					}`}
+					onClick={() => setItem("Users")}
+				/>
 				<span
 					onClick={() => setItem("SessionSummaries")}
-					className={"text-center font-titan text-xl md:text-2xl"}>
+					className={`${
+						displayItem === "SessionSummaries"
+							? "text-emerald-500"
+							: "text-zinc-300"
+					} text-center font-titan text-xl md:text-2xl`}>
 					S
 				</span>
 				<span
 					onClick={() => setItem("TrickPoints")}
-					className={"text-center font-titan text-xl md:text-2xl"}>
+					className={`${
+						displayItem === "TrickPoints" ? "text-emerald-500" : "text-zinc-300"
+					} text-center font-titan text-xl md:text-2xl`}>
 					TP
 				</span>
 			</div>

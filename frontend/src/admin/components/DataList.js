@@ -77,8 +77,10 @@ const DataList = () => {
 						<div className='text-center'>{combo?.pointValue}</div>
 						<div className='flex place-content-end place-items-center gap-2'>
 							DA
-							{combo?.defaultAnimation && (
+							{combo?.defaultAnimation ? (
 								<FaCheck className='text-emerald-500' />
+							) : (
+								<FaCircle className='text-red-700' />
 							)}
 						</div>
 						{/* <div className='flex place-content-end place-items-center gap-2'>
