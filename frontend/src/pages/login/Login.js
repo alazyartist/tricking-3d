@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import BackgroundCircles from "../../admin/components/BackgroundCircles";
 import LoginForm from "./components/LoginForm";
 
 function Login() {
@@ -7,11 +8,7 @@ function Login() {
 			<div className='rounded-lg bg-zinc-700 bg-opacity-30 p-4 backdrop-blur-md'>
 				<LoginForm />
 			</div>
-			<div className='fixed top-[50%] left-[5%] z-[-2] h-40 w-40 rounded-full bg-gradient-to-tr from-sky-500 to-teal-300 blur-md' />
-			<div className='fixed top-[60%] left-[70%] z-[-2] h-40 w-40 rounded-full bg-gradient-to-tr from-sky-300 to-teal-600 blur-md'>
-				Trick
-			</div>
-			<div className='fixed top-[20%] left-[40%] z-[-2] h-40 w-40 rounded-full bg-gradient-to-tr from-emerald-400 to-teal-300 blur-md' />
+			<BackgroundCircles />
 		</div>
 	);
 }

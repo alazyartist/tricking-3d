@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import PaymentEmbed from "../../admin/components/payments/PaymentEmbed";
 import useUserInfo from "../../api/useUserInfo";
 import { useQueryClient } from "@tanstack/react-query";
+import BackgroundCircles from "../../admin/components/BackgroundCircles";
 const whatsToday = () => {
 	let today = new Date(Date.now());
 	return `${today.getFullYear()}-${("0" + (today.getMonth() + 1)).slice(-2)}-${(
@@ -43,7 +44,8 @@ const AddSessionPage = () => {
 	}, [response]);
 	const [count, setCount] = useState(1);
 	let isEnabled =
-		(formData.startTime &&
+		(SessionReviewCredits > 0 &&
+			formData.startTime &&
 			formData.endTime &&
 			formData.sessionDate &&
 			formData.sessionid &&
@@ -52,18 +54,20 @@ const AddSessionPage = () => {
 		false;
 	console.log(isEnabled);
 	return (
-		<div className='mt-14 flex h-[80vh] flex-col items-center text-zinc-300'>
+		<div className='mt-14 flex h-[80vh] flex-col place-content-center place-items-center text-zinc-300'>
 			{submitSuccess ? (
 				<SessionSubmitted SessionReviewCredits={SessionReviewCredits} />
 			) : (
 				<>
-					<div className='p-2 text-center font-titan text-2xl'>
-						Submit Session
-					</div>
-					<div className='text-zinc-300'>Credits:{SessionReviewCredits}</div>
 					<form
 						onSubmit={onSubmit}
-						className='flex w-[80vw] flex-col gap-2 rounded-md bg-zinc-700 p-3'>
+						className='relative flex w-[80vw] flex-col gap-2 rounded-md bg-zinc-700 bg-opacity-30 p-3'>
+						<div className='p-2 text-center font-titan text-5xl text-zinc-200 drop-shadow-lg'>
+							Submit Session
+						</div>
+						<div className='absolute top-4 left-4 rounded-md bg-gradient-to-b from-teal-400 to-emerald-500 p-2 font-bold text-zinc-900 drop-shadow-md'>
+							Credits: {SessionReviewCredits}
+						</div>
 						<input
 							onChange={(e) =>
 								setFormData((s) => ({ ...s, name: e.target.value }))
@@ -160,6 +164,7 @@ const AddSessionPage = () => {
 					</div>
 				</>
 			)}
+			<BackgroundCircles />
 		</div>
 	);
 };
@@ -215,7 +220,7 @@ const OutOfCredits = () => {
 			<button
 				type='button'
 				onClick={() => setShowForm(true)}
-				className='w-[200px] rounded-md bg-emerald-500 py-2 text-3xl'
+				className='w-[200px] rounded-md bg-gradient-to-br from-emerald-500 to-sky-400 py-2 text-3xl font-bold text-zinc-900'
 				id='submit'>
 				Add Credits
 			</button>
