@@ -52,12 +52,6 @@ const AdminSessionReview = () => {
 				<div className='mt-4 flex flex-col place-items-center text-zinc-300 md:mt-8'>
 					<div>{sessionDetails?.name}</div>
 					<div className='absolute left-2  top-[40vh] w-[135px] md:top-[20vh]'>
-						<SessionDetailDisplay
-							mirrored={mirrored}
-							toggleMirrored={toggleMirrored}
-							sessionDetails={sessionDetails}
-						/>
-
 						{sessionDetails?.SessionSources?.map((source) => (
 							<SessionSourceDisplay
 								mirrored={mirrored}
@@ -65,6 +59,13 @@ const AdminSessionReview = () => {
 								source={source}
 							/>
 						))}
+					</div>
+					<div className='absolute left-2 top-0 w-[135px]'>
+						<SessionDetailDisplay
+							mirrored={mirrored}
+							toggleMirrored={toggleMirrored}
+							sessionDetails={sessionDetails}
+						/>
 					</div>
 				</div>
 			)}
