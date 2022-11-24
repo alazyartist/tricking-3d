@@ -24,7 +24,7 @@ const ActiveClipDisplay = () => {
 		to: {
 			spanOpacity: !clipDetailsVisible ? 1 : 0,
 			opacity: clipDetailsVisible ? 1 : 1,
-			right: clipDetailsVisible ? "0" : "-122px",
+			right: clipDetailsVisible ? "0" : "-200px",
 		},
 		delay: 100,
 		config: { tension: 280, friction: 40 },
@@ -38,7 +38,10 @@ const ActiveClipDisplay = () => {
 		<animated.div
 			key={activeClipData?.sessionid + "details"}
 			style={{ right: showDetails.right, opacity: showDetails.opacity }}
-			className='absolute top-[40vh] right-2 flex w-[139px]  flex-col gap-2 rounded-md rounded-r-none bg-zinc-700 p-1 pl-6 font-inter text-xs text-zinc-300 md:top-[20vh]'>
+			className='absolute top-0 right-2 flex h-screen w-[220px] flex-col gap-2 rounded-md rounded-r-none bg-zinc-900 bg-opacity-60 p-1 pl-6 font-inter text-xs text-zinc-300 '>
+			<div className='w-full bg-zinc-300 p-2 text-center font-inter text-2xl font-bold text-zinc-900'>
+				<div>{activeClipData?.sessionid?.slice(-8)}</div>
+			</div>
 			<div
 				onClick={() => {
 					setClipDetailsVisible();
@@ -56,7 +59,6 @@ const ActiveClipDisplay = () => {
 					clipCombo.reduce((sum, b) => sum + b.pointValue, 0)}
 			</div>
 			<div>{activeClipData?.user_id?.slice(-4)}</div>
-			<div>{activeClipData?.sessionid}</div>
 			<div>{activeClipData?.bail > 0 && activeClipData?.bail}</div>
 			<div>{activeClipData?.vidsrc}</div>
 			<div className='flex justify-around gap-2 text-center font-bold'>
