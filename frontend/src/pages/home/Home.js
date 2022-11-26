@@ -34,7 +34,7 @@ function Home() {
 		to: { width: accessToken ? "50vw" : "100vw" },
 	});
 	return (
-		<div className='no-scrollbar stick h-[100vh] w-full overflow-y-scroll md:mt-[15vh] '>
+		<div className='no-scrollbar stick h-[100vh] w-full overflow-y-scroll md:pt-[15vh] '>
 			<BackgroundCircles />
 			<div
 				id='AppBackground-flex'
