@@ -40,6 +40,17 @@ const LandingPage = () => {
 					}>
 					<MovingBackground />
 				</Suspense> */}
+				<div className='absolute top-[50vh] h-[60vw] w-[90vw] font-inter font-semibold text-zinc-800'>
+					<div className='text-center text-3xl'>
+						<span className='font-black '>Please </span>Excuse the Mess.
+					</div>
+					<div className='text-center'>
+						We are hard at work on some
+						<br /> backend things at the moment.
+						<br /> big update on the horizion.
+						<div>Stay tuned</div>
+					</div>
+				</div>
 				<div className='absolute top-[50vh] -z-20 h-[60vw] w-[60vw] rounded-full bg-teal-300 blur-3xl' />
 				{/* <div className='flex w-[100vw] flex-shrink-0  gap-2 overflow-hidden'>
 					<div className='h-[200px] w-[300px] flex-shrink-0 rounded-md bg-zinc-900'></div>
