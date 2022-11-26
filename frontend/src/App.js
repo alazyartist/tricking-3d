@@ -5,7 +5,7 @@ import { animated, useTransition } from "react-spring";
 import UserIcon from "./components/layout/UserIcon";
 import TabBar from "./components/layout/TabBar";
 import { useUserStore } from "./store/userStore";
-import { lazy, Suspense, useEffect, useState } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 const TransitionList = lazy(() => import("./pages/TransitionList"));
 const TheoryTabBar = lazy(() => import("./components/layout/TheoryTabBar"));
 const LandingPage = lazy(() => import("./pages/landing/LandingPage"));
@@ -80,7 +80,7 @@ const SessionRoomStats = lazy(() =>
 const UserProfile = lazy(() => import("./pages/userProfile/userProfile"));
 const Sandbox = lazy(() => import("./pages/sandbox/Sandbox"));
 const ComboMakerV2 = lazy(() => import("./pages/comboMakerV2/ComboMakerV3"));
-function App() {
+const App = () => {
 	const accessToken = useUserStore((s) => s.accessToken);
 	const location = useLocation();
 	const transitions = useTransition(location, {
@@ -550,7 +550,7 @@ function App() {
 			</Suspense>
 		</>
 	);
-}
+};
 
 export default App;
 

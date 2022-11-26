@@ -12,5 +12,8 @@
 		"concurrently": "^7.2.1",
 		"react-player": "^2.11.0",
 		"uuid": "^9.0.0"
+	},
+	"devDependencies": {
+		"typescript": "^4.9.3"
 	}
 }

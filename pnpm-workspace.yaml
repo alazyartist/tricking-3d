@@ -1,5 +1,7 @@
 packages:
   # include packages in subfolders (e.g. apps/ and packages/)
+  - "frontend/**"
+  - "backend/**"
   - "apps/**"
   - "packages/**"
   # if required, exclude some directories
