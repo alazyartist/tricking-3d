@@ -1,9 +1,10 @@
 {
 	"scripts": {
-		"start": "cd frontend && npm run start",
-		"build": "cd frontend && npm run build",
-		"server": "cd backend && npm run dev",
-		"spinup": "concurrently \"npm run start\" \"npm run server\""
+		"preinstall": "npx only-allow pnpm",
+		"start": "cd frontend && pnpm run start",
+		"build": "cd frontend && pnpm run build",
+		"server": "cd backend && pnpm run dev",
+		"spinup": "concurrently \"pnpm run start\" \"pnpm run server\""
 	},
 	"dependencies": {
 		"ably": "^1.2.29",

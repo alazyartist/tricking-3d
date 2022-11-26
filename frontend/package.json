@@ -8,6 +8,7 @@
 		"@algolia/autocomplete-js": "^1.7.3",
 		"@algolia/autocomplete-plugin-tags": "^1.7.3",
 		"@algolia/autocomplete-theme-classic": "^1.7.3",
+		"@react-spring/web": "^9.5.5",
 		"@react-three/drei": "^9.34.0",
 		"@react-three/fiber": "^8.8.9",
 		"@stripe/react-stripe-js": "^1.15.0",
@@ -47,6 +48,7 @@
 		"zustand": "^3.7.2"
 	},
 	"scripts": {
+		"preinstall": "npx only-allow pnpm",
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "jest --config ./jest.config.json",
