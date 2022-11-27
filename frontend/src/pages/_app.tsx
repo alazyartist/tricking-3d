@@ -4,6 +4,9 @@
 import type { AppType } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "../styles/globals.css";
+import AppBackground from "../components/layout/AppBackground";
+import UserIcon from "../components/layout/UserIcon";
+import TabBar from "../components/layout/TabBar";
 // import { trpc } from "../utils/trpc";
 
 const MyApp: AppType<{
@@ -19,6 +22,9 @@ const MyApp: AppType<{
   return (
     // <SessionProvider session={session}>
     <QueryClientProvider client={queryClient}>
+      <AppBackground />
+      <UserIcon />
+      <TabBar />
       <Component {...pageProps} />
     </QueryClientProvider>
     // </SessionProvider>
