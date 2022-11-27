@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { useGetBattleRooms } from "../../../api/useBattleRoom";
 import { useUserStore } from "../../../store/userStore";
 import { FaGavel } from "react-icons/fa";

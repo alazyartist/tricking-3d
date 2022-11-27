@@ -1,12 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../store/userStore";
 import api from "./api";
 export const useLogin = () => {
 	const queryClient = useQueryClient();
 	const setAccessToken = useUserStore((s) => s.setAccessToken);
 	const setUser = useUserStore((s) => s.setUser);
-	const nav = useNavigate();
 	return useMutation(
 		["login"],
 		async (loginData) => {

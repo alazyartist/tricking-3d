@@ -1,8 +1,8 @@
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const AnatomySVG = (props) => {
-	const nav = useNavigate();
+	// const nav = useNavigate();
 
 	return (
 		<div>

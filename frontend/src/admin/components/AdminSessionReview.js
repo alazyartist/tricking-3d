@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
-import { Link, useParams } from "react-router-dom";
+import Link, { useParams } from "next/link";
 import { useGetSessionDetailsbySessionid } from "../../api/useSessionSummaries";
 import ActiveClipDisplay from "./sessionreview/ActiveClipDisplay";
 import CommandBar from "./sessionreview/CommandBar";

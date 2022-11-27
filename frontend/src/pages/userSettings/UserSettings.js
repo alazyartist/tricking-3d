@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { IoIosArrowBack } from "react-icons/io";
-import { Link, useLocation } from "react-router-dom";
+// import { Link, useLocation } from "react-router-dom";
 import ChangePassword from "./components/ChangePassword";
 import DeleteUserAccount from "./components/DeleteUserAccount";
 

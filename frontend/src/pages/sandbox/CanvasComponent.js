@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import Loader from "../../components/loaders/Loader";
 import { AiFillDownCircle } from "react-icons/ai";
-import { Outlet } from "react-router-dom";
+// import { Outlet } from "react-router-dom";
 function CanvasComponent() {
 	// const min = 54;
 	// let initialWidth = 0,

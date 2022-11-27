@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import api from "../../../api/api";
 import useRegister from "../../../api/useRegister";
 function RegisterForm() {
 	const [validPassword, setValidPassword] = useState(false);
 	const [isVisible, setIsVisible] = useState();
 	const [registerError, setRegisterError] = useState();
-	const nav = useNavigate();
+	// const nav = useNavigate();
 	const { mutateAsync: register } = useRegister();
 	const [userData, setUserData] = useState({
 		username: null,

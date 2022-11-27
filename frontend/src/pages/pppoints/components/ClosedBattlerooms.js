@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { useGetBattleRooms } from "../../../api/useBattleRoom";
 import { IoCheckmark, IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { FaCheck, FaGavel } from "react-icons/fa";

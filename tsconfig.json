@@ -1,5 +1,6 @@
 {
 	"include": [
+		"frontend/tailwind.config.js",
 		"next-env.d.ts",
 		"**/*.ts",
 		"**/*.tsx",

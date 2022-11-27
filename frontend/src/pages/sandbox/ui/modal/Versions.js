@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { redirect } from "react-router-dom";
+// import { redirect } from "react-router-dom";
 import { useStore } from "../../../../store/store";
 
 const Versions = ({ handleClose }) => {

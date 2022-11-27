@@ -1,6 +1,6 @@
 import React from "react";
 import Instructions from "./components/Instructions";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 function InstructionsPage() {
 	return (
 		<div className='mt-14 flex flex-col place-content-center place-items-center'>

@@ -3,7 +3,7 @@ import { MediaButton } from "../../../components/media/MediaButton";
 import { MdLoop, MdInfo, MdInfoOutline } from "../../../data/icons/MdIcons";
 import { FaPause, FaPlay } from "react-icons/fa";
 import { useStore } from "../../../store/store";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 function MinimalUI() {
 	const setIsPaused = useStore((s) => s.setIsPaused);
 	const isPaused = useStore((s) => s.isPaused);

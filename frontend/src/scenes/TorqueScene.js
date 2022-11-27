@@ -9,7 +9,7 @@ import ModelLoader from "../components/loaders/ModelLoader";
 import LoadActiveModel from "../components/media/ModelSelector";
 import { useStore } from "../store/store";
 import LoadActiveBackground from "../components/media/BackgroundSelector";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 export default function TorqueScene({ gizmoHelper }) {
 	const { model, trick } = useParams();

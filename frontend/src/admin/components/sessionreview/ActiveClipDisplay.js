@@ -1,7 +1,7 @@
 import { animated, useSpring } from "react-spring";
 import React, { useEffect, useState } from "react";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
-import { useParams } from "react-router-dom";
+// import { useParams } from "next/link";
 
 const ActiveClipDisplay = () => {
 	const activeClipData = useSessionSummariesStore((s) => s.clipData);

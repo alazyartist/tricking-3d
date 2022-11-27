@@ -2,7 +2,7 @@ import { Canvas } from "@react-three/fiber";
 import React, { Suspense, useEffect, useState } from "react";
 import Loader from "../components/loaders/Loader";
 import { TrickListScene } from "../scenes/TrickListScene";
-import { Link, useNavigate } from "react-router-dom";
+// import { Link, useNavigate } from "react-router-dom";
 import { animated, useTransition, config } from "react-spring";
 import TrickOrComboDetails from "../components/info/trickInfo/TrickOrComboDetails";
 import useGetTricks from "../api/useGetTricks";
@@ -10,7 +10,7 @@ import { IoIosBody, IoIosWalk } from "react-icons/io";
 function AllTrickDisplay() {
 	const { data: TrickListArr } = useGetTricks();
 	const [filteredTricks, setFilteredTricks] = useState(TrickListArr);
-	const nav = useNavigate();
+	// const nav = useNavigate();
 	useEffect(() => {
 		setFilteredTricks(TrickListArr);
 		console.log(TrickListArr);

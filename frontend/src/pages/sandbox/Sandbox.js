@@ -5,7 +5,7 @@ import { useStore } from "../../store/store.js";
 import React from "react";
 import UI from "./ui/UI";
 import ShowHideToggle from "./ui/ShowHideToggle";
-import { useParams, useSearchParams } from "react-router-dom";
+// import { useParams, useSearchParams } from "react-router-dom";
 import MinimalUI from "./ui/MinimalUI";
 import TrickInfo from "../../components/info/TrickInfo";
 import { useVideoStore } from "./videoOverlay/useVideoStore.js";

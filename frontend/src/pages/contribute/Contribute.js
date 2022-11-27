@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+// import { Outlet } from "react-router-dom";
 import ContributeNavBar from "./components/ContributeNavBar";
 import DonateText from "./components/DonateText.js";
 function Contribute() {

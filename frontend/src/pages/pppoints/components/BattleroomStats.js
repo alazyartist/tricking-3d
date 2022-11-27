@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { FaUsers, FaUsersSlash } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
-import { Link, useParams } from "react-router-dom";
+// import { Link, useParams } from "react-router-dom";
 import { useGetBattleRoombySessionid } from "../../../api/useBattleRoom";
 import { useUserStore } from "../../../store/userStore";
 import { getPointsNormalized, PlayerMap } from "../BattleroomPage";
 import ScoreDisplay from "./ScoreDisplay";
 
 const BattleroomStats = () => {
-	const { sessionID } = useParams();
+	// const { sessionID } = useParams();
 	const userUUID = useUserStore((s) => s.userInfo.uuid);
 	const { data: battleRoomDetails } = useGetBattleRoombySessionid(sessionID);
 	const [teamScores, setTeamScores] = useState({});

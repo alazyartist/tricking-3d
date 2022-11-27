@@ -1,6 +1,6 @@
 // import { Canvas } from "@react-three/fiber";
 import React, { lazy, Suspense } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "next/link";
 import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
 // import AnatomySketch from "../theory/components/AnatomySketchSVG";
 // import DetailCard from "./components/DetailCard";
@@ -25,12 +25,12 @@ const LandingPage = () => {
 					</div>
 				</div>
 				<Link
-					to='/sandbox'
+					href='/sandbox'
 					className='rounded-md bg-indigo-600 p-2 font-bold text-zinc-100'>
 					Sandbox
 				</Link>
 				<Link
-					to='/home'
+					href='/home'
 					className='rounded-md bg-indigo-400 p-2 font-bold text-zinc-100'>
 					Home
 				</Link>

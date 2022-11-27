@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import { ReactComponent as StanceCircle } from "../../data/AdvancedStancesSVG.svg";
 import { ReactComponent as StanceCircleSelector } from "../../data/AdvancedStancesSelector.svg";
-import { useNavigate } from "react-router-dom";
 import { useStore } from "../../store/store";
 import { animated, config, useSpring } from "react-spring";
 import { useComboMakerStore } from "../../store/comboMakerStore";

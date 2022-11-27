@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+// import { Routes, Route, useLocation } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { animated, useTransition } from "react-spring";
@@ -64,7 +64,7 @@ const RequireAuth = lazy(() => import("./auth/RequireAuth"));
 const PersistLogin = lazy(() => import("./auth/PersistLogin"));
 const Axes = lazy(() => import("./pages/theory/axes/Axes"));
 
-const Home = lazy(() => import("./pages/home/Home"));
+const Home = lazy(() => import("./pages/home"));
 const TheoryIndexInstructions = lazy(() =>
 	import("./pages/theory/TheoryIndexInstructions")
 );

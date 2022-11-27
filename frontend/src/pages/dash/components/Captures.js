@@ -1,6 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import useApiCreds from "../../../hooks/useApiCreds";
 import { useUserStore } from "../../../store/userStore";
 import CapturedCard from "./CapturedCard";
@@ -12,7 +11,7 @@ const Captures = () => {
 	const [display, setDisplay] = useState("captures");
 	const userInfo = useUserStore((s) => s.userInfo);
 	const queryClient = useQueryClient();
-	const nav = useNavigate();
+	// const nav = useNavigate();
 	useEffect(() => {
 		console.log(userInfo);
 		setCaptured(userInfo.Captured);

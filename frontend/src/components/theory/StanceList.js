@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { stances } from "../../data/trickDataModel/TrickObjects";
 import { stanceArr } from "../../data/TricklistClass";
 import { useComboMakerStore } from "../../store/comboMakerStore";
@@ -15,7 +14,7 @@ function StanceList({ setCurrentStance, currentStance }) {
 		(e) => e.direction == currentDirection || e.leg == currentLeg
 	);
 	// setCurrentLeg("Left");
-	const nav = useNavigate();
+	// const nav = useNavigate();
 	useEffect(() => {
 		console.log(currentLeg);
 		console.log(currentDirection);

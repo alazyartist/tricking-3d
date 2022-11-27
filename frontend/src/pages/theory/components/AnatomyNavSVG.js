@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import AxesSVG from "./AnatomyNavSVG/AxesSVG";
 import GrabsSVG from "./AnatomyNavSVG/GrabsSVG";
 import KicksSVG from "./AnatomyNavSVG/KicksSVG";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+// import { Link, Outlet } from "react-router-dom";
 import { transArr, transitions } from "../../../data/TricklistClass";
 import { whichLeg } from "../../comboMaker/components/ArrayDisplay";
 function Transitions() {

@@ -1,7 +1,6 @@
 import api from "../api/api";
 import useApiCreds from "./useApiCreds";
 import { useUserStore } from "../store/userStore";
-import { useNavigate } from "react-router-dom";
 
 function useLogout() {
 	const setUser = useUserStore((s) => s.setUser);

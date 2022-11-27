@@ -4,6 +4,7 @@ import "../index.css";
 // import { SessionProvider } from "next-auth/react";
 // import type { Session } from "next-auth";
 import type { AppType } from "next/app";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // import { trpc } from "../utils/trpc";
 
 const MyApp: AppType<{
@@ -15,9 +16,12 @@ const MyApp: AppType<{
 		...pageProps
 	},
 }) => {
+	const queryClient = new QueryClient();
 	return (
 		// <SessionProvider session={session}>
-		<Component {...pageProps} />
+		<QueryClientProvider client={queryClient}>
+			<Component {...pageProps} />
+		</QueryClientProvider>
 		// </SessionProvider>
 	);
 };

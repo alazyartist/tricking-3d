@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { FaGraduationCap } from "react-icons/fa";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+// import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import AnatomySVG from "../../data/AnatomySVG";
 import AnatomyNav from "./components/AnatomyNavSVG";
 import AnatomySketch from "./components/AnatomySketchSVG";

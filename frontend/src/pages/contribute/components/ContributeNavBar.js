@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import Link from "next/link";
 function ContributeNavBar() {
 	const inactive = "p-2 text-center font-inter font-bold text-zinc-200";
 	const active = "p-2 text-center font-inter font-bold text-emerald-400";

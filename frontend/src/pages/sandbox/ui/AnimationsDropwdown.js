@@ -1,7 +1,7 @@
 import React from "react";
 import Dropdown from "../../../components/Dropdown";
 import { useStore } from "../../../store/store";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 function AnimationsDropwdown() {
 	const animationsArray = useStore((s) => s.animationsArray);
 	const selectAnim = useStore((s) => s.selectAnim);

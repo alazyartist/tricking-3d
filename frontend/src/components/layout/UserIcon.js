@@ -1,11 +1,11 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+// import { Link, useLocation } from "react-router-dom";
 import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
 import { useUserStore } from "../../store/userStore";
 
 const UserIcon = () => {
 	const { profilePic, uuid, username } = useUserStore((s) => s.userInfo);
-	const location = useLocation();
+	// const location = useLocation();
 	return (
 		username !== null &&
 		uuid !== undefined && (

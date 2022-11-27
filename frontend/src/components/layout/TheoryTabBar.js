@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+// import { Link, useLocation } from "react-router-dom";
 import { animated, config, useSpring, useTransition } from "react-spring";
 import { ReactComponent as StanceCircleColor } from "../../data/AdvancedStancesSelectorColor.svg";
 import HamburgerMenu from "../../data/icons/HamburgerMenu";

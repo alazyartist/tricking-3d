@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
 function Header() {
 	const [open, setOpen] = useState(true);
-	const location = useLocation();
+	// const location = useLocation();
 	useEffect(() => {
 		if (location.pathname.includes("sandbox")) {
 			setOpen(false);

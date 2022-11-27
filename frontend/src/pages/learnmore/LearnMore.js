@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import DonateText from "../contribute/components/DonateText.js";
 import MachineLearning from "./components/MachineLearning.js";
 import WhatDoesItInclude from "./components/WhatDoesItInclude.js";
 import WhyBuildThis from "./components/WhyBuildThis.js";
 
 function LearnMore() {
-	const nav = useNavigate();
+	// const nav = useNavigate();
 	const [open, setOpen] = useState(false);
 	const [id, setId] = useState();
 

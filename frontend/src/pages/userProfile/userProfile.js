@@ -1,6 +1,6 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { MdOutlineClose } from "../../data/icons/MdIcons";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import { useTransition, animated } from "react-spring";
 import useUserInfoByUUID from "../../api/useUserInfoById";
 import { useUserStore } from "../../store/userStore";

@@ -2,7 +2,7 @@ import { Canvas } from "@react-three/fiber";
 import React, { Suspense, useState, lazy } from "react";
 import Loader from "../components/loaders/Loader";
 import { transArr } from "../data/TricklistClass";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { animated, config, useTransition } from "react-spring";
 const TrickListScene = lazy(() => import("../scenes/TrickListScene"));
 export default function TransitionList() {

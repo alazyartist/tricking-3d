@@ -13,7 +13,7 @@ import Loader from "../components/loaders/Loader";
 import ModelLoader from "../components/loaders/ModelLoader";
 import LoadActiveModel from "../components/media/ModelSelector";
 import SceneBackground from "./SceneBackground";
-import { Outlet } from "react-router-dom";
+// import { Outlet } from "react-router-dom";
 // import Model from "../animations/KerwoodCC3Tpose";
 export function HomeScene(props) {
 	const light = useRef();
