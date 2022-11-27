@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import UserCard from "./components/UserCard";
+import UserCard from "./components/UserCard.tsx";
 import useLogout from "../../hooks/useLogout";
 import { useUserStore } from "../../store/userStore";
 import ProfileCode from "./components/ProfileCode";

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useApiCreds from "../../../hooks/useApiCreds";
 import { useUserStore } from "../../../store/userStore";
 import CapturedCard from "./CapturedCard";
-import UserCard from "./UserCard";
+import UserCard from "./UserCard.tsx";
 
 const Captures = () => {
 	const [captured, setCaptured] = useState();

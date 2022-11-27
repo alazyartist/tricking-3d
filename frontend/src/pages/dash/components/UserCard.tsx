@@ -3,7 +3,13 @@ import { animated, useTransition } from "react-spring";
 import { useUserStore } from "../../../store/userStore";
 import UpdateUserInfoForm from "../../../components/info/UpdateUserInfoForm";
 import UpdateProfilePic from "../../../components/info/UpdateProfilePic";
-function UserCard(props) {
+
+interface Props {
+	src: string;
+	edit: Boolean;
+}
+
+const UserCard: React.FC<Props> = (props) => {
 	const userInfo = useUserStore((s) => s.userInfo);
 	const [editingPhoto, setEditingPhoto] = useState(false);
 	const [editing, setEditing] = useState(false);
@@ -58,6 +64,6 @@ function UserCard(props) {
 			)}
 		</>
 	);
-}
+};
 
 export default UserCard;

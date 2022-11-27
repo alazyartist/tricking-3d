@@ -1,21 +1,23 @@
 import React, { useState } from "react";
 import { useChangeProfilePic } from "../../api/useUserInfo";
 import { useUserStore } from "../../store/userStore";
-const UpdateProfilePic = () => {
-	const [file, setFile] = useState();
+const UpdateProfilePic: React.FC = () => {
+	const [file, setFile] = useState<File>();
 	const { uuid } = useUserStore((s) => s.userInfo);
-	const [filename, setFilename] = useState("Change Profile Pic");
+	const [filename, setFilename] = useState<string | undefined>(
+		"Change Profile Pic"
+	);
 	const { mutate: changePic } = useChangeProfilePic();
-	const onSubmit = async (e) => {
+	const onSubmit = async (e: React.SyntheticEvent) => {
 		e.preventDefault();
 		const formData = new FormData();
-		formData.append("file", file);
-		formData.append("uuid", uuid);
+		formData.append("file", file as File);
+		formData.append("uuid", uuid as string);
 		changePic(formData);
 	};
-	const onChange = (e) => {
-		setFile(e.target.files[0]);
-		setFilename(e.target.files[0].name);
+	const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+		setFile(e?.target?.files?.[0]);
+		setFilename(e?.target?.files?.[0]?.name);
 	};
 
 	return (

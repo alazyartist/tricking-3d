@@ -1,10 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import useUserInfo, { useUpdateUserInfo } from "../../api/useUserInfo.js";
-const UpdateUserInfoForm = ({ setEditing }) => {
+export interface UserData {
+	username: undefined | string;
+	first_name: undefined | string;
+	last_name: undefined | string;
+	email: undefined | string;
+	password: null | undefined | string;
+	confirmPassword?: undefined | string;
+}
+const UpdateUserInfoForm = (setEditing: any) => {
 	const [success, setSuccess] = useState(false);
 	const [validPassword, setValidPassword] = useState(false);
-	const [isVisible, setIsVisible] = useState();
-	const [userData, setUserData] = useState({
+	const [isVisible, setIsVisible] = useState<Boolean>();
+	const [userData, setUserData] = useState<UserData>({
 		username: undefined,
 		first_name: undefined,
 		last_name: undefined,
@@ -21,7 +29,7 @@ const UpdateUserInfoForm = ({ setEditing }) => {
 	});
 	const { data, isFetching, status, error } = useUserInfo();
 	const { mutate: updateUserInfo } = useUpdateUserInfo();
-	const handleUpdate = async (e) => {
+	const handleUpdate = async (e: FormEvent) => {
 		e.preventDefault();
 		try {
 			updateUserInfo(userData);

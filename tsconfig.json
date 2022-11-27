@@ -1,5 +1,12 @@
 {
-	"include": ["**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs"],
+	"include": [
+		"**/*.ts",
+		"**/*.tsx",
+		"**/*.cjs",
+		"**/*.mjs",
+		"frontend/src/store/userStore.js",
+		"frontend/src/store/userStore.js"
+	],
 	"exclude": ["node_modules", "backend/**"],
 	"compilerOptions": {
 		/* Visit https://aka.ms/tsconfig to read more about this file */
