@@ -3,20 +3,20 @@ import Link from "next/link";
 import { FaClipboardList, FaQrcode } from "react-icons/fa";
 import { BsClipboardCheck } from "react-icons/bs";
 import { useUserStore } from "../../store/userStore";
-// import { ReactComponent as ComboMakerBlueprint } from "../../data/ComboMakerBlueprint.svg";
 import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
-import TricklistPage from "../tricklist/TricklistPage";
+// import TricklistPage from "../tricklist/TricklistPage";
 import ProfileCode from "../dash/components/ProfileCode";
-import ComboMakerV2 from "../comboMakerV2/ComboMakerV2";
+// import ComboMakerV2 from "../comboMakerV2/ComboMakerV2";
 import useUserInfo from "../../api/useUserInfo";
 import { IoIosArrowBack } from "react-icons/io";
 import PublicHomePage from "./components/PublicHomePage";
-import ClaimTricks from "../claimtricks/ClaimTricks";
+import ClaimTricks from "../../old_pages/claimtricks/ClaimTricks";
 // import Feed from "./components/Feed";
 import { useSpring, animated } from "react-spring";
 import BiCube from "../../data/icons/BiCube";
 import BackgroundCircles from "../../admin/components/BackgroundCircles";
 import { Head } from "next/head";
+import ComboMakerBlueprintsvg from "../../data/ComboMakerBlueprintsvg";
 // const EnterSandboxLink = lazy(() => import("./components/EnterSandboxLink"));
 function Home() {
   const user = useUserStore((s) => s.userInfo?.username);
@@ -206,10 +206,10 @@ function Home() {
                           href="/comboMaker"
                           className="neumorphic  active:neumorphicIn min-h-36 flex h-full w-full flex-col place-content-center place-items-center rounded-lg bg-zinc-800 p-4 text-4xl"
                         >
-                          {/* <ComboMakerBlueprint
+                          <ComboMakerBlueprintsvg
                             className="h-24"
                             fill={"#d4d4d8"}
-                          /> */}
+                          />
                           <div className="mt-[-18px] text-lg font-bold">
                             ComboMaker
                           </div>

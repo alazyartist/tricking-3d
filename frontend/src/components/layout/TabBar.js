@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
-// import { ReactComponent as ComboMakerBlueprint } from "../../data/ComboMakerBlueprint.svg";
+import ComboMakerBlueprintsvg from "../../data/ComboMakerBlueprintsvg";
 import { animated, useSpring, useTransition } from "react-spring";
 import useLogout from "../../hooks/useLogout";
 import { useUserStore } from "../../store/userStore";
@@ -63,7 +63,7 @@ function TabBar() {
               <HomeIcon />
             </Link>
             <Link onClick={() => setOpenHamburger(false)} href="/comboMaker">
-              {/* <ComboMakerBlueprint className="h-10 w-10" fill="#ffffff" /> */}
+              <ComboMakerBlueprintsvg className="h-10 w-10" fill="#ffffff" />
             </Link>
             <Link onClick={() => setOpenHamburger(false)} href="/sandbox">
               <BiCube />
