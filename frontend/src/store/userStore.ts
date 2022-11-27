@@ -1,3 +1,4 @@
+`use client`;
 import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
 interface UserInfo {
@@ -24,7 +25,10 @@ export const useUserStore = create<UserStore>(
 				user: null,
 				userInfo: { profilePic: "noimg.jpeg", uuid: null },
 				accessToken: null,
-				persist: JSON.parse(localStorage.getItem("persist") || "false"),
+				persist: JSON.parse(
+					(typeof window !== "undefined" && localStorage.getItem("persist")) ||
+						"false"
+				),
 				setUserInfo: (value) =>
 					set(() => ({ userInfo: value ?? { profilePic: "noimg.jpeg" } })),
 				setUser: (value) => set(() => ({ user: value })),

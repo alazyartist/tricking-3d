@@ -3,7 +3,7 @@ import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 import { useStore } from "../../../store/store.js";
 import { useDeleteTricklist, useDeleteCombo } from "../../../api/useTricklists";
-import { useUserStore } from "../../../store/userStore.js";
+import { useUserStore } from "../../../store/userStore";
 import Claimed from "./Claimed.js";
 
 const TrickList_Component = ({ data, open, date, last, fn, drag_offset }) => {

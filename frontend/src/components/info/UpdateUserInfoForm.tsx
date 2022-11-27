@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import useUserInfo, { useUpdateUserInfo } from "../../api/useUserInfo.js";
+import useUserInfo, { useUpdateUserInfo } from "../../api/useUserInfo";
 export interface UserData {
 	username: undefined | string;
 	first_name: undefined | string;

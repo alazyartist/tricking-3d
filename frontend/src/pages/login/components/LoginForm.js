@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useLogin } from "../../../api/useLogin.js";
-import useLocalStorage from "../../../hooks/useLocalStorage.js";
-import { useUserStore } from "../../../store/userStore.js";
+import { useLogin } from "../../../api/useLogin";
+import useLocalStorage from "../../../hooks/useLocalStorage";
+import { useUserStore } from "../../../store/userStore";
 function LoginForm() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");

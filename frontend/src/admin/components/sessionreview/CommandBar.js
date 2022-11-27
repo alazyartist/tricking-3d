@@ -9,7 +9,7 @@ import React, {
 import { autocomplete } from "@algolia/autocomplete-js";
 import { createRoot } from "react-dom/client";
 import "@algolia/autocomplete-theme-classic";
-import "../../../autocomplete.css";
+// import "../../../autocomplete.css";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
 import useGetTricks from "../../../api/useGetTricks";
 import { tagsPlugin } from "./CommandTagPlugin";

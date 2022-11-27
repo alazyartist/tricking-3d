@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../../../api/api.js";
-import useRegister from "../../../api/useRegister.js";
+import api from "../../../api/api";
+import useRegister from "../../../api/useRegister";
 function RegisterForm() {
 	const [validPassword, setValidPassword] = useState(false);
 	const [isVisible, setIsVisible] = useState();

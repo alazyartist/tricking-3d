@@ -21,7 +21,7 @@ function Home() {
 	const user = useUserStore((s) => s.userInfo?.username);
 	const { uuid } = useUserStore((s) => s.userInfo);
 	const accessToken = useUserStore((s) => s.accessToken);
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 	useUserInfo();
 
 	const [openCaptures, setOpenCaptures] = useState(false);

@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
-
 @tailwind utilities;
+
 @layer components {
 	.neumorphicIn {
 		border-radius: 24px;
