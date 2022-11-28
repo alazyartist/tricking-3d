@@ -25,6 +25,7 @@ const PublicHomePage = () => {
 						Under Construction
 					</div> */}
           <Image
+            alt="comboMaker"
             src={"/../../../data/ComboMakerBlueprint.svg"}
             width={240}
             height={240}

@@ -35,7 +35,7 @@ const { actions, names, mixer } = useAnimations(animations, group);
 
 #### Store Logic
 
-Using Zustand for our store in store.js. We can bring in anything we need to update our model.
+Using Zustand for our store in store.ts. We can bring in anything we need to update our model.
 
 ```js
 import { useStore } from "../store/store";
@@ -72,22 +72,22 @@ We return the model in a group with the ref={group} applied in the return of the
 
 ```js
 export function Frank({ ...props }) {
-	//Store Logic goes here
-	//Animation logic goes here
+  //Store Logic goes here
+  //Animation logic goes here
 
-	return (
-		<group ref={group} {...props} dispose={null}>
-			<group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
-				<primitive object={nodes.mixamorig1Hips} />
-				<skinnedMesh
-					frustumCulled={false}
-					geometry={nodes.Skin.geometry}
-					material={materials.Ch36_Body}
-					skeleton={nodes.Skin.skeleton}
-				/>
-			</group>
-		</group>
-	);
+  return (
+    <group ref={group} {...props} dispose={null}>
+      <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
+        <primitive object={nodes.mixamorig1Hips} />
+        <skinnedMesh
+          frustumCulled={false}
+          geometry={nodes.Skin.geometry}
+          material={materials.Ch36_Body}
+          skeleton={nodes.Skin.skeleton}
+        />
+      </group>
+    </group>
+  );
 }
 ```
 
@@ -95,29 +95,29 @@ This component `<Frank />` can then be loaded into our scene which contains our 
 
 ```js
 function TorqueScene(props) {
-	return (
-		<PerspectiveCamera makeDefualt position={[0, -2, 0]}>
-			{/*Model*/}
-			<Frank />
-			{/*Lights*/}
-			<ambientLight intensity={0.1} />
-			<spotLight
-				ref={light2}
-				color={"#FF0000"}
-				intensity={3}
-				position={[0, 2, 5]}
-			/>
-			<spotLight
-				ref={light}
-				color={"cyan"}
-				intensity={3}
-				position={[0, 2, -5]}
-			/>
-			{/*HDR Environment Preset (affects lighting)*/}
-			<Environment preset='park' />
-			{/*Camera Controller*/}
-			<OrbitControls />
-		</PerspectiveCamera>
-	);
+  return (
+    <PerspectiveCamera makeDefualt position={[0, -2, 0]}>
+      {/*Model*/}
+      <Frank />
+      {/*Lights*/}
+      <ambientLight intensity={0.1} />
+      <spotLight
+        ref={light2}
+        color={"#FF0000"}
+        intensity={3}
+        position={[0, 2, 5]}
+      />
+      <spotLight
+        ref={light}
+        color={"cyan"}
+        intensity={3}
+        position={[0, 2, -5]}
+      />
+      {/*HDR Environment Preset (affects lighting)*/}
+      <Environment preset="park" />
+      {/*Camera Controller*/}
+      <OrbitControls />
+    </PerspectiveCamera>
+  );
 }
 ```

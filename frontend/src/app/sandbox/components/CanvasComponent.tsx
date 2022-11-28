@@ -1,10 +1,13 @@
 import React from "react";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
-import Loader from "../../components/loaders/Loader";
+import Loader from "../../../components/loaders/Loader";
 import { AiFillDownCircle } from "react-icons/ai";
 // import { Outlet } from "react-router-dom";
-const CanvasComponent: React.FC = () => {
+interface CanvasProps {
+  children: any;
+}
+const CanvasComponent: React.FC<CanvasProps> = ({ children }) => {
   // const min = 54;
   // let initialWidth = 0,
   // 	initialHeight = 0,
@@ -92,7 +95,7 @@ const CanvasComponent: React.FC = () => {
           id="Resizeable"
           className="sticky top-0 z-[2] min-h-[40] min-w-full max-w-full md:min-h-screen md:min-w-[500px]"
         >
-          <Suspense fallback={<Loader />}>{/* <Outlet /> */}</Suspense>
+          <Suspense fallback={<Loader />}>{children}</Suspense>
         </Canvas>
 
         <div

@@ -1,18 +1,19 @@
-import CanvasComponent from "../../pages/sandbox/components/CanvasComponent";
+"use client";
+import CanvasComponent from "./components/CanvasComponent";
 import { useEffect, useMemo } from "react";
 import { useStore } from "../../store/store";
-
 import React from "react";
-import UI from "./ui/UI";
+import UI from "./components/ui/UI";
 import ShowHideToggle from "./ui/ShowHideToggle";
 // import { useParams, useSearchParams } from "react-router-dom";
-import MinimalUI from "./ui/MinimalUI";
-import TrickInfo from "../../components/info/TrickInfo";
-import { useVideoStore } from "./videoOverlay/useVideoStore.js";
-import useVideoControls from "./videoOverlay/useVideoControls.js";
-
-export default function Sandbox() {
-  // const { model, trick } = useParams();
+import MinimalUI from "../components/ui/MinimalUI";
+import TrickInfo from "../../info/TrickInfo";
+import { useVideoStore } from "../components/videoOverlay/useVideoStore.js";
+import useVideoControls from "../components/videoOverlay/useVideoControls.js";
+import { useRouter } from "next/navigation";
+const Page = () => {
+  const router = useRouter();
+  const { model, trick } = router.query;
   const showUI = useStore((s) => s.showUI);
   const showInfo = useStore((s) => s.showInfo);
   // const setModel = useStore((s) => s.setModel);
@@ -102,4 +103,5 @@ export default function Sandbox() {
       </div>
     </>
   );
-}
+};
+export default Page;

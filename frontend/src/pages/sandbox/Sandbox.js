@@ -3,10 +3,10 @@ import { useEffect, useMemo } from "react";
 import { useStore } from "../../store/store.js";
 
 import React from "react";
-import UI from "./ui/UI";
-import ShowHideToggle from "./ui/ShowHideToggle";
+import UI from "../../app/sandbox/ui/UI";
+import ShowHideToggle from "../../app/sandbox/ui/ShowHideToggle";
 // import { useParams, useSearchParams } from "react-router-dom";
-import MinimalUI from "./ui/MinimalUI";
+import MinimalUI from "../../app/sandbox/ui/MinimalUI";
 import TrickInfo from "../../components/info/TrickInfo";
 import { useVideoStore } from "./videoOverlay/useVideoStore.js";
 import useVideoControls from "./videoOverlay/useVideoControls.js";
