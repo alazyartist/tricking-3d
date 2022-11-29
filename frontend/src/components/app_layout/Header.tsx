@@ -11,7 +11,7 @@ function Header() {
     } else {
       setOpen(true);
     }
-  }, [location]);
+  }, [pathname]);
 
   return (
     open && (

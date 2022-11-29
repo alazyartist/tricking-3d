@@ -6,7 +6,6 @@ import { useUserStore } from "../../store/userStore";
 
 const UserIcon = () => {
   const router = useRouter();
-  if (typeof window === "undefined") return;
   const { profilePic, uuid, username } = useUserStore((s) => s.userInfo);
   // const location = useLocation();
   return (
