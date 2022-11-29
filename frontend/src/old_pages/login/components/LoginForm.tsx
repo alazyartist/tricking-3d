@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 // import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useLogin } from "../../../api/useLogin";
+import { ReturnData, useLogin } from "../../../api/useLogin";
 import useLocalStorage from "../../../hooks/useLocalStorage";
 import { useUserStore } from "../../../store/userStore";
 import { useRouter } from "next/navigation";
@@ -10,8 +10,8 @@ function LoginForm() {
   if (typeof window === "undefined") return null;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isVisible, setIsVisible] = useState();
-  const [data, setData] = useState();
+  const [isVisible, setIsVisible] = useState<Boolean>();
+  const [data, setData] = useState<ReturnData>();
   const [loginError, setLoginError] = useState<string>();
   const accessTokenStore = useUserStore((s) => s.accessToken);
   const user = useUserStore((s) => s.user);
@@ -20,7 +20,7 @@ function LoginForm() {
 
   const from = "/home";
   const { mutateAsync: login, data: response, error } = useLogin();
-  const handleSubmit = async (e: SubmitEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await login({
@@ -89,7 +89,7 @@ function LoginForm() {
           </button>
           <Link
             className="place-self-end text-base text-zinc-300"
-            to="/register"
+            href="/register"
           >
             Register
           </Link>
