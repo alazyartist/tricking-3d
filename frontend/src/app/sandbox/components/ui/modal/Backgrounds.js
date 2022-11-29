@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
 import { useStore } from "@store/store";
 import useCreateVersions from "./useCreateVersions";
 
@@ -7,9 +6,7 @@ const Backgrounds = () => {
   const setBackground = useStore((s) => s.setBackground);
   const backgroundArray = useStore((s) => s.backgroundArray);
 
-  const navigate = useNavigate();
   const animSet = useCreateVersions();
-
   return (
     <div
       className="no-scrollbar flex-col items-center justify-center overflow-y-auto 

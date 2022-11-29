@@ -1,19 +1,20 @@
 "use client";
-import CanvasComponent from "./components/CanvasComponent";
+import { Canvas } from "@react-three/fiber";
 import { useEffect, useMemo } from "react";
-import { useStore } from "../../store/store";
+import { useStore } from "@store/store";
 import React from "react";
-import UI from "./components/ui/UI";
-import ShowHideToggle from "./ui/ShowHideToggle";
+import UI from "../../components/ui/UI";
+import ShowHideToggle from "../../components/ui/ShowHideToggle";
 // import { useParams, useSearchParams } from "react-router-dom";
-import MinimalUI from "../components/ui/MinimalUI";
-import TrickInfo from "../../info/TrickInfo";
-import { useVideoStore } from "../components/videoOverlay/useVideoStore.js";
-import useVideoControls from "../components/videoOverlay/useVideoControls.js";
+import MinimalUI from "../../components/ui/MinimalUI";
+import TrickInfo from "@components/info/TrickInfo";
+import { useVideoStore } from "../../components/videoOverlay/useVideoStore.js";
+import useVideoControls from "../../components/videoOverlay/useVideoControls.js";
 import { useRouter } from "next/navigation";
-const Page = () => {
+import TorqueScene from "../../../../scenes/TorqueScene";
+const Page = ({ params }) => {
   const router = useRouter();
-  const { model, trick } = router.query;
+  const { model, trick } = params;
   const showUI = useStore((s) => s.showUI);
   const showInfo = useStore((s) => s.showInfo);
   // const setModel = useStore((s) => s.setModel);
@@ -96,9 +97,12 @@ const Page = () => {
         <div
           style={{ opacity: canvasOpacity }}
           id="full-screen-canvas"
-          className="absolute top-0  order-1 h-[screen] min-h-min w-full min-w-full max-w-full justify-around overflow-hidden  md:relative md:order-2 md:min-h-screen md:min-w-fit "
+          className="absolute top-0 h-full w-full "
         >
-          <CanvasComponent />
+          <Canvas className="h-100vh w-100vw">
+            <TorqueScene model={model} trick={trick} />
+          </Canvas>
+          {/* <CanvasComponent /> */}
         </div>
       </div>
     </>

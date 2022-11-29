@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Html } from "@react-three/drei";
 const Page: React.FC<{ children: React.ReactNode }> = ({ children }) => {

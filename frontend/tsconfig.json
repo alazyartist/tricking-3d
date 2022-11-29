@@ -24,6 +24,8 @@
     "paths": {
       "@store/*": ["store/*"],
       "@components/*": ["components/*"],
+      "@admin/*": ["admin/*"],
+      "@old_pages/*": ["old_pages/*"],
       "@data/*": ["data/*"]
     }
   },

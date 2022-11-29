@@ -16,6 +16,15 @@ function defineNextConfig(config) {
 
 export default defineNextConfig({
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: "/sandbox",
+        destination: "/sandbox/Frank/touchdown-Raiz",
+        permanent: true,
+      },
+    ];
+  },
   experimental: {
     appDir: true,
   },

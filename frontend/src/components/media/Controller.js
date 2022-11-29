@@ -1,5 +1,5 @@
 import React from "react";
-import { useStore } from "../../store/store";
+import { useStore } from "@store/store";
 import { AiOutlineColumnWidth } from "react-icons/ai";
 import { FaPlay, FaPause, FaStepBackward, FaStepForward } from "react-icons/fa";
 import {
@@ -7,9 +7,9 @@ import {
   MdLoop,
   MdCenterFocusWeak,
   MdCenterFocusStrong,
-} from "../../data/icons/MdIcons";
+} from "@data/icons/MdIcons";
 import { MediaButton } from "./MediaButton";
-import DragableWrapper from "../../app/sandbox/ui/DraggableSlowMo";
+import DragableWrapper from "../../app/sandbox/components/ui/DraggableSlowMo";
 
 function Controller() {
   const setIsPaused = useStore((state) => state.setIsPaused);
