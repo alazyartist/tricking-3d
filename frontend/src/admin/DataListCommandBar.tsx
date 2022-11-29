@@ -29,8 +29,7 @@ const DataListCommandBar = () => {
     </div>
   );
 };
-
-const getQueryPattern = (query, flags = "i") => {
+const getQueryPattern = (query: string, flags = "i") => {
   const pattern = new RegExp(
     `(${query
       .trim()
@@ -42,7 +41,7 @@ const getQueryPattern = (query, flags = "i") => {
   );
   return pattern;
 };
-const Autocomplete = (props) => {
+const Autocomplete = (props: any) => {
   let tricks = props.tricks;
   const trickMakerOpen = useSessionSummariesStore((s) => s.trickMakerOpen);
   const setTrickMakerOpen = useSessionSummariesStore(
@@ -65,177 +64,176 @@ const Autocomplete = (props) => {
       return undefined;
     }
 
-    const search = autocomplete(
-      {
-        detachedMediaQuery: "none",
-        // detachedMediaQuery: "",
-        container: commandBarRef.current,
-        // plugins: [tagsPlugin],/
-        renderer: { createElement, Fragment, render: () => {} },
-        render({ children }, root) {
-          if (!panelRootRef.current || rootRef.current !== root) {
-            rootRef.current = root;
+    const search = autocomplete({
+      detachedMediaQuery: "none",
+      // detachedMediaQuery: "",
+      container: commandBarRef.current,
+      // plugins: [tagsPlugin],/
+      renderer: { createElement, Fragment, render: () => {} },
+      render({ children }, root) {
+        if (!panelRootRef.current || rootRef.current !== root) {
+          rootRef.current = root;
 
-            panelRootRef.current?.unmount();
-            panelRootRef.current = createRoot(root);
-          }
-          panelRootRef.current.render(children);
-        },
-        getSources: ({ query }) => {
-          if (trickMakerOpen) {
-            return [
-              {
-                sourceId: "actions",
-                templates: {
-                  item({ item }) {
-                    return (
-                      <p>
-                        {item?.label} {item.placeholder}
-                      </p>
-                    );
-                  },
-                },
-                onSelect(params) {
-                  const { item, setQuery } = params;
-                  item.onSelect(params);
-                  setQuery("");
-                },
-                getItems() {
-                  const pattern = getQueryPattern(query);
-
-                  return [
-                    {
-                      label: "/exit",
-                      placeholder: " close trickMaker",
-                      onSelect: (params) => {
-                        setTrickMakerOpen(false);
-                      },
-                    },
-                    {
-                      label: "/save",
-                      placeholder: " save trick",
-                      onSelect: (params) => {
-                        //call api here
-                      },
-                    },
-                  ].filter((t) => pattern.test(t.label));
+          panelRootRef.current?.unmount();
+          panelRootRef.current = createRoot(root);
+        }
+        panelRootRef.current.render(children);
+      },
+      getSources: ({ query }) => {
+        if (trickMakerOpen) {
+          return [
+            {
+              sourceId: "actions",
+              templates: {
+                item({ item }: any) {
+                  return (
+                    <div>
+                      <span>{item?.label}</span>
+                      <span>{item.placeholder}</span>
+                    </div>
+                  );
                 },
               },
-            ];
-          } else
-            return [
-              {
-                sourceId: "actions",
-                templates: {
-                  item({ item }) {
-                    return (
-                      <p>
-                        {item?.label} {item.placeholder}
-                      </p>
-                    );
-                  },
-                },
-                onSelect(params) {
-                  const { item, setQuery } = params;
-                  item.onSelect(params);
-                  setQuery("");
-                },
-                getItems() {
-                  const pattern = getQueryPattern(query);
+              onSelect(params: any) {
+                const { item, setQuery } = params;
+                item.onSelect(params);
+                setQuery("");
+              },
+              getItems() {
+                const pattern = getQueryPattern(query);
 
-                  return [
-                    {
-                      label: "/m",
-                      placeholder: " open trickMaker",
-                      onSelect: (params) => {
-                        setTrickMakerOpen(true);
-                      },
+                return [
+                  {
+                    label: "/exit",
+                    placeholder: " close trickMaker",
+                    onSelect: (params) => {
+                      setTrickMakerOpen(false);
                     },
-                  ].filter((t) => pattern.test(t.label));
+                  },
+                  {
+                    label: "/save",
+                    placeholder: " save trick",
+                    onSelect: (params) => {
+                      //call api here
+                    },
+                  },
+                ].filter((t) => pattern.test(t.label));
+              },
+            },
+          ];
+        } else
+          return [
+            {
+              sourceId: "actions",
+              templates: {
+                item({ item }: any) {
+                  return (
+                    <div>
+                      <span>{item?.label}</span>
+                      <span>{item.placeholder}</span>
+                    </div>
+                  );
                 },
               },
-              {
-                sourceId: "Tricks",
-                templates: {
-                  header() {
-                    return <p>Tricks</p>;
+              onSelect(params: any) {
+                const { item, setQuery } = params;
+                item.onSelect(params);
+                setQuery("");
+              },
+              getItems() {
+                const pattern = getQueryPattern(query);
+
+                return [
+                  {
+                    label: "/m",
+                    placeholder: " open trickMaker",
+                    onSelect: (params) => {
+                      setTrickMakerOpen(true);
+                    },
                   },
-                  item({ item }) {
-                    if (item.type === "Transition") {
-                      return (
-                        <span className="flex justify-between">
-                          <p>{item.name}</p>
-                          <span className="flex gap-2">
-                            <p>{item.pointValue}</p>
-                            <p className="text-2xs">{item.fromLeg}</p>
-                            <p className="text-2xs">{item.toLeg}</p>
-                          </span>
-                        </span>
-                      );
-                    }
+                ].filter((t) => pattern.test(t.label));
+              },
+            },
+            {
+              sourceId: "Tricks",
+              templates: {
+                header() {
+                  return <p>Tricks</p>;
+                },
+                item({ item }: any) {
+                  if (item.type === "Transition") {
                     return (
                       <span className="flex justify-between">
                         <p>{item.name}</p>
                         <span className="flex gap-2">
                           <p>{item.pointValue}</p>
-                          <p>{item.type}</p>
+                          <p className="text-2xs">{item.fromLeg}</p>
+                          <p className="text-2xs">{item.toLeg}</p>
                         </span>
                       </span>
                     );
-                  },
-                },
-                getItems: async () => {
-                  const pattern = getQueryPattern(query);
-                  await tricks;
-                  if (!tricks) return [];
-                  if (query.length > 0) {
-                    return tricks
-                      ?.filter((t) => pattern.test(t.name))
-                      ?.sort((a, b) => {
-                        if (a.name.length < b.name.length) return -1;
-                        if (a.name.length > b.name.length) return 1;
-                        if (a.name > b.name) return 1;
-                        if (a.name < b.name) return -1;
-                        //check your filters
-                        //then check the length
-
-                        return 0;
-                      });
-                  } else
-                    return tricks
-                      ?.filter((t) => pattern.test(t.name))
-                      ?.sort((a, b) => {
-                        if (a.name > b.name) return 1;
-                        if (a.name < b.name) return -1;
-                        if (a.name.length < b.name.length) return -1;
-                        if (a.name.length > b.name.length) return 1;
-                        //check your filters
-                        //then check the length
-
-                        return 0;
-                      });
-                },
-                onSelect(params) {
-                  const { item, setQuery } = params;
-                  console.log(item);
-                  setTrickMakerOpen(true);
-                  setName(item.name);
-                  setBase_id(item.base_id);
-                  let Varray = item.Variations.map((v) => v.Variation);
-
-                  setVariationsArr(Varray);
-                  setTakeoffStance(item.takeoffStance);
-                  setLandingStance(item.landingStance);
-                  // item.onSelect(params);
-                  setQuery("");
+                  }
+                  return (
+                    <span className="flex justify-between">
+                      <p>{item.name}</p>
+                      <span className="flex gap-2">
+                        <p>{item.pointValue}</p>
+                        <p>{item.type}</p>
+                      </span>
+                    </span>
+                  );
                 },
               },
-            ];
-        },
-        ...props,
+              getItems: async () => {
+                const pattern = getQueryPattern(query);
+                await tricks;
+                if (!tricks) return [];
+                if (query.length > 0) {
+                  return tricks
+                    ?.filter((t) => pattern.test(t.name))
+                    ?.sort((a, b) => {
+                      if (a.name.length < b.name.length) return -1;
+                      if (a.name.length > b.name.length) return 1;
+                      if (a.name > b.name) return 1;
+                      if (a.name < b.name) return -1;
+                      //check your filters
+                      //then check the length
+
+                      return 0;
+                    });
+                } else
+                  return tricks
+                    ?.filter((t) => pattern.test(t.name))
+                    ?.sort((a, b) => {
+                      if (a.name > b.name) return 1;
+                      if (a.name < b.name) return -1;
+                      if (a.name.length < b.name.length) return -1;
+                      if (a.name.length > b.name.length) return 1;
+                      //check your filters
+                      //then check the length
+
+                      return 0;
+                    });
+              },
+              onSelect(params: any) {
+                const { item, setQuery } = params;
+                console.log(item);
+                setTrickMakerOpen(true);
+                setName(item.name);
+                setBase_id(item.base_id);
+                let Varray = item.Variations.map((v) => v.Variation);
+
+                setVariationsArr(Varray);
+                setTakeoffStance(item.takeoffStance);
+                setLandingStance(item.landingStance);
+                // item.onSelect(params);
+                setQuery("");
+              },
+            },
+          ];
       },
-      []
-    );
+      ...props,
+    });
 
     return () => {
       search.destroy();
