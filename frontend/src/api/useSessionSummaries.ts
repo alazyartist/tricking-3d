@@ -24,8 +24,8 @@ export const useSubmitSessionForReview = () => {
 interface SessionDataType {
   sessionData?: any[];
   data?: any | any[];
-  status?: String;
-  sessionid?: String;
+  status?: string;
+  sessionid?: string;
 }
 export const useSaveSessionDetails = () => {
   const apiPrivate = useApiCreds();
@@ -52,7 +52,7 @@ export const useChangeSessionStatus = () => {
   const sessionid = useSessionSummariesStore((s) => s.sessionid);
   return useMutation(
     ["changeseSessionStatus"],
-    async (status: String) => {
+    async (status: string) => {
       return apiPrivate.put(`/sessionsummaries/${sessionid}`, {
         status,
         sessionid,

@@ -1,7 +1,7 @@
 "use client";
 import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
-interface UserInfo {
+export interface UserInfo {
   profilePic: string;
   uuid?: string | null | Blob;
   first_name?: string;

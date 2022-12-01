@@ -19,9 +19,9 @@ const ably = useAblyStore.getState().ably;
 export const getPointsNormalized = (team1Points, team2Points) => {
   let totalPoints = team1Points + team2Points;
   let team1PointsNormalized =
-    (team1Points / totalPoints).toPrecision(2) * 100 || 0;
+    parseFloat((team1Points / totalPoints).toPrecision(2)) * 100 || 0;
   let team2PointsNormalized =
-    (team2Points / totalPoints).toPrecision(2) * 100 || 0;
+    parseFloat((team2Points / totalPoints).toPrecision(2)) * 100 || 0;
   console.log("Total", totalPoints);
   console.log("1", team1PointsNormalized);
   console.log("2", team2PointsNormalized);
@@ -51,9 +51,11 @@ const BattleroomPage = () => {
   let isHost = host === userUUID;
   let isJudge = judges.some((j) => j.uuid === userUUID);
   const { data: roomSetup } = useGetBattleRoombySessionid(sessionid);
-  const { mutate: closeRoom } = useBattleRoomClose(sessionid);
-  const { mutate: updateRoomStats } = useBattleRoomUpdate(sessionid);
-  const { mutate: updateRoomScore } = useBattleRoomUpdateScore(sessionid);
+  const { mutate: closeRoom } = useBattleRoomClose(sessionid as string);
+  const { mutate: updateRoomStats } = useBattleRoomUpdate(sessionid as string);
+  const { mutate: updateRoomScore } = useBattleRoomUpdateScore(
+    sessionid as string
+  );
   useEffect(() => {
     console.log(roomSetup);
     Array.isArray(roomSetup?.judges) && setJudges([...roomSetup?.judges]);
@@ -310,6 +312,7 @@ const BattleroomPage = () => {
       if (team === "Team1") {
         setTeam1points((prevPoints) => prevPoints + 1);
         api1.start({
+          //@ts-ignore
           from: { scale: 1.6, borderColor: "#f05033", borderWidth: "4px" },
           to: { scale: 1, borderWidth: "0px" },
         });
@@ -317,6 +320,7 @@ const BattleroomPage = () => {
       if (team === "Team2") {
         setTeam2points((prevPoints) => prevPoints + 1);
         api2.start({
+          //@ts-ignore
           from: { scale: 1.6, borderColor: "#f05033", borderWidth: "4px" },
           to: { scale: 1, borderWidth: "0px" },
         });
@@ -458,14 +462,16 @@ const BattleroomPage = () => {
     </div>
   );
 };
-const TeamButton = React.forwardRef(
+const TeamButton: React.FC<any> = React.forwardRef(
   (
+    //@ts-ignore
     { isJudge, team, teamString, imgGrow, handleJudgeClick, handleUserClick },
     ref
   ) => {
     return (
       <div
         className="w-1/2 rounded-xl bg-zinc-900 p-2 text-center"
+        //@ts-ignore
         ref={ref}
         onClick={() =>
           isJudge
@@ -574,7 +580,7 @@ function JudgeDisplay({ judges, judgeMessages }) {
         return (
           <div className="flex w-full flex-col place-items-center">
             <ScoreDisplay team1Score={judgeTeam1} team2Score={judgeTeam2} />
-            <PlayerMap player={p} />
+            <PlayerMap imgGrow={false} player={p} />
           </div>
         );
       })}

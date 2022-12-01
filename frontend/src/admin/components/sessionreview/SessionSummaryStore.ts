@@ -1,23 +1,24 @@
 import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
 interface ClipData {
-  id?: String;
-  name?: String;
-  sessionid?: String;
-  srcid?: String;
-  vidsrc?: String;
-  admin?: String;
+  id?: string;
+  name?: string;
+  sessionid?: string | string[];
+  srcid?: string;
+  vidsrc?: string;
+  admin?: string;
   startTime?: number;
   endTime?: number;
   bail?: number;
   clipLabel?: any | any[];
+  user_id?: string;
 }
 interface SummaryStore {
   trickMakerOpen: Boolean;
   setTrickMakerOpen: (value: Boolean) => void;
   clipData: ClipData;
-  sessionid: String;
-  setSessionid: (value: String) => void;
+  sessionid: string;
+  setSessionid: (value: string) => void;
   setClipData: (value: ClipData) => void;
   sessionSources: any[];
   setSessionSources: (value: any) => void;
@@ -31,10 +32,10 @@ interface SummaryStore {
   setClipDetailsVisible: () => void;
   vidIsPlaying: Boolean;
   setVidIsPlaying: () => void;
-  seekTime: Number;
-  setSeekTime: (value: Number) => void;
-  currentTime: Number;
-  setCurrentTime: (value: Number) => void;
+  seekTime: number;
+  setSeekTime: (value: number) => void;
+  currentTime: number;
+  setCurrentTime: (value: number) => void;
   sessionData: any[];
   clearSessionData: () => void;
   setSessionData: (value: any | any[]) => void;

@@ -22,7 +22,7 @@ const PointsPage = () => {
         )}
       </div>
       <div className="neumorphicIn w-[70vw] rounded-xl p-4  font-bold text-zinc-300">
-        <ClosedBattlerooms ably={ably} />
+        <ClosedBattlerooms />
       </div>
     </div>
   );

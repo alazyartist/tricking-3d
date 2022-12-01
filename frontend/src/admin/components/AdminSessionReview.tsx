@@ -23,7 +23,7 @@ const AdminSessionReview = () => {
   );
   const sessionDetails = data?.data;
   useEffect(() => {
-    setSessionid(sessionid);
+    setSessionid(sessionid as string);
     clearSessionData();
     sessionDetails?.SessionData?.map((sd) => {
       console.log(sd);

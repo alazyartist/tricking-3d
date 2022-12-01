@@ -6,22 +6,22 @@ interface Store {
   speedControl: Boolean;
   isFollowCam: Boolean;
   setFollowCam: () => void;
-  addToAnimationArray: (value: String[]) => void;
+  addToAnimationArray: (value: string[]) => void;
   animationSelector: () => void;
   animationsArray: any[];
-  currVersions: String[];
-  stanceColor: String;
-  setStanceColor: (value: String) => void;
+  currVersions: string[];
+  stanceColor: string;
+  setStanceColor: (value: string) => void;
   bounce: Boolean;
   clipDuration: number;
-  currentAnim: String;
+  currentAnim: string;
   currentTime: number;
   end: number;
   modelValue: Boolean;
   areInstructionsOpen: Boolean;
   setInstructions: () => void;
-  activeModel: String;
-  activeBackground: String;
+  activeModel: string;
+  activeBackground: string;
   isPlaying: Boolean;
   setIsPlaying: () => void;
   isPaused: Boolean;
@@ -60,10 +60,10 @@ interface Store {
   updateAnimationArray: (value: Array<any>) => void;
 
   setVersions: (value: any) => void;
-  trick_id: String;
-  setTrick_id: (value: String) => void;
-  trickOrCombo: String;
-  setTrickOrCombo: (value: String) => void;
+  trick_id: string;
+  setTrick_id: (value: string) => void;
+  trickOrCombo: string;
+  setTrickOrCombo: (value: string) => void;
 }
 export const useStore = create<Store>(
   devtools((set, get) => ({

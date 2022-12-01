@@ -5,14 +5,12 @@ import React, {
   createElement,
   useState,
   useCallback,
-  KeyboardEvent,
 } from "react";
 import { autocomplete } from "@algolia/autocomplete-js";
 import { createRoot } from "react-dom/client";
 import "@algolia/autocomplete-theme-classic";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
 import useGetTricks from "../../../api/useGetTricks";
-import { tagsPlugin } from "./CommandTagPlugin";
 import { v4 as uuidv4 } from "uuid";
 import {
   useChangeSessionStatus,
@@ -94,7 +92,7 @@ const Autocomplete = (props: any) => {
     console.log(sessionData);
   }, [sessionData]);
   const syncTime = useCallback(
-    (time: Number) => {
+    (time: number) => {
       setCurrentTime(time);
       setSeekTime(time);
       timeRef.current = time;
@@ -382,7 +380,7 @@ const Autocomplete = (props: any) => {
                     label: "/in review",
                     placeholder: " change status to In Review",
                     onSelect: ({ itemInputValue }) => {
-                      let status = "In Review" as String;
+                      let status = "In Review";
                       changeSessionStatus(status);
 
                       // console.log("selectVideo");
@@ -430,7 +428,7 @@ const Autocomplete = (props: any) => {
                       let name = combo.map((c) => c.name).join(">");
                       setClipData({
                         id: uuidv4(),
-                        admin: adminuuid as String,
+                        admin: adminuuid as string,
                         clipLabel: combo,
                         name: name,
                         sessionid:

@@ -176,7 +176,7 @@ function JudgeScoreDisplay({ battleRoomDetails }) {
         return (
           <div key={judge.uuid} className="flex flex-col place-items-center">
             <ScoreDisplay team1Score={judgeTeam1} team2Score={judgeTeam2} />
-            <PlayerMap player={judge} />
+            <PlayerMap imgGrow={false} player={judge} />
           </div>
         );
       })}

@@ -11,7 +11,7 @@ import { createRoot } from "react-dom/client";
 import "@algolia/autocomplete-theme-classic";
 import { useSessionSummariesStore } from "./components/sessionreview/SessionSummaryStore";
 import useGetTricks from "../api/useGetTricks";
-import { useTrickMakerStore } from "./components/trickMaker/TrickMakerStore";
+import { useTrickMakerStore } from "./components/trickMaker/TrickMakerStore.ts";
 import { handleSlash } from "./components/sessionreview/CommandBar";
 
 const DataListCommandBar = () => {
