@@ -9,10 +9,10 @@ import "../autocomplete.css";
 import AppBackground from "../components/layout/AppBackground";
 import { Suspense } from "react";
 const UserIcon = dynamic(() => import("../components/layout/UserIcon"), {
-  suspense: true,
+  ssr: false,
 });
 const TabBar = dynamic(() => import("../components/layout/TabBar"), {
-  suspense: true,
+  ssr: false,
 });
 // import { trpc } from "../utils/trpc";
 

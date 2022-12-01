@@ -15,16 +15,13 @@ import ClaimTricks from "../claimtricks/ClaimTricks";
 // import Feed from "./components/Feed";
 import { useSpring, animated } from "react-spring";
 import BiCube from "../../data/icons/BiCube";
-import BackgroundCircles from "../../admin/components/BackgroundCircles";
 import ComboMakerBlueprintsvg from "../../data/ComboMakerBlueprintsvg";
 import { useEffect } from "react";
-// const EnterSandboxLink = lazy(() => import("./components/EnterSandboxLink"));
 function Home() {
   const user = useUserStore((s) => s.userInfo?.username);
   const { uuid } = useUserStore((s) => s.userInfo);
   const accessToken = useUserStore((s) => s.accessToken);
   const [atLocal, setATLocal] = useState(null);
-  // const navigate = useNavigate();
   useUserInfo();
   useEffect(() => {
     if (accessToken) {
@@ -44,7 +41,6 @@ function Home() {
   });
   return (
     <div className="no-scrollbar stick h-[100vh] w-full overflow-y-scroll md:pt-[15vh] ">
-      <BackgroundCircles />
       <div
         id="AppBackground-flex"
         className="flex h-screen w-screen flex-col place-items-center"
