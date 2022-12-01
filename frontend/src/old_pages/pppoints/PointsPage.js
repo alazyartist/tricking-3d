@@ -15,8 +15,11 @@ const PointsPage = () => {
         <LiveBattlerooms ably={ably} />
       </div>
       <div className="flex gap-5">
-        {userInfo.uuid && <HostBattleroom ably={ably} />}
-        {!userInfo.uuid && <Link href="/login">Login</Link>}
+        {userInfo.uuid ? (
+          <HostBattleroom ably={ably} />
+        ) : (
+          <Link href="/login">Login</Link>
+        )}
       </div>
       <div className="neumorphicIn w-[70vw] rounded-xl p-4  font-bold text-zinc-300">
         <ClosedBattlerooms ably={ably} />

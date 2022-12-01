@@ -40,7 +40,7 @@ const LiveBattlerooms = ({ ably }) => {
             return (
               <Link
                 className="flex w-full place-items-center justify-around gap-2 rounded-md bg-zinc-900 p-2"
-                to={`${room.sessionid}`}
+                href={`pppoints/${room.sessionid}`}
               >
                 <span>
                   {room?.team1?.map((user, index) => (
