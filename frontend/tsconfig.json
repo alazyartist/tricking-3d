@@ -30,6 +30,12 @@
       "@data/*": ["data/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/old_pages/pppoints/BattleroomPage.jsx"
+  ],
   "exclude": ["node_modules"]
 }
