@@ -16,7 +16,7 @@ import {
   useChangeSessionStatus,
   useSaveSessionDetails,
 } from "../../../api/useSessionSummaries";
-import { useUserStore } from "../../../store/userStore";
+import { useUserStore } from "@store/userStore";
 
 const CommandBar = () => {
   const { data: tricks } = useGetTricks();

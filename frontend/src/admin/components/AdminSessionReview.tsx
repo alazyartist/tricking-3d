@@ -6,9 +6,13 @@ import ActiveClipDisplay from "./sessionreview/ActiveClipDisplay";
 import CommandBar from "./sessionreview/CommandBar";
 import MakeNewTrickModal from "./sessionreview/MakeNewTrickModal";
 import SessionDetailDisplay from "./sessionreview/SessionDetailDisplay";
-import SessionSourceDisplay from "./sessionreview/SessionSourceDisplay";
 import { useSessionSummariesStore } from "./sessionreview/SessionSummaryStore";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+const SessionSourceDisplay = dynamic(
+  () => import("./sessionreview/SessionSourceDisplay"),
+  { ssr: false }
+);
 
 const AdminSessionReview = () => {
   const router = useRouter();

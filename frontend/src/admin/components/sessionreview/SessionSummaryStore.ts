@@ -14,8 +14,8 @@ interface ClipData {
   user_id?: string;
 }
 interface SummaryStore {
-  trickMakerOpen: Boolean;
-  setTrickMakerOpen: (value: Boolean) => void;
+  trickMakerOpen: boolean;
+  setTrickMakerOpen: (value: boolean) => void;
   clipData: ClipData;
   sessionid: string;
   setSessionid: (value: string) => void;
@@ -26,11 +26,11 @@ interface SummaryStore {
   setSrcid: (value: string) => void;
   vidsrc: string;
   setVidsrc: (value: string) => void;
-  detailsVisible: Boolean;
+  detailsVisible: boolean;
   setDetailsVisible: () => void;
-  clipDetailsVisible: Boolean;
+  clipDetailsVisible: boolean;
   setClipDetailsVisible: () => void;
-  vidIsPlaying: Boolean;
+  vidIsPlaying: boolean;
   setVidIsPlaying: () => void;
   seekTime: number;
   setSeekTime: (value: number) => void;

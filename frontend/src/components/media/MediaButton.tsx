@@ -1,10 +1,23 @@
 import React from "react";
 //Standard Button
-export function MediaButton({ id, isPlayPause, hide, f, content }) {
-	return (
-		<button
-			id={id}
-			className={`
+interface MediaButtonProps {
+  id?: any;
+  isPlayPause?: boolean;
+  hide: any;
+  f: any;
+  content: React.ReactElement<any, any>;
+}
+export const MediaButton: React.FC<MediaButtonProps> = ({
+  id,
+  isPlayPause,
+  hide,
+  f,
+  content,
+}) => {
+  return (
+    <button
+      id={id}
+      className={`
       h-full
       w-full
         ${hide ? "opacity-40" : "opacity-100"}
@@ -18,8 +31,9 @@ export function MediaButton({ id, isPlayPause, hide, f, content }) {
         text-slate-200
         hover:text-white
         `}
-			onClick={f}>
-			{content}
-		</button>
-	);
-}
+      onClick={f}
+    >
+      {content}
+    </button>
+  );
+};

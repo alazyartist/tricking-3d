@@ -69,7 +69,7 @@ function Controller() {
                 currentTime - 0.05 * timescale * Math.sign(timescale)
               );
             else {
-              setIsPlaying(true);
+              setIsPlaying();
             }
           }}
           hide={speedControl}
@@ -84,7 +84,6 @@ function Controller() {
 
         <MediaButton
           id="play-pause-button"
-          class="rounded"
           f={setIsPaused}
           hide={speedControl}
           content={
@@ -105,13 +104,10 @@ function Controller() {
                 currentTime + 0.05 * timescale * Math.sign(timescale)
               );
             else {
-              setIsPlaying(true);
+              setIsPlaying();
             }
           }}
           hide={speedControl}
-          mD={() => {
-            console.log("MOUSDOWN");
-          }}
           content={
             <FaStepForward
               className={`${
@@ -122,13 +118,14 @@ function Controller() {
         />
 
         <DragableWrapper drag_offset_limit={80}>
+          {/* @ts-ignore */}
           <MediaButton
             id="reduce-speed-button"
             content={
               <div className="relative">
                 <MdSpeed className="fill-zinc-300 text-2xl" />
                 <span className="absolute inset-x-0.5 top-6 text-[.9rem] ">
-                  {Math.abs(Number.parseFloat(timescale).toFixed(2))}
+                  {Math.abs(timescale)}
                 </span>
               </div>
             }
@@ -137,7 +134,7 @@ function Controller() {
 
         <MediaButton
           id="toggle-playback-button"
-          f={() => setTrimToggle(!trimToggle)}
+          f={() => setTrimToggle()}
           hide={speedControl}
           content={
             <AiOutlineColumnWidth
