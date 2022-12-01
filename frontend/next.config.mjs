@@ -26,7 +26,7 @@ export default defineNextConfig({
     ];
   },
   experimental: {
-    appDir: false,
+    appDir: true,
   },
   swcMinify: true,
   /** Next.js i18n docs:

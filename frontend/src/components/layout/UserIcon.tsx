@@ -11,7 +11,6 @@ const UserIcon = () => {
   const { profilePic, uuid } = useUserStore((s) => s.userInfo);
   const [src, setSrc] = useState("/images/noimg.jpeg");
   const [href, setHref] = useState("/home");
-  if (!uuid) return;
   useEffect(() => {
     if (uuid && profilePic) {
       setSrc(`/images/${uuid}/${profilePic}`);

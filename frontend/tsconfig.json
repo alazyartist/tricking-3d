@@ -23,6 +23,7 @@
     ],
     "paths": {
       "@store/*": ["store/*"],
+      "@scenes/*": ["scenes/*"],
       "@components/*": ["components/*"],
       "@admin/*": ["admin/*"],
       "@old_pages/*": ["old_pages/*"],

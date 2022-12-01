@@ -58,7 +58,6 @@ function TabBar() {
             className="relative left-0 z-[1001] flex h-4 w-[100%] place-content-center place-items-center"
             onClick={() => {
               setOpenNav(!openNav);
-              console.log("i should shut");
             }}
           />
           <div
