@@ -1,6 +1,7 @@
 {
 	"scripts": {
 		"preinstall": "npx only-allow pnpm",
+		"dev": "cd frontend && pnpm run dev",
 		"start": "cd frontend && pnpm run start",
 		"build": "cd frontend && pnpm run build",
 		"server": "cd backend && pnpm run dev",

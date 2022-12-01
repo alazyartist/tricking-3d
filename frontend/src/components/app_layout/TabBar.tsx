@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+"use client";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import ComboMakerBlueprintsvg from "../../data/ComboMakerBlueprintsvg";
 import { animated, useSpring, useTransition } from "react-spring";
@@ -14,13 +15,26 @@ import { useRouter } from "next/navigation";
 function TabBar() {
   const [openHamburger, setOpenHamburger] = useState<Boolean>();
   const [openNav, setOpenNav] = useState<Boolean>(true);
+  const [isAdmin, setIsAdmin] = useState<Boolean>(false);
+
   const logout = useLogout();
   const nav = useRouter();
   const userInfo = useUserStore((s) => s.userInfo);
 
+  useEffect(() => {
+    if (
+      userInfo?.uuid === "admin696-8c94-4ca7-b163-9alazyartist" ||
+      userInfo?.uuid === "baf6a9c6-432f-4a08-8260-717249d5b71c" ||
+      userInfo?.uuid === "admin696-8c94-4ca7-b163-969420Tohzt"
+    ) {
+      setIsAdmin(true);
+    } else {
+      setIsAdmin(false);
+    }
+  }, [userInfo]);
   const hamburger = useTransition<Boolean, {}>(openHamburger, {
     from: { opacity: 0, right: "-40vw" },
-    enter: { opacity: 1, right: "0" },
+    enter: { opacity: 1, right: "0vw" },
     leave: { opacity: 0, right: "-40vw" },
     reverse: openHamburger,
     delay: 100,
@@ -50,9 +64,7 @@ function TabBar() {
             style={navToggle}
             className="relative left-0 z-[100] flex h-12 w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300"
           >
-            {(userInfo?.uuid === "admin696-8c94-4ca7-b163-9alazyartist" ||
-              userInfo?.uuid === "baf6a9c6-432f-4a08-8260-717249d5b71c" ||
-              userInfo?.uuid === "admin696-8c94-4ca7-b163-969420Tohzt") && (
+            {isAdmin && (
               <Link onClick={() => setOpenHamburger(false)} href="/admin">
                 <AdminLockIcon />
               </Link>

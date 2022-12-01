@@ -1,10 +1,16 @@
 import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
 interface ClipData {
-  name: String;
-  startTime: Number;
-  endTime: Number;
-  bail: Number;
+  id?: String;
+  name?: String;
+  sessionid?: String;
+  srcid?: String;
+  vidsrc?: String;
+  admin?: String;
+  startTime?: number;
+  endTime?: number;
+  bail?: number;
+  clipLabel?: any | any[];
 }
 interface SummaryStore {
   trickMakerOpen: Boolean;
@@ -20,25 +26,25 @@ interface SummaryStore {
   vidsrc: string;
   setVidsrc: (value: string) => void;
   detailsVisible: Boolean;
-  setDetailsVisible: (value: Boolean) => void;
+  setDetailsVisible: () => void;
   clipDetailsVisible: Boolean;
-  setClipDetailsVisible: (value: Boolean) => void;
+  setClipDetailsVisible: () => void;
   vidIsPlaying: Boolean;
-  setVidIsPlaying: (value: Boolean) => void;
+  setVidIsPlaying: () => void;
   seekTime: Number;
   setSeekTime: (value: Number) => void;
   currentTime: Number;
   setCurrentTime: (value: Number) => void;
   sessionData: any[];
   clearSessionData: () => void;
-  setSessionData: (value: any) => void;
+  setSessionData: (value: any | any[]) => void;
   removeSessionData: (value: any) => void;
   source: string;
   clipCombo: any[];
   setClipCombo: (value: any) => void;
   setClipComboRaw: (value: any) => void;
   removeClipfromCombo: (value: any) => void;
-  clearClipCombo: (value: any) => void;
+  clearClipCombo: () => void;
 }
 export const useSessionSummariesStore = create<SummaryStore>(
   devtools(
@@ -58,14 +64,13 @@ export const useSessionSummariesStore = create<SummaryStore>(
       vidsrc: "",
       setVidsrc: (value) => set(() => ({ vidsrc: value })),
       detailsVisible: false,
-      setDetailsVisible: (value) =>
+      setDetailsVisible: () =>
         set((s) => ({ detailsVisible: !s.detailsVisible })),
       clipDetailsVisible: false,
-      setClipDetailsVisible: (value) =>
+      setClipDetailsVisible: () =>
         set((s) => ({ clipDetailsVisible: !s.clipDetailsVisible })),
       vidIsPlaying: false,
-      setVidIsPlaying: (value) =>
-        set((s) => ({ vidIsPlaying: !s.vidIsPlaying })),
+      setVidIsPlaying: () => set((s) => ({ vidIsPlaying: !s.vidIsPlaying })),
       seekTime: 0,
       setSeekTime: (value) => set(() => ({ seekTime: value })),
       currentTime: 0,
@@ -87,7 +92,7 @@ export const useSessionSummariesStore = create<SummaryStore>(
         set((s) => ({
           clipCombo: [...s.clipCombo].filter((t, i) => i !== value),
         })),
-      clearClipCombo: (value) => set((s) => ({ clipCombo: [] })),
+      clearClipCombo: () => set((s) => ({ clipCombo: [] })),
     })
     // { name: "SessionSummaryStore" }
   )

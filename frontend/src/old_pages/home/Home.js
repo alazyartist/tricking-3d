@@ -1,30 +1,38 @@
+"use client";
 import React, { lazy, Suspense, useState } from "react";
 import Link from "next/link";
 import { FaClipboardList, FaQrcode } from "react-icons/fa";
 import { BsClipboardCheck } from "react-icons/bs";
 import { useUserStore } from "../../store/userStore";
 import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
-// import TricklistPage from "../tricklist/TricklistPage";
+import TricklistPage from "../tricklist/TricklistPage";
 import ProfileCode from "../dash/components/ProfileCode";
 // import ComboMakerV2 from "../comboMakerV2/ComboMakerV2";
 import useUserInfo from "../../api/useUserInfo";
 import { IoIosArrowBack } from "react-icons/io";
 import PublicHomePage from "./components/PublicHomePage";
-import ClaimTricks from "../../old_pages/claimtricks/ClaimTricks";
+import ClaimTricks from "../claimtricks/ClaimTricks";
 // import Feed from "./components/Feed";
 import { useSpring, animated } from "react-spring";
 import BiCube from "../../data/icons/BiCube";
 import BackgroundCircles from "../../admin/components/BackgroundCircles";
-import { Head } from "next/head";
 import ComboMakerBlueprintsvg from "../../data/ComboMakerBlueprintsvg";
+import { useEffect } from "react";
 // const EnterSandboxLink = lazy(() => import("./components/EnterSandboxLink"));
 function Home() {
   const user = useUserStore((s) => s.userInfo?.username);
   const { uuid } = useUserStore((s) => s.userInfo);
   const accessToken = useUserStore((s) => s.accessToken);
+  const [atLocal, setATLocal] = useState(null);
   // const navigate = useNavigate();
   useUserInfo();
-
+  useEffect(() => {
+    if (accessToken) {
+      setATLocal(accessToken);
+    } else {
+      setATLocal(null);
+    }
+  }, [accessToken]);
   const [openCaptures, setOpenCaptures] = useState(false);
   const [openTricklists, setOpenTricklists] = useState(false);
   const [openClaimtricks, setOpenClaimtricks] = useState(false);
@@ -32,7 +40,7 @@ function Home() {
   // console.log("uuid: ", uuid);
 
   const logoAnim = useSpring({
-    to: { width: accessToken ? "50vw" : "100vw" },
+    to: { width: atLocal ? "50vw" : "100vw" },
   });
   return (
     <div className="no-scrollbar stick h-[100vh] w-full overflow-y-scroll md:pt-[15vh] ">
@@ -43,16 +51,16 @@ function Home() {
       >
         <div
           className={`flex w-full  ${
-            accessToken ? "place-content-start" : "place-content-center"
+            atLocal ? "place-content-start" : "place-content-center"
           } text-center text-zinc-200 xl:absolute xl:top-0`}
         >
-          <animated.h1
+          <animated.div
             style={{ ...logoAnim }}
             className="left-0 flex max-w-[300px] flex-col text-center text-xl "
           >
-            {!accessToken && "Welcome to the"}
+            {!atLocal && "Welcome to the"}
             <TrickedexLogo className={`-m-2px flex fill-zinc-300`} />
-          </animated.h1>
+          </animated.div>
         </div>
         <div className="rounded-xl bg-zinc-700 bg-opacity-20">
           {!openCaptures &&
@@ -99,7 +107,7 @@ function Home() {
               </div>
             )}
           <div className="flex w-[90vw] max-w-[700px] flex-col place-content-center">
-            {!accessToken ? (
+            {!atLocal ? (
               <PublicHomePage />
             ) : (
               // LoggedIn
@@ -143,7 +151,7 @@ function Home() {
                           className="absolute top-4 right-1 text-4xl"
                           onClick={() => setOpenTricklists(!openTricklists)}
                         />
-                        <TricklistPage profileuuid={uuid} />
+                        <TricklistPage displayOnly={false} profileuuid={uuid} />
                       </div>
                     ) : (
                       !openCaptures &&
@@ -196,7 +204,7 @@ function Home() {
                           className="absolute top-4 right-1 text-4xl"
                           onClick={() => setOpenComboMaker(!openComboMaker)}
                         />
-                        <ComboMakerV2 />
+                        {/* <ComboMakerV2 /> */}
                       </div>
                     ) : (
                       !openTricklists &&

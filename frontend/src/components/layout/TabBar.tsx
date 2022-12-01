@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import ComboMakerBlueprintsvg from "../../data/ComboMakerBlueprintsvg";
 import { animated, useSpring, useTransition } from "react-spring";
@@ -14,15 +14,26 @@ import { useRouter } from "next/router";
 function TabBar() {
   const [openHamburger, setOpenHamburger] = useState<Boolean>();
   const [openNav, setOpenNav] = useState<Boolean>(true);
+  const [isAdmin, setIsAdmin] = useState<Boolean>(false);
   const logout = useLogout();
   const nav = useRouter();
   // const nav = useNavigate();
   // const location = useLocation();
   const userInfo = useUserStore((s) => s.userInfo);
-
+  useEffect(() => {
+    if (
+      userInfo?.uuid === "admin696-8c94-4ca7-b163-9alazyartist" ||
+      userInfo?.uuid === "baf6a9c6-432f-4a08-8260-717249d5b71c" ||
+      userInfo?.uuid === "admin696-8c94-4ca7-b163-969420Tohzt"
+    ) {
+      setIsAdmin(true);
+    } else {
+      setIsAdmin(false);
+    }
+  }, [userInfo]);
   const hamburger = useTransition<Boolean, {}>(openHamburger, {
     from: { opacity: 0, right: "-40vw" },
-    enter: { opacity: 1, right: "0" },
+    enter: { opacity: 1, right: "0vw" },
     leave: { opacity: 0, right: "-40vw" },
     reverse: openHamburger,
     delay: 100,
@@ -44,31 +55,31 @@ function TabBar() {
       <div className="absolute bottom-0 w-[100%] overflow-hidden ">
         <animated.div style={navToggle} className="relative">
           <button
-            style={navToggle}
-            className="relative left-0 z-[999] flex h-4 w-[100%] place-content-center place-items-center"
-            onClick={() => setOpenNav(!openNav)}
-          ></button>
+            className="relative left-0 z-[1001] flex h-4 w-[100%] place-content-center place-items-center"
+            onClick={() => {
+              setOpenNav(!openNav);
+              console.log("i should shut");
+            }}
+          />
           <div
             style={navToggle}
             className="relative left-0 z-[100] flex h-12 w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300"
           >
-            {(userInfo?.uuid === "admin696-8c94-4ca7-b163-9alazyartist" ||
-              userInfo?.uuid === "baf6a9c6-432f-4a08-8260-717249d5b71c" ||
-              userInfo?.uuid === "admin696-8c94-4ca7-b163-969420Tohzt") && (
-              <Link onClick={() => setOpenHamburger(false)} href="/admin">
+            {isAdmin && (
+              <Link href="/admin">
                 <AdminLockIcon />
               </Link>
             )}
-            <Link onClick={() => setOpenHamburger(false)} href="/home">
+            <Link href="/home">
               <HomeIcon />
             </Link>
-            <Link onClick={() => setOpenHamburger(false)} href="/comboMaker">
+            <Link href="/comboMaker">
               <ComboMakerBlueprintsvg className="h-10 w-10" fill="#ffffff" />
             </Link>
-            <Link onClick={() => setOpenHamburger(false)} href="/sandbox">
+            <Link href="/sandbox">
               <BiCube />
             </Link>
-            <Link onClick={() => setOpenHamburger(false)} href="/theory">
+            <Link href="/theory">
               <TheoryCap />
             </Link>
             <HamburgerMenu onClick={() => setOpenHamburger(!openHamburger)} />

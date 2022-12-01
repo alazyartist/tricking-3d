@@ -1,7 +1,7 @@
 // import { Canvas } from "@react-three/fiber";
 import React from "react";
 import Link from "next/link";
-import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
+import { TrickedexLogo } from "@data/icons/TrickedexLogo";
 import { NextPage } from "next";
 // import AnatomySketch from "../theory/components/AnatomySketchSVG";
 // import DetailCard from "./components/DetailCard";
