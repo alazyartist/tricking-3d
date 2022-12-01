@@ -1,6 +1,7 @@
 import React from "react";
 import Dropdown from "@components/Dropdown";
 import { useStore } from "@store/store";
+import { useRouter } from "next/router";
 // import { useNavigate } from "react-router-dom";
 function ModelDropdown() {
   const activeModel = useStore((state) => state.activeModel);
@@ -8,7 +9,7 @@ function ModelDropdown() {
   const setModel = useStore((state) => state.setModel);
   const selectAnim = useStore((s) => s.selectAnim);
   const currentAnim = useStore((s) => s.currentAnim);
-  const navigate = useNavigate();
+  const navigate = useRouter();
   return (
     <Dropdown
       buttonName={activeModel}
@@ -17,7 +18,7 @@ function ModelDropdown() {
         // selectAnim("Backflip");
         setModel(e);
         // selectAnim("Backflip");
-        navigate(`/3d/sandbox/${e}`);
+        navigate.push(`/3d/sandbox/${e}`);
       }}
     />
   );

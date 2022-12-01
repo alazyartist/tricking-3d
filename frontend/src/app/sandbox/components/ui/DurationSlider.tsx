@@ -83,6 +83,7 @@ function DurationSlider() {
             "z-3 pointer-events-none absolute top-0 my-5 w-full bg-transparent"
           }
           type={"range"}
+          //@ts-ignore
           double={"true"}
           ref={startRef}
           min={0}
@@ -95,15 +96,14 @@ function DurationSlider() {
               value = end - offsetBumper;
             }
             setSliderStart(value);
-            event.target.value = value;
           }}
           onPointerDown={(event) => {
             setScrubbing(1);
-            setIsPaused(true);
+            setIsPaused();
           }}
           onPointerUp={(event) => {
             setScrubbing(0);
-            setIsPaused(false);
+            setIsPaused();
           }}
         />
         <input
@@ -112,6 +112,7 @@ function DurationSlider() {
             " z-4 pointer-events-none absolute left-0 top-0 my-5 w-full bg-transparent"
           }
           type={"range"}
+          //@ts-ignore
           double={"true"}
           ref={endRef}
           min={0}
@@ -124,15 +125,14 @@ function DurationSlider() {
               value = start + offsetBumper;
             }
             setSliderEnd(value);
-            event.target.value = value;
           }}
           onPointerDown={(event) => {
             setScrubbing(2);
-            setIsPaused(true);
+            setIsPaused();
           }}
           onPointerUp={(event) => {
             setScrubbing(0);
-            setIsPaused(false);
+            setIsPaused();
           }}
         />
 
@@ -157,7 +157,7 @@ function DurationSlider() {
                 text-slate-200 
               "
             >
-              {Number.parseFloat(start * clipDuration).toFixed(2)}
+              {(start * clipDuration).toFixed(2)}
             </div>
             <div
               id="end-timestamp"
@@ -175,7 +175,7 @@ function DurationSlider() {
                 text-slate-200 
               "
             >
-              {Number.parseFloat(end * clipDuration).toFixed(2)}
+              {(end * clipDuration).toFixed(2)}
             </div>
           </div>
         </div>

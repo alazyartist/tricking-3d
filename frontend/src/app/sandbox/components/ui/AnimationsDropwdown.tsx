@@ -1,13 +1,13 @@
 import React from "react";
-import Dropdown from "../../../../components/Dropdown";
+import Dropdown from "@components/Dropdown";
 import { useStore } from "@store/store";
-// import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 function AnimationsDropwdown() {
   const animationsArray = useStore((s) => s.animationsArray);
   const selectAnim = useStore((s) => s.selectAnim);
   const currentAnim = useStore((s) => s.currentAnim);
   const currentModel = useStore((s) => s.activeModel);
-  const navigate = useNavigate();
+  const navigate = useRouter();
   return (
     <>
       <Dropdown
@@ -15,7 +15,7 @@ function AnimationsDropwdown() {
         buttonMap={animationsArray}
         f={(e) => {
           selectAnim(e);
-          navigate(`/3d/sandbox/${currentModel}/${e}`);
+          navigate.push(`/3d/sandbox/${currentModel}/${e}`);
         }}
       />
     </>

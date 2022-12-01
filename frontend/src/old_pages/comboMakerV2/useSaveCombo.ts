@@ -3,7 +3,7 @@ import useApiCreds from "../../hooks/useApiCreds";
 import { useUserStore } from "../../store/userStore";
 const useSaveCombo = (currentItem) => {
   const apiPrivate = useApiCreds();
-  const [comboName, setComboName] = useState();
+  const [comboName, setComboName] = useState<string | any[]>();
   const userInfo = useUserStore((s) => s.userInfo);
   const [save, setSave] = useState();
   const saveCombo = (currentItem) => {

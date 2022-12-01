@@ -3,7 +3,7 @@ import React from "react";
 import useApiCreds from "../hooks/useApiCreds";
 import { useUserStore } from "../store/userStore";
 interface Passwords {
-  oldPasword: string;
+  oldPassword: string;
   newPassword: string;
   newPasswordCheck: string;
 }

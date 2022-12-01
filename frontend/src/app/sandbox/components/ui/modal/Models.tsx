@@ -21,7 +21,7 @@ const Models = ({ handleClose }) => {
             id="dropdown-item"
             className="mt-1 mb-2 flex h-fit w-full justify-center rounded-lg font-inter text-xl font-light text-zinc-200 hover:text-zinc-400"
             onClick={() => {
-              if (e === "Sam Caspio" || e === "Sam%20Caspio") {
+              if (decodeURI(e) === "Sam Caspio") {
                 selectAnim("Cart>Full-feilong");
                 selectModel(decodeURI(e));
                 // router.push(`/sandbox/${e}/Cart>Full-feilong`);

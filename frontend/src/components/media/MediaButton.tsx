@@ -3,7 +3,7 @@ import React from "react";
 interface MediaButtonProps {
   id?: any;
   isPlayPause?: boolean;
-  hide: any;
+  hide?: any;
   f: any;
   content: React.ReactElement<any, any>;
 }

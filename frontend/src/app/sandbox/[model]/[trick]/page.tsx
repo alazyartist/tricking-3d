@@ -1,6 +1,6 @@
 "use client";
 import { Canvas } from "@react-three/fiber";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef, VideoHTMLAttributes } from "react";
 import { useStore } from "@store/store";
 import React from "react";
 import UI from "../../components/ui/UI";
@@ -11,7 +11,7 @@ import TrickInfo from "@components/info/TrickInfo";
 import { useVideoStore } from "../../components/videoOverlay/useVideoStore.js";
 import useVideoControls from "../../components/videoOverlay/useVideoControls.js";
 import { useRouter } from "next/navigation";
-import TorqueScene from "../../../../scenes/TorqueScene";
+import TorqueScene from "@scenes/TorqueScene";
 const Page = ({ params }) => {
   const router = useRouter();
   const { model, trick } = params;
@@ -67,7 +67,7 @@ const Page = ({ params }) => {
   const setVidTime = useVideoStore((s) => s.setVidTime);
   const vidTime = useVideoStore((s) => s.vidTime);
   const setVidDuration = useVideoStore((s) => s.setVidDuration);
-  let vid = document.getElementById("video");
+  let vid = useRef();
   useVideoControls(vid);
 
   return (
@@ -85,9 +85,11 @@ const Page = ({ params }) => {
           <video
             style={{ opacity: videoOpacity }}
             id={"video"}
+            ref={vid}
             src={vidSrc}
             controls={false}
             muted
+            //@ts-ignore
             onTimeUpdate={() => setVidTime(vid?.currentTime)}
             loop
             playsInline
@@ -100,7 +102,7 @@ const Page = ({ params }) => {
           className="absolute top-0 h-full w-full "
         >
           <Canvas className="h-100vh w-100vw">
-            <TorqueScene model={model} trick={trick} />
+            <TorqueScene gizmoHelper={false} model={model} trick={trick} />
           </Canvas>
           {/* <CanvasComponent /> */}
         </div>

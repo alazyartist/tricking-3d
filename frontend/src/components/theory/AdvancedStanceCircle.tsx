@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
 
-import { ReactComponent as StanceCircle } from "@data/AdvancedStancesSVG.svg";
-import { ReactComponent as StanceCircleSelector } from "@data/AdvancedStancesSelector.svg";
+import StanceCircle from "@data/AdvancedStancesSVG";
+// import { ReactComponent as StanceCircleSelector } from "@data/AdvancedStancesSelector.svg";
 import { useStore } from "@store/store";
 import { animated, config, useSpring } from "react-spring";
 import { useComboMakerStore } from "@store/comboMakerStore";
 import { stances } from "@data/trickDataModel/TrickObjects";
 import StanceList from "./StanceList";
 import StanceInfo from "./stances/StanceInfo";
-import {
-  HalfCircle,
-  HalfCircleFold,
-} from "@old_pages/theory/stances/HalfCircleAnimation";
+import { HalfCircle } from "@old_pages/theory/stances/HalfCircleAnimation";
 
 function AdvancedStanceCircle() {
   const setStanceColor = useStore((s) => s.setStanceColor);
@@ -34,14 +31,14 @@ function AdvancedStanceCircle() {
     InsideHyper: "#5ed8c5",
     BacksideHyper: "#6bcee9",
   };
-  const rotateSpring = useSpring({
+  const rotateSpring = useSpring<{}>({
     from: { opacity: 0, rotate: lastRotation },
     to: { opacity: 1, rotate: newRot - 90 },
     config: {
       config: config.stiff,
     },
   });
-  const opacitySpring = useSpring({
+  const opacitySpring = useSpring<{}>({
     from: { opacity: 0 },
     to: {
       opacity: isFolded ? 0 : 1,
@@ -52,7 +49,7 @@ function AdvancedStanceCircle() {
       config: config.wobbly,
     },
   });
-  const zAnim = useSpring({
+  const zAnim = useSpring<{}>({
     from: { zIndex: 0 },
     to: {
       zIndex: isFolded ? 0 : -10,
@@ -75,7 +72,7 @@ function AdvancedStanceCircle() {
     <div className="flex flex-col place-items-center">
       {/* <div className=' fixed left-0 top-0 z-[10] h-14 w-full bg-opacity-20 bg-gradient-to-b from-zinc-900 to-transparent' /> */}
       <animated.div style={rotateSpring} className={`w-[75vw] max-w-[540px]`}>
-        <div className="">
+        {/* <div className="">
           <StanceCircleSelector
             className="absolute w-[80vw] max-w-[540px] opacity-0"
             onClick={(e) => {
@@ -95,7 +92,7 @@ function AdvancedStanceCircle() {
           <animated.div style={{ opacity: opacitySpring.opacity }}>
             <StanceCircle />
           </animated.div>
-        </div>
+        </div> */}
       </animated.div>
       <animated.div
         style={zAnim}

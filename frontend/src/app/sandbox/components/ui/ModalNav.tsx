@@ -30,7 +30,7 @@ const ModalNav = () => {
   };
 
   const handleClose = () => {
-    setActiveView();
+    setActiveView(0);
     setOpen(false);
     setVisible(true);
   };
@@ -92,7 +92,6 @@ const ModalNav = () => {
                 <MdInfoOutline className="fill-zinc-300 text-3xl" />
               )
             }
-            f={() => handleOpen(1)}
           />
           {/**models button*/}
           <ModalButton
