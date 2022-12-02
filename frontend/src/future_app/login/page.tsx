@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import BackgroundCircles from "@admin/components/BackgroundCircles";
-import LoginForm from "@old_pages/login/components/LoginForm";
+import dynamic from "next/dynamic";
+const LoginForm = dynamic(
+  () => import("@old_pages/login/components/LoginForm"),
+  { ssr: false }
+);
 
 function Login() {
   return (

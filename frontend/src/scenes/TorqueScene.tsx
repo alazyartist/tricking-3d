@@ -11,7 +11,7 @@ import { useStore } from "../store/store";
 import LoadActiveBackground from "../components/media/BackgroundSelector";
 import { SpotLightProps } from "@react-three/fiber";
 
-export default function TorqueScene({ gizmoHelper, model, trick }) {
+const TorqueScene: React.FC<any> = ({ gizmoHelper, model, trick }) => {
   const setModel = useStore((s) => s.setModel);
   const setAnim = useStore((s) => s.selectAnim);
 
@@ -58,4 +58,6 @@ export default function TorqueScene({ gizmoHelper, model, trick }) {
       </PerspectiveCamera>
     </>
   );
-}
+};
+
+export default TorqueScene;
