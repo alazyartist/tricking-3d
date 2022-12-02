@@ -9,7 +9,7 @@ import {
   MdCenterFocusStrong,
 } from "@data/icons/MdIcons";
 import { MediaButton } from "./MediaButton";
-import DragableWrapper from "../../app/sandbox/components/ui/DraggableSlowMo";
+import DragableWrapper from "../sandbox/ui/DraggableSlowMo";
 
 function Controller() {
   const setIsPaused = useStore((state) => state.setIsPaused);

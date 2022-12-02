@@ -7,19 +7,21 @@ import { useUserStore } from "../../store/userStore";
 
 const UserIcon = () => {
   const router = useRouter();
+  const pathname = router.pathname;
   const { profilePic, uuid } = useUserStore((s) => s.userInfo);
   const [src, setSrc] = useState("/images/noimg.jpeg");
   const [href, setHref] = useState("/home");
   useEffect(() => {
+    console.log(pathname, uuid);
+    if (uuid !== undefined) {
+      setHref(`/userProfile/${uuid}`);
+    } else {
+      setHref("/home");
+    }
     if (uuid && profilePic) {
       setSrc(`/images/${uuid}/${profilePic}`);
-      if (router.pathname.includes("/userProfile")) {
-        setHref(`/userProfile/${uuid}`);
-      } else {
-        setHref("/home");
-      }
     }
-  }, [uuid, profilePic]);
+  }, [uuid, profilePic, pathname]);
   return (
     <Link
       href={href}

@@ -1,20 +1,20 @@
 "use client";
 import { Canvas } from "@react-three/fiber";
-import { useEffect, useMemo, useRef, VideoHTMLAttributes } from "react";
+import { useRef } from "react";
 import { useStore } from "@store/store";
 import React from "react";
-import UI from "../../components/ui/UI";
-import ShowHideToggle from "../../components/ui/ShowHideToggle";
+import UI from "@components/sandbox/ui/UI";
+import ShowHideToggle from "@components/sandbox/ui/ShowHideToggle";
 // import { useParams, useSearchParams } from "react-router-dom";
-import MinimalUI from "../../components/ui/MinimalUI";
+import MinimalUI from "@components/sandbox/ui/MinimalUI";
 import TrickInfo from "@components/info/TrickInfo";
-import { useVideoStore } from "../../components/videoOverlay/useVideoStore";
-import useVideoControls from "../../components/videoOverlay/useVideoControls";
-import { useRouter } from "next/navigation";
+import { useVideoStore } from "@components/sandbox/videoOverlay/useVideoStore";
+import useVideoControls from "@components/sandbox/videoOverlay/useVideoControls";
+import { useRouter } from "next/router";
 import TorqueScene from "@scenes/TorqueScene";
-const Page = ({ params }) => {
+const Sandbox = () => {
   const router = useRouter();
-  const { model, trick } = params;
+  const { model, trick } = router.query;
   const showUI = useStore((s) => s.showUI);
   const showInfo = useStore((s) => s.showInfo);
   // const setModel = useStore((s) => s.setModel);
@@ -110,4 +110,4 @@ const Page = ({ params }) => {
     </>
   );
 };
-export default Page;
+export default Sandbox;

@@ -1,3 +1,4 @@
+"use client";
 import { useEffect } from "react";
 import { useStore } from "@store/store";
 import { useVideoStore } from "./useVideoStore";
@@ -35,14 +36,14 @@ const useVideoControls = (vid) => {
     }
   }, [vidSrc]);
   useEffect(() => {
-    if (vid) {
-      videoPlaying ? vid.pause() : vid.play();
+    if (vid.pause) {
+      videoPlaying ? vid?.pause() : vid?.play();
 
       // if (timescale > 0.1 && timescale < 2) {
       // 	vid.playbackRate = timescale;
       // }
     }
-  }, [videoPlaying, timescale]);
+  }, [videoPlaying, timescale, vid]);
   return;
 };
 

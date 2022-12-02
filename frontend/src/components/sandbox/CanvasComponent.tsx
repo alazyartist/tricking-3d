@@ -1,7 +1,7 @@
 import React from "react";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
-import Loader from "../../../components/loaders/Loader";
+import Loader from "@components/loaders/Loader";
 import { AiFillDownCircle } from "react-icons/ai";
 // import { Outlet } from "react-router-dom";
 interface CanvasProps {

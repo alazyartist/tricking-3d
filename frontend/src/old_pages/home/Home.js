@@ -66,7 +66,7 @@ function Home() {
             !openTricklists && (
               <div className="flex flex-col place-items-center">
                 <Link
-                  href="/learnmore"
+                  href="/learnMore"
                   className="m-2 rounded-3xl bg-indigo-600 px-2 py-0 font-inter font-semibold text-zinc-300"
                 >
                   Learn More
