@@ -6,7 +6,6 @@ import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
 import { useUserStore } from "../../store/userStore";
 
 const UserIcon = () => {
-  if (typeof window === "undefined") return;
   const router = useRouter();
   const { profilePic, uuid } = useUserStore((s) => s.userInfo);
   const [src, setSrc] = useState("/images/noimg.jpeg");

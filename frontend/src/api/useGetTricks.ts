@@ -62,7 +62,7 @@ export const useGetTricksById = (trick_id) => {
   );
 };
 
-export const useSaveTrick = (trickInfo) => {
+export const useSaveTrick = () => {
   const apiPrivate = useApiCreds();
   const userInfo = useUserStore((s) => s.userInfo);
   const queryClient = useQueryClient();

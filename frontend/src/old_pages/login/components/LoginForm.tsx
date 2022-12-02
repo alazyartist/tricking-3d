@@ -7,7 +7,6 @@ import useLocalStorage from "../../../hooks/useLocalStorage";
 import { useUserStore } from "../../../store/userStore";
 import { useRouter } from "next/navigation";
 function LoginForm() {
-  if (typeof window === "undefined") return null;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isVisible, setIsVisible] = useState<Boolean>();

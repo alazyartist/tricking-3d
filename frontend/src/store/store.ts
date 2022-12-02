@@ -1,4 +1,4 @@
-import create, { PartialState, State } from "zustand";
+import create from "zustand";
 import { devtools } from "zustand/middleware";
 interface Store {
   aI: number;

@@ -1,6 +1,6 @@
 import React from "react";
-// import { Link, Outlet } from "react-router-dom";
-import { transArr, transitions } from "../../../data/TricklistClass";
+import Link from "next/link";
+import { transArr } from "../../../data/TricklistClass";
 import { whichLeg } from "../../comboMaker/components/ArrayDisplay";
 function Transitions() {
   console.table(transArr);
@@ -43,7 +43,7 @@ function Transitions() {
             );
           })}
         </div>
-        {/* <Outlet /> */}
+        {/*TODO children routing <Outlet /> */}
       </div>
     </>
   );

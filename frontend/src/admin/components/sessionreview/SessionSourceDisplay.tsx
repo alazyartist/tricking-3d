@@ -23,6 +23,10 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
   const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
   const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
   const setSrcid = useSessionSummariesStore((s) => s.setSrcid);
+  const detailsVisible = useSessionSummariesStore((s) => s.detailsVisible);
+  const setDetailsVisible = useSessionSummariesStore(
+    (s) => s.setDetailsVisible
+  );
   useEffect(() => console.log(vidRef?.current), [sessionData, vidRef]);
   useEffect(() => {
     setCurrentTime(seekTime);
@@ -30,7 +34,6 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
     vidRef?.current?.seekTo(seekTime);
   }, [seekTime]);
   let colors = ["bg-teal-300", "bg-emerald-300", "bg-indigo-300", "bg-sky-300"];
-  if (!vidRef.current) return;
   let activeWidth = `${(
     ((parseFloat(clipData.endTime.toString()) -
       parseFloat(clipData.startTime.toString())) /
@@ -42,11 +45,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
     100
   ).toFixed(2)}%`;
 
-  const detailsVisible = useSessionSummariesStore((s) => s.detailsVisible);
-  const setDetailsVisible = useSessionSummariesStore(
-    (s) => s.setDetailsVisible
-  );
-  const showDetails = useSpring({
+  const showDetails = useSpring<{}>({
     from: { spanOpacity: 1, opacity: 0, left: "-10vw" },
     to: {
       spanOpacity: !detailsVisible ? 1 : 0,

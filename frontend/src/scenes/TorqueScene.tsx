@@ -9,6 +9,7 @@ import ModelLoader from "../components/loaders/ModelLoader";
 import LoadActiveModel from "../components/media/ModelSelector";
 import { useStore } from "../store/store";
 import LoadActiveBackground from "../components/media/BackgroundSelector";
+import { SpotLightProps } from "@react-three/fiber";
 // import { useParams } from "react-router-dom";
 
 export default function TorqueScene({ gizmoHelper, model, trick }) {
@@ -18,15 +19,15 @@ export default function TorqueScene({ gizmoHelper, model, trick }) {
   useMemo(() => {
     model && setModel(model);
     trick && setAnim(trick);
-  }, [model, trick]);
+  }, [model, trick, setModel, setAnim]);
 
-  const light = useRef();
-  const light2 = useRef();
-  const gizmoRef = useRef();
+  const light = useRef<SpotLightProps>();
+  const light2 = useRef<SpotLightProps>();
+  const gizmoRef = useRef<any>();
   const isFollowCam = useStore((s) => s.isFollowCam);
-  useEffect(() => {}, [isFollowCam]);
   return (
     <>
+      {/* @ts-ignore */}
       <PerspectiveCamera ref={gizmoRef} position={[0, -1, 0]}>
         <Suspense fallback={<ModelLoader />}>
           <LoadActiveModel />

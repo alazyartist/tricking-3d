@@ -4,7 +4,7 @@ import { useDrag } from "@use-gesture/react";
 import { useStore } from "../../../store/store";
 import { useDeleteTricklist, useDeleteCombo } from "../../../api/useTricklists";
 import { useUserStore } from "../../../store/userStore";
-import Claimed from "./Claimed.js";
+import Claimed from "./Claimed";
 
 const TrickList_Component: React.FC<any> = ({
   data,
