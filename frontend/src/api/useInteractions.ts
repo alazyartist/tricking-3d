@@ -1,14 +1,20 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useApiCreds from "../hooks/useApiCreds";
 import { useUserStore } from "../store/userStore";
-
+interface Comment {
+  accessToken?: string;
+  uuid: string;
+  trick_id: string;
+  type: string;
+  content: string;
+}
 export const useInteraction = () => {
   const queryClient = useQueryClient();
   const apiPrivate = useApiCreds();
   const { uuid } = useUserStore((s) => s.userInfo);
   return useMutation(
     ["interact"],
-    async (comment) => {
+    async (comment: Comment) => {
       return apiPrivate.post("/user/interact", comment);
     },
     {

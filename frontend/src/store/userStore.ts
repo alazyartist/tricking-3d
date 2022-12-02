@@ -2,12 +2,15 @@
 import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
 export interface UserInfo {
+  accessToken?: string;
   profilePic: string;
   id?: number;
   uuid?: string | null | Blob;
   first_name?: string;
   last_name?: string;
   username?: string;
+  Captured?: any;
+  CapturedMe?: any;
 }
 interface UserStore {
   user: string | null;

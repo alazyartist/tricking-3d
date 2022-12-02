@@ -52,7 +52,7 @@ interface Store {
   dropdown: boolean;
   setDropdown: () => void;
   setTimescale: (value: number) => void;
-  setTrimToggle: (value: boolean) => void;
+  setTrimToggle: (value?: boolean) => void;
   start: number;
   timeSlider: number;
   timescale: number;
