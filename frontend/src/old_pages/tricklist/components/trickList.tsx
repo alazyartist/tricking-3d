@@ -3,7 +3,13 @@ import TrickList_Component from "./trickList_Component";
 import TrickList_Next from "./trickList";
 import { useStore } from "../../../store/store";
 
-const Tricklist = ({ data, date, last, drag_offset, swipe_left }) => {
+const Tricklist: React.FC<any> = ({
+  data,
+  date,
+  last,
+  drag_offset,
+  swipe_left,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const innerArray = data.TricklistCombos
     ? data.TricklistCombos

@@ -44,7 +44,7 @@ interface Store {
   setSliderEnd: (value: number) => void;
   setSliderStart: (value: number) => void;
   showUI: boolean;
-  selected_TrickList: null;
+  selected_TrickList: any;
   setSelected_TrickList: (value: any) => void;
   showInfo: boolean;
   setInfo: () => void;

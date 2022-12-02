@@ -6,11 +6,18 @@ import { useDeleteTricklist, useDeleteCombo } from "../../../api/useTricklists";
 import { useUserStore } from "../../../store/userStore";
 import Claimed from "./Claimed.js";
 
-const TrickList_Component = ({ data, open, date, last, fn, drag_offset }) => {
+const TrickList_Component: React.FC<any> = ({
+  data,
+  open,
+  date,
+  last,
+  fn,
+  drag_offset,
+}) => {
   const selected = useStore((s) => s.selected_TrickList);
   const setSelected = useStore((s) => s.setSelected_TrickList);
   const userInfo = useUserStore((s) => s.userInfo);
-  const [selectorColor, setSelectorColor] = useState();
+  const [selectorColor, setSelectorColor] = useState<string>();
   const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
   const left = {
     bg: `linear-gradient(120deg, #f093fb 0%, #f5576c 100%)`,
@@ -20,7 +27,10 @@ const TrickList_Component = ({ data, open, date, last, fn, drag_offset }) => {
     bg: `linear-gradient(120deg, #96fbc4 0%, #a9f586 100%)`,
     offset: "5%",
   };
-  const [{ x, bg, scale, offset }, api] = useSpring(() => ({ x: 0, scale: 1 }));
+  const [{ x, bg, scale, offset }, api] = useSpring<{}>(() => ({
+    x: 0,
+    scale: 1,
+  }));
   const { mutate: deleteTricklist } = useDeleteTricklist(
     selected?.tricklist_id
   );
@@ -69,7 +79,7 @@ const TrickList_Component = ({ data, open, date, last, fn, drag_offset }) => {
     return _style.concat(" ");
   };
 
-  const bind = useDrag(
+  const bind: any = useDrag(
     ({ first, initial, active, dragging, movement: [x] }) => {
       if (dragging) {
         x = clamp(x, -drag_offset, drag_offset);
@@ -147,7 +157,7 @@ const TrickList_Component = ({ data, open, date, last, fn, drag_offset }) => {
           {label}
           {data.type === "Combo" && (
             <Claimed
-              user_id={userInfo.uuid}
+              user_id={userInfo.uuid as string}
               combo_id={data?.combo_id}
               combo={data}
             />

@@ -64,12 +64,17 @@ export const useGetTricklistDetailsById = (tricklist_id, user_id) => {
     }
   );
 };
+interface AddComboProps {
+  tricklist_id: string;
+  user_id: string;
+  combo_id: string;
+}
 export const useAddCombo = (tricklist_id) => {
   const apiPrivate = useApiCreds();
   const queryClient = useQueryClient();
   return useMutation(
     ["addComboToTricklist"],
-    async (data) => {
+    async (data: AddComboProps) => {
       return apiPrivate.post(`/tricklist/user/${tricklist_id}`, { data });
     },
     {

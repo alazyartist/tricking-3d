@@ -30,6 +30,8 @@ const AddSessionPage = () => {
     url: {},
     user_id: user_id,
     sessionid: uuidv4(),
+    startTime: null,
+    endTime: null,
   });
 
   const onSubmit = (e) => {

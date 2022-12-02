@@ -11,6 +11,7 @@ export interface UserInfo {
   username?: string;
   Captured?: any;
   CapturedMe?: any;
+  SessionReviewCredits?: any;
 }
 interface UserStore {
   user: string | null;
