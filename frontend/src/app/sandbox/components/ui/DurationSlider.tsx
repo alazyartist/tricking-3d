@@ -99,11 +99,11 @@ function DurationSlider() {
           }}
           onPointerDown={(event) => {
             setScrubbing(1);
-            setIsPaused();
+            setIsPaused(true);
           }}
           onPointerUp={(event) => {
             setScrubbing(0);
-            setIsPaused();
+            setIsPaused(false);
           }}
         />
         <input
@@ -128,11 +128,11 @@ function DurationSlider() {
           }}
           onPointerDown={(event) => {
             setScrubbing(2);
-            setIsPaused();
+            setIsPaused(true);
           }}
           onPointerUp={(event) => {
             setScrubbing(0);
-            setIsPaused();
+            setIsPaused(false);
           }}
         />
 

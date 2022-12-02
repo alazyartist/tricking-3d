@@ -14,7 +14,7 @@ export default function TrickInfo() {
   const [count, setCount] = useState(0);
   const trick_id = useStore((state) => state.trick_id);
   const trickOrCombo = useStore((state) => state.trickOrCombo);
-  const [details, setDetails] = useState();
+  const [details, setDetails] = useState<undefined | any>();
   const currentAnim = useStore((s) => s.currentAnim);
   const setTrick_id = useStore((s) => s.setTrick_id);
   const setTrickOrCombo = useStore((s) => s.setTrickOrCombo);

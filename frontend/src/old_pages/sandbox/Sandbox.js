@@ -8,8 +8,8 @@ import ShowHideToggle from "../../app/sandbox/ui/ShowHideToggle";
 // import { useParams, useSearchParams } from "react-router-dom";
 import MinimalUI from "../../app/sandbox/ui/MinimalUI";
 import TrickInfo from "../../components/info/TrickInfo";
-import { useVideoStore } from "./videoOverlay/useVideoStore.js";
-import useVideoControls from "./videoOverlay/useVideoControls.js";
+import { useVideoStore } from "./videoOverlay/useVideoStore";
+import useVideoControls from "./videoOverlay/useVideoControls";
 
 export default function Sandbox() {
   // const { model, trick } = useParams();

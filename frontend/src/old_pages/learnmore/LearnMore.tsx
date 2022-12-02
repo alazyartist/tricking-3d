@@ -1,9 +1,9 @@
 import { useRouter } from "next/router.js";
 import React from "react";
-import DonateText from "../contribute/components/DonateText.js";
-import MachineLearning from "./components/MachineLearning.js";
-import WhatDoesItInclude from "./components/WhatDoesItInclude.js";
-import WhyBuildThis from "./components/WhyBuildThis.js";
+import DonateText from "../contribute/components/DonateText";
+import MachineLearning from "./components/MachineLearning";
+import WhatDoesItInclude from "./components/WhatDoesItInclude";
+import WhyBuildThis from "./components/WhyBuildThis";
 
 function LearnMore() {
   const nav = useRouter();

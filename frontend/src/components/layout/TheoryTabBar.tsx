@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { animated, config, useSpring, useTransition } from "react-spring";
-import { ReactComponent as StanceCircleColor } from "../../data/AdvancedStancesSelectorColor.svg";
+import StanceCircleColor from "../../data/AdvancedStancesSelectorColor";
 import HamburgerMenu from "../../data/icons/HamburgerMenu";
 import HomeIcon from "../../data/icons/HomeIcon";
 import TheoryCap from "../../data/icons/TheoryCap";
 import TransitionsIcon from "../../data/icons/TransitionsIcon";
 import TricksIcon from "../../data/icons/TricksIcon";
+import { useRouter } from "next/router";
 function TheoryTabBar({ tabBar }) {
-  const [openHamburger, setOpenHamburger] = useState();
-  const location = useLocation();
+  const [openHamburger, setOpenHamburger] = useState(false);
+  const location = useRouter();
   const hamburger = useTransition(openHamburger, {
     from: { opacity: 0, right: "-40vw" },
     enter: { opacity: 1, right: "0" },

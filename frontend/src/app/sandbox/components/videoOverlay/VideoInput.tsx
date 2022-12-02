@@ -3,7 +3,7 @@ import { useVideoStore } from "./useVideoStore";
 import { useUserStore } from "@store/userStore";
 import VideoControls from "./VideoControls";
 const VideoInput = () => {
-  const [file, setFile] = useState();
+  const [file, setFile] = useState<Blob | undefined>();
   const { uuid } = useUserStore((s) => s.userInfo);
   const [filename, setFilename] = useState("Select Video");
   const vidSrc = useVideoStore((s) => s.videoSource);
@@ -16,7 +16,7 @@ const VideoInput = () => {
     formData.append("uuid", uuid);
   };
   const clearSrc = () => {
-    setVidSrc();
+    setVidSrc("");
     setFilename("Select Video");
   };
   const onChange = (e) => {

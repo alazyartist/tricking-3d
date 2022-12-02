@@ -15,7 +15,7 @@ function KoFiDonate() {
 
 export default KoFiDonate;
 
-function Kofi(props) {
+function Kofi(props: any) {
   return (
     <svg
       {...props}

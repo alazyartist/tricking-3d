@@ -1,11 +1,11 @@
 import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 import { PropsWithChildren } from "react";
-import { useVideoStore } from "../videoOverlay/useVideoStore.js";
+import { useVideoStore } from "../videoOverlay/useVideoStore";
 interface DOProps {
-  children: PropsWithChildren;
+  children: any;
   drag_offset_limit: number;
-  canvas: any;
+  canvas?: any;
 }
 export const DraggableOpacity: React.FC<DOProps> = ({
   children,

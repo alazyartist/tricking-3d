@@ -3,6 +3,7 @@ import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
 export interface UserInfo {
   profilePic: string;
+  id?: number;
   uuid?: string | null | Blob;
   first_name?: string;
   last_name?: string;

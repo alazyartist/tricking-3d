@@ -8,8 +8,8 @@ import ShowHideToggle from "../../components/ui/ShowHideToggle";
 // import { useParams, useSearchParams } from "react-router-dom";
 import MinimalUI from "../../components/ui/MinimalUI";
 import TrickInfo from "@components/info/TrickInfo";
-import { useVideoStore } from "../../components/videoOverlay/useVideoStore.js";
-import useVideoControls from "../../components/videoOverlay/useVideoControls.js";
+import { useVideoStore } from "../../components/videoOverlay/useVideoStore";
+import useVideoControls from "../../components/videoOverlay/useVideoControls";
 import { useRouter } from "next/navigation";
 import TorqueScene from "@scenes/TorqueScene";
 const Page = ({ params }) => {

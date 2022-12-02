@@ -37,7 +37,7 @@ interface Store {
   setClipDuration: (value: number) => void;
   setCurrentTime: (value: number) => void;
   setModelPosition: (value: number) => void;
-  setIsPaused: () => void;
+  setIsPaused: (value: boolean) => void;
   setLoop: () => void;
   setScrubbing: (value: number) => void;
   setSlider: (value: number) => void;
@@ -112,7 +112,8 @@ export const useStore = create<Store>(
     setClipDuration: (value) => set(() => ({ clipDuration: value })),
     setCurrentTime: (value) => set(() => ({ currentTime: value })),
     setModelPosition: (value) => set(() => ({ modelPosition: [value] })),
-    setIsPaused: () => set((state) => ({ isPaused: !state.isPaused })),
+    setIsPaused: (value) =>
+      set((state) => ({ isPaused: value ?? !state.isPaused })),
     setLoop: () => set((state) => ({ loop: !state.loop })),
     setScrubbing: (value) => set((state) => ({ isScrubbing: value })),
     setSlider: (value) => set(() => ({ timeSlider: value })),
