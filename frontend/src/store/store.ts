@@ -52,7 +52,7 @@ interface Store {
   dropdown: boolean;
   setDropdown: () => void;
   setTimescale: (value: number) => void;
-  setTrimToggle: () => void;
+  setTrimToggle: (value: boolean) => void;
   start: number;
   timeSlider: number;
   timescale: number;
@@ -129,7 +129,8 @@ export const useStore = create<Store>(
     dropdown: false,
     setDropdown: () => set((s) => ({ dropdown: !s.dropdown })),
     setTimescale: (value) => set(() => ({ timescale: value })),
-    setTrimToggle: () => set((state) => ({ trimToggle: !state.trimToggle })),
+    setTrimToggle: (value) =>
+      set((state) => ({ trimToggle: value ?? !state.trimToggle })),
     start: 0,
     timeSlider: 1,
     timescale: 0.25,
