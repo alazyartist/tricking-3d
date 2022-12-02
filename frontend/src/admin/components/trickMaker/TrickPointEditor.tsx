@@ -15,9 +15,9 @@ const TrickPointEditor = () => {
     <div
       className={`no-scrollbar grid ${
         window?.screen?.orientation?.angle > 0 ? "grid-cols-3" : "grid-cols-1"
-      } h-[80vh] w-[70vw] gap-3 overflow-hidden overflow-y-scroll text-xs md:w-[80vw] md:flex-wrap`}
+      } no-scrollbar h-[80vh] w-[70vw] gap-3 overflow-hidden overflow-y-scroll text-xs md:w-[80vw] md:flex-wrap`}
     >
-      <div className="h-[70vh] w-[90%] min-w-[100px] overflow-y-scroll">
+      <div className="no-scrollbar h-[35vh] w-[90%] min-w-[100px] overflow-y-scroll">
         <div className="sticky top-0 bg-zinc-900 text-2xl">Bases</div>
         {trickParts?.length &&
           trickParts
@@ -31,7 +31,7 @@ const TrickPointEditor = () => {
               return <PointInput trick={trick} />;
             })}
       </div>
-      <div className="h-[70vh] w-[90%] min-w-[100px] overflow-y-scroll">
+      <div className="no-scrollbar h-[35vh] w-[90%] min-w-[100px] overflow-y-scroll">
         <div className="sticky top-0 bg-zinc-900 text-2xl">Stances</div>
         {trickParts?.length &&
           trickParts
@@ -45,7 +45,7 @@ const TrickPointEditor = () => {
               return <PointInput trick={trick} />;
             })}
       </div>
-      <div className="h-[70vh] w-[90%] min-w-[100px] overflow-y-scroll">
+      <div className="no-scrollbar h-[35vh] w-[90%] min-w-[100px] overflow-y-scroll">
         <div className="sticky top-0 bg-zinc-900 text-2xl">Variations</div>
         {trickParts?.length &&
           trickParts
@@ -59,7 +59,7 @@ const TrickPointEditor = () => {
               return <PointInput trick={trick} />;
             })}
       </div>
-      <div className="h-[70vh] w-[90%] min-w-[100px] overflow-y-scroll">
+      <div className="no-scrollbar h-[35vh] w-[90%] min-w-[100px] overflow-y-scroll">
         <div className="sticky top-0 bg-zinc-900 text-2xl">Transitions</div>
         {tricks?.length &&
           tricks
@@ -122,7 +122,7 @@ const PointInput = ({ trick }) => {
     }
   }, [debouncedValue]);
   return (
-    <div className="flex place-items-center justify-between gap-2 p-1 odd:bg-zinc-800">
+    <div className="flex place-items-center justify-between gap-2 p-1 odd:bg-zinc-800 odd:bg-opacity-70 even:bg-zinc-900 even:bg-opacity-70">
       <div onClick={() => console.log(trick)} className="w-1/4">
         {trick?.name}
       </div>

@@ -35,7 +35,7 @@ const BattleroomSetup = ({ setSetupVisible, ably }) => {
 
     setSetupVisible(false);
     setTimeout(() => {
-      nav.push(`${sessionId}`);
+      nav.push(`pppoints/${sessionId}`);
     }, 69);
 
     //make uuid

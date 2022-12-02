@@ -59,7 +59,7 @@ function Home() {
             <TrickedexLogo className={`-m-2px flex fill-zinc-300`} />
           </animated.div>
         </div>
-        <div className="rounded-xl bg-zinc-700 bg-opacity-20">
+        <div className="rounded-xl bg-zinc-800 bg-opacity-40 py-2">
           {!openCaptures &&
             !openComboMaker &&
             !openClaimtricks &&
@@ -67,7 +67,7 @@ function Home() {
               <div className="flex flex-col place-items-center">
                 <Link
                   href="/learnMore"
-                  className="m-2 rounded-3xl bg-indigo-600 px-2 py-0 font-inter font-semibold text-zinc-300"
+                  className="m-2 rounded-3xl bg-indigo-600 px-4 py-2 font-inter font-semibold text-zinc-300"
                 >
                   Learn More
                 </Link>
@@ -83,7 +83,7 @@ function Home() {
 					<Feed /> */}
                 <Link
                   href={"/sandbox"}
-                  className=" mt-4 mb-4 w-[70vw] max-w-[600px]  rounded-xl bg-zinc-800 bg-opacity-30 p-2 text-center font-titan text-3xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)]"
+                  className=" mt-4 mb-4 w-[70vw] max-w-[600px]  rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-3xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)]"
                 >
                   <span className="flex place-content-center items-center gap-2">
                     Sandbox <BiCube />
@@ -91,13 +91,13 @@ function Home() {
                 </Link>
                 <Link
                   href={"/pppoints"}
-                  className=" mt-4 mb-4 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-30 p-2 text-center font-titan text-3xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)]"
+                  className=" mt-4 mb-4 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-3xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)]"
                 >
                   POINTS ++
                 </Link>
                 <Link
                   href={"/addSession"}
-                  className=" mt-4 mb-8 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-30 p-2 text-center font-titan text-3xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
+                  className=" mt-4 mb-8 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-3xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
                 >
                   Add Session
                 </Link>

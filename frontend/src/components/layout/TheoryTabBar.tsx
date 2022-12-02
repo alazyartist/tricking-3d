@@ -8,7 +8,7 @@ import TheoryCap from "../../data/icons/TheoryCap";
 import TransitionsIcon from "../../data/icons/TransitionsIcon";
 import TricksIcon from "../../data/icons/TricksIcon";
 import { useRouter } from "next/router";
-function TheoryTabBar({ tabBar }) {
+function TheoryTabBar() {
   const [openHamburger, setOpenHamburger] = useState(false);
   const location = useRouter();
   const hamburger = useTransition(openHamburger, {

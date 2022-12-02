@@ -25,8 +25,8 @@ const ProgressBadge = () => {
             stroke="currentColor"
             stroke-width="3"
             fill="transparent"
-            stroke-dasharray={circumference}
-            stroke-dashoffset={
+            strokeDasharray={circumference}
+            strokeDashoffset={
               (circumference - percentage / 200) * circumference
             }
             className="text-blue-500 "
