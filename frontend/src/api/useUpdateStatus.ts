@@ -7,7 +7,7 @@ export const useUpdateStatus = () => {
 
   return useMutation(
     ["updateStatus"],
-    async (formData) => {
+    async (formData: { status: string; user_id: string }) => {
       const { data } = await apiPrivate.put("user/profile/status", formData, {
         headers: {
           "Content-Type": "application/json",

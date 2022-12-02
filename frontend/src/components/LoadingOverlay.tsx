@@ -3,8 +3,8 @@ import Link from "next/link";
 import Header from "./layout/Header";
 import DiscordLink from "./info/DiscordLink";
 import MultiDonateButton from "./info/MultiDonateButton";
-import PaypalDonate from "./info/PaypalDonate";
-import Instructions from "../pages/instructrions/components/Instructions";
+import PaypalDonate from "@components/info/PaypalDonate";
+import Instructions from "@old_pages/instructrions/components/Instructions";
 
 function LoadingOverlay({ progress, setIsLoaderOpen }) {
   return (

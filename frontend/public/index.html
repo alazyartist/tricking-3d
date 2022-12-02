@@ -1,53 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="theme-color" content="#000000" />
-		<meta name="description" content="Tricking-3d" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Tricking-3d" />
 
-		<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-		<link
-			rel="apple-touch-icon"
-			sizes="180x180"
-			href="%PUBLIC_URL%/apple-touch-icon.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="32x32"
-			href="%PUBLIC_URL%/favicon-32x32.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="16x16"
-			href="%PUBLIC_URL%/favicon-16x16.png"
-		/>
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="%PUBLIC_URL%/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="%PUBLIC_URL%/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="%PUBLIC_URL%/favicon-16x16.png"
+    />
 
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Titan+One&display=swap"
-			rel="stylesheet"
-		/>
-		<title>Trickedex</title>
-	</head>
-	<!-- data-theme="dark" -->
-	<body>
-		<noscript>You need to enable JavaScript to run this app.</noscript>
-		<div id="root"></div>
-		<script>
-			if ("serviceWorker" in navigator) {
-				window.addEventListener("load", () => {
-					navigator.serviceWorker
-						.register("./serviceWorker.js")
-						.then((reg) =>
-							console.log("YOU DID IT", "Registration Scope", reg.scope)
-						)
-						.catch((err) => console.log("Fucked it up...", err));
-				});
-			}
-		</script>
-	</body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Titan+One&display=swap"
+      rel="stylesheet"
+    />
+    <title>Trickedex</title>
+  </head>
+  <!-- data-theme="dark" -->
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script></script>
+  </body>
 </html>

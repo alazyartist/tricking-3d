@@ -9,6 +9,7 @@ import "../autocomplete.css";
 import AppBackground from "../components/layout/AppBackground";
 import { useRouter } from "next/router";
 import TheoryTabBar from "@components/layout/TheoryTabBar";
+import { useEffect } from "react";
 const UserIcon = dynamic(() => import("../components/layout/UserIcon"), {
   ssr: false,
 });
@@ -26,6 +27,18 @@ const MyApp: AppType<{
     ...pageProps
   },
 }) => {
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("./serviceWorker.js")
+          .then((reg) =>
+            console.log("YOU DID IT", "Registration Scope", reg.scope)
+          )
+          .catch((err) => console.log("Fucked it up...", err));
+      });
+    }
+  }, []);
   const router = useRouter();
   const path = router.pathname;
   const queryClient = new QueryClient();
