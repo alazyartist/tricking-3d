@@ -47,7 +47,7 @@ const Tricklist: React.FC<any> = ({
                   key={combo.id}
                   data={combo}
                   date={date}
-                  last={j == innerArray.length - 1}
+                  last={j === innerArray.length - 1}
                   drag_offset={drag_offset}
                 />
               }

@@ -39,7 +39,7 @@ const NewComboDisplay: React.FC<ComboDisplayProps> = ({
             </div>
           ))}
 
-          {newCombo.length == 0 && (
+          {newCombo.length === 0 && (
             <div className="flex h-full w-full flex-row place-items-center whitespace-nowrap p-2 text-sm text-zinc-300">
               "Choose a trick, stance, or transition to start"
             </div>

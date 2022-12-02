@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef, useMemo } from "react";
+import React, { Suspense, useRef, useMemo } from "react";
 import {
   OrbitControls,
   PerspectiveCamera,
@@ -10,7 +10,6 @@ import LoadActiveModel from "../components/media/ModelSelector";
 import { useStore } from "../store/store";
 import LoadActiveBackground from "../components/media/BackgroundSelector";
 import { SpotLightProps } from "@react-three/fiber";
-// import { useParams } from "react-router-dom";
 
 export default function TorqueScene({ gizmoHelper, model, trick }) {
   const setModel = useStore((s) => s.setModel);
@@ -24,7 +23,6 @@ export default function TorqueScene({ gizmoHelper, model, trick }) {
   const light = useRef<SpotLightProps>();
   const light2 = useRef<SpotLightProps>();
   const gizmoRef = useRef<any>();
-  const isFollowCam = useStore((s) => s.isFollowCam);
   return (
     <>
       {/* @ts-ignore */}

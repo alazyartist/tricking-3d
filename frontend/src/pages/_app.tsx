@@ -7,7 +7,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "../styles/globals.css";
 import "../autocomplete.css";
 import AppBackground from "../components/layout/AppBackground";
-import { Suspense } from "react";
 const UserIcon = dynamic(() => import("../components/layout/UserIcon"), {
   ssr: false,
 });

@@ -13,7 +13,7 @@ function StanceAnimationTest({ currentStance, isSmall, handleStanceAdd }) {
   let newRot = stances[currentStance]?.getRotation();
 
   useEffect(() => {
-    if (newRot == 0 && lastRotation >= 90) {
+    if (newRot === 0 && lastRotation >= 90) {
       newRot = 360;
       setLastRotation(360);
     }

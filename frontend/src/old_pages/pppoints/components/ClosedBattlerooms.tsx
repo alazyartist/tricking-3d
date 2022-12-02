@@ -35,7 +35,7 @@ const ClosedBattlerooms = () => {
       </span>
       <div className="flex max-h-[50vh] flex-col gap-2 overflow-y-auto rounded-md font-normal text-zinc-300">
         {(battleRooms?.length < 1 ||
-          battleRooms?.every((r) => r.isOpen == true)) &&
+          battleRooms?.every((r) => r.isOpen === true)) &&
           "No Sessions Available"}
         {battleRooms?.map((room) => {
           let date = new Date(room.updatedAt).toDateString();

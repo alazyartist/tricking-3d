@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 import { useStore } from "../../../store/store";
@@ -27,7 +27,7 @@ const TrickList_Component: React.FC<any> = ({
     bg: `linear-gradient(120deg, #96fbc4 0%, #a9f586 100%)`,
     offset: "5%",
   };
-  const [{ x, bg, scale, offset }, api] = useSpring<{}>(() => ({
+  const [{ x, bg, offset }, api] = useSpring<{}>(() => ({
     x: 0,
     scale: 1,
   }));

@@ -11,7 +11,7 @@ function Header() {
     } else {
       setOpen(true);
     }
-  }, [location]);
+  }, [router]);
 
   return (
     open && (

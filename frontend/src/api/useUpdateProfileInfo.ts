@@ -1,7 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useApiCreds from "../hooks/useApiCreds";
 import { useUserStore } from "../store/userStore";
-
+interface ProfileInfo {
+  username: string;
+  name: string;
+  country: string;
+  city: string;
+  state: string;
+  age: number;
+  uuid: string;
+}
 export const useUpdateProfileInfo = () => {
   const apiPrivate = useApiCreds();
   const queryClient = useQueryClient();
@@ -9,7 +17,7 @@ export const useUpdateProfileInfo = () => {
 
   return useMutation(
     ["updateProfileInfo"],
-    async (formData) => {
+    async (formData: ProfileInfo) => {
       const { data } = await apiPrivate.put("user/profile/", formData, {
         headers: {
           "Content-Type": "application/json",

@@ -33,7 +33,7 @@ const LiveBattlerooms = ({ ably }) => {
       <div className="flex max-h-[50vh] flex-col gap-2 overflow-y-auto rounded-md font-normal text-zinc-300">
         {liveSessionsFeed?.length < 1 &&
           (battleRooms?.length < 1 ||
-            battleRooms?.every((r) => r.isOpen == false)) &&
+            battleRooms?.every((r) => r.isOpen === false)) &&
           "No Sessions Available"}
         {battleRooms?.map((room) => {
           if (room.isOpen) {

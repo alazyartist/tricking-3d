@@ -11,7 +11,7 @@ function StanceList({ setCurrentStance, currentStance }) {
   const currentDirection = useComboMakerStore((s) => s.currentDirection);
   const setCurrentDirection = useComboMakerStore((s) => s.setCurrentDirection);
   let filteredStances = stanceArr.filter(
-    (e) => e.direction == currentDirection || e.leg == currentLeg
+    (e) => e.direction === currentDirection || e.leg === currentLeg
   );
   // setCurrentLeg("Left");
   // const nav = useNavigate();

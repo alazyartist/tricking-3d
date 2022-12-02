@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { FaCheck } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
 import { useTransition, animated } from "react-spring";
 import { useAddCombo, useGetCombos } from "../../../api/useTricklists";
@@ -8,7 +7,6 @@ import { useUserStore } from "../../../store/userStore";
 const ChooseCombo = ({ setOpen, open, tricklist_id }) => {
   const userInfo = useUserStore((s) => s.userInfo);
   const [showCombo, setShowCombo] = useState(false);
-  const [cname, setCname] = useState("");
   const [addedCombo, setAddedCombo] = useState<boolean>();
 
   const { mutate: addComboDB, isSuccess } = useAddCombo(tricklist_id);

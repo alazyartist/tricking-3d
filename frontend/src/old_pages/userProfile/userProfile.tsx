@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect } from "react";
 import { MdOutlineClose } from "../../data/icons/MdIcons";
 import { useRouter } from "next/router";
 import { useTransition, animated } from "react-spring";
@@ -6,21 +6,15 @@ import useUserInfoByUUID from "../../api/useUserInfoById";
 import { useUserStore } from "../../store/userStore";
 import ProfileInfoCard from "./components/ProfileInfoCard";
 import ProfileInfoCardEditable from "./components/ProfileInfoCardEditable";
-import TricklistsAndClamiedContainer from "./components/TricklistsAndClaimedContainer";
 import ProfileSessionInfo from "./components/ProfileSessionInfo";
 import SessionStatsOverview from "./components/SessionStatsOverview";
-import dynamic from "next/dynamic";
 
-const UserAvatarDisplay = dynamic(
-  () => import("./components/UserAvatarDisplay")
-);
 const UserProfile = () => {
   const router = useRouter();
   const { uuid } = router.query;
   const { uuid: loggedInUUID } = useUserStore((s) => s.userInfo);
   const { data: profileInfo } = useUserInfoByUUID(uuid as string);
   const [editing, setEditing] = useState(false);
-  const [pageLoaded, setPageLoaded] = useState(false);
   const [activeSummary, setActiveSummary] = useState<any>();
   const editView = useTransition(editing, {
     from: { top: -400, opacity: 0 },
@@ -35,8 +29,6 @@ const UserProfile = () => {
   useEffect(() => {
     console.log(profileInfo);
     console.log(activeSummary);
-    // window.addEventListener("load", setPageLoaded(true));
-    // return window.removeEventListener("load", setPageLoaded(true));
   }, [profileInfo]);
 
   return (

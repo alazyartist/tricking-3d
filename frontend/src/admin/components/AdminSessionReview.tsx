@@ -43,6 +43,7 @@ const AdminSessionReview = () => {
         bail: sd?.bail,
       });
     });
+    return;
   }, [sessionid, sessionDetails, data]);
   useEffect(() => {
     setSessionSources(sessionDetails?.SessionSources);

@@ -45,16 +45,16 @@ function BIFOCHMSSpread(arr1, arr2) {
   for (let i = 0; i < arr1.length; i++) {
     for (let q = 0; q < arr2.length; q++) {
       let val = `${arr1[i]}${arr2[q]}`;
-      if (val == "BS") {
+      if (val === "BS") {
         val = "FS";
       }
-      if (val == "BM") {
+      if (val === "BM") {
         val = "FM";
       }
-      if (val == "FC") {
+      if (val === "FC") {
         val = "BC";
       }
-      if (val == "FH") {
+      if (val === "FH") {
         val = "BH";
       }
       newArr.push(val);

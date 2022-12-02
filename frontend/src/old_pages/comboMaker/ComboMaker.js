@@ -75,17 +75,17 @@ function ComboMaker({ setV2, v2 }) {
   //Filters
   let filteredStances = stanceArr.filter(
     (e) =>
-      (!isTrick && e.leg == currentLeg) ||
-      (isTrick && e.landingStyle == stances[currentStance]?.landingStyle)
+      (!isTrick && e.leg === currentLeg) ||
+      (isTrick && e.landingStyle === stances[currentStance]?.landingStyle)
   );
   let filteredTricks = TrickListArr.filter(
-    (e) => e.takeoffStance == currentStance && e.fromLeg == currentLeg
+    (e) => e.takeoffStance === currentStance && e.fromLeg === currentLeg
   );
-  let isEmpty = filteredTricks.length == 0;
+  let isEmpty = filteredTricks.length === 0;
   let filteredTransitions = transArr.filter(
     (e) =>
-      (!isEmpty && e.fromLeg == stances[currentStance]?.leg) ||
-      (isEmpty && e.fromLeg == currentLeg)
+      (!isEmpty && e.fromLeg === stances[currentStance]?.leg) ||
+      (isEmpty && e.fromLeg === currentLeg)
   );
   // let rotation = currentTransition?.getNewRotation(currentStance);
   return (

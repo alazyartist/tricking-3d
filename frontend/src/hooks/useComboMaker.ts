@@ -65,7 +65,7 @@ function useComboMaker(combo, setcombo, newCombo) {
     }
 
     //Auto-Remove Pivot-to from newCombo when removing tricks
-    if (newCombo[newCombo.length - 1] == "Pivot to") {
+    if (newCombo[newCombo.length - 1] === "Pivot to") {
       setIsDelete(!isDelete);
     }
   }, [
