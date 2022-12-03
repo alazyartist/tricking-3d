@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { QrReader } from "react-qr-reader";
-import { useNavigate, useLocation } from "react-router-dom";
 import useCaptureUser from "../../../api/useCaptures";
 import useUserInfoByUUID from "../../../api/useUserInfoById";
 import { useUserStore } from "../../../store/userStore";
@@ -9,8 +8,8 @@ const QRReader = () => {
 	const [QRDataResponse, setQRDataResponse] = useState("Capture Valid User");
 	const activeUser = useUserStore((s) => s.userInfo);
 	const { mutate: captureUser } = useCaptureUser();
-	const nav = useNavigate();
-	const location = useLocation();
+	// const nav = useNavigate();
+	// const location = useLocation();
 	const { data: capturedUserInfo } = useUserInfoByUUID(QRData);
 	useEffect(() => {
 		capturedUserInfo && setQRDataResponse(capturedUserInfo?.username);
@@ -59,7 +58,8 @@ const QRReader = () => {
 						<div>{`You Captured ${QRDataResponse}`}</div>
 						<button
 							className='rounded-lg bg-zinc-700 p-1 text-sm'
-							onClick={() => nav(`/userProfile/${QRData}`)}>
+							// onClick={() => nav(`/userProfile/${QRData}`)}
+						>
 							View Profile
 						</button>
 					</>
