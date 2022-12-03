@@ -4,7 +4,7 @@ const ContributeCard = ({ children }) => {
   return (
     <div
       className={
-        "h-full max-w-[400px] rounded-md bg-zinc-900 bg-opacity-80 p-2"
+        "h-fit max-w-[400px] rounded-md bg-zinc-900 bg-opacity-80 p-2 md:h-full"
       }
     >
       {children}
