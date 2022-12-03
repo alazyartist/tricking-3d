@@ -2,9 +2,9 @@ import React from "react";
 function DylanContactLinks() {
   return (
     <div id="contact-link-container" className="mt-3 flex flex-col">
-      <a className="inline" href="mailto:dylan@torquetricking.com">
+      <a className="inline" href="mailto:torquetricking@gmail.com">
         <Mailer className="mx-2 inline" />
-        dylan@torquetricking.com
+        torquetricking@gmail.com
       </a>
       <a
         className="inline"

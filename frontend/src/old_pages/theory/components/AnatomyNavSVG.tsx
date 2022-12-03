@@ -17,7 +17,7 @@ const AnatomyNav = (props) => {
 
   const handleNav = (pathToNav) => {
     console.log(pathToNav);
-    nav.push(`theory/${pathToNav}`);
+    nav.push(`/theory/${pathToNav}`);
   };
 
   return (

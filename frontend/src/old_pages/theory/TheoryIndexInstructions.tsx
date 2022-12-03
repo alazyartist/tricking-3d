@@ -19,10 +19,10 @@ const TheoryIndexInstructions = () => {
           Setups
         </li>
         <li
-          onClick={() => nav.push("stances")}
+          onClick={() => nav.push("tricks")}
           className="rounded-xl border-2 border-zinc-500 p-2"
         >
-          Stances
+          Tricks
         </li>
         <li
           onClick={() => nav.push("transitions")}
@@ -31,10 +31,10 @@ const TheoryIndexInstructions = () => {
           Transitions
         </li>
         <li
-          onClick={() => nav.push("tricks")}
+          onClick={() => nav.push("stances")}
           className="rounded-xl border-2 border-zinc-500 p-2"
         >
-          Tricks
+          Stances
         </li>
       </ul>
     </div>

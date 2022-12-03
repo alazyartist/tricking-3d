@@ -3,7 +3,7 @@ import { stances } from "@data/trickDataModel/TrickObjects";
 import { stanceArr } from "@data/TricklistClass";
 import { useComboMakerStore } from "@store/comboMakerStore";
 import ArrayDisplay from "@old_pages/comboMaker/components/ArrayDisplay";
-import TransitionButtons from "@old_pages/comboMaker/components/TransitionButtons.js";
+import TransitionButtons from "@old_pages/comboMaker/components/TransitionButtons";
 import { IoIosList } from "react-icons/io";
 function StanceList({ setCurrentStance, currentStance }) {
   const currentLeg = useComboMakerStore((s) => s.currentLeg);
