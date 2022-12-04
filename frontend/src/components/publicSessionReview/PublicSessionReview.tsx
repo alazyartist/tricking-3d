@@ -44,8 +44,8 @@ const PublicSessionReview = ({ source, mirrored }) => {
         vidsrc: sd?.SessionSource?.vidsrc,
         bail: sd?.bail,
       });
+      return;
     });
-    return;
   }, [source]);
   useEffect(() => console.log(vidRef?.current), [sessionData, vidRef]);
   useEffect(() => {
@@ -90,9 +90,7 @@ const PublicSessionReview = ({ source, mirrored }) => {
             vidsrc === source.vidsrc ? "bg-zinc-900" : "bg-zinc-700"
           }  p-2`}
           onClick={() => {
-            vidsrc === source.vidsrc
-              ? setVidsrc(null)
-              : setVidsrc(source.vidsrc);
+            setVidsrc(source.vidsrc);
           }}
         >
           Watch Session
