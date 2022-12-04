@@ -30,6 +30,7 @@ const AdminSessionReview = () => {
     setSessionid(sessionid as string);
     clearSessionData();
     sessionDetails?.SessionData?.map((sd) => {
+      console.log("sd");
       console.log(sd);
       setSessionData({
         id: sd?.id,

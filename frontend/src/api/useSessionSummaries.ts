@@ -22,7 +22,7 @@ export const useSubmitSessionForReview = () => {
   );
 };
 interface SessionDataType {
-  sessionData?: any[];
+  sessionData?: any | any[];
   data?: any | any[];
   status?: string;
   sessionid?: string;

@@ -35,13 +35,19 @@ const MakeNewTrickModal = () => {
   const setTrickMakerOpen = useSessionSummariesStore(
     (s) => s.setTrickMakerOpen
   );
-  let bases = trickParts?.filter((e) => e.base_id);
-  let stances = trickParts?.filter((e) => e.type === "Stance");
-  let variations = trickParts?.filter((e) => e.type === "Variation");
+  const [allTricks, setAllTricks] = useState({
+    bases: [],
+    stances: [],
+    variations: [],
+  });
   let trickInfo = getTrickInfo();
   const { mutate: saveTrick, data: response } = useSaveTrick();
   // console.log("re-ran", getTrickInfo());
   useEffect(() => {
+    let bases = trickParts?.filter((e) => e.base_id);
+    let stances = trickParts?.filter((e) => e.type === "Stance");
+    let variations = trickParts?.filter((e) => e.type === "Variation");
+    setAllTricks({ bases, stances, variations });
     console.log(response);
     if (response?.status === 200) {
       clearTrickInfo();
@@ -108,7 +114,7 @@ const MakeNewTrickModal = () => {
         </div>
         <div className="no-scrollbar grid h-[56vh] max-w-[90vw] grid-cols-2 flex-col gap-2 overflow-hidden overflow-y-scroll rounded-md text-base text-zinc-800 md:flex-row md:overflow-visible lg:flex">
           <div className="rounded-md bg-zinc-300 p-1">
-            {bases?.map((base) => (
+            {allTricks.bases?.map((base) => (
               <p
                 onClick={() => {
                   setBase_id(base.name);
@@ -121,12 +127,12 @@ const MakeNewTrickModal = () => {
             ))}
           </div>
           <div className="rounded-md  bg-emerald-300 p-1">
-            {stances?.map((stance) => (
+            {allTricks.stances?.map((stance) => (
               <ChooseStance stance={stance} />
             ))}
           </div>
           <div className="col-span-2 rounded-md bg-purple-300 p-1 md:columns-3">
-            {variations
+            {allTricks.variations
               ?.sort((a, b) => {
                 if (a.variationType < b.variationType) return -1;
                 if (a.variationType > b.variationType) return 1;

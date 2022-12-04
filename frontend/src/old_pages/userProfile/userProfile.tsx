@@ -9,6 +9,7 @@ import ProfileInfoCardEditable from "./components/ProfileInfoCardEditable";
 import ProfileSessionInfo from "./components/ProfileSessionInfo";
 import SessionStatsOverview from "./components/SessionStatsOverview";
 import ProfileNav from "./components/ProfileNav";
+import PublicSessionReview from "@components/publicSessionReview/PublicSessionReview";
 
 const UserProfile = () => {
   const router = useRouter();
@@ -75,33 +76,49 @@ const UserProfile = () => {
       </div>
 
       <div className="flex w-full flex-col place-items-center gap-4 rounded-lg p-2">
-        <div className="h-[40vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2">
+        <div className="relative h-[40vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2">
           {activeView === "Stats" ? (
             <ProfileNav setActiveView={setActiveView} activeView={activeView} />
           ) : null}
           {activeView === "Sessions" ? (
-            <div className="flex h-full w-full gap-2">
-              <div className="w-1/2">
+            <div className=" flex h-full w-full gap-2 ">
+              <div className="h-full w-1/2 overflow-hidden overflow-y-scroll">
                 <ProfileNav
                   setActiveView={setActiveView}
                   activeView={activeView}
                 />
-                {profileInfo.SessionSummaries.map((summary) => (
-                  <div
-                    key={summary.id}
-                    className="flex-col gap-2 rounded-md bg-zinc-900 p-2"
-                    onClick={() => setActiveSummary(summary)}
-                  >
-                    {summary.name}
+                <div className="flex h-[100%] flex-col place-content-start gap-1">
+                  {profileInfo.SessionSummaries.map((summary) => (
+                    <div
+                      key={summary.id}
+                      className="flex-col gap-2 rounded-md bg-zinc-900 p-2"
+                      onClick={() => {
+                        console.log(summary);
+                        setActiveSummary(summary);
+                      }}
+                    >
+                      {summary.name}
+                    </div>
+                  ))}
+                  <div className="p-2 font-bold text-zinc-900">
+                    no more sessions...
                   </div>
-                ))}
+                </div>
               </div>
-              <div className="neumorphicIn no-scrollbar w-1/2 overflow-hidden overflow-y-scroll rounded-md p-4">
+              <div className="neumorphicIn no-scrollbar aspect-[5/4] w-1/2 overflow-hidden overflow-y-scroll rounded-md p-4 md:relative">
                 <SessionStatsOverview summary={activeSummary} />
+                {activeSummary && (
+                  <>
+                    {activeSummary.SessionSources.map((source) => (
+                      <PublicSessionReview source={source} mirrored={false} />
+                    ))}
+                  </>
+                )}
               </div>
             </div>
           ) : null}
         </div>
+        <div></div>
         <div className="h-[27vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2">
           {activeView === "Stats" ? (
             <div
@@ -112,10 +129,7 @@ const UserProfile = () => {
             </div>
           ) : null}
           {activeView === "Sessions" ? (
-            <div
-              className="no-scrollbar relative h-full w-full overflow-hidden overflow-y-scroll"
-              onClick={() => setActiveView("Stats")}
-            >
+            <div className="no-scrollbar relative h-full w-full overflow-hidden overflow-y-scroll">
               {activeSummary ? (
                 <>
                   <div

@@ -140,8 +140,10 @@ const Autocomplete = (props: any) => {
     }
   };
   useEffect(() => {
-    setVidsrc(sessionSources[count % sessionSources?.length]?.vidsrc);
-  }, [count]);
+    if (sessionSources) {
+      setVidsrc(sessionSources[count % sessionSources?.length]?.vidsrc);
+    }
+  }, [count, sessionSources]);
   useEffect(() => {
     document.addEventListener("keyup", (e) => handleSlash(e));
     return () => document.removeEventListener("keyup", (e) => handleSlash(e));
@@ -334,7 +336,7 @@ const Autocomplete = (props: any) => {
                   },
                   {
                     label: "/o",
-                    placeholder: " set clipStart",
+                    placeholder: " set clipEnd",
                     onSelect: (params) => {
                       console.log(timeRef);
                       setActiveClipData({
@@ -413,11 +415,11 @@ const Autocomplete = (props: any) => {
                     label: "/save",
                     placeholder: "saveSessionDetails",
                     onSelect: ({ itemInputValue }) => {
-                      saveSessionDetails(
-                        //@ts-ignore
+                      saveSessionDetails({
                         sessionData,
-                        useSessionSummariesStore.getState().sessionid
-                      );
+                        sessionid:
+                          useSessionSummariesStore.getState().sessionid,
+                      });
                     },
                   },
                   {

@@ -34,15 +34,18 @@ const DataDetails = ({ d }) => {
         {d?.ClipLabel?.name}
       </div>
       {/* <div className='w-1/3 '>{d?.SessionSource?.vidsrc}</div> */}
-      <div className="w-4/9 flex gap-2">
-        <div className="flex min-w-[22px] place-items-center text-xl font-black">
+      <div className="w-4/9 flex place-items-center gap-4">
+        <div className="flex min-w-[22px] place-items-center  text-xl font-black">
           {d?.ClipLabel?.pointValue}
         </div>
-        <div className="min-w-[48px] rounded-md bg-emerald-300 p-1 text-center text-zinc-800">
-          {d?.clipStart}
-        </div>
-        <div className="min-w-[48px] rounded-md bg-red-300 p-1 text-center text-zinc-800">
-          {d?.clipEnd}
+        <div className="flex place-items-center rounded-md bg-zinc-900 bg-opacity-40 p-1">
+          <div className="min-w-[48px] rounded-md  text-center text-zinc-300">
+            {d?.clipStart}
+          </div>
+          <div>--&gt;</div>
+          <div className="min-w-[48px] rounded-md  text-center text-zinc-300">
+            {d?.clipEnd}
+          </div>
         </div>
       </div>
     </div>
