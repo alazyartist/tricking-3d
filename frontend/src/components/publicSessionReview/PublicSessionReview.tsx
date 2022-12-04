@@ -88,7 +88,7 @@ const PublicSessionReview = ({ source, mirrored }) => {
         <div
           className={`rounded-md text-center ${
             vidsrc === source.vidsrc ? "bg-zinc-900" : "bg-zinc-700"
-          }  p-2`}
+          }  active:neumorphicIn p-2 active:rounded-md`}
           onClick={() => {
             setVidsrc(source.vidsrc);
           }}

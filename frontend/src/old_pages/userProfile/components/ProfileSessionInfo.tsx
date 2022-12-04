@@ -1,3 +1,4 @@
+import { useSessionSummariesStore } from "@admin/components/sessionreview/SessionSummaryStore";
 import React from "react";
 
 const ProfileSessionInfo = ({ summary }) => {
@@ -28,8 +29,14 @@ export default ProfileSessionInfo;
 
 const DataDetails = ({ d }) => {
   // console.log(d);
+  const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
+  const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
+
   return (
-    <div className="flex place-items-center justify-between rounded-md bg-teal-100 bg-opacity-10 p-1 text-sm md:text-inherit">
+    <div
+      className="flex place-items-center justify-between rounded-md bg-teal-100 bg-opacity-10 p-1 text-sm md:text-inherit"
+      onClick={() => setVidsrc(d.vidsrc)}
+    >
       <div className="no-scrollbar w-[175px] overflow-x-scroll whitespace-pre-line p-1 text-lg md:w-1/3">
         {d?.ClipLabel?.name}
       </div>
@@ -42,7 +49,7 @@ const DataDetails = ({ d }) => {
           <div className="min-w-[48px] rounded-md  text-center text-zinc-300">
             {d?.clipStart}
           </div>
-          <div>--&gt;</div>
+          <div className="whitespace-nowrap">--&gt;</div>
           <div className="min-w-[48px] rounded-md  text-center text-zinc-300">
             {d?.clipEnd}
           </div>

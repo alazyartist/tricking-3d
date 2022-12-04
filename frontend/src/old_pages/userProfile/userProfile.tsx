@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { IoIosArrowBack } from "react-icons/io";
 import { MdOutlineClose } from "../../data/icons/MdIcons";
 import { useRouter } from "next/router";
 import { useTransition, animated } from "react-spring";
@@ -7,10 +6,12 @@ import useUserInfoByUUID from "../../api/useUserInfoById";
 import { useUserStore } from "../../store/userStore";
 import ProfileInfoCard from "./components/ProfileInfoCard";
 import ProfileInfoCardEditable from "./components/ProfileInfoCardEditable";
-import ProfileSessionInfo from "./components/ProfileSessionInfo";
-import SessionStatsOverview from "./components/SessionStatsOverview";
 import ProfileNav from "./components/ProfileNav";
-import PublicSessionReview from "@components/publicSessionReview/PublicSessionReview";
+
+import ProfileSessionInfo from "./components/ProfileSessionInfo";
+
+import SessionStatsList from "./components/SessionStatsList";
+import SessionStatsContainer from "./components/SessionStatsContainer";
 
 const UserProfile = () => {
   const router = useRouter();
@@ -84,41 +85,17 @@ const UserProfile = () => {
           {activeView === "Sessions" ? (
             <div className=" flex h-full w-full gap-2 ">
               {!activeSummary ? (
-                <div className="h-full w-full overflow-hidden overflow-y-scroll">
-                  <ProfileNav
-                    setActiveView={setActiveView}
-                    activeView={activeView}
-                  />
-                  <div className="flex h-[100%] flex-col place-content-start gap-1">
-                    {profileInfo.SessionSummaries.map((summary) => (
-                      <div
-                        key={summary.id}
-                        className="flex-col gap-2 rounded-md bg-zinc-900 p-2"
-                        onClick={() => {
-                          console.log(summary);
-                          setActiveSummary(summary);
-                        }}
-                      >
-                        {summary.name}
-                      </div>
-                    ))}
-                    <div className="p-2 font-bold text-zinc-900">
-                      no more sessions...
-                    </div>
-                  </div>
-                </div>
+                <SessionStatsList
+                  setActiveView={setActiveView}
+                  activeView={activeView}
+                  profileInfo={profileInfo}
+                  setActiveSummary={setActiveSummary}
+                />
               ) : (
-                <div className="neumorphicIn no-scrollbar aspect-[5/4] w-full overflow-hidden overflow-y-scroll rounded-md p-4 md:relative">
-                  <IoIosArrowBack onClick={() => setActiveSummary(null)} />
-                  <SessionStatsOverview summary={activeSummary} />
-                  {activeSummary && (
-                    <>
-                      {activeSummary.SessionSources.map((source) => (
-                        <PublicSessionReview source={source} mirrored={false} />
-                      ))}
-                    </>
-                  )}
-                </div>
+                <SessionStatsContainer
+                  setActiveSummary={setActiveSummary}
+                  activeSummary={activeSummary}
+                />
               )}
             </div>
           ) : null}
@@ -128,7 +105,7 @@ const UserProfile = () => {
           {activeView === "Stats" ? (
             <div
               className="mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4"
-              onClick={() => setActiveView("Sessions")}
+              // onClick={() => setActiveView("Sessions")}
             >
               Last Session Stats
             </div>

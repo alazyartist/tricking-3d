@@ -13,6 +13,12 @@ const TheoryIndexInstructions = () => {
       </div>
       <ul className="flex flex-col gap-3 font-light">
         <li
+          onClick={() => nav.push("/theory/anatomy")}
+          className="rounded-xl border-2 border-zinc-500 p-2"
+        >
+          Anatomy of a Trick
+        </li>
+        <li
           onClick={() => nav.push("/theory/setups")}
           className="rounded-xl border-2 border-zinc-500 p-2"
         >
