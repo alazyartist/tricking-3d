@@ -8,6 +8,7 @@ import ProfileInfoCard from "./components/ProfileInfoCard";
 import ProfileInfoCardEditable from "./components/ProfileInfoCardEditable";
 import ProfileSessionInfo from "./components/ProfileSessionInfo";
 import SessionStatsOverview from "./components/SessionStatsOverview";
+import ProfileNav from "./components/ProfileNav";
 
 const UserProfile = () => {
   const router = useRouter();
@@ -76,22 +77,15 @@ const UserProfile = () => {
       <div className="flex w-full flex-col place-items-center gap-4 rounded-lg p-2">
         <div className="h-[40vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2">
           {activeView === "Stats" ? (
-            <div
-              className="mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4"
-              onClick={() => setActiveView("Sessions")}
-            >
-              Overall Stats
-            </div>
+            <ProfileNav setActiveView={setActiveView} activeView={activeView} />
           ) : null}
           {activeView === "Sessions" ? (
             <div className="flex h-full w-full gap-2">
               <div className="w-1/2">
-                <div
-                  className="mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4"
-                  onClick={() => setActiveView("Stats")}
-                >
-                  Sessions
-                </div>
+                <ProfileNav
+                  setActiveView={setActiveView}
+                  activeView={activeView}
+                />
                 {profileInfo.SessionSummaries.map((summary) => (
                   <div
                     key={summary.id}
@@ -122,14 +116,22 @@ const UserProfile = () => {
               className="no-scrollbar relative h-full w-full overflow-hidden overflow-y-scroll"
               onClick={() => setActiveView("Stats")}
             >
-              <div
-                className={
-                  "sticky top-0 mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4"
-                }
-              >
-                Selected Session Overview
-              </div>
-              <ProfileSessionInfo summary={activeSummary} />
+              {activeSummary ? (
+                <>
+                  <div
+                    className={
+                      "sticky top-0 mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4"
+                    }
+                  >
+                    Selected Session Breakdown
+                  </div>
+                  <ProfileSessionInfo summary={activeSummary} />
+                </>
+              ) : (
+                <h1 className="h-full w-full p-2 text-center text-4xl font-bold">
+                  Select a Session to see the breakdown.
+                </h1>
+              )}
             </div>
           ) : null}
         </div>

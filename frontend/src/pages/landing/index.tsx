@@ -1,11 +1,15 @@
-// import { Canvas } from "@react-three/fiber";
-import React from "react";
+import { Canvas } from "@react-three/fiber";
+import TorqueScene from "@scenes/TorqueScene";
+import React, { Suspense } from "react";
 import Link from "next/link";
 import { TrickedexLogo } from "@data/icons/TrickedexLogo";
 import { NextPage } from "next";
-// import AnatomySketch from "../theory/components/AnatomySketchSVG";
-// import DetailCard from "./components/DetailCard";
-// const MovingBackground = lazy(() => import("./components/MovingBackground"));
+import AnatomySketch from "old_pages/theory/components/AnatomySketchSVG";
+import DetailCard from "@old_pages/landing/components/DetailCard";
+import dynamic from "next/dynamic";
+const MovingBackground = dynamic(
+  () => import("@old_pages/landing/components/MovingBackground")
+);
 // const EnterSandboxLink = lazy(() =>
 // 	import("../../pages/home/components/EnterSandboxLink")
 // );
@@ -38,12 +42,13 @@ const LandingPage: NextPage = () => {
         >
           Home
         </Link>
-        {/* <Suspense
-					fallback={
-						<div className='absolute top-[50vh] -z-20 h-[60vw] w-[60vw] rounded-full bg-teal-300 blur-3xl' />
-					}>
-					<MovingBackground />
-				</Suspense> */}
+        <Suspense
+          fallback={
+            <div className="absolute top-[50vh] -z-20 h-[60vw] w-[60vw] rounded-full bg-teal-300 blur-3xl" />
+          }
+        >
+          <MovingBackground />
+        </Suspense>
         <div className="absolute top-[50vh] h-[60vw] w-[90vw] font-inter font-semibold text-zinc-800">
           <div className="text-center text-3xl">
             <span className="font-black ">Please </span>Excuse the Mess.
@@ -60,40 +65,58 @@ const LandingPage: NextPage = () => {
 					<div className='h-[200px] w-[300px] flex-shrink-0 rounded-md bg-zinc-900'></div>
 					<div className='h-[200px] w-[100px] flex-shrink-0 rounded-md bg-zinc-900'></div>
 				</div> */}
+        <div className="absolute bottom-4 font-inter text-3xl font-black">
+          Scroll to See More
+        </div>
       </div>
-      {/* 
-			<DetailCard
-				left
-				title={"Explore Tricks in 3D"}
-				description="See Tricks like never before. Study the movement's your way.">
-					</DetailCard> */}
-      {/* <Canvas className='rounded-md bg-zinc-900 md:min-h-[400px]'>
-					<TorqueScene />
-				</Canvas> */}
-      {/* <DetailCard
-				title={"Have Quick Access to the Theory"}
-				description='Fully Searchable and at you fingertips.'>
-				<AnatomySketch
-					className={
-						"h-[200px] w-[300px] rounded-md bg-zinc-900 md:h-[400px] md:w-[600px] "
-					}
-				/>
-			</DetailCard>
-			<DetailCard
-				left
-				title={"Track your progress"}
-				description="Easily see what tricks you've done and track your goals"></DetailCard>
-			<DetailCard
-				title={"Follow your friends"}
-				description='Keep track of your progress as a group.'></DetailCard>
-			<div className='h-[40px]' />
-			<Suspense
-				fallback={
-					<div className='absolute top-[50vh] -z-20 h-[60vw] w-[60vw] rounded-full bg-teal-300 blur-3xl' />
-				}>
-				<MovingBackground />
-			</Suspense>
-		*/}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <DetailCard
+          left
+          link={"/sandbox"}
+          cta={"Go to Sandbox"}
+          title={"Explore Tricks in 3D"}
+          description="See Tricks like never before. Study the movement's your way."
+        >
+          <Canvas className="rounded-md bg-zinc-900 md:min-h-[400px]">
+            <Suspense>
+              <TorqueScene />
+            </Suspense>
+          </Canvas>
+        </DetailCard>
+        <DetailCard
+          link={"/theory"}
+          cta={"Explore Theory Now"}
+          title={"Have Quick Access to the Theory"}
+          description="Fully Searchable and at you fingertips."
+        >
+          <AnatomySketch
+            className={
+              "h-[200px] w-[300px] rounded-md bg-zinc-900 md:h-[400px] md:w-[600px] "
+            }
+          />
+        </DetailCard>
+        <DetailCard
+          left
+          link={"/register"}
+          cta={"Register Now"}
+          title={"Track your progress"}
+          description="Easily see what tricks you've done and track your goals"
+        ></DetailCard>
+        <DetailCard
+          link={"/register"}
+          cta={"Register Now"}
+          title={"Follow your friends"}
+          description="Keep track of your progress as a group."
+        ></DetailCard>
+        <div className="h-[40px]" />
+        <Suspense
+          fallback={
+            <div className="absolute top-[50vh] -z-20 h-[60vw] w-[60vw] rounded-full bg-teal-300 blur-3xl" />
+          }
+        >
+          <MovingBackground />
+        </Suspense>
+      </div>
     </div>
   );
 };
