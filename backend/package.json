@@ -22,12 +22,15 @@
 		"jsonwebtoken": "^8.5.1",
 		"mysql2": "^2.3.3",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 		"neo4j-driver": "^5.3.0",
 		"node-fetch": "^3.3.0",
 		"nodemailer": "^6.8.0",
 		"nodemon": "^2.0.20",
 		"sequelize": "^6.26.0",
 		"stripe": "^11.1.0",
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 		"node-fetch": "^3.2.10",
