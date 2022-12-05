@@ -30,10 +30,10 @@ importers:
       jsonwebtoken: ^8.5.1
       mysql2: ^2.3.3
       neo4j-driver: ^5.3.0
-      node-fetch: ^3.2.10
-      nodemailer: ^6.7.7
-      nodemon: ^2.0.19
-      sequelize: ^6.20.1
+      node-fetch: ^3.3.0
+      nodemailer: ^6.8.0
+      nodemon: ^2.0.20
+      sequelize: ^6.26.0
       sequelize-cli: ^6.5.2
       stripe: ^11.1.0
       uuid: ^8.3.2
