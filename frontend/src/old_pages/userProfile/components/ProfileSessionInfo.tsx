@@ -31,11 +31,16 @@ const DataDetails = ({ d }) => {
   // console.log(d);
   const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
-
+  const setClipComboRaw = useSessionSummariesStore((s) => s.setClipComboRaw);
+  const handleClick = () => {
+    setVidsrc(d.SessionSource.vidsrc);
+    setClipComboRaw(d.ClipLabel.comboArray);
+    setSeekTime(d.clipStart);
+  };
   return (
     <div
       className="flex place-items-center justify-between rounded-md bg-teal-100 bg-opacity-10 p-1 text-sm md:text-inherit"
-      onClick={() => setVidsrc(d.vidsrc)}
+      onClick={() => handleClick()}
     >
       <div className="no-scrollbar w-[175px] overflow-x-scroll whitespace-pre-line p-1 text-lg md:w-1/3">
         {d?.ClipLabel?.name}

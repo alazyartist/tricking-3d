@@ -4,7 +4,7 @@ import ReactPlayer from "react-player";
 import { MdClose } from "@data/icons/MdIcons";
 import { useSessionSummariesStore } from "@admin/components/sessionreview/SessionSummaryStore";
 
-const PublicSessionReview = ({ source, mirrored }) => {
+const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
   const vidsrcRegex = /(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)/g;
   const vidRef = useRef<ReactPlayer>();
   const seekTime = useSessionSummariesStore((s) => s.seekTime);
@@ -31,7 +31,7 @@ const PublicSessionReview = ({ source, mirrored }) => {
   );
   useEffect(() => {
     clearSessionData();
-    source?.SessionData?.map((sd) => {
+    activeSummary?.SessionData?.map((sd) => {
       console.log(sd);
       setSessionData({
         id: sd?.id,
@@ -46,13 +46,18 @@ const PublicSessionReview = ({ source, mirrored }) => {
       });
       return;
     });
-  }, [source]);
-  useEffect(() => console.log(vidRef?.current), [sessionData, vidRef]);
+  }, [activeSummary]);
+  useEffect(
+    () => console.log("sessionData", sessionData),
+    [sessionData, vidRef]
+  );
   useEffect(() => {
-    setCurrentTime(seekTime);
+    if (currentTime !== seekTime) {
+      setCurrentTime(seekTime);
+      vidRef?.current?.seekTo(seekTime);
+    }
     //@ts-ignore
-    vidRef?.current?.seekTo(seekTime);
-    setVidIsPlaying();
+    setVidIsPlaying(true);
   }, [seekTime]);
   let colors = ["bg-teal-300", "bg-emerald-300", "bg-indigo-300", "bg-sky-300"];
   let activeWidth = `${(
@@ -159,7 +164,7 @@ const PublicSessionReview = ({ source, mirrored }) => {
                         )
                       );
                     })}
-                  <div
+                  {/* <div
                     style={{
                       width: activeWidth,
 
@@ -168,7 +173,7 @@ const PublicSessionReview = ({ source, mirrored }) => {
                     id={`activeSessionClip'`}
                     key={`activeSessionClip'`}
                     className={`absolute top-[4px] h-3 rounded-md bg-teal-300  `}
-                  ></div>
+                  ></div> */}
                 </div>
               </div>
               <div className="neumorphicIn flex w-full gap-2 rounded-md p-2 text-zinc-300">
@@ -202,6 +207,7 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
   const setClipComboRaw = useSessionSummariesStore((s) => s.setClipComboRaw);
   const setClipData = useSessionSummariesStore((s) => s.setClipData);
   const setSrcid = useSessionSummariesStore((s) => s.setSrcid);
+  const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
   const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
 
   const removeSessionData = useSessionSummariesStore(
@@ -241,14 +247,15 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
       <div
         key={`${e.id}+${Math.random()}`}
         onClick={() => {
-          setSrcid(source.srcid);
-          setClipData(e);
-          clearClipCombo();
+          // setSrcid(source.srcid);
+          // setClipData(e);
+          // clearClipCombo();
+          setSeekTime(e.startTime);
           setClipComboRaw(e.clipLabel);
-          removeSessionData(e);
+          // removeSessionData(e);
         }}
-        onMouseOver={() => setSeeDetails(true)}
-        onMouseLeave={() => setSeeDetails(false)}
+        // onMouseOver={() => setSeeDetails(true)}
+        // onMouseLeave={() => setSeeDetails(false)}
         style={{ width: w, left: l }}
         className={`absolute top-[4px] h-3 rounded-md bg-indigo-300 `}
       ></div>

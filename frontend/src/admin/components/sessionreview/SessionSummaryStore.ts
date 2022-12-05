@@ -31,7 +31,7 @@ interface SummaryStore {
   clipDetailsVisible: boolean;
   setClipDetailsVisible: () => void;
   vidIsPlaying: boolean;
-  setVidIsPlaying: () => void;
+  setVidIsPlaying: (value: boolean) => void;
   seekTime: number;
   setSeekTime: (value: number) => void;
   currentTime: number;
@@ -71,7 +71,8 @@ export const useSessionSummariesStore = create<SummaryStore>(
       setClipDetailsVisible: () =>
         set((s) => ({ clipDetailsVisible: !s.clipDetailsVisible })),
       vidIsPlaying: false,
-      setVidIsPlaying: () => set((s) => ({ vidIsPlaying: !s.vidIsPlaying })),
+      setVidIsPlaying: (value) =>
+        set((s) => ({ vidIsPlaying: value || !s.vidIsPlaying })),
       seekTime: 0,
       setSeekTime: (value) => set(() => ({ seekTime: value })),
       currentTime: 0,

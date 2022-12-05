@@ -1,5 +1,5 @@
 import React from "react";
-import SessionStatsOverview from "./SessionStatsOverview";
+import SessionStatsOverview from ".//SessionStatsOverview";
 import { IoIosArrowBack } from "react-icons/io";
 
 import PublicSessionReview from "@components/publicSessionReview/PublicSessionReview";
@@ -13,9 +13,16 @@ const SessionStatsContainer = ({ setActiveSummary, activeSummary }) => {
       <SessionStatsOverview summary={activeSummary} />
       {activeSummary && (
         <>
-          {activeSummary.SessionSources.map((source) => (
-            <PublicSessionReview source={source} mirrored={false} />
-          ))}
+          {activeSummary.SessionSources.map((source) => {
+            console.log(source);
+            return (
+              <PublicSessionReview
+                source={source}
+                activeSummary={activeSummary}
+                mirrored={false}
+              />
+            );
+          })}
         </>
       )}
     </div>
