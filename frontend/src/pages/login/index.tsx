@@ -1,4 +1,4 @@
-import Login from "future_app/login/page";
+import Login from "../../auth/LoginPage";
 import React from "react";
 
 const LoginPage = () => {

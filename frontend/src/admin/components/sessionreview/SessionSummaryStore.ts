@@ -31,7 +31,7 @@ interface SummaryStore {
   clipDetailsVisible: boolean;
   setClipDetailsVisible: () => void;
   vidIsPlaying: boolean;
-  setVidIsPlaying: (value: boolean) => void;
+  setVidIsPlaying: (value?: boolean) => void;
   seekTime: number;
   setSeekTime: (value: number) => void;
   currentTime: number;
