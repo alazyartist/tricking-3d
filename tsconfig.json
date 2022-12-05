@@ -5,8 +5,8 @@
 		"**/*.ts",
 		"**/*.tsx",
 		"**/*.js",
-		"**/*.cjs",
-		"**/*.mjs"
+		//"**/*.cjs",
+		//"**/*.mjs"
 	],
 	"exclude": ["node_modules", "backend/**", "build"],
 	"compilerOptions": {
