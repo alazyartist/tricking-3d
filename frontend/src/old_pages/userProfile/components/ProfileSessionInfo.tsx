@@ -1,5 +1,5 @@
 import { useSessionSummariesStore } from "@admin/components/sessionreview/SessionSummaryStore";
-import React from "react";
+import React, { useEffect } from "react";
 
 const ProfileSessionInfo = ({ summary }) => {
   return (
@@ -29,9 +29,16 @@ export default ProfileSessionInfo;
 
 const DataDetails = ({ d }) => {
   // console.log(d);
+  const currentTime = useSessionSummariesStore((s) => s.currentTime);
   const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
   const setClipComboRaw = useSessionSummariesStore((s) => s.setClipComboRaw);
+  useEffect(() => {
+    console.log(currentTime);
+    if (Math.floor(d.clipStart) === Math.floor(currentTime)) {
+      setClipComboRaw(d.ClipLabel.comboArray);
+    }
+  }, [currentTime, d]);
   const handleClick = () => {
     setVidsrc(d.SessionSource.vidsrc);
     setClipComboRaw(d.ClipLabel.comboArray);
