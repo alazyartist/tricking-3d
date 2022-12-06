@@ -53,7 +53,7 @@ const MakeNewTrickModal = () => {
       clearTrickInfo();
       setTrickMakerOpen(false);
     }
-  }, [response]);
+  }, [response, allTricks]);
   return trickMakerOpen ? (
     <div className="z-100 absolute top-[5vh] left-[10vw] h-[80vh] w-[80vw] rounded-xl bg-zinc-800 font-inter md:left-[15vw] md:w-[70vw]">
       <MdClose
@@ -113,7 +113,7 @@ const MakeNewTrickModal = () => {
           <StanceRemap trickMaker={true} stance={landingStance} />
         </div>
         <div className="no-scrollbar grid h-[56vh] max-w-[90vw] grid-cols-2 flex-col gap-2 overflow-hidden overflow-y-scroll rounded-md text-base text-zinc-800 md:flex-row md:overflow-visible lg:flex">
-          <div className="rounded-md bg-zinc-300 p-1">
+          <div className="overflow-y-scroll rounded-md bg-zinc-300 p-1">
             {allTricks.bases?.map((base) => (
               <p
                 onClick={() => {
@@ -131,7 +131,7 @@ const MakeNewTrickModal = () => {
               <ChooseStance stance={stance} />
             ))}
           </div>
-          <div className="col-span-2 rounded-md bg-purple-300 p-1 md:columns-3">
+          <div className="col-span-2 overflow-y-scroll rounded-md bg-purple-300 p-1 md:columns-3">
             {allTricks.variations
               ?.sort((a, b) => {
                 if (a.variationType < b.variationType) return -1;

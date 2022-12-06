@@ -1,8 +1,6 @@
 import { animated, useSpring } from "react-spring";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
-import { useRouter } from "next/router";
-// import { useParams } from "next/link";
 
 const ActiveClipDisplay = () => {
   const activeClipData = useSessionSummariesStore((s) => s.clipData);
@@ -11,10 +9,6 @@ const ActiveClipDisplay = () => {
   const sessionData = useSessionSummariesStore((s) => s.sessionData);
   const clipCombo = useSessionSummariesStore((s) => s.clipCombo);
 
-  const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
-  const router = useRouter();
-  const { sessionid } = router.query;
-  const setActiveClipData = useSessionSummariesStore((s) => s.setClipData);
   const clipDetailsVisible = useSessionSummariesStore(
     (s) => s.clipDetailsVisible
   );

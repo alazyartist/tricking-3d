@@ -66,13 +66,11 @@ const Autocomplete = (props: any) => {
   const setActiveClipData = useSessionSummariesStore((s) => s.setClipData);
   const sessionData = useSessionSummariesStore((s) => s.sessionData);
   const setClipData = useSessionSummariesStore((s) => s.setClipData);
-  const clipData = useSessionSummariesStore((s) => s.clipData);
   const setSessionData = useSessionSummariesStore((s) => s.setSessionData);
   const setClipCombo = useSessionSummariesStore((s) => s.setClipCombo);
   const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
   const trickMakerOpen = useSessionSummariesStore((s) => s.trickMakerOpen);
-  const activeClipData = useSessionSummariesStore((s) => s.clipData);
-  const vidIsPlaying = useSessionSummariesStore((s) => s.vidIsPlaying);
+
   const setTrickMakerOpen = useSessionSummariesStore(
     (s) => s.setTrickMakerOpen
   );

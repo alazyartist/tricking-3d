@@ -6,10 +6,12 @@ import dynamic from "next/dynamic";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "../styles/globals.css";
 import "../autocomplete.css";
-import AppBackground from "../components/layout/AppBackground";
 import { useRouter } from "next/router";
 import TheoryTabBar from "@components/layout/TheoryTabBar";
 import { useEffect } from "react";
+const AppBackground = dynamic(
+  () => import("../components/layout/AppBackground")
+);
 const UserIcon = dynamic(() => import("../components/layout/UserIcon"), {
   ssr: false,
 });
@@ -46,7 +48,7 @@ const MyApp: AppType<{
     // <SessionProvider session={session}>
     <QueryClientProvider client={queryClient}>
       <AppBackground />
-      <UserIcon />
+      {!path.includes("/landing") && <UserIcon />}
       {path.includes("/theory") ? <TheoryTabBar /> : <TabBar />}
       <Component {...pageProps} />
     </QueryClientProvider>

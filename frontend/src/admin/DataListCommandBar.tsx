@@ -1,11 +1,4 @@
-import React, {
-  Fragment,
-  useEffect,
-  useRef,
-  createElement,
-  useState,
-  useCallback,
-} from "react";
+import React, { Fragment, useEffect, useRef, createElement } from "react";
 import { autocomplete } from "@algolia/autocomplete-js";
 import { createRoot } from "react-dom/client";
 import "@algolia/autocomplete-theme-classic";

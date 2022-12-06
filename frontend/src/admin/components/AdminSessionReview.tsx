@@ -29,7 +29,7 @@ const AdminSessionReview = () => {
   useEffect(() => {
     setSessionid(sessionid as string);
     clearSessionData();
-    sessionDetails?.SessionData?.map((sd) => {
+    sessionDetails?.SessionData?.foreach((sd) => {
       console.log("sd");
       console.log(sd);
       setSessionData({
@@ -45,11 +45,18 @@ const AdminSessionReview = () => {
       });
     });
     return;
-  }, [sessionid, sessionDetails, data]);
+  }, [
+    sessionid,
+    sessionDetails,
+    data,
+    clearSessionData,
+    setSessionData,
+    setSessionid,
+  ]);
   useEffect(() => {
     setSessionSources(sessionDetails?.SessionSources);
     setVidsrc(sessionDetails?.SessionSources[0]?.vidsrc);
-  }, [sessionDetails]);
+  }, [sessionDetails, setSessionSources, setVidsrc]);
   const [mirrored, toggleMirrored] = useState(false);
   return (
     <div className="no-scrollbar fixed top-0 left-0 h-screen w-screen overflow-scroll">

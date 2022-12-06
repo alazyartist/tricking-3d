@@ -3,7 +3,7 @@ import useGetTricks, {
   useGetTrickParts,
   useUpdateTrickPoints,
 } from "../../../api/useGetTricks";
-import { MdCheckCircle, MdSave } from "../../../data/icons/MdIcons";
+import { MdCheckCircle } from "../../../data/icons/MdIcons";
 import useDebounce from "../../../hooks/useDebounce";
 
 const TrickPointEditor = () => {

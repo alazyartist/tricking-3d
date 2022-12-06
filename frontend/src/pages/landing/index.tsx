@@ -1,19 +1,21 @@
 import { Canvas } from "@react-three/fiber";
-import TorqueScene from "@scenes/TorqueScene";
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import Link from "next/link";
 import { TrickedexLogo } from "@data/icons/TrickedexLogo";
 import { NextPage } from "next";
 import AnatomySketch from "old_pages/theory/components/AnatomySketchSVG";
 import DetailCard from "@old_pages/landing/components/DetailCard";
 import dynamic from "next/dynamic";
+const TorqueScene = dynamic(() => import("@scenes/TorqueScene"), {
+  suspense: true,
+});
 const MovingBackground = dynamic(
-  () => import("@old_pages/landing/components/MovingBackground")
+  () => import("@old_pages/landing/components/MovingBackground"),
+  { suspense: false }
 );
-// const EnterSandboxLink = lazy(() =>
-// 	import("../../pages/home/components/EnterSandboxLink")
-// );
+
 const LandingPage: NextPage = () => {
+  const [loadScene, setLoadScene] = useState(false);
   return (
     <div className="no-scrollbar fixed top-0 flex h-[100vh] w-[100vw] flex-col place-items-center justify-between gap-2 overflow-y-scroll bg-zinc-100 text-zinc-800">
       <div
@@ -65,24 +67,11 @@ const LandingPage: NextPage = () => {
 					<div className='h-[200px] w-[300px] flex-shrink-0 rounded-md bg-zinc-900'></div>
 					<div className='h-[200px] w-[100px] flex-shrink-0 rounded-md bg-zinc-900'></div>
 				</div> */}
-        <div className="absolute bottom-4 font-inter text-3xl font-black">
+        <div className="absolute bottom-4 font-inter text-xl font-black md:text-3xl">
           Scroll to See More
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <DetailCard
-          left
-          link={"/sandbox"}
-          cta={"Go to Sandbox"}
-          title={"Explore Tricks in 3D"}
-          description="See Tricks like never before. Study the movement's your way."
-        >
-          <Canvas className="rounded-md bg-zinc-900 md:min-h-[400px]">
-            <Suspense>
-              <TorqueScene />
-            </Suspense>
-          </Canvas>
-        </DetailCard>
+      <div className="grid w-[90%] grid-cols-1 gap-4 md:grid-cols-2">
         <DetailCard
           link={"/theory"}
           cta={"Explore Theory Now"}
@@ -94,6 +83,28 @@ const LandingPage: NextPage = () => {
               "h-[200px] w-[300px] rounded-md bg-zinc-900 md:h-[400px] md:w-[600px] "
             }
           />
+        </DetailCard>
+        <DetailCard
+          left
+          link={"/sandbox"}
+          cta={"Go to Sandbox"}
+          title={"Explore Tricks in 3D"}
+          description="See Tricks like never before. Study the movement's your way."
+        >
+          {loadScene ? (
+            <Canvas className="rounded-md bg-zinc-900 md:min-h-[400px]">
+              <Suspense>
+                <TorqueScene />
+              </Suspense>
+            </Canvas>
+          ) : (
+            <div
+              className="flex h-full place-content-center place-items-center rounded-md bg-zinc-900 text-zinc-300"
+              onClick={() => setLoadScene(true)}
+            >
+              <div>Click to Load</div>
+            </div>
+          )}
         </DetailCard>
         <DetailCard
           left
@@ -109,13 +120,6 @@ const LandingPage: NextPage = () => {
           description="Keep track of your progress as a group."
         ></DetailCard>
         <div className="h-[40px]" />
-        <Suspense
-          fallback={
-            <div className="absolute top-[50vh] -z-20 h-[60vw] w-[60vw] rounded-full bg-teal-300 blur-3xl" />
-          }
-        >
-          <MovingBackground />
-        </Suspense>
       </div>
     </div>
   );
