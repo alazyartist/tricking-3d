@@ -169,4 +169,5 @@ export const pureSetups = {
   Pivot: "Pivot Step",
   Spin: "Spin Step",
   Skip: "Skip Step",
+  Standing: "Standing",
 };
