@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MdOutlineClose } from "../../data/icons/MdIcons";
 import { useRouter } from "next/router";
-import { useTransition, animated } from "react-spring";
+import { useTransition, animated, useSpring } from "react-spring";
 import useUserInfoByUUID from "../../api/useUserInfoById";
 import { useUserStore } from "../../store/userStore";
 import ProfileInfoCard from "./components/ProfileInfoCard";
@@ -14,12 +14,16 @@ import SessionStatsList from "./components/SessionStatsList";
 import SessionStatsContainer from "./components/SessionStatsContainer";
 
 const UserProfile = () => {
+  const [hidden, setHidden] = useState<boolean>(false);
   const router = useRouter();
   const { uuid } = router.query;
   const { uuid: loggedInUUID } = useUserStore((s) => s.userInfo);
   const { data: profileInfo } = useUserInfoByUUID(uuid as string);
   const [editing, setEditing] = useState(false);
   const [activeSummary, setActiveSummary] = useState<any>();
+  const [activeView, setActiveView] = useState("Stats");
+  const isUsersPage = uuid === loggedInUUID;
+
   const editView = useTransition(editing, {
     from: { top: -400, opacity: 0 },
     enter: { top: 0, opacity: 100 },
@@ -28,59 +32,91 @@ const UserProfile = () => {
     config: { durration: 100, tension: 260, friction: 50 },
     exitBeforeEnter: true,
   });
-  const isUsersPage = uuid === loggedInUUID;
-  const [activeView, setActiveView] = useState("Stats");
+
+  const hideStyles = useSpring({
+    to: { height: hidden ? "0vh" : "27vh", opacity: hidden ? 0 : 1 },
+    from: { height: "27vh", opacity: 1 },
+    config: { durration: 100, tension: 260, friction: 50 },
+    exitBeforeEnter: true,
+  });
+  const resizeUpper = useSpring({
+    to: { height: !hidden ? "27vh" : "45vh" },
+    from: { height: "27vh" },
+    config: { durration: 100, tension: 260, friction: 50 },
+    exitBeforeEnter: true,
+  });
+  const resizeLower = useSpring({
+    to: { height: !hidden ? "27vh" : "45vh" },
+    from: { height: "27vh" },
+    config: { durration: 100, tension: 260, friction: 50 },
+    exitBeforeEnter: true,
+  });
   useEffect(() => {
     console.log(profileInfo);
     console.log(activeSummary);
-  }, [profileInfo]);
+  }, [profileInfo, hidden]);
+  useEffect(() => {
+    if (activeView === "Stats") {
+      setHidden(false);
+    } else if (activeView === "Sessions") setHidden(true);
+  }, [activeView]);
 
   return (
     <div className="flex w-full flex-col place-items-center p-2 font-inter text-zinc-300">
-      <div className="flex flex-col">
-        {editView((styles, editing) =>
-          editing ? (
-            <animated.div
-              style={styles}
-              className="relative flex flex-col place-items-center gap-2"
-            >
-              <ProfileInfoCardEditable
-                setEditing={setEditing}
-                userInfo={profileInfo}
-              />
-              {isUsersPage && (
-                <>
-                  {editing}
-                  <div
-                    className="flex place-content-center place-items-center gap-1"
-                    onClick={() => setEditing(!editing)}
-                  >
-                    <MdOutlineClose /> <div>Close</div>
-                  </div>
-                </>
-              )}
-            </animated.div>
-          ) : (
-            <animated.div
-              style={styles}
-              className="relative flex flex-col place-items-center gap-2"
-            >
-              <ProfileInfoCard userInfo={profileInfo} />
-              {isUsersPage && (
-                <>
-                  {editing}
-                  <div onClick={() => setEditing(!editing)}>Edit Info</div>
-                </>
-              )}
-            </animated.div>
-          )
-        )}
-      </div>
+      <animated.div style={hideStyles} className={"relative"}>
+        <div className="flex flex-col">
+          {editView((styles, editing) =>
+            editing ? (
+              <animated.div
+                style={styles}
+                className="relative flex flex-col place-items-center gap-2"
+              >
+                <ProfileInfoCardEditable
+                  setEditing={setEditing}
+                  userInfo={profileInfo}
+                />
+                {isUsersPage && (
+                  <>
+                    {editing}
+                    <div
+                      className="flex place-content-center place-items-center gap-1"
+                      onClick={() => setEditing(!editing)}
+                    >
+                      <MdOutlineClose /> <div>Close</div>
+                    </div>
+                  </>
+                )}
+              </animated.div>
+            ) : (
+              <animated.div
+                style={styles}
+                className="relative flex flex-col place-items-center gap-2"
+              >
+                <ProfileInfoCard userInfo={profileInfo} />
+                {isUsersPage && (
+                  <>
+                    {editing}
+                    <div onClick={() => setEditing(!editing)}>Edit Info</div>
+                  </>
+                )}
+              </animated.div>
+            )
+          )}
+        </div>
+      </animated.div>
 
-      <div className="flex w-full flex-col place-items-center gap-4 rounded-lg p-2">
-        <div className="relative h-[40vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2">
+      <div className="relative top-0 flex w-full flex-col place-items-center gap-4 rounded-lg p-2">
+        <animated.div
+          style={resizeUpper}
+          className="relative h-[40vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2"
+        >
           {activeView === "Stats" ? (
-            <ProfileNav setActiveView={setActiveView} activeView={activeView} />
+            <ProfileNav
+              setActiveView={setActiveView}
+              hidden={hidden}
+              setInfoHidden={setHidden}
+              activeView={activeView}
+            />
           ) : null}
           {activeView === "Sessions" ? (
             <div className=" flex h-full w-full gap-2 ">
@@ -99,9 +135,12 @@ const UserProfile = () => {
               )}
             </div>
           ) : null}
-        </div>
+        </animated.div>
         <div></div>
-        <div className="h-[27vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2">
+        <animated.div
+          style={resizeLower}
+          className={`h-[27vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2`}
+        >
           {activeView === "Stats" ? (
             <div
               className="mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4"
@@ -130,7 +169,7 @@ const UserProfile = () => {
               )}
             </div>
           ) : null}
-        </div>
+        </animated.div>
         {/* <TricklistsAndClamiedContainer
 					profileuuid={uuid}
 					MyTricklists={profileInfo?.MyTricklists}

@@ -13,7 +13,7 @@ const ProgressBadge = () => {
             cy="16"
             r="14px"
             stroke="currentColor"
-            stroke-width="3"
+            strokeWidth="3"
             fill="transparent"
             className="text-gray-700"
           />
@@ -23,7 +23,7 @@ const ProgressBadge = () => {
             cy="16"
             r="14px"
             stroke="currentColor"
-            stroke-width="3"
+            strokeWidth="3"
             fill="transparent"
             strokeDasharray={circumference}
             strokeDashoffset={

@@ -1,13 +1,20 @@
 import React from "react";
-
-const ProfileNav = ({ activeView, setActiveView }) => {
+interface ProfileNavProps {
+  activeView: string;
+  setActiveView: (value: string) => void;
+  setInfoHidden: (value: boolean) => void;
+  hidden: boolean;
+}
+const ProfileNav = ({ activeView, setActiveView, setInfoHidden, hidden }) => {
   return (
     <div className={"flex gap-4"}>
       <div
         className={`${
           activeView === "Stats" ? "text-teal-400" : ""
         } mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4`}
-        onClick={() => setActiveView("Stats")}
+        onClick={() => {
+          setActiveView("Stats");
+        }}
       >
         Overall Stats
       </div>
@@ -15,7 +22,9 @@ const ProfileNav = ({ activeView, setActiveView }) => {
         className={`${
           activeView === "Sessions" ? "text-teal-400" : ""
         } mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4`}
-        onClick={() => setActiveView("Sessions")}
+        onClick={() => {
+          setActiveView("Sessions");
+        }}
       >
         Session Stats
       </div>
