@@ -3,22 +3,6 @@ import React from "react";
 function AOATText() {
   return (
     <div className="w-full p-4 text-zinc-400">
-      The Anatomy of a Trick, as seen above, has at it's heart the base-trick,
-      referred to here as the core-trick, this is a set of movements that meets
-      a particular criteria. The core-trick has an Entrance, Beginning, Middle,
-      End, and an Exit. Each of these sections of the Trick offer up some
-      information to be used in understanding the movement. The Entrance gives
-      us information about the Takeoff Stance, and the Takeoff Style. The
-      Entrance to the Trick is at the very start before any defining movements
-      have been made that determine the core-trick being performed. The
-      Beginning, Middle, and End, are the sections in which the core-trick is
-      actually being performed in the air or on the ground. The Exit of the
-      Trick is after all essential movements for the Trick have been completed
-      and the only thing left is to Land in a particular Landing Stance, and
-      Landing Style for the next Transition. Each of these different sections
-      can themselves be variated independently of the other elements of the
-      Trick to create something different out of it. We will see how this works
-      throughout this section.
       <br />
       <br />
       All tricks have a directionality to them meaning they exist within an
