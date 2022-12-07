@@ -53,9 +53,9 @@ const MakeNewTrickModal = () => {
       clearTrickInfo();
       setTrickMakerOpen(false);
     }
-  }, [response, allTricks]);
+  }, [response, trickParts]);
   return trickMakerOpen ? (
-    <div className="z-100 absolute top-[5vh] left-[10vw] h-[80vh] w-[80vw] rounded-xl bg-zinc-800 font-inter md:left-[15vw] md:w-[70vw]">
+    <div className="z-100 fixed top-[5vh] left-[10vw] h-[80vh] w-[80vw] rounded-xl bg-zinc-800 font-inter md:left-[15vw] md:w-[70vw]">
       <MdClose
         className={`absolute top-2 right-2 text-2xl text-zinc-300 md:text-5xl`}
         onClick={() => setTrickMakerOpen(false)}
@@ -66,8 +66,7 @@ const MakeNewTrickModal = () => {
       />
       <div className="flex w-full place-content-center ">
         <input
-          //@ts-ignore
-          spellcheck="false"
+          spellCheck="false"
           placeholder="set trick name"
           onChange={(e) => setName(e.target.value)}
           type={"text"}
@@ -92,7 +91,7 @@ const MakeNewTrickModal = () => {
           basePoints}
       </div>
       <div className="text-md m-2 flex flex-col items-center gap-4 text-zinc-300 md:text-3xl">
-        <div className="flex min-h-[15vh] items-center gap-2 rounded-md border-2 border-zinc-700">
+        <div className="flex min-h-[15vh]  items-center gap-2 rounded-md border-2 border-zinc-700">
           <StanceRemap trickMaker={true} stance={takeoffStance} />
           <div className="flex flex-col gap-2">
             <div className="rounded-md border-[1px] border-zinc-400 p-1 px-4 text-center">
@@ -112,8 +111,8 @@ const MakeNewTrickModal = () => {
           </div>
           <StanceRemap trickMaker={true} stance={landingStance} />
         </div>
-        <div className="no-scrollbar grid h-[56vh] max-w-[90vw] grid-cols-2 flex-col gap-2 overflow-hidden overflow-y-scroll rounded-md text-base text-zinc-800 md:flex-row md:overflow-visible lg:flex">
-          <div className="overflow-y-scroll rounded-md bg-zinc-300 p-1">
+        <div className="no-scrollbar grid h-[52vh] max-w-[90vw] grid-cols-2 flex-col gap-2 overflow-hidden overflow-y-scroll rounded-md text-base text-zinc-800  md:flex-row md:overflow-visible lg:flex">
+          <div className="h-fit rounded-md bg-zinc-300 p-1">
             {allTricks.bases?.map((base) => (
               <p
                 onClick={() => {
@@ -131,7 +130,7 @@ const MakeNewTrickModal = () => {
               <ChooseStance stance={stance} />
             ))}
           </div>
-          <div className="col-span-2 overflow-y-scroll rounded-md bg-purple-300 p-1 md:columns-3">
+          <div className="col-span-2 h-[40vh] overflow-y-scroll rounded-md bg-purple-300 p-1 md:columns-3">
             {allTricks.variations
               ?.sort((a, b) => {
                 if (a.variationType < b.variationType) return -1;
