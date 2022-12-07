@@ -1,14 +1,19 @@
-import { Canvas } from "@react-three/fiber";
 import React, { Suspense, useState } from "react";
 import Link from "next/link";
 import { TrickedexLogo } from "@data/icons/TrickedexLogo";
 import { NextPage } from "next";
-import AnatomySketch from "old_pages/theory/components/AnatomySketchSVG";
-import DetailCard from "@old_pages/landing/components/DetailCard";
 import dynamic from "next/dynamic";
-const TorqueScene = dynamic(() => import("@scenes/TorqueScene"), {
-  suspense: true,
-});
+const LandingCanvas = dynamic(
+  () => import("@old_pages/landing/components/LandingCanvas"),
+  { suspense: true }
+);
+const AnatomySketch = dynamic(
+  () => import("old_pages/theory/components/AnatomySketchSVG")
+);
+const DetailCard = dynamic(
+  () => import("@old_pages/landing/components/DetailCard")
+);
+
 const MovingBackground = dynamic(
   () => import("@old_pages/landing/components/MovingBackground"),
   { suspense: false }
@@ -78,11 +83,13 @@ const LandingPage: NextPage = () => {
           title={"Have Quick Access to the Theory"}
           description="Fully Searchable and at you fingertips."
         >
-          <AnatomySketch
-            className={
-              "h-[200px] w-[300px] rounded-md bg-zinc-900 md:h-[400px] md:w-[600px] "
-            }
-          />
+          <Suspense>
+            <AnatomySketch
+              className={
+                "h-[200px] w-[300px] rounded-md bg-zinc-900 md:h-[400px] md:w-[600px] "
+              }
+            />
+          </Suspense>
         </DetailCard>
         <DetailCard
           left
@@ -92,11 +99,9 @@ const LandingPage: NextPage = () => {
           description="See Tricks like never before. Study the movement's your way."
         >
           {loadScene ? (
-            <Canvas className="rounded-md bg-zinc-900 md:min-h-[400px]">
-              <Suspense>
-                <TorqueScene />
-              </Suspense>
-            </Canvas>
+            <Suspense>
+              <LandingCanvas />
+            </Suspense>
           ) : (
             <div
               className="flex h-full place-content-center place-items-center rounded-md bg-zinc-900 text-zinc-300"
