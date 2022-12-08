@@ -21,6 +21,7 @@
     "@use-gesture/react": "^10.2.20",
     "algoliasearch": "^4.14.2",
     "browserslist": "^4.21.4",
+    "d3": "^7.7.0",
     "glob-parent": "^6.0.2",
     "next": "^13.0.5",
     "react": "^18.2.0",
