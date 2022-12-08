@@ -178,7 +178,9 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
               </div>
               <div className="neumorphicIn flex w-full gap-2 overflow-hidden overflow-x-scroll whitespace-nowrap rounded-md p-2 text-[12px] text-zinc-300">
                 {clipCombo.map((item, index) => (
-                  <div key={item.trick_id}>{item.name}</div>
+                  <div key={`${item.trick_id} ${Math.random() * 1000}`}>
+                    {item.name}
+                  </div>
                 ))}
               </div>
             </div>
@@ -249,7 +251,7 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
         onClick={() => {
           // setSrcid(source.srcid);
           // setClipData(e);
-          // clearClipCombo();
+          clearClipCombo();
           setSeekTime(e.startTime);
           setClipComboRaw(e.clipLabel);
           // removeSessionData(e);

@@ -14,7 +14,6 @@ const SessionStatsContainer = ({ setActiveSummary, activeSummary }) => {
       {activeSummary && (
         <>
           {activeSummary.SessionSources.map((source) => {
-            console.log(source);
             return (
               <PublicSessionReview
                 source={source}

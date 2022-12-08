@@ -32,6 +32,7 @@ const DataDetails = ({ d }) => {
   const currentTime = useSessionSummariesStore((s) => s.currentTime);
   const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
+  const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
   const setClipComboRaw = useSessionSummariesStore((s) => s.setClipComboRaw);
   useEffect(() => {
     if (Math.floor(d.clipStart) === Math.floor(currentTime)) {
@@ -39,6 +40,7 @@ const DataDetails = ({ d }) => {
     }
   }, [currentTime, d]);
   const handleClick = () => {
+    clearClipCombo();
     setVidsrc(d.SessionSource.vidsrc);
     setClipComboRaw(d.ClipLabel.comboArray);
     setSeekTime(d.clipStart);

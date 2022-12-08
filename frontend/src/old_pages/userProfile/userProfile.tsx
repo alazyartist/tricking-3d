@@ -106,7 +106,7 @@ const UserProfile = () => {
         </div>
       </animated.div>
 
-      <div className="relative top-0 z-[2] flex h-[95vh] w-full flex-col place-items-center gap-2 rounded-lg p-2">
+      <div className="relative top-0 z-[2] flex max-h-[95vh] w-full flex-col place-items-center gap-2 rounded-lg p-2">
         <animated.div
           style={resizeUpper}
           className="relative h-[40vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2"

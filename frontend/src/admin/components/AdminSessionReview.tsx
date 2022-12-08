@@ -29,7 +29,7 @@ const AdminSessionReview = () => {
   useEffect(() => {
     setSessionid(sessionid as string);
     clearSessionData();
-    sessionDetails?.SessionData?.foreach((sd) => {
+    sessionDetails?.SessionData?.forEach((sd) => {
       console.log("sd");
       console.log(sd);
       setSessionData({
@@ -60,7 +60,7 @@ const AdminSessionReview = () => {
   const [mirrored, toggleMirrored] = useState(false);
   return (
     <div className="no-scrollbar fixed top-0 left-0 h-screen w-screen overflow-scroll">
-      <Link href={"/home"}>
+      <Link href={"/admin"}>
         <IoIosArrowBack className="absolute top-4 left-2 text-3xl text-zinc-300" />
       </Link>
       {sessionDetails && (

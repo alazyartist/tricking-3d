@@ -20,6 +20,7 @@ import { useUserStore } from "@store/userStore";
 
 const CommandBar = () => {
   const { data: tricks } = useGetTricks();
+  if (!tricks) return;
   return (
     <div className="fixed bottom-[0vh] left-[20vw] h-[8vh] w-[60vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:left-[20vw] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]">
       <Autocomplete
