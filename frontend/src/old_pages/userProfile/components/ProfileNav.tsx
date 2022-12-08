@@ -1,11 +1,6 @@
 import React from "react";
-interface ProfileNavProps {
-  activeView: string;
-  setActiveView: (value: string) => void;
-  setInfoHidden: (value: boolean) => void;
-  hidden: boolean;
-}
-const ProfileNav = ({ activeView, setActiveView, setInfoHidden, hidden }) => {
+
+const ProfileNav = ({ activeView, setActiveView }) => {
   return (
     <div className={"flex gap-4"}>
       <div

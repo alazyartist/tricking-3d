@@ -12,6 +12,7 @@ import ProfileSessionInfo from "./components/ProfileSessionInfo";
 
 import SessionStatsList from "./components/SessionStatsList";
 import SessionStatsContainer from "./components/SessionStatsContainer";
+import OverallStatDisplay from "./components/OverallStatDisplay";
 
 const UserProfile = () => {
   const [hidden, setHidden] = useState<boolean>(false);
@@ -105,18 +106,19 @@ const UserProfile = () => {
         </div>
       </animated.div>
 
-      <div className="relative top-0 flex w-full flex-col place-items-center gap-4 rounded-lg p-2">
+      <div className="relative top-0 z-[2] flex h-[95vh] w-full flex-col place-items-center gap-2 rounded-lg p-2">
         <animated.div
           style={resizeUpper}
           className="relative h-[40vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2"
         >
           {activeView === "Stats" ? (
-            <ProfileNav
-              setActiveView={setActiveView}
-              hidden={hidden}
-              setInfoHidden={setHidden}
-              activeView={activeView}
-            />
+            <div>
+              <ProfileNav
+                setActiveView={setActiveView}
+                activeView={activeView}
+              />
+              <OverallStatDisplay profileInfo={profileInfo} />
+            </div>
           ) : null}
           {activeView === "Sessions" ? (
             <div className=" flex h-full w-full gap-2 ">
@@ -139,7 +141,7 @@ const UserProfile = () => {
         <div></div>
         <animated.div
           style={resizeLower}
-          className={`h-[27vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2`}
+          className={`z-[-2] h-[27vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2`}
         >
           {activeView === "Stats" ? (
             <div
@@ -150,12 +152,12 @@ const UserProfile = () => {
             </div>
           ) : null}
           {activeView === "Sessions" ? (
-            <div className="no-scrollbar relative h-full w-full overflow-hidden overflow-y-scroll">
+            <div className="no-scrollbar relative  h-full w-full overflow-hidden overflow-y-scroll">
               {activeSummary ? (
                 <>
                   <div
                     className={
-                      "sticky top-0 mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4"
+                      "sticky top-[-10] mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4"
                     }
                   >
                     Selected Session Breakdown
@@ -163,7 +165,7 @@ const UserProfile = () => {
                   <ProfileSessionInfo summary={activeSummary} />
                 </>
               ) : (
-                <h1 className="h-full w-full p-2 text-center text-4xl font-bold">
+                <h1 className="h-full w-full p-2 text-center text-2xl font-bold text-zinc-800">
                   Select a Session to see the breakdown.
                 </h1>
               )}

@@ -84,7 +84,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
   });
 
   return (
-    <div key={source.srcid + "1"} className="flex w-full flex-col gap-2 p-1">
+    <div key={source.srcid + "1"} className=" flex w-full flex-col gap-2 p-1">
       <animated.div
         style={{ left: showDetails.left, opacity: showDetails.opacity }}
         key={source?.vidsrc.replace(vidsrcRegex, "")}
@@ -105,7 +105,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
       {
         vidsrc === source?.vidsrc ? (
           <div className=" md:top-[0vh]">
-            <div className="absolute top-0 left-0 flex aspect-video h-[100%] w-[100%] flex-col gap-2 rounded-md bg-zinc-900 p-2">
+            <div className="absolute top-0 left-0 z-[1025] flex aspect-video h-[100%] w-[100%] flex-col gap-2 rounded-md bg-zinc-900 p-2">
               <div
                 className="flex place-items-center gap-2"
                 onClick={() => setVidsrc(null)}
@@ -176,9 +176,9 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
                   ></div> */}
                 </div>
               </div>
-              <div className="neumorphicIn flex w-full gap-2 rounded-md p-2 text-zinc-300">
+              <div className="neumorphicIn flex w-full gap-2 overflow-hidden overflow-x-scroll whitespace-nowrap rounded-md p-2 text-[12px] text-zinc-300">
                 {clipCombo.map((item, index) => (
-                  <span key={item.trick_id}>{item.name}</span>
+                  <div key={item.trick_id}>{item.name}</div>
                 ))}
               </div>
             </div>

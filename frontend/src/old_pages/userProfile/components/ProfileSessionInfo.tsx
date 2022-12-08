@@ -4,10 +4,10 @@ import React, { useEffect } from "react";
 const ProfileSessionInfo = ({ summary }) => {
   return (
     <div className=" ">
-      <div className="sticky top-0 z-20 w-fit rounded-md bg-zinc-900 bg-opacity-70 p-2 text-2xl">
+      <div className="sticky top-0 z-20 w-fit rounded-md bg-zinc-900 bg-opacity-90 p-2 text-2xl">
         {summary?.name}
       </div>
-      <div className="mt-2 flex flex-col gap-1">
+      <div className="mt-2  flex flex-col gap-1">
         {summary?.SessionData.sort((a, b) => {
           if (a.ClipLabel.pointValue > b.ClipLabel.pointValue) return -1;
           if (a.ClipLabel.pointValue < b.ClipLabel.pointValue) return 1;
@@ -34,7 +34,6 @@ const DataDetails = ({ d }) => {
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
   const setClipComboRaw = useSessionSummariesStore((s) => s.setClipComboRaw);
   useEffect(() => {
-    console.log(currentTime);
     if (Math.floor(d.clipStart) === Math.floor(currentTime)) {
       setClipComboRaw(d.ClipLabel.comboArray);
     }
@@ -46,10 +45,10 @@ const DataDetails = ({ d }) => {
   };
   return (
     <div
-      className="flex place-items-center justify-between rounded-md bg-teal-100 bg-opacity-10 p-1 text-sm md:text-inherit"
+      className="flex place-items-center justify-between rounded-md bg-zinc-900 bg-opacity-90 p-1 text-sm text-zinc-300 md:text-inherit"
       onClick={() => handleClick()}
     >
-      <div className="no-scrollbar w-[175px] overflow-x-scroll whitespace-pre-line p-1 text-lg md:w-1/3">
+      <div className="no-scrollbar w-[175px] overflow-x-scroll whitespace-nowrap p-1 text-[12px] md:w-1/3">
         {d?.ClipLabel?.name}
       </div>
       {/* <div className='w-1/3 '>{d?.SessionSource?.vidsrc}</div> */}
