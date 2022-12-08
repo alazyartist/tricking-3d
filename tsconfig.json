@@ -5,6 +5,7 @@
 		"**/*.ts",
 		"**/*.tsx",
 		"**/*.js",
+		"backend/migrations/20221208212718-ComboAbbreviation.cjs"
 		//"**/*.cjs",
 		//"**/*.mjs"
 	],

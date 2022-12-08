@@ -140,3 +140,18 @@ export const saveNewCombo = async (req, res) => {
 		console.log(err), res.json(err);
 	}
 };
+
+export const updateComboShorthand = async (req, res) => {
+	const { combo_id } = req.params;
+	const { shorthand } = req.body;
+	console.log(combo_id, shorthand);
+	try {
+		const updateMe = await combos.findOne({ where: { combo_id } });
+		const updated = await updateMe.update({ shorthand });
+		console.log(updateMe);
+		res.send(updated);
+	} catch (err) {
+		console.log(err);
+		res.status(403).json(err);
+	}
+};

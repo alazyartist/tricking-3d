@@ -3,34 +3,24 @@ import Link from "next/link";
 import ComboMakerBlueprintsvg from "../../data/ComboMakerBlueprintsvg";
 import { animated, useSpring, useTransition } from "react-spring";
 import useLogout from "../../hooks/useLogout";
-import { useUserStore } from "../../store/userStore";
+
 import TheoryCap from "../../data/icons/TheoryCap";
 import HamburgerMenu from "../../data/icons/HamburgerMenu";
 import HomeIcon from "../../data/icons/HomeIcon";
 import AdminLockIcon from "../../data/icons/AdminLockIcon";
 import BiCube from "../../data/icons/BiCube";
 import { useRouter } from "next/router";
+import useIsAdmin from "hooks/useIsAdmin";
 
 function TabBar() {
   const [openHamburger, setOpenHamburger] = useState<Boolean>();
   const [openNav, setOpenNav] = useState<Boolean>(true);
-  const [isAdmin, setIsAdmin] = useState<Boolean>(false);
+  const isAdmin = useIsAdmin();
   const logout = useLogout();
   const nav = useRouter();
   // const nav = useNavigate();
   // const location = useLocation();
-  const userInfo = useUserStore((s) => s.userInfo);
-  useEffect(() => {
-    if (
-      userInfo?.uuid === "admin696-8c94-4ca7-b163-9alazyartist" ||
-      userInfo?.uuid === "baf6a9c6-432f-4a08-8260-717249d5b71c" ||
-      userInfo?.uuid === "admin696-8c94-4ca7-b163-969420Tohzt"
-    ) {
-      setIsAdmin(true);
-    } else {
-      setIsAdmin(false);
-    }
-  }, [userInfo]);
+
   const hamburger = useTransition<Boolean, {}>(openHamburger, {
     from: { opacity: 0, right: "-40vw" },
     enter: { opacity: 1, right: "0vw" },
