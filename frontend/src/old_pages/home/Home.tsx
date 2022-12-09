@@ -96,7 +96,7 @@ function Home() {
                   POINTS ++
                 </Link>
                 <Link
-                  href={"/addSession"}
+                  href={accessToken ? "/addSession" : "/login"}
                   className=" mt-4 mb-8 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-3xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
                 >
                   Add Session

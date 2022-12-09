@@ -24,6 +24,7 @@ const AddSessionPage = () => {
   );
   const userInfo = useUserStore((s) => s.userInfo);
   console.log(userInfo);
+  const [showOutOfCredits, setShowOutOfCredits] = useState(false);
   const [submitSuccess, setSubmitSucces] = useState(false);
   const [formData, setFormData] = useState({
     sessionDate: whatsToday(),
@@ -44,6 +45,14 @@ const AddSessionPage = () => {
       setSubmitSucces(true);
     }
   }, [response]);
+  useEffect(() => {
+    if (
+      response?.data?.message === "Out of Credits" ||
+      SessionReviewCredits === 0
+    ) {
+      setShowOutOfCredits(true);
+    }
+  }, [response]);
   const [count, setCount] = useState(1);
   let isEnabled =
     (SessionReviewCredits > 0 &&
@@ -61,15 +70,18 @@ const AddSessionPage = () => {
         <SessionSubmitted SessionReviewCredits={SessionReviewCredits} />
       ) : (
         <>
+          <div
+            onClick={() => setShowOutOfCredits((prev) => !prev)}
+            className="absolute top-4 left-4 rounded-md bg-gradient-to-b from-teal-400 to-emerald-500 p-2 font-bold text-zinc-900 drop-shadow-md"
+          >
+            Credits: {SessionReviewCredits}
+          </div>
           <form
             onSubmit={onSubmit}
             className="relative flex w-[80vw] flex-col gap-2 rounded-md bg-zinc-700 bg-opacity-30 p-3"
           >
-            <div className="p-2 text-center font-titan text-5xl text-zinc-200 drop-shadow-lg">
+            <div className="p-2 text-center font-titan text-3xl text-zinc-200 drop-shadow-lg md:text-5xl">
               Submit Session
-            </div>
-            <div className="absolute top-4 left-4 rounded-md bg-gradient-to-b from-teal-400 to-emerald-500 p-2 font-bold text-zinc-900 drop-shadow-md">
-              Credits: {SessionReviewCredits}
             </div>
             <input
               onChange={(e) =>
@@ -165,8 +177,7 @@ const AddSessionPage = () => {
           </form>
           <div className="flex flex-col place-items-center gap-2">
             <div>{response?.data?.message}</div>
-            {(response?.data?.message === "Out of Credits" ||
-              SessionReviewCredits === 0) && <OutOfCredits />}
+            {showOutOfCredits && <OutOfCredits />}
           </div>
         </>
       )}

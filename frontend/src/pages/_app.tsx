@@ -48,7 +48,7 @@ const MyApp: AppType<{
     // <SessionProvider session={session}>
     <QueryClientProvider client={queryClient}>
       <AppBackground />
-      {!path.includes("/landing") && <UserIcon />}
+      {!path.includes("/landing") && path !== "/" && <UserIcon />}
       {path.includes("/theory") ? <TheoryTabBar /> : <TabBar />}
       <Component {...pageProps} />
     </QueryClientProvider>

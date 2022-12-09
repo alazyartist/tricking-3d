@@ -8,7 +8,7 @@ function RequireAuth({ children }) {
   useEffect(() => {
     console.log(accessToken);
   }, []);
-  return accessToken ? { children } : nav.push("/login");
+  return <>{accessToken ? { children } : nav.push("/login")}</>;
 }
 
 export default RequireAuth;
