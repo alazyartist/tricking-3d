@@ -337,7 +337,11 @@ export const findOrCreate = async (req, res) => {
 				password: hash,
 			},
 		})
-		.then((data) => {
+		.then(async (data) => {
+			let uuid = data[0].dataValues.uuid;
+			console.log(uuid);
+			const userToUpdate = await user.findOne({ where: { uuid: uuid } });
+			userToUpdate.update({ SessionReviewCredits: 2 });
 			return data[0];
 		})
 		.then((data) => {

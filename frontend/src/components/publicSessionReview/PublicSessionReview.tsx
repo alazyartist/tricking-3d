@@ -178,7 +178,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
                   ></div> */}
                 </div>
               </div>
-              <div className="neumorphicIn no-scrollbar flex w-full gap-2 overflow-hidden overflow-x-scroll whitespace-nowrap rounded-md p-2 text-[12px] text-zinc-300">
+              <div className="neumorphicIn no-scrollbar flex w-[100%] gap-2 overflow-hidden overflow-x-scroll whitespace-nowrap rounded-md p-2 text-[12px] text-zinc-300">
                 {shorthand
                   ? shorthand
                   : clipCombo.map((item, index) => (
