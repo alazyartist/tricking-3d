@@ -20,10 +20,9 @@ const SessionStatsOverview = ({ summary }) => {
     return 0;
   })?.[0]?.ClipLabel;
   let greatestCombo = sessionCombosArr?.sort((a, b) => {
-    if (a.ClipLabel.comboArray.pointValue > b.ClipLabel.comboArray.pointValue)
-      return -1;
-    if (a.ClipLabel.comboArray.pointValue < b.ClipLabel.comboArray.pointValue)
-      return 1;
+    console.log(a.ClipLabel);
+    if (a.ClipLabel.pointValue > b.ClipLabel.pointValue) return -1;
+    if (a.ClipLabel.pointValue < b.ClipLabel.pointValue) return 1;
     return 0;
   })?.[0]?.ClipLabel;
   let uniqueTricks = [
@@ -125,12 +124,12 @@ const SessionStatsOverview = ({ summary }) => {
           Longest {longestCombo?.name === greatestCombo?.name && "& Greatest"}{" "}
           Combo:
         </span>{" "}
-        {longestCombo?.name}
+        {longestCombo?.shorthand || longestCombo?.name}
       </div>
       {longestCombo?.name !== greatestCombo?.name && (
         <div>
           <span className="text-zinc-400">Greatest Combo: </span>
-          {greatestCombo?.name}
+          {greatestCombo?.shorthand || greatestCombo?.name}
         </div>
       )}
     </div>

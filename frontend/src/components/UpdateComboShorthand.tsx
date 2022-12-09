@@ -1,21 +1,18 @@
 import { MdClose } from "@data/icons/MdIcons";
 import { useUpdateComboShorthand } from "api/useGetCombos";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaArrowUp } from "react-icons/fa";
 
 const UpdateComboShorthand = ({ combo, setShorthandOpen }) => {
   const { data: comboShorthand, mutate: updateShorthand } =
     useUpdateComboShorthand();
   const [shorthand, setShorthand] = useState("");
-  console.log(combo);
   const handleSubmit = async (e) => {
     e.preventDefault();
     updateShorthand({ combo_id: combo.ClipLabel.combo_id, shorthand });
     setShorthandOpen((prev) => !prev);
   };
-  useEffect(() => {
-    console.log(comboShorthand);
-  }, []);
+
   return (
     <div className="absolute top-0 left-0 flex h-full w-full place-content-center place-items-center bg-zinc-900 bg-opacity-90">
       <div

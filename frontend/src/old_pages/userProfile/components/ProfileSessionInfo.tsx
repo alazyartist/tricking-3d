@@ -16,7 +16,9 @@ const ProfileSessionInfo = ({ summary }) => {
         className="sticky top-0 z-20 flex w-fit place-items-center gap-2 rounded-md bg-zinc-900 bg-opacity-90 p-2 text-2xl"
       >
         {summary?.name}
-        {editShorthand && <FaCheck className={"fill-emerald-500"} />}
+        {editShorthand && (
+          <span className="text-[12px] text-purple-500">Editing Shorthand</span>
+        )}
       </div>
       <div className="mt-2  flex flex-col gap-1">
         {summary?.SessionData.sort((a, b) => {
@@ -41,6 +43,7 @@ export default ProfileSessionInfo;
 const DataDetails = ({ d, editShorthand }) => {
   // console.log(d);
   const currentTime = useSessionSummariesStore((s) => s.currentTime);
+  const setShorthand = useSessionSummariesStore((s) => s.setShorthand);
   const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
   const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
@@ -50,6 +53,7 @@ const DataDetails = ({ d, editShorthand }) => {
   useEffect(() => {
     if (Math.floor(d.clipStart) === Math.floor(currentTime)) {
       setClipComboRaw(d.ClipLabel.comboArray);
+      setShorthand(d.ClipLabel.shorthand);
     }
   }, [currentTime, d]);
   const handleClick = () => {

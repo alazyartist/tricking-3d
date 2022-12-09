@@ -7,6 +7,7 @@ interface ClipData {
   srcid?: string;
   vidsrc?: string;
   admin?: string;
+  shorthand?: string;
   startTime?: number;
   endTime?: number;
   bail?: number;
@@ -22,6 +23,8 @@ interface SummaryStore {
   setClipData: (value: ClipData) => void;
   sessionSources: any[];
   setSessionSources: (value: any) => void;
+  shorthand: string | null;
+  setShorthand: (value: string) => void;
   srcid: string;
   setSrcid: (value: string) => void;
   vidsrc: string;
@@ -61,6 +64,8 @@ export const useSessionSummariesStore = create<SummaryStore>(
       sessionSources: [],
       setSessionSources: (value) => set(() => ({ sessionSources: value })),
       srcid: "",
+      shorthand: null,
+      setShorthand: (value) => set(() => ({ shorthand: value })),
       setSrcid: (value) => set(() => ({ srcid: value })),
       vidsrc: "",
       setVidsrc: (value) => set(() => ({ vidsrc: value })),

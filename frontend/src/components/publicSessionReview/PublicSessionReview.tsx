@@ -22,6 +22,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
   const setSessionData = useSessionSummariesStore((s) => s.setSessionData);
   const sessionData = useSessionSummariesStore((s) => s.sessionData);
   const clipCombo = useSessionSummariesStore((s) => s.clipCombo);
+  const shorthand = useSessionSummariesStore((s) => s.shorthand);
   const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
   const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
   const setSrcid = useSessionSummariesStore((s) => s.setSrcid);
@@ -32,7 +33,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
   useEffect(() => {
     clearSessionData();
     activeSummary?.SessionData?.map((sd) => {
-      console.log(sd);
+      console.log("sd", sd);
       setSessionData({
         id: sd?.id,
         sessionid: sd?.sessionid,
@@ -40,6 +41,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
         startTime: sd?.clipStart,
         endTime: sd?.clipEnd,
         clipLabel: [...sd?.ClipLabel?.comboArray],
+        shorthand: sd?.ClipLabel.shorthand,
         srcid: sd?.srcid,
         vidsrc: sd?.SessionSource?.vidsrc,
         bail: sd?.bail,
@@ -176,12 +178,14 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
                   ></div> */}
                 </div>
               </div>
-              <div className="neumorphicIn flex w-full gap-2 overflow-hidden overflow-x-scroll whitespace-nowrap rounded-md p-2 text-[12px] text-zinc-300">
-                {clipCombo.map((item, index) => (
-                  <div key={`${item.trick_id} ${Math.random() * 1000}`}>
-                    {item.name}
-                  </div>
-                ))}
+              <div className="neumorphicIn no-scrollbar flex w-full gap-2 overflow-hidden overflow-x-scroll whitespace-nowrap rounded-md p-2 text-[12px] text-zinc-300">
+                {shorthand
+                  ? shorthand
+                  : clipCombo.map((item, index) => (
+                      <div key={`${item.trick_id} ${Math.random() * 1000}`}>
+                        {item.name}
+                      </div>
+                    ))}
               </div>
             </div>
           </div>
@@ -208,6 +212,7 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
   const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
   const setClipComboRaw = useSessionSummariesStore((s) => s.setClipComboRaw);
   const setClipData = useSessionSummariesStore((s) => s.setClipData);
+  const setShorthand = useSessionSummariesStore((s) => s.setShorthand);
   const setSrcid = useSessionSummariesStore((s) => s.setSrcid);
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
   const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
@@ -217,6 +222,7 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
   );
   useEffect(() => {
     setSrcid(source?.srcid);
+    console.log("IME", e);
   }, [source, vidsrc]);
   let w = `${(
     ((parseInt(e.endTime) - parseInt(e.startTime)) / parseInt(duration)) *
@@ -253,6 +259,7 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
           // setClipData(e);
           clearClipCombo();
           setSeekTime(e.startTime);
+          setShorthand(e.shorthand);
           setClipComboRaw(e.clipLabel);
           // removeSessionData(e);
         }}
