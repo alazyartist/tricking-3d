@@ -11,8 +11,8 @@ const RadarChart = ({ data }) => {
   useEffect(() => {
     // Set the dimensions of the canvas/graph
     const margin = { top: 30, right: 20, bottom: 30, left: 50 };
-    const width = 600 - margin.left - margin.right;
-    const height = 600 - margin.top - margin.bottom;
+    const width = 300 - margin.left - margin.right;
+    const height = 300 - margin.top - margin.bottom;
 
     const svg = d3
       .select(container.current)
@@ -28,14 +28,14 @@ const RadarChart = ({ data }) => {
       return { x: 200 + x, y: 200 - y };
     }
 
-    let radialScale = d3.scaleLinear().domain([0, data.length]).range([0, 500]);
+    let radialScale = d3.scaleLinear().domain([0, data.length]).range([0, 20]);
     let ticks = [10, 20, 40, 60];
 
     ticks.forEach((t) =>
       svg
         .append("circle")
-        .attr("cx", 200)
-        .attr("cy", 200)
+        .attr("cx", 100)
+        .attr("cy", 100)
         .attr("fill", "none")
         .attr("stroke", "#d4d4d4")
         .attr("r", radialScale(t))
@@ -45,16 +45,16 @@ const RadarChart = ({ data }) => {
       svg
         .append("text")
         .style("fill", "#d4d4d4")
-        .attr("x", 200)
-        .attr("y", 195 - radialScale(t))
+        .attr("x", 100)
+        .attr("y", 95 - radialScale(t))
         .text(t.toString())
     );
 
     for (var i = 0; i < byBase.length; i++) {
       let ft_name = byBase[i][0];
       let angle = Math.PI / 2 + (2 * Math.PI * i) / byBase.length;
-      let line_coordinate = angleToCoordinate(angle, 60);
-      let label_coordinate = angleToCoordinate(angle, 70.5);
+      let line_coordinate = angleToCoordinate(angle, 20);
+      let label_coordinate = angleToCoordinate(angle, 20.5);
 
       //draw axis line
       svg
@@ -108,7 +108,7 @@ const RadarChart = ({ data }) => {
   return (
     <svg
       key={Math.random()}
-      className="z-[2000] h-[600px] w-full"
+      className="z-[2000] h-[200px] w-full"
       ref={container}
     />
   );
