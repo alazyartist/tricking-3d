@@ -52,13 +52,13 @@ app.use((req, res, next) => {
 //Middlewares
 app.use("/api/checkout", paymentRoutes);
 app.get("/api/ablyAuth", ablyAuth);
+app.use("/api/refresh", refreshRoutes);
+app.use("/api", userRoutes);
 app.use("/api/battlerooms", battleroomRoutes);
 app.use("/api/sessionsummaries", sessionSummariesRoutes);
 app.use("/api/tricks", trickRoutes);
 app.use("/api/combo", comboRoutes);
-app.use("/api", verifyJWT, userRoutes);
 app.use("/api/tricklist", verifyJWT, tricklistRoutes);
-app.use("/api/refresh", refreshRoutes);
 app.use("/api/logout", handleLogout);
 app.use("/api/loggedIn", verifyJWT, loginRoutes);
 app.use("/api/capture", verifyJWT, captureRoutes);
