@@ -53,8 +53,8 @@ const RadarChart = ({ data }) => {
     for (var i = 0; i < byBase.length; i++) {
       let ft_name = byBase[i][0];
       let angle = Math.PI / 2 + (2 * Math.PI * i) / byBase.length;
-      let line_coordinate = angleToCoordinate(angle, 20);
-      let label_coordinate = angleToCoordinate(angle, 20.5);
+      let line_coordinate = angleToCoordinate(angle, 10);
+      let label_coordinate = angleToCoordinate(angle, 10.5);
 
       //draw axis line
       svg
