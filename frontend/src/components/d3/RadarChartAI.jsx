@@ -11,8 +11,8 @@ const RadarChart = ({ data }) => {
   useEffect(() => {
     // Set the dimensions of the canvas/graph
     const margin = { top: 30, right: 20, bottom: 30, left: 50 };
-    const width = 300 - margin.left - margin.right;
-    const height = 300 - margin.top - margin.bottom;
+    const width = 200 - margin.left - margin.right;
+    const height = 200 - margin.top - margin.bottom;
 
     const svg = d3
       .select(container.current)
@@ -25,7 +25,7 @@ const RadarChart = ({ data }) => {
     function angleToCoordinate(angle, value) {
       let x = Math.cos(angle) * radialScale(value);
       let y = Math.sin(angle) * radialScale(value);
-      return { x: 200 + x, y: 200 - y };
+      return { x: 100 + x, y: 100 - y };
     }
 
     let radialScale = d3.scaleLinear().domain([0, data.length]).range([0, 20]);
@@ -59,8 +59,8 @@ const RadarChart = ({ data }) => {
       //draw axis line
       svg
         .append("line")
-        .attr("x1", 200)
-        .attr("y1", 200)
+        .attr("x1", 100)
+        .attr("y1", 100)
         .attr("x2", line_coordinate.x)
         .attr("y2", line_coordinate.y)
         .attr("stroke", "black");
@@ -108,7 +108,7 @@ const RadarChart = ({ data }) => {
   return (
     <svg
       key={Math.random()}
-      className="z-[2000] h-[200px] w-full"
+      className="z-[2000] h-[150px] w-full"
       ref={container}
     />
   );
