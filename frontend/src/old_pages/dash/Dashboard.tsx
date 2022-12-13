@@ -5,7 +5,7 @@ import { useUserStore } from "@store/userStore";
 import ProfileCode from "./components/ProfileCode";
 import Captures from "./components/Captures";
 import { FaQrcode } from "react-icons/fa";
-import RadarChart from "@components/d3/RadarChartAI";
+// import RadarChart from "@components/d3/RadarChartAI";
 import useGetTricks from "api/useGetTricks";
 
 function Dashboard() {
@@ -41,7 +41,7 @@ function Dashboard() {
 				className='absolute top-20 left-5 flex place-items-center gap-2'>
 				<FaQrcode /> {!profileCodeOpen ? "Capture" : "Close"}
 			</div> */}
-      {trickData && <RadarChart data={trickData} />}
+      {/* {trickData && <RadarChart data={trickData} />} */}
       <button className="fixed right-5 bottom-14" onClick={() => logout()}>
         Logout
       </button>

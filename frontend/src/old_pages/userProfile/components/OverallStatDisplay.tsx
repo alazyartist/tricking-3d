@@ -1,4 +1,4 @@
-import RadarChart from "@components/d3/RadarChartAI";
+// import RadarChart from "@components/d3/RadarChartAI";
 import React from "react";
 
 const OverallStatDisplay = ({ profileInfo }) => {

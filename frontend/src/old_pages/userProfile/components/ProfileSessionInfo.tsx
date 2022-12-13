@@ -101,7 +101,9 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
         }
       >
         <div className="no-scrollbar w-[164px] overflow-x-scroll whitespace-nowrap p-1 text-[12px] md:w-1/3">
-          {showTrickLongForm ? d?.ClipLabel?.name : d?.ClipLabel?.shorthand}
+          {showTrickLongForm
+            ? d?.ClipLabel?.name
+            : d?.ClipLabel?.shorthand ?? d.ClipLabel?.name}
         </div>
         {/* <div className='w-1/3 '>{d?.SessionSource?.vidsrc}</div> */}
         <div className="w-4/9 flex place-items-center gap-2">
