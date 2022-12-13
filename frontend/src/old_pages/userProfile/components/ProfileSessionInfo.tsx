@@ -7,20 +7,35 @@ import { FaCheck } from "react-icons/fa";
 const ProfileSessionInfo = ({ summary }) => {
   const isAdmin = useIsAdmin();
   const [editShorthand, setEditShorthand] = useState(false);
+  const [showTrickLongform, setShowTrickLongform] = useState(false);
   return (
     <div className=" ">
-      <div
-        onClick={() => {
-          if (isAdmin === true) {
-            setEditShorthand(!editShorthand);
-          }
-        }}
-        className="sticky top-0 flex w-fit place-items-center gap-2 rounded-md bg-zinc-900 bg-opacity-90 p-2 text-2xl"
-      >
-        {summary?.name}
-        {editShorthand && (
-          <span className="text-[12px] text-purple-500">Editing Shorthand</span>
-        )}
+      <div className="flex gap-2">
+        <div
+          onClick={() => {
+            if (isAdmin === true) {
+              setEditShorthand(!editShorthand);
+            }
+          }}
+          className="sticky top-0 flex w-fit place-items-center gap-2 rounded-md bg-zinc-900 bg-opacity-90 p-2 text-2xl"
+        >
+          {summary?.name}
+          {editShorthand && (
+            <span className="text-[12px] text-purple-500">
+              Editing Shorthand
+            </span>
+          )}
+        </div>
+        <div
+          onClick={() => setShowTrickLongform((prev) => !prev)}
+          className={`flex place-items-center p-1 text-center text-[8px] leading-none ${
+            showTrickLongform ? "text-emerald-300" : "text-zinc-300"
+          }`}
+        >
+          show <br />
+          {showTrickLongform ? "shorthand" : "fullname"}
+        </div>
+        <div className={`flex place-items-center`}>loop</div>
       </div>
       <div className="mt-2  flex flex-col gap-1">
         {summary?.SessionData.sort((a, b) => {
@@ -33,7 +48,12 @@ const ProfileSessionInfo = ({ summary }) => {
 
           return 0;
         }).map((d) => (
-          <DataDetails editShorthand={editShorthand} key={d.id} d={d} />
+          <DataDetails
+            showTrickLongForm={showTrickLongform}
+            editShorthand={editShorthand}
+            key={d.id}
+            d={d}
+          />
         ))}
       </div>
     </div>
@@ -42,7 +62,7 @@ const ProfileSessionInfo = ({ summary }) => {
 
 export default ProfileSessionInfo;
 
-const DataDetails = ({ d, editShorthand }) => {
+const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
   // console.log(d);
   const currentTime = useSessionSummariesStore((s) => s.currentTime);
   const setShorthand = useSessionSummariesStore((s) => s.setShorthand);
@@ -73,7 +93,7 @@ const DataDetails = ({ d, editShorthand }) => {
         }
       >
         <div className="no-scrollbar w-[164px] overflow-x-scroll whitespace-nowrap p-1 text-[12px] md:w-1/3">
-          {d?.ClipLabel.shorthand ?? d?.ClipLabel?.name}
+          {showTrickLongForm ? d?.ClipLabel?.name : d?.ClipLabel?.shorthand}
         </div>
         {/* <div className='w-1/3 '>{d?.SessionSource?.vidsrc}</div> */}
         <div className="w-4/9 flex place-items-center gap-2">

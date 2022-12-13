@@ -27,9 +27,9 @@ const OverallStatDisplay = ({ profileInfo }) => {
         </span>
       </div>
       <div>Total Tricks: {totalTricks}</div>
-      <div className={"absolute right-5 top-5 h-[200px] w-[400px]"}>
+      {/* <div className={"absolute right-5 top-5 h-[200px] w-[400px]"}>
         <RadarChart data={allSessionTricks} />
-      </div>
+      </div> */}
     </div>
   );
 };
