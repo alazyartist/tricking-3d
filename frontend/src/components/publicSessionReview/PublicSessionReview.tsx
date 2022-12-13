@@ -7,6 +7,7 @@ import { useSessionSummariesStore } from "@admin/components/sessionreview/Sessio
 const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
   const vidsrcRegex = /(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)/g;
   const vidRef = useRef<ReactPlayer>();
+  const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
   const seekTime = useSessionSummariesStore((s) => s.seekTime);
   const currentTime = useSessionSummariesStore((s) => s.currentTime);
   const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
@@ -54,10 +55,11 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
     [sessionData, vidRef]
   );
   useEffect(() => {
-    if (currentTime !== seekTime) {
+    if (currentTime !== seekTime && seekTime !== 0) {
       setCurrentTime(seekTime);
       vidRef?.current?.seekTo(seekTime);
     }
+    setSeekTime(0);
     //@ts-ignore
     setVidIsPlaying(true);
   }, [seekTime]);

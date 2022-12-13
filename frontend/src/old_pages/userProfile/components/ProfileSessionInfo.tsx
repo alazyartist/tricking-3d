@@ -71,7 +71,15 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
   const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
   const setClipComboRaw = useSessionSummariesStore((s) => s.setClipComboRaw);
   const [shorthandOpen, setShorthandOpen] = useState(false);
+  const [loopMe, setLoopMe] = useState(false);
 
+  useEffect(() => {
+    if (Math.floor(currentTime) === Math.floor(d.clipEnd) && loopMe) {
+      console.log(d.clipStart);
+      setSeekTime(0);
+      setSeekTime(Math.floor(d.clipStart));
+    }
+  }, [currentTime]);
   useEffect(() => {
     if (Math.floor(d.clipStart) === Math.floor(currentTime)) {
       setClipComboRaw(d.ClipLabel.comboArray);
@@ -108,6 +116,12 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
             <div className="min-w-[48px] rounded-md  text-center text-zinc-300">
               {d?.clipEnd}
             </div>
+          </div>
+          <div
+            onClick={() => setLoopMe((prev) => !prev)}
+            className={`${loopMe ? "text-zinc-500" : "text-zinc-300"}`}
+          >
+            Loop
           </div>
         </div>
       </div>
