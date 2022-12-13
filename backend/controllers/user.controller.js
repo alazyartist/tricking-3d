@@ -247,6 +247,19 @@ export const findAll = async (req, res) => {
 					],
 				},
 				{
+					model: db.sequelize.models.SessionSummaries,
+					include: [
+						{
+							model: db.sequelize.models.SessionData,
+							include: [
+								{ model: db.sequelize.models.Combo, as: "ClipLabel" },
+								{ model: db.sequelize.models.SessionSources },
+							],
+						},
+						{ model: db.sequelize.models.SessionSources },
+					],
+				},
+				{
 					model: db.sequelize.models.Users,
 					as: "CapturedMe",
 					through: { attributes: [] },

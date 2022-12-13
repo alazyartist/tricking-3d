@@ -7,6 +7,7 @@ import Captures from "./components/Captures";
 import { FaQrcode } from "react-icons/fa";
 // import RadarChart from "@components/d3/RadarChartAI";
 import useGetTricks from "api/useGetTricks";
+import UserList from "@components/UserList";
 
 function Dashboard() {
   const user = useUserStore((s) => s.user);
@@ -42,6 +43,8 @@ function Dashboard() {
 				<FaQrcode /> {!profileCodeOpen ? "Capture" : "Close"}
 			</div> */}
       {/* {trickData && <RadarChart data={trickData} />} */}
+
+      <UserList />
       <button className="fixed right-5 bottom-14" onClick={() => logout()}>
         Logout
       </button>
