@@ -35,7 +35,6 @@ const ProfileSessionInfo = ({ summary }) => {
           show <br />
           {showTrickLongform ? "shorthand" : "fullname"}
         </div>
-        <div className={`flex place-items-center`}>loop</div>
       </div>
       <div className="mt-2  flex flex-col gap-1">
         {summary?.SessionData.sort((a, b) => {
@@ -91,6 +90,7 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
     setVidsrc(d.SessionSource.vidsrc);
     setClipComboRaw(d.ClipLabel.comboArray);
     setSeekTime(d.clipStart);
+    setLoopMe((prev) => !prev);
   };
   return (
     <>
@@ -112,16 +112,11 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
             <div className="min-w-[48px] rounded-md text-center text-zinc-300">
               {d?.clipStart}
             </div>
-            <div className="whitespace-nowrap">--&gt;</div>
+            {!loopMe && <div className="whitespace-nowrap">--&gt;</div>}
+            {loopMe && <div className="whitespace-nowrap">↶</div>}
             <div className="min-w-[48px] rounded-md  text-center text-zinc-300">
               {d?.clipEnd}
             </div>
-          </div>
-          <div
-            onClick={() => setLoopMe((prev) => !prev)}
-            className={`${loopMe ? "text-zinc-500" : "text-zinc-300"}`}
-          >
-            Loop
           </div>
         </div>
       </div>
