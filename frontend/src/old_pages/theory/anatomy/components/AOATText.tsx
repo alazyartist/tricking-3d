@@ -3,8 +3,7 @@ import React from "react";
 function AOATText() {
   return (
     <div className="w-full p-4 text-zinc-400">
-      <br />
-      <br />
+      <h1 className=" pb-0 font-virgil text-xl text-zinc-300">Orientation</h1>
       All tricks have a directionality to them meaning they exist within an
       oriented framework where up and down and forward and backward have been
       decided by your Direction of Momentum. DOM, if you remember from earlier,
@@ -22,7 +21,7 @@ function AOATText() {
       the Trick.
       <br />
       <br />
-      <h1 className="p-4 pb-0 font-virgil text-xl text-zinc-300">Setup</h1>
+      <h1 className="pb-0 font-virgil text-xl text-zinc-300">Setup</h1>
       ***Insert Graphic Anatomy of a Setup&gt;Trick*** When a Trick is going to
       be performed the use a Setup of some kind is needed in order to generate
       the initial momentum. The setup can be thought to have the same anatomy as
@@ -31,7 +30,7 @@ function AOATText() {
       defining movement for the Trick. Taking that momentum that was generated
       and using it to perform the Trick. <br />
       <br />
-      <h1 className="p-4 pb-0 font-virgil text-xl text-zinc-300">Combo</h1>
+      <h1 className="pb-0 font-virgil text-xl text-zinc-300">Combo</h1>
       ***Insert Graphic Anatomy of a Combo*** When tricks are performed in a
       combo a Transition of some form is used to move between the end state of
       one Trick and the Beginning state of another Trick. Transitions can be
@@ -44,29 +43,29 @@ function AOATText() {
       the pattern that we can create by adding another &gt; Transition &gt;
       Trick to the end. We could do this "theoretically" forever.
       <br />
-      <h1 className="p-4 pb-0 font-virgil text-xl text-zinc-300">Transition</h1>
-      <br /> When we are chaining multiple Tricks together using various
-      transitions we also have what we can refer to as our Momentum Line. This
-      is effectively a trail of where in space we have been over the course of
-      multiple Tricks. We could choose to maintain a linearity and keep each
-      Trick going in the same direction even though we may incorporate a variety
-      of Tricks. Alternatively we can allow, or even direct, our DOM to go in
-      all sorts of directions. Some people will even spiral around the floor
-      over the course of their combo. Using different transitions we can
-      maintain or destroy our DOM(Direction of Movement) which could affect how
-      much momentum we have to use in the next trick.
+      <h1 className="pb-0 font-virgil text-xl text-zinc-300">Transition</h1>
+      When we are chaining multiple Tricks together using various transitions we
+      also have what we can refer to as our Momentum Line. This is effectively a
+      trail of where in space we have been over the course of multiple Tricks.
+      We could choose to maintain a linearity and keep each Trick going in the
+      same direction even though we may incorporate a variety of Tricks.
+      Alternatively we can allow, or even direct, our DOM to go in all sorts of
+      directions. Some people will even spiral around the floor over the course
+      of their combo. Using different transitions we can maintain or destroy our
+      DOM(Direction of Movement) which could affect how much momentum we have to
+      use in the next trick.
       <br />
-      <h1 className="p-4 pb-0 font-virgil text-xl text-zinc-300">Recap</h1>
-      <br /> We can use this framework as the basic structure of Tricks and
-      Tricking combos. Any trick we want to look at can be dissected, or
-      created, through this lens. We have been talking about breaking things
-      down into their parts quite a bit but these pieces aren't that useful when
-      they aren't combined together. Its once we take these pieces and put them
-      all back together that we actually start to get somewhere. We can take a
-      Trick that we have broken down, make some adjustments to its pieces and
-      put the new pieces back together. <br />
+      <h1 className="pb-0 font-virgil text-xl text-zinc-300">Recap</h1>
+      We can use this framework as the basic structure of Tricks and Tricking
+      combos. Any trick we want to look at can be dissected, or created, through
+      this lens. We have been talking about breaking things down into their
+      parts quite a bit but these pieces aren't that useful when they aren't
+      combined together. Its once we take these pieces and put them all back
+      together that we actually start to get somewhere. We can take a Trick that
+      we have broken down, make some adjustments to its pieces and put the new
+      pieces back together. <br />
       <br />
-      <h1 className="p-4 pb-0 font-virgil text-xl text-zinc-300">Expanding</h1>
+      <h1 className="pb-0 font-virgil text-xl text-zinc-300">Expanding</h1>
       This gives us a different, and often more complex move. All of the higher
       level Tricks are really just basic moves that were put through this
       process of variating the Core-trick over and over again until something
