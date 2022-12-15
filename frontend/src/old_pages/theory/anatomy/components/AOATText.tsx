@@ -6,19 +6,18 @@ function AOATText() {
       <h1 className=" pb-0 font-virgil text-xl text-zinc-300">Orientation</h1>
       All tricks have a directionality to them meaning they exist within an
       oriented framework where up and down and forward and backward have been
-      decided by your Direction of Momentum. DOM, if you remember from earlier,
-      simply means the direction we are traveling in space parallel to the
-      ground, i.e. front to back, left to right, etc. Our DOM also gives a
-      grounding point for the stances. The Stances are a way to refer to our
-      bodies position in space in relation to our DOM. We have Takeoff Stances,
-      as well as Landing Stances. The takeoff stance gives us information about
-      the way the feet and body are positioned in relation to our DOM, in the
-      entrance to the Trick, while the landing stance gives us information about
-      the way the feet and body are positioned during the exit of the Trick. The
-      Takeoff and Landing Styles denote how many feet, in what order, and in
-      which way. We can usually find this information about the takeoff and
-      landing styles by looking at the Transitions that are used in and out of
-      the Trick.
+      decided by your Direction of Momentum. DOM, simply means the direction we
+      are traveling in space parallel to the ground, i.e. front to back, left to
+      right, etc. Our DOM also gives a grounding point for the stances. The
+      Stances are a way to refer to our bodies position in space in relation to
+      our DOM. We have Takeoff Stances, as well as Landing Stances. The takeoff
+      stance gives us information about the way the feet and body are positioned
+      in relation to our DOM, in the entrance to the Trick, while the landing
+      stance gives us information about the way the feet and body are positioned
+      during the exit of the Trick. The Takeoff and Landing Styles denote how
+      many feet, in what order, and in which way. We can usually find this
+      information about the takeoff and landing styles by looking at the
+      Transitions that are used in and out of the Trick.
       <br />
       <br />
       <h1 className="pb-0 font-virgil text-xl text-zinc-300">Setup</h1>
