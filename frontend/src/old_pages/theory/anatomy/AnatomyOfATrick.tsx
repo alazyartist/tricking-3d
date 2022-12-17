@@ -12,10 +12,10 @@ function AnatomyOfATrick() {
         AnatomyOfATrick
       </div>
       <div className=" flex w-[90%] flex-col place-items-center rounded-md bg-zinc-900 bg-opacity-90">
-        <AnatomySketch className="h-fit w-full" />
-        <AnatomyTrickSVG className="w-full fill-zinc-300" />
         <AnatomyIntro />
         <AnatomyBreakdown />
+        <AnatomySketch className="h-fit w-full" />
+        <AnatomyTrickSVG className="w-full fill-zinc-300" />
         <AOATText />
       </div>
     </div>
