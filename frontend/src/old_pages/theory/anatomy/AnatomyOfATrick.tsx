@@ -1,6 +1,5 @@
 import React from "react";
 import AOATText from "./components/AOATText";
-import AnatomySketch from "../components/AnatomySketchSVG";
 import AnatomyTrickSVG from "./components/AnatomyTrickSVG";
 import AnatomyIntro from "./components/AnatomyIntro";
 import AnatomyBreakdown from "./components/AnatomyBreakdown";
@@ -14,8 +13,7 @@ function AnatomyOfATrick() {
       <div className=" flex w-[90%] flex-col place-items-center rounded-md bg-zinc-900 bg-opacity-90">
         <AnatomyIntro />
         <AnatomyBreakdown />
-        <AnatomySketch className="h-fit w-full" />
-        <AnatomyTrickSVG className="w-full fill-zinc-300" />
+        {/* <AnatomyTrickSVG className="w-full fill-zinc-300" /> */}
         <AOATText />
       </div>
     </div>

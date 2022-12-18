@@ -1,4 +1,6 @@
 import React from "react";
+import AnatomySketch from "../../components/AnatomySketchSVG";
+import AnatomyTrickSVG from "../components/AnatomyTrickSVG";
 
 function AOATText() {
   return (
@@ -21,26 +23,27 @@ function AOATText() {
       <br />
       <br />
       <h1 className="pb-0 font-virgil text-xl text-zinc-300">Setup</h1>
-      ***Insert Graphic Anatomy of a Setup&gt;Trick*** When a Trick is going to
-      be performed the use a Setup of some kind is needed in order to generate
-      the initial momentum. The setup can be thought to have the same anatomy as
-      a Trick. The exit of the setup will overlap with the entrance of the
-      Trick, this is where the performer is positioning themselves to begin the
-      defining movement for the Trick. Taking that momentum that was generated
-      and using it to perform the Trick. <br />
+      <AnatomyTrickSVG className="w-full fill-zinc-300" />
+      When a Trick is going to be performed the use a Setup of some kind is
+      needed in order to generate the initial momentum. The setup can be thought
+      to have the same anatomy as a Trick. The exit of the setup will overlap
+      with the entrance of the Trick, this is where the performer is positioning
+      themselves to begin the defining movement for the Trick. Taking that
+      momentum that was generated and using it to perform the Trick. <br />
       <br />
       <h1 className="pb-0 font-virgil text-xl text-zinc-300">Combo</h1>
-      ***Insert Graphic Anatomy of a Combo*** When tricks are performed in a
-      combo a Transition of some form is used to move between the end state of
-      one Trick and the Beginning state of another Trick. Transitions can be
-      thought to have the same anatomy as the Tricks and Setups we've mentioned
-      so far. And again like the shift from Setup to Trick the Exit of the Trick
-      overlaps with the Entrance of the Transition. The Transitions main
-      movements are performed and the Exit of the Transition overlaps with the
-      Entrance to the next Trick. So the format is either Setup &gt; Trick or
-      Setup &gt; Trick &gt; Transition &gt; Trick. Hopefully you are noticing
-      the pattern that we can create by adding another &gt; Transition &gt;
-      Trick to the end. We could do this "theoretically" forever.
+      <AnatomySketch className="h-fit w-full" />
+      When tricks are performed in a combo a Transition of some form is used to
+      move between the end state of one Trick and the Beginning state of another
+      Trick. Transitions can be thought to have the same anatomy as the Tricks
+      and Setups we've mentioned so far. And again like the shift from Setup to
+      Trick the Exit of the Trick overlaps with the Entrance of the Transition.
+      The Transitions main movements are performed and the Exit of the
+      Transition overlaps with the Entrance to the next Trick. So the format is
+      either Setup &gt; Trick or Setup &gt; Trick &gt; Transition &gt; Trick.
+      Hopefully you are noticing the pattern that we can create by adding
+      another &gt; Transition &gt; Trick to the end. We could do this
+      "theoretically" forever.
       <br />
       <h1 className="pb-0 font-virgil text-xl text-zinc-300">Transition</h1>
       When we are chaining multiple Tricks together using various transitions we
