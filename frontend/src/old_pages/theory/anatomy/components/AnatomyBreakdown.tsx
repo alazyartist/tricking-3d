@@ -7,8 +7,8 @@ const AnatomyBreakdown = () => {
       <h1 className="p-4 pb-0 font-virgil text-xl text-zinc-300">Base</h1>
       <div className="w-full p-4 text-zinc-400">
         The Anatomy of a Trick, as seen above, has at it's heart a base. This is
-        a set of movements that meets a particular criteria. We will see how
-        this works throughout this section.
+        a set of movements that meets a particular criteria. For this system we
+        have chosen to use the flips as the base to build everything off of.
       </div>
       <BasesOverview />
       <div className="w-full p-4 text-zinc-400">

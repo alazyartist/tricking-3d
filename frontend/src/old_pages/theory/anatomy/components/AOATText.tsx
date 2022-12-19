@@ -31,8 +31,8 @@ function AOATText() {
       themselves to begin the defining movement for the Trick. Taking that
       momentum that was generated and using it to perform the Trick. <br />
       <br />
-      <h1 className="pb-0 font-virgil text-xl text-zinc-300">Combo</h1>
       <AnatomySketch className="h-fit w-full" />
+      <h1 className="pb-0 font-virgil text-xl text-zinc-300">Combo</h1>
       When tricks are performed in a combo a Transition of some form is used to
       move between the end state of one Trick and the Beginning state of another
       Trick. Transitions can be thought to have the same anatomy as the Tricks
