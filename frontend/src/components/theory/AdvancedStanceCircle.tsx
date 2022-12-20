@@ -9,6 +9,7 @@ import { stances } from "@data/trickDataModel/TrickObjects";
 import StanceList from "./StanceList";
 import StanceInfo from "./stances/StanceInfo";
 import { HalfCircle } from "@old_pages/theory/stances/HalfCircleAnimation";
+import Image from "next/image";
 
 function AdvancedStanceCircle() {
   const setStanceColor = useStore((s) => s.setStanceColor);
@@ -94,6 +95,7 @@ function AdvancedStanceCircle() {
           </animated.div>
         </div>
       </animated.div>
+      <StanceImage currentStance={currentStance} />
       <animated.div
         style={zAnim}
         className="absolute flex w-[75vw] max-w-[540px] flex-col place-items-center p-2"
@@ -123,3 +125,37 @@ function AdvancedStanceCircle() {
 }
 
 export default AdvancedStanceCircle;
+
+const StanceImage = ({ currentStance }) => {
+  return (
+    <>
+      {currentStance === "Backside" && (
+        <Image
+          alt="stance example"
+          src={"/Backside.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
+      {currentStance === "BacksideComplete" && (
+        <Image
+          alt="stance example"
+          src={"/BacksideComplete.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
+      {currentStance === "BacksideHyper" && (
+        <Image
+          alt="stance example"
+          src={"/BacksideHyper.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
+    </>
+  );
+};
