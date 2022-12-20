@@ -22,8 +22,8 @@ function AOATText() {
       Transitions that are used in and out of the Trick.
       <br />
       <br />
-      <h1 className="pb-0 font-virgil text-xl text-zinc-300">Setup</h1>
       <AnatomyTrickSVG className="w-full fill-zinc-300" />
+      <h1 className="pb-0 font-virgil text-xl text-zinc-300">Setup</h1>
       When a Trick is going to be performed the use a Setup of some kind is
       needed in order to generate the initial momentum. The setup can be thought
       to have the same anatomy as a Trick. The exit of the setup will overlap
