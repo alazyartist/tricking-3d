@@ -156,6 +156,15 @@ const StanceImage = ({ currentStance }) => {
           className="rounded-xl text-zinc-300"
         />
       )}
+      {currentStance === "InsideComplete" && (
+        <Image
+          alt="stance example"
+          src={"/InsideComplete.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
     </>
   );
 };
