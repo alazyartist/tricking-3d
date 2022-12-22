@@ -156,10 +156,19 @@ const StanceImage = ({ currentStance }) => {
           className="rounded-xl text-zinc-300"
         />
       )}
-      {currentStance === "InsideComplete" && (
+      {currentStance === "InsideHyper" && (
         <Image
           alt="stance example"
-          src={"/InsideComplete.png"}
+          src={"/InsideHyper.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
+      {currentStance === "OutsideSemi" && (
+        <Image
+          alt="stance example"
+          src={"/OutsideSemi.png"}
           width="500"
           height="300"
           className="rounded-xl text-zinc-300"
