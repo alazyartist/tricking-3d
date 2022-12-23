@@ -156,6 +156,24 @@ const StanceImage = ({ currentStance }) => {
           className="rounded-xl text-zinc-300"
         />
       )}
+      {currentStance === "BacksideMega" && (
+        <Image
+          alt="stance example"
+          src={"/BacksideMega.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
+      {currentStance === "Inside" && (
+        <Image
+          alt="stance example"
+          src={"/Inside.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
       {currentStance === "InsideHyper" && (
         <Image
           alt="stance example"
@@ -165,10 +183,82 @@ const StanceImage = ({ currentStance }) => {
           className="rounded-xl text-zinc-300"
         />
       )}
+      {currentStance === "InsideComplete" && (
+        <Image
+          alt="stance example"
+          src={"/InsideComplete.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
+      {currentStance === "InsideMega" && (
+        <Image
+          alt="stance example"
+          src={"/InsideMega.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
+      {currentStance === "Outside" && (
+        <Image
+          alt="stance example"
+          src={"/Outside.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
       {currentStance === "OutsideSemi" && (
         <Image
           alt="stance example"
           src={"/OutsideSemi.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
+      {currentStance === "OutsideComplete" && (
+        <Image
+          alt="stance example"
+          src={"/OutsideComplete.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
+      {currentStance === "OutsideeMega" && (
+        <Image
+          alt="stance example"
+          src={"/OutsideMega.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
+      {currentStance === "Frontside" && (
+        <Image
+          alt="stance example"
+          src={"/Frontside.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
+      {currentStance === "FrontsideMega" && (
+        <Image
+          alt="stance example"
+          src={"/FrontsideMega.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
+      {currentStance === "FrontsideComplete" && (
+        <Image
+          alt="stance example"
+          src={"/FrontsideComplete.png"}
           width="500"
           height="300"
           className="rounded-xl text-zinc-300"
