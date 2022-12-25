@@ -165,6 +165,15 @@ const StanceImage = ({ currentStance }) => {
           className="rounded-xl text-zinc-300"
         />
       )}
+      {currentStance === "BacksideSemi" && (
+        <Image
+          alt="stance example"
+          src={"/BacksideMega.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
       {currentStance === "Inside" && (
         <Image
           alt="stance example"
@@ -201,6 +210,15 @@ const StanceImage = ({ currentStance }) => {
           className="rounded-xl text-zinc-300"
         />
       )}
+      {currentStance === "InsideSemi" && (
+        <Image
+          alt="stance example"
+          src={"/InsideMega.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
       {currentStance === "Outside" && (
         <Image
           alt="stance example"
@@ -219,6 +237,15 @@ const StanceImage = ({ currentStance }) => {
           className="rounded-xl text-zinc-300"
         />
       )}
+      {currentStance === "OutsideHyper" && (
+        <Image
+          alt="stance example"
+          src={"/OutsideHyper.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
       {currentStance === "OutsideComplete" && (
         <Image
           alt="stance example"
@@ -228,7 +255,7 @@ const StanceImage = ({ currentStance }) => {
           className="rounded-xl text-zinc-300"
         />
       )}
-      {currentStance === "OutsideeMega" && (
+      {currentStance === "OutsideMega" && (
         <Image
           alt="stance example"
           src={"/OutsideMega.png"}
@@ -259,6 +286,24 @@ const StanceImage = ({ currentStance }) => {
         <Image
           alt="stance example"
           src={"/FrontsideComplete.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
+      {currentStance === "FrontsideSemi" && (
+        <Image
+          alt="stance example"
+          src={"/FrontsideSemi.png"}
+          width="500"
+          height="300"
+          className="rounded-xl text-zinc-300"
+        />
+      )}
+      {currentStance === "FrontsideHyper" && (
+        <Image
+          alt="stance example"
+          src={"/FrontsideHyper.png"}
           width="500"
           height="300"
           className="rounded-xl text-zinc-300"
