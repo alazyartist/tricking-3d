@@ -29,7 +29,7 @@ const LiveBattlerooms = ({ ably }) => {
   //Connect to liveSessions channel
   return (
     <div>
-      <div>Live Sessions</div>
+      <div>Live BattleRooms</div>
       <div className="flex max-h-[50vh] flex-col gap-2 overflow-y-auto rounded-md font-normal text-zinc-300">
         {liveSessionsFeed?.length < 1 &&
           (battleRooms?.length < 1 ||

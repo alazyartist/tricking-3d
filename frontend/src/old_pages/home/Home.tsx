@@ -93,7 +93,7 @@ function Home() {
                   href={"/pppoints"}
                   className=" mt-4 mb-4 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-3xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)]"
                 >
-                  POINTS ++
+                  BattleRooms
                 </Link>
                 <Link
                   href={accessToken ? "/addSession" : "/login"}
