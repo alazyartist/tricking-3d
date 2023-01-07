@@ -1,0 +1,336 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model animations {
+  animation_id  String  @id @db.Char(36)
+  animationName String? @db.VarChar(255)
+  skeleton      String? @db.VarChar(255)
+  fileName      String? @db.VarChar(255)
+  model         String? @db.VarChar(255)
+}
+
+model bases {
+  base_id       String   @id @db.VarChar(255)
+  trick_id      String?  @db.Char(36)
+  name          String?  @db.VarChar(255)
+  direction     String?  @db.VarChar(255)
+  fromLeg       String?  @db.VarChar(255)
+  toLeg         String?  @db.VarChar(255)
+  rotation      Int?
+  stance_id     String?  @db.VarChar(255)
+  takeoffStance String?  @db.VarChar(255)
+  landingStance String?  @db.VarChar(255)
+  pointValue    Float?   @db.Float
+  stances       stances? @relation(fields: [stance_id], references: [stance_id], onDelete: Restrict, onUpdate: Restrict, map: "bases_ibfk_1")
+  tricks        tricks[]
+
+  @@index([stance_id], map: "stance_id")
+}
+
+model battlerooms {
+  id        Int       @id @default(autoincrement())
+  host      String?   @db.Char(36)
+  sessionid String?   @unique(map: "sessionid") @db.Char(36)
+  team1     Json?
+  team2     Json?
+  judges    Json?
+  duration  Int?
+  isOpen    Boolean?
+  createdAt DateTime  @db.DateTime(0) @default(now())
+  updatedAt DateTime  @db.DateTime(0) @updatedAt
+  deletedAt DateTime? @db.DateTime(0)
+}
+
+model battleroomstats {
+  id                 Int       @id @default(autoincrement())
+  sessionid          String?   @unique(map: "sessionid") @db.Char(36)
+  team1Score         Int?
+  team2Score         Int?
+  team1AudienceScore Int?
+  team2AudienceScore Int?
+  winner             Json?
+  audienceWinner     Json?
+  createdAt          DateTime  @db.DateTime(0) @default(now())
+  updatedAt          DateTime  @db.DateTime(0) @updatedAt
+  deletedAt          DateTime? @db.DateTime(0)
+}
+
+model captures {
+  id                                Int       @id @default(autoincrement())
+  user_id                           Int?
+  captured_id                       Int?
+  createdAt                         DateTime? @db.DateTime(0) @default(now())
+  updatedAt                         DateTime? @db.DateTime(0) @updatedAt
+  users_captures_user_idTousers     users?    @relation("captures_user_idTousers", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "captures_ibfk_1")
+  users_captures_captured_idTousers users?    @relation("captures_captured_idTousers", fields: [captured_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "captures_ibfk_2")
+
+  @@index([captured_id], map: "captured_id")
+  @@index([user_id], map: "user_id")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model claimedcombos {
+  id        Int?
+  user_id   String?  @db.Char(36)
+  combo_id  String?  @db.Char(36)
+  createdAt DateTime @db.DateTime(0) @default(now())
+  updatedAt DateTime @db.DateTime(0) @updatedAt
+
+  @@ignore
+}
+
+model claimedtricks {
+  id        Int       @id @default(autoincrement())
+  user_id   String?   @db.Char(36)
+  trick_id  String?   @db.Char(36)
+  createdAt DateTime? @db.DateTime(0) @default(now())
+  updatedAt DateTime? @db.DateTime(0) @updatedAt
+}
+
+model combo_animations {
+  id            Int      @id @default(autoincrement())
+  combo_id      String?  @db.Char(36)
+  animations_id String?  @db.Char(36)
+  createdAt     DateTime @db.DateTime(0) @default(now())
+  updatedAt     DateTime @db.DateTime(0) @updatedAt
+}
+
+model combos {
+  combo_id         String   @id @db.Char(36)
+  name             String?  @db.VarChar(255)
+  type             String?  @default("Combo") @db.VarChar(255)
+  comboArray       Json?
+  creator          String?  @db.Char(36)
+  defaultAnimation String?  @db.Char(36)
+  createdAt        DateTime @db.DateTime(0) @default(now())
+  updatedAt        DateTime @db.DateTime(0) @updatedAt
+  pointValue       Float?   @db.Float
+  shorthand        String?  @db.VarChar(255)
+}
+
+model interactions {
+  id             Int       @id @default(autoincrement())
+  user_id        Int?
+  interaction_id String?   @db.Char(36)
+  trick_id       String?   @db.Char(36)
+  type           String?   @db.VarChar(255)
+  content        String?   @db.VarChar(255)
+  createdAt      DateTime? @db.DateTime(0) @default(now())
+  updatedAt      DateTime? @db.DateTime(0) @updatedAt
+}
+
+model judgescores {
+  id        Int      @id @default(autoincrement())
+  sessionid String?  @db.Char(36)
+  judge     String?  @db.Char(36)
+  team      Json?
+  score     Int?
+  createdAt DateTime @db.DateTime(0) @default(now())
+  updatedAt DateTime @db.DateTime(0) @updatedAt
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model pointsledger {
+  id        Int?
+  user_id   String?  @db.Char(36)
+  points    Float?   @db.Float
+  reason_id String?  @db.VarChar(255)
+  createdAt DateTime @db.DateTime(0) @default(now())
+  updatedAt DateTime @db.DateTime(0) @updatedAt
+
+  @@ignore
+}
+
+model pointsledgers {
+  id        Int      @id @default(autoincrement())
+  user_id   String?  @db.Char(36)
+  points    Float?   @db.Float
+  reason_id String?  @db.VarChar(255)
+  createdAt DateTime @db.DateTime(0) @default(now())
+  updatedAt DateTime @db.DateTime(0) @updatedAt
+}
+
+model profiles {
+  id        Int      @id @default(autoincrement())
+  user_id   String?  @db.Char(36)
+  name      String?  @db.VarChar(255)
+  status    String?  @db.VarChar(255)
+  socials   Json?
+  age       Int?
+  country   String?  @db.VarChar(255)
+  state     String?  @db.VarChar(255)
+  city      String?  @db.VarChar(255)
+  createdAt DateTime @db.DateTime(0) @default(now())
+  updatedAt DateTime @db.DateTime(0) @updatedAt
+}
+
+model schema_migrations {
+  version     BigInt    @id
+  inserted_at DateTime? @db.DateTime(0)
+}
+
+model sequelizemeta {
+  name String @id @unique(map: "name") @db.VarChar(255)
+}
+
+model sessiondata {
+  id        String   @id @default("243f5793-2076-4dd7-b4ae-532c32589e50") @db.Char(36)
+  srcid     String?  @db.Char(36)
+  sessionid String?  @db.Char(36)
+  clipLabel String?  @db.Char(36)
+  clipStart String?  @db.VarChar(255)
+  clipEnd   String?  @db.VarChar(255)
+  admin     String?  @db.Char(36)
+  createdAt DateTime @db.DateTime(0) @default(now())
+  updatedAt DateTime @db.DateTime(0) @updatedAt
+  bail      Int?
+}
+
+model sessionsources {
+  srcid     String   @id @default("1a745232-fabd-4b20-b060-f006b8f5fb39") @db.Char(36)
+  sessionid String?  @db.Char(36)
+  vidsrc    String?  @db.VarChar(255)
+  createdAt DateTime @db.DateTime(0) @default(now())
+  updatedAt DateTime @db.DateTime(0) @updatedAt
+
+  @@unique([sessionid, vidsrc], map: "vidsrckey")
+}
+
+model sessionsummaries {
+  sessionid   String    @id @default("aa5b379c-8f67-40af-af78-620b57403d7c") @db.Char(36)
+  name        String?   @db.VarChar(255)
+  user_id     String?   @db.Char(36)
+  admin       String?   @db.Char(36)
+  sessionDate DateTime? @db.Date
+  startTime   String?   @db.VarChar(255)
+  endTime     String?   @db.VarChar(255)
+  status      String?   @db.VarChar(255)
+  createdAt   DateTime  @db.DateTime(0) @default(now())
+  updatedAt   DateTime  @db.DateTime(0) @updatedAt
+  type        String?   @db.VarChar(255)
+}
+
+model stances {
+  stance_id      String  @id @db.VarChar(255)
+  type           String? @default("Stance") @db.VarChar(255)
+  name           String? @db.VarChar(255)
+  leg            String? @db.VarChar(255)
+  direction      String? @db.VarChar(255)
+  stanceRotation Int?
+  pointValue     Float?  @db.Float
+  bases          bases[]
+}
+
+model transitions {
+  id             Int     @id @default(autoincrement())
+  name           String? @db.VarChar(255)
+  type           String? @default("Transition") @db.VarChar(255)
+  transitionType String? @db.VarChar(255)
+  takeoffStyle   String? @db.VarChar(255)
+  landingStyle   String? @db.VarChar(255)
+  fromLeg        String? @db.VarChar(255)
+  toLeg          String? @db.VarChar(255)
+  rotation       Int?
+  pointValue     Float?  @db.Float
+}
+
+model trick_animations {
+  id           Int      @id @default(autoincrement())
+  trick_id     String?  @db.Char(36)
+  animation_id String?  @db.Char(36)
+  createdAt    DateTime @db.DateTime(0) @default(now())
+  updatedAt    DateTime @db.DateTime(0) @updatedAt
+}
+
+model trick_variations {
+  id           Int     @id @default(autoincrement())
+  variation_id Int?
+  trick_id     String? @db.Char(36)
+}
+
+model tricklist_combos {
+  id           Int      @id @default(autoincrement())
+  tricklist_id String?  @db.Char(36)
+  combo_id     String?  @db.Char(36)
+  createdAt    DateTime @db.DateTime(0) @default(now())
+  updatedAt    DateTime @db.DateTime(0) @updatedAt
+}
+
+model tricklists {
+  tricklist_id String   @id @db.Char(36)
+  name         String?  @db.VarChar(255)
+  owner        String?  @db.Char(36)
+  createdAt    DateTime @db.DateTime(0) @default(now())
+  updatedAt    DateTime @db.DateTime(0) @updatedAt
+}
+
+model tricks {
+  trick_id         String  @id @db.Char(36)
+  base_id          String? @db.VarChar(255)
+  trickType        String? @db.VarChar(255)
+  type             String? @default("Trick") @db.VarChar(255)
+  name             String? @db.VarChar(255)
+  stance_id        String? @db.VarChar(255)
+  takeoffStance    String? @db.VarChar(255)
+  landingStance    String? @db.VarChar(255)
+  defaultAnimation String? @db.Char(36)
+  pointValue       Float?  @db.Float
+  bases            bases?  @relation(fields: [base_id], references: [base_id], onDelete: Restrict, onUpdate: Restrict, map: "tricks_ibfk_1")
+
+  @@index([base_id], map: "base_id")
+}
+
+model user_tricklists {
+  id           Int      @id @default(autoincrement())
+  user_id      String?  @db.Char(36)
+  tricklist_id String?  @db.Char(36)
+  createdAt    DateTime @db.DateTime(0) @default(now())
+  updatedAt    DateTime @db.DateTime(0) @updatedAt
+}
+
+model users {
+  id                                   Int        @id @default(autoincrement())
+  username                             String?    @unique(map: "username") @db.VarChar(255)
+  first_name                           String?    @db.VarChar(255)
+  last_name                            String?    @db.VarChar(255)
+  email                                String?    @unique(map: "email") @db.VarChar(255)
+  password                             String?    @db.VarChar(255)
+  refresh_token                        String?    @db.VarChar(255)
+  uuid                                 String?    @db.Char(36)
+  profilePic                           String?    @db.VarChar(255)
+  createdAt                            DateTime   @db.DateTime(0)  @default(now())
+  updatedAt                            DateTime   @db.DateTime(0) @updatedAt
+  deletedAt                            DateTime?  @db.DateTime(0)
+  isAdmin                              Boolean?
+  adminAccess                          Int?
+  TotalPoints                          Float?     @db.Float
+  SessionReviewCredits                 Int?
+  captures_captures_user_idTousers     captures[] @relation("captures_user_idTousers")
+  captures_captures_captured_idTousers captures[] @relation("captures_captured_idTousers")
+}
+
+model userscores {
+  id        Int      @id @default(autoincrement())
+  sessionid String?  @db.Char(36)
+  userid    String?  @db.Char(36)
+  team      Json?
+  score     Int?
+  createdAt DateTime @db.DateTime(0) @default(now())
+  updatedAt DateTime @db.DateTime(0) @updatedAt
+}
+
+model variations {
+  id            Int     @id @default(autoincrement())
+  variationType String? @db.VarChar(255)
+  type          String? @default("Variation") @db.VarChar(255)
+  name          String? @db.VarChar(255)
+  value         String? @db.VarChar(255)
+  pos           String? @db.VarChar(255)
+  pointValue    Float?  @db.Float
+}

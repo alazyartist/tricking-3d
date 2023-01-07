@@ -4,19 +4,23 @@ importers:
 
   .:
     specifiers:
+      '@prisma/client': ^4.8.1
       ably: ^1.2.29
       axios: ^0.27.2
       concurrently: ^7.2.1
+      prisma: ^4.8.1
       react-player: ^2.11.0
       typescript: ^4.9.3
       uuid: ^9.0.0
     dependencies:
+      '@prisma/client': 4.8.1_prisma@4.8.1
       ably: 1.2.29
       axios: 0.27.2
       concurrently: 7.2.2
       react-player: 2.11.0
       uuid: 9.0.0
     devDependencies:
+      prisma: 4.8.1
       typescript: 4.9.3
 
   backend:
@@ -66,11 +70,15 @@ importers:
       '@react-three/fiber': ^8.9.1
       '@stripe/react-stripe-js': ^1.15.0
       '@stripe/stripe-js': ^1.44.1
-      '@tanstack/react-query': ^4.18.0
+      '@tanstack/react-query': ^4.19.1
       '@tanstack/react-query-devtools': ^4.18.0
       '@testing-library/jest-dom': ^5.16.5
       '@testing-library/react': ^13.4.0
       '@testing-library/user-event': ^14.4.3
+      '@trpc/client': ^10.8.1
+      '@trpc/next': ^10.8.1
+      '@trpc/react-query': ^10.8.1
+      '@trpc/server': ^10.8.1
       '@types/d3': ^7.4.0
       '@types/react': ^18.0.25
       '@types/react-dom': ^18.0.9
@@ -124,6 +132,10 @@ importers:
       '@testing-library/jest-dom': 5.16.5
       '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
       '@testing-library/user-event': 14.4.3
+      '@trpc/client': 10.8.1_@trpc+server@10.8.1
+      '@trpc/next': 10.8.1_k4z4avalqmobjwrlz5zfhn2mnm
+      '@trpc/react-query': 10.8.1_ip5jsvekau5hoibigmxxvvndve
+      '@trpc/server': 10.8.1
       '@use-gesture/react': 10.2.22_react@18.2.0
       algoliasearch: 4.14.2
       browserslist: 4.21.4
@@ -2186,6 +2198,28 @@ packages:
       fastq: 1.14.0
     dev: true
 
+  /@prisma/client/4.8.1_prisma@4.8.1:
+    resolution: {integrity: sha512-d4xhZhETmeXK/yZ7K0KcVOzEfI5YKGGEr4F5SBV04/MU4ncN/HcE28sy3e4Yt8UFW0ZuImKFQJE+9rWt9WbGSQ==}
+    engines: {node: '>=14.17'}
+    requiresBuild: true
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+    dependencies:
+      '@prisma/engines-version': 4.8.0-61.d6e67a83f971b175a593ccc12e15c4a757f93ffe
+      prisma: 4.8.1
+    dev: false
+
+  /@prisma/engines-version/4.8.0-61.d6e67a83f971b175a593ccc12e15c4a757f93ffe:
+    resolution: {integrity: sha512-MHSOSexomRMom8QN4t7bu87wPPD+pa+hW9+71JnVcF3DqyyO/ycCLhRL1we3EojRpZxKvuyGho2REQsMCvxcJw==}
+    dev: false
+
+  /@prisma/engines/4.8.1:
+    resolution: {integrity: sha512-93tctjNXcIS+i/e552IO6tqw17sX8liivv8WX9lDMCpEEe3ci+nT9F+1oHtAafqruXLepKF80i/D20Mm+ESlOw==}
+    requiresBuild: true
+
   /@react-spring/animated/9.5.5_react@18.2.0:
     resolution: {integrity: sha512-glzViz7syQ3CE6BQOwAyr75cgh0qsihm5lkaf24I0DfU63cMm/3+br299UEYkuaHNmfDfM414uktiPlZCNJbQA==}
     peerDependencies:
@@ -2515,6 +2549,55 @@ packages:
     engines: {node: '>=12', npm: '>=6'}
     peerDependencies:
       '@testing-library/dom': '>=7.21.4'
+    dev: false
+
+  /@trpc/client/10.8.1_@trpc+server@10.8.1:
+    resolution: {integrity: sha512-DQ+Y3ek/rjCYaI8ifeeVPVW/KIO6ryye32Xdm9VAkdhd1humYD/4rN2CQ7K1zPTeNpbIpuckEAMEadeB4ItcMQ==}
+    peerDependencies:
+      '@trpc/server': 10.8.1
+    dependencies:
+      '@trpc/server': 10.8.1
+    dev: false
+
+  /@trpc/next/10.8.1_k4z4avalqmobjwrlz5zfhn2mnm:
+    resolution: {integrity: sha512-Jyn421PgZwoJPUodQWxnT+AI1j/u/0aiOu+fSvwQeot4LFCv61QnsD4IkVdYdlb/CnIKZWQIhYVO76RhHHNmhA==}
+    peerDependencies:
+      '@tanstack/react-query': ^4.3.8
+      '@trpc/client': 10.8.1
+      '@trpc/react-query': ^10.8.0
+      '@trpc/server': 10.8.1
+      next: '*'
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@tanstack/react-query': 4.19.1_biqbaboplfbrettd7655fr4n2y
+      '@trpc/client': 10.8.1_@trpc+server@10.8.1
+      '@trpc/react-query': 10.8.1_ip5jsvekau5hoibigmxxvvndve
+      '@trpc/server': 10.8.1
+      next: 13.0.6_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-ssr-prepass: 1.5.0_react@18.2.0
+    dev: false
+
+  /@trpc/react-query/10.8.1_ip5jsvekau5hoibigmxxvvndve:
+    resolution: {integrity: sha512-PSpdfPFKM/UlD9VVtXVtfA8ZmqQZUtsP6ER/+QvXjHN6kTZ92PGJGjcL2HWhWZamLKnZSgudiB6sDsl7gPcOgA==}
+    peerDependencies:
+      '@tanstack/react-query': ^4.3.8
+      '@trpc/client': 10.8.1
+      '@trpc/server': 10.8.1
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@tanstack/react-query': 4.19.1_biqbaboplfbrettd7655fr4n2y
+      '@trpc/client': 10.8.1_@trpc+server@10.8.1
+      '@trpc/server': 10.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@trpc/server/10.8.1:
+    resolution: {integrity: sha512-oSNYgFNJbjki4jBByJ/SKHasB/X7kTsEbVGaONNH1DHMz638xlYXPQucV+2bWbhCm5HlXhQTaVN7Or0lsCuUUQ==}
     dev: false
 
   /@types/aria-query/4.2.2:
@@ -7269,6 +7352,14 @@ packages:
       react-is: 18.2.0
     dev: false
 
+  /prisma/4.8.1:
+    resolution: {integrity: sha512-ZMLnSjwulIeYfaU1O6/LF6PEJzxN5par5weykxMykS9Z6ara/j76JH3Yo2AH3bgJbPN4Z6NeCK9s5fDkzf33cg==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@prisma/engines': 4.8.1
+
   /prompts/2.4.2:
     resolution: {integrity: sha512-NxNv/kLguCA7p3jE8oL2aEBsrJWgAakBpgmgK6lpPWV+WuOmY6r2/zbAVnP+T8bQlA0nzHXSJSJW0Hq7ylaD2Q==}
     engines: {node: '>= 6'}
@@ -7464,6 +7555,14 @@ packages:
       - react-zdog
       - three
       - zdog
+    dev: false
+
+  /react-ssr-prepass/1.5.0_react@18.2.0:
+    resolution: {integrity: sha512-yFNHrlVEReVYKsLI5lF05tZoHveA5pGzjFbFJY/3pOqqjGOmMmqx83N4hIjN2n6E1AOa+eQEUxs3CgRnPmT0RQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-use-measure/2.1.1_biqbaboplfbrettd7655fr4n2y:
