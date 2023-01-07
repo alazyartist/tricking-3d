@@ -38,6 +38,7 @@ module.exports = (sequelize) => {
 			sessionDate: DataTypes.DATEONLY,
 			startTime: DataTypes.STRING,
 			endTime: DataTypes.STRING,
+			type: DataTypes.STRING,
 			status: DataTypes.STRING,
 			createdAt: DataTypes.DATE,
 			updatedAt: DataTypes.DATE,

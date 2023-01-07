@@ -33,6 +33,7 @@ const AddSessionPage = () => {
     sessionid: uuidv4(),
     startTime: null,
     endTime: null,
+    type: "Session",
   });
 
   const onSubmit = (e) => {
@@ -58,6 +59,7 @@ const AddSessionPage = () => {
     (SessionReviewCredits > 0 &&
       formData.startTime &&
       formData.endTime &&
+      formData.type &&
       formData.sessionDate &&
       formData.sessionid &&
       formData.url[0] &&
@@ -130,6 +132,38 @@ const AddSessionPage = () => {
                 type="time"
                 value={formData.endTime}
               />
+            </div>
+            <div className="flex items-center gap-2 rounded-md bg-zinc-900 bg-opacity-80">
+              <label className="w-1/6 pl-2" htmlFor="type">
+                Type
+              </label>
+              <select
+                onChange={(e) =>
+                  setFormData((s) => ({ ...s, type: e.target.value }))
+                }
+                id="type"
+                style={{ color: "#fff" }}
+                className="w-full select-none  place-self-end bg-zinc-900 bg-opacity-0 p-1 text-zinc-800  "
+                value={formData.type}
+              >
+                <option
+                  style={{ color: "#000" }}
+                  className=""
+                  value={"Session"}
+                >
+                  Session
+                </option>
+                <option style={{ color: "#000" }} className="" value={"Battle"}>
+                  Battle
+                </option>
+                <option
+                  style={{ color: "#000" }}
+                  className=""
+                  value={"Sampler"}
+                >
+                  Sampler
+                </option>
+              </select>
             </div>
             {Array.from(Array(count).keys()).map((i) => (
               <div className="flex w-full gap-2 rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300">

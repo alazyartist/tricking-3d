@@ -8,8 +8,16 @@ const combo = await db.sequelize.models.Combo;
 const users = await db.sequelize.models.Users;
 
 export const submitSessionforReview = async (req, res) => {
-	const { user_id, sessionid, name, sessionDate, startTime, endTime, url } =
-		await req?.body;
+	const {
+		user_id,
+		sessionid,
+		name,
+		sessionDate,
+		startTime,
+		endTime,
+		url,
+		type,
+	} = await req?.body;
 	let status = "In Queue";
 
 	let submittingUser = await users.findOne({ where: { uuid: user_id } });
@@ -26,6 +34,7 @@ export const submitSessionforReview = async (req, res) => {
 					sessionDate,
 					startTime,
 					endTime,
+					type,
 					status,
 				},
 			});

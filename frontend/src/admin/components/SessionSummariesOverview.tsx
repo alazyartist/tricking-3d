@@ -44,6 +44,7 @@ const SessionDisplay = ({ s }) => {
       >
         <div className="w-1/3">{s?.name}</div>
         <div className="w-1/3">{s?.sessionDate}</div>
+        <div className="w-1/3">{s?.type}</div>
         <div className="flex place-items-center gap-1">
           <div>
             {s?.status === "In Queue" && (
