@@ -37,7 +37,10 @@ function Home() {
   const [openClaimtricks, setOpenClaimtricks] = useState(false);
   const [openComboMaker, setOpenComboMaker] = useState(false);
   // console.log("uuid: ", uuid);
-  const { data } = trpc.userDB.test.useQuery();
+  const { data } = trpc.userDB.findAll.useQuery();
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
   const logoAnim = useSpring({
     to: { width: atLocal ? "50vw" : "100vw" },
   });
@@ -59,6 +62,12 @@ function Home() {
             {!atLocal && "Welcome to the"}
             <TrickedexLogo className={`-m-2px flex fill-zinc-300`} />
           </animated.div>
+        </div>
+        <div className="bg-zinc-800 p-1 text-zinc-300">
+          {data &&
+            data.users?.map((user) => {
+              return <div>{user.username}</div>;
+            })}
         </div>
         <div className="rounded-xl bg-zinc-800 bg-opacity-40 py-2">
           {!openCaptures &&

@@ -2,13 +2,17 @@ import { router, publicProcedure, protectedProcedure } from "../trpc";
 import { z } from "zod";
 
 export const userRouter = router({
-  test: publicProcedure.query(async ({ input, ctx }) => {
-    const tricks = await ctx.prisma.tricks.findMany();
-    console.log(tricks);
-    return {
-      test: `Hello test is definitely working, keen as`,
-      test2: "test2",
-      tricks: tricks,
-    };
+  findAll: publicProcedure.query(async ({ input, ctx }) => {
+    const users = await ctx.prisma.users.findMany({
+      select: {
+        uuid: true,
+        username: true,
+        first_name: true,
+        email: true,
+        captures: true,
+      },
+    });
+    console.log(users);
+    return { users };
   }),
 });
