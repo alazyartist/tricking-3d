@@ -61,6 +61,7 @@
     "preinstall": "npx only-allow pnpm",
     "build": "next build",
     "dev": "next dev",
+    "postinstall": "prisma generate",
     "start": "next start",
     "lint": "next lint",
     "test": "jest --config ./jest.config.json"
