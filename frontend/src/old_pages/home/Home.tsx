@@ -37,7 +37,7 @@ function Home() {
   const [openClaimtricks, setOpenClaimtricks] = useState(false);
   const [openComboMaker, setOpenComboMaker] = useState(false);
   // console.log("uuid: ", uuid);
-  const { data: test } = trpc.userDB.test.useQuery();
+  const { data } = trpc.userDB.test.useQuery();
   const logoAnim = useSpring({
     to: { width: atLocal ? "50vw" : "100vw" },
   });

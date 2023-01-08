@@ -4,6 +4,9 @@
   "homepage": "https://trickedex.app",
   "private": true,
   "proxy": "http://localhost:3000",
+  "prisma": {
+    "schema": "T://CODE/Topology of Tricking/tricking-3d/prisma/schema.prisma"
+  },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.7.3",
     "@algolia/autocomplete-plugin-tags": "^1.7.3",
