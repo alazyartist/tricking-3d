@@ -15,6 +15,7 @@ import BiCube from "../../data/icons/BiCube";
 import ComboMakerBlueprintsvg from "../../data/ComboMakerBlueprintsvg";
 import { useEffect } from "react";
 import dynamic from "next/dynamic";
+import { trpc } from "utils/trpc";
 const ProfileCode = dynamic(() => import("../dash/components/ProfileCode"));
 const ClaimTricks = dynamic(() => import("../claimtricks/ClaimTricks"));
 const TricklistPage = dynamic(() => import("../tricklist/TricklistPage"));
@@ -36,7 +37,7 @@ function Home() {
   const [openClaimtricks, setOpenClaimtricks] = useState(false);
   const [openComboMaker, setOpenComboMaker] = useState(false);
   // console.log("uuid: ", uuid);
-
+  const { data: test } = trpc.userDB.test.useQuery();
   const logoAnim = useSpring({
     to: { width: atLocal ? "50vw" : "100vw" },
   });

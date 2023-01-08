@@ -5,7 +5,7 @@ import { userRouter } from "./user";
 
 export const appRouter = router({
   auth: authRouter,
-  user: userRouter,
+  userDB: userRouter,
 });
 
 // export type definition of API
