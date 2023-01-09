@@ -290,6 +290,8 @@ Release of Initial Beta
     pnpm install
 ```
 
+Ask for '.env' file (for ably and others)
+
 `pnpm run start` or `pnpm run server` or `pnpm run spinup`
 
 start = cd frontend && pnpm run start<br>server= cd backend && pnpm nodemon node.js<br>spinup= concurrently pnpm run start && pnpm run server
