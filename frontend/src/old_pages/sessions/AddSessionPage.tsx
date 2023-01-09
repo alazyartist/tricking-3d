@@ -8,6 +8,7 @@ import PaymentEmbed from "../../admin/components/payments/PaymentEmbed";
 import useUserInfo from "../../api/useUserInfo";
 import { useQueryClient } from "@tanstack/react-query";
 import BackgroundCircles from "../../admin/components/BackgroundCircles";
+import { trpc } from "utils/trpc";
 const whatsToday = () => {
   let today = new Date(Date.now());
   return `${today.getFullYear()}-${("0" + (today.getMonth() + 1)).slice(-2)}-${(
@@ -15,6 +16,7 @@ const whatsToday = () => {
   ).slice(-2)}`;
 };
 const AddSessionPage = () => {
+  const { data: availableUsers } = trpc.userDB.findAll.useQuery();
   let todaytime = new Date(Date.now()).toISOString().slice(-13, -8);
 
   const { mutateAsync: submitSession, data: response } =
@@ -34,6 +36,7 @@ const AddSessionPage = () => {
     startTime: null,
     endTime: null,
     type: "Session",
+    battlers: [],
   });
 
   const onSubmit = (e) => {
@@ -41,6 +44,9 @@ const AddSessionPage = () => {
     submitSession(formData);
     console.log("submitting", formData);
   };
+  useEffect(() => {
+    console.log(availableUsers);
+  }, [availableUsers, formData]);
   useEffect(() => {
     if (response?.data?.message === "Submitted") {
       setSubmitSucces(true);
@@ -66,6 +72,7 @@ const AddSessionPage = () => {
       true) ||
     false;
   console.log(isEnabled);
+  const [addBattlers, setAddBattlers] = useState(false);
   return (
     <div className="mt-14 flex h-[80vh] flex-col place-content-center place-items-center text-zinc-300">
       {submitSuccess ? (
@@ -165,8 +172,79 @@ const AddSessionPage = () => {
                 </option>
               </select>
             </div>
+            {formData.type === "Battle" && (
+              <div className="flex items-center gap-2 rounded-md bg-zinc-900 bg-opacity-80">
+                <label
+                  onClick={() => setAddBattlers(!addBattlers)}
+                  className="w-1/6 p-1 pl-2"
+                  htmlFor="battlers"
+                >
+                  Add Battlers
+                </label>
+                {/* <input
+                  onChange={(e) =>
+                    setFormData((s) => ({ ...s, battlers: [e.target.value ]}))
+                  }
+                  step={"00:15"}
+                  className="w-full select-none place-self-end bg-transparent p-1 text-zinc-300  "
+                  type="text"
+                  value={formData.battlers}
+                /> */}
+                <div
+                  style={{ color: "#fff" }}
+                  className="flex w-full flex-col gap-2 rounded-md bg-zinc-900 bg-opacity-0 p-1 text-zinc-300"
+                >
+                  <div className="w-full text-center">
+                    {formData?.battlers?.map((battler) => (
+                      <div
+                        onClick={() => {
+                          setFormData((s) => ({
+                            ...s,
+                            battlers: s.battlers.filter(
+                              (b) => b.username !== battler.username
+                            ),
+                          }));
+                        }}
+                      >
+                        {battler.username}
+                      </div>
+                    ))}
+                  </div>
+                  <div className={"absolute top-5 h-[95] w-[95] "}>
+                    {availableUsers &&
+                      addBattlers &&
+                      availableUsers?.users
+                        ?.filter(
+                          (user) => !formData.battlers.includes(user.username)
+                        )
+                        .map((user) => {
+                          return (
+                            <div
+                              // style={{ color: "#000" }}
+                              key={user.uuid}
+                              onClick={() =>
+                                setFormData((s) => ({
+                                  ...s,
+                                  battlers: [...s.battlers, user],
+                                }))
+                              }
+                              className={
+                                "flex w-full place-content-center place-items-center bg-transparent text-zinc-300"
+                              }
+                            >
+                              {user.username}
+                            </div>
+                          );
+                        })}
+                  </div>
+                </div>
+              </div>
+            )}
             {Array.from(Array(count).keys()).map((i) => (
-              <div className="flex w-full gap-2 rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300">
+              <div
+                key={`${formData.url[i]} ${i} `}
+                className="flex w-full gap-2 rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300"
+              >
                 <input
                   onChange={(e) =>
                     setFormData((s) => ({

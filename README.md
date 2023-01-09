@@ -1,5 +1,7 @@
 # Tricking-3d
 
+Node Version = 16.18.1
+
 An interactive learning tool aimed at abscracting some of the more complex nuances of the _**Tricking** Terminology_.
 
 A live version is available at [trickedex.app](https://trickedex.app) or [trickedex.com] (https:/trickedex.com)
