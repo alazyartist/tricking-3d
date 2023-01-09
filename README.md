@@ -285,17 +285,12 @@ Release of Initial Beta
 ```bash
     git clone https://github.com/alazyartist/tricking-3d.git
     cd tricking-3d
-    npm install
-    cd frontend
-    npm install
-    cd ../backend
-    npm install
-    cd ..
+    pnpm install
 ```
 
-`npm run start` or `npm run server` or `npm run spinup`
+`pnpm run start` or `pnpm run server` or `pnpm run spinup`
 
-start = cd frontend && npm run start<br>server= cd backend && npm nodemon node.js<br>spinup= concurrently npm run start && npm run server
+start = cd frontend && pnpm run start<br>server= cd backend && pnpm nodemon node.js<br>spinup= concurrently pnpm run start && pnpm run server
 
 ## Development Guide
 
