@@ -68,7 +68,7 @@ const QRReader = () => {
       />
 
       <div className="text-center font-inter text-xl font-bold">
-        {(QRDataResponse == "Capture Valid User" && (
+        {(QRDataResponse !== "Capture Valid User" && (
           <>
             {addCaptureSuccessAnim(
               (styles, valid) =>
@@ -88,11 +88,11 @@ const QRReader = () => {
             )}
           </>
         )) || <div>"Capture Valid User"</div>}
-        {/* Used to test valid capture */}
+        {/* Used to test valid capture 
         <div className="bg-red-500">
           <button onClick={() => {setAddedCapture(!addedCapture); setTimeout(()=>{nav.push('/')},1500)}}>VALIDATE</button>
         </div>
-        {/**/}
+        */}
       </div>
     </div>
   );
