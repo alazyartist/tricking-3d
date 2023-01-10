@@ -210,7 +210,7 @@ const AddSessionPage = () => {
                       </div>
                     ))}
                   </div>
-                  <div className={"absolute top-5 h-[95] w-[95] "}>
+                  <div className={""}>
                     {availableUsers &&
                       addBattlers &&
                       availableUsers?.users
