@@ -179,7 +179,7 @@ const AddSessionPage = () => {
                   className="w-1/6 p-1 pl-2"
                   htmlFor="battlers"
                 >
-                  Add Battlers
+                  Battlers
                 </label>
                 {/* <input
                   onChange={(e) =>
@@ -194,7 +194,7 @@ const AddSessionPage = () => {
                   style={{ color: "#fff" }}
                   className="flex w-full flex-col gap-2 rounded-md bg-zinc-900 bg-opacity-0 p-1 text-zinc-300"
                 >
-                  <div className="w-full text-center">
+                  <div className="flex w-full flex-col place-content-center place-items-center text-center">
                     {formData?.battlers?.map((battler) => (
                       <div
                         onClick={() => {
@@ -209,11 +209,20 @@ const AddSessionPage = () => {
                         {battler.username}
                       </div>
                     ))}
+                    <div
+                      className={"w-[150px] rounded-md bg-emerald-500 p-2"}
+                      onClick={() => setAddBattlers(!addBattlers)}
+                    >
+                      Add
+                    </div>
                   </div>
-                  <div className={""}>
-                    {availableUsers &&
-                      addBattlers &&
-                      availableUsers?.users
+                  {availableUsers && addBattlers && (
+                    <div
+                      className={
+                        "absolute top-[2.5%] left-[2.5%] flex h-[95%] w-[95%] flex-col gap-1 rounded-md bg-zinc-900 bg-opacity-90 p-2"
+                      }
+                    >
+                      {availableUsers?.users
                         ?.filter(
                           (user) => !formData.battlers.includes(user.username)
                         )
@@ -222,21 +231,32 @@ const AddSessionPage = () => {
                             <div
                               // style={{ color: "#000" }}
                               key={user.uuid}
-                              onClick={() =>
+                              onClick={() => {
                                 setFormData((s) => ({
                                   ...s,
                                   battlers: [...s.battlers, user],
-                                }))
-                              }
+                                }));
+                                setAddBattlers(false);
+                              }}
                               className={
-                                "flex w-full place-content-center place-items-center bg-transparent text-zinc-300"
+                                "flex w-full place-items-center gap-2 rounded-md bg-emerald-500 bg-transparent p-1 text-zinc-300"
                               }
                             >
+                              <img
+                                className={`h-6 w-6 rounded-full`}
+                                src={`${
+                                  user.profilePic
+                                    ? `./images/${user?.uuid}/${user?.profilePic}`
+                                    : `./images/noimg.jpeg`
+                                }`}
+                                alt={"image"}
+                              />
                               {user.username}
                             </div>
                           );
                         })}
-                  </div>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
