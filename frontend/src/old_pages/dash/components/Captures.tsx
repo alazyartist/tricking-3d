@@ -24,27 +24,34 @@ const Captures = () => {
       id="captureContainer"
       className="flex flex-col place-items-center font-inter"
     >
-      <div className="flex gap-2 font-inter font-bold">
-        <div
-          className={display === "captures" ? "text-zinc-300" : "text-zinc-400"}
-          onClick={() => {
-            setDisplay("captures");
-            queryClient.invalidateQueries(["userInfo"]);
-          }}
-        >
-          Your Captures
+      <div id="myCaptures" className="w_full">
+      
+        <div className="flex gap-2 font-inter font-bold">
+          <div
+            className={display === "captures" ? "text-zinc-300" : "text-zinc-400"}
+            onClick={() => {
+              setDisplay("captures");
+              queryClient.invalidateQueries(["userInfo"]);
+            }}
+          >
+            Your Captures
+          </div>
         </div>
-        <div
-          className={
-            display === "captured me" ? "text-zinc-300" : "text-zinc-400"
-          }
-          onClick={() => {
-            setDisplay("captured me");
-            queryClient.invalidateQueries(["userInfo"]);
-          }}
-        >
-          Captured You
+
+        <div id="capturedMe" className="w-full">
+          <div
+            className={
+              display === "captured me" ? "text-zinc-300" : "text-zinc-400"
+            }
+            onClick={() => {
+              setDisplay("captured me");
+              queryClient.invalidateQueries(["userInfo"]);
+            }}
+          >
+            Captured You
+          </div>
         </div>
+
       </div>
       <div className="w-[80vw] overflow-x-auto">
         <div
