@@ -29,8 +29,9 @@ import { verifyJWT } from "../middleware/verifyJWT.js";
 export const userRoutes = express.Router();
 
 userRoutes.route("/user/login").post(checkPassword);
+userRoutes.route("/user").post(findOrCreate);
 userRoutes.use(verifyJWT);
-userRoutes.route("/user").get(findAll).post(findOrCreate);
+userRoutes.route("/user").get(findAll);
 userRoutes.route("/user/:user_id").delete(deleteUser);
 userRoutes.route("/user/:user_id/changePassword").put(changeUserPassword);
 userRoutes.route("/user/getInfo").get(getUserInfo);
