@@ -3,14 +3,24 @@ import { QrReader } from "react-qr-reader";
 import useCaptureUser from "../../../api/useCaptures";
 import useUserInfoByUUID from "../../../api/useUserInfoById";
 import { useUserStore } from "../../../store/userStore";
+import { useTransition, animated } from "react-spring";
+import { useRouter } from "next/router";
 const QRReader = () => {
   const [QRData, setQRData] = useState();
   const [QRDataResponse, setQRDataResponse] = useState("Capture Valid User");
   const activeUser = useUserStore((s) => s.userInfo);
   const { mutate: captureUser } = useCaptureUser();
-  // const nav = useNavigate();
+  const [addedCapture, setAddedCapture] = useState<boolean>();
+  const addCaptureSuccessAnim = useTransition(addedCapture, {
+    from: { top: -300, opacity: 0 },
+    enter: { top: 0, opacity: 100 },
+    leave: { opacity: 0 },
+    config: { durration: 300, tension: 200, friction: 50 },
+  });
+  const nav = useRouter();
   // const location = useLocation();
   const { data: capturedUserInfo } = useUserInfoByUUID(QRData);
+
   useEffect(() => {
     capturedUserInfo && setQRDataResponse(capturedUserInfo?.username);
   }, [capturedUserInfo]);
@@ -26,7 +36,11 @@ const QRReader = () => {
       console.log(capturedUserInfo);
       // result.text &&
       // 	location.pathname.includes("/home") &&
-      // 	nav(`/userProfile/${result?.text}`);
+      {(QRDataResponse !== "Capture Valid User" && (
+        setTimeout(() => {
+        nav.push(`/userProfile/${QRData}`)
+        },2222)
+      ))}
     }
   };
   const ViewFinderComp = () => (
@@ -54,17 +68,31 @@ const QRReader = () => {
       />
 
       <div className="text-center font-inter text-xl font-bold">
-        {(QRDataResponse !== "Capture Valid User" && (
+        {(QRDataResponse == "Capture Valid User" && (
           <>
-            <div>{`You Captured ${QRDataResponse}`}</div>
-            <button
-              className="rounded-lg bg-zinc-700 p-1 text-sm"
-              // onClick={() => nav(`/userProfile/${QRData}`)}
-            >
-              View Profile
-            </button>
+            {addCaptureSuccessAnim(
+              (styles, valid) =>
+              valid && (
+              <animated.div className={"flex bg-emerald-600 rounded-md place-item-center absolute top-0 left-0 w-full"} style={styles}>
+                <div className="p-2 py-5 w-full">{`You Captured ${QRDataResponse}`}</div>
+                {/*
+                <button
+                  className="rounded-lg bg-zinc-700 p-1 text-sm"
+                  // onClick={() => nav.push(`/userProfile/${QRData}`)}
+                >
+                  View Profile
+                </button>
+                */}
+              </animated.div>
+              )
+            )}
           </>
         )) || <div>"Capture Valid User"</div>}
+        {/* Used to test valid capture */}
+        <div className="bg-red-500">
+          <button onClick={() => {setAddedCapture(!addedCapture); setTimeout(()=>{nav.push('/')},1500)}}>VALIDATE</button>
+        </div>
+        {/**/}
       </div>
     </div>
   );
