@@ -63,12 +63,14 @@ function Home() {
             <TrickedexLogo className={`-m-2px flex fill-zinc-300`} />
           </animated.div>
         </div>
+        {/* Display all users
         <div className="bg-zinc-800 p-1 text-zinc-300">
           {data &&
             data.users?.map((user) => {
               return <div>{user.username}</div>;
             })}
         </div>
+        */}
         <div className="rounded-xl bg-zinc-800 bg-opacity-40 py-2">
           {!openCaptures &&
             !openComboMaker &&
