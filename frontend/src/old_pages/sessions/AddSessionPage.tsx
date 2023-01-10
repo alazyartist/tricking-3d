@@ -74,7 +74,7 @@ const AddSessionPage = () => {
   console.log(isEnabled);
   const [addBattlers, setAddBattlers] = useState(false);
   return (
-    <div className="mt-14 flex h-[80vh] flex-col place-content-center place-items-center text-zinc-300">
+    <div className="mt-14 flex h-[80vh] flex-col place-content-center place-items-center font-inter text-zinc-300">
       {submitSuccess ? (
         <SessionSubmitted SessionReviewCredits={SessionReviewCredits} />
       ) : (
@@ -194,9 +194,10 @@ const AddSessionPage = () => {
                   style={{ color: "#fff" }}
                   className="flex w-full flex-col gap-2 rounded-md bg-zinc-900 bg-opacity-0 p-1 text-zinc-300"
                 >
-                  <div className="flex w-full flex-col place-content-center place-items-center text-center">
+                  <div className="flex w-full flex-col place-content-center place-items-center text-center text-sm">
                     {formData?.battlers?.map((battler) => (
                       <div
+                        className={"flex flex-col gap-2 p-1"}
                         onClick={() => {
                           setFormData((s) => ({
                             ...s,
@@ -210,7 +211,7 @@ const AddSessionPage = () => {
                       </div>
                     ))}
                     <div
-                      className={"w-[150px] rounded-md bg-emerald-500 p-2"}
+                      className={"w-[150px] rounded-md bg-emerald-500 p-1"}
                       onClick={() => setAddBattlers(!addBattlers)}
                     >
                       Add
@@ -219,42 +220,66 @@ const AddSessionPage = () => {
                   {availableUsers && addBattlers && (
                     <div
                       className={
-                        "absolute top-[2.5%] left-[2.5%] flex h-[95%] w-[95%] flex-col gap-1 rounded-md bg-zinc-900 bg-opacity-90 p-2"
+                        "absolute top-[2.5%] left-[2.5%] flex h-[95%] w-[95%] flex-col justify-between gap-1 rounded-md bg-zinc-900 bg-opacity-90 p-2"
                       }
                     >
-                      {availableUsers?.users
-                        ?.filter(
-                          (user) => !formData.battlers.includes(user.username)
-                        )
-                        .map((user) => {
-                          return (
-                            <div
-                              // style={{ color: "#000" }}
-                              key={user.uuid}
-                              onClick={() => {
-                                setFormData((s) => ({
-                                  ...s,
-                                  battlers: [...s.battlers, user],
-                                }));
-                                setAddBattlers(false);
-                              }}
-                              className={
-                                "flex w-full place-items-center gap-2 rounded-md bg-emerald-500 bg-transparent p-1 text-zinc-300"
-                              }
-                            >
-                              <img
-                                className={`h-6 w-6 rounded-full`}
-                                src={`${
-                                  user.profilePic
-                                    ? `./images/${user?.uuid}/${user?.profilePic}`
-                                    : `./images/noimg.jpeg`
+                      <div className={"flex flex-col gap-1"}>
+                        {availableUsers?.users
+                          // ?.filter(
+                          //   (user) =>
+                          //     !formData.battlers.some(
+                          //       (item) => item.username === user.username
+                          //     )
+                          // )
+                          ?.map((user) => {
+                            return (
+                              <div
+                                // style={{ color: "#000" }}
+                                key={user.uuid}
+                                onClick={() => {
+                                  !formData.battlers.some(
+                                    (item) => item.uuid === user.uuid
+                                  )
+                                    ? setFormData((s) => ({
+                                        ...s,
+                                        battlers: [...s.battlers, user],
+                                      }))
+                                    : setFormData((s) => ({
+                                        ...s,
+                                        battlers: s.battlers.filter(
+                                          (b) => b.username !== user.username
+                                        ),
+                                      }));
+                                  // setAddBattlers(false);
+                                }}
+                                className={`flex w-full place-items-center gap-2 rounded-md p-1 text-zinc-300 ${
+                                  formData.battlers.some(
+                                    (item) => item.uuid === user.uuid
+                                  )
+                                    ? " bg-teal-500 "
+                                    : " bg-teal-800 "
                                 }`}
-                                alt={"image"}
-                              />
-                              {user.username}
-                            </div>
-                          );
-                        })}
+                              >
+                                <img
+                                  className={`h-6 w-6 rounded-full`}
+                                  src={`${
+                                    user.profilePic
+                                      ? `./images/${user?.uuid}/${user?.profilePic}`
+                                      : `./images/noimg.jpeg`
+                                  }`}
+                                  alt={"image"}
+                                />
+                                {user.username}
+                              </div>
+                            );
+                          })}
+                      </div>
+                      <div
+                        onClick={() => setAddBattlers(false)}
+                        className="flex place-content-center place-items-center rounded-md bg-emerald-500 p-1 text-2xl"
+                      >
+                        Done
+                      </div>
                     </div>
                   )}
                 </div>
