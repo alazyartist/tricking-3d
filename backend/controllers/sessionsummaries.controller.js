@@ -1,12 +1,12 @@
 import db from "../models/index.js";
 import { v4 as uuidv4 } from "uuid";
 import sequelize from "sequelize";
+import { prisma } from "../prisma.js";
 const sessionsummaries = await db.sequelize.models.SessionSummaries;
 const sessionsources = await db.sequelize.models.SessionSources;
 const sessiondata = await db.sequelize.models.SessionData;
 const combo = await db.sequelize.models.Combo;
 const users = await db.sequelize.models.Users;
-
 export const submitSessionforReview = async (req, res) => {
 	const {
 		user_id,
@@ -26,11 +26,35 @@ export const submitSessionforReview = async (req, res) => {
 	if (curCredits >= 1) {
 		await submittingUser.update({ SessionReviewCredits: curCredits - 1 });
 		try {
-			const sessionSetup = await sessionsummaries.findOrCreate({
-				where: {
+			//sequelize
+			// const sessionSetup = await sessionsummaries.findOrCreate({
+			// 	where: {
+			// 		sessionid,
+			// 		name: name || sessionDate,
+			// 		user_id,
+			// 		sessionDate,
+			// 		startTime,
+			// 		endTime,
+			// 		type,
+			// 		status,
+			// 	},
+			// });
+			//prisma
+			const sessionSetup = await prisma.sessionSummary.upsert({
+				where: { sessionid },
+				update: {
+					name: name || sessionDate,
+					user: { connect: { id: user_id } },
+					sessionDate,
+					startTime,
+					endTime,
+					type,
+					status,
+				},
+				create: {
 					sessionid,
 					name: name || sessionDate,
-					user_id,
+					user: { connect: { id: user_id } },
 					sessionDate,
 					startTime,
 					endTime,
