@@ -43,16 +43,16 @@ function AllTrickDisplay() {
       {/* <AOAT className='rounded-2xl bg-zinc-300' /> */}
       <div
         id={"TrickListContainer"}
-        className="sticky top-0 flex flex-col place-content-center place-items-center gap-4 font-inter font-bold "
+        className="  flex flex-col place-content-center place-items-center gap-4 p-2 font-inter font-bold "
       >
         <input
-          className="w-full rounded-3xl p-2"
+          className="sticky top-0 w-full rounded-3xl p-2"
           type={"search"}
           placeholder="Search for Tricks..."
           onChange={handleFilter}
         />
         {/* Maps over data returned from filter and displays it. */}
-        <div className="flex flex-col gap-4">
+        <div className="flex h-[90%] w-[95%] flex-col gap-2">
           {animatedFilter(({ opacity }, e) => (
             <animated.div
               style={{ opacity: opacity }}
@@ -61,7 +61,7 @@ function AllTrickDisplay() {
             >
               <div
                 onClick={() => handleGoToAnim(e)}
-                className="flex place-items-center justify-between text-xl text-zinc-400"
+                className="flex place-items-center justify-between text-xs text-zinc-400"
               >
                 <div className="p-2">{e.name.toUpperCase()}</div>
                 <div className="p-2">
