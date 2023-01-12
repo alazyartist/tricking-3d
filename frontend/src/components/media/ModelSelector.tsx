@@ -1,4 +1,6 @@
 import { Html } from "@react-three/drei";
+import { AdamDevenport } from "animations/AdamDevenport";
+import { Ashley } from "animations/AshelyElfTricks";
 import React, { useEffect } from "react";
 import Andrew from "../../animations/Andrew";
 import { Frank } from "../../animations/Frank";
@@ -17,6 +19,10 @@ export default function LoadActiveModel(props) {
     return <Andrew />;
   } else if (activeModel === "Sam Caspio") {
     return <SamCaspio />;
+  } else if (activeModel === "Ashley") {
+    return <Ashley />;
+  } else if (activeModel === "Adam") {
+    return <AdamDevenport />;
   } else
     return (
       <Html>
