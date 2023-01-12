@@ -28,7 +28,7 @@ function AllTrickDisplay() {
     }
   };
   const animatedFilter = useTransition(filteredTricks, {
-    from: { opacity: 0 },
+    from: { opacity: 1 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
     config: {
@@ -43,7 +43,7 @@ function AllTrickDisplay() {
       {/* <AOAT className='rounded-2xl bg-zinc-300' /> */}
       <div
         id={"TrickListContainer"}
-        className="  flex flex-col place-content-center place-items-center gap-4 p-2 font-inter font-bold "
+        className="  flex max-h-full max-w-full flex-col place-content-center place-items-center gap-4 p-2 font-inter font-bold "
       >
         <input
           className="sticky top-0 w-full rounded-3xl p-2"

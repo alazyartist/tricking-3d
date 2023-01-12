@@ -16,6 +16,8 @@ import ComboMakerBlueprintsvg from "../../data/ComboMakerBlueprintsvg";
 import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { trpc } from "utils/trpc";
+import AllTrickDisplay from "@old_pages/AllTrickDisplay";
+import UserList from "@components/UserList";
 const ProfileCode = dynamic(() => import("../dash/components/ProfileCode"));
 const ClaimTricks = dynamic(() => import("../claimtricks/ClaimTricks"));
 const TricklistPage = dynamic(() => import("../tricklist/TricklistPage"));
@@ -142,15 +144,16 @@ function Home() {
                     {/* Tricklists */}
                     {openTricklists ? (
                       <div
-                        className={`neumorphicIn relative my-2 flex max-w-[600px] flex-col place-items-center gap-2 rounded-xl bg-zinc-800 pt-[3vh] ${
-                          openTricklists ? "col-span-2 row-span-2" : ""
+                        className={`neumorphicIn relative top-0 my-2 flex max-h-[75vh] w-full max-w-[700px] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-800 pt-[3vh] ${
+                          openTricklists ? "col-span-2 row-span-2 my-0" : ""
                         }`}
                       >
                         <IoIosArrowBack
                           className="absolute top-4 right-1 text-4xl"
                           onClick={() => setOpenTricklists(!openTricklists)}
                         />
-                        <TricklistPage displayOnly={false} profileuuid={uuid} />
+                        {/* <TricklistPage displayOnly={false} profileuuid={uuid} /> */}
+                        <AllTrickDisplay />
                       </div>
                     ) : (
                       !openCaptures &&
@@ -161,7 +164,7 @@ function Home() {
                           className="neumorphic active:neumorphicIn flex h-full w-full flex-col place-content-center place-items-center rounded-lg bg-zinc-800 text-4xl "
                         >
                           <FaClipboardList />
-                          <div className="text-lg font-bold">Tricklist</div>
+                          <div className="text-lg font-bold">Search Tricks</div>
                         </div>
                       )
                     )}
@@ -195,22 +198,24 @@ function Home() {
                     {/* ComboMaker */}
                     {openComboMaker ? (
                       <div
-                        className={`neumorphicIn relative my-2 flex max-w-[600px] flex-col place-items-center gap-2 rounded-xl bg-zinc-800 pt-[3vh] ${
-                          openComboMaker ? "col-span-2 row-span-2" : ""
+                        className={`neumorphicIn relative top-0 my-2 flex max-h-[75vh] w-full max-w-[700px] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-800 pt-[3vh] ${
+                          openComboMaker ? "col-span-2 row-span-2 my-0" : ""
                         }`}
                       >
                         <IoIosArrowBack
                           className="absolute top-4 right-1 text-4xl"
                           onClick={() => setOpenComboMaker(!openComboMaker)}
                         />
+                        <UserList />
                         {/* <ComboMakerV2 /> */}
                       </div>
                     ) : (
                       !openTricklists &&
                       !openCaptures &&
                       !openClaimtricks && (
-                        <Link
-                          href="/comboMaker"
+                        <div
+                          onClick={() => setOpenComboMaker(true)}
+                          // href="/comboMaker"
                           className="neumorphic  active:neumorphicIn min-h-36 flex h-full w-full flex-col place-content-center place-items-center rounded-lg bg-zinc-800 p-4 text-4xl"
                         >
                           <ComboMakerBlueprintsvg
@@ -218,9 +223,9 @@ function Home() {
                             fill={"#d4d4d8"}
                           />
                           <div className="mt-[-18px] text-lg font-bold">
-                            ComboMaker
+                            Users
                           </div>
-                        </Link>
+                        </div>
                       )
                     )}
                   </div>
