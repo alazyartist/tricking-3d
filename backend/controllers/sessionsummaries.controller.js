@@ -1,12 +1,12 @@
 import db from "../models/index.js";
 import { v4 as uuidv4 } from "uuid";
 import sequelize from "sequelize";
+import { prisma } from "../prisma.js";
 const sessionsummaries = await db.sequelize.models.SessionSummaries;
 const sessionsources = await db.sequelize.models.SessionSources;
 const sessiondata = await db.sequelize.models.SessionData;
 const combo = await db.sequelize.models.Combo;
 const users = await db.sequelize.models.Users;
-
 export const submitSessionforReview = async (req, res) => {
 	const {
 		user_id,
@@ -17,20 +17,46 @@ export const submitSessionforReview = async (req, res) => {
 		endTime,
 		url,
 		type,
+		trickers,
 	} = await req?.body;
 	let status = "In Queue";
 
 	let submittingUser = await users.findOne({ where: { uuid: user_id } });
 	console.log(submittingUser?.dataValues?.SessionReviewCredits);
+	console.log(trickers);
 	let curCredits = await submittingUser?.dataValues?.SessionReviewCredits;
 	if (curCredits >= 1) {
 		await submittingUser.update({ SessionReviewCredits: curCredits - 1 });
 		try {
-			const sessionSetup = await sessionsummaries.findOrCreate({
-				where: {
+			//sequelize
+			// const sessionSetup = await sessionsummaries.findOrCreate({
+			// 	where: {
+			// 		sessionid,
+			// 		name: name || sessionDate,
+			// 		user_id,
+			// 		sessionDate,
+			// 		startTime,
+			// 		endTime,
+			// 		type,
+			// 		status,
+			// 	},
+			// });
+			//prisma
+			const sessionSetup = await prisma.sessionsummaries.upsert({
+				where: { sessionid },
+				update: {
+					name: name || sessionDate,
+					user_id: user_id,
+					sessionDate,
+					startTime,
+					endTime,
+					type,
+					status,
+				},
+				create: {
 					sessionid,
 					name: name || sessionDate,
-					user_id,
+					user_id: user_id,
 					sessionDate,
 					startTime,
 					endTime,
@@ -38,6 +64,23 @@ export const submitSessionforReview = async (req, res) => {
 					status,
 				},
 			});
+			console.log(trickers);
+			const trickerSetup = await Promise.all(
+				trickers.map(async (tricker) => {
+					try {
+						const trickerSession = await prisma.user_sessions.create({
+							data: {
+								user_id: tricker.uuid,
+								sessionid,
+							},
+						});
+						return trickerSession;
+					} catch (err) {
+						console.log(err);
+					}
+				})
+			);
+			console.log("trickerSetup", trickerSetup);
 			const sourcesSetup = await Promise.all(
 				Object.keys(url).map(async (key) => {
 					try {

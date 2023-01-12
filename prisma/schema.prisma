@@ -7,6 +7,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model account {
+  id                String  @id
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              user    @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Account_userId_fkey")
+
+  @@unique([provider, providerAccountId], map: "Account_provider_providerAccountId_key")
+  @@index([userId], map: "Account_userId_fkey")
+}
+
 model animations {
   animation_id  String  @id @db.Char(36)
   animationName String? @db.VarChar(255)
@@ -43,7 +62,7 @@ model battlerooms {
   duration  Int?
   isOpen    Boolean?
   createdAt DateTime  @default(now()) @db.DateTime(0)
-  updatedAt DateTime  @updatedAt @db.DateTime(0)
+  updatedAt DateTime  @db.DateTime(0)
   deletedAt DateTime? @db.DateTime(0)
 }
 
@@ -57,7 +76,7 @@ model battleroomstats {
   winner             Json?
   audienceWinner     Json?
   createdAt          DateTime  @default(now()) @db.DateTime(0)
-  updatedAt          DateTime  @updatedAt @db.DateTime(0)
+  updatedAt          DateTime  @db.DateTime(0)
   deletedAt          DateTime? @db.DateTime(0)
 }
 
@@ -66,7 +85,7 @@ model captures {
   user_id                           Int?
   captured_id                       Int?
   createdAt                         DateTime? @default(now()) @db.DateTime(0)
-  updatedAt                         DateTime? @updatedAt @db.DateTime(0)
+  updatedAt                         DateTime? @db.DateTime(0)
   users_captures_user_idTousers     users?    @relation("captures_user_idTousers", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "captures_ibfk_1")
   users_captures_captured_idTousers users?    @relation("captures_captured_idTousers", fields: [captured_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "captures_ibfk_2")
 
@@ -74,15 +93,12 @@ model captures {
   @@index([user_id], map: "user_id")
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model claimedcombos {
   id        Int      @id @default(autoincrement())
   user_id   String?  @db.Char(36)
   combo_id  String?  @db.Char(36)
   createdAt DateTime @default(now()) @db.DateTime(0)
-  updatedAt DateTime @updatedAt @db.DateTime(0)
-
-  @@ignore
+  updatedAt DateTime @db.DateTime(0)
 }
 
 model claimedtricks {
@@ -90,7 +106,7 @@ model claimedtricks {
   user_id   String?   @db.Char(36)
   trick_id  String?   @db.Char(36)
   createdAt DateTime? @default(now()) @db.DateTime(0)
-  updatedAt DateTime? @updatedAt @db.DateTime(0)
+  updatedAt DateTime? @db.DateTime(0)
 }
 
 model combo_animations {
@@ -98,7 +114,7 @@ model combo_animations {
   combo_id      String?  @db.Char(36)
   animations_id String?  @db.Char(36)
   createdAt     DateTime @default(now()) @db.DateTime(0)
-  updatedAt     DateTime @updatedAt @db.DateTime(0)
+  updatedAt     DateTime @db.DateTime(0)
 }
 
 model combos {
@@ -109,7 +125,7 @@ model combos {
   creator          String?  @db.Char(36)
   defaultAnimation String?  @db.Char(36)
   createdAt        DateTime @default(now()) @db.DateTime(0)
-  updatedAt        DateTime @updatedAt @db.DateTime(0)
+  updatedAt        DateTime @db.DateTime(0)
   pointValue       Float?   @db.Float
   shorthand        String?  @db.VarChar(255)
 }
@@ -122,7 +138,7 @@ model interactions {
   type           String?   @db.VarChar(255)
   content        String?   @db.VarChar(255)
   createdAt      DateTime? @default(now()) @db.DateTime(0)
-  updatedAt      DateTime? @updatedAt @db.DateTime(0)
+  updatedAt      DateTime? @db.DateTime(0)
 }
 
 model judgescores {
@@ -132,19 +148,16 @@ model judgescores {
   team      Json?
   score     Int?
   createdAt DateTime @default(now()) @db.DateTime(0)
-  updatedAt DateTime @updatedAt @db.DateTime(0)
+  updatedAt DateTime @db.DateTime(0)
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model pointsledger {
   id        Int      @id @default(autoincrement())
   user_id   String?  @db.Char(36)
   points    Float?   @db.Float
   reason_id String?  @db.VarChar(255)
   createdAt DateTime @default(now()) @db.DateTime(0)
-  updatedAt DateTime @updatedAt @db.DateTime(0)
-
-  @@ignore
+  updatedAt DateTime @db.DateTime(0)
 }
 
 model pointsledgers {
@@ -153,7 +166,7 @@ model pointsledgers {
   points    Float?   @db.Float
   reason_id String?  @db.VarChar(255)
   createdAt DateTime @default(now()) @db.DateTime(0)
-  updatedAt DateTime @updatedAt @db.DateTime(0)
+  updatedAt DateTime @db.DateTime(0)
 }
 
 model profiles {
@@ -167,7 +180,7 @@ model profiles {
   state     String?  @db.VarChar(255)
   city      String?  @db.VarChar(255)
   createdAt DateTime @default(now()) @db.DateTime(0)
-  updatedAt DateTime @updatedAt @db.DateTime(0)
+  updatedAt DateTime @db.DateTime(0)
 }
 
 model schema_migrations {
@@ -179,8 +192,18 @@ model sequelizemeta {
   name String @id @unique(map: "name") @db.VarChar(255)
 }
 
+model session {
+  id           String   @id
+  sessionToken String   @unique(map: "Session_sessionToken_key")
+  userId       String
+  expires      DateTime
+  user         user     @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Session_userId_fkey")
+
+  @@index([userId], map: "Session_userId_fkey")
+}
+
 model sessiondata {
-  id        String   @id @default(uuid()) @db.Char(36)
+  id        String   @id @db.Char(36)
   srcid     String?  @db.Char(36)
   sessionid String?  @db.Char(36)
   clipLabel String?  @db.Char(36)
@@ -188,34 +211,43 @@ model sessiondata {
   clipEnd   String?  @db.VarChar(255)
   admin     String?  @db.Char(36)
   createdAt DateTime @default(now()) @db.DateTime(0)
-  updatedAt DateTime @updatedAt @db.DateTime(0)
+  updatedAt DateTime  @default(now()) @db.DateTime(0)
   bail      Int?
 }
 
 model sessionsources {
-  srcid     String   @id @default(uuid()) @db.Char(36)
+  srcid     String   @id @db.Char(36)
   sessionid String?  @db.Char(36)
   vidsrc    String?  @db.VarChar(255)
   createdAt DateTime @default(now()) @db.DateTime(0)
-  updatedAt DateTime @updatedAt @db.DateTime(0)
+  updatedAt DateTime  @default(now()) @db.DateTime(0)
 
   @@unique([sessionid, vidsrc], map: "vidsrckey")
 }
 
 model sessionsummaries {
-  sessionid   String    @id @default(uuid()) @db.Char(36)
-  name        String?   @db.VarChar(255)
-  user_id     String?   @db.Char(36)
-  admin       String?   @db.Char(36)
-  sessionDate DateTime? @db.Date
-  startTime   String?   @db.VarChar(255)
-  endTime     String?   @db.VarChar(255)
-  status      String?   @db.VarChar(255)
-  createdAt   DateTime  @default(now()) @db.DateTime(0)
-  updatedAt   DateTime  @updatedAt @db.DateTime(0)
-  type        String?   @db.VarChar(255)
+  sessionid   String   @id @db.Char(36)
+  name        String?  @db.VarChar(255)
+  user_id     String?  @db.Char(36)
+  admin       String?  @db.Char(36)
+  sessionDate String?  @db.VarChar(255)
+  startTime   String?  @db.VarChar(255)
+  endTime     String?  @db.VarChar(255)
+  status      String?  @db.VarChar(255)
+  createdAt   DateTime @default(now()) @db.DateTime(0)
+  updatedAt   DateTime @default(now()) @db.DateTime(0)
+  type        String?  @db.VarChar(255)
+  trickers   user_sessions[]  
+  @@index([sessionid])
 }
+model user_sessions {
+  id    Int   @id @default(autoincrement())
+  user_id   String  @db.Char(36)
+  user    users @relation(fields: [user_id],references: [uuid])
+  sessionid   String  @db.Char(36)
+  sessionsummary    sessionsummaries @relation(fields: [sessionid],references: [sessionid])
 
+}
 model stances {
   stance_id      String  @id @db.VarChar(255)
   type           String? @default("Stance") @db.VarChar(255)
@@ -245,7 +277,7 @@ model trick_animations {
   trick_id     String?  @db.Char(36)
   animation_id String?  @db.Char(36)
   createdAt    DateTime @default(now()) @db.DateTime(0)
-  updatedAt    DateTime @updatedAt @db.DateTime(0)
+  updatedAt    DateTime @db.DateTime(0)
 }
 
 model trick_variations {
@@ -259,7 +291,7 @@ model tricklist_combos {
   tricklist_id String?  @db.Char(36)
   combo_id     String?  @db.Char(36)
   createdAt    DateTime @default(now()) @db.DateTime(0)
-  updatedAt    DateTime @updatedAt @db.DateTime(0)
+  updatedAt    DateTime @db.DateTime(0)
 }
 
 model tricklists {
@@ -267,7 +299,7 @@ model tricklists {
   name         String?  @db.VarChar(255)
   owner        String?  @db.Char(36)
   createdAt    DateTime @default(now()) @db.DateTime(0)
-  updatedAt    DateTime @updatedAt @db.DateTime(0)
+  updatedAt    DateTime @db.DateTime(0)
 }
 
 model tricks {
@@ -286,12 +318,22 @@ model tricks {
   @@index([base_id], map: "base_id")
 }
 
+model user {
+  id            String    @id
+  name          String?
+  email         String?   @unique(map: "User_email_key")
+  emailVerified DateTime?
+  image         String?
+  account       account[]
+  session       session[]
+}
+
 model user_tricklists {
   id           Int      @id @default(autoincrement())
   user_id      String?  @db.Char(36)
   tricklist_id String?  @db.Char(36)
   createdAt    DateTime @default(now()) @db.DateTime(0)
-  updatedAt    DateTime @updatedAt @db.DateTime(0)
+  updatedAt    DateTime @db.DateTime(0)
 }
 
 model users {
@@ -302,17 +344,19 @@ model users {
   email                                String?    @unique(map: "email") @db.VarChar(255)
   password                             String?    @db.VarChar(255)
   refresh_token                        String?    @db.VarChar(255)
-  uuid                                 String?    @db.Char(36)
+  uuid                                 String?    @unique @db.Char(36)
   profilePic                           String?    @db.VarChar(255)
   createdAt                            DateTime   @default(now()) @db.DateTime(0)
-  updatedAt                            DateTime   @updatedAt @db.DateTime(0)
+  updatedAt                            DateTime   @db.DateTime(0)
   deletedAt                            DateTime?  @db.DateTime(0)
   isAdmin                              Boolean?
   adminAccess                          Int?
   TotalPoints                          Float?     @db.Float
   SessionReviewCredits                 Int?
-  captures     captures[] @relation("captures_user_idTousers")
-  captured_me captures[] @relation("captures_captured_idTousers")
+  captures_captures_user_idTousers     captures[] @relation("captures_user_idTousers")
+  captures_captures_captured_idTousers captures[] @relation("captures_captured_idTousers")
+  SessionSummaries      user_sessions[]
+  @@index([uuid])
 }
 
 model userscores {
@@ -322,7 +366,7 @@ model userscores {
   team      Json?
   score     Int?
   createdAt DateTime @default(now()) @db.DateTime(0)
-  updatedAt DateTime @updatedAt @db.DateTime(0)
+  updatedAt DateTime @db.DateTime(0)
 }
 
 model variations {
@@ -333,45 +377,6 @@ model variations {
   value         String? @db.VarChar(255)
   pos           String? @db.VarChar(255)
   pointValue    Float?  @db.Float
-}
-
-model account {
-  id                String  @id
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-  user              user    @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Account_userId_fkey")
-
-  @@unique([provider, providerAccountId], map: "Account_provider_providerAccountId_key")
-  @@index([userId], map: "Account_userId_fkey")
-}
-
-model session {
-  id           String   @id
-  sessionToken String   @unique(map: "Session_sessionToken_key")
-  userId       String
-  expires      DateTime
-  user         user     @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Session_userId_fkey")
-
-  @@index([userId], map: "Session_userId_fkey")
-}
-
-model user {
-  id            String    @id
-  name          String?
-  email         String?   @unique(map: "User_email_key")
-  emailVerified DateTime?
-  image         String?
-  account       account[]
-  session       session[]
 }
 
 model verificationtoken {

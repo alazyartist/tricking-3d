@@ -36,7 +36,7 @@ const AddSessionPage = () => {
     startTime: null,
     endTime: null,
     type: "Session",
-    battlers: [],
+    trickers: [],
   });
 
   const onSubmit = (e) => {
@@ -72,9 +72,9 @@ const AddSessionPage = () => {
       true) ||
     false;
   console.log(isEnabled);
-  const [addBattlers, setAddBattlers] = useState(false);
+  const [addTrickersOpen, setAddTrickersOpen] = useState(false);
   return (
-    <div className="mt-14 flex h-[80vh] flex-col place-content-center place-items-center text-zinc-300">
+    <div className="mt-14 flex h-[80vh] flex-col place-content-center place-items-center font-inter text-zinc-300">
       {submitSuccess ? (
         <SessionSubmitted SessionReviewCredits={SessionReviewCredits} />
       ) : (
@@ -172,35 +172,28 @@ const AddSessionPage = () => {
                 </option>
               </select>
             </div>
-            {formData.type === "Battle" && (
+            {
               <div className="flex items-center gap-2 rounded-md bg-zinc-900 bg-opacity-80">
                 <label
-                  onClick={() => setAddBattlers(!addBattlers)}
+                  onClick={() => setAddTrickersOpen(!addTrickersOpen)}
                   className="w-1/6 p-1 pl-2"
-                  htmlFor="battlers"
+                  htmlFor="trickers"
                 >
-                  Add Battlers
+                  Trickers
                 </label>
-                {/* <input
-                  onChange={(e) =>
-                    setFormData((s) => ({ ...s, battlers: [e.target.value ]}))
-                  }
-                  step={"00:15"}
-                  className="w-full select-none place-self-end bg-transparent p-1 text-zinc-300  "
-                  type="text"
-                  value={formData.battlers}
-                /> */}
+
                 <div
                   style={{ color: "#fff" }}
                   className="flex w-full flex-col gap-2 rounded-md bg-zinc-900 bg-opacity-0 p-1 text-zinc-300"
                 >
-                  <div className="w-full text-center">
-                    {formData?.battlers?.map((battler) => (
+                  <div className="flex w-full flex-col place-content-center place-items-center text-center text-sm">
+                    {formData?.trickers?.map((battler) => (
                       <div
+                        className={"flex flex-col gap-2 p-1"}
                         onClick={() => {
                           setFormData((s) => ({
                             ...s,
-                            battlers: s.battlers.filter(
+                            trickers: s.trickers.filter(
                               (b) => b.username !== battler.username
                             ),
                           }));
@@ -209,37 +202,72 @@ const AddSessionPage = () => {
                         {battler.username}
                       </div>
                     ))}
+                    <div
+                      className={"w-[150px] rounded-md bg-emerald-500 p-1"}
+                      onClick={() => setAddTrickersOpen(!addTrickersOpen)}
+                    >
+                      Add
+                    </div>
                   </div>
-                  <div className={"absolute top-5 h-[95] w-[95] "}>
-                    {availableUsers &&
-                      addBattlers &&
-                      availableUsers?.users
-                        ?.filter(
-                          (user) => !formData.battlers.includes(user.username)
-                        )
-                        .map((user) => {
+                  {availableUsers && addTrickersOpen && (
+                    <div
+                      className={
+                        "absolute top-[2.5%] left-[2.5%] flex h-[95%] w-[95%] flex-col justify-between gap-1 rounded-md bg-zinc-900 bg-opacity-90 p-2"
+                      }
+                    >
+                      <div className={"flex flex-col gap-1"}>
+                        {availableUsers?.users?.map((user) => {
                           return (
                             <div
-                              // style={{ color: "#000" }}
                               key={user.uuid}
-                              onClick={() =>
-                                setFormData((s) => ({
-                                  ...s,
-                                  battlers: [...s.battlers, user],
-                                }))
-                              }
-                              className={
-                                "flex w-full place-content-center place-items-center bg-transparent text-zinc-300"
-                              }
+                              onClick={() => {
+                                !formData.trickers.some(
+                                  (item) => item.uuid === user.uuid
+                                )
+                                  ? setFormData((s) => ({
+                                      ...s,
+                                      trickers: [...s.trickers, user],
+                                    }))
+                                  : setFormData((s) => ({
+                                      ...s,
+                                      trickers: s.trickers.filter(
+                                        (b) => b.username !== user.username
+                                      ),
+                                    }));
+                              }}
+                              className={`flex w-full place-items-center gap-2 rounded-md p-1 text-zinc-300 ${
+                                formData.trickers.some(
+                                  (item) => item.uuid === user.uuid
+                                )
+                                  ? " bg-teal-500 "
+                                  : " bg-teal-800 "
+                              }`}
                             >
+                              <img
+                                className={`h-6 w-6 rounded-full`}
+                                src={`${
+                                  user.profilePic
+                                    ? `./images/${user?.uuid}/${user?.profilePic}`
+                                    : `./images/noimg.jpeg`
+                                }`}
+                                alt={"image"}
+                              />
                               {user.username}
                             </div>
                           );
                         })}
-                  </div>
+                      </div>
+                      <div
+                        onClick={() => setAddTrickersOpen(false)}
+                        className="flex place-content-center place-items-center rounded-md bg-emerald-500 p-1 text-2xl"
+                      >
+                        Done
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
-            )}
+            }
             {Array.from(Array(count).keys()).map((i) => (
               <div
                 key={`${formData.url[i]} ${i} `}
@@ -326,13 +354,6 @@ const OutOfCredits = () => {
   }, [showForm]);
   return (
     <>
-      {/* <a
-				//testlink
-				href='https://buy.stripe.com/test_bIY7w414l3OG2QM5kk'
-				// production linkhref='https://buy.stripe.com/bIYdTd7yO57g2ly5kk'
-				className=' rounded-md bg-emerald-300 p-2 font-inter text-zinc-800'>
-				Add Credits
-			</a> */}
       <div className="flex place-content-center place-items-center gap-4 text-center font-inter text-4xl">
         <div
           className="flex h-10 w-10 place-content-center place-items-center rounded-full bg-zinc-200 bg-opacity-10"

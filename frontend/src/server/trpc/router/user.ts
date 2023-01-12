@@ -5,6 +5,7 @@ export const userRouter = router({
   findAll: publicProcedure.query(async ({ input, ctx }) => {
     const users = await ctx.prisma.users.findMany({
       select: {
+        profilePic: true,
         uuid: true,
         username: true,
         first_name: true,
