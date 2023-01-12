@@ -40,7 +40,7 @@ function Home() {
   const [openClaimtricks, setOpenClaimtricks] = useState(false);
   const [openComboMaker, setOpenComboMaker] = useState(false);
   // console.log("uuid: ", uuid);
-
+  const { data } = trpc.userDB.findAll.useQuery();
   const logoAnim = useSpring({
     to: { width: atLocal ? "50vw" : "100vw" },
   });
@@ -63,7 +63,12 @@ function Home() {
             <TrickedexLogo className={`-m-2px flex fill-zinc-300`} />
           </animated.div>
         </div>
-
+        <div>
+          {data &&
+            data.map((us) => {
+              us.username;
+            })}
+        </div>
         <div className="rounded-xl bg-zinc-800 bg-opacity-40 py-2">
           {!openCaptures &&
             !openComboMaker &&
