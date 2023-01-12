@@ -22,20 +22,20 @@ const Captures = () => {
   return (
     <div
       id="captureContainer"
-      className="flex flex-col border-white border-3 place-items-center font-inter"
+      className="w-full pt-2 flex flex-col gap-2 place-items-center font-inter"
     >
 
     {/* Caprured Me */}
-      <div id="myCaptures" className="border-blue-500 border-2 w-full">
-        <div className="flex gap-2 font-inter font-bold">
+      <div id="myCaptures" className="w-full px-2 rounded-md border-zinc-400 border-2">
+        <div className="flex gap-2 font-bold">
           <div className="text-zinc-300">
             Your Captures
           </div>
         </div>
 
-        <div className="w-[80vw] overflow-x-auto">
+        <div className="overflow-x-auto">
           <div
-            className={`flex w-full flex-row ${captured?.length >= 4
+            className={`flex flex-row ${captured?.length >= 4
               ? "place-content-start"
               : "place-content-center"
               }`}
@@ -64,8 +64,8 @@ const Captures = () => {
         </div>
       </div>
 
-      <div id="capturedMe" className="border-red-500 border-2 w-full">
-        {/* Caprured Me */}
+      {/* Caprured Me */}
+      <div id="capturedMe" className="w-full px-2 rounded-md border-zinc-400 border-2">
         <div className="text-zinc-300 font-bold">
           Captured You
         </div>

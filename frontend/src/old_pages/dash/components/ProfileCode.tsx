@@ -12,38 +12,38 @@ const ProfileCode = ({ setProfileCodeOpen, profileCodeOpen }) => {
   }, [activeView])
   return (
     <>
-      <div className="neumorphicIn relative flex h-full max-w-[600px] flex-col place-items-center rounded-xl bg-zinc-800 p-2">
+      <div className="neumorphicIn relative flex h-full max-w-[100%] flex-col place-items-center rounded-xl bg-zinc-800 p-2">
         <IoIosArrowBack
           className="absolute top-4 right-1 text-4xl"
           onClick={() => setProfileCodeOpen(!profileCodeOpen)}
         />
-        <div className=" rounded-xl  p-2">
+        <div className="w-full p-2">
           <div className="flex place-content-center place-items-center gap-2">
             <button
               className="flex w-14 flex-col place-items-center rounded-lg bg-zinc-600 p-1"
-              onClick={() => {setActiveView("Capture")}}
+              onClick={() => { setActiveView("Capture") }}
             >
               <MdDonutSmall className="h-5 w-5" />
               <div className="text-xs">Captures</div>
             </button>
-            
+
             <button
               className="flex w-14 flex-col place-items-center rounded-lg bg-zinc-700 p-1"
-              onClick={() => {setActiveView("QR")}}
+              onClick={() => { setActiveView("QR") }}
             >
               <MdOutlineQrCode2 className="h-5 w-5" />
               <div className="text-xs">Generate</div>
             </button>
-            
+
             <button
               className="flex w-14 flex-col place-items-center rounded-lg bg-red-700 p-1"
-              onClick={() => {setActiveView("Scan")}}
+              onClick={() => { setActiveView("Scan") }}
             >
               <MdQrCodeScanner className="h-5 w-5" />
               <div className="text-xs">Scan</div>
             </button>
           </div>
-          <div className="flex w-full flex-col place-content-center place-items-center">
+          <div className="flex flex-col place-content-center place-items-center">
             {activeView === "Capture" && <Captures />}
             {activeView === "QR" && <QRGenerator />}
             {activeView === "Scan" && <QRReader />}

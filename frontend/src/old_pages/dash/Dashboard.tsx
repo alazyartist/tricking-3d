@@ -16,7 +16,7 @@ function Dashboard() {
   const { data: trickData } = useGetTricks();
   console.log(trickData);
   return (
-    <div className="mt-14 flex flex-col place-content-center place-items-center gap-2 text-zinc-400">
+    <div className="bg-red-500 mt-14 flex flex-col place-content-center place-items-center gap-2 text-zinc-400">
       <div className="p-4">
         Welcome <span className="font-semibold text-zinc-300">{user}</span>
       </div>

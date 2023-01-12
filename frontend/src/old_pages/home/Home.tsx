@@ -122,11 +122,11 @@ function Home() {
               // LoggedIn
               <>
                 <div className="flex flex-grow-0 justify-around text-zinc-300">
-                  <div className="mb-4 grid w-full max-w-[600px] grid-cols-2 grid-rows-2 place-content-center place-items-center gap-4">
+                  <div className="mb-4 grid w-[98%] max-w-[600px] grid-cols-2 grid-rows-2 place-content-center place-items-center gap-4">
                     {/* Captures */}
                     {openCaptures ? (
                       <div
-                        className={`${
+                        className={`w-full ${
                           openCaptures ? "col-span-2 row-span-2" : ""
                         }`}
                       >
