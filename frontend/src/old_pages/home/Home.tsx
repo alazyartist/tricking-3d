@@ -71,7 +71,7 @@ function Home() {
             })}
         </div>
         */}
-        <div className="rounded-xl bg-zinc-800 bg-opacity-40 py-2">
+        <div className="rounded-xl bg-zinc-800 bg-opacity-40 p-2">
           {!openCaptures &&
             !openComboMaker &&
             !openClaimtricks &&
