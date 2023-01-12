@@ -45,7 +45,6 @@ const MyApp: AppType<{
         {path.includes("/theory") ? <TheoryTabBar /> : <TabBar />}
         <Component {...pageProps} />
       </QueryClientProvider>
-      //{" "}
     </SessionProvider>
   );
 };

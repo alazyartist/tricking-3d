@@ -181,15 +181,7 @@ const AddSessionPage = () => {
                 >
                   Trickers
                 </label>
-                {/* <input
-                  onChange={(e) =>
-                    setFormData((s) => ({ ...s, trickers: [e.target.value ]}))
-                  }
-                  step={"00:15"}
-                  className="w-full select-none place-self-end bg-transparent p-1 text-zinc-300  "
-                  type="text"
-                  value={formData.trickers}
-                /> */}
+
                 <div
                   style={{ color: "#fff" }}
                   className="flex w-full flex-col gap-2 rounded-md bg-zinc-900 bg-opacity-0 p-1 text-zinc-300"
@@ -224,55 +216,46 @@ const AddSessionPage = () => {
                       }
                     >
                       <div className={"flex flex-col gap-1"}>
-                        {availableUsers?.users
-                          // ?.filter(
-                          //   (user) =>
-                          //     !formData.trickers.some(
-                          //       (item) => item.username === user.username
-                          //     )
-                          // )
-                          ?.map((user) => {
-                            return (
-                              <div
-                                // style={{ color: "#000" }}
-                                key={user.uuid}
-                                onClick={() => {
-                                  !formData.trickers.some(
-                                    (item) => item.uuid === user.uuid
-                                  )
-                                    ? setFormData((s) => ({
-                                        ...s,
-                                        trickers: [...s.trickers, user],
-                                      }))
-                                    : setFormData((s) => ({
-                                        ...s,
-                                        trickers: s.trickers.filter(
-                                          (b) => b.username !== user.username
-                                        ),
-                                      }));
-                                  // setAddtrickers(false);
-                                }}
-                                className={`flex w-full place-items-center gap-2 rounded-md p-1 text-zinc-300 ${
-                                  formData.trickers.some(
-                                    (item) => item.uuid === user.uuid
-                                  )
-                                    ? " bg-teal-500 "
-                                    : " bg-teal-800 "
+                        {availableUsers?.users?.map((user) => {
+                          return (
+                            <div
+                              key={user.uuid}
+                              onClick={() => {
+                                !formData.trickers.some(
+                                  (item) => item.uuid === user.uuid
+                                )
+                                  ? setFormData((s) => ({
+                                      ...s,
+                                      trickers: [...s.trickers, user],
+                                    }))
+                                  : setFormData((s) => ({
+                                      ...s,
+                                      trickers: s.trickers.filter(
+                                        (b) => b.username !== user.username
+                                      ),
+                                    }));
+                              }}
+                              className={`flex w-full place-items-center gap-2 rounded-md p-1 text-zinc-300 ${
+                                formData.trickers.some(
+                                  (item) => item.uuid === user.uuid
+                                )
+                                  ? " bg-teal-500 "
+                                  : " bg-teal-800 "
+                              }`}
+                            >
+                              <img
+                                className={`h-6 w-6 rounded-full`}
+                                src={`${
+                                  user.profilePic
+                                    ? `./images/${user?.uuid}/${user?.profilePic}`
+                                    : `./images/noimg.jpeg`
                                 }`}
-                              >
-                                <img
-                                  className={`h-6 w-6 rounded-full`}
-                                  src={`${
-                                    user.profilePic
-                                      ? `./images/${user?.uuid}/${user?.profilePic}`
-                                      : `./images/noimg.jpeg`
-                                  }`}
-                                  alt={"image"}
-                                />
-                                {user.username}
-                              </div>
-                            );
-                          })}
+                                alt={"image"}
+                              />
+                              {user.username}
+                            </div>
+                          );
+                        })}
                       </div>
                       <div
                         onClick={() => setAddTrickersOpen(false)}
@@ -371,13 +354,6 @@ const OutOfCredits = () => {
   }, [showForm]);
   return (
     <>
-      {/* <a
-				//testlink
-				href='https://buy.stripe.com/test_bIY7w414l3OG2QM5kk'
-				// production linkhref='https://buy.stripe.com/bIYdTd7yO57g2ly5kk'
-				className=' rounded-md bg-emerald-300 p-2 font-inter text-zinc-800'>
-				Add Credits
-			</a> */}
       <div className="flex place-content-center place-items-center gap-4 text-center font-inter text-4xl">
         <div
           className="flex h-10 w-10 place-content-center place-items-center rounded-full bg-zinc-200 bg-opacity-10"
