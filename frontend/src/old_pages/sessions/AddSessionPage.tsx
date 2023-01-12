@@ -36,7 +36,7 @@ const AddSessionPage = () => {
     startTime: null,
     endTime: null,
     type: "Session",
-    battlers: [],
+    trickers: [],
   });
 
   const onSubmit = (e) => {
@@ -72,7 +72,7 @@ const AddSessionPage = () => {
       true) ||
     false;
   console.log(isEnabled);
-  const [addBattlers, setAddBattlers] = useState(false);
+  const [addTrickersOpen, setAddTrickersOpen] = useState(false);
   return (
     <div className="mt-14 flex h-[80vh] flex-col place-content-center place-items-center font-inter text-zinc-300">
       {submitSuccess ? (
@@ -172,36 +172,36 @@ const AddSessionPage = () => {
                 </option>
               </select>
             </div>
-            {formData.type === "Battle" && (
+            {
               <div className="flex items-center gap-2 rounded-md bg-zinc-900 bg-opacity-80">
                 <label
-                  onClick={() => setAddBattlers(!addBattlers)}
+                  onClick={() => setAddTrickersOpen(!addTrickersOpen)}
                   className="w-1/6 p-1 pl-2"
-                  htmlFor="battlers"
+                  htmlFor="trickers"
                 >
-                  Battlers
+                  Trickers
                 </label>
                 {/* <input
                   onChange={(e) =>
-                    setFormData((s) => ({ ...s, battlers: [e.target.value ]}))
+                    setFormData((s) => ({ ...s, trickers: [e.target.value ]}))
                   }
                   step={"00:15"}
                   className="w-full select-none place-self-end bg-transparent p-1 text-zinc-300  "
                   type="text"
-                  value={formData.battlers}
+                  value={formData.trickers}
                 /> */}
                 <div
                   style={{ color: "#fff" }}
                   className="flex w-full flex-col gap-2 rounded-md bg-zinc-900 bg-opacity-0 p-1 text-zinc-300"
                 >
                   <div className="flex w-full flex-col place-content-center place-items-center text-center text-sm">
-                    {formData?.battlers?.map((battler) => (
+                    {formData?.trickers?.map((battler) => (
                       <div
                         className={"flex flex-col gap-2 p-1"}
                         onClick={() => {
                           setFormData((s) => ({
                             ...s,
-                            battlers: s.battlers.filter(
+                            trickers: s.trickers.filter(
                               (b) => b.username !== battler.username
                             ),
                           }));
@@ -212,12 +212,12 @@ const AddSessionPage = () => {
                     ))}
                     <div
                       className={"w-[150px] rounded-md bg-emerald-500 p-1"}
-                      onClick={() => setAddBattlers(!addBattlers)}
+                      onClick={() => setAddTrickersOpen(!addTrickersOpen)}
                     >
                       Add
                     </div>
                   </div>
-                  {availableUsers && addBattlers && (
+                  {availableUsers && addTrickersOpen && (
                     <div
                       className={
                         "absolute top-[2.5%] left-[2.5%] flex h-[95%] w-[95%] flex-col justify-between gap-1 rounded-md bg-zinc-900 bg-opacity-90 p-2"
@@ -227,7 +227,7 @@ const AddSessionPage = () => {
                         {availableUsers?.users
                           // ?.filter(
                           //   (user) =>
-                          //     !formData.battlers.some(
+                          //     !formData.trickers.some(
                           //       (item) => item.username === user.username
                           //     )
                           // )
@@ -237,23 +237,23 @@ const AddSessionPage = () => {
                                 // style={{ color: "#000" }}
                                 key={user.uuid}
                                 onClick={() => {
-                                  !formData.battlers.some(
+                                  !formData.trickers.some(
                                     (item) => item.uuid === user.uuid
                                   )
                                     ? setFormData((s) => ({
                                         ...s,
-                                        battlers: [...s.battlers, user],
+                                        trickers: [...s.trickers, user],
                                       }))
                                     : setFormData((s) => ({
                                         ...s,
-                                        battlers: s.battlers.filter(
+                                        trickers: s.trickers.filter(
                                           (b) => b.username !== user.username
                                         ),
                                       }));
-                                  // setAddBattlers(false);
+                                  // setAddtrickers(false);
                                 }}
                                 className={`flex w-full place-items-center gap-2 rounded-md p-1 text-zinc-300 ${
-                                  formData.battlers.some(
+                                  formData.trickers.some(
                                     (item) => item.uuid === user.uuid
                                   )
                                     ? " bg-teal-500 "
@@ -275,7 +275,7 @@ const AddSessionPage = () => {
                           })}
                       </div>
                       <div
-                        onClick={() => setAddBattlers(false)}
+                        onClick={() => setAddTrickersOpen(false)}
                         className="flex place-content-center place-items-center rounded-md bg-emerald-500 p-1 text-2xl"
                       >
                         Done
@@ -284,7 +284,7 @@ const AddSessionPage = () => {
                   )}
                 </div>
               </div>
-            )}
+            }
             {Array.from(Array(count).keys()).map((i) => (
               <div
                 key={`${formData.url[i]} ${i} `}

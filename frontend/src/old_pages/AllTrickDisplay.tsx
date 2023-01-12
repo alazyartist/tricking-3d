@@ -46,7 +46,7 @@ function AllTrickDisplay() {
         className="  flex max-h-full max-w-full flex-col place-content-center place-items-center gap-4 p-2 font-inter font-bold "
       >
         <input
-          className="sticky top-0 w-full rounded-3xl p-2"
+          className="sticky top-0 w-full rounded-xl p-2"
           type={"search"}
           placeholder="Search for Tricks..."
           onChange={handleFilter}

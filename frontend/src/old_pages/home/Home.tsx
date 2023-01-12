@@ -7,7 +7,7 @@ import { useUserStore } from "../../store/userStore";
 import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
 // import ComboMakerV2 from "../comboMakerV2/ComboMakerV2";
 import useUserInfo from "../../api/useUserInfo";
-import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowBack, IoMdSearch } from "react-icons/io";
 import PublicHomePage from "./components/PublicHomePage";
 // import Feed from "./components/Feed";
 import { useSpring, animated } from "react-spring";
@@ -18,6 +18,7 @@ import dynamic from "next/dynamic";
 import { trpc } from "utils/trpc";
 import AllTrickDisplay from "@old_pages/AllTrickDisplay";
 import UserList from "@components/UserList";
+import { AiOutlineUser } from "react-icons/ai";
 const ProfileCode = dynamic(() => import("../dash/components/ProfileCode"));
 const ClaimTricks = dynamic(() => import("../claimtricks/ClaimTricks"));
 const TricklistPage = dynamic(() => import("../tricklist/TricklistPage"));
@@ -135,7 +136,7 @@ function Home() {
                           onClick={() => setOpenCaptures(!openCaptures)}
                           className={`neumorphic active:neumorphicIn flex h-full w-full max-w-[600px] flex-col place-content-center   place-items-center rounded-lg bg-zinc-800 text-4xl `}
                         >
-                          <FaQrcode />
+                          <FaQrcode className={"h-24"} />
                           <div className="text-lg font-bold">Capture</div>
                         </div>
                       )
@@ -163,7 +164,7 @@ function Home() {
                           onClick={() => setOpenTricklists(!openTricklists)}
                           className="neumorphic active:neumorphicIn flex h-full w-full flex-col place-content-center place-items-center rounded-lg bg-zinc-800 text-4xl "
                         >
-                          <FaClipboardList />
+                          <IoMdSearch className={"h-24"} />
                           <div className="text-lg font-bold">Search Tricks</div>
                         </div>
                       )
@@ -190,7 +191,7 @@ function Home() {
                           onClick={() => setOpenClaimtricks(!openClaimtricks)}
                           className="neumorphic active:neumorphicIn flex h-full w-full flex-col place-content-center place-items-center rounded-lg bg-zinc-800 text-4xl"
                         >
-                          <BsClipboardCheck />
+                          <BsClipboardCheck className={"h-24"} />
                           <div className="text-lg font-bold">Claim Tricks</div>
                         </div>
                       )
@@ -218,10 +219,11 @@ function Home() {
                           // href="/comboMaker"
                           className="neumorphic  active:neumorphicIn min-h-36 flex h-full w-full flex-col place-content-center place-items-center rounded-lg bg-zinc-800 p-4 text-4xl"
                         >
-                          <ComboMakerBlueprintsvg
+                          {/* <ComboMakerBlueprintsvg
                             className="h-24"
                             fill={"#d4d4d8"}
-                          />
+                          /> */}
+                          <AiOutlineUser className={"h-24"} />
                           <div className="mt-[-18px] text-lg font-bold">
                             Users
                           </div>
