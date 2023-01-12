@@ -22,11 +22,11 @@ const Captures = () => {
   return (
     <div
       id="captureContainer"
-      className="w-full pt-2 flex flex-col gap-2 place-items-center font-inter"
+      className="w-full pt-4 flex flex-col gap-4 place-items-center font-inter"
     >
 
     {/* Caprured Me */}
-      <div id="myCaptures" className="w-full px-2 rounded-md border-zinc-400 border-2">
+      <div id="myCaptures" className="w-full py-1 p-2 rounded-md border-cyan-300 border-2">
         <div className="flex gap-2 font-bold">
           <div className="text-zinc-300">
             Your Captures
@@ -65,7 +65,7 @@ const Captures = () => {
       </div>
 
       {/* Caprured Me */}
-      <div id="capturedMe" className="w-full px-2 rounded-md border-zinc-400 border-2">
+      <div id="capturedMe" className="w-full py-1 p-2 rounded-md border-emerald-300 border-2">
         <div className="text-zinc-300 font-bold">
           Captured You
         </div>

@@ -115,14 +115,14 @@ function Home() {
                 </Link>
               </div>
             )}
-          <div className="flex w-[90vw] max-w-[700px] flex-col place-content-center">
+          <div className="flex w-[90vw] max-w-[600px] flex-col place-content-center">
             {!atLocal ? (
               <PublicHomePage />
             ) : (
               // LoggedIn
               <>
                 <div className="flex flex-grow-0 justify-around text-zinc-300">
-                  <div className="mb-4 grid w-[98%] max-w-[600px] grid-cols-2 grid-rows-2 place-content-center place-items-center gap-4">
+                  <div className="grid w-[98%] grid-cols-2 grid-rows-2 place-content-center place-items-center gap-4">
                     {/* Captures */}
                     {openCaptures ? (
                       <div
@@ -139,13 +139,13 @@ function Home() {
                       !openTricklists &&
                       !openComboMaker &&
                       !openClaimtricks && (
-                        <div
-                          onClick={() => setOpenCaptures(!openCaptures)}
+                        <Link
+                          href="/captures"
                           className={`neumorphic active:neumorphicIn flex h-full w-full max-w-[600px] flex-col place-content-center   place-items-center rounded-lg bg-zinc-800 text-4xl `}
                         >
                           <FaQrcode className={"h-24"} />
                           <div className="text-lg font-bold">Capture</div>
-                        </div>
+                        </Link>
                       )
                     )}
 

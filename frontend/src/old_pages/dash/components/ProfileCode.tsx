@@ -5,14 +5,14 @@ import QRGenerator from "./QRGenerator";
 import QRReader from "./QRReader";
 import Captures from "./Captures";
 
-const ProfileCode = ({ setProfileCodeOpen, profileCodeOpen }) => {
+const ProfileCode: React.FC <any> = ({ setProfileCodeOpen, profileCodeOpen }) => {
   const [activeView, setActiveView] = useState("Capture");
   useEffect(() => {
     console.log(activeView)
   }, [activeView])
   return (
     <>
-      <div className="neumorphicIn relative flex h-full max-w-[100%] flex-col place-items-center rounded-xl bg-zinc-800 p-2">
+      <div className="neumorphicIn mt-14 relative flex h-full max-w-[100%] flex-col place-items-center rounded-xl bg-zinc-800 p-2">
         <IoIosArrowBack
           className="absolute top-4 right-1 text-4xl"
           onClick={() => setProfileCodeOpen(!profileCodeOpen)}
