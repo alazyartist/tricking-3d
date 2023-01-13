@@ -1,6 +1,6 @@
 // @ts-check
 /* run the build with this set to skip validation */
-// !process.env.SKIP_ENV_VALIDATION && (await import("./src/env/server.mjs"));
+!process.env.SKIP_ENV_VALIDATION && (await import("./src/env/server.mjs"));
 
 /**
  * Don't be scared of the generics here.
