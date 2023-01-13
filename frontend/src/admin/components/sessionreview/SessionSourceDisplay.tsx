@@ -186,6 +186,7 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
   const setClipComboRaw = useSessionSummariesStore((s) => s.setClipComboRaw);
   const setClipData = useSessionSummariesStore((s) => s.setClipData);
   const setSrcid = useSessionSummariesStore((s) => s.setSrcid);
+  const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
   const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
 
   const removeSessionData = useSessionSummariesStore(
@@ -225,11 +226,13 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
       <div
         key={`${e.id}+${Math.random()}`}
         onClick={() => {
-          setSrcid(source.srcid);
-          setClipData(e);
-          clearClipCombo();
-          setClipComboRaw(e.clipLabel);
-          removeSessionData(e);
+          // setSrcid(source.srcid);
+          // setClipData(e);
+          // clearClipCombo();
+          // setClipComboRaw(e.clipLabel);
+          // removeSessionData(e);
+          console.log(e.startTime);
+          setSeekTime(e.startTime);
         }}
         onMouseOver={() => setSeeDetails(true)}
         onMouseLeave={() => setSeeDetails(false)}

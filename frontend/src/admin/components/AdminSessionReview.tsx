@@ -27,8 +27,10 @@ const AdminSessionReview = () => {
   );
   const sessionDetails = data?.data;
   useEffect(() => {
-    setSessionid(sessionid as string);
     clearSessionData();
+  }, []);
+  useEffect(() => {
+    setSessionid(sessionid as string);
     sessionDetails?.SessionData?.forEach((sd) => {
       console.log("sd");
       console.log(sd);
