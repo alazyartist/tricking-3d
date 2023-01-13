@@ -1,6 +1,7 @@
 import { animated, useSpring } from "react-spring";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
+import { trpc } from "utils/trpc";
 
 const SessionDetailDisplay = ({ sessionDetails, mirrored, toggleMirrored }) => {
   const detailsVisible = useSessionSummariesStore((s) => s.detailsVisible);
@@ -19,6 +20,14 @@ const SessionDetailDisplay = ({ sessionDetails, mirrored, toggleMirrored }) => {
     // onRest: () => setOpenHamburger(!openHamburger),
   });
 
+  const { data: sessionSummary } = trpc.sessionsummaries.detailsById.useQuery({
+    sessionid: sessionDetails.sessionid,
+  });
+
+  useEffect(
+    () => console.log(sessionDetails, sessionSummary),
+    [sessionDetails, sessionSummary]
+  );
   return (
     <animated.div
       key={sessionDetails.sessionid + "details"}
@@ -57,6 +66,9 @@ const SessionDetailDisplay = ({ sessionDetails, mirrored, toggleMirrored }) => {
       >
         Details
       </animated.span>
+      {sessionSummary.trickers.map((tricker) => (
+        <div>{tricker.user.username}</div>
+      ))}
     </animated.div>
   );
 };

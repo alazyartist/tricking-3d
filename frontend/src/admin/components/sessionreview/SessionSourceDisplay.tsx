@@ -194,12 +194,14 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
   );
   useEffect(() => {
     setSrcid(source?.srcid);
+    console.log("source", source);
   }, [source, vidsrc]);
   let w = `${(
     ((parseInt(e.endTime) - parseInt(e.startTime)) / parseInt(duration)) *
     100
   ).toFixed(2)}%`;
   let l = `${((parseInt(e.startTime) / parseInt(duration)) * 100).toFixed(0)}%`;
+
   return (
     <>
       {seeDetails && (
