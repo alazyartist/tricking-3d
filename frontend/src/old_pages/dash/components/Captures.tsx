@@ -11,31 +11,33 @@ const Captures = () => {
   const userInfo = useUserStore((s) => s.userInfo);
   const nav = useRouter();
   useEffect(() => {
-    console.log(userInfo);
-    setCaptured(userInfo.Captured);
-    setCapturedMe(userInfo.CapturedMe);
+    setCaptured([userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1]]);
+    setCapturedMe(captured)
+    //setCapturedMe(userInfo.Captured);
   }, [userInfo]);
 
   const RenderCaptures = (props) => {
+    const [captureGrid, setCaptureGrid] = useState(true)
     const captureContent = props.captureConten
+    let captureTitle = props.title
     return <>
       <div id="myCaptures"
         className={`
-          ${captureContent === captured ? "border-cyan-300" : "border-teal-200"} 
-          border-2 w-full py-1 p-2 rounded-md order-2
+          ${captureContent === captured ? "border-cyan-300" : "border-teal-200"}
+          w-full h-full py-1 p-2 
+          border-2 rounded-md order-2
           flex flex-col
+          text-zinc-300
         `}
       >
-        <div className="text-zinc-300">
-          Your Captures
+        <div className="mb-2 text-zinc-300" onClick={() => setCaptureGrid(!captureGrid)} >
+          {captureTitle}
         </div>
-        <div className="flex flex-row overflow-x-auto">
+        <div className={`flex ${captureGrid ? " flex-row" : " flex-wrap flex-col-3 max-h-[50vh] justify-center"} overflow-x-auto`}>
           {!!captureContent &&
             Object.keys(captureContent).map((key) => (
               <div
                 onClick={() => nav.push(`/userProfile/${captureContent[key].uuid}`)}
-                key={`${captureContent[key].username}`}
-                className="flex flex-row gap-3"
               >
                 <CapturedCard
                   name={
@@ -50,7 +52,7 @@ const Captures = () => {
                 />
               </div>
             ))}
-        </div>
+          </div>
       </div>
     </>
   }
@@ -61,9 +63,9 @@ const Captures = () => {
       className="w-full pt-4 flex flex-col gap-4 place-items-center font-inter"
     >
       {/* My Captures */}
-      <RenderCaptures captureConten={captured} />
+      <RenderCaptures captureConten={captured} title="My Captures" />
       {/* Captured Me */}
-      <RenderCaptures captureConten={capturedMe} />
+      <RenderCaptures captureConten={capturedMe} title="Captured Me"/>
     </div>
   );
 };

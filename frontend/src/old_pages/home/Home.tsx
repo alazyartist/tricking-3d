@@ -124,7 +124,7 @@ function Home() {
                     {/* Captures */}
                     {openCaptures ? (
                       <div
-                        className={`w-full ${openCaptures ? "col-span-2 row-span-2" : ""
+                        className={`${openCaptures ? "col-span-2 row-span-2" : ""
                           }`}
                       >
                         <ProfileCode
