@@ -11,9 +11,9 @@ const Captures = () => {
   const userInfo = useUserStore((s) => s.userInfo);
   const nav = useRouter();
   useEffect(() => {
-    setCaptured([userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1]]);
-    setCapturedMe(captured)
-    //setCapturedMe(userInfo.Captured);
+    console.log(userInfo)
+    setCaptured(userInfo.Captured)
+    setCapturedMe(userInfo.Captured);
   }, [userInfo]);
 
   const RenderCaptures = (props) => {
@@ -38,6 +38,7 @@ const Captures = () => {
             Object.keys(captureContent).map((key) => (
               <div
                 onClick={() => nav.push(`/userProfile/${captureContent[key].uuid}`)}
+                key={captureContent[key].uuid}
               >
                 <CapturedCard
                   name={
