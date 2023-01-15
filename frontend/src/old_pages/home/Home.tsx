@@ -20,7 +20,7 @@ import { trpc } from "utils/trpc";
 import AllTrickDisplay from "@old_pages/AllTrickDisplay";
 import UserList from "@components/UserList";
 import { AiOutlineUser } from "react-icons/ai";
-const ProfileCode = dynamic(() => import("../dash/components/ProfileCode"));
+const CapturesPage = dynamic(() => import("../dash/components/CapturesPage"));
 const ClaimTricks = dynamic(() => import("../claimtricks/ClaimTricks"));
 function Home() {
   // const user = useUserStore((s) => s.userInfo?.username);
@@ -119,30 +119,26 @@ function Home() {
             ) : (
               // LoggedIn
               <>
-                <div className="flex flex-grow-0 justify-around text-zinc-300">
+              {/*Button Grid Container*/}
+                <div className="flex flex-grow-0 justify-around  text-zinc-300">
                   <div className="grid w-[98%] grid-cols-2 grid-rows-2 place-content-center place-items-center gap-4">
                     {/* Captures */}
-                    {openCaptures ? (
-                      <div
-                        className={`${openCaptures ? "col-span-2 row-span-2" : ""
-                          }`}
-                      >
-                        <ProfileCode
-                          setProfileCodeOpen={setOpenCaptures}
-                          profileCodeOpen={openCaptures}
-                        />
-                      </div>
-                    ) : (
+                    {openCaptures ? ( <CapturesPage /> ) : (
                       !openTricklists &&
                       !openComboMaker &&
                       !openClaimtricks && (
+                        <div className="neumorphic rounded-lg border-2 border-red-600 w-full h-full">
                         <Link
                           href="/captures"
-                          className={`neumorphic active:neumorphicIn flex h-full w-full max-w-[600px] flex-col place-content-center   place-items-center rounded-lg bg-zinc-800 text-4xl `}
+                          className={` active:neumorphicIn 
+                            flex flex-col place-content-center place-items-center 
+                            h-full w-full max-w-[600px] 
+                            rounded-lg bg-zinc-800 text-4xl `}
                         >
                           <FaQrcode className={"h-24"} />
                           <div className="text-lg font-bold">Capture</div>
                         </Link>
+                        </div>
                       )
                     )}
 

@@ -1,28 +1,27 @@
+// import RadarChart from "@components/d3/RadarChartAI";
+import CapturesPage from "./components/CapturesPage";
+import { FaQrcode } from "react-icons/fa";
 import React, { useState } from "react";
 import UserCard from "./components/UserCard";
 import useLogout from "../../hooks/useLogout";
 import { useUserStore } from "@store/userStore";
-import ProfileCode from "./components/ProfileCode";
 import Captures from "./components/Captures";
-import { FaQrcode } from "react-icons/fa";
-// import RadarChart from "@components/d3/RadarChartAI";
 import useGetTricks from "api/useGetTricks";
 import UserList from "@components/UserList";
 
 function Dashboard() {
+  const logout = useLogout();
   const user = useUserStore((s) => s.user);
   const { profilePic, uuid } = useUserStore((s) => s.userInfo);
-  const logout = useLogout();
-  const { data: trickData } = useGetTricks();
-  console.log(trickData);
+  {/* 
+    const { data: trickData } = useGetTricks();
+    console.log(trickData); 
+  */}
   return (
     <div className="mt-14 flex flex-col place-content-center place-items-center gap-2 text-zinc-400">
       <div className="p-4">
         Welcome <span className="font-semibold text-zinc-300">{user}</span>
       </div>
-      {/* {profileCodeOpen ? (
-				<ProfileCode />
-			) : ( */}
       <>
         <UserCard
           edit
@@ -34,16 +33,7 @@ function Dashboard() {
         />
         <Captures />
       </>
-      {/* )} */}
-
-      {/* QR Code Generator and Reader
-			<div
-				onClick={() => setProfileCodeOpen(!profileCodeOpen)}
-				className='absolute top-20 left-5 flex place-items-center gap-2'>
-				<FaQrcode /> {!profileCodeOpen ? "Capture" : "Close"}
-			</div> */}
       {/* {trickData && <RadarChart data={trickData} />} */}
-
       <UserList />
       <button className="fixed right-5 bottom-14" onClick={() => logout()}>
         Logout

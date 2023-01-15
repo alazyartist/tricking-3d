@@ -11,9 +11,10 @@ const Captures = () => {
   const userInfo = useUserStore((s) => s.userInfo);
   const nav = useRouter();
   useEffect(() => {
-    console.log(userInfo)
-    setCaptured(userInfo.Captured)
-    setCapturedMe(userInfo.Captured);
+    //setCaptured(userInfo.Captured)
+    //setCapturedMe(userInfo.CapturedMe);
+    setCaptured([userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1]]);
+    setCapturedMe(captured)
   }, [userInfo]);
 
   const RenderCaptures = (props) => {
@@ -21,19 +22,36 @@ const Captures = () => {
     const captureContent = props.captureConten
     let captureTitle = props.title
     return <>
+    {/* Bottom Border */}
       <div id="myCaptures"
         className={`
-          ${captureContent === captured ? "border-cyan-300" : "border-teal-200"}
-          w-full h-full py-1 p-2 
-          border-2 rounded-md order-2
-          flex flex-col
-          text-zinc-300
-        `}
-      >
-        <div className="mb-2 text-zinc-300" onClick={() => setCaptureGrid(!captureGrid)} >
+          ${captureContent === captured ? "bg-red-500 text-cyan-300" : "text-teal-200"}
+          w-full h-full 
+          bg-zinc-800 bg-opacity-40
+          rounded-lg
+          border-b-4 border-zinc-900
+        `}>
+
+        {/* Container Header */}
+        <div 
+          className={`${captureContent === captured ? "text-cyan-300" : "text-teal-200"} 
+            bg-zinc-800 pl-2 p-1
+            border-2 border-t-lg border-zinc-800
+            rounded-t
+            `}
+          onClick={() => setCaptureGrid(!captureGrid)} >
           {captureTitle}
         </div>
-        <div className={`flex ${captureGrid ? " flex-row" : " flex-wrap flex-col-3 max-h-[50vh] justify-center"} overflow-x-auto`}>
+
+        {/* Container Content */}
+        <div 
+          className={`
+            ${captureGrid ? " flex flex-row" : " grid grid-cols-3"} 
+            max-h-[50vh] 
+            overflow-x-auto
+            gap-2
+            m-2
+          `}>
           {!!captureContent &&
             Object.keys(captureContent).map((key) => (
               <div

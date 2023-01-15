@@ -1,6 +1,6 @@
 import React from "react";
-import ProfileCode from "../../old_pages/dash/components/ProfileCode";
-const CapturesPage = () => {
-  return <ProfileCode />
+import CapturesPage from "../../old_pages/dash/components/CapturesPage";
+const CapturesPageContent = () => {
+  return <CapturesPage />
 }
-export default CapturesPage
+export default CapturesPageContent
