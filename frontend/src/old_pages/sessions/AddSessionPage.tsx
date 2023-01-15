@@ -193,7 +193,7 @@ const AddSessionPage = () => {
                         onClick={() => {
                           setFormData((s) => ({
                             ...s,
-                            trickers: s.trickers.filter(
+                            trickers: s?.trickers?.filter(
                               (b) => b.username !== battler.username
                             ),
                           }));
@@ -230,7 +230,7 @@ const AddSessionPage = () => {
                                     }))
                                   : setFormData((s) => ({
                                       ...s,
-                                      trickers: s.trickers.filter(
+                                      trickers: s.trickers?.filter(
                                         (b) => b.username !== user.username
                                       ),
                                     }));
