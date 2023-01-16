@@ -79,9 +79,9 @@ const useComboMakerV2 = () => {
           ...tricks.filter((tr) => {
             return (
               (tr.type === "Trick" &&
-                getStanceLeg(tr?.landingStance).includes(filter)) ||
+                getStanceLeg(tr?.landingStance)?.includes(filter)) ||
               (tr.type === "Stance" && tr?.leg?.includes(filter)) ||
-              (tr.type === "Transition" && tr?.fromLeg.includes(filter))
+              (tr.type === "Transition" && tr?.fromLeg?.includes(filter))
             );
           }),
         ];

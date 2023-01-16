@@ -207,18 +207,18 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
       {seeDetails && (
         <div
           style={{ width: "fit", left: l }}
-          key={`${e.trick_id}detaildropdown`}
-          className="absolute top-[20px] flex rounded bg-zinc-900 bg-opacity-40 p-2"
+          key={`${e.trick_id} detaildropdown`}
+          className="absolute top-[-24px] flex rounded bg-zinc-900 bg-opacity-40 p-2"
         >
           <div className="flex h-full flex-col gap-1 text-sm">
             <div className=" ">{e.name}</div>
-            <div className="flex justify-between">
+            {/* <div className="flex justify-between">
               <div className="bg-emerald-300 p-1 text-zinc-800 ">
                 {e.startTime}
               </div>
               <div className="bg-red-300 p-1 text-zinc-800 ">{e.endTime}</div>
-            </div>
-            <div className=" ">{e.admin}</div>
+            </div> */}
+            {/* <div className=" ">{e.admin}</div> */}
           </div>
           {/* <div className=' '>{e.takeoffStance}</div>
 					<div className=' '>{e.landingStance}</div>
