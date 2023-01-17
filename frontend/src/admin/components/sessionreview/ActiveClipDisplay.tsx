@@ -33,7 +33,7 @@ const ActiveClipDisplay = () => {
   );
   return (
     <animated.div
-      key={activeClipData?.sessionid + "details"}
+      key={activeClipData?.id + "details"}
       style={{ right: showDetails.right, opacity: showDetails.opacity }}
       className="absolute top-14 right-2 flex h-[92.5vh] w-[220px] flex-col gap-2 rounded-md rounded-r-none bg-zinc-900 bg-opacity-60 p-1 pl-6 font-inter text-xs text-zinc-300 "
     >
@@ -110,7 +110,7 @@ const SessionDataDetailDislpay = ({ e }) => {
     removeSessionData(e);
   };
   return (
-    <div key={e.id + `${Math.random()}`} className="flex gap-1">
+    <div key={e.id + e.name} className="flex gap-1">
       <div
         onClick={() => console.log(e)}
         className="over:bg-zinc-900 relative flex w-full place-content-center place-items-center justify-between whitespace-nowrap p-1"
