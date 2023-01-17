@@ -1,110 +1,84 @@
-import { useQueryClient } from "@tanstack/react-query";
+//import { UserCard } from "./UserCard";
+//import { useApiCreds } from "../../../hooks/useApiCreds";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import useApiCreds from "../../../hooks/useApiCreds";
 import { useUserStore } from "../../../store/userStore";
 import CapturedCard from "./CapturedCard";
-import UserCard from "./UserCard";
 
 const Captures = () => {
   const [captured, setCaptured] = useState<any>();
-  const [capturedYou, setCapturedYou] = useState<any>();
-  const [display, setDisplay] = useState("captures");
+  const [capturedMe, setCapturedMe] = useState<any>();
   const userInfo = useUserStore((s) => s.userInfo);
-  const queryClient = useQueryClient();
   const nav = useRouter();
   useEffect(() => {
-    console.log(userInfo);
-    setCaptured(userInfo.Captured);
-    setCapturedYou(userInfo.CapturedMe);
+    setCaptured(userInfo.Captured)
+    setCapturedMe(userInfo.CapturedMe)
   }, [userInfo]);
+
+  const RenderCaptures = (props) => {
+    const [captureGrid, setCaptureGrid] = useState(true)
+    const captureContent = props.captureConten
+    let captureTitle = props.title
+    return <>
+      <div id="myCaptures"
+        className={`
+          ${captureContent === captured ? "text-cyan-300" : "text-teal-200"}
+          w-full max-h-[60vh] 
+          mt-4
+          bg-zinc-400 bg-opacity-30
+          rounded-lg
+          border-b-[7.5px] border-zinc-900
+        `}>
+
+        {/* Container Header */}
+        <div 
+          className={` font-bold text-xl bg-zinc-800 pl-2 p-1 rounded-t-lg`}
+          onClick={() => setCaptureGrid(!captureGrid)} >
+          {captureTitle}
+        </div>
+
+        {/* Container Content */}
+        <div 
+          className={`
+            ${captureGrid ? " flex flex-row" : " grid grid-cols-3"} 
+            max-h-[50vh]
+            overflow-auto
+            gap-2
+            p-2
+          `}>
+          {!!captureContent &&
+            Object.keys(captureContent).map((key) => (
+              <div
+                onClick={() => nav.push(`/userProfile/${captureContent[key].uuid}`)}
+                key={captureContent[key].uuid}
+              >
+                <CapturedCard
+                  name={
+                    captureContent[key].first_name + " " + captureContent[key].last_name
+                  }
+                  src={
+                    captureContent[key].profilePic
+                      ? `./images/${captureContent[key].uuid}/${captureContent[key].profilePic}`
+                      : `./images/noimg.jpeg`
+                  }
+                  username={`${captureContent[key].username}`}
+                />
+              </div>
+            ))}
+          </div>
+      </div>
+    </>
+  }
 
   return (
     <div
       id="captureContainer"
-      className="flex flex-col place-items-center font-inter"
+      className=" w-full"
     >
-      <div className="flex gap-2 font-inter font-bold">
-        <div
-          className={display === "captures" ? "text-zinc-300" : "text-zinc-400"}
-          onClick={() => {
-            setDisplay("captures");
-            queryClient.invalidateQueries(["userInfo"]);
-          }}
-        >
-          Your Captures
-        </div>
-        <div
-          className={
-            display === "captured me" ? "text-zinc-300" : "text-zinc-400"
-          }
-          onClick={() => {
-            setDisplay("captured me");
-            queryClient.invalidateQueries(["userInfo"]);
-          }}
-        >
-          Captured You
-        </div>
-      </div>
-      <div className="w-[80vw] overflow-x-auto">
-        <div
-          className={`flex w-full flex-row ${
-            captured?.length >= 4
-              ? "place-content-start"
-              : "place-content-center"
-          }`}
-        >
-          {!!captured &&
-            display === "captures" &&
-            Object.keys(captured).map((key) => (
-              <div
-                onClick={() => nav.push(`/userProfile/${captured[key].uuid}`)}
-                key={`${captured[key].username}`}
-                className="flex flex-row gap-3"
-              >
-                <CapturedCard
-                  name={
-                    captured[key].first_name + " " + captured[key].last_name
-                  }
-                  src={
-                    captured[key].profilePic
-                      ? `./images/${captured[key].uuid}/${captured[key].profilePic}`
-                      : `./images/noimg.jpeg`
-                  }
-                  username={`${captured[key].username}`}
-                />
-              </div>
-            ))}
-        </div>
-
-        <div className="flex w-[80vw] flex-row place-content-center place-items-start overflow-x-auto">
-          {!!capturedYou &&
-            display === "captured me" &&
-            Object.keys(capturedYou).map((key) => (
-              <div
-                onClick={() =>
-                  nav.push(`/userProfile/${capturedYou[key].uuid}`)
-                }
-                key={`${capturedYou[key].username}`}
-                className="flex  flex-row gap-3"
-              >
-                <CapturedCard
-                  name={
-                    capturedYou[key].first_name +
-                    " " +
-                    capturedYou[key].last_name
-                  }
-                  src={
-                    capturedYou[key].profilePic
-                      ? `./images/${capturedYou[key].uuid}/${capturedYou[key].profilePic}`
-                      : `./images/noimg.jpeg`
-                  }
-                  username={`${capturedYou[key].username}`}
-                />
-              </div>
-            ))}
-        </div>
-      </div>
+      {/* My Captures */}
+      <RenderCaptures captureConten={captured} title="My Captures" />
+      {/* Captured Me */}
+      <RenderCaptures captureConten={capturedMe} title="Captured Me"/>
     </div>
   );
 };

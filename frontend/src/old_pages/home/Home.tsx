@@ -1,29 +1,30 @@
 "use client";
+// import ComboMakerV2 from "../comboMakerV2/ComboMakerV2";
+// import Feed from "./components/Feed";
+// import ComboMakerBlueprintsvg from "../../data/ComboMakerBlueprintsvg";
+// const TricklistPage = dynamic(() => import("../tricklist/TricklistPage"));
 import React, { lazy, Suspense, useState } from "react";
-import Link from "next/link";
 import { FaClipboardList, FaQrcode } from "react-icons/fa";
+import Link from "next/link";
 import { BsClipboardCheck } from "react-icons/bs";
 import { useUserStore } from "../../store/userStore";
 import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
-// import ComboMakerV2 from "../comboMakerV2/ComboMakerV2";
 import useUserInfo from "../../api/useUserInfo";
 import { IoIosArrowBack, IoMdSearch } from "react-icons/io";
 import PublicHomePage from "./components/PublicHomePage";
-// import Feed from "./components/Feed";
 import { useSpring, animated } from "react-spring";
 import BiCube from "../../data/icons/BiCube";
-import ComboMakerBlueprintsvg from "../../data/ComboMakerBlueprintsvg";
 import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { trpc } from "utils/trpc";
 import AllTrickDisplay from "@old_pages/AllTrickDisplay";
 import UserList from "@components/UserList";
 import { AiOutlineUser } from "react-icons/ai";
-const ProfileCode = dynamic(() => import("../dash/components/ProfileCode"));
+const CapturesPage = dynamic(() => import("../dash/components/CapturesPage"));
 const ClaimTricks = dynamic(() => import("../claimtricks/ClaimTricks"));
-const TricklistPage = dynamic(() => import("../tricklist/TricklistPage"));
 function Home() {
-  const user = useUserStore((s) => s.userInfo?.username);
+  // const user = useUserStore((s) => s.userInfo?.username);
+  const { data } = trpc.userDB.findAll.useQuery();
   const { uuid } = useUserStore((s) => s.userInfo);
   const accessToken = useUserStore((s) => s.accessToken);
   const [atLocal, setATLocal] = useState(null);
@@ -39,7 +40,6 @@ function Home() {
   const [openTricklists, setOpenTricklists] = useState(false);
   const [openClaimtricks, setOpenClaimtricks] = useState(false);
   const [openComboMaker, setOpenComboMaker] = useState(false);
-  // console.log("uuid: ", uuid);
   const logoAnim = useSpring({
     to: { width: atLocal ? "50vw" : "100vw" },
   });
@@ -51,9 +51,8 @@ function Home() {
         className="flex h-screen w-screen flex-col place-items-center"
       >
         <div
-          className={`flex w-full  ${
-            atLocal ? "place-content-start" : "place-content-center"
-          } text-center text-zinc-200 xl:absolute xl:top-0`}
+          className={`flex w-full  ${atLocal ? "place-content-start" : "place-content-center"
+            } text-center text-zinc-200 xl:absolute xl:top-0`}
         >
           <animated.div
             style={{ ...logoAnim }}
@@ -108,36 +107,31 @@ function Home() {
                 </Link>
               </div>
             )}
-          <div className="flex w-[90vw] max-w-[700px] flex-col place-content-center">
+          <div className="flex w-[90vw] max-w-[600px] flex-col place-content-center">
             {!atLocal ? (
               <PublicHomePage />
             ) : (
               // LoggedIn
               <>
-                <div className="flex flex-grow-0 justify-around text-zinc-300">
-                  <div className="mb-4 grid w-full max-w-[600px] grid-cols-2 grid-rows-2 place-content-center place-items-center gap-4">
+              {/*Button Grid Container*/}
+                <div className="flex flex-grow-0 justify-around  text-zinc-300">
+                  <div className="grid w-[98%] grid-cols-2 grid-rows-2 place-content-center place-items-center gap-4">
                     {/* Captures */}
-                    {openCaptures ? (
-                      <div
-                        className={`${
-                          openCaptures ? "col-span-2 row-span-2" : ""
-                        }`}
-                      >
-                        <ProfileCode
-                          setProfileCodeOpen={setOpenCaptures}
-                          profileCodeOpen={openCaptures}
-                        />
-                      </div>
-                    ) : (
+                    {openCaptures ? ( <CapturesPage /> ) : (
                       !openTricklists &&
                       !openComboMaker &&
                       !openClaimtricks && (
-                        <div
-                          onClick={() => setOpenCaptures(!openCaptures)}
-                          className={`neumorphic active:neumorphicIn flex h-full w-full max-w-[600px] flex-col place-content-center   place-items-center rounded-lg bg-zinc-800 text-4xl `}
+                        <div className="neumorphic rounded-lg w-full h-full">
+                        <Link
+                          href="/captures"
+                          className={` active:neumorphicIn 
+                            flex flex-col place-content-center place-items-center 
+                            h-full w-full max-w-[600px] 
+                            rounded-lg bg-zinc-800 text-4xl `}
                         >
                           <FaQrcode className={"h-24"} />
                           <div className="text-lg font-bold">Capture</div>
+                        </Link>
                         </div>
                       )
                     )}
@@ -145,9 +139,8 @@ function Home() {
                     {/* Tricklists */}
                     {openTricklists ? (
                       <div
-                        className={`neumorphicIn relative top-0 my-2 flex max-h-[75vh] w-full max-w-[700px] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-800 pt-[3vh] ${
-                          openTricklists ? "col-span-2 row-span-2 my-0" : ""
-                        }`}
+                        className={`neumorphicIn relative top-0 my-2 flex max-h-[75vh] w-full max-w-[700px] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-800 pt-[3vh] ${openTricklists ? "col-span-2 row-span-2 my-0" : ""
+                          }`}
                       >
                         <IoIosArrowBack
                           className="absolute top-4 right-1 text-4xl"
@@ -173,9 +166,8 @@ function Home() {
 
                     {openClaimtricks ? (
                       <div
-                        className={`neumorphicIn relative my-2 flex max-w-[600px] flex-col place-items-center gap-2 rounded-xl bg-zinc-800 pt-[3vh] ${
-                          openClaimtricks ? "col-span-2 row-span-2" : ""
-                        }`}
+                        className={`neumorphicIn relative my-2 flex max-w-[600px] flex-col place-items-center gap-2 rounded-xl bg-zinc-800 pt-[3vh] ${openClaimtricks ? "col-span-2 row-span-2" : ""
+                          }`}
                       >
                         <IoIosArrowBack
                           className="absolute top-4 right-1 text-4xl"
@@ -199,9 +191,8 @@ function Home() {
                     {/* ComboMaker */}
                     {openComboMaker ? (
                       <div
-                        className={`neumorphicIn relative top-0 my-2 flex max-h-[75vh] w-full max-w-[700px] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-800 pt-[3vh] ${
-                          openComboMaker ? "col-span-2 row-span-2 my-0" : ""
-                        }`}
+                        className={`neumorphicIn relative top-0 my-2 flex max-h-[75vh] w-full max-w-[700px] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-800 pt-[3vh] ${openComboMaker ? "col-span-2 row-span-2 my-0" : ""
+                          }`}
                       >
                         <IoIosArrowBack
                           className="absolute top-4 right-1 text-4xl"
