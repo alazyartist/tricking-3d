@@ -108,7 +108,7 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
         {/* <div className='w-1/3 '>{d?.SessionSource?.vidsrc}</div> */}
         <div className="w-4/9 flex place-items-center gap-2">
           <div className="flex min-w-[22px] place-items-center  text-lg font-black">
-            {d?.ClipLabel?.pointValue.toFixed(2)}
+            {d?.ClipLabel?.pointValue?.toFixed(2)}
           </div>
           <div className="flex place-items-center rounded-md bg-zinc-900 bg-opacity-40 p-1 text-xs">
             <div className="min-w-[48px] rounded-md text-center text-zinc-300">
