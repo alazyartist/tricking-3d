@@ -27,7 +27,7 @@ interface Store {
   isPaused: boolean;
   isScrubbing: number; // 0: No, 1: Start, 2: End
   loop: boolean;
-  modelArray: ["Frank", "Kerwood", "Andrew", "Sam Caspio"];
+  modelArray: string[];
   backgroundArray: ["Torque", "BluesBackground", "JapanShrine", "The Void"];
   setModel: (value: string) => void;
   setBackground: (value: string) => void;
@@ -102,7 +102,7 @@ export const useStore = create<Store>(
     isPaused: false,
     isScrubbing: 0, // 0: No, 1: Start, 2: End
     loop: true,
-    modelArray: ["Frank", "Kerwood", "Andrew", "Sam Caspio"],
+    modelArray: ["Frank", "Kerwood", "Andrew", "Sam Caspio", "Ashley", "Adam"],
     backgroundArray: ["Torque", "BluesBackground", "JapanShrine", "The Void"],
     setModel: (value) => set(() => ({ activeModel: value })),
     setBackground: (value) => set(() => ({ activeBackground: value })),

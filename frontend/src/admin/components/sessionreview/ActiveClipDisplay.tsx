@@ -26,13 +26,14 @@ const ActiveClipDisplay = () => {
     config: { tension: 280, friction: 40 },
     // onRest: () => setOpenHamburger(!openHamburger),
   });
+
   useEffect(
     () => console.log(activeClipData, "activeClip"),
     [activeClipData, sessionData]
   );
   return (
     <animated.div
-      key={activeClipData?.sessionid + "details"}
+      key={activeClipData?.id + "details"}
       style={{ right: showDetails.right, opacity: showDetails.opacity }}
       className="absolute top-14 right-2 flex h-[92.5vh] w-[220px] flex-col gap-2 rounded-md rounded-r-none bg-zinc-900 bg-opacity-60 p-1 pl-6 font-inter text-xs text-zinc-300 "
     >
@@ -83,17 +84,7 @@ const ActiveClipDisplay = () => {
       </animated.span>
       <div className="flex flex-col">
         {sessionData?.map((e, i) => (
-          <div
-            key={sessionData[i].id + `${Math.random()}`}
-            className="flex gap-1"
-          >
-            <div
-              onClick={() => console.log(e)}
-              className="relative whitespace-nowrap p-1 transition delay-75 duration-[1400ms] ease-in-out hover:translate-x-[-100%] hover:bg-zinc-900"
-            >
-              {e.name}
-            </div>
-          </div>
+          <SessionDataDetailDislpay e={e} />
         ))}
       </div>
     </animated.div>
@@ -101,3 +92,38 @@ const ActiveClipDisplay = () => {
 };
 
 export default ActiveClipDisplay;
+
+const SessionDataDetailDislpay = ({ e }) => {
+  const clipData = useSessionSummariesStore((s) => s.clipData);
+  const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
+  const setClipComboRaw = useSessionSummariesStore((s) => s.setClipComboRaw);
+  const setClipData = useSessionSummariesStore((s) => s.setClipData);
+  const setSrcid = useSessionSummariesStore((s) => s.setSrcid);
+  const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
+  const removeSessionData = useSessionSummariesStore(
+    (s) => s.removeSessionData
+  );
+  const handleEdit = () => {
+    setClipData(e);
+    clearClipCombo();
+    setClipComboRaw(e.clipLabel);
+    removeSessionData(e);
+  };
+  return (
+    <div key={e.id + e.name} className="flex gap-1">
+      <div
+        onClick={() => console.log(e)}
+        className="over:bg-zinc-900 relative flex w-full place-content-center place-items-center justify-between whitespace-nowrap p-1"
+        // transition delay-75 duration-[1400ms] ease-in-out hover:translate-x-[-100%] h
+      >
+        <div className="no-scrollbar w-full overflow-y-scroll">{e.name}</div>
+        <button
+          className="rounded-md bg-zinc-800 p-1"
+          onClick={() => handleEdit()}
+        >
+          Edit
+        </button>
+      </div>
+    </div>
+  );
+};

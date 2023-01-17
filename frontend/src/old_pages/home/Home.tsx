@@ -43,6 +43,7 @@ function Home() {
   const logoAnim = useSpring({
     to: { width: atLocal ? "50vw" : "100vw" },
   });
+
   return (
     <div className="no-scrollbar stick h-[100vh] w-full overflow-y-scroll md:pt-[15vh] ">
       <div
@@ -61,15 +62,8 @@ function Home() {
             <TrickedexLogo className={`-m-2px flex fill-zinc-300`} />
           </animated.div>
         </div>
-        {/* Display all users
-        <div className="bg-zinc-800 p-1 text-zinc-300">
-          {data &&
-            data.map((us) => {
-              us.username;
-            })}
-        </div>
-        */}
-        <div className="rounded-xl bg-zinc-800 bg-opacity-40 p-2">
+
+        <div className="rounded-xl bg-zinc-800 bg-opacity-40 py-2">
           {!openCaptures &&
             !openComboMaker &&
             !openClaimtricks &&

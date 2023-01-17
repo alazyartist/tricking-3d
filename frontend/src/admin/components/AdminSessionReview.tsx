@@ -27,8 +27,11 @@ const AdminSessionReview = () => {
   );
   const sessionDetails = data?.data;
   useEffect(() => {
-    setSessionid(sessionid as string);
     clearSessionData();
+  }, []);
+  useEffect(() => {
+    clearSessionData();
+    setSessionid(sessionid as string);
     sessionDetails?.SessionData?.forEach((sd) => {
       console.log("sd");
       console.log(sd);
@@ -75,7 +78,7 @@ const AdminSessionReview = () => {
               />
             ))}
           </div>
-          <div className="absolute left-2 top-0 w-[135px]">
+          <div className="fo absolute left-2 top-0 w-[135px] font-inter">
             <SessionDetailDisplay
               mirrored={mirrored}
               toggleMirrored={toggleMirrored}

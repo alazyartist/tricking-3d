@@ -34,10 +34,10 @@ const corsOptions = {
 };
 app.use(
 	"/api/webhooks",
-	express.raw({ type: "application/json" }),
+	express.raw({ type: "application/json", limit: "200mb" }),
 	webhookRoutes
 );
-app.use(cors(corsOptions), express.json(), cookieParser());
+app.use(cors(corsOptions), express.json({ limit: "200mb" }), cookieParser());
 //Maybe dont need this. Still unsure. Keep for now
 app.use((req, res, next) => {
 	res.header("Access-Control-Allow-Credentials", true);

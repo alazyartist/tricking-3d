@@ -12,6 +12,7 @@ const UserList = () => {
         {users &&
           users.map((user) => (
             <Link
+              key={user.uuid}
               href={`/userProfile/${user.uuid}`}
               className="flex justify-between rounded-md bg-zinc-900 p-1"
             >

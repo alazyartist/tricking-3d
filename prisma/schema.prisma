@@ -353,8 +353,8 @@ model users {
   adminAccess                          Int?
   TotalPoints                          Float?     @db.Float
   SessionReviewCredits                 Int?
-  captures_captures_user_idTousers     captures[] @relation("captures_user_idTousers")
-  captures_captures_captured_idTousers captures[] @relation("captures_captured_idTousers")
+  captures     captures[] @relation("captures_user_idTousers")
+  captured_me captures[] @relation("captures_captured_idTousers")
   SessionSummaries      user_sessions[]
   @@index([uuid])
 }

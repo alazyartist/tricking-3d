@@ -207,10 +207,10 @@ export const saveSessionDetails = async (req, res) => {
 				}
 			} catch (err) {
 				console.log(err);
-				res.send(err);
+				// res.send(err);
 			}
 		});
-		res.send("SavedSessionDetails");
+		// res.send("SavedSessionDetails");
 	} catch (err) {
 		console.log(err);
 		res.status(501).send(err);

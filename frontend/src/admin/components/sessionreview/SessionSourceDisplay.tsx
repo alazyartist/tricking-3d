@@ -186,6 +186,7 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
   const setClipComboRaw = useSessionSummariesStore((s) => s.setClipComboRaw);
   const setClipData = useSessionSummariesStore((s) => s.setClipData);
   const setSrcid = useSessionSummariesStore((s) => s.setSrcid);
+  const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
   const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
 
   const removeSessionData = useSessionSummariesStore(
@@ -193,29 +194,31 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
   );
   useEffect(() => {
     setSrcid(source?.srcid);
+    console.log("source", source);
   }, [source, vidsrc]);
   let w = `${(
     ((parseInt(e.endTime) - parseInt(e.startTime)) / parseInt(duration)) *
     100
   ).toFixed(2)}%`;
   let l = `${((parseInt(e.startTime) / parseInt(duration)) * 100).toFixed(0)}%`;
+
   return (
     <>
       {seeDetails && (
         <div
           style={{ width: "fit", left: l }}
-          key={`${e.trick_id}detaildropdown`}
-          className="absolute top-[20px] flex rounded bg-zinc-900 bg-opacity-40 p-2"
+          key={`${e.trick_id} detaildropdown`}
+          className="absolute top-[-24px] flex rounded bg-zinc-900 bg-opacity-40 p-2"
         >
           <div className="flex h-full flex-col gap-1 text-sm">
             <div className=" ">{e.name}</div>
-            <div className="flex justify-between">
+            {/* <div className="flex justify-between">
               <div className="bg-emerald-300 p-1 text-zinc-800 ">
                 {e.startTime}
               </div>
               <div className="bg-red-300 p-1 text-zinc-800 ">{e.endTime}</div>
-            </div>
-            <div className=" ">{e.admin}</div>
+            </div> */}
+            {/* <div className=" ">{e.admin}</div> */}
           </div>
           {/* <div className=' '>{e.takeoffStance}</div>
 					<div className=' '>{e.landingStance}</div>
@@ -225,11 +228,13 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
       <div
         key={`${e.id}+${Math.random()}`}
         onClick={() => {
-          setSrcid(source.srcid);
-          setClipData(e);
-          clearClipCombo();
-          setClipComboRaw(e.clipLabel);
-          removeSessionData(e);
+          // setSrcid(source.srcid);
+          // setClipData(e);
+          // clearClipCombo();
+          // setClipComboRaw(e.clipLabel);
+          // removeSessionData(e);
+          console.log(e.startTime);
+          setSeekTime(e.startTime);
         }}
         onMouseOver={() => setSeeDetails(true)}
         onMouseLeave={() => setSeeDetails(false)}
