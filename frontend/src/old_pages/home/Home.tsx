@@ -127,7 +127,7 @@ function Home() {
                       !openTricklists &&
                       !openComboMaker &&
                       !openClaimtricks && (
-                        <div className="neumorphic rounded-lg border-2 border-red-600 w-full h-full">
+                        <div className="neumorphic rounded-lg w-full h-full">
                         <Link
                           href="/captures"
                           className={` active:neumorphicIn 

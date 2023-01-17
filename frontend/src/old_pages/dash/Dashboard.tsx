@@ -31,7 +31,16 @@ function Dashboard() {
               : "./images/noimg.jpeg"
           }
         />
+      <div 
+        className="
+          p-4 m-auto
+          max-h-[83vh] w-[98vw] max-w-[600px]
+          bg-opacity-30 rounded-xl
+          bg-zinc-900 
+        "
+      >
         <Captures />
+        </div>
       </>
       {/* {trickData && <RadarChart data={trickData} />} */}
       <UserList />

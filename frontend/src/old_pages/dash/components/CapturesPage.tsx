@@ -2,9 +2,9 @@ import { active } from "d3";
 import React, { useEffect, useState } from "react";
 import { MdOutlineQrCode2, MdQrCodeScanner, MdDonutSmall } from "../../../data/icons/MdIcons";
 import { TrickedexLogo } from "../../../data/icons/TrickedexLogo";
+import Captures from "./Captures";
 import QRGenerator from "./QRGenerator";
 import QRReader from "./QRReader";
-import Captures from "./Captures";
 
 const CapturesPage: React.FC<any> = () => {
   const [activeView, setActiveView] = useState("Capture");
@@ -14,20 +14,20 @@ const CapturesPage: React.FC<any> = () => {
 
 
   const ContentTab = (props) => {
-    let style = "flex flex-col flex-1 place-items-center p-1 rounded-lg border-zinc-500 text-zinc-400"
+    let style = " flex flex-col flex-1 place-items-center p-1 rounded-lg border-zinc-500 text-zinc-300"
     if (activeView == props.view) style = style + " border-b-4"
     switch (props.view) {
       case "Capture": style = style + " bg-zinc-600"; break;
       case "QR":      style = style + " bg-zinc-800"; break;
-      case "Scan":    style = style + " bg-red-700";  break;
+      case "Scan":    style = style + " bg-zinc-700";  break;
     }
     return <>
       <button
         className={`${style} $`}
         onClick={() => { setActiveView(props.view) }}
       >
-        {props.view == "QR" && <MdDonutSmall className="h-5 w-5" />}
-        {props.view == "Capture" && <MdOutlineQrCode2 className="h-5 w-5" />}
+        {props.view == "QR" && <MdOutlineQrCode2 className="h-5 w-5" />}
+        {props.view == "Capture" && <MdDonutSmall className="h-5 w-5" />}
         {props.view == "Scan" && <MdQrCodeScanner className="h-5 w-5" />}
         <div className="text-xs">{props.view}</div>
       </button>
@@ -37,7 +37,7 @@ const CapturesPage: React.FC<any> = () => {
   return (
     <>
       <div className="max-w-[50vw]">
-        <TrickedexLogo className={`-m-2px flex fill-red-900`} />
+        <TrickedexLogo className={`-m-2px flex fill-zinc-400`} />
       </div>
 
       {/* Set the general style for the page*/}
@@ -45,21 +45,27 @@ const CapturesPage: React.FC<any> = () => {
         className="
           neumorphicIn p-2 m-auto
           max-h-[83vh] w-[98vw] max-w-[600px]
-          flex flex-col place-items-center 
-          bg-opacity-20 rounded-xl
-          bg-zinc-300 
-          border-[4px] border-red-900
+          bg-opacity-30 rounded-xl
+          bg-zinc-900 
+          border-[4px] border-zinc-600
         "
       >
 
         {/* Display Content Tabs */}
-        <div className="w-full p-2">
-          <div className={'flex place-content-center place-items-center gap-4'}>
+        <div 
+          className="
+            max-w-full
+            max-h-[80vh]
+            flex flex-col place-items-center
+            w-full p-2
+            overflow-y-auto
+          ">
+          <div className={'w-full flex place-content-center place-items-center gap-4'}>
             <ContentTab view="Capture" />
             <ContentTab view="QR" />
             <ContentTab view="Scan" />
           </div>
-          <div className="flex flex-col place-content-center place-items-center">
+          <div className=" w-full">
 
             {/* Display Currently Selected View */}
             {activeView === "Capture" && <Captures/>}

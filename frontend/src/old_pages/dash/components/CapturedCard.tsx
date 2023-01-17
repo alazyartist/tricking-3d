@@ -8,6 +8,7 @@ const CapturedCard = ({ name, src, username }) => {
 		<div className='
 			flex flex-col place-items-center 
 			bg-zinc-800
+			p-2 pt-3 gap-2
 			w-[25vw] 
 			border-zinc-900 border-b-4
 			rounded-lg
@@ -15,10 +16,10 @@ const CapturedCard = ({ name, src, username }) => {
 		'>
 
 			{/* Profile Icon */}
-			<img src={src} className=' h-12 w-12 rounded-full mt-2 lg:h-20 lg:w-20' />
+			<img src={src} className=' h-12 w-12 rounded-full lg:h-20 lg:w-20' />
 
 			{/* Display Name */}
-			<div className='flex align-middle text-xs mb-2'>{displayName ? name : username}</div>
+			<div className=' tracking-wider flex align-middle text-xs'>{displayName ? name : username}</div>
 
 		</div>
 	);

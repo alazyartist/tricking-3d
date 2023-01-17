@@ -11,10 +11,8 @@ const Captures = () => {
   const userInfo = useUserStore((s) => s.userInfo);
   const nav = useRouter();
   useEffect(() => {
-    //setCaptured(userInfo.Captured)
-    //setCapturedMe(userInfo.CapturedMe);
-    setCaptured([userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1], userInfo.Captured[0], userInfo.Captured[1]]);
-    setCapturedMe(captured)
+    setCaptured(userInfo.Captured)
+    setCapturedMe(userInfo.CapturedMe)
   }, [userInfo]);
 
   const RenderCaptures = (props) => {
@@ -22,23 +20,19 @@ const Captures = () => {
     const captureContent = props.captureConten
     let captureTitle = props.title
     return <>
-    {/* Bottom Border */}
       <div id="myCaptures"
         className={`
-          ${captureContent === captured ? "bg-red-500 text-cyan-300" : "text-teal-200"}
-          w-full h-full 
-          bg-zinc-800 bg-opacity-40
+          ${captureContent === captured ? "text-cyan-300" : "text-teal-200"}
+          w-full max-h-[60vh] 
+          mt-4
+          bg-zinc-400 bg-opacity-30
           rounded-lg
-          border-b-4 border-zinc-900
+          border-b-[7.5px] border-zinc-900
         `}>
 
         {/* Container Header */}
         <div 
-          className={`${captureContent === captured ? "text-cyan-300" : "text-teal-200"} 
-            bg-zinc-800 pl-2 p-1
-            border-2 border-t-lg border-zinc-800
-            rounded-t
-            `}
+          className={` font-bold text-xl bg-zinc-800 pl-2 p-1 rounded-t-lg`}
           onClick={() => setCaptureGrid(!captureGrid)} >
           {captureTitle}
         </div>
@@ -47,10 +41,10 @@ const Captures = () => {
         <div 
           className={`
             ${captureGrid ? " flex flex-row" : " grid grid-cols-3"} 
-            max-h-[50vh] 
-            overflow-x-auto
+            max-h-[50vh]
+            overflow-auto
             gap-2
-            m-2
+            p-2
           `}>
           {!!captureContent &&
             Object.keys(captureContent).map((key) => (
@@ -79,7 +73,7 @@ const Captures = () => {
   return (
     <div
       id="captureContainer"
-      className="w-full pt-4 flex flex-col gap-4 place-items-center font-inter"
+      className=" w-full"
     >
       {/* My Captures */}
       <RenderCaptures captureConten={captured} title="My Captures" />
