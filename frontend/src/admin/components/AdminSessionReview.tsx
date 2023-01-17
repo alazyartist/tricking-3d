@@ -78,7 +78,7 @@ const AdminSessionReview = () => {
               />
             ))}
           </div>
-          <div className="absolute left-2 top-0 w-[135px]">
+          <div className="fo absolute left-2 top-0 w-[135px] font-inter">
             <SessionDetailDisplay
               mirrored={mirrored}
               toggleMirrored={toggleMirrored}
