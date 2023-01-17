@@ -65,7 +65,7 @@ const CapturesPage: React.FC<any> = () => {
             <ContentTab view="QR" />
             <ContentTab view="Scan" />
           </div>
-          <div className=" w-full">
+          <div className="w-full">
 
             {/* Display Currently Selected View */}
             {activeView === "Capture" && <Captures/>}

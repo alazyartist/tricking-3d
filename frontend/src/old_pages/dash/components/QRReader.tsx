@@ -36,63 +36,66 @@ const QRReader = () => {
       console.log(capturedUserInfo);
       // result.text &&
       // 	location.pathname.includes("/home") &&
-      {(QRDataResponse !== "Capture Valid User" && (
-        setTimeout(() => {
-        nav.push(`/userProfile/${QRData}`)
-        },2222)
-      ))}
+      {
+        (QRDataResponse !== "Capture Valid User" && (
+          setTimeout(() => {
+            nav.push(`/userProfile/${QRData}`)
+          }, 2222)
+        ))
+      }
     }
   };
-  const ViewFinderComp = () => (
-    <div className="border-2 border-dashed border-blue-400"></div>
-  );
   return (
-    <div className="mt-4">
-      <QrReader
-        onResult={(result, err) => handleResult(result, err)}
-        //@ts-ignore
-        style={{ width: "325px", height: "325px" }}
-        videoId={"video"}
-        constraints={{ facingMode: "environment", aspectRatio: 1 }}
-        videoStyle={{
-          borderColor: "#3f3f46",
-          borderRadius: "30px",
-          borderWidth: "0px",
-          width: "70vw",
-          height: "70vw",
-        }}
-        videoContainerStyle={{
-          width: "70vw",
-          height: "70vw",
-        }}
-      />
+    <div className="w-full">
+      <div className="mt-8">
+        <QrReader
+          //ViewFinder={()=>(<div className="border-2 h-20 w-20 z-[100] border-red-300"></div>)}
+          onResult={(result, err) => handleResult(result, err)}
+          //@ts-ignore
+          style={{ width: "325px", height: "325px" }}
+          videoId={"video"}
+          constraints={{ facingMode: "environment", aspectRatio: 1 }}
+          videoStyle={{
+            borderColor: "#3f3f46",
+            borderRadius: "30px",
+            borderWidth: "0px",
+            width: "70vw",
+            height: "70vw",
+          }}
+          videoContainerStyle={{
+            margin: "auto",
+            width: "70vw",
+            height: "70vw",
+          }}
+        />
 
-      <div className="text-center font-inter text-xl font-bold">
-        {(QRDataResponse !== "Capture Valid User" && (
-          <>
-            {addCaptureSuccessAnim(
-              (styles, valid) =>
-              valid && (
-              <animated.div className={"flex bg-emerald-600 rounded-md place-item-center absolute top-0 left-0 w-full"} style={styles}>
-                <div className="p-2 py-5 w-full">{`You Captured ${QRDataResponse}`}</div>
-                {/*
-                <button
-                  className="rounded-lg bg-zinc-700 p-1 text-sm"
-                  // onClick={() => nav.push(`/userProfile/${QRData}`)}
-                >
-                  View Profile
-                </button>
-                */}
-              </animated.div>
-              )
-            )}
-          </>
-        )) || <div>"Capture Valid User"</div>}
-        {/* Used to test valid capture 
-        <div className="bg-red-500">
-          <button onClick={() => {setAddedCapture(!addedCapture); setTimeout(()=>{nav.push('/')},1500)}}>VALIDATE</button>
+        <div className="text-center font-inter text-xl font-bold">
+          {(QRDataResponse !== "Capture Valid User" && (
+            <>
+              {addCaptureSuccessAnim(
+                (styles, valid) =>
+                  valid && (
+                    <animated.div className={"flex bg-emerald-600 rounded-md place-item-center absolute top-0 left-0 w-full"} style={styles}>
+                      <div className="p-2 py-5 w-full">{`You Captured ${QRDataResponse}`}</div>
+                      {/*
+                  <button
+                    className="rounded-lg bg-zinc-700 p-1 text-sm"
+                    // onClick={() => nav.push(`/userProfile/${QRData}`)}
+                  >
+                    View Profile
+                  </button>
+                  */}
+                    </animated.div>
+                  )
+              )}
+            </>
+          )) || <div>"Capture Valid User"</div>}
+          {/* Used to test valid capture 
+          <div className="bg-red-500">
+            <button onClick={() => {setAddedCapture(!addedCapture); setTimeout(()=>{nav.push('/')},1500)}}>VALIDATE</button>
+          </div>
+          */}
         </div>
-        */}
       </div>
     </div>
   );
