@@ -74,7 +74,7 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
 
   useEffect(() => {
     if (Math.floor(currentTime) === Math.floor(d.clipEnd) && loopMe) {
-      console.log(d.clipStart);
+      console.log(d);
       setSeekTime(0);
       setSeekTime(Math.floor(d.clipStart));
     }
@@ -104,6 +104,14 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
           {showTrickLongForm
             ? d?.ClipLabel?.name
             : d?.ClipLabel?.shorthand ?? d.ClipLabel?.name}
+        </div>
+        <div className="flex gap-1">
+          {d.ClipLabel.comboArray.map((trick) => (
+            <div>
+              <div>{trick.name}</div>
+              <div>{trick.pointValue}</div>
+            </div>
+          ))}
         </div>
         {/* <div className='w-1/3 '>{d?.SessionSource?.vidsrc}</div> */}
         <div className="w-4/9 flex place-items-center gap-2">
