@@ -215,24 +215,51 @@ export const getTrickPointsValue = async (req, res) => {
 		await allCombos?.map(async (c) => {
 			//going through comboArray
 			let newComboArr = await c.comboArray?.map(async (t) => {
-				let updatedTrick = await tricks
-					.findOne({
-						where: { name: t?.name },
-					})
-					.catch((err) => console.log(err));
-				let resolvedTrick = await Promise.resolve(updatedTrick);
-				return resolvedTrick?.dataValues;
+				// console.log(t);
+				if (!t?.type) {
+					console.log("no", t);
+					return;
+				}
+				if (t.type === "Trick") {
+					let updatedTrick = await tricks
+						.findOne({
+							where: { trick_id: t?.trick_id },
+						})
+						.catch((err) => console.log(err));
+					let resolvedTrick = await Promise.resolve(updatedTrick);
+					return resolvedTrick?.dataValues;
+				}
+				if (t.type === "Transition") {
+					let updatedTransition = await transitions
+						.findOne({
+							where: { name: t?.name },
+						})
+						.catch((err) => console.log(err));
+					let resolvedTransition = await Promise.resolve(updatedTransition);
+					return resolvedTransition?.dataValues;
+				}
+				if (t.type === "Stance") {
+					let updatedStance = await stances
+						.findOne({
+							where: { name: t?.name },
+						})
+						.catch((err) => console.log(err));
+					let resolvedStance = await Promise.resolve(updatedStance);
+					return resolvedStance?.dataValues;
+				}
 			});
 			if (newComboArr) {
 				let resolvedComboArr = await Promise.all(newComboArr);
+				// console.log(resolvedComboArr);
 				let comboToUpdate = await combos
 					.findOne({
 						where: { combo_id: c.combo_id },
 					})
 					.catch((err) => console.log(err));
 				await comboToUpdate
-					.update({ comboArr: resolvedComboArr })
+					.update({ comboArray: resolvedComboArr })
 					.catch((err) => console.log(err));
+				// console.log(comboToUpdate.dataValues);
 				let comboPV = resolvedComboArr.reduce(
 					(sum, cur) => sum + (cur?.pointValue || 0),
 					0
@@ -240,8 +267,8 @@ export const getTrickPointsValue = async (req, res) => {
 				await comboToUpdate
 					.update({ pointValue: comboPV })
 					.catch((err) => console.log(err));
+				// console.log(resolvedComboArr, c.name, c.combo_id, comboToUpdate);
 			}
-			// console.log(resolvedComboArr, c.name, c.combo_id, comboToUpdate);
 		});
 		//local query
 		// const points = await db.sequelize.query(

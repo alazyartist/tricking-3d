@@ -106,12 +106,15 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
             : d?.ClipLabel?.shorthand ?? d.ClipLabel?.name}
         </div>
         <div className="flex gap-1">
-          {d.ClipLabel.comboArray.map((trick) => (
-            <div>
-              <div>{trick.name}</div>
-              <div>{trick.pointValue}</div>
-            </div>
-          ))}
+          {d.ClipLabel.comboArray.map((trick) => {
+            console.log(trick);
+            return (
+              <div>
+                <div>{trick.name}</div>
+                <div>{trick.pointValue}</div>
+              </div>
+            );
+          })}
         </div>
         {/* <div className='w-1/3 '>{d?.SessionSource?.vidsrc}</div> */}
         <div className="w-4/9 flex place-items-center gap-2">
