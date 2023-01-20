@@ -1,8 +1,10 @@
 import { useSessionSummariesStore } from "@admin/components/sessionreview/SessionSummaryStore";
 import UpdateComboShorthand from "@components/UpdateComboShorthand";
+import Combodex from "@old_pages/combodex/Combodex";
 import useIsAdmin from "hooks/useIsAdmin";
 import React, { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
+import { IoIosWalk } from "react-icons/io";
 
 const ProfileSessionInfo = ({ summary }) => {
   const isAdmin = useIsAdmin();
@@ -71,10 +73,10 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
   const setClipComboRaw = useSessionSummariesStore((s) => s.setClipComboRaw);
   const [shorthandOpen, setShorthandOpen] = useState(false);
   const [loopMe, setLoopMe] = useState(false);
-
+  const [combodexopen, setCombodexopen] = useState(false);
+  const [combodetailsopen, setCombodetailsopen] = useState(false);
   useEffect(() => {
     if (Math.floor(currentTime) === Math.floor(d.clipEnd) && loopMe) {
-      console.log(d);
       setSeekTime(0);
       setSeekTime(Math.floor(d.clipStart));
     }
@@ -91,37 +93,32 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
     setClipComboRaw(d.ClipLabel.comboArray);
     setSeekTime(d.clipStart);
     setLoopMe((prev) => !prev);
+    setCombodetailsopen((prev) => !prev);
   };
   return (
     <>
       <div
-        className="flex place-items-center justify-between rounded-md bg-zinc-900 bg-opacity-90 p-1 text-sm text-zinc-300 md:text-inherit"
+        className="flex w-full flex-col place-items-center justify-between rounded-md bg-zinc-900 bg-opacity-90 p-1 text-sm text-zinc-300 md:text-inherit"
         onClick={() =>
           editShorthand ? setShorthandOpen(!shorthandOpen) : handleClick()
         }
       >
-        <div className="no-scrollbar w-[164px] overflow-x-scroll whitespace-nowrap p-1 text-[12px] md:w-1/3">
-          {showTrickLongForm
-            ? d?.ClipLabel?.name
-            : d?.ClipLabel?.shorthand ?? d.ClipLabel?.name}
-        </div>
-        <div className="flex gap-1">
-          {d.ClipLabel.comboArray.map((trick) => {
-            console.log(trick);
-            return (
-              <div>
-                <div>{trick.name}</div>
-                <div>{trick.pointValue}</div>
-              </div>
-            );
-          })}
-        </div>
-        {/* <div className='w-1/3 '>{d?.SessionSource?.vidsrc}</div> */}
-        <div className="w-4/9 flex place-items-center gap-2">
-          <div className="flex min-w-[22px] place-items-center  text-lg font-black">
-            {d?.ClipLabel?.pointValue?.toFixed(2)}
+        <div className="flex w-full place-items-center justify-between p-1 text-sm text-zinc-300 md:text-inherit">
+          <div className="no-scrollbar w-[164px] overflow-x-scroll whitespace-nowrap p-1 text-[12px] md:w-1/3">
+            {showTrickLongForm ? (
+              <ComboNameDisplay
+                setCombodexopen={setCombodexopen}
+                combo={d.ClipLabel}
+              />
+            ) : (
+              d?.ClipLabel?.shorthand ?? d.ClipLabel?.name
+            )}
           </div>
-          <div className="flex place-items-center rounded-md bg-zinc-900 bg-opacity-40 p-1 text-xs">
+          <div className="w-4/9 flex place-items-center gap-2">
+            <div className="flex min-w-[22px] place-items-center  text-lg font-black">
+              {d?.ClipLabel?.pointValue?.toFixed(2)}
+            </div>
+            {/* <div className="flex place-items-center rounded-md bg-zinc-900 bg-opacity-40 p-1 text-xs">
             <div className="min-w-[48px] rounded-md text-center text-zinc-300">
               {d?.clipStart}
             </div>
@@ -130,12 +127,65 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
             <div className="min-w-[48px] rounded-md  text-center text-zinc-300">
               {d?.clipEnd}
             </div>
+          </div> */}
           </div>
         </div>
+        {combodetailsopen && (
+          <ComboDetailsDisplay
+            setCombodexopen={setCombodexopen}
+            combo={d.ClipLabel}
+          />
+        )}
       </div>
       {shorthandOpen && (
         <UpdateComboShorthand setShorthandOpen={setShorthandOpen} combo={d} />
       )}
+      {combodexopen && (
+        <Combodex combo={d.ClipLabel} setCombodexopen={setCombodexopen} />
+      )}
     </>
+  );
+};
+
+const ComboNameDisplay = ({ combo, setCombodexopen }) => {
+  return (
+    <div className="flex w-full gap-0">
+      {combo.comboArray?.map((t, i) => {
+        return (
+          <div className="flex place-items-center">
+            <span
+              className={`p-1 ${t.type === "Transition" ? "text-[8px]" : ""} `}
+            >{`${t.name} `}</span>
+            <span>{`${combo.comboArray?.length !== i && ">"}`}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export const ComboDetailsDisplay: React.FC<any> = ({
+  combo,
+  setCombodexopen,
+}) => {
+  return (
+    <div
+      onClick={() => setCombodexopen(true)}
+      className="no-scrollbar flex w-full gap-1 overflow-y-scroll pb-1 pl-1"
+    >
+      {combo.comboArray.map((trick) => {
+        return (
+          <div className="flex flex-col place-items-center gap-1 rounded-md bg-zinc-200 bg-opacity-20 p-1">
+            <div>{trick.name}</div>
+            <div className="flex place-content-center place-items-center gap-2">
+              <div>{trick.pointValue}</div>
+              {trick.defaultAnimation && (
+                <IoIosWalk className="text-emerald-500" />
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
   );
 };
