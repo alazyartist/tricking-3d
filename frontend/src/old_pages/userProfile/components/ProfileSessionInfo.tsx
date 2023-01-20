@@ -177,6 +177,7 @@ export const ComboDetailsDisplay: React.FC<any> = ({
         return (
           <div className="flex flex-col place-items-center gap-1 rounded-md bg-zinc-200 bg-opacity-20 p-1">
             <div>{trick.name}</div>
+            <div className="text-[8px]">{trick.type}</div>
             <div className="flex place-content-center place-items-center gap-2">
               <div>{trick.pointValue}</div>
               {trick.defaultAnimation && (

@@ -3,10 +3,12 @@ import { router } from "../trpc";
 import { authRouter } from "./auth";
 import { sessionsummariesRouter } from "./sessionsummaries";
 import { userRouter } from "./user";
+import { tricksRouter } from "./trick";
 
 export const appRouter = router({
   auth: authRouter,
   userDB: userRouter,
+  trick: tricksRouter,
   sessionsummaries: sessionsummariesRouter,
 });
 
