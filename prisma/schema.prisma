@@ -315,7 +315,7 @@ model tricks {
   landingStance    String? @db.VarChar(255)
   defaultAnimation String? @db.Char(36)
   pointValue       Float?  @db.Float
-  bases            bases?  @relation(fields: [base_id], references: [base_id], onDelete: Restrict, onUpdate: Restrict, map: "tricks_ibfk_1")
+  base            bases?  @relation(fields: [base_id], references: [base_id], onDelete: Restrict, onUpdate: Restrict, map: "tricks_ibfk_1")
   variations   trick_variations[]
 
   @@index([base_id], map: "base_id")
