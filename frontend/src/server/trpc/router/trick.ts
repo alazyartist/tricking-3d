@@ -15,7 +15,7 @@ export const tricksRouter = router({
           let td = await ctx.prisma.tricks.findUnique({
             where: { trick_id: trick.trick_id },
             include: {
-              bases: true,
+              base: true,
               variations: { include: { variation: true } },
             },
           });
