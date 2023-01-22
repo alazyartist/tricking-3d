@@ -29,7 +29,7 @@ const ComboExecutionSlider = ({ executionScore, setExecutionScore }) => {
     <div className="grid min-h-[120px] grid-cols-2 place-items-center">
       <animated.div
         className={
-          " z-[-1] flex h-fit w-full place-content-center place-items-center"
+          " z-[-1] flex h-fit w-fit place-content-center place-items-center overflow-visible"
         }
         style={{ scale: executionScore * 5 }}
       >
