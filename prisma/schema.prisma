@@ -218,14 +218,14 @@ model sessiondata {
 }
 model sessiondatascores {
   id Int @id @default(autoincrement())
-  sessiondataid String @unique @db.Char(36)
+  sessiondataid String @db.Char(36)
   sessiondata sessiondata @relation(fields: [sessiondataid],references: [id])
   userid String @db.Char(36)
   user users @relation(fields: [userid],references: [uuid])
   executionScore Float
 
 
-@@unique([userid,sessiondataid])
+@@unique([userid,sessiondataid],map:"userid:sessiondataid")
 }
 
 model sessionsources {

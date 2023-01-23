@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDrag } from "@use-gesture/react";
 import { useSpring, animated } from "react-spring";
-const ComboExecutionSlider = ({ executionScore, setExecutionScore }) => {
+import { trpc } from "utils/trpc";
+import { useUserStore } from "@store/userStore";
+const ComboExecutionSlider = ({
+  executionScore,
+  setExecutionScore,
+  sessionData,
+}) => {
   // Local Functions>>>
   let drag_offset_limit = 70;
+  const userInfo = useUserStore((s) => s.userInfo);
   const [{ x, y }, api] = useSpring(() => ({ x: 0, y: 0 }));
-
+  const { mutateAsync: updateExecutionScore } =
+    trpc.sessionsummaries.updateExecutionScore.useMutation();
   const clamp = (num: number, min: number, max: number) =>
     Math.min(Math.max(num, min), max);
   const lerp = (start: number, end: number, amt: number) =>
@@ -21,10 +29,22 @@ const ComboExecutionSlider = ({ executionScore, setExecutionScore }) => {
           lerp(0.1, 1, (mx + drag_offset_limit) / (drag_offset_limit * 2))
         );
       }
+      if (last) {
+        updateExecutionScore({
+          userid: userInfo.uuid as string,
+          sessiondataid: sessionData.id,
+          executionScore,
+        });
+      }
 
       api.start({ x: down ? mx : 0, y: down ? my : 0, immediate: down });
     }
   );
+  // useEffect(() => {
+  //   setTimeout(
+  //     () => console.log("i reran", last),
+  //   );
+  // }, [executionScore]);
   return (
     <div className="grid min-h-[120px] grid-cols-2 place-items-center">
       <animated.div

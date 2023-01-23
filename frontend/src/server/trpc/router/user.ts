@@ -13,7 +13,7 @@ export const userRouter = router({
         captures: true,
       },
     });
-    console.log(users);
+    // console.log(users);
     return { users };
   }),
 });

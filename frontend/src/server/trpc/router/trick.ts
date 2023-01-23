@@ -4,7 +4,7 @@ import { z } from "zod";
 export const tricksRouter = router({
   findAll: publicProcedure.query(async ({ input, ctx }) => {
     const tricks = await ctx.prisma.tricks.findMany({});
-    console.log(tricks);
+    // console.log(tricks);
     return { tricks };
   }),
   findMultipleById: publicProcedure
@@ -29,7 +29,7 @@ export const tricksRouter = router({
         }
       });
       await Promise.all(newData);
-      console.log(newData);
+      // console.log(newData);
       return Promise.all(newData);
     }),
 });

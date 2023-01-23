@@ -19,11 +19,44 @@ export const sessionsummariesRouter = router({
       const SessionData = await ctx.prisma.sessiondata.findMany({
         where: { sessionid: input.sessionid },
       });
-      console.log(sessionSummary, SessionSources, SessionData);
       return {
         SessionData,
         SessionSources,
         ...sessionSummary,
       };
+    }),
+  updateExecutionScore: publicProcedure
+    .input(
+      z.object({
+        userid: z.string(),
+        sessiondataid: z.string(),
+        executionScore: z.number(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      let { userid, sessiondataid, executionScore } = input;
+      const updatedScore = await ctx.prisma.sessiondatascores.upsert({
+        where: {
+          userid_sessiondataid: {
+            sessiondataid: sessiondataid,
+            userid: userid,
+          },
+        },
+        update: { executionScore: executionScore },
+        create: {
+          userid: userid,
+          sessiondataid: sessiondataid,
+          executionScore: executionScore,
+        },
+      });
+      return updatedScore;
+    }),
+  getSessionDataScores: publicProcedure
+    .input(z.object({ sessiondataid: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const sessionDataScores = await ctx.prisma.sessiondatascores.findMany({
+        where: { sessiondataid: input.sessiondataid },
+      });
+      return sessionDataScores;
     }),
 });

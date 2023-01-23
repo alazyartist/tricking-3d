@@ -24,12 +24,19 @@ const Combodex: React.FC<CombodexProps> = ({
   useEffect(() => {
     console.log("combodex sd", sessionData);
   }, []);
+  const { data: sessiondatascores } =
+    trpc.sessionsummaries.getSessionDataScores.useQuery({
+      sessiondataid: sessionData.id,
+    });
   const { data: tricks } = trpc.trick.findMultipleById.useQuery(
     combo.comboArray
   );
   const [executionScore, setExecutionScore] = useState(0.1);
   const [creativityScore, setCreativityScore] = useState(0);
   const [countTotal, setCount] = useState({});
+  let executionAverage =
+    sessiondatascores?.reduce((sum, b) => sum + b.executionScore, 0) /
+    sessiondatascores?.length;
   useEffect(() => {
     if (tricks) {
       let count = {};
@@ -90,7 +97,8 @@ const Combodex: React.FC<CombodexProps> = ({
             "outlineButton flex flex-col border-zinc-300 border-opacity-40 bg-zinc-900"
           }
         >
-          {(executionScore * combo.pointValue).toFixed(2)}
+          {/* {(executionScore * combo.pointValue).toFixed(2)} */}
+          {(executionAverage * combo.pointValue).toFixed(2)}
           <span className="text-[8px]">{"execution"}</span>
         </div>
         <div
@@ -101,7 +109,7 @@ const Combodex: React.FC<CombodexProps> = ({
           {(
             combo.pointValue +
             (creativityScore / 10) * combo.pointValue +
-            executionScore * combo.pointValue
+            executionAverage * combo.pointValue
           ).toFixed(2)}
         </div>
       </div>
@@ -109,6 +117,7 @@ const Combodex: React.FC<CombodexProps> = ({
       {/* <div>{combo?.comboArray.map((t) => t.trick_id)}</div> */}
       <CombodexTrickDetails tricks={tricks} />
       <ComboExecutionSlider
+        sessionData={sessionData}
         executionScore={executionScore}
         setExecutionScore={setExecutionScore}
       />
