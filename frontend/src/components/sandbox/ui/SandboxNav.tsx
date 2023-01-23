@@ -76,7 +76,7 @@ const SandboxNav = () => {
   return (
     <div
       id="dropdowns-div"
-      className="w-full flex flex-row p-2"
+      className="w-full flex flex-col p-2"
     >
 
       <div className="text-3xl font-bold text-zinc-300 pb-2">
