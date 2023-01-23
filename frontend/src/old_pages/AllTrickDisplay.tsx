@@ -57,7 +57,7 @@ function AllTrickDisplay() {
             <animated.div
               style={{ opacity: opacity }}
               key={e}
-              className="neumorphic active:neumorphicIn rounded-md"
+              className="rounded-md bg-zinc-900 bg-opacity-40 backdrop-blur-md"
             >
               <div
                 onClick={() => handleGoToAnim(e)}
