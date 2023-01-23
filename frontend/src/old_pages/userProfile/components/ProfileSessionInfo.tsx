@@ -157,7 +157,11 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
         <UpdateComboShorthand setShorthandOpen={setShorthandOpen} combo={d} />
       )}
       {combodexopen && (
-        <Combodex combo={d.ClipLabel} setCombodexopen={setCombodexopen} />
+        <Combodex
+          combo={d.ClipLabel}
+          sessionData={d}
+          setCombodexopen={setCombodexopen}
+        />
       )}
     </>
   );

@@ -5,12 +5,14 @@ import { trpc } from "utils/trpc";
 import ComboExecutionSlider from "./components/ComboExecutionSlider";
 interface CombodexProps {
   combo: any;
+  sessionData?: any;
   comboArray?: Array<any>;
   setCombodexopen?: any;
 }
 const Combodex: React.FC<CombodexProps> = ({
   comboArray,
   combo,
+  sessionData,
   setCombodexopen,
 }) => {
   const numOfTransitions = combo.comboArray?.filter(
@@ -19,7 +21,9 @@ const Combodex: React.FC<CombodexProps> = ({
   const numOfTricks = combo.comboArray?.filter(
     (t) => t.type === "Trick" && t
   ).length;
-
+  useEffect(() => {
+    console.log("combodex sd", sessionData);
+  }, []);
   const { data: tricks } = trpc.trick.findMultipleById.useQuery(
     combo.comboArray
   );
