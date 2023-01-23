@@ -38,7 +38,7 @@ const ProfileSessionInfo = ({ summary }) => {
           {showTrickLongform ? "shorthand" : "fullname"}
         </div>
       </div>
-      <div className="mt-2  flex flex-col gap-1">
+      <div className="mt-2  flex h-full w-full flex-col gap-1">
         {summary?.SessionData.sort((a, b) => {
           if (a.ClipLabel.pointValue > b.ClipLabel.pointValue) return -1;
           if (a.ClipLabel.pointValue < b.ClipLabel.pointValue) return 1;
@@ -93,7 +93,6 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
     setClipComboRaw(d.ClipLabel.comboArray);
     setSeekTime(d.clipStart);
     setLoopMe((prev) => !prev);
-    setCombodetailsopen((prev) => !prev);
   };
   return (
     <>
@@ -103,8 +102,8 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
           editShorthand ? setShorthandOpen(!shorthandOpen) : handleClick()
         }
       >
-        <div className="flex w-full place-items-center justify-between p-1 text-sm text-zinc-300 md:text-inherit">
-          <div className="no-scrollbar w-[164px] overflow-x-scroll whitespace-nowrap p-1 text-[12px] md:w-1/3">
+        <div className="grid w-full grid-cols-5 place-items-center justify-between p-1 text-sm text-zinc-300 md:text-inherit">
+          <div className="no-scrollbar col-span-3 w-full overflow-x-scroll whitespace-nowrap p-1 text-[12px] md:w-1/3">
             {showTrickLongForm ? (
               <ComboNameDisplay
                 setCombodexopen={setCombodexopen}
@@ -114,6 +113,12 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
               d?.ClipLabel?.shorthand ?? d.ClipLabel?.name
             )}
           </div>
+          <div
+            onClick={() => setCombodetailsopen((prev) => !prev)}
+            className="text-xl"
+          >
+            ...
+          </div>
           <div className="w-4/9 flex place-items-center gap-2">
             <div className="flex min-w-[22px] place-items-center  text-lg font-black">
               {d?.ClipLabel?.pointValue?.toFixed(2)}
@@ -122,26 +127,41 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
             <div className="min-w-[48px] rounded-md text-center text-zinc-300">
               {d?.clipStart}
             </div>
-            {!loopMe && <div className="whitespace-nowrap">--&gt;</div>}
-            {loopMe && <div className="whitespace-nowrap">↶</div>}
             <div className="min-w-[48px] rounded-md  text-center text-zinc-300">
-              {d?.clipEnd}
+            {d?.clipEnd}
             </div>
           </div> */}
+            {loopMe ? (
+              <div className="whitespace-nowrap">↶</div>
+            ) : (
+              <div className="whitespace-nowrap">--&gt;</div>
+            )}
           </div>
         </div>
         {combodetailsopen && (
-          <ComboDetailsDisplay
-            setCombodexopen={setCombodexopen}
-            combo={d.ClipLabel}
-          />
+          <>
+            <ComboDetailsDisplay
+              setCombodexopen={setCombodexopen}
+              combo={d.ClipLabel}
+            />
+            <button
+              onClick={() => setCombodexopen(true)}
+              className="outlineButton m-1 border-[1px] border-zinc-200 p-1"
+            >
+              Full Breakdown{" "}
+            </button>
+          </>
         )}
       </div>
       {shorthandOpen && (
         <UpdateComboShorthand setShorthandOpen={setShorthandOpen} combo={d} />
       )}
       {combodexopen && (
-        <Combodex combo={d.ClipLabel} setCombodexopen={setCombodexopen} />
+        <Combodex
+          combo={d.ClipLabel}
+          sessionData={d}
+          setCombodexopen={setCombodexopen}
+        />
       )}
     </>
   );
@@ -170,7 +190,7 @@ export const ComboDetailsDisplay: React.FC<any> = ({
 }) => {
   return (
     <div
-      onClick={() => setCombodexopen(true)}
+      // onClick={() => setCombodexopen(true)}
       className="no-scrollbar flex w-full gap-1 overflow-y-scroll pb-1 pl-1"
     >
       {combo.comboArray.map((trick) => {

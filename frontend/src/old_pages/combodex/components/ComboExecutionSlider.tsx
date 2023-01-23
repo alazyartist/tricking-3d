@@ -15,10 +15,10 @@ const ComboExecutionSlider = ({ executionScore, setExecutionScore }) => {
   const bind: any = useDrag(
     ({ currentTarget, first, last, dragging, down, movement: [mx, my] }) => {
       if (dragging) {
-        my = 0;
+        my = executionScore;
         mx = clamp(mx, -drag_offset_limit, drag_offset_limit);
         setExecutionScore(
-          lerp(0.01, 1, (mx + drag_offset_limit) / (drag_offset_limit * 2))
+          lerp(0.1, 1, (mx + drag_offset_limit) / (drag_offset_limit * 2))
         );
       }
 
@@ -26,22 +26,22 @@ const ComboExecutionSlider = ({ executionScore, setExecutionScore }) => {
     }
   );
   return (
-    <>
+    <div className="grid min-h-[120px] grid-cols-2 place-items-center">
+      <animated.div
+        className={
+          " z-[-1] flex h-fit w-fit place-content-center place-items-center overflow-visible"
+        }
+        style={{ scale: executionScore * 5 }}
+      >
+        &#128293;
+      </animated.div>
       <div className="flex w-full flex-col place-items-center">
-        <animated.div
-          className={
-            "absolute bottom-5 left-5 z-[-1] flex h-fit w-full place-content-center place-items-center"
-          }
-          style={{ scale: executionScore * 5 }}
-        >
-          &#128293;
-        </animated.div>
-        <div className="relative z-[-1] h-3 w-[140px] translate-y-[18px] rounded-md bg-teal-700" />
+        <div className="relative z-[-1] h-3 w-[140px] translate-y-[18px] rounded-md border-2 border-amber-700" />
         <animated.div {...bind()} style={{ x, y, touchAction: "none" }}>
-          <div className="h-6 w-10 rounded-md bg-teal-400"></div>
+          <div className="h-6 w-10 rounded-md bg-orange-200 bg-opacity-50 backdrop-blur-xl"></div>
         </animated.div>
       </div>
-    </>
+    </div>
   );
 };
 

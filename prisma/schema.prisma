@@ -213,6 +213,19 @@ model sessiondata {
   createdAt DateTime @default(now()) @db.DateTime(0)
   updatedAt DateTime  @default(now()) @db.DateTime(0)
   bail      Int?
+  executionAverage Float? @default(0) 
+  executionScores sessiondatascores[] 
+}
+model sessiondatascores {
+  id Int @id @default(autoincrement())
+  sessiondataid String @unique @db.Char(36)
+  sessiondata sessiondata @relation(fields: [sessiondataid],references: [id])
+  userid String @db.Char(36)
+  user users @relation(fields: [userid],references: [uuid])
+  executionScore Float
+
+
+@@unique([userid,sessiondataid])
 }
 
 model sessionsources {
@@ -359,6 +372,7 @@ model users {
   captures     captures[] @relation("captures_user_idTousers")
   captured_me captures[] @relation("captures_captured_idTousers")
   SessionSummaries      user_sessions[]
+  executionScores sessiondatascores[]
   @@index([uuid])
 }
 
