@@ -22,19 +22,6 @@ const VideoOverlay = () => {
 
   return (
     <>
-      <div className="absolute bottom-[35vh] right-5 z-[1000] flex flex-col gap-2 ">
-        <IoIosVideocam
-          onClick={() => handleUpdate()}
-          className="text-xl text-zinc-300"
-        />
-        {videoSource && <SyncPlayerControls />}
-      </div>
-      {videoInput && <VideoInput />}
-      {videoSource && (
-        <div className="absolute top-[10vh] z-[4] flex w-full place-content-center place-items-center gap-2 text-zinc-300">
-          <VideoControls />
-        </div>
-      )}
     </>
   );
 };
