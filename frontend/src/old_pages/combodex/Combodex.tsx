@@ -85,7 +85,7 @@ const Combodex: React.FC<CombodexProps> = ({
                     }
                   >
                     <div>{tr.base_id}</div>
-                    <div>{tr?.bases?.pointValue}</div>
+                    <div>{tr?.base?.pointValue}</div>
                   </div>
                   {tr.type === "Trick" &&
                     tr?.variations?.map((v) => (
