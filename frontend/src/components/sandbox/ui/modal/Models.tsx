@@ -4,17 +4,13 @@ import React from "react";
 import { useStore } from "@store/store";
 import { useRouter } from "next/navigation";
 
-const Models = ({ handleClose }) => {
+const Trickers = ({ handleClose }) => {
   const selectAnim = useStore((s) => s.selectAnim);
   const modelArray = useStore((state) => state.modelArray);
   const selectModel = useStore((s) => s.setModel);
   const router = useRouter();
   return (
-    <div
-      className="no-scrollbar fixed top-[10vh] left-[10vw] 
-        h-[85vh] w-[80vw] flex-col items-center justify-center overflow-y-auto 
-        rounded-2xl py-6 sm:pr-6 md:pr-4 lg:pr-[5rem]"
-    >
+    <div className="flex-col items-center justify-center">
       {modelArray?.map((e, i) => {
         return (
           <button
@@ -53,4 +49,4 @@ const Models = ({ handleClose }) => {
   );
 };
 
-export default Models;
+export default Trickers;

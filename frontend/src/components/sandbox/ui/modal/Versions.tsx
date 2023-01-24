@@ -10,11 +10,7 @@ const Versions = ({ handleClose }) => {
   const currVersions = useStore((s) => s.currVersions);
 
   return (
-    <div
-      className="no-scrollbar fixed top-[10vh] left-[10vw] 
-        h-[85vh] w-[80vw] flex-col items-center justify-center overflow-y-auto 
-        rounded-2xl py-6 sm:pr-6 md:pr-4 lg:pr-[5rem]"
-    >
+    <div className="flex-col items-center justify-center overflow-y-auto ">
       {currVersions?.map((e, i) => {
         return (
           <button

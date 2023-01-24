@@ -3,10 +3,10 @@ import { MdInfo, MdInfoOutline, MdSettings } from "@data/icons/MdIcons";
 import { useStore } from "@store/store";
 import TrickInfo from "@components/info/TrickInfo";
 import Animations from "./modal/Animations";
-import Models from "./modal/Models";
+import Trickers from "./modal/Models";
 import AnimationsDropwdown from "./AnimationsDropwdown";
 import InfoButton from "./InfoButton";
-import ModalWrapper from "./modal/ModalWrapper";
+import DropdownContent from "../components/DropdownContent";
 import ModelDropdown from "./ModelDropdown";
 import ModalButton from "./modal/ModalButton";
 import Versions from "./modal/Versions";
@@ -22,7 +22,7 @@ const SandboxNav = () => {
   //local states
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(true);
-  const [activeView, setActiveView] = useState(-1);
+  const [activeView, setActiveView] = useState(0);
 
   const handleOpen = (caseNum) => {
     setActiveView(caseNum);
@@ -38,15 +38,15 @@ const SandboxNav = () => {
   function getViewContent(caseNum) {
     switch (caseNum) {
       case 1:
-        return <Animations handleClose={handleClose} />;
+        return;
       case 2:
-        return <TrickInfo />;
+        return <TrickInfo />
       case 3:
-        return <Models handleClose={handleClose} />;
+        return;
       case 4:
-        return <Versions handleClose={handleClose} />;
+        return;
       case 5:
-        return <Settings />;
+        return;
       default:
         return null;
     }
@@ -56,40 +56,29 @@ const SandboxNav = () => {
     let view = props.activeView
     let content = <><h1>View: {view}</h1></>
     switch (view) {
-      case 0:
-        return;
-      case 1:
-        return(<h1>Trick-List</h1>)
-      case 2:
-        return(<h1>Info</h1>)
-      case 3:
-        return(<h1>Tricker-List</h1>)
-      case 4:
-        return(<h1>Combo-List</h1>)
-      case 5:
-        return(<h1>Gym-Settings</h1>)
-      default:
-        return(<h1>Sandbox</h1>)
+      case 0: return;
+      case 1: return (<Animations handleClose={handleClose} />)
+      case 2: return (<TrickInfo handleClose={handleClose} />)
+      case 3: return (<Trickers handleClose={handleClose} />)
+      case 4: return (<Versions handleClose={handleClose} />)
+      case 5: return (<Settings />)
     }
   }
-  
-  return (
-    <div
-      id="dropdowns-div"
-      className="w-full flex flex-col p-2"
-    >
 
-      <div className="text-3xl font-bold text-zinc-300 pb-2">
-        {activeView === 0 && "Sandbox" }
-        {activeView === 1 && "Change Trick" }
-        {activeView === 2 && "Trick Info" }
-        {activeView === 3 && "Change Tricker" }
-        {activeView === 4 && "Other Combos" }
-        {activeView === 5 && "Gym Settings" }
+  return (
+    <div className="w-full max-h-full flex flex-col flex-grow p-2">
+
+      <div className="text-3xl font-bold text-zinc-400 pb-2">
+        {activeView === 0 && "Sandbox"}
+        {activeView === 1 && "Change Trick"}
+        {activeView === 2 && "Trick Info"}
+        {activeView === 3 && "Change Tricker"}
+        {activeView === 4 && "Other Combos"}
+        {activeView === 5 && "Gym Settings"}
       </div>
 
       {visible && (
-        <div className="p-2 flex flex-col justify-evenly w-full gap-3 bg-zinc-400 bg-opacity-30 rounded-lg">
+        <div className=" p-2 flex flex-col justify-evenly w-full gap-3 bg-zinc-900 bg-opacity-50 rounded-lg">
           <div className="flex flex-row justify-evenly">
             <ModalButton
               handleOpen={() => {
@@ -115,27 +104,23 @@ const SandboxNav = () => {
             />
             {/**versions button*/}
             {currentVersions.length > 1 && (<></>)}
-              <ModalButton
-                handleOpen={() => handleOpen(4)}
-                content={"Combo"}//"Version"
-              />
+            <ModalButton
+              handleOpen={() => handleOpen(4)}
+              content={"Combo"}//"Version"
+            />
             {/**versions button*/}
             <ModalButton
               handleOpen={() => handleOpen(5)}
-              content= "Gym"//{<MdSettings className="fill-zinc-300 text-3xl" />}
+              content="Gym"//{<MdSettings className="fill-zinc-300 text-3xl" />}
             />
           </div>
-          <div className="w-full bg-zinc-800 rounded-b-lg text-zinc-400 p-2">
-            <NavBody activeView={activeView}/>
+
+          <div className={`${activeView > 0 ? "p-2 " : " h-0"} w-full bg-zinc-400 rounded-b-lg bg-opacity-20 text-zinc-600 `}>
+            <NavBody activeView={activeView} />
           </div>
         </div>
       )}
 
-      {open && (
-        <ModalWrapper currentAnim={currentAnim} handleClose={handleClose}>
-          {getViewContent(activeView)}
-        </ModalWrapper>
-      )}
     </div>
   );
 };
