@@ -9,7 +9,7 @@ export const tricksRouter = router({
   }),
   findMultipleById: publicProcedure
     .input(z.array(z.any()))
-    .query(async ({ input, ctx }) => {
+    .mutation(async ({ input, ctx }) => {
       let newData = input.map(async (trick) => {
         if (trick.type == "Trick") {
           let td = await ctx.prisma.tricks.findUnique({

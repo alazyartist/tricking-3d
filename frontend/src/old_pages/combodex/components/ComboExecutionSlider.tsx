@@ -12,8 +12,14 @@ const ComboExecutionSlider = ({
   let drag_offset_limit = 70;
   const userInfo = useUserStore((s) => s.userInfo);
   const [{ x, y }, api] = useSpring(() => ({ x: 0, y: 0 }));
+  const utils = trpc.useContext();
   const { mutateAsync: updateExecutionScore } =
-    trpc.sessionsummaries.updateExecutionScore.useMutation();
+    trpc.sessionsummaries.updateExecutionScore.useMutation({
+      onSuccess(input) {
+        console.log("im running on success");
+        utils.sessionsummaries.invalidate();
+      },
+    });
   const clamp = (num: number, min: number, max: number) =>
     Math.min(Math.max(num, min), max);
   const lerp = (start: number, end: number, amt: number) =>

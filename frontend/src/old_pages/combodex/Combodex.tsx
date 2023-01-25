@@ -25,18 +25,27 @@ const Combodex: React.FC<CombodexProps> = ({
     console.log("combodex sd", sessionData);
   }, []);
   const { data: sessiondatascores } =
-    trpc.sessionsummaries.getSessionDataScores.useQuery({
-      sessiondataid: sessionData.id,
-    });
-  const { data: tricks } = trpc.trick.findMultipleById.useQuery(
-    combo.comboArray
-  );
+    trpc.sessionsummaries.getSessionDataScores.useQuery(
+      {
+        sessiondataid: sessionData.id,
+      },
+      { enabled: true }
+    );
+  const utils = trpc.useContext();
+  const { data: tricks, mutateAsync: getTricks } =
+    trpc.trick.findMultipleById.useMutation();
   const [executionScore, setExecutionScore] = useState(0.1);
   const [creativityScore, setCreativityScore] = useState(0);
   const [countTotal, setCount] = useState({});
   let executionAverage =
     sessiondatascores?.reduce((sum, b) => sum + b.executionScore, 0) /
     sessiondatascores?.length;
+  useEffect(() => {
+    getTricks(combo.comboArray);
+  }, []);
+  useEffect(() => {
+    console.log("maybe on success", sessiondatascores);
+  }, [sessiondatascores]);
   useEffect(() => {
     if (tricks) {
       let count = {};
