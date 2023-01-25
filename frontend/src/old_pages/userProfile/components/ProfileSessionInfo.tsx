@@ -74,6 +74,7 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
   const [shorthandOpen, setShorthandOpen] = useState(false);
   const [loopMe, setLoopMe] = useState(false);
   const [combodexopen, setCombodexopen] = useState(false);
+  const [totalPoints, setTotalPoints] = useState(0);
   const [combodetailsopen, setCombodetailsopen] = useState(false);
   useEffect(() => {
     if (Math.floor(currentTime) === Math.floor(d.clipEnd) && loopMe) {
@@ -114,13 +115,14 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
             )}
           </div>
           <div
-            onClick={() => setCombodetailsopen((prev) => !prev)}
+            onClick={() => setCombodexopen((prev) => !prev)}
             className="text-xl"
           >
             ...
           </div>
           <div className="w-4/9 flex place-items-center gap-2">
             <div className="flex min-w-[22px] place-items-center  text-lg font-black">
+              {/* {d?.ClipLabel?.pointValue?.toFixed(2)} */}
               {d?.ClipLabel?.pointValue?.toFixed(2)}
             </div>
             {/* <div className="flex place-items-center rounded-md bg-zinc-900 bg-opacity-40 p-1 text-xs">
@@ -138,9 +140,9 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
             )}
           </div>
         </div>
-        {combodetailsopen && (
+        {combodexopen && (
           <>
-            <ComboDetailsDisplay
+            {/* <ComboDetailsDisplay
               setCombodexopen={setCombodexopen}
               combo={d.ClipLabel}
             />
@@ -149,19 +151,17 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
               className="outlineButton m-1 border-[1px] border-zinc-200 p-1"
             >
               Full Breakdown{" "}
-            </button>
+            </button> */}
+            <Combodex
+              combo={d.ClipLabel}
+              sessionData={d}
+              setCombodexopen={setCombodexopen}
+            />
           </>
         )}
       </div>
       {shorthandOpen && (
         <UpdateComboShorthand setShorthandOpen={setShorthandOpen} combo={d} />
-      )}
-      {combodexopen && (
-        <Combodex
-          combo={d.ClipLabel}
-          sessionData={d}
-          setCombodexopen={setCombodexopen}
-        />
       )}
     </>
   );

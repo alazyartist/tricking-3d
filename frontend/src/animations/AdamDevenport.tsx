@@ -22,12 +22,14 @@ export function AdamDevenport(props) {
           <primitive ref={hipsRef} object={nodes.pelvis} />
           <group name="Air_Jordan_3_obj">
             <skinnedMesh
+              frustumCulled={false}
               name="Air_Jordan_3_obj_1"
               geometry={nodes.Air_Jordan_3_obj_1.geometry}
               material={materials.Shoe_Left}
               skeleton={nodes.Air_Jordan_3_obj_1.skeleton}
             />
             <skinnedMesh
+              frustumCulled={false}
               name="Air_Jordan_3_obj_2"
               geometry={nodes.Air_Jordan_3_obj_2.geometry}
               material={materials.Shoe_Right}
@@ -35,6 +37,7 @@ export function AdamDevenport(props) {
             />
           </group>
           <skinnedMesh
+            frustumCulled={false}
             name="Boxers"
             geometry={nodes.Boxers.geometry}
             material={materials.Boxers}
@@ -42,24 +45,28 @@ export function AdamDevenport(props) {
           />
           <group name="CC_Base_Eye">
             <skinnedMesh
+              frustumCulled={false}
               name="CC_Base_Eye_1"
               geometry={nodes.CC_Base_Eye_1.geometry}
               material={materials.Std_Eye_R}
               skeleton={nodes.CC_Base_Eye_1.skeleton}
             />
             <skinnedMesh
+              frustumCulled={false}
               name="CC_Base_Eye_2"
               geometry={nodes.CC_Base_Eye_2.geometry}
               material={materials.Std_Cornea_R}
               skeleton={nodes.CC_Base_Eye_2.skeleton}
             />
             <skinnedMesh
+              frustumCulled={false}
               name="CC_Base_Eye_3"
               geometry={nodes.CC_Base_Eye_3.geometry}
               material={materials.Std_Eye_L}
               skeleton={nodes.CC_Base_Eye_3.skeleton}
             />
             <skinnedMesh
+              frustumCulled={false}
               name="CC_Base_Eye_4"
               geometry={nodes.CC_Base_Eye_4.geometry}
               material={materials.Std_Cornea_L}
@@ -68,12 +75,14 @@ export function AdamDevenport(props) {
           </group>
           <group name="CC_Base_Teeth">
             <skinnedMesh
+              frustumCulled={false}
               name="CC_Base_Teeth_1"
               geometry={nodes.CC_Base_Teeth_1.geometry}
               material={materials.Std_Upper_Teeth}
               skeleton={nodes.CC_Base_Teeth_1.skeleton}
             />
             <skinnedMesh
+              frustumCulled={false}
               name="CC_Base_Teeth_2"
               geometry={nodes.CC_Base_Teeth_2.geometry}
               material={materials.Std_Lower_Teeth}
@@ -81,12 +90,14 @@ export function AdamDevenport(props) {
             />
           </group>
           <skinnedMesh
+            frustumCulled={false}
             name="Jeans"
             geometry={nodes.Jeans.geometry}
             material={materials.Jeans}
             skeleton={nodes.Jeans.skeleton}
           />
           <skinnedMesh
+            frustumCulled={false}
             name="Plaid_Punk_Shirt"
             geometry={nodes.Plaid_Punk_Shirt.geometry}
             material={materials.Plaid_Punk_Shirt}
@@ -94,12 +105,14 @@ export function AdamDevenport(props) {
           />
           <group name="Short_blowback">
             <skinnedMesh
+              frustumCulled={false}
               name="Short_blowback_1"
               geometry={nodes.Short_blowback_1.geometry}
               material={materials.Hair_Transparency}
               skeleton={nodes.Short_blowback_1.skeleton}
             />
             <skinnedMesh
+              frustumCulled={false}
               name="Short_blowback_2"
               geometry={nodes.Short_blowback_2.geometry}
               material={materials.Scalp_Transparency}
@@ -107,6 +120,7 @@ export function AdamDevenport(props) {
             />
           </group>
           <skinnedMesh
+            frustumCulled={false}
             name="CC_Game_Body"
             geometry={nodes.CC_Game_Body.geometry}
             material={materials.Ga_Skin_Body}
@@ -115,6 +129,7 @@ export function AdamDevenport(props) {
             morphTargetInfluences={nodes.CC_Game_Body.morphTargetInfluences}
           />
           <skinnedMesh
+            frustumCulled={false}
             name="CC_Game_Tongue"
             geometry={nodes.CC_Game_Tongue.geometry}
             material={materials.Ga_Skin_Body}
@@ -123,6 +138,7 @@ export function AdamDevenport(props) {
             morphTargetInfluences={nodes.CC_Game_Tongue.morphTargetInfluences}
           />
           <skinnedMesh
+            frustumCulled={false}
             name="Chin_Curtain_Sparse"
             geometry={nodes.Chin_Curtain_Sparse.geometry}
             material={materials.Beard_Transparency}
