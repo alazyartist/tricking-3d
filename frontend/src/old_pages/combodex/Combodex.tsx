@@ -74,10 +74,11 @@ const Combodex: React.FC<CombodexProps> = ({
   return (
     <div
       className={
-        "absolute top-0 left-0 h-fit w-full place-items-center gap-2 overflow-y-scroll bg-zinc-900 bg-opacity-[90%] font-inter backdrop-blur-md"
+        "no-scrollbar relative top-0 left-0 h-full w-full place-items-center gap-2 overflow-hidden bg-zinc-900 bg-opacity-[90%] font-inter backdrop-blur-md"
       }
     >
-      <div className="grid w-full grid-cols-5 gap-2 p-2">
+      {/* Button Display Grid*/}
+      <div className="sticky top-0 left-0 grid h-14 w-full grid-cols-5 gap-2 bg-zinc-900 p-2">
         <div
           onClick={() => setCombodexopen(false)}
           className="outlineButton flex place-content-center place-items-center rounded-md border-transparent bg-zinc-300 bg-opacity-30 p-1 px-0 text-2xl"
@@ -130,7 +131,7 @@ const Combodex: React.FC<CombodexProps> = ({
         executionScore={executionScore}
         setExecutionScore={setExecutionScore}
       />
-      <div className="flex h-20 w-full flex-col p-2">
+      <div className="min-h-20 flex w-full flex-col p-2">
         More Details Go Here
         <div>Length: {combo.comboArray.length}</div>
         <div>Transitions: {numOfTransitions}</div>
@@ -156,7 +157,7 @@ export const CombodexTrickDetails = ({ tricks }) => {
   return (
     <div
       className={
-        "no-scrollbar flex h-full w-full gap-1 overflow-y-scroll p-2 text-sm"
+        "no-scrollbar flex h-fit w-full gap-1 overflow-x-scroll p-2 text-sm"
       }
     >
       {tricks &&
