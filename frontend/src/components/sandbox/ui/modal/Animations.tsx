@@ -7,6 +7,12 @@ const Animations = ({ handleClose }) => {
   const selectAnim = useStore((s) => s.selectAnim);
   const currentModel = useStore((s) => s.activeModel);
   const animSet = useCreateVersions();
+
+  const animationsArray = useStore((s) => s.animationsArray);
+  const currentAnim = useStore((s) => s.currentAnim);
+  const setVersions = useStore((s) => s.setVersions);
+  const versions = animationsArray.filter((curr) => curr.includes(currentAnim));
+  
   return (
     <div
       className="max-h-full w-full flex-col items-center justify-center"
@@ -23,6 +29,7 @@ const Animations = ({ handleClose }) => {
                 "",
                 `/sandbox/${currentModel}/${e}`
               );
+              setVersions(versions);
               handleClose();
             }}
             key={i}
