@@ -43,6 +43,7 @@ module.exports = (sequelize) => {
 			bail: DataTypes.INTEGER,
 			createdAt: DataTypes.DATE,
 			updatedAt: DataTypes.DATE,
+			totalScore: DataTypes.FLOAT,
 		},
 		{
 			sequelize,
