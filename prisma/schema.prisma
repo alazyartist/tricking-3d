@@ -301,8 +301,8 @@ model trick_animations {
 model trick_variations {
   id           Int        @id @default(autoincrement())
   variation_id Int
-  trick_id     String     @db.Char(36)
-  trick        tricks     @relation(fields: [trick_id], references: [trick_id])
+  trick_id     String?     @db.Char(36)
+  trick        tricks?     @relation(fields: [trick_id], references: [trick_id])
   variation    variations @relation(fields: [variation_id], references: [id])
 
   @@index([trick_id], map: "trick_variations_trick_id_fkey")
