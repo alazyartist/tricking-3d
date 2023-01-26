@@ -51,6 +51,24 @@ export const sessionsummariesRouter = router({
       });
       return updatedScore;
     }),
+  updateTotalScore: publicProcedure
+    .input(
+      z.object({
+        sessiondataid: z.string(),
+        totalScore: z.number(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      let { sessiondataid, totalScore } = input;
+
+      const updatedScore = await ctx.prisma.sessiondata.update({
+        where: {
+          id: sessiondataid,
+        },
+        data: { totalScore: totalScore },
+      });
+      return updatedScore;
+    }),
   getSessionDataScores: publicProcedure
     .input(z.object({ sessiondataid: z.string() }))
     .query(async ({ input, ctx }) => {
@@ -59,4 +77,14 @@ export const sessionsummariesRouter = router({
       });
       return sessionDataScores;
     }),
+  getAllSessionSummaries: publicProcedure.query(async ({ ctx }) => {
+    const sessionSummaries = await ctx.prisma.sessionsummaries.findMany({
+      take: 5,
+      orderBy: { updatedAt: "desc" },
+      include: {
+        user: { select: { username: true, profilePic: true, uuid: true } },
+      },
+    });
+    return sessionSummaries;
+  }),
 });
