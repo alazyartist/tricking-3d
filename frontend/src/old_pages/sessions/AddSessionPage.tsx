@@ -216,7 +216,7 @@ const AddSessionPage = () => {
                       }
                     >
                       <div className={"flex flex-col gap-1"}>
-                        {availableUsers?.users?.map((user) => {
+                        {availableUsers?.map((user) => {
                           return (
                             <div
                               key={user.uuid}

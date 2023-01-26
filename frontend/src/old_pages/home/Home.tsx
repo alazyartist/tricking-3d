@@ -1,6 +1,6 @@
 "use client";
 // import ComboMakerV2 from "../comboMakerV2/ComboMakerV2";
-import Feed from "./components/Feed";
+// import Feed from "./components/Feed";
 // import ComboMakerBlueprintsvg from "../../data/ComboMakerBlueprintsvg";
 // const TricklistPage = dynamic(() => import("../tricklist/TricklistPage"));
 import React, { lazy, Suspense, useState } from "react";
