@@ -8,12 +8,16 @@ interface CombodexProps {
   sessionData?: any;
   comboArray?: Array<any>;
   setCombodexopen?: any;
+  totalScoreRes?: any;
+  updateTotalScore?: any;
 }
 const Combodex: React.FC<CombodexProps> = ({
   comboArray,
   combo,
   sessionData,
   setCombodexopen,
+  totalScoreRes,
+  updateTotalScore,
 }) => {
   const numOfTransitions = combo.comboArray?.filter(
     (t) => t.type === "Transition" && t
@@ -34,15 +38,32 @@ const Combodex: React.FC<CombodexProps> = ({
   const utils = trpc.useContext();
   const { data: tricks, mutateAsync: getTricks } =
     trpc.trick.findMultipleById.useMutation();
+
   const [executionScore, setExecutionScore] = useState(0.1);
   const [creativityScore, setCreativityScore] = useState(0);
   const [countTotal, setCount] = useState({});
   let executionAverage =
     sessiondatascores?.reduce((sum, b) => sum + b.executionScore, 0) /
     sessiondatascores?.length;
+  let localTotal = (
+    combo.pointValue +
+    (creativityScore / 10) * combo.pointValue +
+    executionAverage * combo.pointValue
+  )?.toFixed(2);
   useEffect(() => {
     getTricks(combo.comboArray);
   }, []);
+  useEffect(() => {
+    console.log(totalScoreRes);
+  }, [totalScoreRes]);
+  useEffect(() => {
+    if (localTotal !== "NaN") {
+      updateTotalScore({
+        sessiondataid: sessionData.id,
+        totalScore: parseFloat(localTotal),
+      });
+    }
+  }, [localTotal]);
   useEffect(() => {
     console.log("maybe on success", sessiondatascores);
   }, [sessiondatascores]);
@@ -71,6 +92,7 @@ const Combodex: React.FC<CombodexProps> = ({
   let mostUsed = Object.keys(countTotal)?.sort((a, b) =>
     countTotal[a]?.count > countTotal[b]?.count ? -1 : 1
   );
+  const [executionOpen, setExecutionOpen] = useState(false);
   return (
     <div
       className={
@@ -103,12 +125,15 @@ const Combodex: React.FC<CombodexProps> = ({
           <span className="text-[8px]">{"variety"}</span>
         </div>
         <div
-          className={
-            "outlineButton flex flex-col border-zinc-300 border-opacity-40 bg-zinc-900"
-          }
+          onClick={() => setExecutionOpen(!executionOpen)}
+          className={`outlineButton ${
+            executionOpen ? "border-amber-700" : "border-zinc-300"
+          } flex flex-col border-opacity-40 bg-zinc-900`}
         >
           {/* {(executionScore * combo.pointValue).toFixed(2)} */}
-          {(executionAverage * combo.pointValue).toFixed(2)}
+          {(executionAverage * combo.pointValue).toFixed(2) !== "NaN"
+            ? (executionAverage * combo.pointValue).toFixed(2)
+            : "Need Rating"}
           <span className="text-[8px]">{"execution"}</span>
         </div>
         <div
@@ -116,21 +141,19 @@ const Combodex: React.FC<CombodexProps> = ({
             "outlineButton border-zinc-300 border-opacity-80 bg-zinc-900"
           }
         >
-          {(
-            combo.pointValue +
-            (creativityScore / 10) * combo.pointValue +
-            executionAverage * combo.pointValue
-          ).toFixed(2)}
+          {localTotal}
         </div>
       </div>
       {/* </div> */}
       {/* <div>{combo?.comboArray.map((t) => t.trick_id)}</div> */}
+      {executionOpen && (
+        <ComboExecutionSlider
+          sessionData={sessionData}
+          executionScore={executionScore}
+          setExecutionScore={setExecutionScore}
+        />
+      )}
       <CombodexTrickDetails tricks={tricks} />
-      <ComboExecutionSlider
-        sessionData={sessionData}
-        executionScore={executionScore}
-        setExecutionScore={setExecutionScore}
-      />
       <div className="min-h-20 flex w-full flex-col p-2">
         More Details Go Here
         <div>Length: {combo.comboArray.length}</div>
