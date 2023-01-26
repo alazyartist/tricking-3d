@@ -5,6 +5,7 @@ import useIsAdmin from "hooks/useIsAdmin";
 import React, { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { IoIosWalk } from "react-icons/io";
+import { trpc } from "utils/trpc";
 
 const ProfileSessionInfo = ({ summary }) => {
   const isAdmin = useIsAdmin();
@@ -40,6 +41,8 @@ const ProfileSessionInfo = ({ summary }) => {
       </div>
       <div className="mt-2  flex h-full w-full flex-col gap-1">
         {summary?.SessionData.sort((a, b) => {
+          if (a.totalScore > b.totalScore) return -1;
+          if (a.totalScore < b.totalScore) return 1;
           if (a.ClipLabel.pointValue > b.ClipLabel.pointValue) return -1;
           if (a.ClipLabel.pointValue < b.ClipLabel.pointValue) return 1;
           if (a.SessionSource?.vidsrc < b.SessionSource?.vidsrc) return -1;
@@ -76,6 +79,8 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
   const [combodexopen, setCombodexopen] = useState(false);
   const [totalPoints, setTotalPoints] = useState(0);
   const [combodetailsopen, setCombodetailsopen] = useState(false);
+  const { data: totalScoreRes, mutateAsync: updateTotalScore } =
+    trpc.sessionsummaries.updateTotalScore.useMutation();
   useEffect(() => {
     if (Math.floor(currentTime) === Math.floor(d.clipEnd) && loopMe) {
       setSeekTime(0);
@@ -103,7 +108,10 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
           editShorthand ? setShorthandOpen(!shorthandOpen) : handleClick()
         }
       >
-        <div className="grid w-full grid-cols-5 place-items-center justify-between p-1 text-sm text-zinc-300 md:text-inherit">
+        <div
+          onClick={() => setCombodexopen((prev) => !prev)}
+          className="grid w-full grid-cols-5 place-items-center justify-between p-1 text-sm text-zinc-300 md:text-inherit"
+        >
           <div className="no-scrollbar col-span-3 w-full overflow-x-scroll whitespace-nowrap p-1 text-[12px] md:w-1/3">
             {showTrickLongForm ? (
               <ComboNameDisplay
@@ -114,16 +122,15 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
               d?.ClipLabel?.shorthand ?? d.ClipLabel?.name
             )}
           </div>
-          <div
-            onClick={() => setCombodexopen((prev) => !prev)}
-            className="text-xl"
-          >
-            ...
-          </div>
+          <div className="text-xl">...</div>
           <div className="w-4/9 flex place-items-center gap-2">
             <div className="flex min-w-[22px] place-items-center  text-lg font-black">
               {/* {d?.ClipLabel?.pointValue?.toFixed(2)} */}
-              {d?.ClipLabel?.pointValue?.toFixed(2)}
+              {totalScoreRes?.totalScore
+                ? totalScoreRes?.totalScore
+                : d?.totalScore
+                ? d?.totalScore
+                : d?.ClipLabel?.pointValue?.toFixed(2)}
             </div>
             {/* <div className="flex place-items-center rounded-md bg-zinc-900 bg-opacity-40 p-1 text-xs">
             <div className="min-w-[48px] rounded-md text-center text-zinc-300">
@@ -156,6 +163,8 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
               combo={d.ClipLabel}
               sessionData={d}
               setCombodexopen={setCombodexopen}
+              updateTotalScore={updateTotalScore}
+              totalScoreRes={totalScoreRes}
             />
           </>
         )}

@@ -18,7 +18,7 @@ const SessionStatsList = ({
           console.log("pv", pointValue);
           return (
             <div
-              key={summary.id}
+              key={summary.SessionData.id}
               className="flex justify-between gap-2 rounded-md bg-zinc-900 p-2"
               onClick={() => {
                 console.log(summary, "summary");
