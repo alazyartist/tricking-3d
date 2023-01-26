@@ -1,6 +1,6 @@
 "use client";
 // import ComboMakerV2 from "../comboMakerV2/ComboMakerV2";
-// import Feed from "./components/Feed";
+import Feed from "./components/Feed";
 // import ComboMakerBlueprintsvg from "../../data/ComboMakerBlueprintsvg";
 // const TricklistPage = dynamic(() => import("../tricklist/TricklistPage"));
 import React, { lazy, Suspense, useState } from "react";
@@ -20,6 +20,7 @@ import { trpc } from "utils/trpc";
 import AllTrickDisplay from "@old_pages/AllTrickDisplay";
 import UserList from "@components/UserList";
 import { AiOutlineUser } from "react-icons/ai";
+import TempFeed from "./components/TempFeed";
 const CapturesPage = dynamic(() => import("../dash/components/CapturesPage"));
 const ClaimTricks = dynamic(() => import("../claimtricks/ClaimTricks"));
 function Home() {
@@ -85,7 +86,7 @@ function Home() {
 						<EnterSandboxLink />
 						</Suspense>
 						
-					<Feed /> */}
+          */}
                 <Link
                   href={"/sandbox"}
                   className=" mt-4 mb-4 w-[70vw] max-w-[600px]  rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-3xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)]"
@@ -234,8 +235,10 @@ function Home() {
 										</div> */}
                   </>
                 </div>
+                {/* <Feed /> */}
               </>
             )}
+            <TempFeed />
           </div>
         </div>
       </div>
