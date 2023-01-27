@@ -26,7 +26,7 @@ const SessionStatsList = ({
               }}
             >
               <div className="px-2">{summary.name}</div>
-              <div className="px-2 font-bold">{pointValue}</div>
+              <div className="px-2 font-bold">{pointValue.toFixed(2)}</div>
             </div>
           );
         })}

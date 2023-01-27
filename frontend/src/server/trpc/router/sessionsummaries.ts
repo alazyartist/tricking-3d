@@ -79,6 +79,7 @@ export const sessionsummariesRouter = router({
     }),
   getAllSessionSummaries: publicProcedure.query(async ({ ctx }) => {
     const sessionSummaries = await ctx.prisma.sessionsummaries.findMany({
+      where: { status: "Reviewed" },
       take: 5,
       orderBy: { updatedAt: "desc" },
       include: {

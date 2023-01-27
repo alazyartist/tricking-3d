@@ -165,7 +165,7 @@ const UserProfile = () => {
                   <ProfileSessionInfo summary={activeSummary} />
                 </>
               ) : (
-                <h1 className="h-full w-full p-2 text-center text-2xl font-bold text-zinc-800">
+                <h1 className="h-full w-full p-2 text-center text-2xl font-bold text-zinc-300">
                   Select a Session to see the breakdown.
                 </h1>
               )}
