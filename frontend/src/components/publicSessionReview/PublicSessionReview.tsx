@@ -268,7 +268,7 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
         // onMouseOver={() => setSeeDetails(true)}
         // onMouseLeave={() => setSeeDetails(false)}
         style={{ width: w, left: l }}
-        className={`absolute top-[4px] h-3 rounded-md bg-indigo-300 `}
+        className={`absolute top-[4px] h-3 rounded-[3px] bg-indigo-300 `}
       ></div>
     </>
   );

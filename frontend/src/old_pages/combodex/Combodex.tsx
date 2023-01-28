@@ -1,3 +1,4 @@
+import RadarChart from "@components/d3/RadarChartAI";
 import { ComboDetailsDisplay } from "@old_pages/userProfile/components/ProfileSessionInfo";
 import React, { useEffect, useState } from "react";
 import { IoIosWalk } from "react-icons/io";
@@ -53,9 +54,7 @@ const Combodex: React.FC<CombodexProps> = ({
   useEffect(() => {
     getTricks(combo.comboArray);
   }, []);
-  useEffect(() => {
-    console.log(totalScoreRes);
-  }, [totalScoreRes]);
+
   useEffect(() => {
     if (localTotal !== "NaN") {
       updateTotalScore({
@@ -64,9 +63,7 @@ const Combodex: React.FC<CombodexProps> = ({
       });
     }
   }, [localTotal]);
-  useEffect(() => {
-    console.log("maybe on success", sessiondatascores);
-  }, [sessiondatascores]);
+
   useEffect(() => {
     if (tricks) {
       let count = {};
@@ -154,6 +151,7 @@ const Combodex: React.FC<CombodexProps> = ({
         />
       )}
       <CombodexTrickDetails tricks={tricks} />
+      {tricks && <RadarChart data={tricks} />}
       <div className="min-h-20 flex w-full flex-col p-2">
         More Details Go Here
         <div>Length: {combo.comboArray.length}</div>

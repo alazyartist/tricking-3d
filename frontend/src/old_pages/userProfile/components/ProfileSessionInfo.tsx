@@ -98,12 +98,13 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
     setVidsrc(d.SessionSource.vidsrc);
     setClipComboRaw(d.ClipLabel.comboArray);
     setSeekTime(d.clipStart);
-    setLoopMe((prev) => !prev);
+    setLoopMe(true);
   };
   return (
     <>
       <div
         className="flex w-full flex-col place-items-center justify-between rounded-md bg-zinc-900 bg-opacity-90 p-1 text-sm text-zinc-300 md:text-inherit"
+        onDoubleClick={() => setLoopMe(false)}
         onClick={() =>
           editShorthand ? setShorthandOpen(!shorthandOpen) : handleClick()
         }
@@ -123,7 +124,13 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
             )}
           </div>
           <div className="text-xl">...</div>
-          <div className="w-4/9 flex place-items-center gap-2">
+          <div
+            onClick={() => {
+              setLoopMe(false);
+              console.log(loopMe);
+            }}
+            className="w-4/9 flex place-items-center gap-2"
+          >
             <div className="flex min-w-[22px] place-items-center  text-lg font-black">
               {/* {d?.ClipLabel?.pointValue?.toFixed(2)} */}
               {totalScoreRes?.totalScore
@@ -141,7 +148,7 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
             </div>
           </div> */}
             {loopMe ? (
-              <div className="whitespace-nowrap">↶</div>
+              <div className="z-100 whitespace-nowrap">↶</div>
             ) : (
               <div className="whitespace-nowrap">--&gt;</div>
             )}

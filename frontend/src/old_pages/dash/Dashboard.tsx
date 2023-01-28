@@ -1,4 +1,4 @@
-// import RadarChart from "@components/d3/RadarChartAI";
+import RadarChart from "@components/d3/RadarChartAI";
 import CapturesPage from "./components/CapturesPage";
 import { FaQrcode } from "react-icons/fa";
 import React, { useState } from "react";
@@ -13,10 +13,10 @@ function Dashboard() {
   const logout = useLogout();
   const user = useUserStore((s) => s.user);
   const { profilePic, uuid } = useUserStore((s) => s.userInfo);
-  {/* 
-    const { data: trickData } = useGetTricks();
-    console.log(trickData); 
-  */}
+
+  const { data: trickData } = useGetTricks();
+  console.log(trickData);
+
   return (
     <div className="mt-14 flex flex-col place-content-center place-items-center gap-2 text-zinc-400">
       <div className="p-4">
@@ -31,19 +31,19 @@ function Dashboard() {
               : "./images/noimg.jpeg"
           }
         />
-      <div 
-        className="
-          p-4 m-auto
-          max-h-[83vh] w-[98vw] max-w-[600px]
-          bg-opacity-30 rounded-xl
-          bg-zinc-900 
+        <div
+          className="
+          m-auto max-h-[83vh]
+          w-[98vw] max-w-[600px] rounded-xl
+          bg-zinc-900 bg-opacity-30
+          p-4 
         "
-      >
-        <Captures />
+        >
+          {/* <Captures /> */}
         </div>
       </>
-      {/* {trickData && <RadarChart data={trickData} />} */}
-      <UserList />
+      {trickData && <RadarChart data={trickData} />}
+      {/* <UserList /> */}
       <button className="fixed right-5 bottom-14" onClick={() => logout()}>
         Logout
       </button>
