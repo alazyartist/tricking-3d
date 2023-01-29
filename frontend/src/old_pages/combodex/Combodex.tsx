@@ -84,6 +84,7 @@ const Combodex: React.FC<CombodexProps> = ({
         .reduce((sum, b) => sum + b.score, 0);
       setCreativityScore(count as number);
       console.log(count);
+      console.log(countTotal);
     }
   }, [tricks]);
   let mostUsed = Object.keys(countTotal)?.sort((a, b) =>
@@ -158,6 +159,18 @@ const Combodex: React.FC<CombodexProps> = ({
         <div>Transitions: {numOfTransitions}</div>
         <div>Tricks: {numOfTricks}</div>
         <div>Most Used: {mostUsed[0]}</div>
+        <div>
+          Density - Tricks Only:{" "}
+          {combo.comboArray
+            .filter((t) => t.type === "Trick")
+            .reduce((sum, b) => sum + b?.pointValue, 0) /
+            combo.comboArray.filter((t) => t.type === "Trick").length}
+        </div>
+        <div>
+          Density - All:{" "}
+          {combo.comboArray.reduce((sum, b) => sum + b?.pointValue, 0) /
+            combo.comboArray.length}
+        </div>
         {/* <div>
           json:{" "}
           {JSON.stringify(

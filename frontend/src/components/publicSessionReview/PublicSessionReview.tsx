@@ -35,7 +35,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
   useEffect(() => {
     clearSessionData();
     activeSummary?.SessionData?.map((sd) => {
-      console.log("sd", sd);
+      // console.log("sd", sd);
       setSessionData({
         id: sd?.id,
         sessionid: sd?.sessionid,
@@ -51,10 +51,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
       return;
     });
   }, [activeSummary]);
-  useEffect(
-    () => console.log("sessionData", sessionData),
-    [sessionData, vidRef]
-  );
+
   useEffect(() => {
     if (currentTime !== seekTime && seekTime !== 0) {
       setCurrentTime(seekTime);
@@ -92,7 +89,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
     (sum, d) => [...sum, ...d.ClipLabel.comboArray],
     []
   );
-  console.log(radarData);
+  // console.log(radarData);
   return (
     <div key={source.srcid + "1"} className=" flex w-full flex-col gap-2 p-1">
       <animated.div
@@ -231,8 +228,7 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
   );
   useEffect(() => {
     setSrcid(source?.srcid);
-    console.log("IME", e);
-  }, [source, vidsrc]);
+  }, [source]);
   let w = `${(
     ((parseInt(e.endTime) - parseInt(e.startTime)) / parseInt(duration)) *
     100

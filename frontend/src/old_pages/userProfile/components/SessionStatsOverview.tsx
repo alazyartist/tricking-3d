@@ -146,6 +146,14 @@ const SessionStatsOverview = ({ summary }) => {
         <span className="text-zinc-400">Greatest Trick: </span>
         {tricksByPoints?.[0]?.name}
       </div>
+      <div className="col-span-2">
+        <span className="text-zinc-400">Density - Tricks Only: </span>
+        {sessionDensityB}
+      </div>
+      <div className="col-span-2">
+        <span className="text-zinc-400">Density - All: </span>
+        {sessionDensity}
+      </div>
       <div className="col-span-2 w-[100%] whitespace-pre-wrap break-words">
         <span className="text-zinc-400">
           Longest {longestCombo?.name === greatestCombo?.name && "& Greatest"}{" "}

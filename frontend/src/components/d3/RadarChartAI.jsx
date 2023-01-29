@@ -109,16 +109,16 @@ const RadarChart = ({ data }) => {
         let ft_arr;
         let angle = Math.PI / 2 + (2 * Math.PI * i) / bases.length;
         if (curBase === data_point[0]) {
-          console.log("matched", curBase);
+          // console.log("matched", curBase);
           ft_arr = data_point[1];
         } else {
-          console.log("empty match - nothing fount");
+          // console.log("empty match - nothing fount");
           ft_arr = [];
         }
         coordinates.push(angleToCoordinate(angle, ft_arr.length / max + 0.1));
-        console.log(curBase, data_point, "datapoint", ft_arr.length);
+        // console.log(curBase, data_point, "datapoint", ft_arr.length);
       }
-      console.log(coordinates);
+      // console.log(coordinates);
       return coordinates;
     }
 
