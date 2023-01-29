@@ -55,6 +55,33 @@ const SessionStatsOverview = ({ summary }) => {
       totalPoints) *
       100
   );
+  let densityArr = sessionCombosArr.map(
+    (s) =>
+      s?.ClipLabel.comboArray
+        // .filter((t) => t.type === "Trick")
+        .reduce((sum, b) => sum + b?.pointValue, 0) /
+      // .filter((t) => t.type === "Trick")
+      s?.ClipLabel?.comboArray.length
+  );
+  let densityArrB = sessionCombosArr.map(
+    (s) =>
+      s?.ClipLabel.comboArray
+        .filter((t) => t.type === "Trick")
+        .reduce((sum, b) => sum + b?.pointValue, 0) /
+      s?.ClipLabel?.comboArray.filter((t) => t.type === "Trick").length
+  );
+  let sessionDensity =
+    densityArr.reduce((sum, b) => sum + b, 0) / densityArr.length;
+  let sessionDensityB =
+    densityArrB.reduce((sum, b) => sum + b, 0) / densityArrB.length;
+  console.log(
+    "density",
+    sessionDensity,
+    densityArr,
+    sessionDensityB,
+    densityArrB
+  );
+
   return (
     <div className="grid w-full grid-cols-2 flex-col gap-1 text-xs">
       <div className="col-span-2 flex w-full place-content-center place-items-center place-self-center rounded-md bg-zinc-900 p-2 text-2xl">
