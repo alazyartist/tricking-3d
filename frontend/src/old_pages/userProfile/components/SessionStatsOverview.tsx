@@ -20,7 +20,7 @@ const SessionStatsOverview = ({ summary }) => {
     return 0;
   })?.[0]?.ClipLabel;
   let greatestCombo = sessionCombosArr?.sort((a, b) => {
-    console.log(a.ClipLabel);
+    // console.log(a.ClipLabel);
     if (a.ClipLabel.pointValue > b.ClipLabel.pointValue) return -1;
     if (a.ClipLabel.pointValue < b.ClipLabel.pointValue) return 1;
     return 0;

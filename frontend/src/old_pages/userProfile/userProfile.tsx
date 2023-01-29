@@ -52,10 +52,10 @@ const UserProfile = () => {
     config: { durration: 100, tension: 260, friction: 50 },
     exitBeforeEnter: true,
   });
-  useEffect(() => {
-    console.log(profileInfo);
-    console.log(activeSummary);
-  }, [profileInfo, hidden]);
+  // useEffect(() => {
+  //   console.log(profileInfo);
+  //   console.log(activeSummary);
+  // }, [profileInfo, hidden]);
   useEffect(() => {
     if (activeView === "Stats") {
       setHidden(false);

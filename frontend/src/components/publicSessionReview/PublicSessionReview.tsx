@@ -3,6 +3,7 @@ import { animated, useSpring } from "react-spring";
 import ReactPlayer from "react-player";
 import { MdClose } from "@data/icons/MdIcons";
 import { useSessionSummariesStore } from "@admin/components/sessionreview/SessionSummaryStore";
+import RadarChart from "@components/d3/RadarChartAI";
 
 const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
   const vidsrcRegex = /(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)/g;
@@ -87,6 +88,11 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
     // onRest: () => setOpenHamburger(!openHamburger),
   });
 
+  const radarData = activeSummary.SessionData?.reduce(
+    (sum, d) => [...sum, ...d.ClipLabel.comboArray],
+    []
+  );
+  console.log(radarData);
   return (
     <div key={source.srcid + "1"} className=" flex w-full flex-col gap-2 p-1">
       <animated.div
@@ -104,6 +110,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
         >
           Watch Session
         </div>
+        {radarData && <RadarChart data={radarData} />}
       </animated.div>
 
       {

@@ -4,11 +4,11 @@ import { ticks } from "d3";
 
 const RadarChart = ({ data }) => {
   const container = useRef(null);
-  console.log(data);
+  // console.log(data);
   let byBase = Array.from(
     d3.group(data, (d) => (d.type === "Transition" ? d.name : d.base_id))
   ).filter((d) => d[0] !== undefined && d[0] !== "Hook" && d[0] !== "Round");
-  console.log(byBase);
+  // console.log(byBase);
   let max = d3.max(byBase.map((b) => b[1].length));
   useEffect(() => {
     // Set the dimensions of the canvas/graph
@@ -24,15 +24,14 @@ const RadarChart = ({ data }) => {
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
+    let radialScale = d3.scaleLinear().domain([0, 1]).range([0, 100]);
     function angleToCoordinate(angle, value) {
       let x = Math.cos(angle) * radialScale(value);
       let y = Math.sin(angle) * radialScale(value);
       return { x: 100 + x, y: 100 - y };
     }
-
-    let radialScale = d3.scaleLinear().domain([0, max]).range([0, 120]);
     let ticks = [];
-    for (let i = 0; i <= max; i += 5) {
+    for (let i = 0; i <= 1; i += 0.25) {
       ticks.push(i);
     }
 
@@ -58,29 +57,29 @@ const RadarChart = ({ data }) => {
 
     let bases = [
       "Backflip",
-      "Frontflip",
-      "Insideflip",
-      "Outsideflip",
-      "Gainer",
       "GainerR",
-      "Aerial",
       "GMS",
-      "Raiz",
-      "Lotus",
-      "Webster",
+      "Insideflip",
+      "Aerial",
       "Websterr",
+      "Frontflip",
+      "Webster",
+      "Raiz",
+      "Outsideflip",
+      "Lotus",
+      "Gainer",
     ];
 
-    for (var i = 0; i < byBase.length; i++) {
-      let ft_name = byBase[i][0];
-      let angle = Math.PI / 2 + (2 * Math.PI * i) / byBase.length;
-      let line_coordinate = angleToCoordinate(angle, max);
-      let label_coordinate = angleToCoordinate(angle, max + 0.75);
-      // for (var i = 0; i < bases.length; i++) {
-      //   let ft_name = bases[i];
-      //   let angle = Math.PI / 2 + (2 * Math.PI * i) / bases.length;
-      //   let line_coordinate = angleToCoordinate(angle, max);
-      //   let label_coordinate = angleToCoordinate(angle, max + 0.75);
+    // for (var i = 0; i < byBase.length; i++) {
+    //   let ft_name = byBase[i][0];
+    //   let angle = Math.PI / 2 + (2 * Math.PI * i) / byBase.length;
+    //   let line_coordinate = angleToCoordinate(angle, max);
+    //   let label_coordinate = angleToCoordinate(angle, max + 0.75);
+    for (var i = 0; i < bases.length; i++) {
+      let ft_name = bases[i];
+      let angle = Math.PI / 2 + (2 * Math.PI * i) / bases.length;
+      let line_coordinate = angleToCoordinate(angle, 1);
+      let label_coordinate = angleToCoordinate(angle, 1 + 0.15);
 
       //draw axis line
       svg
@@ -96,6 +95,7 @@ const RadarChart = ({ data }) => {
         .append("text")
         .style("fill", "#d4d4d4")
         .style("font-size", "12px")
+        .attr("text-anchor", "middle")
         .attr("x", label_coordinate.x - 5)
         .attr("y", label_coordinate.y - 5)
         .text(ft_name);
@@ -104,22 +104,32 @@ const RadarChart = ({ data }) => {
     let colors = ["darkorange", "gray", "navy"];
     function getPathCoordinates(data_point) {
       let coordinates = [];
-      for (var i = 0; i < byBase.length; i++) {
-        let ft_name = byBase[i][0];
-        let ft_arr = byBase[i][1];
-        // console.log(ft_name, "datapoint", ft_arr);
-        let angle = Math.PI / 2 + (2 * Math.PI * i) / byBase.length;
-        coordinates.push(angleToCoordinate(angle, ft_arr.length));
+      for (var i = 0; i < bases.length; i++) {
+        let curBase = bases[i];
+        let ft_arr;
+        let angle = Math.PI / 2 + (2 * Math.PI * i) / bases.length;
+        if (curBase === data_point[0]) {
+          console.log("matched", curBase);
+          ft_arr = data_point[1];
+        } else {
+          console.log("empty match - nothing fount");
+          ft_arr = [];
+        }
+        coordinates.push(angleToCoordinate(angle, ft_arr.length / max + 0.1));
+        console.log(curBase, data_point, "datapoint", ft_arr.length);
       }
+      console.log(coordinates);
       return coordinates;
     }
 
     let line = d3
       .line()
+      //@ts-ignore
       .x((d) => d.x)
+      //@ts-ignore
       .y((d) => d.y);
     for (var i = 0; i < byBase.length; i++) {
-      let d = byBase[i][1];
+      let d = byBase[i];
       let color = colors[i];
       let coordinates = getPathCoordinates(d);
 
@@ -127,10 +137,11 @@ const RadarChart = ({ data }) => {
       svg
         .append("path")
         .datum(coordinates)
+        //@ts-ignore
         .attr("d", line)
         .attr("stroke-width", 3)
         .attr("fill", "#d4d4d4")
-        .attr("opacity", 0.2);
+        .attr("opacity", 0.4);
     }
   }, [data]);
 
