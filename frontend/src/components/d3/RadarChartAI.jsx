@@ -145,9 +145,7 @@ const RadarChart = ({ data }) => {
     }
   }, [data]);
 
-  return (
-    <svg key={"svgkey"} className="z-[2000] h-[350px] w-full" ref={container} />
-  );
+  return <svg key={"svgkey"} className=" h-[350px] w-full" ref={container} />;
 };
 
 export default RadarChart;

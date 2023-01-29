@@ -56,16 +56,17 @@ export const sessionsummariesRouter = router({
       z.object({
         sessiondataid: z.string(),
         totalScore: z.number(),
+        executionAverage: z.number(),
       })
     )
     .mutation(async ({ input, ctx }) => {
-      let { sessiondataid, totalScore } = input;
+      let { sessiondataid, totalScore, executionAverage } = input;
 
       const updatedScore = await ctx.prisma.sessiondata.update({
         where: {
           id: sessiondataid,
         },
-        data: { totalScore: totalScore },
+        data: { totalScore: totalScore, executionAverage: executionAverage },
       });
       return updatedScore;
     }),

@@ -60,6 +60,7 @@ const Combodex: React.FC<CombodexProps> = ({
       updateTotalScore({
         sessiondataid: sessionData.id,
         totalScore: parseFloat(localTotal),
+        executionAverage: parseFloat(executionAverage.toFixed(3)),
       });
     }
   }, [localTotal]);

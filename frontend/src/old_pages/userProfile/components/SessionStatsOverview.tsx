@@ -74,13 +74,7 @@ const SessionStatsOverview = ({ summary }) => {
     densityArr.reduce((sum, b) => sum + b, 0) / densityArr.length;
   let sessionDensityB =
     densityArrB.reduce((sum, b) => sum + b, 0) / densityArrB.length;
-  console.log(
-    "density",
-    sessionDensity,
-    densityArr,
-    sessionDensityB,
-    densityArrB
-  );
+  console.log(sessionCombosArr);
 
   return (
     <div className="grid w-full grid-cols-2 flex-col gap-1 text-xs">
@@ -148,11 +142,11 @@ const SessionStatsOverview = ({ summary }) => {
       </div>
       <div className="col-span-2">
         <span className="text-zinc-400">Density - Tricks Only: </span>
-        {sessionDensityB}
+        {sessionDensityB.toFixed(3)}
       </div>
       <div className="col-span-2">
         <span className="text-zinc-400">Density - All: </span>
-        {sessionDensity}
+        {sessionDensity.toFixed(3)}
       </div>
       <div className="col-span-2 w-[100%] whitespace-pre-wrap break-words">
         <span className="text-zinc-400">
