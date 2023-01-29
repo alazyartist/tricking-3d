@@ -1,3 +1,4 @@
+import PieChart from "@components/d3/PieChart";
 import React from "react";
 
 const SessionStatsOverview = ({ summary }) => {
@@ -74,7 +75,14 @@ const SessionStatsOverview = ({ summary }) => {
     densityArr.reduce((sum, b) => sum + b, 0) / densityArr.length;
   let sessionDensityB =
     densityArrB.reduce((sum, b) => sum + b, 0) / densityArrB.length;
-  console.log(sessionCombosArr);
+  let nonZeroExecutionAverages = sessionCombosArr
+    .map((s) => s.executionAverage)
+    .filter((s) => s !== 0);
+
+  let sessionExecutionAverage =
+    nonZeroExecutionAverages.reduce((sum, b) => sum + b, 0) /
+    nonZeroExecutionAverages.length;
+  console.log(sessionExecutionAverage);
 
   return (
     <div className="grid w-full grid-cols-2 flex-col gap-1 text-xs">
@@ -136,6 +144,7 @@ const SessionStatsOverview = ({ summary }) => {
           }
         </div>
       </div>
+      <PieChart data={sessionCombosArr} />
       <div className="col-span-2">
         <span className="text-zinc-400">Greatest Trick: </span>
         {tricksByPoints?.[0]?.name}
@@ -147,6 +156,10 @@ const SessionStatsOverview = ({ summary }) => {
       <div className="col-span-2">
         <span className="text-zinc-400">Density - All: </span>
         {sessionDensity.toFixed(3)}
+      </div>
+      <div className="col-span-2">
+        <span className="text-zinc-400">Session ExecutionAverage: </span>
+        {sessionExecutionAverage.toFixed(2)}
       </div>
       <div className="col-span-2 w-[100%] whitespace-pre-wrap break-words">
         <span className="text-zinc-400">
