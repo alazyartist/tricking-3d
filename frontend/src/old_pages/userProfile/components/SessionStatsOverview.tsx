@@ -144,7 +144,11 @@ const SessionStatsOverview = ({ summary }) => {
           }
         </div>
       </div>
-      <PieChart data={sessionCombosArr} />
+      <div className="col-span-2 flex">
+        <PieChart data={sessionCombosArr} />
+        <PieChart data={sessionCombosArr} />
+        <PieChart data={sessionCombosArr} />
+      </div>
       <div className="col-span-2">
         <span className="text-zinc-400">Greatest Trick: </span>
         {tricksByPoints?.[0]?.name}
