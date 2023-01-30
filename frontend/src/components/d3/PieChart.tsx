@@ -33,7 +33,7 @@ const PieChart = ({ data }) => {
       ];
       const instructions = piGen(ea);
       console.log(ea, instructions);
-      svg
+      const arc = svg
         .selectAll("path")
         .data(instructions)
         .attr("class", "slice")
@@ -49,12 +49,17 @@ const PieChart = ({ data }) => {
             dimensions.height / 2 + margin.top
           }px)`
         )
-        .attr("d", (instruction) => arcGen(instruction));
+        .attr("d", (instruction) => arcGen(instruction))
+        .append("text")
+        .style("fill", "#d4d4d4")
+        .style("font-size", "12px")
+        .attr("text-anchor", "middle")
+        .text("test");
     }
     console.log(dimensions);
   }, [data, dimensions]);
   return (
-    <div ref={piRef} className="w-[100]px h-[100px]">
+    <div ref={piRef} className="h-[110px] w-[110px]">
       <svg key={"pichartKey"} className="h-full w-full" ref={svgRef} />
     </div>
   );

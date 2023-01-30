@@ -144,7 +144,7 @@ const SessionStatsOverview = ({ summary }) => {
           }
         </div>
       </div>
-      <div className="col-span-2 flex">
+      <div className="col-span-2 flex justify-around">
         <PieChart data={sessionCombosArr} />
         <PieChart data={sessionCombosArr} />
         <PieChart data={sessionCombosArr} />
