@@ -21,20 +21,28 @@ const PieChart = ({ data }) => {
       const arcGen = d3.arc().innerRadius(75).outerRadius(150);
       const piGen = d3
         .pie()
-        .startAngle(-Math.PI / 2)
-        .endAngle(Math.PI / 2)
+        .startAngle(Math.PI * 0.5)
+        .endAngle(Math.PI * -0.5)
         .sort(null);
-      const instructions = piGen(
-        data.reduce(
-          (sum, d) => sum + parseFloat(d.executionAverage) / data.length
-        )
-      );
+      let ea = [
+        data
+          .map((d) => d.executionAverage)
+          .filter((d) => d !== 0)
+          .reduce((sum, b) => sum + b, 0) /
+          data.map((d) => d.executionAverage).filter((d) => d !== 0).length,
+        1,
+      ];
+      const instructions = piGen(ea);
+      console.log(ea, instructions);
       svg
         .selectAll(".slice")
         .data(instructions)
         .attr("class", "slice")
         .join("path")
-        .style("fill", "yellow")
+        .attr("stroke", "black")
+        .style("fill", (instruction, index) =>
+          index !== 0 ? "yellow" : "#eee"
+        )
         .style(
           "transform",
           `translate(${dimensions.width / 2}px,${dimensions.height / 2}px`
