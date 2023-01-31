@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { ticks } from "d3";
+import useMeasure from "react-use-measure";
 
 const RadarChart = ({ data }) => {
   const container = useRef(null);
+  const [mRef, dimensions] = useMeasure();
   // console.log(data);
   let byBase = Array.from(
     d3.group(data, (d) => (d.type === "Transition" ? d.name : d.base_id))
@@ -12,9 +14,9 @@ const RadarChart = ({ data }) => {
   let max = d3.max(byBase.map((b) => b[1].length));
   useEffect(() => {
     // Set the dimensions of the canvas/graph
-    const margin = { top: 50, right: 20, bottom: 30, left: 175 };
-    const width = 350 - margin.left - margin.right;
-    const height = 350 - margin.top - margin.bottom;
+    const margin = { top: 50, right: 20, bottom: 30, left: 45 };
+    const width = dimensions.width - margin.left - margin.right;
+    const height = dimensions.height - margin.top - margin.bottom;
 
     const svg = d3
       .select(container.current)
@@ -22,7 +24,7 @@ const RadarChart = ({ data }) => {
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
-      .attr("transform", `translate(${margin.left},${margin.top})`);
+      .style("transform", `translate(${margin.left}px,${margin.top}px)`);
 
     let radialScale = d3.scaleLinear().domain([0, 1]).range([0, 100]);
     function angleToCoordinate(angle, value) {
@@ -145,7 +147,11 @@ const RadarChart = ({ data }) => {
     }
   }, [data]);
 
-  return <svg key={"svgkey"} className=" h-[350px] w-full" ref={container} />;
+  return (
+    <div ref={mRef} className={"h-[350px] w-full"}>
+      <svg key={"svgkey"} className=" h-full w-full" ref={container} />
+    </div>
+  );
 };
 
 export default RadarChart;

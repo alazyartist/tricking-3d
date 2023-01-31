@@ -49,13 +49,25 @@ const PieChart = ({ data }) => {
             dimensions.height / 2 + margin.top
           }px)`
         )
-        .attr("d", (instruction) => arcGen(instruction))
+        .attr("d", (instruction) => arcGen(piGen(0)));
+      // .each((d) => (this._current = d));
+      svg
         .append("text")
         .style("fill", "#d4d4d4")
         .style("font-size", "12px")
         .attr("text-anchor", "middle")
         .text("test");
+
+      arc.transition().duration(1000).attrTween("d", arcTween);
+      function arcTween(a) {
+        var i = d3.interpolate(this._current, a);
+        this._current = i(0);
+        return function (t) {
+          return arcGen(i(t));
+        };
+      }
     }
+
     console.log(dimensions);
   }, [data, dimensions]);
   return (
