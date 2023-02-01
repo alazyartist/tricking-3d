@@ -369,7 +369,7 @@ export const findOrCreate = async (req, res) => {
       <body style="color: '#d4d4d8';text-align:center;">
       <h1>Welcome, <span style="color:#4f4f46;">${first_name} ${last_name}</span> Thank You for Signing Up to the</h1>
       <a href="trickedex.app"><img style="height: fit; width: fit;" src="https://trickedex.app/TrickedexLogo.png" /></a>
-        <h3 style="text-size: ">We are excited to have you! Once you login you will be able to access the Dashboard and many of it's hidden features!<a style="color:#4f4622;" href='trickedex.app/dash'><h2>Go to The Dash Now</h2></a><br/> <h2>Enjoy!</h2></h3>
+        <h3 style="text-size: ">We are excited to have you! Once you login you will be able to access your account and many of it's hidden features!<a style="color:#4f4622;" href='trickedex.app/home'><h2>Go to The Dash Now</h2></a><br/> <h2>Enjoy!</h2></h3>
         </html>`,
 			});
 		})
