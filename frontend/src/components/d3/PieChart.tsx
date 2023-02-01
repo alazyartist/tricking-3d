@@ -20,8 +20,8 @@ const PieChart = ({ data }) => {
       const arcGen = d3.arc().innerRadius(25).outerRadius(50);
       const piGen = d3
         .pie()
-        .startAngle(Math.PI * 0.5)
-        .endAngle(Math.PI * -0.5)
+        .startAngle(Math.PI * -0.5)
+        .endAngle(Math.PI * 0.5)
         .sort(null);
       let ea = [
         data
@@ -41,9 +41,9 @@ const PieChart = ({ data }) => {
         .join("path")
         .attr("stroke", "black")
         .style("fill", (instruction, index) =>
-          index === 0 ? "#eee" : "yellow"
+          index === 0 ? "yellow" : "#eee"
         )
-        .style("opacity", (instruction, index) => (index !== 0 ? 1 : 0.4))
+        .style("opacity", (instruction, index) => (index === 0 ? 1 : 0.4))
         .style(
           "transform",
           `translate(${dimensions.width / 2}px , ${
@@ -62,24 +62,17 @@ const PieChart = ({ data }) => {
 
       svg
         .selectAll("text")
-        // .style(
-        //   "transform",
-        //   `translate(${dimensions.width / 2}px , ${
-        //     dimensions.height / 2 + margin.top
-        //   }px)`
-        // )
         .data(instructions)
-        .join("text")
         .style("transform", function (d) {
-          //@ts-ignore
           let c = arcGen.centroid(d);
-          console.log(c);
-          let text = `translate(${c[0]}, ${c[1]})`;
-          return text;
+          return `translate(${
+            dimensions.width / 2 + c[0] - 7
+          }px , ${dimensions.height / 2 + margin.top + c[1]}px)`;
         })
+        .join("text")
         .text((d) => d.value.toFixed(2))
         .style("color", "#d4d4d4")
-        .style("font-size", "14px");
+        .style("font-size", "10px");
     }
 
     console.log(dimensions);
