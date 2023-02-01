@@ -46,7 +46,7 @@ function AllTrickDisplay() {
         className="  flex max-h-full max-w-full flex-col place-content-center place-items-center gap-4 p-2 font-inter font-bold "
       >
         <div>
-          {filteredTricks.length}/{TrickListArr.length} Tricks
+          {filteredTricks?.length}/{TrickListArr?.length} Tricks
         </div>
         <input
           className="sticky top-0 w-full rounded-xl p-2"

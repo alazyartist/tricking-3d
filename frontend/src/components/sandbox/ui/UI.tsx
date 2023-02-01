@@ -2,14 +2,12 @@ import React from "react";
 import ActiveDevNote from "@components/info/ActiveDevNote";
 import Controller from "@components/media/Controller";
 import DurationSlider from "./DurationSlider";
-import ModalNav from "./ModalNav";
 import VideoOverlay from "./VideoOverlay";
 
-function MediaController() {
+function UI() {
   return (
     <>
       <div className="pt-3"></div>
-      <ModalNav />
       <ActiveDevNote />
       <VideoOverlay />
       <div

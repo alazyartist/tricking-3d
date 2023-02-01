@@ -53,9 +53,12 @@ const PieChart = ({ data }) => {
         .transition()
         .duration(2000)
         .attrTween("d", function (nextI) {
+          //@ts-ignore
           const interpolator = d3.interpolate(this?.lastI, nextI);
+          //@ts-ignore
           this.lastI = interpolator(0);
           return function (t) {
+            //@ts-ignore
             return arcGen(interpolator(t));
           };
         });
@@ -63,6 +66,7 @@ const PieChart = ({ data }) => {
         .selectAll("text")
         .data(instructions)
         .style("transform", function (d) {
+          //@ts-ignore
           let c = arcGen.centroid(d);
           return `translate(${
             dimensions.width / 2 + c[0] - 7
