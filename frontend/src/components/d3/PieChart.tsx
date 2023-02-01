@@ -17,22 +17,22 @@ const PieChart = ({ data }) => {
         .style("transform", `translate(${margin.left}px,${margin.top})px`);
 
       console.log(data);
-      const arcGen = d3.arc().innerRadius(25).outerRadius(50);
+      const arcGen = d3.arc().innerRadius(18).outerRadius(48);
       const piGen = d3
         .pie()
         .startAngle(Math.PI * -0.5)
         .endAngle(Math.PI * 0.5)
         .sort(null);
-      let ea = [
+      let ea =
         data
           .map((d) => d.executionAverage)
           .filter((d) => d !== 0)
           .reduce((sum, b) => sum + b, 0) /
-          data.map((d) => d.executionAverage).filter((d) => d !== 0).length,
-        1,
-      ];
-      const instructions = piGen(ea);
-      let emptyInstructions = piGen([0, 0]);
+        data.map((d) => d.executionAverage).filter((d) => d !== 0).length;
+
+      //   const instructions = piGen(ea);
+      const instructions = piGen([ea, 1 - ea]);
+      let emptyInstructions = piGen([0, 1]);
       console.log(ea, instructions);
       const arc = svg
         .selectAll("path")
@@ -59,7 +59,6 @@ const PieChart = ({ data }) => {
             return arcGen(interpolator(t));
           };
         });
-
       svg
         .selectAll("text")
         .data(instructions)
