@@ -38,16 +38,17 @@ export default function TrickInfo() {
       (tricks?.length &&
         combos?.length &&
         tricks?.filter((trick) =>
-          trick.name.toLowerCase().includes(currentAnim.toLowerCase())
+          trick?.name?.toLowerCase().includes(currentAnim.toLowerCase())
         )[0]?.trick_id) ||
       combos?.filter((trick) =>
         trick.name.toLowerCase().includes(currentAnim.toLowerCase())
       )[0]?.combo_id;
+
     let comboOrTrick =
       (tricks?.length &&
         combos?.length &&
         tricks?.filter((trick) =>
-          trick.name.toLowerCase().includes(currentAnim.toLowerCase())
+          trick?.name?.toLowerCase().includes(currentAnim.toLowerCase())
         )[0]?.type) ||
       combos?.filter((trick) =>
         trick.name.toLowerCase().includes(currentAnim.toLowerCase())
@@ -57,16 +58,17 @@ export default function TrickInfo() {
     setTrickOrCombo(comboOrTrick);
   }, [tricks, currentAnim]);
   const TrickInfoText = TrickInformation[currentAnim]?.toString();
+
   return (
     <>
       <div
         id="modal-conatiner"
-        className="fixed top-0 left-0 z-[1000] h-full w-full "
+        className="h-full w-full"
       >
-        <div id="trick-info-containers-reposition" className="relative top-20">
+        <div id="trick-info-containers-reposition" >
           <div
             id="trick-info-container"
-            className="z-30 m-10 flex h-auto w-auto flex-col place-items-center p-4 align-middle text-zinc-200 "
+            className="flex h-auto w-auto flex-col place-items-center p-4 align-middle text-zinc-200 "
           >
             <h2
               id="trick-info-header"
@@ -86,12 +88,13 @@ export default function TrickInfo() {
               details={details?.[0]}
               trickOrCombo={trickOrCombo}
             />
-
-            {/* <TrickInfoComments count={count} />
-						<Interact count={count} setCount={setCount} /> */}
           </div>
+          <InfoKey />
         </div>
-        <InfoKey />
+        {/*
+        <TrickInfoComments count={count} />
+        <Interact count={count} setCount={setCount} />
+        */}
       </div>
     </>
   );
@@ -102,7 +105,7 @@ const InfoKey = () => {
   return keyVisible ? (
     <div
       onClick={() => showKey(!keyVisible)}
-      className="absolute left-5 top-5 flex flex-col gap-2 text-zinc-300"
+      className="flex flex-row gap-2 text-zinc-300"
     >
       <div className="flex items-center gap-2 text-sm">
         <div className="h-6 w-6 rounded-full bg-zinc-400" />
@@ -120,7 +123,7 @@ const InfoKey = () => {
   ) : (
     <FaKey
       onClick={() => showKey(!keyVisible)}
-      className="absolute left-5 top-5 text-zinc-300"
+      className="text-zinc-300"
     />
   );
 };

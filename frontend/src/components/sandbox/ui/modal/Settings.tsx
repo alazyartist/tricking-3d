@@ -4,12 +4,7 @@ import Backgrounds from "./Backgrounds";
 const Settings = () => {
   return (
     <div
-      className="no-scrollbar fixed top-[10vh] left-[10vw] flex h-[85vh] 
-w-[80vw] flex-col items-center justify-center gap-2 overflow-y-auto 
-rounded-2xl py-6 font-inter text-zinc-300 sm:pr-6 md:pr-4
-lg:pr-[5rem]
-"
-    >
+      className="flex flex-col items-center justify-center gap-2 text-zinc-300">
       <div className="font-inter text-2xl font-black">MORE COMING SOON</div>
       <div className="flex flex-row gap-3 rounded-xl bg-zinc-900 p-2 text-xl font-bold">
         <div className="text-zinc-300">Background</div>

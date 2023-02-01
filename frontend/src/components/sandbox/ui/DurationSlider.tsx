@@ -140,21 +140,13 @@ function DurationSlider() {
           <div
             id="timestamp-container"
             ref={range}
-            className=" z-2 absolute h-2 "
+            className=" z-60 absolute font-inter text-sm text-slate-200"
           >
             <div
               id="start-timestamp"
               className="
-                z-60 
-                absolute 
-                left-[-25px]
-                top-[-22px] 
-                h-[16px]
-                w-[32px]
-                rounded 
-            font-inter 
-                text-xs
-                text-slate-200 
+                absolute left-0 top-[-22px] 
+                h-[16px] w-[32px]
               "
             >
               {(start * clipDuration).toFixed(2)}
@@ -162,17 +154,8 @@ function DurationSlider() {
             <div
               id="end-timestamp"
               className="
-                z-60 
-                absolute 
-                right-[-25px]
-                top-[-22px] 
-                h-[16px]
-                w-[32px]
-				rounded
-                font-inter 
-             
-                text-xs
-                text-slate-200 
+                absolute right-0 top-[-22px] 
+                h-[16px] w-[32px]
               "
             >
               {(end * clipDuration).toFixed(2)}

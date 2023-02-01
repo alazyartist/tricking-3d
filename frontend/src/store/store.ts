@@ -37,7 +37,7 @@ interface Store {
   setClipDuration: (value: number) => void;
   setCurrentTime: (value: number) => void;
   setModelPosition: (value: number) => void;
-  setIsPaused: (value: boolean) => void;
+  setIsPaused: (value?: boolean) => void;
   setLoop: () => void;
   setScrubbing: (value: number) => void;
   setSlider: (value: number) => void;

@@ -1,9 +1,11 @@
+/* I think this is the old-old sandbox page?
+
 import CanvasComponent from "./CanvasComponent.js";
 import { useEffect, useMemo } from "react";
 import { useStore } from "../../store/store.js";
 
 import React from "react";
-import UI from "../../app/sandbox/ui/UI";
+import UI from "../../app/sandbox/ui/MediaController";
 import ShowHideToggle from "../../app/sandbox/ui/ShowHideToggle";
 // import { useParams, useSearchParams } from "react-router-dom";
 import MinimalUI from "../../app/sandbox/ui/MinimalUI";
@@ -103,3 +105,4 @@ export default function Sandbox() {
     </>
   );
 }
+*/
