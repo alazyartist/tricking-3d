@@ -66,10 +66,10 @@ const PieChart = ({ data }) => {
           let c = arcGen.centroid(d);
           return `translate(${
             dimensions.width / 2 + c[0] - 7
-          }px , ${dimensions.height / 2 + margin.top + c[1]}px)`;
+          }px , ${dimensions.height / 2 + margin.top + c[1] + 3}px)`;
         })
         .join("text")
-        .text((d) => d.value.toFixed(2))
+        .text((d, i) => (i === 0 ? d.value.toFixed(2) : ""))
         .style("color", "#d4d4d4")
         .style("font-size", "10px");
     }
