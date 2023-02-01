@@ -18,7 +18,7 @@ const Animations = ({ handleClose }) => {
         return (
           <button
             id="dropdown-item"
-            className="mt-1 mb-2 flex w-full justify-center rounded-lg font-inter text-xl font-light text-zinc-200 hover:text-zinc-400"
+            className={`${currentAnim === e ? "text-zinc-100 font-bold text-2xl" : "text-zinc-200 font-light text-xl"} odd:bg-zinc-600 odd:bg-opacity-70 mt-1 mb-2 flex w-full justify-center rounded-lg font-inter hover:text-zinc-400`}
             onClick={() => {
               selectAnim(e);
               window.history.replaceState(

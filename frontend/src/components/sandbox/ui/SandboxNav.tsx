@@ -72,7 +72,7 @@ const SandboxNav = () => {
             {currentVersions.length > 1 && (<></>)}
             <ModalButton
               handleOpen={() => handleOpen(4)}
-              content={"Combo"}//"Version"
+              content={<div> Combo {currentVersions?.length > 1 ? <span className='bg-zinc-800 border-2 border-zinc-100 rounded-md pl-2 pr-2'> {currentVersions?.length} </span> : null }</div>}//"Version"
             />
             {/**versions button*/}
             <ModalButton
