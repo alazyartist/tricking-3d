@@ -1,110 +1,66 @@
 "use client";
+import React from "react";
 import { Canvas } from "@react-three/fiber";
 import { useRef } from "react";
 import { useStore } from "@store/store";
-import React from "react";
-import UI from "@components/sandbox/ui/UI";
-import ShowHideToggle from "@components/sandbox/ui/ShowHideToggle";
-// import { useParams, useSearchParams } from "react-router-dom";
-import MinimalUI from "@components/sandbox/ui/MinimalUI";
-import TrickInfo from "@components/info/TrickInfo";
-import { useVideoStore } from "@components/sandbox/videoOverlay/useVideoStore";
+import ShowHideUI from "@components/sandbox/ui/ShowHideToggle";
 import useVideoControls from "@components/sandbox/videoOverlay/useVideoControls";
 import { useRouter } from "next/router";
 import TorqueScene from "@scenes/TorqueScene";
+import SandboxNav from "./ui/SandboxNav";
+import MediaController from "@components/media/Controller";
+import DurationSlider from "./ui/DurationSlider";
+import MinimalUI from "@components/sandbox/ui/MinimalUI";
+
 const Sandbox = () => {
+  /*
+  const setVidSrc = useVideoStore((s) => s.setVideoSource);
+  const setVideoOpacity = useVideoStore((s) => s.setVideoOpacity);
+  const setCanvasOpacity = useVideoStore((s) => s.setCanvasOpacity);
+  const vidTime = useVideoStore((s) => s.vidTime);
+  const setVidDuration = useVideoStore((s) => s.setVidDuration);
+  const vidSrc = useVideoStore((s) => s.videoSource);
+  const videoOpacity = useVideoStore((s) => s.videoOpacity);
+  const canvasOpacity = useVideoStore((s) => s.canvasOpacity);
+  const setVidTime = useVideoStore((s) => s.setVidTime);
+  */
   const router = useRouter();
   const { model, trick } = router.query;
   const showUI = useStore((s) => s.showUI);
-  const showInfo = useStore((s) => s.showInfo);
-  // const setModel = useStore((s) => s.setModel);
-  // const setAnim = useStore((s) => s.selectAnim);
-
-  // useMemo(() => {
-  // 	model && setModel(model);
-  // 	trick && setAnim(trick);
-  // }, [model, trick]);
-
-  // function useQueryParam(key) {
-  // 	let [searchParams, setSearchParams] = useSearchParams();
-  // 	let paramValue = searchParams.get(key);
-
-  // 	let value = React.useMemo(() => JSON.parse(paramValue), [paramValue]);
-
-  // 	let setValue = React.useCallback(
-  // 		(newValue, options) => {
-  // 			let newSearchParams = new URLSearchParams(searchParams);
-  // 			newSearchParams.set(key, JSON.stringify(newValue));
-  // 			setSearchParams(newSearchParams, options);
-  // 		},
-  // 		[key, searchParams, setSearchParams]
-  // 	);
-
-  // 	return [value, setValue];
-  // }
-
-  // let [urlState, setUrlState] = useQueryParam();
-  // useMemo(() => {
-  // 	setUrlState({ timescale, isPaused, start, end, showUI });
-  // 	console.log("urlState:", urlState);
-  // }, [timescale, isPaused, start, end, showUI]);
-  // useMemo(() => {
-  // 	setTimescale(urlState.timescale);
-  // 	setIsPaused(urlState.timescale);
-  // 	setUI(urlState.showUI);
-  // }, [urlState.timescale, urlState.isPaused, urlState.showUI]);
-  //canvas loading progress, async, will run on first render
-  // console.log(useStore((state) => state.animationsArray));
-
-  //General Design Handled Here
-
-  const vidSrc = useVideoStore((s) => s.videoSource);
-  const setVidSrc = useVideoStore((s) => s.setVideoSource);
-  const videoOpacity = useVideoStore((s) => s.videoOpacity);
-  const canvasOpacity = useVideoStore((s) => s.canvasOpacity);
-  const setVideoOpacity = useVideoStore((s) => s.setVideoOpacity);
-  const setCanvasOpacity = useVideoStore((s) => s.setCanvasOpacity);
-  const setVidTime = useVideoStore((s) => s.setVidTime);
-  const vidTime = useVideoStore((s) => s.vidTime);
-  const setVidDuration = useVideoStore((s) => s.setVidDuration);
   let vid = useRef();
   useVideoControls(vid);
 
+
+  let container_border = "min-h-[10vh] overflow-hidden rounded-lg border-2 border-zinc-800 bg-opacity-80"
+
   return (
     <>
-      <div id="Root-Container" className="fixed h-screen w-screen bg-zinc-900">
-        <div
-          id="show-hide-container"
-          className="absolute top-[5.2rem] right-4 z-[1005] p-1"
-        >
-          <ShowHideToggle />
-        </div>
-        {showUI ? <UI /> : <MinimalUI />}
-        {showInfo && <TrickInfo />}
-        {vidSrc && (
-          <video
-            style={{ opacity: videoOpacity }}
-            id={"video"}
-            ref={vid}
-            src={vidSrc}
-            controls={false}
-            muted
-            //@ts-ignore
-            onTimeUpdate={() => setVidTime(vid?.currentTime)}
-            loop
-            playsInline
-            className={`absolute top-0 left-0 z-[-1] h-full w-full `}
-          />
+      <div className="w-screen h-screen">
+        <Canvas className="w-screen h-screen bg-zinc-800">
+          <TorqueScene gizmoHelper={false} model={model} trick={trick} />
+        </Canvas>
+
+        {showUI ? (
+          <>
+            <div className="absolute top-0 left-0 p-2 pt-2 pb-4 gap-2 w-screen">
+              <div className={`${container_border} bg-zinc-600 flex flex-col w-full max-w-[100vw] max-h-[80vh]`}>
+                <SandboxNav />
+              </div>
+            </div>
+
+            <div className="absolute bottom-0 left-0 p-2 pt-2 pb-4 w-screen">
+              <div className={`${container_border} p-4 bg-zinc-800`}>
+                <DurationSlider />
+                <MediaController />
+              </div>
+            </div>
+          </>
+        ) : (
+          <MinimalUI />
         )}
-        <div
-          style={{ opacity: canvasOpacity }}
-          id="full-screen-canvas"
-          className="absolute top-0 h-full w-full "
-        >
-          <Canvas className="h-100vh w-100vw">
-            <TorqueScene gizmoHelper={false} model={model} trick={trick} />
-          </Canvas>
-          {/* <CanvasComponent /> */}
+
+        <div className={`absolute ${showUI ? "bottom-[15vh]" : "bottom-0"} right-0`}>
+          <ShowHideUI />
         </div>
       </div>
     </>

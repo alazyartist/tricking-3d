@@ -5,7 +5,7 @@ import DurationSlider from "./DurationSlider";
 import ModalNav from "./ModalNav";
 import VideoOverlay from "./VideoOverlay";
 
-function UI() {
+function MediaController() {
   return (
     <>
       <div className="pt-3"></div>

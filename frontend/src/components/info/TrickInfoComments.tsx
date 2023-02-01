@@ -17,7 +17,7 @@ const TrickInfoComments = () => {
 
 	return (
 		trick_id && (
-			<div className='absolute top-[40vh] h-[30vh] w-[95vw] overflow-auto rounded-xl bg-zinc-800 bg-opacity-60 p-4 pt-4'>
+			<div className='w-[95vw] overflow-auto rounded-xl bg-zinc-800 bg-opacity-60 p-4 pt-4'>
 				<div>
 					{Array.isArray(comments) && comments?.length ? (
 						comments?.map((comment) => (

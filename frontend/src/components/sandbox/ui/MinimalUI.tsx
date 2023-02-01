@@ -18,6 +18,7 @@ function MinimalUI() {
         className="absolute bottom-16 right-4 z-10 m-2 w-fit"
       >
         <div id="container" className="flex flex-col gap-2">
+        {/*
           <MediaButton
             id="info-minimal"
             content={
@@ -29,6 +30,7 @@ function MinimalUI() {
             }
             f={setInfo}
           />
+          */}
           <MediaButton
             id="play-pause-minimal"
             f={setIsPaused}
