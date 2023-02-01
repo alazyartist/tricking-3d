@@ -15,7 +15,7 @@ const Animations = ({ handleClose }) => {
   
   return (
     <div
-      className="max-h-full w-full flex-col items-center justify-center"
+      className="max-h-[60vh] overflow-y-auto w-full flex-col items-center justify-center"
     >
       {animSet?.map((e, i) => {
         return (

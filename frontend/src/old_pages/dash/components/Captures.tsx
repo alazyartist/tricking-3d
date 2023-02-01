@@ -13,6 +13,7 @@ const Captures = () => {
   useEffect(() => {
     setCaptured(userInfo.Captured)
     setCapturedMe(userInfo.CapturedMe)
+
   }, [userInfo]);
 
   const RenderCaptures = (props) => {

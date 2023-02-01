@@ -91,8 +91,10 @@ export default function TrickInfo() {
           </div>
           <InfoKey />
         </div>
+        {/*
         <TrickInfoComments count={count} />
         <Interact count={count} setCount={setCount} />
+        */}
       </div>
     </>
   );

@@ -61,13 +61,7 @@ const SandboxNav = () => {
             {/**trickInfo button */}
             <ModalButton
               handleOpen={() => handleOpen(2)}
-              content={
-                activeView === 1 ? (
-                  <MdInfo className="fill-zinc-300 text-3xl" />
-                ) : (
-                  <MdInfoOutline className="fill-zinc-300 text-3xl" />
-                )
-              }
+              content={ <MdInfoOutline /> }
             />
             {/**models button*/}
             <ModalButton

@@ -50,11 +50,12 @@ const Sandbox = () => {
 
       <div className="absolute top-0 left-0 flex flex-col justify-between p-2 pt-2 pb-4 gap-2 h-screen w-screen">
         {/* Model UI */}
-        <div id="Top-UI-Container" className={`${container_border} bg-zinc-600 flex flex-col w-full max-w-[100vw] `}>
+        <div id="Top-UI-Container" className={`${container_border} bg-zinc-600 flex flex-col w-full max-w-[100vw] max-h-[80vh]`}>
           <SandboxNav />
-          {/*
-            <ShowHideUI />
-          */}
+        </div>
+
+        <div className='flex flex-1'>
+         <ShowHideUI />
         </div>
 
         {/* Media Player */}
