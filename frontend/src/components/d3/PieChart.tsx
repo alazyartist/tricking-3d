@@ -32,6 +32,7 @@ const PieChart = ({ data }) => {
         1,
       ];
       const instructions = piGen(ea);
+      let emptyInstructions = piGen([0, 0]);
       console.log(ea, instructions);
       const arc = svg
         .selectAll("path")
@@ -40,7 +41,7 @@ const PieChart = ({ data }) => {
         .join("path")
         .attr("stroke", "black")
         .style("fill", (instruction, index) =>
-          index !== 0 ? "yellow" : "#eee"
+          index === 0 ? "#eee" : "yellow"
         )
         .style("opacity", (instruction, index) => (index !== 0 ? 1 : 0.4))
         .style(
@@ -49,23 +50,36 @@ const PieChart = ({ data }) => {
             dimensions.height / 2 + margin.top
           }px)`
         )
-        .attr("d", (instruction) => arcGen(piGen(0)));
-      // .each((d) => (this._current = d));
-      svg
-        .append("text")
-        .style("fill", "#d4d4d4")
-        .style("font-size", "12px")
-        .attr("text-anchor", "middle")
-        .text("test");
+        .transition()
+        .duration(2000)
+        .attrTween("d", function (nextI) {
+          const interpolator = d3.interpolate(this?.lastI, nextI);
+          this.lastI = interpolator(0);
+          return function (t) {
+            return arcGen(interpolator(t));
+          };
+        });
 
-      arc.transition().duration(1000).attrTween("d", arcTween);
-      function arcTween(a) {
-        var i = d3.interpolate(this._current, a);
-        this._current = i(0);
-        return function (t) {
-          return arcGen(i(t));
-        };
-      }
+      svg
+        .selectAll("text")
+        // .style(
+        //   "transform",
+        //   `translate(${dimensions.width / 2}px , ${
+        //     dimensions.height / 2 + margin.top
+        //   }px)`
+        // )
+        .data(instructions)
+        .join("text")
+        .style("transform", function (d) {
+          //@ts-ignore
+          let c = arcGen.centroid(d);
+          console.log(c);
+          let text = `translate(${c[0]}, ${c[1]})`;
+          return text;
+        })
+        .text((d) => d.value.toFixed(2))
+        .style("color", "#d4d4d4")
+        .style("font-size", "14px");
     }
 
     console.log(dimensions);
