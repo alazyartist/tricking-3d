@@ -9,6 +9,11 @@ const Versions = ({ handleClose }) => {
   const currentModel = useStore((s) => s.activeModel);
   const currVersions = useStore((s) => s.currVersions);
 
+  // Console log currversions when component loads
+  useEffect(() => {
+    console.log(currVersions);
+  }, []);
+
   return (
     <div className="flex-col items-center justify-center overflow-y-auto ">
       {currVersions?.map((e, i) => {
