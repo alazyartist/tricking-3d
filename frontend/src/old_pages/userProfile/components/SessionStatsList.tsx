@@ -18,7 +18,7 @@ const SessionStatsList = ({
           console.log("pv", pointValue);
           return (
             <div
-              key={summary.id}
+              key={summary.SessionData.id}
               className="flex justify-between gap-2 rounded-md bg-zinc-900 p-2"
               onClick={() => {
                 console.log(summary, "summary");
@@ -26,7 +26,7 @@ const SessionStatsList = ({
               }}
             >
               <div className="px-2">{summary.name}</div>
-              <div className="px-2 font-bold">{pointValue}</div>
+              <div className="px-2 font-bold">{pointValue.toFixed(2)}</div>
             </div>
           );
         })}

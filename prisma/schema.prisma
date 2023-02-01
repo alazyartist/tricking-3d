@@ -203,16 +203,28 @@ model session {
 }
 
 model sessiondata {
-  id        String   @id @db.Char(36)
-  srcid     String?  @db.Char(36)
-  sessionid String?  @db.Char(36)
-  clipLabel String?  @db.Char(36)
-  clipStart String?  @db.VarChar(255)
-  clipEnd   String?  @db.VarChar(255)
-  admin     String?  @db.Char(36)
-  createdAt DateTime @default(now()) @db.DateTime(0)
-  updatedAt DateTime  @default(now()) @db.DateTime(0)
-  bail      Int?
+  id               String   @id @db.Char(36)
+  srcid            String?  @db.Char(36)
+  sessionid        String?  @db.Char(36)
+  clipLabel        String?  @db.Char(36)
+  clipStart        String?  @db.VarChar(255)
+  clipEnd          String?  @db.VarChar(255)
+  admin            String?  @db.Char(36)
+  createdAt        DateTime @default(now()) @db.DateTime(0)
+  updatedAt        DateTime @default(now()) @db.DateTime(0)
+  bail             Int?
+  totalScore Float?   @default(0)
+  executionAverage Float?   @default(0)
+}
+
+model sessiondatascores {
+  id             Int    @id @default(autoincrement())
+  sessiondataid  String @db.Char(36)
+  userid         String @db.Char(36)
+  executionScore Float
+  user           users  @relation(fields: [userid], references: [uuid])
+
+  @@unique([userid, sessiondataid], map: "userid:sessiondataid")
 }
 
 model sessionsources {
@@ -220,34 +232,40 @@ model sessionsources {
   sessionid String?  @db.Char(36)
   vidsrc    String?  @db.VarChar(255)
   createdAt DateTime @default(now()) @db.DateTime(0)
-  updatedAt DateTime  @default(now()) @db.DateTime(0)
+  updatedAt DateTime @default(now()) @db.DateTime(0)
 
   @@unique([sessionid, vidsrc], map: "vidsrckey")
 }
 
 model sessionsummaries {
-  sessionid   String   @id @db.Char(36)
-  name        String?  @db.VarChar(255)
-  user_id     String?  @db.Char(36)
-  admin       String?  @db.Char(36)
-  sessionDate String?  @db.VarChar(255)
-  startTime   String?  @db.VarChar(255)
-  endTime     String?  @db.VarChar(255)
-  status      String?  @db.VarChar(255)
-  createdAt   DateTime @default(now()) @db.DateTime(0)
-  updatedAt   DateTime @default(now()) @db.DateTime(0)
-  type        String?  @db.VarChar(255)
-  trickers   user_sessions[]  
+  sessionid   String          @id @db.Char(36)
+  name        String?         @db.VarChar(255)
+  user_id     String?         @db.Char(36)
+  admin       String?         @db.Char(36)
+  sessionDate String?         @db.VarChar(255)
+  startTime   String?         @db.VarChar(255)
+  endTime     String?         @db.VarChar(255)
+  status      String?         @db.VarChar(255)
+  createdAt   DateTime        @default(now()) @db.DateTime(0)
+  updatedAt   DateTime        @default(now()) @db.DateTime(0)
+  type        String?         @db.VarChar(255)
+  trickers    user_sessions[]
+  user users? @relation(fields: [user_id], references: [uuid]) 
+
   @@index([sessionid])
 }
-model user_sessions {
-  id    Int   @id @default(autoincrement())
-  user_id   String  @db.Char(36)
-  user    users @relation(fields: [user_id],references: [uuid])
-  sessionid   String  @db.Char(36)
-  sessionsummary    sessionsummaries @relation(fields: [sessionid],references: [sessionid])
 
+model user_sessions {
+  id             Int              @id @default(autoincrement())
+  user_id        String           @db.Char(36)
+  sessionid      String           @db.Char(36)
+  sessionsummary sessionsummaries @relation(fields: [sessionid], references: [sessionid])
+  user           users            @relation(fields: [user_id], references: [uuid])
+
+  @@index([sessionid], map: "user_sessions_sessionid_fkey")
+  @@index([user_id], map: "user_sessions_user_id_fkey")
 }
+
 model stances {
   stance_id      String  @id @db.VarChar(255)
   type           String? @default("Stance") @db.VarChar(255)
@@ -281,9 +299,14 @@ model trick_animations {
 }
 
 model trick_variations {
-  id           Int     @id @default(autoincrement())
-  variation_id Int?
-  trick_id     String? @db.Char(36)
+  id           Int        @id @default(autoincrement())
+  variation_id Int
+  trick_id     String?     @db.Char(36)
+  trick        tricks?     @relation(fields: [trick_id], references: [trick_id])
+  variation    variations @relation(fields: [variation_id], references: [id])
+
+  @@index([trick_id], map: "trick_variations_trick_id_fkey")
+  @@index([variation_id], map: "trick_variations_variation_id_fkey")
 }
 
 model tricklist_combos {
@@ -303,17 +326,18 @@ model tricklists {
 }
 
 model tricks {
-  trick_id         String  @id @db.Char(36)
-  base_id          String? @db.VarChar(255)
-  trickType        String? @db.VarChar(255)
-  type             String? @default("Trick") @db.VarChar(255)
-  name             String? @db.VarChar(255)
-  stance_id        String? @db.VarChar(255)
-  takeoffStance    String? @db.VarChar(255)
-  landingStance    String? @db.VarChar(255)
-  defaultAnimation String? @db.Char(36)
-  pointValue       Float?  @db.Float
-  bases            bases?  @relation(fields: [base_id], references: [base_id], onDelete: Restrict, onUpdate: Restrict, map: "tricks_ibfk_1")
+  trick_id         String             @id @db.Char(36)
+  base_id          String?            @db.VarChar(255)
+  trickType        String?            @db.VarChar(255)
+  type             String?            @default("Trick") @db.VarChar(255)
+  name             String?            @db.VarChar(255)
+  stance_id        String?            @db.VarChar(255)
+  takeoffStance    String?            @db.VarChar(255)
+  landingStance    String?            @db.VarChar(255)
+  defaultAnimation String?            @db.Char(36)
+  pointValue       Float?             @db.Float
+  variations       trick_variations[]
+  base             bases?             @relation(fields: [base_id], references: [base_id], onDelete: Restrict, onUpdate: Restrict, map: "tricks_ibfk_1")
 
   @@index([base_id], map: "base_id")
 }
@@ -337,25 +361,28 @@ model user_tricklists {
 }
 
 model users {
-  id                                   Int        @id @default(autoincrement())
-  username                             String?    @unique(map: "username") @db.VarChar(255)
-  first_name                           String?    @db.VarChar(255)
-  last_name                            String?    @db.VarChar(255)
-  email                                String?    @unique(map: "email") @db.VarChar(255)
-  password                             String?    @db.VarChar(255)
-  refresh_token                        String?    @db.VarChar(255)
-  uuid                                 String?    @unique @db.Char(36)
-  profilePic                           String?    @db.VarChar(255)
-  createdAt                            DateTime   @default(now()) @db.DateTime(0)
-  updatedAt                            DateTime   @db.DateTime(0)
-  deletedAt                            DateTime?  @db.DateTime(0)
-  isAdmin                              Boolean?
-  adminAccess                          Int?
-  TotalPoints                          Float?     @db.Float
-  SessionReviewCredits                 Int?
-  captures     captures[] @relation("captures_user_idTousers")
-  captured_me captures[] @relation("captures_captured_idTousers")
-  SessionSummaries      user_sessions[]
+  id                   Int                 @id @default(autoincrement())
+  username             String?             @unique(map: "username") @db.VarChar(255)
+  first_name           String?             @db.VarChar(255)
+  last_name            String?             @db.VarChar(255)
+  email                String?             @unique(map: "email") @db.VarChar(255)
+  password             String?             @db.VarChar(255)
+  refresh_token        String?             @db.VarChar(255)
+  uuid                 String?             @unique @db.Char(36)
+  profilePic           String?             @db.VarChar(255)
+  createdAt            DateTime            @default(now()) @db.DateTime(0)
+  updatedAt            DateTime            @db.DateTime(0)
+  deletedAt            DateTime?           @db.DateTime(0)
+  isAdmin              Boolean?
+  adminAccess          Int?
+  TotalPoints          Float?              @db.Float
+  SessionReviewCredits Int?
+  captures             captures[]          @relation("captures_user_idTousers")
+  captured_me          captures[]          @relation("captures_captured_idTousers")
+  executionScores      sessiondatascores[]
+  SessionSummaries     user_sessions[]
+  sessionSummaries     sessionsummaries[]
+
   @@index([uuid])
 }
 
@@ -370,13 +397,14 @@ model userscores {
 }
 
 model variations {
-  id            Int     @id @default(autoincrement())
-  variationType String? @db.VarChar(255)
-  type          String? @default("Variation") @db.VarChar(255)
-  name          String? @db.VarChar(255)
-  value         String? @db.VarChar(255)
-  pos           String? @db.VarChar(255)
-  pointValue    Float?  @db.Float
+  id            Int                @id @default(autoincrement())
+  variationType String?            @db.VarChar(255)
+  type          String?            @default("Variation") @db.VarChar(255)
+  name          String?            @db.VarChar(255)
+  value         String?            @db.VarChar(255)
+  pos           String?            @db.VarChar(255)
+  pointValue    Float?             @db.Float
+  tricks        trick_variations[]
 }
 
 model verificationtoken {

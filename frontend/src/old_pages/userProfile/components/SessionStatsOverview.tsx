@@ -1,3 +1,4 @@
+import PieChart from "@components/d3/PieChart";
 import React from "react";
 
 const SessionStatsOverview = ({ summary }) => {
@@ -20,7 +21,7 @@ const SessionStatsOverview = ({ summary }) => {
     return 0;
   })?.[0]?.ClipLabel;
   let greatestCombo = sessionCombosArr?.sort((a, b) => {
-    console.log(a.ClipLabel);
+    // console.log(a.ClipLabel);
     if (a.ClipLabel.pointValue > b.ClipLabel.pointValue) return -1;
     if (a.ClipLabel.pointValue < b.ClipLabel.pointValue) return 1;
     return 0;
@@ -55,6 +56,34 @@ const SessionStatsOverview = ({ summary }) => {
       totalPoints) *
       100
   );
+  let densityArr = sessionCombosArr.map(
+    (s) =>
+      s?.ClipLabel.comboArray
+        // .filter((t) => t.type === "Trick")
+        .reduce((sum, b) => sum + b?.pointValue, 0) /
+      // .filter((t) => t.type === "Trick")
+      s?.ClipLabel?.comboArray.length
+  );
+  let densityArrB = sessionCombosArr.map(
+    (s) =>
+      s?.ClipLabel.comboArray
+        .filter((t) => t.type === "Trick")
+        .reduce((sum, b) => sum + b?.pointValue, 0) /
+      s?.ClipLabel?.comboArray.filter((t) => t.type === "Trick").length
+  );
+  let sessionDensity =
+    densityArr.reduce((sum, b) => sum + b, 0) / densityArr.length;
+  let sessionDensityB =
+    densityArrB.reduce((sum, b) => sum + b, 0) / densityArrB.length;
+  let nonZeroExecutionAverages = sessionCombosArr
+    .map((s) => s.executionAverage)
+    .filter((s) => s !== 0);
+
+  let sessionExecutionAverage =
+    nonZeroExecutionAverages.reduce((sum, b) => sum + b, 0) /
+    nonZeroExecutionAverages.length;
+  console.log(sessionExecutionAverage);
+
   return (
     <div className="grid w-full grid-cols-2 flex-col gap-1 text-xs">
       <div className="col-span-2 flex w-full place-content-center place-items-center place-self-center rounded-md bg-zinc-900 p-2 text-2xl">
@@ -115,9 +144,26 @@ const SessionStatsOverview = ({ summary }) => {
           }
         </div>
       </div>
+      <div className="col-span-2 flex justify-around">
+        <PieChart data={sessionCombosArr} />
+        <PieChart data={sessionCombosArr} />
+        <PieChart data={sessionCombosArr} />
+      </div>
       <div className="col-span-2">
         <span className="text-zinc-400">Greatest Trick: </span>
         {tricksByPoints?.[0]?.name}
+      </div>
+      <div className="col-span-2">
+        <span className="text-zinc-400">Density - Tricks Only: </span>
+        {sessionDensityB.toFixed(3)}
+      </div>
+      <div className="col-span-2">
+        <span className="text-zinc-400">Density - All: </span>
+        {sessionDensity.toFixed(3)}
+      </div>
+      <div className="col-span-2">
+        <span className="text-zinc-400">Session ExecutionAverage: </span>
+        {sessionExecutionAverage.toFixed(2)}
       </div>
       <div className="col-span-2 w-[100%] whitespace-pre-wrap break-words">
         <span className="text-zinc-400">

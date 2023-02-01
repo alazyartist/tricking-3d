@@ -52,10 +52,10 @@ const UserProfile = () => {
     config: { durration: 100, tension: 260, friction: 50 },
     exitBeforeEnter: true,
   });
-  useEffect(() => {
-    console.log(profileInfo);
-    console.log(activeSummary);
-  }, [profileInfo, hidden]);
+  // useEffect(() => {
+  //   console.log(profileInfo);
+  //   console.log(activeSummary);
+  // }, [profileInfo, hidden]);
   useEffect(() => {
     if (activeView === "Stats") {
       setHidden(false);
@@ -165,7 +165,7 @@ const UserProfile = () => {
                   <ProfileSessionInfo summary={activeSummary} />
                 </>
               ) : (
-                <h1 className="h-full w-full p-2 text-center text-2xl font-bold text-zinc-800">
+                <h1 className="h-full w-full p-2 text-center text-2xl font-bold text-zinc-300">
                   Select a Session to see the breakdown.
                 </h1>
               )}

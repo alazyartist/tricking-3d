@@ -11,9 +11,11 @@ export const userRouter = router({
         first_name: true,
         email: true,
         captures: true,
+        SessionSummaries: true,
+        sessionSummaries: true,
       },
     });
-    console.log(users);
-    return { users };
+    // console.log(users);
+    return users;
   }),
 });

@@ -20,6 +20,7 @@ import { trpc } from "utils/trpc";
 import AllTrickDisplay from "@old_pages/AllTrickDisplay";
 import UserList from "@components/UserList";
 import { AiOutlineUser } from "react-icons/ai";
+import TempFeed from "./components/TempFeed";
 const CapturesPage = dynamic(() => import("../dash/components/CapturesPage"));
 const ClaimTricks = dynamic(() => import("../claimtricks/ClaimTricks"));
 function Home() {
@@ -51,8 +52,9 @@ function Home() {
         className="flex h-screen w-screen flex-col place-items-center"
       >
         <div
-          className={`flex w-full  ${atLocal ? "place-content-start" : "place-content-center"
-            } text-center text-zinc-200 xl:absolute xl:top-0`}
+          className={`flex w-full  ${
+            atLocal ? "place-content-start" : "place-content-center"
+          } text-center text-zinc-200 xl:absolute xl:top-0`}
         >
           <animated.div
             style={{ ...logoAnim }}
@@ -84,7 +86,7 @@ function Home() {
 						<EnterSandboxLink />
 						</Suspense>
 						
-					<Feed /> */}
+          */}
                 <Link
                   href={"/sandbox"}
                   className=" mt-4 mb-4 w-[70vw] max-w-[600px]  rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-3xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)]"
@@ -113,25 +115,27 @@ function Home() {
             ) : (
               // LoggedIn
               <>
-              {/*Button Grid Container*/}
+                {/*Button Grid Container*/}
                 <div className="flex flex-grow-0 justify-around  text-zinc-300">
                   <div className="grid w-[98%] grid-cols-2 grid-rows-2 place-content-center place-items-center gap-4">
                     {/* Captures */}
-                    {openCaptures ? ( <CapturesPage /> ) : (
+                    {openCaptures ? (
+                      <CapturesPage />
+                    ) : (
                       !openTricklists &&
                       !openComboMaker &&
                       !openClaimtricks && (
-                        <div className="neumorphic rounded-lg w-full h-full">
-                        <Link
-                          href="/captures"
-                          className={` active:neumorphicIn 
-                            flex flex-col place-content-center place-items-center 
-                            h-full w-full max-w-[600px] 
+                        <div className="neumorphic h-full w-full rounded-lg">
+                          <Link
+                            href="/captures"
+                            className={` active:neumorphicIn 
+                            flex h-full w-full max-w-[600px] 
+                            flex-col place-content-center place-items-center 
                             rounded-lg bg-zinc-800 text-4xl `}
-                        >
-                          <FaQrcode className={"h-24"} />
-                          <div className="text-lg font-bold">Capture</div>
-                        </Link>
+                          >
+                            <FaQrcode className={"h-24"} />
+                            <div className="text-lg font-bold">Capture</div>
+                          </Link>
                         </div>
                       )
                     )}
@@ -139,8 +143,9 @@ function Home() {
                     {/* Tricklists */}
                     {openTricklists ? (
                       <div
-                        className={`neumorphicIn relative top-0 my-2 flex max-h-[75vh] w-full max-w-[700px] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-800 pt-[3vh] ${openTricklists ? "col-span-2 row-span-2 my-0" : ""
-                          }`}
+                        className={` relative top-0 my-2 flex max-h-[75vh] w-full max-w-[700px] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-800 bg-opacity-40 pt-[3vh] backdrop-blur-md ${
+                          openTricklists ? "col-span-2 row-span-2 my-0" : ""
+                        }`}
                       >
                         <IoIosArrowBack
                           className="absolute top-4 right-1 text-4xl"
@@ -166,8 +171,9 @@ function Home() {
 
                     {openClaimtricks ? (
                       <div
-                        className={`neumorphicIn relative my-2 flex max-w-[600px] flex-col place-items-center gap-2 rounded-xl bg-zinc-800 pt-[3vh] ${openClaimtricks ? "col-span-2 row-span-2" : ""
-                          }`}
+                        className={`neumorphicIn relative my-2 flex max-w-[600px] flex-col place-items-center gap-2 rounded-xl bg-zinc-800 pt-[3vh] ${
+                          openClaimtricks ? "col-span-2 row-span-2" : ""
+                        }`}
                       >
                         <IoIosArrowBack
                           className="absolute top-4 right-1 text-4xl"
@@ -191,8 +197,9 @@ function Home() {
                     {/* ComboMaker */}
                     {openComboMaker ? (
                       <div
-                        className={`neumorphicIn relative top-0 my-2 flex max-h-[75vh] w-full max-w-[700px] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-800 pt-[3vh] ${openComboMaker ? "col-span-2 row-span-2 my-0" : ""
-                          }`}
+                        className={`neumorphicIn relative top-0 my-2 flex max-h-[75vh] w-full max-w-[700px] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-800 pt-[3vh] ${
+                          openComboMaker ? "col-span-2 row-span-2 my-0" : ""
+                        }`}
                       >
                         <IoIosArrowBack
                           className="absolute top-4 right-1 text-4xl"
@@ -228,8 +235,10 @@ function Home() {
 										</div> */}
                   </>
                 </div>
+                {/* <Feed /> */}
               </>
             )}
+            <TempFeed />
           </div>
         </div>
       </div>

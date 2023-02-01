@@ -30,12 +30,12 @@ export const userRoutes = express.Router();
 
 userRoutes.route("/user/login").post(checkPassword);
 userRoutes.route("/user").post(findOrCreate);
+userRoutes.route("/user/getInfo/:uuid").get(getUserInfoByUUID);
 userRoutes.use(verifyJWT);
 userRoutes.route("/user").get(findAll);
 userRoutes.route("/user/:user_id").delete(deleteUser);
 userRoutes.route("/user/:user_id/changePassword").put(changeUserPassword);
 userRoutes.route("/user/getInfo").get(getUserInfo);
-userRoutes.route("/user/getInfo/:uuid").get(getUserInfoByUUID);
 userRoutes.route("/user/getInfoById").post(getUserInfoById);
 userRoutes.route("/user/interact/").post(interact);
 userRoutes.route("/user/claimCombo").post(claimCombo);

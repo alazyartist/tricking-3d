@@ -3,6 +3,7 @@ import { animated, useSpring } from "react-spring";
 import ReactPlayer from "react-player";
 import { MdClose } from "@data/icons/MdIcons";
 import { useSessionSummariesStore } from "@admin/components/sessionreview/SessionSummaryStore";
+import RadarChart from "@components/d3/RadarChartAI";
 
 const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
   const vidsrcRegex = /(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)/g;
@@ -34,7 +35,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
   useEffect(() => {
     clearSessionData();
     activeSummary?.SessionData?.map((sd) => {
-      console.log("sd", sd);
+      // console.log("sd", sd);
       setSessionData({
         id: sd?.id,
         sessionid: sd?.sessionid,
@@ -50,10 +51,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
       return;
     });
   }, [activeSummary]);
-  useEffect(
-    () => console.log("sessionData", sessionData),
-    [sessionData, vidRef]
-  );
+
   useEffect(() => {
     if (currentTime !== seekTime && seekTime !== 0) {
       setCurrentTime(seekTime);
@@ -87,6 +85,11 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
     // onRest: () => setOpenHamburger(!openHamburger),
   });
 
+  const radarData = activeSummary.SessionData?.reduce(
+    (sum, d) => [...sum, ...d.ClipLabel.comboArray],
+    []
+  );
+  // console.log(radarData);
   return (
     <div key={source.srcid + "1"} className=" flex w-full flex-col gap-2 p-1">
       <animated.div
@@ -104,6 +107,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
         >
           Watch Session
         </div>
+        {radarData && <RadarChart data={radarData} />}
       </animated.div>
 
       {
@@ -224,8 +228,7 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
   );
   useEffect(() => {
     setSrcid(source?.srcid);
-    console.log("IME", e);
-  }, [source, vidsrc]);
+  }, [source]);
   let w = `${(
     ((parseInt(e.endTime) - parseInt(e.startTime)) / parseInt(duration)) *
     100
@@ -268,7 +271,7 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
         // onMouseOver={() => setSeeDetails(true)}
         // onMouseLeave={() => setSeeDetails(false)}
         style={{ width: w, left: l }}
-        className={`absolute top-[4px] h-3 rounded-md bg-indigo-300 `}
+        className={`absolute top-[4px] h-3 rounded-[3px] bg-indigo-300 `}
       ></div>
     </>
   );
