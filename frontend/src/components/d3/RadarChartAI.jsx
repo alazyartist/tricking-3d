@@ -13,18 +13,25 @@ const RadarChart = ({ data }) => {
   // console.log(byBase);
   let max = d3.max(byBase.map((b) => b[1].length));
   useEffect(() => {
+    if (dimensions.left === 0) return;
     // Set the dimensions of the canvas/graph
-    const margin = { top: 50, right: 20, bottom: 30, left: 45 };
+    const margin = { top: 50, right: 20, bottom: 30, left: 10 };
     const width = dimensions.width - margin.left - margin.right;
     const height = dimensions.height - margin.top - margin.bottom;
-
+    console.log(width, height, dimensions);
     const svg = d3
       .select(container.current)
       .join("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
-      .style("transform", `translate(${margin.left}px,${margin.top}px)`);
+      .join("g")
+      .style(
+        "transform",
+        `translate(${dimensions.width / 2 - 100}px,${
+          dimensions.height / 2 - 100
+        }px)`
+      );
 
     let radialScale = d3.scaleLinear().domain([0, 1]).range([0, 100]);
     function angleToCoordinate(angle, value) {
@@ -90,7 +97,7 @@ const RadarChart = ({ data }) => {
         .attr("y1", 100)
         .attr("x2", line_coordinate.x)
         .attr("y2", line_coordinate.y)
-        .attr("stroke", "black");
+        .attr("stroke", "#2c2c2f");
 
       //draw axis label
       svg
@@ -137,15 +144,15 @@ const RadarChart = ({ data }) => {
 
       //draw the path element
       svg
-        .append("path")
+        .join("path")
         .datum(coordinates)
         //@ts-ignore
         .attr("d", line)
         .attr("stroke-width", 3)
         .attr("fill", "#d4d4d4")
-        .attr("opacity", 0.4);
+        .attr("opacity", 0.8);
     }
-  }, [data]);
+  }, [data, dimensions]);
 
   return (
     <div ref={mRef} className={"h-[350px] w-full"}>
