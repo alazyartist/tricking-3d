@@ -1,4 +1,5 @@
-import PieChart from "@components/d3/PieChart";
+import ExecutionAverageGaugeChart from "@components/d3/ExecutionAverageGuageChart";
+import TrickInvertGaugeChart from "@components/d3/TricikInvertGuageChart";
 import React from "react";
 
 const SessionStatsOverview = ({ summary }) => {
@@ -144,10 +145,10 @@ const SessionStatsOverview = ({ summary }) => {
           }
         </div>
       </div>
-      <div className="col-span-2 flex justify-around">
-        <PieChart data={sessionCombosArr} />
-        <PieChart data={sessionCombosArr} />
-        <PieChart data={sessionCombosArr} />
+      <div className="col-span-2 flex h-full justify-around">
+        <ExecutionAverageGaugeChart data={sessionCombosArr} />
+        <TrickInvertGaugeChart data={sessionTricksArr} />
+        <ExecutionAverageGaugeChart data={sessionCombosArr} />
       </div>
       <div className="col-span-2">
         <span className="text-zinc-400">Greatest Trick: </span>

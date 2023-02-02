@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import useMeasure from "react-use-measure";
-const PieChart = ({ data }) => {
+const TrickInvertGaugeChart = ({ data }) => {
   const svgRef = useRef();
   const [piRef, dimensions] = useMeasure();
   useEffect(() => {
-    const margin = { top: 30, left: 30, right: 30, bottom: 30 };
+    const margin = { top: 10, left: 10, right: 10, bottom: 10 };
     const width = dimensions.width - margin.left - margin.right;
     const height = dimensions.height - margin.top - margin.bottom;
     if (svgRef.current !== undefined) {
@@ -14,36 +14,44 @@ const PieChart = ({ data }) => {
         .join("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-        .style("transform", `translate(${margin.left}px,${margin.top})px`);
+        .style(
+          "transform",
+          `translate(${margin.left}px,${dimensions.height / 2 + margin.top})px`
+        );
 
-      console.log(data);
-      const arcGen = d3.arc().innerRadius(18).outerRadius(48);
+      console.log(dimensions.width / 2);
+      const arcGen = d3
+        .arc()
+        .innerRadius(dimensions.height / 5)
+        .outerRadius(height / 2);
       const piGen = d3
         .pie()
-        .startAngle(Math.PI * -0.5)
-        .endAngle(Math.PI * 0.5)
+        // .startAngle(Math.PI * -0.5)
+        // .endAngle(Math.PI * 0.5)
         .sort(null);
-      let ea =
-        data
-          .map((d) => d.executionAverage)
-          .filter((d) => d !== 0)
-          .reduce((sum, b) => sum + b, 0) /
-        data.map((d) => d.executionAverage).filter((d) => d !== 0).length;
-
+      let tricksArray = Array.from(
+        d3.group(data, (d) => (d.type === "Trick" ? d.trickType : d.type))
+      );
+      let trickPercent = tricksArray?.map((t, i) => t[1]?.length / data.length);
+      console.log(tricksArray, trickPercent);
       //   const instructions = piGen(ea);
-      const instructions = piGen([ea, 1 - ea]);
-      let emptyInstructions = piGen([0, 1]);
-      console.log(ea, instructions);
+      const instructions = piGen(trickPercent);
+      console.log(instructions);
+      const colors = d3
+        .scaleSequential(
+          d3.interpolateRgbBasis(["#ff4b9f", "#50d9f0"])
+          // d3.interpolateRainbow
+        )
+        .domain([0, tricksArray.length - 1]);
+
       const arc = svg
         .selectAll("path")
         .data(instructions)
         .attr("class", "slice")
         .join("path")
-        .attr("stroke", "black")
-        .style("fill", (instruction, index) =>
-          index === 0 ? "yellow" : "#eee"
-        )
-        .style("opacity", (instruction, index) => (index === 0 ? 1 : 0.4))
+        .attr("stroke", "#18181b")
+        .style("fill", (d, i) => colors(i))
+
         .style(
           "transform",
           `translate(${dimensions.width / 2}px , ${
@@ -69,11 +77,11 @@ const PieChart = ({ data }) => {
           //@ts-ignore
           let c = arcGen.centroid(d);
           return `translate(${
-            dimensions.width / 2 + c[0] - 7
+            dimensions.width / 2 + c[0] - 9
           }px , ${dimensions.height / 2 + margin.top + c[1] + 3}px)`;
         })
         .join("text")
-        .text((d, i) => (i === 0 ? d.value.toFixed(2) : ""))
+        .text((d, i) => tricksArray?.[i][0])
         .style("color", "#d4d4d4")
         .style("font-size", "10px");
     }
@@ -81,10 +89,10 @@ const PieChart = ({ data }) => {
     console.log(dimensions);
   }, [data, dimensions]);
   return (
-    <div ref={piRef} className="h-[110px] w-[110px]">
+    <div ref={piRef} className="h-full w-full">
       <svg key={"pichartKey"} className="h-full w-full" ref={svgRef} />
     </div>
   );
 };
 
-export default PieChart;
+export default TrickInvertGaugeChart;
