@@ -18,15 +18,15 @@ const SessionStatsList = ({
           ).reduce((sum, b) => sum + b, 0);
           console.log("pv", pointValue);
           return (
-            <div className="flex flex-col justify-between gap-2 rounded-md bg-zinc-900 p-2">
-              <div
-                className="flex justify-between gap-2"
-                key={summary.SessionData.id}
-                onClick={() => {
-                  console.log(summary, "summary");
-                  setActiveSummary(summary);
-                }}
-              >
+            <div
+              className="flex flex-col justify-between gap-2 rounded-md bg-zinc-900 p-2"
+              onClick={() => {
+                console.log(summary, "summary");
+                setActiveSummary(summary);
+              }}
+              key={summary.SessionData.id}
+            >
+              <div className="flex justify-between gap-2">
                 <div className="px-2">{summary.name}</div>
                 <div className="px-2 font-bold">{pointValue.toFixed(2)}</div>
               </div>

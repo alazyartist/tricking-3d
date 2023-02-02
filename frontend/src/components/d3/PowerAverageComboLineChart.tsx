@@ -23,7 +23,7 @@ const PowerAverageComboLineChart = ({ data }) => {
       const max = d3.max(data, (d: any) => d.ClipLabel.pointValue);
       const xScale = d3
         .scaleLinear()
-        .domain([0, data.length])
+        .domain([0, data.length - 1])
         .range([0, width]);
       const yScale = d3
         .scaleLinear()
@@ -63,7 +63,7 @@ const PowerAverageComboLineChart = ({ data }) => {
         .datum(data)
         .attr("fill", "none")
         .attr("stroke", "url(#line-gradient)")
-        .attr("stroke-width", 1.5)
+        .attr("stroke-width", 1.7)
         .attr(
           "d",
           d3

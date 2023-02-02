@@ -6,7 +6,7 @@ const PowerAverageLineChart = ({ data }) => {
   const [lRef, dimensions] = useMeasure();
 
   useEffect(() => {
-    const margin = { top: 0, left: 0, right: 0, bottom: 0 };
+    const margin = { top: 2, left: 0, right: 0, bottom: 0 };
     const width = dimensions.width - margin.left - margin.right;
     const height = dimensions.height - margin.top - margin.bottom;
     if (svgRef.current !== undefined) {
@@ -23,7 +23,7 @@ const PowerAverageLineChart = ({ data }) => {
       const max = d3.max(data, (d: any) => d.pointValue);
       const xScale = d3
         .scaleLinear()
-        .domain([0, data.length])
+        .domain([0, data.length - 1])
         .range([0, width]);
       const yScale = d3
         .scaleLinear()
@@ -63,7 +63,7 @@ const PowerAverageLineChart = ({ data }) => {
         .datum(data)
         .attr("fill", "none")
         .attr("stroke", "url(#line-gradient)")
-        .attr("stroke-width", 1.5)
+        .attr("stroke-width", 1.7)
         .attr(
           "d",
           d3
@@ -78,7 +78,7 @@ const PowerAverageLineChart = ({ data }) => {
 
   return (
     <div ref={lRef} className="h-full w-full">
-      <svg key={"linekey"} className="h-full w-full" ref={svgRef} />
+      <svg key={"linekey"} className="h-full w-full " ref={svgRef} />
     </div>
   );
 };

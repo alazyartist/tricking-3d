@@ -92,7 +92,7 @@ const SessionStatsOverview = ({ summary }) => {
     <div className="grid w-full grid-cols-2 flex-col gap-1 text-xs">
       <div className="col-span-2 flex w-full place-content-center place-items-center place-self-center rounded-md bg-zinc-900 p-2 text-2xl">
         <span className="font-black text-zinc-400">Total Points: </span>
-        {totalPoints}
+        {totalPoints.toFixed(2)}
       </div>
       Points
       <div className="relative col-span-2 h-[4px] w-full rounded-md bg-indigo-300">
