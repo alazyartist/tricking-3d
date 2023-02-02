@@ -57,7 +57,7 @@ const SessionStatsOverview = ({ summary }) => {
       totalPoints) *
       100
   );
-  let densityArr = sessionCombosArr
+  let transitiondensityArr = sessionCombosArr
     .map(
       (s) =>
         s?.ClipLabel.comboArray
@@ -65,7 +65,7 @@ const SessionStatsOverview = ({ summary }) => {
           .reduce((sum, b) => sum + b?.pointValue, 0) /
         s?.ClipLabel?.comboArray.filter((t) => t.type === "Transition").length
     )
-    .filter((d) => d !== NaN);
+    .filter((d) => !Number.isNaN(d));
   let densityArrB = sessionCombosArr.map(
     (s) =>
       s?.ClipLabel.comboArray
@@ -73,9 +73,11 @@ const SessionStatsOverview = ({ summary }) => {
         .reduce((sum, b) => sum + b?.pointValue, 0) /
       s?.ClipLabel?.comboArray.filter((t) => t.type === "Trick").length
   );
-  console.log(densityArr);
-  let sessionDensity =
-    densityArr.reduce((sum, b) => sum + b, 0) / densityArr.length;
+  console.log(transitiondensityArr);
+
+  let sessionTransitionDensity =
+    transitiondensityArr.reduce((sum, b) => sum + b, 0) /
+    transitiondensityArr.length;
   let sessionDensityB =
     densityArrB.reduce((sum, b) => sum + b, 0) / densityArrB.length;
   let nonZeroExecutionAverages = sessionCombosArr
@@ -85,7 +87,6 @@ const SessionStatsOverview = ({ summary }) => {
   let sessionExecutionAverage =
     nonZeroExecutionAverages.reduce((sum, b) => sum + b, 0) /
     nonZeroExecutionAverages.length;
-  console.log(sessionExecutionAverage);
 
   return (
     <div className="grid w-full grid-cols-2 flex-col gap-1 text-xs">
@@ -161,8 +162,12 @@ const SessionStatsOverview = ({ summary }) => {
         {sessionDensityB.toFixed(3)}
       </div>
       <div className="col-span-2">
+        <span className="text-zinc-400">Density - Transitions: </span>
+        {sessionTransitionDensity.toFixed(3)}
+      </div>
+      <div className="col-span-2">
         <span className="text-zinc-400">Density - All: </span>
-        {sessionDensity.toFixed(3)}
+        {(sessionTransitionDensity + sessionDensityB).toFixed(3)}
       </div>
       <div className="col-span-2">
         <span className="text-zinc-400">Session ExecutionAverage: </span>

@@ -18,30 +18,24 @@ const TrickInvertGaugeChart = ({ data }) => {
           "transform",
           `translate(${margin.left}px,${dimensions.height / 2 + margin.top})px`
         );
-      let radius = d3.min([dimensions.height, dimensions.width]);
+
+      let radius = d3.min([height, width]);
 
       const arcGen = d3
         .arc()
         .innerRadius(radius / 5)
         .outerRadius(radius / 2);
-      const piGen = d3
-        .pie()
-        // .startAngle(Math.PI * -0.5)
-        // .endAngle(Math.PI * 0.5)
-        .sort(null);
+      const piGen = d3.pie().sort(null);
+      //if you want half circle put below code after d3.pie() above
+      // .startAngle(Math.PI * -0.5)
+      // .endAngle(Math.PI * 0.5)
       let tricksArray = Array.from(
-        d3.group(data, (d) => (d.type === "Trick" ? d.trickType : d.type))
+        d3.group(data, (d: any) => (d.type === "Trick" ? d.trickType : d.type))
       );
       let trickPercent = tricksArray?.map((t, i) => t[1]?.length / data.length);
-      console.log(tricksArray, trickPercent);
-      //   const instructions = piGen(ea);
       const instructions = piGen(trickPercent);
-      console.log(instructions);
       const colors = d3
-        .scaleSequential(
-          d3.interpolateRgbBasis(["#ff4b9f", "#50d9f0"])
-          // d3.interpolateRainbow
-        )
+        .scaleSequential(d3.interpolateRgbBasis(["#ff4b9f", "#50d9f0"]))
         .domain([0, tricksArray.length - 1]);
 
       const arc = svg
@@ -85,8 +79,6 @@ const TrickInvertGaugeChart = ({ data }) => {
         .style("color", "#d4d4d4")
         .style("font-size", "10px");
     }
-
-    console.log(dimensions);
   }, [data, dimensions]);
   return (
     <div ref={piRef} className="h-full w-full">

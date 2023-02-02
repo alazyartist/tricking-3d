@@ -6,26 +6,24 @@ import useMeasure from "react-use-measure";
 const RadarChart = ({ data }) => {
   const container = useRef(null);
   const [mRef, dimensions] = useMeasure();
-  // console.log(data);
   let byBase = Array.from(
     d3.group(data, (d) => (d.type === "Transition" ? d.name : d.base_id))
   ).filter((d) => d[0] !== undefined && d[0] !== "Hook" && d[0] !== "Round");
-  // console.log(byBase);
   let max = d3.max(byBase.map((b) => b[1].length));
   useEffect(() => {
     if (dimensions.left === 0) return;
     // Set the dimensions of the canvas/graph
-    const margin = { top: 50, right: 20, bottom: 30, left: 10 };
+    const margin = { top: 30, right: 30, bottom: 30, left: 30 };
     const width = dimensions.width - margin.left - margin.right;
     const height = dimensions.height - margin.top - margin.bottom;
-    console.log(width, height, dimensions);
+
+    let radius = d3.min([width, height]);
     const svg = d3
       .select(container.current)
       .join("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .join("g")
+      .select("g")
       .style(
         "transform",
         `translate(${dimensions.width / 2 - 100}px,${
@@ -33,7 +31,10 @@ const RadarChart = ({ data }) => {
         }px)`
       );
 
-    let radialScale = d3.scaleLinear().domain([0, 1]).range([0, 100]);
+    let radialScale = d3
+      .scaleLinear()
+      .domain([0, 1])
+      .range([0.1, radius / 2 - 25]);
     function angleToCoordinate(angle, value) {
       let x = Math.cos(angle) * radialScale(value);
       let y = Math.sin(angle) * radialScale(value);
@@ -47,6 +48,7 @@ const RadarChart = ({ data }) => {
     ticks.forEach((t) =>
       svg
         .append("circle")
+        .join("circle")
         .attr("cx", 100)
         .attr("cy", 100)
         .attr("fill", "none")
@@ -57,6 +59,7 @@ const RadarChart = ({ data }) => {
     ticks.forEach((t) =>
       svg
         .append("text")
+        .join("text")
         .style("fill", "#d4d4d4")
         .style("font-size", "8px")
         .attr("x", 100)
@@ -93,6 +96,7 @@ const RadarChart = ({ data }) => {
       //draw axis line
       svg
         .append("line")
+        .join("line")
         .attr("x1", 100)
         .attr("y1", 100)
         .attr("x2", line_coordinate.x)
@@ -102,7 +106,8 @@ const RadarChart = ({ data }) => {
       //draw axis label
       svg
         .append("text")
-        .style("fill", "#d4d4d4")
+        .join("text")
+        .style("fill", "#ddd")
         .style("font-size", "12px")
         .attr("text-anchor", "middle")
         .attr("x", label_coordinate.x - 5)
@@ -136,7 +141,9 @@ const RadarChart = ({ data }) => {
       //@ts-ignore
       .x((d) => d.x)
       //@ts-ignore
-      .y((d) => d.y);
+      .y((d) => d.y)
+      .curve(d3.curveBasis);
+
     for (var i = 0; i < byBase.length; i++) {
       let d = byBase[i];
       let color = colors[i];
@@ -144,19 +151,23 @@ const RadarChart = ({ data }) => {
 
       //draw the path element
       svg
+        .append("path")
         .join("path")
         .datum(coordinates)
         //@ts-ignore
         .attr("d", line)
         .attr("stroke-width", 3)
+        .attr("stroke", "#ddd")
         .attr("fill", "#d4d4d4")
         .attr("opacity", 0.8);
     }
   }, [data, dimensions]);
 
   return (
-    <div ref={mRef} className={"h-[350px] w-full"}>
-      <svg key={"svgkey"} className=" h-full w-full" ref={container} />
+    <div ref={mRef} className={"aspect-square h-full w-full max-w-[500px]"}>
+      <svg key={"svgkey"} className=" h-full w-full" ref={container}>
+        <g className="group" />
+      </svg>
     </div>
   );
 };

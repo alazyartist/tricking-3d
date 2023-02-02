@@ -1,4 +1,5 @@
 import { useSessionSummariesStore } from "@admin/components/sessionreview/SessionSummaryStore";
+import PowerAverageLineChart from "@components/d3/PowerAverageLineChart";
 import UpdateComboShorthand from "@components/UpdateComboShorthand";
 import Combodex from "@old_pages/combodex/Combodex";
 import useIsAdmin from "hooks/useIsAdmin";
@@ -153,6 +154,9 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
               <div className="whitespace-nowrap">--&gt;</div>
             )}
           </div>
+        </div>
+        <div className="h-[30px] w-full">
+          <PowerAverageLineChart data={d.ClipLabel.comboArray} />
         </div>
         {combodexopen && (
           <>
