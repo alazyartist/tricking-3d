@@ -15,12 +15,11 @@ const ExecutionAverageGaugeChart = ({ data }) => {
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .style("transform", `translate(${margin.left}px,${margin.top})px`);
-
-      console.log(data);
+      let radius = d3.min([dimensions.height, dimensions.width]);
       const arcGen = d3
         .arc()
-        .innerRadius(dimensions.height / 5)
-        .outerRadius(dimensions.height / 2 - 0.5);
+        .innerRadius(radius / 5)
+        .outerRadius(radius / 2 - 0.5);
       const piGen = d3
         .pie()
         .startAngle(Math.PI * -0.5)

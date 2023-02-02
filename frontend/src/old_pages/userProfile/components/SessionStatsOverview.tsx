@@ -57,14 +57,15 @@ const SessionStatsOverview = ({ summary }) => {
       totalPoints) *
       100
   );
-  let densityArr = sessionCombosArr.map(
-    (s) =>
-      s?.ClipLabel.comboArray
-        // .filter((t) => t.type === "Trick")
-        .reduce((sum, b) => sum + b?.pointValue, 0) /
-      // .filter((t) => t.type === "Trick")
-      s?.ClipLabel?.comboArray.length
-  );
+  let densityArr = sessionCombosArr
+    .map(
+      (s) =>
+        s?.ClipLabel.comboArray
+          .filter((t) => t.type === "Transition")
+          .reduce((sum, b) => sum + b?.pointValue, 0) /
+        s?.ClipLabel?.comboArray.filter((t) => t.type === "Transition").length
+    )
+    .filter((d) => d !== NaN);
   let densityArrB = sessionCombosArr.map(
     (s) =>
       s?.ClipLabel.comboArray
@@ -72,6 +73,7 @@ const SessionStatsOverview = ({ summary }) => {
         .reduce((sum, b) => sum + b?.pointValue, 0) /
       s?.ClipLabel?.comboArray.filter((t) => t.type === "Trick").length
   );
+  console.log(densityArr);
   let sessionDensity =
     densityArr.reduce((sum, b) => sum + b, 0) / densityArr.length;
   let sessionDensityB =

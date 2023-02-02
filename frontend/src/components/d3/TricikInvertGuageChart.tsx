@@ -18,12 +18,12 @@ const TrickInvertGaugeChart = ({ data }) => {
           "transform",
           `translate(${margin.left}px,${dimensions.height / 2 + margin.top})px`
         );
+      let radius = d3.min([dimensions.height, dimensions.width]);
 
-      console.log(dimensions.width / 2);
       const arcGen = d3
         .arc()
-        .innerRadius(dimensions.height / 5)
-        .outerRadius(height / 2);
+        .innerRadius(radius / 5)
+        .outerRadius(radius / 2);
       const piGen = d3
         .pie()
         // .startAngle(Math.PI * -0.5)
