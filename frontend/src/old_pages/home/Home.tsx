@@ -223,7 +223,7 @@ function Home() {
                           /> */}
                           <AiOutlineUser className={"h-24"} />
                           <div className="mt-[-18px] text-lg font-bold">
-                            Users
+                            Leaderboards
                           </div>
                         </div>
                       )

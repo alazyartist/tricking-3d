@@ -9,7 +9,7 @@ const UserList = () => {
   console.log(users);
   return (
     <div className="flex w-full flex-col gap-2 p-2">
-      <div className="p-1">UserList</div>
+      <div className="p-1">Users by SessionSummaries</div>
       <div className="flex flex-col gap-2">
         {users &&
           users
