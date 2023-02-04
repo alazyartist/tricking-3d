@@ -3,7 +3,9 @@ import TrickInvertGaugeChart from "@components/d3/TricikInvertGuageChart";
 import React from "react";
 
 const SessionStatsOverview = ({ summary }) => {
-  let sessionCombosArr = summary?.SessionData;
+  let sessionCombosArr = summary?.SessionData.sort((a, b) =>
+    a.startTime < b.startTime ? 1 : -1
+  );
   let sessionTricksArr = summary?.SessionData?.map(
     (s) => s.ClipLabel.comboArray
   )

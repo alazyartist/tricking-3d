@@ -29,10 +29,7 @@ const PowerAverageComboLineChart = ({ data }) => {
         .scaleLinear()
         .domain([0, parseFloat(max)])
         .range([height, 0]);
-      //   const colorScale = d3
-      //     .scaleLinear(d3.interpolateRgbBasis(["#ff4b9f", "#50d9f0"]))
-      console.log(max);
-      //     .domain(d3.extent(data, (d) => d.ClipLabel.pointValue));
+
       svg
         .append("linearGradient")
         .attr("id", "line-gradient")
@@ -51,9 +48,6 @@ const PowerAverageComboLineChart = ({ data }) => {
         .attr("offset", function (d) {
           return d.offset;
         })
-        .attr("opacity", function (d) {
-          return d.offset;
-        })
         .attr("stop-color", function (d) {
           return d.color;
         });
@@ -69,11 +63,14 @@ const PowerAverageComboLineChart = ({ data }) => {
           d3
             .line()
             .x((d, i) => xScale(i))
-            .y((d: any) => yScale(d.ClipLabel.pointValue))
+            .y((d: any) => {
+              console.log(yScale(d.ClipLabel.pointValue));
+              return yScale(d.ClipLabel.pointValue);
+            })
             .curve(d3.curveCatmullRom)
         );
     }
-    console.log(data);
+    console.log("paclc", data);
   }, [data, dimensions]);
 
   return (

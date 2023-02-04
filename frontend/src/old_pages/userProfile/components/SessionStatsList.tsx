@@ -16,15 +16,13 @@ const SessionStatsList = ({
           let pointValue = summary.SessionData.map(
             (data) => data.ClipLabel.pointValue
           ).reduce((sum, b) => sum + b, 0);
-          console.log("pv", pointValue);
           return (
             <div
               className="flex flex-col justify-between gap-2 rounded-md bg-zinc-900 p-2"
               onClick={() => {
-                console.log(summary, "summary");
                 setActiveSummary(summary);
               }}
-              key={summary.SessionData.id}
+              key={summary.SessionData.id + "link"}
             >
               <div className="flex justify-between gap-2">
                 <div className="px-2">{summary.name}</div>
