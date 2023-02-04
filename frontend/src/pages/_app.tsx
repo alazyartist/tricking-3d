@@ -1,6 +1,7 @@
 import type { AppType } from "next/app";
 import dynamic from "next/dynamic";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { trpc } from "../utils/trpc";
 import "../styles/globals.css";
 import "../autocomplete.css";
@@ -40,6 +41,7 @@ const MyApp: AppType<{
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools />
         <AppBackground />
         {!path.includes("/landing") && path !== "/" && <UserIcon />}
         {path.includes("/theory") ? <TheoryTabBar /> : <TabBar />}
