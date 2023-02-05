@@ -17,14 +17,24 @@ import OverallStatDisplay from "./components/OverallStatDisplay";
 const UserProfile = () => {
   const [hidden, setHidden] = useState<boolean>(false);
   const router = useRouter();
-  const { uuid } = router.query;
+  const { uuid, sessionid } = router.query;
   const { uuid: loggedInUUID } = useUserStore((s) => s.userInfo);
   const { data: profileInfo } = useUserInfoByUUID(uuid as string);
   const [editing, setEditing] = useState(false);
   const [activeSummary, setActiveSummary] = useState<any>();
   const [activeView, setActiveView] = useState("Stats");
   const isUsersPage = uuid === loggedInUUID;
+  useEffect(() => {
+    if (sessionid && profileInfo) {
+      let tempSummary = profileInfo.SessionSummaries.find(
+        (summary) => summary.sessionid === sessionid
+      );
+      setActiveView("Sessions");
+      setActiveSummary(tempSummary);
 
+      console.log("you are trying to reach", sessionid, tempSummary);
+    }
+  }, [router, profileInfo]);
   const editView = useTransition(editing, {
     from: { top: -400, opacity: 0 },
     enter: { top: 0, opacity: 100 },

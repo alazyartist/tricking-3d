@@ -12,9 +12,10 @@ const TempFeed = () => {
           //   ?.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1))
           ?.map((summary) => {
             const user = summary.user;
+            console.log(summary.sessionid);
             return (
               <Link
-                href={`/userProfile/${user.uuid}`}
+                href={`/userProfile/${user.uuid}?sessionid=${summary.sessionid}`}
                 className={`w-full rounded-md bg-zinc-900 p-2 text-zinc-300`}
               >
                 <div className="flex place-content-center place-items-center justify-between ">

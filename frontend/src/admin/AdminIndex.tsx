@@ -1,16 +1,15 @@
 "use client";
+import useIsAdmin from "hooks/useIsAdmin";
 import React from "react";
 import { useUserStore } from "../store/userStore";
 import AdminDisplay from "./components/AdminDisplay";
 
 const AdminIndex = () => {
   const userInfo = useUserStore((s) => s.userInfo);
-
+  const isAdmin = useIsAdmin();
   return (
     <>
-      {userInfo?.uuid === "admin696-8c94-4ca7-b163-9alazyartist" ||
-      userInfo?.uuid === "admin696-8c94-4ca7-b163-969420Tohzt" ||
-      userInfo?.uuid === "baf6a9c6-432f-4a08-8260-717249d5b71c" ? (
+      {isAdmin ? (
         <div className="no-scrollbar flex h-[100vh] w-[100vw] flex-col place-content-start place-items-center gap-4 overflow-auto font-inter font-bold text-zinc-300">
           <div className="text-center text-3xl">
             Welcome {userInfo?.username}. Good Luck Today
