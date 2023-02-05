@@ -35,7 +35,6 @@ const ExecutionAverageGaugeChart = ({ data }) => {
       //   const instructions = piGen(ea);
       const instructions = piGen([ea, 1 - ea]);
       let emptyInstructions = piGen([0, 1]);
-      console.log(ea, instructions);
       const arc = svg
         .selectAll("path")
         .data(instructions)
@@ -79,8 +78,6 @@ const ExecutionAverageGaugeChart = ({ data }) => {
         .style("color", "#d4d4d4")
         .style("font-size", "10px");
     }
-
-    console.log(dimensions);
   }, [data, dimensions]);
   return (
     <div ref={piRef} className="h-full max-h-[200px] min-h-[110px] w-full">

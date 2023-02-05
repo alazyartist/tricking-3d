@@ -31,8 +31,6 @@ const UserProfile = () => {
       );
       setActiveView("Sessions");
       setActiveSummary(tempSummary);
-
-      console.log("you are trying to reach", sessionid, tempSummary);
     }
   }, [router, profileInfo]);
   const editView = useTransition(editing, {

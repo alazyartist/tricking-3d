@@ -75,7 +75,6 @@ const SessionStatsOverview = ({ summary }) => {
         .reduce((sum, b) => sum + b?.pointValue, 0) /
       s?.ClipLabel?.comboArray.filter((t) => t.type === "Trick").length
   );
-  console.log(transitiondensityArr);
 
   let sessionTransitionDensity =
     transitiondensityArr.reduce((sum, b) => sum + b, 0) /

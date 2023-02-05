@@ -64,13 +64,13 @@ const PowerAverageComboLineChart = ({ data }) => {
             .line()
             .x((d, i) => xScale(i))
             .y((d: any) => {
-              console.log(yScale(d.ClipLabel.pointValue));
+              // console.log(yScale(d.ClipLabel.pointValue));
               return yScale(d.ClipLabel.pointValue);
             })
             .curve(d3.curveCatmullRom)
         );
     }
-    console.log("paclc", data);
+    // console.log("paclc", data);
   }, [data, dimensions]);
 
   return (

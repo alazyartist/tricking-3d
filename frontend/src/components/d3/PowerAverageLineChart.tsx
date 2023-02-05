@@ -31,7 +31,6 @@ const PowerAverageLineChart = ({ data }) => {
         .range([height, 0]);
       //   const colorScale = d3
       //     .scaleLinear(d3.interpolateRgbBasis(["#ff4b9f", "#50d9f0"]))
-      console.log(max);
       //     .domain(d3.extent(data, (d) => d.pointValue));
       svg
         .append("linearGradient")
@@ -73,7 +72,6 @@ const PowerAverageLineChart = ({ data }) => {
             .curve(d3.curveCatmullRom)
         );
     }
-    console.log(data);
   }, [data, dimensions]);
 
   return (

@@ -12,7 +12,6 @@ const TempFeed = () => {
           //   ?.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1))
           ?.map((summary) => {
             const user = summary.user;
-            console.log(summary.sessionid);
             return (
               <Link
                 href={`/userProfile/${user.uuid}?sessionid=${summary.sessionid}`}
