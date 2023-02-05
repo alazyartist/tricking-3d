@@ -12,6 +12,8 @@ export interface UserInfo {
   Captured?: any;
   CapturedMe?: any;
   SessionReviewCredits?: any;
+  isAdmin?: null | boolean;
+  adminAccess?: null | number;
 }
 interface UserStore {
   user: string | null;
