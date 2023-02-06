@@ -14,8 +14,8 @@ const OverallStatDisplay = ({ profileInfo }) => {
   );
   console.log(allSessionTricks);
   totalTricks = totalTricks
-    .map((a) => {
-      return a.reduce((sum, b) => sum + b, 0);
+    ?.map((a) => {
+      return a?.reduce((sum, b) => sum + b, 0);
     })
     .reduce((sum, b) => sum + b, 0);
   return (

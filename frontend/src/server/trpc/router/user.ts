@@ -18,4 +18,35 @@ export const userRouter = router({
     // console.log(users);
     return users;
   }),
+  findByUUID: publicProcedure
+    .input(z.object({ userid: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const profileInfo = await ctx.prisma.users.findUnique({
+        where: { uuid: input.userid },
+        select: {
+          profilePic: true,
+          uuid: true,
+          username: true,
+          first_name: true,
+          email: true,
+          captures: true,
+          SessionSummaries: true,
+          sessionSummaries: true,
+        },
+      });
+      console.log({
+        ...profileInfo,
+        SessionSummaries: [
+          ...profileInfo.sessionSummaries,
+          ...profileInfo.SessionSummaries,
+        ],
+      });
+      return {
+        ...profileInfo,
+        SessionSummaries: [
+          ...profileInfo.sessionSummaries,
+          ...profileInfo.SessionSummaries,
+        ],
+      };
+    }),
 });

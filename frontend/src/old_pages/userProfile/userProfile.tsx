@@ -13,6 +13,7 @@ import ProfileSessionInfo from "./components/ProfileSessionInfo";
 import SessionStatsList from "./components/SessionStatsList";
 import SessionStatsContainer from "./components/SessionStatsContainer";
 import OverallStatDisplay from "./components/OverallStatDisplay";
+import { trpc } from "utils/trpc";
 
 const UserProfile = () => {
   const [hidden, setHidden] = useState<boolean>(false);
@@ -20,11 +21,15 @@ const UserProfile = () => {
   const { uuid, sessionid } = router.query;
   const { uuid: loggedInUUID } = useUserStore((s) => s.userInfo);
   const { data: profileInfo } = useUserInfoByUUID(uuid as string);
+  // const { data: profileInfo } = trpc.userDB.findByUUID.useQuery({
+  //   userid: uuid as string,
+  // });
   const [editing, setEditing] = useState(false);
   const [activeSummary, setActiveSummary] = useState<any>();
   const [activeView, setActiveView] = useState("Stats");
   const isUsersPage = uuid === loggedInUUID;
   useEffect(() => {
+    console.log(profileInfo);
     if (sessionid && profileInfo) {
       let tempSummary = profileInfo.SessionSummaries.find(
         (summary) => summary.sessionid === sessionid

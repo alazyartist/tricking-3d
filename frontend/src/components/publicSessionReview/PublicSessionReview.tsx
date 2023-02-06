@@ -90,6 +90,17 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
     []
   );
   // console.log(radarData);
+  const timer = () => {
+    if (vidRef.current) {
+      setTimeout(() => {
+        setCurrentTime(vidRef.current.getCurrentTime());
+        timer();
+      }, 10);
+    }
+  };
+  useEffect(() => {
+    timer();
+  }, [vidRef]);
   return (
     <div key={source.srcid + "1"} className=" flex w-full flex-col gap-2 p-1">
       <animated.div
@@ -132,9 +143,9 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
                 width={"100%"}
                 height={"100%"}
                 onReady={() => setSrcid(source?.srcid)}
-                onProgress={({ playedSeconds }) =>
-                  setCurrentTime(playedSeconds)
-                }
+                // onProgress={({ playedSeconds }) =>
+                //   setCurrentTime(playedSeconds)
+                // }
                 // onPlay={() => handleTimeUpdate()}
                 loop
                 playsInline

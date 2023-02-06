@@ -14,6 +14,7 @@ const TempFeed = () => {
             const user = summary.user;
             return (
               <Link
+                key={`${user.uuid},${summary.sessionid}`}
                 href={`/userProfile/${user.uuid}?sessionid=${summary.sessionid}`}
                 className={`w-full rounded-md bg-zinc-900 p-2 text-zinc-300`}
               >
