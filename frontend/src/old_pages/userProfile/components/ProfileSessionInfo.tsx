@@ -83,6 +83,7 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
   const { data: totalScoreRes, mutateAsync: updateTotalScore } =
     trpc.sessionsummaries.updateTotalScore.useMutation();
   useEffect(() => {
+    console.log(currentTime);
     if (Math.floor(currentTime) === Math.floor(d.clipEnd) && loopMe) {
       setSeekTime(0);
       setSeekTime(Math.floor(d.clipStart));
@@ -98,7 +99,7 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
     clearClipCombo();
     setVidsrc(d.SessionSource.vidsrc);
     setClipComboRaw(d.ClipLabel.comboArray);
-    setSeekTime(d.clipStart);
+    setSeekTime(parseInt(d.clipStart));
     setLoopMe(true);
   };
   return (

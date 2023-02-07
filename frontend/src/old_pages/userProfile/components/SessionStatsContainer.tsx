@@ -3,10 +3,13 @@ import SessionStatsOverview from ".//SessionStatsOverview";
 import { IoIosArrowBack } from "react-icons/io";
 
 import PublicSessionReview from "@components/publicSessionReview/PublicSessionReview";
+import { useRouter } from "next/router";
 const SessionStatsContainer = ({ setActiveSummary, activeSummary, uuid }) => {
+  const router = useRouter();
   const handleBack = () => {
     setActiveSummary(null);
-    window.history.replaceState("", "", `/${uuid}`);
+    router.push(`/userProfile/${uuid}`);
+    // window.history.replaceState("", "", `/${uuid}`);
   };
   return (
     <div className="neumorphicIn no-scrollbar aspect-[5/4] w-full overflow-hidden overflow-y-scroll rounded-md p-4 md:relative">
