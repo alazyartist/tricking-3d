@@ -238,7 +238,10 @@ function Home() {
                 {/* <Feed /> */}
               </>
             )}
-            <TempFeed />
+            {!openTricklists &&
+              !openComboMaker &&
+              !openCaptures &&
+              !openClaimtricks && <TempFeed />}
           </div>
         </div>
       </div>
