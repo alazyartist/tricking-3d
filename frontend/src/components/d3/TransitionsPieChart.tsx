@@ -82,7 +82,7 @@ const TransitionsPieChart = ({ data }) => {
       const colorLegendScale = d3
         .scaleBand()
         .domain(tricksArray.map((t) => t[0]))
-        .range([0, width])
+        .range([0, dimensions.width])
         .padding(0);
       svg
         .selectAll("text")
