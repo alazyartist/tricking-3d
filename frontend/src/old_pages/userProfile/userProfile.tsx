@@ -144,6 +144,7 @@ const UserProfile = () => {
                 />
               ) : (
                 <SessionStatsContainer
+                  uuid={uuid}
                   setActiveSummary={setActiveSummary}
                   activeSummary={activeSummary}
                 />

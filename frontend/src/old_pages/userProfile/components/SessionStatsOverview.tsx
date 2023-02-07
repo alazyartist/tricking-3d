@@ -1,4 +1,5 @@
 import ExecutionAverageGaugeChart from "@components/d3/ExecutionAverageGuageChart";
+import TransitionsPieChart from "@components/d3/TransitionsPieChart";
 import TrickInvertGaugeChart from "@components/d3/TricikInvertGuageChart";
 import React from "react";
 
@@ -151,8 +152,13 @@ const SessionStatsOverview = ({ summary }) => {
       </div>
       <div className="col-span-2 flex h-full justify-around">
         <ExecutionAverageGaugeChart data={sessionCombosArr} />
-        <TrickInvertGaugeChart data={sessionTricksArr} />
-        <ExecutionAverageGaugeChart data={sessionCombosArr} />
+        <TransitionsPieChart
+          data={sessionTricksArr.filter((t) => t.type === "Transition")}
+        />
+        <TrickInvertGaugeChart
+          data={sessionTricksArr.filter((t) => t.type === "Trick")}
+        />
+        {/* <ExecutionAverageGaugeChart data={sessionCombosArr} /> */}
       </div>
       <div className="col-span-2">
         <span className="text-zinc-400">Greatest Trick: </span>

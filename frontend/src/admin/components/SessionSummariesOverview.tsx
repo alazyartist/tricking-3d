@@ -7,7 +7,7 @@ const SessionSummariesOverview = () => {
   const { data: sessions } = useGetAllSessions();
   console.log(sessions);
   return (
-    <div className="flex w-[70vw] flex-col place-items-center text-xs">
+    <div className="flex w-[76vw] flex-col place-items-center text-xs">
       <div className=" w-full rounded-md bg-zinc-900 p-2 font-titan text-lg font-thin text-zinc-300">
         Sessions in Queue
       </div>
@@ -44,26 +44,26 @@ const SessionDisplay = ({ s }) => {
       >
         <div className="w-1/3">{s?.name}</div>
         <div className="w-1/3">{s?.sessionDate}</div>
-        <div className="w-1/3">{s?.type}</div>
+        <div className="w-1/4">{s?.type}</div>
         <div className="flex place-items-center gap-1">
           <div>
             {s?.status === "In Queue" && (
-              <div className="h-6 w-6 rounded-full bg-yellow-600" />
+              <div className="h-4 w-4 rounded-full bg-yellow-600" />
             )}
             {s?.status === "In Review" && (
-              <div className="h-6 w-6 rounded-full bg-orange-600" />
+              <div className="h-4 w-4 rounded-full bg-orange-600" />
             )}
             {s?.status === "Reviewed" && (
-              <div className="h-6 w-6 rounded-full bg-emerald-600" />
+              <div className="h-4 w-4 rounded-full bg-emerald-600" />
             )}
           </div>
-          <div>
+          <div className="w-full flex-shrink-0">
             <img
               alt={"userProfile image"}
               className="h-6 w-6 rounded-full"
               src={
                 u?.profilePic !== null
-                  ? `/${u?.uuid}/${u?.profilePic}`
+                  ? `/images/${u?.uuid}/${u?.profilePic}`
                   : `./noimg.jpeg`
               }
             />

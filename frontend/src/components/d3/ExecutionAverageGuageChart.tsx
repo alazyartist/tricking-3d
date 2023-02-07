@@ -32,6 +32,10 @@ const ExecutionAverageGaugeChart = ({ data }) => {
           .reduce((sum, b) => sum + b, 0) /
         data.map((d) => d.executionAverage).filter((d) => d !== 0).length;
 
+      const colors = d3
+        .scaleSequential(d3.interpolateRgbBasis(["#fce100", "#f7630c"]))
+        .domain([0, 1]);
+
       //   const instructions = piGen(ea);
       const instructions = piGen([ea, 1 - ea]);
       let emptyInstructions = piGen([0, 1]);
@@ -42,7 +46,7 @@ const ExecutionAverageGaugeChart = ({ data }) => {
         .join("path")
         .attr("stroke", "black")
         .style("fill", (instruction, index) =>
-          index === 0 ? "yellow" : "#eee"
+          index === 0 ? colors(instruction.data) : "#eee"
         )
         .style("opacity", (instruction, index) => (index === 0 ? 1 : 0.4))
         .style(
