@@ -78,7 +78,7 @@ const ExecutionAverageGaugeChart = ({ data }) => {
           }px , ${dimensions.height / 2 + margin.top + c[1] + 3}px)`;
         })
         .join("text")
-        .text((d, i) => (i === 0 ? d.value.toFixed(2) : ""))
+        .text((d, i) => (i === 0 ? `${(d.value * 100).toFixed(0)}%` : ""))
         .style("color", "#d4d4d4")
         .style("font-size", "10px");
     }
