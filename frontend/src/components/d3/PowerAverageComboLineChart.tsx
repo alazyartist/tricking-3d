@@ -51,10 +51,10 @@ const PowerAverageComboLineChart = ({ data }) => {
         .attr("stop-color", function (d) {
           return d.color;
         });
+      // console.log("datum", data);
+      let line = svg.datum(data).append("path");
 
-      svg
-        .append("path")
-        .datum(data)
+      line
         .attr("fill", "none")
         .attr("stroke", "url(#line-gradient)")
         .attr("stroke-width", 1.7)
@@ -63,8 +63,9 @@ const PowerAverageComboLineChart = ({ data }) => {
           d3
             .line()
             .x((d, i) => xScale(i))
-            .y((d: any) => {
-              // console.log(yScale(d.ClipLabel.pointValue));
+            .y((d: any, i) => {
+              // let a = `x:${xScale(i)} y:${yScale(d.ClipLabel.pointValue)}`;
+              console.log(i, d.ClipLabel.name, d.ClipLabel.pointValue);
               return yScale(d.ClipLabel.pointValue);
             })
             .curve(d3.curveCatmullRom)
@@ -75,7 +76,7 @@ const PowerAverageComboLineChart = ({ data }) => {
 
   return (
     <div ref={lRef} className="h-full w-full">
-      <svg key={"linekey"} className="h-full w-full" ref={svgRef} />
+      <svg key={Math.random()} className="h-full w-full" ref={svgRef} />
     </div>
   );
 };

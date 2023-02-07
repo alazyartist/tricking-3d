@@ -8,6 +8,7 @@ const SessionStatsList = ({
   profileInfo,
   setActiveSummary,
 }) => {
+  console.log("sessionStatsList pI", profileInfo);
   return (
     <div className="no-scrollbar h-full w-full overflow-hidden overflow-y-scroll">
       <ProfileNav setActiveView={setActiveView} activeView={activeView} />
@@ -16,13 +17,14 @@ const SessionStatsList = ({
           let pointValue = summary.SessionData.map(
             (data) => data.ClipLabel.pointValue
           ).reduce((sum, b) => sum + b, 0);
+          console.log(summary.SessionData);
           return (
             <div
               className="flex flex-col justify-between gap-2 rounded-md bg-zinc-900 p-2"
               onClick={() => {
                 setActiveSummary(summary);
               }}
-              key={summary.SessionData.id + "link"}
+              key={Math.random() + "link"}
             >
               <div className="flex justify-between gap-2">
                 <div className="px-2">{summary.name}</div>

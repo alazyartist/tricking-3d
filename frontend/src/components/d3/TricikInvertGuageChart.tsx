@@ -5,7 +5,7 @@ const TrickInvertGaugeChart = ({ data }) => {
   const svgRef = useRef();
   const [piRef, dimensions] = useMeasure();
   useEffect(() => {
-    const margin = { top: 10, left: 10, right: 10, bottom: 10 };
+    const margin = { top: 30, left: 10, right: 10, bottom: 10 };
     const width = dimensions.width - margin.left - margin.right;
     const height = dimensions.height - margin.top - margin.bottom;
     if (svgRef.current !== undefined) {
@@ -19,23 +19,25 @@ const TrickInvertGaugeChart = ({ data }) => {
           `translate(${margin.left}px,${dimensions.height / 2 + margin.top})px`
         );
 
-      let radius = d3.min([height, width]);
+      let radius = d3.min([dimensions.height, dimensions.width]);
 
       const arcGen = d3
         .arc()
         .innerRadius(radius / 5)
-        .outerRadius(radius / 2);
-      const piGen = d3.pie().sort(null);
+        .outerRadius(radius / 2 - 0.5);
+      const piGen = d3
+        .pie()
+        .startAngle(Math.PI * -0.5)
+        .endAngle(Math.PI * 0.5)
+        .sort(null);
       //if you want half circle put below code after d3.pie() above
-      // .startAngle(Math.PI * -0.5)
-      // .endAngle(Math.PI * 0.5)
       let tricksArray = Array.from(
         d3.group(data, (d: any) => (d.type === "Trick" ? d.trickType : d.type))
       );
       let trickPercent = tricksArray?.map((t, i) => t[1]?.length / data.length);
       const instructions = piGen(trickPercent);
       const colors = d3
-        .scaleSequential(d3.interpolateRgbBasis(["#ff4b9f", "#50d9f0"]))
+        .scaleSequential(d3.interpolateRgbBasis(["#50d9f0", "#ff4b9f"]))
         .domain([0, tricksArray.length + 1]);
 
       const arc = svg
