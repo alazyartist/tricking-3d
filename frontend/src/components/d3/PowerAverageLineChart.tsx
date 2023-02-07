@@ -57,9 +57,9 @@ const PowerAverageLineChart = ({ data }) => {
           return d.color;
         });
 
-      const line = svg.datum(data).append("path");
-
-      line
+      const line = svg
+        .datum(data)
+        .append("path")
         .attr("fill", "none")
         .attr("stroke", "url(#line-gradient)")
         .attr("stroke-width", 1.7)
@@ -76,7 +76,7 @@ const PowerAverageLineChart = ({ data }) => {
 
   return (
     <div ref={lRef} className="h-full w-full">
-      <svg key={Math.random()} className="h-full w-full " ref={svgRef} />
+      <svg key={"key"} className="h-full w-full " ref={svgRef} />
     </div>
   );
 };

@@ -20,6 +20,7 @@ const TabBar = dynamic(() => import("../components/layout/TabBar"), {
   ssr: false,
 });
 
+const queryClient = new QueryClient();
 const MyApp: AppType<{
   session: Session | null;
 }> = ({ Component, pageProps: { session, ...pageProps } }) => {
@@ -37,7 +38,6 @@ const MyApp: AppType<{
   }, []);
   const router = useRouter();
   const path = router.pathname;
-  const queryClient = new QueryClient();
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>

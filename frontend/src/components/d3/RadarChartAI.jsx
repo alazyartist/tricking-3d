@@ -165,7 +165,7 @@ const RadarChart = ({ data }) => {
 
   return (
     <div ref={mRef} className={"aspect-square h-full w-full max-w-[500px]"}>
-      <svg key={"svgkey"} className=" h-full w-full" ref={container}>
+      <svg key={Math.random() * 100} className=" h-full w-full" ref={container}>
         <g className="group" />
       </svg>
     </div>

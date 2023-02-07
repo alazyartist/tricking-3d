@@ -51,6 +51,15 @@ const Combodex: React.FC<CombodexProps> = ({
     (creativityScore / 10) * combo.pointValue +
     executionAverage * combo.pointValue
   )?.toFixed(2);
+  const composition = tricks
+    ?.filter((t) => t.type === "Trick")
+    .map((t) => {
+      //@ts-ignore
+      return t?.variations.filter((tr) => tr.variation.name === "FullTwist")
+        .length;
+    })
+    .join("");
+  console.log(composition);
   useEffect(() => {
     getTricks(combo.comboArray);
   }, []);
@@ -68,17 +77,19 @@ const Combodex: React.FC<CombodexProps> = ({
   useEffect(() => {
     if (tricks) {
       let count = {};
-      tricks.forEach((obj) => {
-        if (count[obj.name]) {
-          count[obj.name].count++;
-          count[obj.name].score -= 0.1;
-        } else {
-          count[obj.name] = {
-            count: 1,
-            score: 1,
-          };
-        }
-      });
+      tricks
+        // .filter((t) => t.type === "Trick")
+        .forEach((obj) => {
+          if (count[obj.name]) {
+            count[obj.name].count++;
+            count[obj.name].score -= 0.1;
+          } else {
+            count[obj.name] = {
+              count: 1,
+              score: 1,
+            };
+          }
+        });
       setCount(count);
       count = Object.keys(count)
         .map((key) => count[key])
@@ -156,6 +167,7 @@ const Combodex: React.FC<CombodexProps> = ({
       {tricks && <RadarChart data={tricks} />}
       <div className="min-h-20 flex w-full flex-col p-2">
         More Details Go Here
+        <div>Composition: {composition}</div>
         <div>Length: {combo.comboArray.length}</div>
         <div>Transitions: {numOfTransitions}</div>
         <div>Tricks: {numOfTricks}</div>
