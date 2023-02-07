@@ -103,6 +103,16 @@ const Combodex: React.FC<CombodexProps> = ({
     countTotal[a]?.count > countTotal[b]?.count ? -1 : 1
   );
   const [executionOpen, setExecutionOpen] = useState(false);
+  let trickDensity =
+    combo.comboArray
+      .filter((t) => t.type === "Trick")
+      .reduce((sum, b) => sum + b?.pointValue, 0) /
+    combo.comboArray.filter((t) => t.type === "Trick").length;
+  let transitionDensity =
+    combo.comboArray
+      .filter((t) => t.type === "Transition")
+      .reduce((sum, b) => sum + b?.pointValue, 0) /
+    combo.comboArray.filter((t) => t.type === "Transition").length;
   return (
     <div
       className={
@@ -166,23 +176,24 @@ const Combodex: React.FC<CombodexProps> = ({
       <CombodexTrickDetails tricks={tricks} />
       {tricks && <RadarChart data={tricks} />}
       <div className="min-h-20 flex w-full flex-col p-2">
-        More Details Go Here
         <div>Composition: {composition}</div>
         <div>Length: {combo.comboArray.length}</div>
         <div>Transitions: {numOfTransitions}</div>
         <div>Tricks: {numOfTricks}</div>
         <div>Most Used: {mostUsed[0]}</div>
-        <div>
-          Density - Tricks Only:{" "}
-          {combo.comboArray
-            .filter((t) => t.type === "Trick")
-            .reduce((sum, b) => sum + b?.pointValue, 0) /
-            combo.comboArray.filter((t) => t.type === "Trick").length}
-        </div>
-        <div>
-          Density - All:{" "}
-          {combo.comboArray.reduce((sum, b) => sum + b?.pointValue, 0) /
-            combo.comboArray.length}
+        <div>Density</div>
+        <div className="flex gap-2">
+          <div className="rounded-md bg-zinc-600 p-1">
+            Tricks: {trickDensity}
+          </div>
+          +
+          <div className="rounded-md bg-zinc-600 p-1">
+            Transiton: {transitionDensity}
+          </div>
+          =
+          <div className="rounded-md bg-zinc-600 p-1">
+            All: {trickDensity + transitionDensity}
+          </div>
         </div>
         {/* <div>
           json:{" "}

@@ -31,7 +31,11 @@ const SessionStatsList = ({
                 <div className="px-2 font-bold">{pointValue.toFixed(2)}</div>
               </div>
               <div className="h-[30px] w-full">
-                <PowerAverageComboLineChart data={summary.SessionData} />
+                <PowerAverageComboLineChart
+                  data={summary.SessionData.sort((a, b) =>
+                    a.startTime > b.startTime ? -1 : 1
+                  )}
+                />
               </div>
             </div>
           );
