@@ -33,7 +33,7 @@ const SessionStatsList = ({
               <div className="h-[30px] w-full">
                 <PowerAverageComboLineChart
                   data={summary.SessionData.sort((a, b) =>
-                    a.startTime > b.startTime ? -1 : 1
+                    a.clipStart > b.clipStart ? -1 : 1
                   )}
                 />
               </div>
