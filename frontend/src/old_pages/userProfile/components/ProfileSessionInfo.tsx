@@ -83,7 +83,6 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
   const { data: totalScoreRes, mutateAsync: updateTotalScore } =
     trpc.sessionsummaries.updateTotalScore.useMutation();
   useEffect(() => {
-    console.log(currentTime);
     if (Math.floor(currentTime) === Math.floor(d.clipEnd) && loopMe) {
       setSeekTime(0);
       setSeekTime(Math.floor(d.clipStart));

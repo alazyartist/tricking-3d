@@ -20,15 +20,8 @@ const Combodex: React.FC<CombodexProps> = ({
   totalScoreRes,
   updateTotalScore,
 }) => {
-  const numOfTransitions = combo.comboArray?.filter(
-    (t) => t.type === "Transition" && t
-  ).length;
-  const numOfTricks = combo.comboArray?.filter(
-    (t) => t.type === "Trick" && t
-  ).length;
-  useEffect(() => {
-    console.log("combodex sd", sessionData);
-  }, []);
+  const [executionOpen, setExecutionOpen] = useState(false);
+
   const { data: sessiondatascores } =
     trpc.sessionsummaries.getSessionDataScores.useQuery(
       {
@@ -36,17 +29,26 @@ const Combodex: React.FC<CombodexProps> = ({
       },
       { enabled: true }
     );
-  const utils = trpc.useContext();
   const { data: tricks, mutateAsync: getTricks } =
     trpc.trick.findMultipleById.useMutation();
+  const utils = trpc.useContext();
+
+  const numOfTransitions = combo.comboArray?.filter(
+    (t) => t.type === "Transition" && t
+  ).length;
+  const numOfTricks = combo.comboArray?.filter(
+    (t) => t.type === "Trick" && t
+  ).length;
 
   const [executionScore, setExecutionScore] = useState(0.1);
   const [creativityScore, setCreativityScore] = useState(0);
   const [countTotal, setCount] = useState({});
+  const [trickCountTotal, setTrickCount] = useState({});
+
   let executionAverage =
     sessiondatascores?.reduce((sum, b) => sum + b.executionScore, 0) /
     sessiondatascores?.length;
-  let localTotal = (
+  let localTotalScore = (
     combo.pointValue +
     (creativityScore / 10) * combo.pointValue +
     executionAverage * combo.pointValue
@@ -55,28 +57,42 @@ const Combodex: React.FC<CombodexProps> = ({
     ?.filter((t) => t.type === "Trick")
     .map((t) => {
       //@ts-ignore
-      return t?.variations.filter((tr) => tr.variation.name === "FullTwist")
-        .length;
-    })
-    .join("");
-  console.log(composition);
+      return t?.variations.filter(
+        (tr) =>
+          tr.variation.name === "FullTwist" || tr.variation.name === "Twist"
+      ).length;
+    });
   useEffect(() => {
     getTricks(combo.comboArray);
   }, []);
 
   useEffect(() => {
-    if (localTotal !== "NaN") {
+    if (localTotalScore !== "NaN") {
       updateTotalScore({
         sessiondataid: sessionData.id,
-        totalScore: parseFloat(localTotal),
+        totalScore: parseFloat(localTotalScore),
         executionAverage: parseFloat(executionAverage.toFixed(3)),
       });
     }
-  }, [localTotal]);
+  }, [localTotalScore]);
 
   useEffect(() => {
     if (tricks) {
       let count = {};
+      let trickCount = {};
+      tricks
+        .filter((t) => t.type === "Trick")
+        .forEach((obj) => {
+          if (trickCount[obj.name]) {
+            trickCount[obj.name].count++;
+            trickCount[obj.name].score -= 0.1;
+          } else {
+            trickCount[obj.name] = {
+              count: 1,
+              score: 1,
+            };
+          }
+        });
       tricks
         // .filter((t) => t.type === "Trick")
         .forEach((obj) => {
@@ -91,18 +107,19 @@ const Combodex: React.FC<CombodexProps> = ({
           }
         });
       setCount(count);
+      setTrickCount(trickCount);
       count = Object.keys(count)
         .map((key) => count[key])
         .reduce((sum, b) => sum + b.score, 0);
       setCreativityScore(count as number);
       console.log(count);
       console.log(countTotal);
+      console.log(trickCountTotal);
     }
   }, [tricks]);
-  let mostUsed = Object.keys(countTotal)?.sort((a, b) =>
+  let mostUsed = Object.keys(trickCountTotal)?.sort((a, b) =>
     countTotal[a]?.count > countTotal[b]?.count ? -1 : 1
   );
-  const [executionOpen, setExecutionOpen] = useState(false);
   let trickDensity =
     combo.comboArray
       .filter((t) => t.type === "Trick")
@@ -161,7 +178,7 @@ const Combodex: React.FC<CombodexProps> = ({
             "outlineButton border-zinc-300 border-opacity-80 bg-zinc-900"
           }
         >
-          {localTotal}
+          {localTotalScore}
         </div>
       </div>
       {/* </div> */}
@@ -175,24 +192,47 @@ const Combodex: React.FC<CombodexProps> = ({
       )}
       <CombodexTrickDetails tricks={tricks} />
       {tricks && <RadarChart data={tricks} />}
-      <div className="min-h-20 flex w-full flex-col p-2">
-        <div>Composition: {composition}</div>
+      <div className="min-h-20 flex w-full flex-col gap-2 p-2">
+        <div>
+          Composition:{" "}
+          <div className={`flex gap-1`}>
+            {
+              composition?.join("")
+              // .map((c) => (
+              //   <div
+              //     className={`h-[${parseInt(c) * 25}px] w-[10px] bg-zinc-800 `}
+              //   >
+              //     {c}
+              //   </div>
+              // ))
+            }
+          </div>
+        </div>
         <div>Length: {combo.comboArray.length}</div>
         <div>Transitions: {numOfTransitions}</div>
         <div>Tricks: {numOfTricks}</div>
-        <div>Most Used: {mostUsed[0]}</div>
-        <div>Density</div>
-        <div className="flex gap-2">
-          <div className="rounded-md bg-zinc-600 p-1">
-            Tricks: {trickDensity}
+        <div className="w-full p-2">Most Used: {mostUsed[0]}</div>
+
+        <div className="flex flex-col gap-2 bg-zinc-600 p-2">
+          <div className="flex w-full justify-between rounded-md bg-zinc-700 p-2">
+            <div>Density</div>
+            <div>{(trickDensity + transitionDensity)?.toFixed(3)}</div>
           </div>
-          +
-          <div className="rounded-md bg-zinc-600 p-1">
-            Transiton: {transitionDensity}
-          </div>
-          =
-          <div className="rounded-md bg-zinc-600 p-1">
-            All: {trickDensity + transitionDensity}
+          <div className="flex w-full place-items-center justify-around gap-2">
+            <div className="rounded-md bg-zinc-700 p-2">
+              <span className="text-center text-xs">Tricks:</span>
+              <div>{trickDensity?.toFixed(3)}</div>
+            </div>
+            <div className="text-xl">+</div>
+            <div className="rounded-md bg-zinc-700 p-2">
+              <span className="text-center text-xs">Transitons:</span>
+              <div>{transitionDensity?.toFixed(3)}</div>
+            </div>
+            <div className="text-xl">=</div>
+            <div className="rounded-md bg-zinc-700 p-2">
+              <span className="text-center text-xs">All:</span>
+              <div>{(trickDensity + transitionDensity)?.toFixed(3)}</div>
+            </div>
           </div>
         </div>
         {/* <div>
