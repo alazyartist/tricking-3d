@@ -44,6 +44,7 @@ const Combodex: React.FC<CombodexProps> = ({
   const [creativityScore, setCreativityScore] = useState(0);
   const [countTotal, setCount] = useState({});
   const [trickCountTotal, setTrickCount] = useState({});
+  const [chainsTotal, setChains] = useState({});
 
   let executionAverage =
     sessiondatascores?.reduce((sum, b) => sum + b.executionScore, 0) /
@@ -80,6 +81,20 @@ const Combodex: React.FC<CombodexProps> = ({
     if (tricks) {
       let count = {};
       let trickCount = {};
+      let chains = {};
+      tricks
+        .filter((t) => t.type === "Trick")
+        .forEach((obj) => {
+          if (chains[obj.name]) {
+            chains[obj.name].count++;
+            chains[obj.name].score -= 0.1;
+          } else {
+            chains[obj.name] = {
+              count: 1,
+              score: 1,
+            };
+          }
+        });
       tricks
         .filter((t) => t.type === "Trick")
         .forEach((obj) => {
@@ -106,15 +121,14 @@ const Combodex: React.FC<CombodexProps> = ({
             };
           }
         });
+      setChains(chains);
       setCount(count);
       setTrickCount(trickCount);
-      count = Object.keys(count)
+      let cScore = Object.keys(count)
         .map((key) => count[key])
         .reduce((sum, b) => sum + b.score, 0);
-      setCreativityScore(count as number);
-      console.log(count);
-      console.log(countTotal);
-      console.log(trickCountTotal);
+      setCreativityScore(cScore as number);
+      console.log(chainsTotal);
     }
   }, [tricks]);
   let mostUsed = Object.keys(trickCountTotal)?.sort((a, b) =>
@@ -196,16 +210,15 @@ const Combodex: React.FC<CombodexProps> = ({
         <div>
           Composition:{" "}
           <div className={`flex gap-1`}>
-            {
-              composition?.join("")
-              // .map((c) => (
-              //   <div
-              //     className={`h-[${parseInt(c) * 25}px] w-[10px] bg-zinc-800 `}
-              //   >
-              //     {c}
-              //   </div>
-              // ))
-            }
+            {composition?.map((c) => (
+              <div
+                className={`h-[${
+                  parseInt(c) * 25
+                }px] w-[10px] flex-grow-0 bg-zinc-800 `}
+              >
+                {c}
+              </div>
+            ))}
           </div>
         </div>
         <div>Length: {combo.comboArray.length}</div>
@@ -213,7 +226,7 @@ const Combodex: React.FC<CombodexProps> = ({
         <div>Tricks: {numOfTricks}</div>
         <div className="w-full p-2">Most Used: {mostUsed[0]}</div>
 
-        <div className="flex flex-col gap-2 bg-zinc-600 p-2">
+        <div className="flex flex-col gap-2 rounded-lg bg-zinc-600 p-2">
           <div className="flex w-full justify-between rounded-md bg-zinc-700 p-2">
             <div>Density</div>
             <div>{(trickDensity + transitionDensity)?.toFixed(3)}</div>
