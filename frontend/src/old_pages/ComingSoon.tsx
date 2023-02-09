@@ -4,6 +4,7 @@ import PaypalDonate from "../components/info/PaypalDonate";
 
 function ComingSoon() {
   const router = useRouter();
+
   return (
     <>
       <h1 className="mt-14 p-4 text-center font-inter text-6xl text-zinc-300 md:text-9xl">

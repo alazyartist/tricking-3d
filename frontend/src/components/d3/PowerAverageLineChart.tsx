@@ -76,7 +76,7 @@ const PowerAverageLineChart = ({ data }) => {
 
   return (
     <div ref={lRef} className="h-full w-full">
-      <svg key={"key"} className="h-full w-full " ref={svgRef} />
+      <svg key={`${Math.random()}`} className="h-full w-full " ref={svgRef} />
     </div>
   );
 };

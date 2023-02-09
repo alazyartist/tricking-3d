@@ -32,7 +32,6 @@ const Combodex: React.FC<CombodexProps> = ({
   const { data: tricks, mutateAsync: getTricks } =
     trpc.trick.findMultipleById.useMutation();
   const utils = trpc.useContext();
-
   const numOfTransitions = combo.comboArray?.filter(
     (t) => t.type === "Transition" && t
   ).length;
@@ -82,19 +81,17 @@ const Combodex: React.FC<CombodexProps> = ({
       let count = {};
       let trickCount = {};
       let chains = {};
-      tricks
-        .filter((t) => t.type === "Trick")
-        .forEach((obj) => {
-          if (chains[obj.name]) {
-            chains[obj.name].count++;
-            chains[obj.name].score -= 0.1;
-          } else {
-            chains[obj.name] = {
-              count: 1,
-              score: 1,
-            };
-          }
-        });
+      tricks.forEach((obj) => {
+        if (chains[obj.name]) {
+          chains[obj.name].count++;
+          chains[obj.name].score -= 0.1;
+        } else {
+          chains[obj.name] = {
+            count: 1,
+            score: 1,
+          };
+        }
+      });
       tricks
         .filter((t) => t.type === "Trick")
         .forEach((obj) => {
