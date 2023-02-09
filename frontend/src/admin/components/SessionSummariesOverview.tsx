@@ -4,29 +4,27 @@ import { useGetAllSessions } from "../../api/useSessionSummaries";
 import useUserInfoByUUID from "../../api/useUserInfoById";
 
 const SessionSummariesOverview = () => {
-  const { data: sessions } = useGetAllSessions();
-  console.log(sessions);
+  const { data: sessions, isFetched } = useGetAllSessions();
+  console.log(sessions?.data);
   return (
     <div className="flex w-[76vw] flex-col place-items-center text-xs">
       <div className=" w-full rounded-md bg-zinc-900 p-2 font-titan text-lg font-thin text-zinc-300">
         Sessions in Queue
       </div>
       <div className=" no-scrollbar flex h-[35vh] w-full flex-col gap-1 overflow-y-scroll bg-zinc-900 bg-opacity-70">
-        {sessions?.data
-          ?.filter((s) => s.status !== "Reviewed")
-          ?.map((s) => (
-            <SessionDisplay key={s.srcid} s={s} />
-          ))}
+        {Array.isArray(sessions?.data) &&
+          sessions?.data
+            ?.filter((s) => s.status !== "Reviewed")
+            ?.map((s) => <SessionDisplay key={s.srcid} s={s} />)}
       </div>
       <div className="mt-[2.5vh] w-full rounded-md bg-zinc-900 bg-opacity-70 p-2 font-titan text-lg font-thin text-zinc-300">
         Reviewed
       </div>
       <div className="no-scrollbar flex h-[35vh] w-full flex-col gap-1 overflow-y-scroll bg-zinc-900 bg-opacity-70">
-        {sessions?.data
-          ?.filter((s) => s.status === "Reviewed")
-          ?.map((s) => (
-            <SessionDisplay s={s} />
-          ))}
+        {Array.isArray(sessions?.data) &&
+          sessions?.data
+            ?.filter((s) => s.status === "Reviewed")
+            ?.map((s) => <SessionDisplay s={s} />)}
       </div>
     </div>
   );

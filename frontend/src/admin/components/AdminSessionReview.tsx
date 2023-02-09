@@ -58,7 +58,7 @@ const AdminSessionReview = () => {
   ]);
   useEffect(() => {
     setSessionSources(sessionDetails?.SessionSources);
-    setVidsrc(sessionDetails?.SessionSources[0]?.vidsrc);
+    setVidsrc(sessionDetails?.SessionSources?.[0]?.vidsrc);
   }, [sessionDetails, setSessionSources, setVidsrc]);
   const [mirrored, toggleMirrored] = useState(false);
   return (

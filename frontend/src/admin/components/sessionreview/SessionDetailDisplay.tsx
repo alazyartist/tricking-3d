@@ -68,7 +68,7 @@ const SessionDetailDisplay = ({ sessionDetails, mirrored, toggleMirrored }) => {
       </animated.span>
       {sessionSummary?.trickers &&
         sessionSummary?.trickers.map((tricker) => (
-          <div>{tricker.user.username}</div>
+          <div key={`${tricker.user.uuid}`}>{tricker.user.username}</div>
         ))}
     </animated.div>
   );
