@@ -93,17 +93,17 @@ const Combodex: React.FC<CombodexProps> = ({
             );
             chains[obj.name].count++;
             chains[obj.name].chain.push(obj.name);
+            chains[obj.name].score += 0.1;
+            chains[obj.name].index = i;
           } else {
             console.log("BrokeChain");
           }
-          chains[obj.name].score -= 0.1;
-          chains[obj.name].index = i;
         } else {
           chains[obj.name] = {
             chain: [],
             name: obj.name,
             count: 1,
-            score: 1,
+            score: 0.1,
             index: i,
           };
         }
