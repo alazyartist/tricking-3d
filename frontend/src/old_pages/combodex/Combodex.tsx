@@ -44,11 +44,13 @@ const Combodex: React.FC<CombodexProps> = ({
   const [countTotal, setCount] = useState({});
   const [trickCountTotal, setTrickCount] = useState({});
   const [chainsTotal, setChains] = useState({});
+  const [chainMap, setChainMap] = useState([]);
 
   let executionAverage =
     sessiondatascores?.reduce((sum, b) => sum + b.executionScore, 0) /
     sessiondatascores?.length;
   let localTotalScore = (
+    chainMap.reduce((sum, b) => sum + b[1], 0) +
     combo.pointValue +
     (creativityScore / 10) * combo.pointValue +
     executionAverage * combo.pointValue
@@ -81,31 +83,62 @@ const Combodex: React.FC<CombodexProps> = ({
       let count = {};
       let trickCount = {};
       let chains = {};
+      let chainNum = 0;
+      let chainScore = [];
       // console.log(tricks);
       tricks.forEach((obj, i) => {
         console.log(i, obj.name);
-        if (chains[obj.name]) {
-          if (chains[obj.name].name === tricks[i - 2].name) {
+        if (chains[`${obj.name}${chainNum}`]) {
+          if (chains[`${obj.name}${chainNum}`].name === tricks[i - 2].name) {
             console.log(
               "chained",
               tricks[i + 1]?.name,
               tricks[i + 1]?.pointValue
             );
-            chains[obj.name].count++;
-            chains[obj.name].chain.push(obj.name);
-            chains[obj.name].score += 0.1;
-            chains[obj.name].index = i;
+            chains[`${obj.name}${chainNum}`].count++;
+            if (obj.name === "Swing") {
+              chains[`${obj.name}${chainNum}`].multiplier += 0.1;
+            } else {
+              chains[`${obj.name}${chainNum}`].multiplier += 0.05;
+            }
+            chainScore.push([
+              i + 1,
+              tricks[i + 1].pointValue *
+                chains[`${obj.name}${chainNum}`]?.multiplier,
+              tricks[i + 1].name,
+            ]);
+            chains[`${obj.name}${chainNum}`].chain.push([
+              obj,
+              tricks[i + 1],
+              tricks[i + 1].pointValue *
+                chains[`${obj.name}${chainNum}`]?.multiplier +
+                tricks[i + 1].pointValue,
+            ]);
+            chains[`${obj.name}${chainNum}`].index = i;
           } else {
+            chains[`${obj.name}${chainNum + 1}`] =
+              chains[`${obj.name}${chainNum}`];
+            chains[`${obj.name}${chainNum}`] = {
+              chain: [],
+              name: obj.name,
+              count: 1,
+              multiplier: obj.name === "Swing" ? 0.1 : 0.05,
+              index: i,
+            };
+
             console.log("BrokeChain");
           }
         } else {
-          chains[obj.name] = {
-            chain: [],
-            name: obj.name,
-            count: 1,
-            score: 0.1,
-            index: i,
-          };
+          if (obj.type === "Transition") {
+            console.log("newChain");
+            chains[`${obj.name}${chainNum}`] = {
+              chain: [],
+              name: obj.name,
+              count: 1,
+              multiplier: obj.name === "Swing" ? 0.1 : 0.05,
+              index: i,
+            };
+          }
         }
       });
       tricks
@@ -134,6 +167,8 @@ const Combodex: React.FC<CombodexProps> = ({
             };
           }
         });
+      console.log("chainsCore", chainScore);
+      setChainMap(chainScore);
       setChains(chains);
       setCount(count);
       setTrickCount(trickCount);
@@ -166,7 +201,7 @@ const Combodex: React.FC<CombodexProps> = ({
       }
     >
       {/* Button Display Grid*/}
-      <div className="sticky top-0 left-0 grid h-14 w-full grid-cols-5 gap-2 bg-zinc-900 p-2">
+      <div className="sticky top-0 left-0 grid h-14 w-full grid-cols-6 gap-2 bg-zinc-900 p-2">
         <div
           onClick={() => setCombodexopen(false)}
           className="outlineButton flex place-content-center place-items-center rounded-md border-transparent bg-zinc-300 bg-opacity-30 p-1 px-0 text-2xl"
@@ -204,6 +239,14 @@ const Combodex: React.FC<CombodexProps> = ({
         </div>
         <div
           className={
+            "outlineButton flex flex-col border-zinc-300 border-opacity-40 bg-zinc-900"
+          }
+        >
+          {chainMap.reduce((sum, b) => sum + b[1], 0).toFixed(2)}
+          <span className="text-[8px]">{"chains"}</span>
+        </div>
+        <div
+          className={
             "outlineButton border-zinc-300 border-opacity-80 bg-zinc-900"
           }
         >
@@ -219,7 +262,7 @@ const Combodex: React.FC<CombodexProps> = ({
           setExecutionScore={setExecutionScore}
         />
       )}
-      <CombodexTrickDetails tricks={tricks} />
+      <CombodexTrickDetails chainMap={chainMap} tricks={tricks} />
       {tricks && <RadarChart data={tricks} />}
       <div className="min-h-20 flex w-full flex-col gap-2 p-2">
         <div>
@@ -279,7 +322,7 @@ const Combodex: React.FC<CombodexProps> = ({
 
 export default Combodex;
 
-export const CombodexTrickDetails = ({ tricks }) => {
+export const CombodexTrickDetails = ({ tricks, chainMap }) => {
   return (
     <div
       className={
@@ -287,7 +330,7 @@ export const CombodexTrickDetails = ({ tricks }) => {
       }
     >
       {tricks &&
-        tricks.map((tr) => {
+        tricks.map((tr, i) => {
           // if (tr.type === "Transition") {
           //   return (
           //     <div className="flex flex-col place-items-center gap-1 whitespace-nowrap rounded-md bg-zinc-200 bg-opacity-20 p-1">
@@ -349,6 +392,16 @@ export const CombodexTrickDetails = ({ tricks }) => {
                   <div>{tr.pointValue}</div>
                   {tr.defaultAnimation && (
                     <IoIosWalk className="text-emerald-500" />
+                  )}
+                </div>
+                <div>
+                  {chainMap.map((cm) =>
+                    cm[0] === i ? cm[1].toFixed(2) : null
+                  )}
+                </div>
+                <div>
+                  {chainMap.map((cm) =>
+                    cm[0] === i ? (tr.pointValue + cm[1]).toFixed(2) : null
                   )}
                 </div>
                 <div className="text-[8px]">{tr.type}</div>
