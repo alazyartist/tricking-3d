@@ -81,14 +81,30 @@ const Combodex: React.FC<CombodexProps> = ({
       let count = {};
       let trickCount = {};
       let chains = {};
-      tricks.forEach((obj) => {
+      // console.log(tricks);
+      tricks.forEach((obj, i) => {
+        console.log(i, obj.name);
         if (chains[obj.name]) {
-          chains[obj.name].count++;
+          if (chains[obj.name].name === tricks[i - 2].name) {
+            console.log(
+              "chained",
+              tricks[i + 1]?.name,
+              tricks[i + 1]?.pointValue
+            );
+            chains[obj.name].count++;
+            chains[obj.name].chain.push(obj.name);
+          } else {
+            console.log("BrokeChain");
+          }
           chains[obj.name].score -= 0.1;
+          chains[obj.name].index = i;
         } else {
           chains[obj.name] = {
+            chain: [],
+            name: obj.name,
             count: 1,
             score: 1,
+            index: i,
           };
         }
       });
@@ -125,9 +141,11 @@ const Combodex: React.FC<CombodexProps> = ({
         .map((key) => count[key])
         .reduce((sum, b) => sum + b.score, 0);
       setCreativityScore(cScore as number);
-      console.log(chainsTotal);
     }
   }, [tricks]);
+  useEffect(() => {
+    console.log("chains", chainsTotal);
+  }, [chainsTotal]);
   let mostUsed = Object.keys(trickCountTotal)?.sort((a, b) =>
     countTotal[a]?.count > countTotal[b]?.count ? -1 : 1
   );
