@@ -1,4 +1,6 @@
 import ExecutionAverageGaugeChart from "@components/d3/ExecutionAverageGuageChart";
+import PowerAverageComboLineChart from "@components/d3/PowerAverageComboLineChart";
+import PowerAverageLineChart from "@components/d3/PowerAverageLineChart";
 import TransitionsPieChart from "@components/d3/TransitionsPieChart";
 import TrickInvertGaugeChart from "@components/d3/TricikInvertGuageChart";
 import React from "react";
@@ -92,9 +94,18 @@ const SessionStatsOverview = ({ summary }) => {
 
   return (
     <div className="grid w-full grid-cols-2 flex-col gap-1 text-xs">
-      <div className="col-span-2 flex w-full place-content-center place-items-center place-self-center rounded-md bg-zinc-900 p-2 text-2xl">
-        <span className="font-black text-zinc-400">Total Points: </span>
-        {totalPoints.toFixed(2)}
+      <div className="col-span-2 flex w-full flex-col place-self-center rounded-md bg-zinc-900 p-2 text-2xl">
+        <div className="text-sm">{summary?.name}</div>
+        <div className="flex w-full place-content-center place-items-center">
+          <span className="font-black text-zinc-400">Total Points: </span>
+          {totalPoints.toFixed(2)}
+        </div>
+        <div className="h-[35px] w-full">
+          <PowerAverageComboLineChart data={sessionCombosArr} />
+        </div>
+        <div className="h-[35px] w-full">
+          <PowerAverageLineChart data={sessionTricksArr} />
+        </div>
       </div>
       Points
       <div className="relative col-span-2 h-[4px] w-full rounded-md bg-indigo-300">

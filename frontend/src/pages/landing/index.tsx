@@ -35,7 +35,7 @@ const LandingPage: NextPage = () => {
             <FaHamburger className="text-2xl text-zinc-800" />
           </div>
         </div>
-        <TagLine a></TagLine>
+        <TagLine a={Math.random() > 0.5 ? true : false}></TagLine>
         {/* <div className="mx-4 my-2 rounded-md bg-zinc-900 bg-opacity-70 p-2 px-4 text-zinc-300 backdrop-blur-md">
           At the Trickedex, we believe that everyone has the potential to be a
           great tricker. With the right tools and resources, anyone can master
@@ -135,7 +135,7 @@ const LandingPage: NextPage = () => {
 };
 
 export default LandingPage;
-const TagLine: React.FC = ({ a }) => {
+const TagLine: React.FC<{ a: boolean }> = ({ a }) => {
   const router = useRouter();
   if (a)
     return (
