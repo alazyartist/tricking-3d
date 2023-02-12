@@ -5,14 +5,14 @@ function ModelLoader() {
   const { progress, loaded, item, total } = useProgress();
   return (
     <Html
-      className="text-bold absolute text-2xl text-zinc-400 md:text-5xl"
+      className="absolute text-xl font-bold text-zinc-300 md:text-5xl"
       center
     >
       <div className="flex flex-col">
-        {progress}%
+        {progress.toFixed(3)}%
         <div className="p-1 md:p-4">
           {/* TODO <TPose /> */}
-          Model Being Prepared
+          <div className="text-sm">Model Being Prepared</div>
           <br /> {loaded} of {total}
         </div>
         {/* <div className='text-xs'>{item}</div> */}
