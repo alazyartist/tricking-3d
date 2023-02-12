@@ -20,13 +20,13 @@ const DetailCard: React.FC<DetailCardProps> = ({
     <div
       // ${ left ? "ml-3 place-self-start md:ml-10" : "mr-3 place-self-end md:mr-10" }
       className={` 
-        min-h-[900px] w-[fit] rounded-3xl bg-zinc-900 bg-opacity-70 p-8 backdrop-blur-sm`}
+        min-h-[600px] w-full rounded-3xl bg-zinc-900 bg-opacity-70 p-4 backdrop-blur-sm`}
     >
-      <div className="h-[200px] w-[300px] overflow-clip rounded-xl  md:h-[400px] md:w-[600px] ">
+      <div className="h-[200px] w-full overflow-clip rounded-xl  ">
         {children}
       </div>
-      <h1 className="mt-3 px-2 text-3xl font-black text-zinc-300">{title}</h1>
-      <p className="px-2 text-xl text-zinc-300">{description}</p>
+      <h1 className="mt-3 px-2 text-2xl font-black text-zinc-300">{title}</h1>
+      <p className="px-2 text-sm text-zinc-300">{description}</p>
       <div className="flex h-24 w-full flex-col place-content-center place-items-center">
         {link && (
           <Link

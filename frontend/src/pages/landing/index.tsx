@@ -3,6 +3,8 @@ import Link from "next/link";
 import { TrickedexLogo } from "@data/icons/TrickedexLogo";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
+import { FaHamburger } from "react-icons/fa";
+import { useRouter } from "next/router";
 const LandingCanvas = dynamic(
   () => import("@old_pages/landing/components/LandingCanvas"),
   { suspense: true }
@@ -25,30 +27,42 @@ const LandingPage: NextPage = () => {
     <div className="no-scrollbar fixed top-0 flex h-[100vh] w-[100vw] flex-col place-items-center justify-between gap-2 overflow-y-scroll bg-zinc-100 text-zinc-800">
       <div
         id="abovethefold"
-        className="flex h-[100vh] flex-shrink-0 flex-col items-center gap-2"
+        className="flex h-[100vh] flex-shrink-0 flex-col items-center gap-2 "
       >
-        <TrickedexLogo className="flex-shrink-0 fill-zinc-800" />
-        <div className="flex h-[120px] flex-shrink-0 flex-col place-content-center items-center">
-          <div className="font-inter text-3xl font-light">
-            Tricking is <span className="font-black">complicated.</span>
-          </div>
-          <div className="font-light">
-            The trickedex gives you the tools <br />
-            to make sense of it in one place
+        <div className=" flex w-full place-items-center justify-between p-2">
+          <TrickedexLogo className="w-[45%] flex-shrink-0 fill-zinc-800" />
+          <div className="rounded-md border-[1px] border-zinc-800 p-2">
+            <FaHamburger className="text-2xl text-zinc-800" />
           </div>
         </div>
-        <Link
-          href="/sandbox"
-          className="rounded-md bg-indigo-600 p-2 font-bold text-zinc-100"
-        >
-          Sandbox
-        </Link>
-        <Link
-          href="/home"
-          className="rounded-md bg-indigo-400 p-2 font-bold text-zinc-100"
-        >
-          Home
-        </Link>
+        <TagLine a></TagLine>
+        {/* <div className="mx-4 my-2 rounded-md bg-zinc-900 bg-opacity-70 p-2 px-4 text-zinc-300 backdrop-blur-md">
+          At the Trickedex, we believe that everyone has the potential to be a
+          great tricker. With the right tools and resources, anyone can master
+          the art of tricking, and that's exactly what we provide. Whether
+          you're just starting out or you're a seasoned veteran, the Trickedex
+          is the ultimate resource for anyone who loves tricking
+        </div> */}
+        <div className="flex gap-2">
+          <Link
+            href="/sandbox"
+            className="rounded-md bg-sky-500 p-2 font-bold text-zinc-100"
+          >
+            Sandbox
+          </Link>
+          <Link
+            href="/home"
+            className="rounded-md bg-sky-500 p-2 font-bold text-zinc-100"
+          >
+            Home
+          </Link>
+          <Link
+            href="/login"
+            className="rounded-md bg-sky-500 p-2 font-bold text-zinc-100"
+          >
+            Login
+          </Link>
+        </div>
         <Suspense
           fallback={
             <div className="absolute top-[50vh] -z-20 h-[60vw] w-[60vw] rounded-full bg-teal-300 blur-3xl" />
@@ -56,18 +70,8 @@ const LandingPage: NextPage = () => {
         >
           <MovingBackground />
         </Suspense>
-        <div className="absolute top-[50vh] h-[60vw] w-[90vw] font-inter font-semibold text-zinc-800">
-          <div className="text-center text-3xl">
-            <span className="font-black ">Please </span>Excuse the Mess.
-          </div>
-          <div className="text-center">
-            We are hard at work on some
-            <br /> backend things at the moment.
-            <br /> big update on the horizion.
-            <div>Stay tuned</div>
-          </div>
-        </div>
-        <div className="absolute top-[50vh] -z-20 h-[60vw] w-[60vw] rounded-full bg-teal-300 blur-3xl" />
+        <PEtheMess />
+        {/* <div className="absolute top-[50vh] -z-20 h-[60vw] w-[60vw] rounded-full bg-teal-300 blur-3xl" /> */}
         {/* <div className='flex w-[100vw] flex-shrink-0  gap-2 overflow-hidden'>
 					<div className='h-[200px] w-[300px] flex-shrink-0 rounded-md bg-zinc-900'></div>
 					<div className='h-[200px] w-[100px] flex-shrink-0 rounded-md bg-zinc-900'></div>
@@ -80,13 +84,13 @@ const LandingPage: NextPage = () => {
         <DetailCard
           link={"/theory"}
           cta={"Explore Theory Now"}
-          title={"Have Quick Access to the Theory"}
-          description="Fully Searchable and at you fingertips."
+          title={"Discover the Secrets of Tricking Theory"}
+          description="We believe that understanding the theory behind tricking is key to becoming a great tricker. That's why we've made it easy for you to access a wealth of information about the discipline, including comprehensive tutorials and in-depth explanations. With the Trickedex, you'll be able to take your tricking skills to the next level in no time!"
         >
           <Suspense>
             <AnatomySketch
               className={
-                "h-[200px] w-[300px] rounded-md bg-zinc-900 md:h-[400px] md:w-[600px] "
+                "h-full w-full rounded-md bg-gradient-to-b from-teal-500 to-cyan-600 md:h-[400px] md:w-[600px] "
               }
             />
           </Suspense>
@@ -95,8 +99,8 @@ const LandingPage: NextPage = () => {
           left
           link={"/sandbox"}
           cta={"Go to Sandbox"}
-          title={"Explore Tricks in 3D"}
-          description="See Tricks like never before. Study the movement's your way."
+          title={"See Tricks Come to Life with 3D"}
+          description="Tricking has never been more exciting, thanks to the Trickedex's innovative 3D library of motion-captured tricks. Explore each move in detail, and see exactly how the pros do it. With our cutting-edge technology, you'll be able to gain a whole new perspective on tricking and take your own skills to new heights."
         >
           {loadScene ? (
             <Suspense>
@@ -115,14 +119,14 @@ const LandingPage: NextPage = () => {
           left
           link={"/register"}
           cta={"Register Now"}
-          title={"Track your progress"}
-          description="Easily see what tricks you've done and track your goals"
+          title={"Track Your Tricking Progress with Ease"}
+          description="At the Trickedex, we're committed to helping trickers of all levels reach their full potential. That's why we've created a comprehensive set of tools for tracking your progress, including detailed user profile pages and easy-to-use performance metrics. Whether you're just starting out or are a seasoned tricker, the Trickedex is the perfect way to stay motivated and reach new heights in your tricking journey."
         ></DetailCard>
         <DetailCard
           link={"/register"}
           cta={"Register Now"}
-          title={"Follow your friends"}
-          description="Keep track of your progress as a group."
+          title={"Join a Community of Tricking Enthusiasts"}
+          description="The Trickedex isn't just a database of tricks and tutorials - it's also a vibrant community of like-minded trickers from around the world. Follow your friends, connect with new trickers, and be a part of something special. With our social media platform, you can share your tricks, give and receive feedback, and be a part of a supportive and encouraging community of trickers."
         ></DetailCard>
         <div className="h-[40px]" />
       </div>
@@ -131,3 +135,54 @@ const LandingPage: NextPage = () => {
 };
 
 export default LandingPage;
+const TagLine: React.FC = ({ a }) => {
+  const router = useRouter();
+  if (a)
+    return (
+      <div className="my-8 flex min-h-[120px] flex-shrink-0 flex-col place-content-center items-center leading-loose">
+        <div className="text-center font-inter text-3xl font-light leading-relaxed">
+          Your Tricking journey
+          <br /> starts{" "}
+          <span
+            onClick={() => {
+              router.push("/register");
+            }}
+            className="rounded-md border-[1px] border-zinc-900 px-1 font-black"
+          >
+            here.
+          </span>
+        </div>
+        <div className="text-xl font-light">
+          <span className={`font-bold`}>Trickedex</span>, the ultimate resource.
+        </div>
+      </div>
+    );
+  if (!a)
+    return (
+      <div className="my-8 flex min-h-[120px] flex-shrink-0 flex-col place-content-center items-center">
+        <div className="font-inter text-3xl font-light">
+          Tricking is <span className="font-black">complicated.</span>
+        </div>
+        <div className="font-light">
+          The trickedex gives you the tools <br />
+          to make sense of it in one place
+        </div>
+      </div>
+    );
+};
+
+const PEtheMess = () => {
+  return (
+    <div className=" h-[60vw] w-[90vw] py-4 font-inter font-semibold text-zinc-800">
+      <div className="text-center text-xl leading-relaxed md:text-3xl">
+        <span className="font-black ">Please </span>Excuse the Mess.
+      </div>
+      <div className="text-center text-sm">
+        We are hard at work on some
+        <br /> backend things at the moment.
+        <br /> big update on the horizion.
+        <div>Stay tuned</div>
+      </div>
+    </div>
+  );
+};
