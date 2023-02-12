@@ -30,7 +30,7 @@ const LandingPage: NextPage = () => {
         className="flex h-[100vh] flex-shrink-0 flex-col items-center gap-2 "
       >
         <div className=" flex w-full place-items-center justify-between p-2">
-          <TrickedexLogo className="w-[45%] flex-shrink-0 fill-zinc-800" />
+          <TrickedexLogo className="w-[45%] flex-shrink-0 fill-zinc-800 md:w-[20%]" />
           <div className="rounded-md border-[1px] border-zinc-800 p-2">
             <FaHamburger className="text-2xl text-zinc-800" />
           </div>
@@ -90,7 +90,7 @@ const LandingPage: NextPage = () => {
           <Suspense>
             <AnatomySketch
               className={
-                "h-full w-full rounded-md bg-gradient-to-b from-teal-500 to-cyan-600 md:h-[400px] md:w-[600px] "
+                "h-full w-full rounded-md bg-gradient-to-b from-teal-500 to-cyan-600 "
               }
             />
           </Suspense>
@@ -139,8 +139,8 @@ const TagLine: React.FC<{ a: boolean }> = ({ a }) => {
   const router = useRouter();
   if (a)
     return (
-      <div className="my-8 flex min-h-[120px] flex-shrink-0 flex-col place-content-center items-center leading-loose">
-        <div className="text-center font-inter text-3xl font-light leading-relaxed">
+      <div className="my-8 flex min-h-[120px] flex-shrink-0 flex-col place-content-center items-center leading-loose md:leading-9">
+        <div className="text-center font-inter text-3xl font-light leading-relaxed md:text-7xl md:leading-loose">
           Your Tricking journey
           <br /> starts{" "}
           <span
@@ -153,17 +153,18 @@ const TagLine: React.FC<{ a: boolean }> = ({ a }) => {
           </span>
         </div>
         <div className="text-xl font-light">
-          <span className={`font-bold`}>Trickedex</span>, the ultimate resource.
+          <span className={`font-bold md:text-3xl`}>Trickedex</span>, the
+          ultimate resource.
         </div>
       </div>
     );
   if (!a)
     return (
-      <div className="my-8 flex min-h-[120px] flex-shrink-0 flex-col place-content-center items-center">
-        <div className="font-inter text-3xl font-light">
+      <div className="my-8 flex min-h-[120px] flex-shrink-0 flex-col place-content-center items-center gap-2">
+        <div className="font-inter text-3xl font-light md:text-7xl">
           Tricking is <span className="font-black">complicated.</span>
         </div>
-        <div className="font-light">
+        <div className="font-light md:text-3xl">
           The trickedex gives you the tools <br />
           to make sense of it in one place
         </div>
