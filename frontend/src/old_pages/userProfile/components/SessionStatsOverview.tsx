@@ -3,11 +3,12 @@ import PowerAverageComboLineChart from "@components/d3/PowerAverageComboLineChar
 import PowerAverageLineChart from "@components/d3/PowerAverageLineChart";
 import TransitionsPieChart from "@components/d3/TransitionsPieChart";
 import TrickInvertGaugeChart from "@components/d3/TricikInvertGuageChart";
+import { DensityDisplay } from "@old_pages/combodex/Combodex";
 import React from "react";
 
 const SessionStatsOverview = ({ summary }) => {
   let sessionCombosArr = summary?.SessionData.sort((a, b) =>
-    a.startTime < b.startTime ? 1 : -1
+    parseFloat(a.clipStart) < parseFloat(b.clipEnd) ? 1 : -1
   );
   let sessionTricksArr = summary?.SessionData?.map(
     (s) => s.ClipLabel.comboArray
@@ -20,6 +21,7 @@ const SessionStatsOverview = ({ summary }) => {
       if (a.name < b.name) return -1;
       return 0;
     });
+
   let longestCombo = sessionCombosArr?.sort((a, b) => {
     if (a.ClipLabel.comboArray.length > b.ClipLabel.comboArray.length)
       return -1;
@@ -91,23 +93,43 @@ const SessionStatsOverview = ({ summary }) => {
   let sessionExecutionAverage =
     nonZeroExecutionAverages.reduce((sum, b) => sum + b, 0) /
     nonZeroExecutionAverages.length;
-
   return (
-    <div className="grid w-full grid-cols-2 flex-col gap-1 text-xs">
-      <div className="col-span-2 flex w-full flex-col place-self-center rounded-md bg-zinc-900 p-2 text-2xl">
-        <div className="text-sm">{summary?.name}</div>
-        <div className="flex w-full place-content-center place-items-center">
-          <span className="font-black text-zinc-400">Total Points: </span>
-          {totalPoints.toFixed(2)}
-        </div>
-        <div className="h-[35px] w-full">
-          <PowerAverageComboLineChart data={sessionCombosArr} />
-        </div>
-        <div className="h-[35px] w-full">
-          <PowerAverageLineChart data={sessionTricksArr} />
-        </div>
+    <div className=" grid w-full grid-cols-2 flex-col gap-1 text-xs">
+      <OverviewCard
+        sessionCombosArr={sessionCombosArr}
+        sessionTricksArr={sessionTricksArr}
+        summary={summary}
+        totalPoints={totalPoints}
+      />
+      <div className="w-full text-center drop-shadow-md">
+        <span className="font-bold">
+          {
+            uniqueTricks.filter((t: { type: string }) => t?.type === "Trick")
+              .length
+          }
+        </span>
+        {" Unique Tricks"}
       </div>
-      Points
+      <div className="w-full text-center drop-shadow-md">
+        <span className="font-bold">
+          {
+            uniqueTricks.filter(
+              (t: { type: string }) => t?.type === "Transition"
+            ).length
+          }
+        </span>
+        {" Unique Transitions"}
+      </div>
+
+      <div className="col-span-2 w-full rounded-md p-2 text-center">
+        <span className="text-zinc-400">Greatest Trick: </span>
+        {tricksByPoints?.[0]?.name}{" "}
+        <span className="rounded-md bg-zinc-900 p-1 font-bold text-zinc-400">
+          {tricksByPoints?.[0]?.pointValue}
+        </span>
+      </div>
+      {/* LINES BELOW */}
+      {/* Points
       <div className="relative col-span-2 h-[4px] w-full rounded-md bg-indigo-300">
         <div
           style={{ width: `${comboPercentage}%`, left: `${trickPercentage}%` }}
@@ -133,18 +155,9 @@ const SessionStatsOverview = ({ summary }) => {
           }}
           className="absolute top-0 left-0 col-span-2 h-[4px] rounded-md bg-teal-700"
         />
-      </div>
-      <div className="grid gap-2 text-center">
-        <div className="rounded-md bg-zinc-900 p-2">
-          <span className="text-zinc-400">Combos: </span>
-          {sessionCombosArr?.length}
-        </div>
-        <div className="rounded-md bg-zinc-900 p-2">
-          <span className="text-zinc-400">Tricks:</span>{" "}
-          {sessionTricksArr?.length}
-        </div>
-      </div>
-      <div className="grid gap-2 text-center">
+      </div> */}
+
+      {/* <div className="grid gap-2 text-center">
         <div className="rounded-md bg-teal-500 p-2 text-zinc-900">
           <span className="text-zinc-800">Unique Tricks: </span>
           {
@@ -160,37 +173,23 @@ const SessionStatsOverview = ({ summary }) => {
             )?.length
           }
         </div>
-      </div>
-      <div className="col-span-2 flex h-full justify-around">
-        <ExecutionAverageGaugeChart data={sessionCombosArr} />
+      </div> */}
+      <div className="col-span-2 flex h-full min-h-[120px] w-full flex-col justify-around">
         <TransitionsPieChart
           data={sessionTricksArr.filter((t) => t.type === "Transition")}
         />
-        <TrickInvertGaugeChart
-          data={sessionTricksArr.filter((t) => t.type === "Trick")}
+      </div>
+      <ExecutionAverageGaugeChart data={sessionCombosArr} />
+      <TrickInvertGaugeChart
+        data={sessionTricksArr.filter((t) => t.type === "Trick")}
+      />
+      <div className="col-span-2">
+        <DensityDisplay
+          trickDensity={sessionDensityB}
+          transitionDensity={sessionTransitionDensity}
         />
-        {/* <ExecutionAverageGaugeChart data={sessionCombosArr} /> */}
       </div>
-      <div className="col-span-2">
-        <span className="text-zinc-400">Greatest Trick: </span>
-        {tricksByPoints?.[0]?.name}
-      </div>
-      <div className="col-span-2">
-        <span className="text-zinc-400">Density - Tricks Only: </span>
-        {sessionDensityB.toFixed(3)}
-      </div>
-      <div className="col-span-2">
-        <span className="text-zinc-400">Density - Transitions: </span>
-        {sessionTransitionDensity.toFixed(3)}
-      </div>
-      <div className="col-span-2">
-        <span className="text-zinc-400">Density - All: </span>
-        {(sessionTransitionDensity + sessionDensityB).toFixed(3)}
-      </div>
-      <div className="col-span-2">
-        <span className="text-zinc-400">Session ExecutionAverage: </span>
-        {sessionExecutionAverage.toFixed(2)}
-      </div>
+
       <div className="col-span-2 w-[100%] whitespace-pre-wrap break-words">
         <span className="text-zinc-400">
           Longest {longestCombo?.name === greatestCombo?.name && "& Greatest"}{" "}
@@ -209,3 +208,39 @@ const SessionStatsOverview = ({ summary }) => {
 };
 
 export default SessionStatsOverview;
+
+export const OverviewCard = ({
+  summary,
+  totalPoints,
+  sessionTricksArr,
+  sessionCombosArr,
+}) => {
+  return (
+    <div className="col-span-2 flex w-full flex-col place-self-center rounded-md bg-zinc-900 p-2 text-2xl">
+      <div className="flex w-full place-items-center justify-between">
+        <div className="p-1">
+          <div className="text-xs tracking-wide text-zinc-500">
+            {summary?.name}
+          </div>
+          <div className="">{totalPoints.toFixed(2)}</div>
+        </div>
+        {/* <div className="text-sm text-zinc-400">
+      {summary?.name}
+    </div> */}
+      </div>
+      <div className="h-[45px] w-full pb-2">
+        <PowerAverageComboLineChart
+          data={summary?.SessionData.sort((a, b) =>
+            parseFloat(a.clipStart) < parseFloat(b.clipEnd) ? 1 : -1
+          ).map((d) => d)}
+        />
+      </div>
+      <div className="text-xs">
+        <span className="font-bold">{sessionTricksArr?.length}</span>
+        {" Tricks in "}
+        <span className="font-bold">{sessionCombosArr?.length}</span>
+        {" Combos"}
+      </div>
+    </div>
+  );
+};

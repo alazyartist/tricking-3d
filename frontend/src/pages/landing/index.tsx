@@ -147,7 +147,7 @@ const TagLine: React.FC<{ a: boolean }> = ({ a }) => {
             onClick={() => {
               router.push("/register");
             }}
-            className="rounded-md border-[1px] border-zinc-900 px-1 font-black"
+            className="rounded-md border-[1px] border-zinc-900 px-1 font-black md:px-2"
           >
             here.
           </span>
@@ -160,7 +160,7 @@ const TagLine: React.FC<{ a: boolean }> = ({ a }) => {
     );
   if (!a)
     return (
-      <div className="my-8 flex min-h-[120px] flex-shrink-0 flex-col place-content-center items-center gap-2">
+      <div className="my-8 flex min-h-[120px] flex-shrink-0 flex-col place-content-center items-center gap-2 md:my-16">
         <div className="font-inter text-3xl font-light md:text-7xl">
           Tricking is <span className="font-black">complicated.</span>
         </div>

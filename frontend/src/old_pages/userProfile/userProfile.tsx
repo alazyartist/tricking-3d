@@ -122,7 +122,7 @@ const UserProfile = () => {
       <div className="relative top-0 z-[2] flex max-h-[95vh] w-full flex-col place-items-center gap-2 rounded-lg p-2">
         <animated.div
           style={resizeUpper}
-          className="relative h-[40vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2"
+          className="relative h-[40vh] w-full rounded-lg bg-zinc-800 bg-opacity-40 p-2 backdrop-blur-xl"
         >
           {activeView === "Stats" ? (
             <div>
@@ -155,7 +155,7 @@ const UserProfile = () => {
         <div></div>
         <animated.div
           style={resizeLower}
-          className={`z-[-2] h-[27vh] w-full rounded-lg bg-zinc-700 bg-opacity-20 p-2`}
+          className={`z-[-2] h-[27vh] w-full rounded-lg bg-zinc-800 bg-opacity-40 p-2 backdrop-blur-xl`}
         >
           {activeView === "Stats" ? (
             <div
