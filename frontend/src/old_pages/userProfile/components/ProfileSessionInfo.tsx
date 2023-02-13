@@ -14,14 +14,14 @@ const ProfileSessionInfo = ({ summary }) => {
   const [showTrickLongform, setShowTrickLongform] = useState(false);
   return (
     <div className=" ">
-      <div className="flex gap-2">
+      <div className="flex justify-between gap-2">
         <div
           onClick={() => {
             if (isAdmin === true) {
               setEditShorthand(!editShorthand);
             }
           }}
-          className="sticky top-0 flex w-fit place-items-center gap-2 rounded-md bg-zinc-900 bg-opacity-90 p-2 text-2xl"
+          className="sticky top-0 flex w-fit place-items-center gap-2 rounded-md p-2 text-xl"
         >
           {summary?.name}
           {editShorthand && (

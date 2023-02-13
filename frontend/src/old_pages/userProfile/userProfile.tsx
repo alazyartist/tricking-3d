@@ -169,13 +169,13 @@ const UserProfile = () => {
             <div className="no-scrollbar relative  h-full w-full overflow-hidden overflow-y-scroll">
               {activeSummary ? (
                 <>
-                  <div
+                  {/* <div
                     className={
                       "sticky top-[-10] mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4"
                     }
                   >
                     Selected Session Breakdown
-                  </div>
+                  </div> */}
                   <ProfileSessionInfo summary={activeSummary} />
                 </>
               ) : (

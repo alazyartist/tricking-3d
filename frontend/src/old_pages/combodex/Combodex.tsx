@@ -205,14 +205,20 @@ const Combodex: React.FC<CombodexProps> = ({
       }
     >
       {/* Button Display Grid*/}
-      <div className="sticky top-0 left-0 grid h-14 w-full grid-cols-6 gap-2 bg-zinc-900 p-2">
+      <div className="sticky top-0 left-0 grid h-full w-full grid-cols-4 gap-2 bg-zinc-900 p-2">
         <div
           onClick={() => setCombodexopen(false)}
           className="outlineButton flex place-content-center place-items-center rounded-md border-transparent bg-zinc-300 bg-opacity-30 p-1 px-0 text-2xl"
         >
           X
         </div>
-
+        <div
+          className={
+            "outlineButton col-span-3 border-zinc-300 border-opacity-80 bg-zinc-900 text-xl"
+          }
+        >
+          {localTotalScore}
+        </div>
         <div
           className={
             "outlineButton flex flex-col border-zinc-300 border-opacity-40 bg-zinc-900"
@@ -249,13 +255,6 @@ const Combodex: React.FC<CombodexProps> = ({
           {chainMap.reduce((sum, b) => sum + b[1], 0).toFixed(2)}
           <span className="text-[8px]">{"chains"}</span>
         </div>
-        <div
-          className={
-            "outlineButton border-zinc-300 border-opacity-80 bg-zinc-900"
-          }
-        >
-          {localTotalScore}
-        </div>
       </div>
       {/* </div> */}
       {/* <div>{combo?.comboArray.map((t) => t.trick_id)}</div> */}
@@ -267,32 +266,27 @@ const Combodex: React.FC<CombodexProps> = ({
         />
       )}
       <CombodexTrickDetails chainMap={chainMap} tricks={tricks} />
-      {tricks && <RadarChart data={tricks} />}
-      <div className="min-h-20 flex w-full flex-col gap-2 p-2">
-        <div>
-          Composition:{" "}
-          <div className={`flex gap-1`}>
-            {composition?.map((c) => (
-              <div
-                className={`h-[${
-                  parseInt(c) * 25
-                }px] w-[10px] flex-grow-0 bg-zinc-800 `}
-              >
-                {c}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div>Length: {combo.comboArray.length}</div>
-        <div>Transitions: {numOfTransitions}</div>
-        <div>Tricks: {numOfTricks}</div>
-        <div className="w-full p-2">Most Used: {mostUsed[0]}</div>
-
-        <DensityDisplay
-          trickDensity={trickDensity}
-          transitionDensity={transitionDensity}
-        />
+      <div className="w-full p-2 text-center">
+        <span className="text-zinc-400">Most Used: </span>
+        <span className="text-zinc-200">{mostUsed[0]}</span>
       </div>
+      <div className="text-center">
+        A <span className="font-bold">{combo.comboArray.length}</span>
+        {" hit combo with "}
+        <span className="font-bold">{numOfTricks}</span> tricks
+      </div>
+      <div className="min-h-2 flex w-full gap-1 overflow-x-scroll p-2">
+        {composition?.map((c) => (
+          <div className={`h-[${parseInt(c) * 25}px] w-full bg-zinc-800 p-1 `}>
+            {c}
+          </div>
+        ))}
+      </div>
+      <DensityDisplay
+        trickDensity={trickDensity}
+        transitionDensity={transitionDensity}
+      />
+      {tricks && <RadarChart data={tricks} />}
       {/* <div>
           json:{" "}
           {JSON.stringify(
@@ -362,14 +356,18 @@ export const CombodexTrickDetails = ({ tricks, chainMap }) => {
           //   );
           // } else if (tr.type === "Trick") {
           return (
-            <div className="flex h-full flex-col place-items-center justify-between gap-1 whitespace-nowrap rounded-md bg-zinc-200 bg-opacity-20 p-1">
+            <div
+              className={`flex h-full flex-col place-items-center justify-between gap-1 whitespace-nowrap rounded-md bg-opacity-20 p-1 ${
+                tr.type === "Transition" ? "bg-zinc-600" : "bg-zinc-300"
+              }`}
+            >
               <div className={"flex h-full flex-col gap-1 "} key={`${tr.name}`}>
-                <div className="text-center">{tr.name}</div>
+                <div className="text-center font-medium">{tr.name}</div>
                 {tr.type === "Transition" && (
                   <>
                     <div
                       className={
-                        "outlineButton flex justify-between gap-2 border-zinc-300"
+                        "outlineButton flex justify-between gap-2 border-[1px] border-zinc-300 p-1 text-xs"
                       }
                     >
                       <div>{tr.name}</div>
@@ -381,7 +379,7 @@ export const CombodexTrickDetails = ({ tricks, chainMap }) => {
                   <>
                     <div
                       className={
-                        "outlineButton flex justify-between gap-2 border-zinc-300"
+                        "outlineButton flex justify-between gap-2 border-[1px] border-zinc-300 p-1 text-xs"
                       }
                     >
                       <div>{tr.base_id}</div>
@@ -390,7 +388,7 @@ export const CombodexTrickDetails = ({ tricks, chainMap }) => {
                     {tr?.variations?.map((v) => (
                       <div
                         key={`${v.variation.name} + ${Math.random()}`}
-                        className="outlineButton flex h-fit w-full justify-between gap-2 border-indigo-400"
+                        className="outlineButton flex h-fit w-full justify-between gap-2 border-[1px] border-indigo-400 p-1 text-xs"
                       >
                         <div>{v.variation.name}</div>
                         <div>{v.variation.pointValue}</div>
@@ -398,7 +396,7 @@ export const CombodexTrickDetails = ({ tricks, chainMap }) => {
                     ))}
                     <div
                       className={
-                        "outlineButton flex justify-between gap-2 border-teal-300"
+                        "outlineButton flex justify-between gap-2 border-[1px] border-teal-300 p-1 text-xs"
                       }
                     >
                       <div>{tr.landingStance}</div>
