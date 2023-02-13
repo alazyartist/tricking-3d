@@ -4,8 +4,9 @@ import useMeasure from "react-use-measure";
 const TransitionsPieChart = ({ data }) => {
   const svgRef = useRef();
   const [piRef, dimensions] = useMeasure();
+
   useEffect(() => {
-    const margin = { top: 30, left: 10, right: 10, bottom: 20 };
+    const margin = { top: 50, left: 10, right: 10, bottom: 20 };
     const width = dimensions.width - margin.left - margin.right;
     const height = dimensions.height - margin.top - margin.bottom;
     if (svgRef.current !== undefined) {
@@ -93,7 +94,7 @@ const TransitionsPieChart = ({ data }) => {
           "transform",
           (d, i) =>
             `translate(${colorLegendScale(tricksArray?.[i][0])}px,${
-              margin.top
+              margin.top / 2
             }px)`
         )
         .style("fill", (d, i) => colors(i))

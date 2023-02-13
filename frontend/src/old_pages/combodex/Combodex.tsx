@@ -288,29 +288,12 @@ const Combodex: React.FC<CombodexProps> = ({
         <div>Tricks: {numOfTricks}</div>
         <div className="w-full p-2">Most Used: {mostUsed[0]}</div>
 
-        <div className="flex flex-col gap-2 rounded-lg bg-zinc-600 p-2">
-          <div className="flex w-full justify-between rounded-md bg-zinc-700 p-2">
-            <div>Density</div>
-            <div>{(trickDensity + transitionDensity)?.toFixed(3)}</div>
-          </div>
-          <div className="flex w-full place-items-center justify-around gap-2">
-            <div className="rounded-md bg-zinc-700 p-2">
-              <span className="text-center text-xs">Tricks:</span>
-              <div>{trickDensity?.toFixed(3)}</div>
-            </div>
-            <div className="text-xl">+</div>
-            <div className="rounded-md bg-zinc-700 p-2">
-              <span className="text-center text-xs">Transitons:</span>
-              <div>{transitionDensity?.toFixed(3)}</div>
-            </div>
-            <div className="text-xl">=</div>
-            <div className="rounded-md bg-zinc-700 p-2">
-              <span className="text-center text-xs">All:</span>
-              <div>{(trickDensity + transitionDensity)?.toFixed(3)}</div>
-            </div>
-          </div>
-        </div>
-        {/* <div>
+        <DensityDisplay
+          trickDensity={trickDensity}
+          transitionDensity={transitionDensity}
+        />
+      </div>
+      {/* <div>
           json:{" "}
           {JSON.stringify(
             countTotal !== undefined &&
@@ -319,12 +302,44 @@ const Combodex: React.FC<CombodexProps> = ({
               )
           )}
         </div> */}
-      </div>
     </div>
   );
 };
 
 export default Combodex;
+
+export const DensityDisplay = ({ trickDensity, transitionDensity }) => {
+  const [detailsVisible, setDetailsVisible] = useState(false);
+  return (
+    <div className="flex flex-col gap-2 rounded-lg bg-zinc-700 p-2">
+      <div
+        onClick={() => setDetailsVisible((prev) => !prev)}
+        className="flex w-full justify-between rounded-md bg-zinc-800 p-2"
+      >
+        <div>Density</div>
+        <div>{(trickDensity + transitionDensity)?.toFixed(3)}</div>
+      </div>
+      {detailsVisible && (
+        <div className="flex w-full place-items-center justify-around gap-2">
+          <div className="rounded-md bg-zinc-800 p-2">
+            <span className="text-center text-xs">Tricks:</span>
+            <div>{trickDensity?.toFixed(3)}</div>
+          </div>
+          <div className="text-xl">+</div>
+          <div className="rounded-md bg-zinc-800 p-2">
+            <span className="text-center text-xs">Transitons:</span>
+            <div>{transitionDensity?.toFixed(3)}</div>
+          </div>
+          <div className="text-xl">=</div>
+          <div className="rounded-md bg-zinc-800 p-2">
+            <span className="text-center text-xs">All:</span>
+            <div>{(trickDensity + transitionDensity)?.toFixed(3)}</div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export const CombodexTrickDetails = ({ tricks, chainMap }) => {
   return (
