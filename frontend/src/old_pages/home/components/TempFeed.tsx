@@ -12,14 +12,17 @@ const TempFeed = () => {
           //   ?.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1))
           ?.map((summary) => {
             const user = summary.user;
+            console.log(summary);
             return (
               <Link
                 key={`${user.uuid},${summary.sessionid}`}
                 href={`/userProfile/${user.uuid}?sessionid=${summary.sessionid}`}
                 className={`w-full rounded-md bg-zinc-900 p-2 text-zinc-300`}
               >
-                <div className="flex place-content-center place-items-center justify-between ">
-                  <div>{summary.name}</div>
+                <div className="flex place-content-center place-items-center justify-between  ">
+                  <div className="font-medium tracking-widest">
+                    {summary.name?.toUpperCase()}
+                  </div>
                   <div className="flex place-content-center place-items-center gap-1">
                     <img
                       className="h-5 w-5 rounded-full"
@@ -29,10 +32,12 @@ const TempFeed = () => {
                           : `/images/noimg.jpeg`
                       }
                     />
-                    <div>{summary.user.username}</div>
+                    <div className="text-zinc-400">{summary.user.username}</div>
                   </div>
                 </div>
-                <div>{summary?.updatedAt?.toDateString()}</div>
+                <div className="text-xs text-zinc-400">
+                  {summary?.updatedAt?.toDateString()}
+                </div>
               </Link>
             );
           })}
