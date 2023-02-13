@@ -20,9 +20,7 @@ const TempFeed = () => {
                 className={`w-full rounded-md bg-zinc-900 p-2 text-zinc-300`}
               >
                 <div className="flex place-content-center place-items-center justify-between  ">
-                  <div className="font-medium tracking-widest">
-                    {summary.name?.toUpperCase()}
-                  </div>
+                  <div className="font-medium ">{summary.name}</div>
                   <div className="flex place-content-center place-items-center gap-1">
                     <img
                       className="h-5 w-5 rounded-full"
