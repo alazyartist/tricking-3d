@@ -11,7 +11,7 @@ const AdminDisplay = () => {
   const [displayItem, setDisplayItem] = useState("SessionSummaries");
   return (
     <>
-      <div className="absolute top-[30vh] left-0 z-[100] flex flex-col  gap-2 rounded-md rounded-l-none bg-zinc-900 p-2 text-2xl md:text-4xl">
+      <div className="z-[100] flex w-full justify-around gap-2 rounded-md rounded-l-none bg-zinc-900 p-2 py-2 text-2xl md:text-4xl">
         <IoIosList
           className={`${
             displayItem === "Tricks" ? "text-emerald-500" : "text-zinc-300"

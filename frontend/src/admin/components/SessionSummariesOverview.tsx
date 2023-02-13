@@ -7,11 +7,11 @@ const SessionSummariesOverview = () => {
   const { data: sessions, isFetched } = useGetAllSessions();
   console.log(sessions?.data);
   return (
-    <div className="flex w-[76vw] flex-col place-items-center text-xs">
+    <div className="flex w-[90vw] flex-col place-items-center text-xs">
       <div className=" w-full rounded-md bg-zinc-900 p-2 font-titan text-lg font-thin text-zinc-300">
         Sessions in Queue
       </div>
-      <div className=" no-scrollbar flex h-[35vh] w-full flex-col gap-1 overflow-y-scroll bg-zinc-900 bg-opacity-70">
+      <div className=" no-scrollbar mt-2 flex h-[35vh] w-full flex-col overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70">
         {Array.isArray(sessions?.data) &&
           sessions?.data
             ?.filter((s) => s.status !== "Reviewed")
@@ -20,7 +20,7 @@ const SessionSummariesOverview = () => {
       <div className="mt-[2.5vh] w-full rounded-md bg-zinc-900 bg-opacity-70 p-2 font-titan text-lg font-thin text-zinc-300">
         Reviewed
       </div>
-      <div className="no-scrollbar flex h-[35vh] w-full flex-col gap-1 overflow-y-scroll bg-zinc-900 bg-opacity-70">
+      <div className="no-scrollbar mt-2 flex h-[35vh] w-full flex-col overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70">
         {Array.isArray(sessions?.data) &&
           sessions?.data
             ?.filter((s) => s.status === "Reviewed")
@@ -38,12 +38,12 @@ const SessionDisplay = ({ s }) => {
     <div className="flex gap-2">
       <Link
         href={`/admin/sessionReview/${s?.sessionid}`}
-        className="mt-2 flex w-full place-content-center place-items-center justify-between gap-2 rounded-md bg-zinc-700 bg-opacity-70 p-1"
+        className=" grid w-full grid-cols-4 place-content-center place-items-center justify-between gap-2 rounded-md bg-opacity-70 p-1 text-[10px] odd:bg-zinc-800 even:bg-zinc-700"
       >
-        <div className="w-1/3">{s?.name}</div>
-        <div className="w-1/3">{s?.sessionDate}</div>
-        <div className="w-1/4">{s?.type}</div>
-        <div className="flex place-items-center gap-1">
+        <div className="w-full">{s?.name}</div>
+        <div className="w-fit text-[8px] text-zinc-400">{s?.sessionDate}</div>
+        <div className="w-fit">{s?.type}</div>
+        <div className="flex w-full place-items-center gap-2">
           <div>
             {s?.status === "In Queue" && (
               <div className="h-4 w-4 rounded-full bg-yellow-600" />
@@ -55,24 +55,23 @@ const SessionDisplay = ({ s }) => {
               <div className="h-4 w-4 rounded-full bg-emerald-600" />
             )}
           </div>
-          <div className="w-full flex-shrink-0">
-            <img
-              alt={"userProfile image"}
-              className="h-6 w-6 rounded-full"
-              src={
-                u?.profilePic !== null
-                  ? `/images/${u?.uuid}/${u?.profilePic}`
-                  : `./noimg.jpeg`
-              }
-            />
+          <img
+            alt={"userProfile image"}
+            className="h-6 w-6 rounded-full"
+            src={
+              u?.profilePic !== null
+                ? `/images/${u?.uuid}/${u?.profilePic}`
+                : `./noimg.jpeg`
+            }
+          />
+          <div
+            onClick={() => console.log("delete", s)}
+            className="font-tian flex place-content-center place-items-center text-xl text-red-500"
+          >
+            x
           </div>
         </div>
       </Link>
-      {/* <div
-				onClick={() => console.log("delete", s)}
-				className='font-tian flex place-content-center place-items-center text-xl text-red-500'>
-				x
-			</div> */}
     </div>
   );
 };
