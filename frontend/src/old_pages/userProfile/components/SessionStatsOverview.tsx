@@ -1,3 +1,4 @@
+import { useSessionSummariesStore } from "@admin/components/sessionreview/SessionSummaryStore";
 import ExecutionAverageGaugeChart from "@components/d3/ExecutionAverageGuageChart";
 import PowerAverageComboLineChart from "@components/d3/PowerAverageComboLineChart";
 import PowerAverageLineChart from "@components/d3/PowerAverageLineChart";
@@ -5,6 +6,7 @@ import TransitionsPieChart from "@components/d3/TransitionsPieChart";
 import TrickInvertGaugeChart from "@components/d3/TricikInvertGuageChart";
 import { DensityDisplay } from "@old_pages/combodex/Combodex";
 import React from "react";
+import { IoPlayCircle } from "react-icons/io5";
 
 const SessionStatsOverview = ({ summary }) => {
   let sessionCombosArr = summary?.SessionData.sort((a, b) =>
@@ -215,14 +217,24 @@ export const OverviewCard = ({
   sessionTricksArr,
   sessionCombosArr,
 }) => {
+  const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
+  console.log(summary);
   return (
     <div className="col-span-2 flex w-full flex-col place-self-center rounded-md bg-zinc-900 p-2 text-2xl">
-      <div className="flex w-full place-items-center justify-between">
+      <div className="flex w-full place-items-center ">
         <div className="p-1">
           <div className="text-xs tracking-wide text-zinc-500">
             {summary?.name}
           </div>
           <div className="">{totalPoints.toFixed(2)}</div>
+        </div>
+        <div
+          onClick={() => {
+            setVidsrc(summary?.SessionSources?.[0]?.vidsrc);
+          }}
+          className="rounded-md p-4 text-xs text-zinc-300"
+        >
+          <IoPlayCircle className="fill-emerald-500 text-3xl" />
         </div>
         {/* <div className="text-sm text-zinc-400">
       {summary?.name}

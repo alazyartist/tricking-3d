@@ -65,7 +65,6 @@ const PowerAverageComboLineChart = ({ data }) => {
             .x((d, i) => xScale(i))
             .y((d: any, i) => {
               // let a = `x:${xScale(i)} y:${yScale(d.ClipLabel.pointValue)}`;
-              console.log(i, d.ClipLabel.name, d.ClipLabel.pointValue);
               return yScale(d.ClipLabel.pointValue);
             })
             .curve(d3.curveCatmullRom)

@@ -110,7 +110,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
         key={source?.vidsrc.replace(vidsrcRegex, "")}
         className=" flex w-full flex-col gap-4 rounded-md  pl-0"
       >
-        <div
+        {/* <div
           className={`rounded-md text-center ${
             vidsrc === source.vidsrc ? "bg-zinc-900" : "bg-zinc-700"
           }  active:neumorphicIn p-2 active:rounded-md`}
@@ -119,7 +119,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
           }}
         >
           Watch Session
-        </div>
+        </div> */}
         {radarData && <RadarChart data={radarData} />}
       </animated.div>
 
