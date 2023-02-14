@@ -11,9 +11,9 @@ const AdminIndex = () => {
     <>
       {isAdmin ? (
         <div className="no-scrollbar flex h-[100vh] w-[100vw] flex-col place-content-start place-items-center gap-4 overflow-auto font-inter font-bold text-zinc-300">
-          <div className="text-center text-3xl">
+          {/* <div className="text-center text-3xl">
             Welcome {userInfo?.username}. Good Luck Today
-          </div>
+          </div> */}
           <AdminDisplay />
         </div>
       ) : (

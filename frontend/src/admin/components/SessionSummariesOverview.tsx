@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import Link from "next/link";
 import { useGetAllSessions } from "../../api/useSessionSummaries";
 import useUserInfoByUUID from "../../api/useUserInfoById";
+import useClickOutside from "hooks/useClickOutside";
 
 const SessionSummariesOverview = () => {
   const { data: sessions, isFetched } = useGetAllSessions();
@@ -34,11 +35,13 @@ export default SessionSummariesOverview;
 
 const SessionDisplay = ({ s }) => {
   const { data: u } = useUserInfoByUUID(s.user_id);
+  const [caretOpen, setCaretOpen] = useState(false);
+
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 bg-zinc-800 bg-opacity-70">
       <Link
         href={`/admin/sessionReview/${s?.sessionid}`}
-        className=" grid w-full grid-cols-4 place-content-center place-items-center justify-between gap-2 rounded-md bg-opacity-70 p-1 text-[10px] odd:bg-zinc-800 even:bg-zinc-700"
+        className=" grid w-full grid-cols-4 place-content-center place-items-center justify-between gap-2 rounded-md p-1 text-[10px] "
       >
         <div className="w-full">{s?.name}</div>
         <div className="w-fit text-[8px] text-zinc-400">{s?.sessionDate}</div>
@@ -64,14 +67,58 @@ const SessionDisplay = ({ s }) => {
                 : `./noimg.jpeg`
             }
           />
-          <div
-            onClick={() => console.log("delete", s)}
-            className="font-tian flex place-content-center place-items-center text-xl text-red-500"
-          >
-            x
-          </div>
         </div>
       </Link>
+      <div>
+        <div
+          onClick={() => setCaretOpen((prev) => !prev)}
+          className="flex place-content-center place-items-center font-titan text-xl text-zinc-500"
+        >
+          v
+        </div>
+        {caretOpen && (
+          <OptionDropdown
+            caretOpen={caretOpen}
+            s={s}
+            setCaretOpen={setCaretOpen}
+          />
+        )}
+      </div>
+    </div>
+  );
+};
+
+export const OptionDropdown = ({ caretOpen, setCaretOpen, s }) => {
+  const ref = useRef();
+  let clicked = 0;
+  useClickOutside(ref, () => {
+    if (clicked > 0) {
+      setCaretOpen(false);
+    }
+    if (ref.current && caretOpen === true) {
+      console.log("clickedOutside", clicked);
+      clicked++;
+    }
+  });
+  return (
+    <div
+      ref={ref}
+      className="absolute top-[12] right-7 rounded-md rounded-tr-none bg-zinc-200 p-2 text-xs text-zinc-800"
+    >
+      <div
+        onClick={() => {
+          console.log("change", s);
+        }}
+        className="rounded-md bg-lime-100 p-1 text-lime-900"
+      >
+        Change Status
+      </div>
+      <div
+        onClick={() => console.log("delete", s)}
+        className="rounded-md bg-red-100 p-1 text-red-900"
+      >
+        Delete
+      </div>
     </div>
   );
 };
