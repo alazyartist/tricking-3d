@@ -7,6 +7,7 @@ import {
 } from "../../api/useSessionSummaries";
 import useUserInfoByUUID from "../../api/useUserInfoById";
 import useClickOutside from "hooks/useClickOutside";
+import { trpc } from "utils/trpc";
 
 const SessionSummariesOverview = () => {
   const { data: sessions, isFetched } = useGetAllSessions();
@@ -42,15 +43,26 @@ const SessionDisplay = ({ s }) => {
   const [caretOpen, setCaretOpen] = useState(false);
 
   return (
-    <div className="flex gap-2 bg-zinc-800 bg-opacity-70">
+    <div className="grid w-full grid-cols-6 gap-2 bg-zinc-800 bg-opacity-70">
       <Link
         href={`/admin/sessionReview/${s?.sessionid}`}
-        className=" grid w-full grid-cols-4 place-content-center place-items-center justify-between gap-2 rounded-md p-1 text-[10px] "
+        className=" col-span-5 grid w-full grid-cols-5 place-content-center place-items-center justify-between gap-2 rounded-md p-1 text-[10px] "
       >
-        <div className="w-full">{s?.name}</div>
+        <div className="col-span-2 flex w-full place-items-center gap-1">
+          <img
+            alt={"userProfile image"}
+            className="h-6 w-6 rounded-full"
+            src={
+              u?.profilePic !== null
+                ? `/images/${u?.uuid}/${u?.profilePic}`
+                : `./noimg.jpeg`
+            }
+          />
+          <div>{s?.name}</div>
+        </div>
         <div className="w-fit text-[8px] text-zinc-400">{s?.sessionDate}</div>
         <div className="w-fit">{s?.type}</div>
-        <div className="flex w-full place-items-center gap-2">
+        <div className="flex w-full place-content-center place-items-center gap-2">
           <div>
             {s?.status === "In Queue" && (
               <div className="h-4 w-4 rounded-full bg-yellow-600" />
@@ -62,15 +74,6 @@ const SessionDisplay = ({ s }) => {
               <div className="h-4 w-4 rounded-full bg-emerald-600" />
             )}
           </div>
-          <img
-            alt={"userProfile image"}
-            className="h-6 w-6 rounded-full"
-            src={
-              u?.profilePic !== null
-                ? `/images/${u?.uuid}/${u?.profilePic}`
-                : `./noimg.jpeg`
-            }
-          />
         </div>
       </Link>
       <div>
@@ -97,7 +100,8 @@ export const OptionDropdown = ({ caretOpen, setCaretOpen, s }) => {
   const [deleteCheck, setDeleteCheck] = useState(false);
   const [changeStatusOpen, setChangeStatusOpen] = useState(false);
   const { mutateAsync: changeStatus } = useChangeSessionStatusById(s.sessionid);
-
+  const { mutateAsync: deleteSessionSummary } =
+    trpc.sessionsummaries.deleteSessionSummaryById.useMutation();
   let clicked = 0;
   useClickOutside(ref, () => {
     if (clicked > 0) {
@@ -114,6 +118,12 @@ export const OptionDropdown = ({ caretOpen, setCaretOpen, s }) => {
     setChangeStatusOpen(false);
     setCaretOpen(false);
     changeStatus(status);
+  };
+  const handleDeleteClick = async () => {
+    console.log("Deleteing", s);
+    deleteSessionSummary({ sessionid: s.sessionid });
+    setDeleteCheck(false);
+    setCaretOpen(false);
   };
   return (
     <div
@@ -152,7 +162,7 @@ export const OptionDropdown = ({ caretOpen, setCaretOpen, s }) => {
           <div className="p-1">Are you sure you want to delete!</div>
           <div className="flex justify-between">
             <div
-              onClick={() => console.log("Deleteing", s)}
+              onClick={() => handleDeleteClick()}
               className="rounded-md bg-red-100 px-2 font-medium text-red-900"
             >
               DELETE

@@ -11,38 +11,7 @@ const AdminDisplay = () => {
   const [displayItem, setDisplayItem] = useState("SessionSummaries");
   return (
     <>
-      <div className="z-[100] mt-4 grid w-full grid-cols-5 justify-around gap-2 rounded-md rounded-l-none bg-zinc-900 p-2 py-2 text-2xl md:text-4xl">
-        <IoIosList
-          className={`${
-            displayItem === "Tricks" ? "text-emerald-500" : "text-zinc-300"
-          }`}
-          onClick={() => setDisplayItem("Tricks")}
-        />
-        <IoIosPeople
-          className={`${
-            displayItem === "Users" ? "text-emerald-500" : "text-zinc-300"
-          }`}
-          onClick={() => setDisplayItem("Users")}
-        />
-        <span
-          onClick={() => setDisplayItem("SessionSummaries")}
-          className={`${
-            displayItem === "SessionSummaries"
-              ? "text-emerald-500"
-              : "text-zinc-300"
-          } text-center font-titan text-xl md:text-2xl`}
-        >
-          S
-        </span>
-        <span
-          onClick={() => setDisplayItem("TrickPoints")}
-          className={`${
-            displayItem === "TrickPoints" ? "text-emerald-500" : "text-zinc-300"
-          } text-center font-titan text-xl md:text-2xl`}
-        >
-          TP
-        </span>
-      </div>
+      <AdminNav displayItem={displayItem} setDisplayItem={setDisplayItem} />
       <div>
         {displayItem === "Tricks" && (
           <Suspense fallback={<div>Loading...</div>}>
@@ -71,3 +40,40 @@ const AdminDisplay = () => {
 };
 
 export default AdminDisplay;
+
+const AdminNav = ({ displayItem, setDisplayItem }) => {
+  return (
+    <div className="z-[100] mt-4 grid w-full grid-cols-5 justify-around gap-2 rounded-md rounded-l-none bg-zinc-900 p-2 px-4 text-2xl md:text-4xl">
+      <IoIosList
+        className={`${
+          displayItem === "Tricks" ? "text-emerald-500" : "text-zinc-300"
+        }`}
+        onClick={() => setDisplayItem("Tricks")}
+      />
+      <IoIosPeople
+        className={`${
+          displayItem === "Users" ? "text-emerald-500" : "text-zinc-300"
+        }`}
+        onClick={() => setDisplayItem("Users")}
+      />
+      <span
+        onClick={() => setDisplayItem("SessionSummaries")}
+        className={`${
+          displayItem === "SessionSummaries"
+            ? "text-emerald-500"
+            : "text-zinc-300"
+        } text-center font-titan text-xl md:text-2xl`}
+      >
+        S
+      </span>
+      <span
+        onClick={() => setDisplayItem("TrickPoints")}
+        className={`${
+          displayItem === "TrickPoints" ? "text-emerald-500" : "text-zinc-300"
+        } text-center font-titan text-xl md:text-2xl`}
+      >
+        TP
+      </span>
+    </div>
+  );
+};
