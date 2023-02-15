@@ -66,6 +66,27 @@ export const useChangeSessionStatus = () => {
     }
   );
 };
+export const useChangeSessionStatusById = (sessionid: string) => {
+  const apiPrivate = useApiCreds();
+  const queryClient = useQueryClient();
+  // const sessionid = useSessionSummariesStore((s) => s.sessionid);
+  return useMutation(
+    ["changeseSessionStatusbyId"],
+    async (status: string) => {
+      console.log(status, sessionid);
+      return apiPrivate.put(`/sessionsummaries/${sessionid}`, {
+        status,
+        sessionid,
+      });
+    },
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(["sessionsummaries"]);
+        console.log("succeeded submiting SessionDetailsbyId", data);
+      },
+    }
+  );
+};
 
 export const useGetAllSessions = () => {
   const apiPrivate = useApiCreds();
