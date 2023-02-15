@@ -23,7 +23,7 @@ const PowerAverageComboLineChart = ({ data }) => {
       const max = d3.max(data, (d: any) => d.ClipLabel.pointValue);
       const xScale = d3
         .scaleLinear()
-        .domain([0, data.length - 1])
+        .domain([0, data.length + 1])
         .range([0, width]);
       const yScale = d3
         .scaleLinear()
@@ -41,6 +41,7 @@ const PowerAverageComboLineChart = ({ data }) => {
         .selectAll("stop")
         .data([
           { offset: "0%", color: "#ff4b9f" },
+          { offset: "80%", color: "#50d9f0" },
           { offset: "100%", color: "#50d9f0" },
         ])
         .enter()
@@ -52,7 +53,13 @@ const PowerAverageComboLineChart = ({ data }) => {
           return d.color;
         });
       // console.log("datum", data);
-      let line = svg.datum(data).append("path");
+      let line = svg
+        .datum([
+          { ClipLabel: { pointValue: 0 } },
+          ...data,
+          { ClipLabel: { pointValue: 0 } },
+        ])
+        .append("path");
 
       line
         .attr("fill", "none")

@@ -6,7 +6,7 @@ const PowerAverageLineChart = ({ data }) => {
   const [lRef, dimensions] = useMeasure();
 
   useEffect(() => {
-    const margin = { top: 2, left: 0, right: 0, bottom: 0 };
+    const margin = { top: 2, left: 0, right: 0, bottom: 10 };
     const width = dimensions.width - margin.left - margin.right;
     const height = dimensions.height - margin.top - margin.bottom;
     if (svgRef.current !== undefined) {
@@ -23,12 +23,9 @@ const PowerAverageLineChart = ({ data }) => {
       const max = d3.max(data, (d: any) => d.pointValue);
       const xScale = d3
         .scaleLinear()
-        .domain([0, data.length - 1])
+        .domain([0, data.length + 1])
         .range([0, width]);
-      const yScale = d3
-        .scaleLinear()
-        .domain([0, parseFloat(max)])
-        .range([height, 0]);
+      const yScale = d3.scaleLinear().domain([0, 5.5]).range([height, 0]);
       //   const colorScale = d3
       //     .scaleLinear(d3.interpolateRgbBasis(["#ff4b9f", "#50d9f0"]))
       //     .domain(d3.extent(data, (d) => d.pointValue));
@@ -43,6 +40,7 @@ const PowerAverageLineChart = ({ data }) => {
         .selectAll("stop")
         .data([
           { offset: "0%", color: "#ff4b9f" },
+          { offset: "70%", color: "#50d9f0" },
           { offset: "100%", color: "#50d9f0" },
         ])
         .enter()
@@ -58,7 +56,7 @@ const PowerAverageLineChart = ({ data }) => {
         });
 
       const line = svg
-        .datum(data)
+        .datum([{ pointValue: 0 }, ...data, { pointValue: 0 }])
         .append("path")
         .attr("fill", "none")
         .attr("stroke", "url(#line-gradient)")
