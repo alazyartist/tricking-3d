@@ -185,6 +185,7 @@ const Combodex: React.FC<CombodexProps> = ({
   useEffect(() => {
     console.log("chains", chainsTotal);
   }, [chainsTotal]);
+
   let mostUsed = Object.keys(trickCountTotal)?.sort((a, b) =>
     countTotal[a]?.count > countTotal[b]?.count ? -1 : 1
   );
@@ -214,14 +215,17 @@ const Combodex: React.FC<CombodexProps> = ({
         </div>
         <div
           className={
-            "outlineButton col-span-3 border-zinc-300 border-opacity-80 bg-zinc-900 text-xl"
+            "outlineButton col-span-3 border-[1px] border-zinc-300 border-opacity-80 bg-zinc-900 text-xl"
           }
         >
-          {localTotalScore}
+          <div>
+            {localTotalScore}
+            <span className="px-1 text-[10px]">pts</span>
+          </div>
         </div>
         <div
           className={
-            "outlineButton flex flex-col border-zinc-300 border-opacity-40 bg-zinc-900"
+            "outlineButton flex flex-col border-[1px] border-zinc-300 border-opacity-40 bg-zinc-900"
           }
         >
           {combo?.pointValue}
@@ -229,7 +233,7 @@ const Combodex: React.FC<CombodexProps> = ({
         </div>
         <div
           className={
-            "outlineButton flex flex-col border-zinc-300 border-opacity-40 bg-zinc-900"
+            "outlineButton flex flex-col border-[1px] border-zinc-300 border-opacity-40 bg-zinc-900"
           }
         >
           {((creativityScore / 10) * combo.pointValue).toFixed(2)}
@@ -237,11 +241,10 @@ const Combodex: React.FC<CombodexProps> = ({
         </div>
         <div
           onClick={() => setExecutionOpen(!executionOpen)}
-          className={`outlineButton ${
+          className={`outlineButton border-[1px] ${
             executionOpen ? "border-amber-700" : "border-zinc-300"
           } flex flex-col border-opacity-40 bg-zinc-900`}
         >
-          {/* {(executionScore * combo.pointValue).toFixed(2)} */}
           {(executionAverage * combo.pointValue).toFixed(2) !== "NaN"
             ? (executionAverage * combo.pointValue).toFixed(2)
             : "Need Rating"}
@@ -249,7 +252,7 @@ const Combodex: React.FC<CombodexProps> = ({
         </div>
         <div
           className={
-            "outlineButton flex flex-col border-zinc-300 border-opacity-40 bg-zinc-900"
+            "outlineButton flex flex-col border-[1px] border-zinc-300 border-opacity-40 bg-zinc-900"
           }
         >
           {chainMap.reduce((sum, b) => sum + b[1], 0).toFixed(2)}
