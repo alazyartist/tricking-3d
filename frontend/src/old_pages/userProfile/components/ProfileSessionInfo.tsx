@@ -103,18 +103,14 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
   };
   return (
     <>
-      <div
-        className="flex w-full flex-col place-items-center justify-between rounded-md bg-zinc-900 bg-opacity-90 p-1 text-sm text-zinc-300 md:text-inherit"
-        onDoubleClick={() => setLoopMe(false)}
-        onClick={() =>
-          editShorthand ? setShorthandOpen(!shorthandOpen) : handleClick()
-        }
-      >
-        <div
-          onClick={() => setCombodexopen((prev) => !prev)}
-          className="grid w-full grid-cols-5 place-items-center justify-between p-1 text-sm text-zinc-300 md:text-inherit"
-        >
-          <div className="no-scrollbar col-span-3 w-full overflow-x-scroll whitespace-nowrap p-1 text-[12px] md:w-1/3">
+      <div className="flex w-full flex-col place-items-center justify-between rounded-md bg-zinc-900 bg-opacity-90 p-1 text-sm text-zinc-300 md:text-inherit">
+        <div className="grid w-full grid-cols-6 place-items-center justify-between p-1 text-sm text-zinc-300 md:text-inherit">
+          <div
+            onClick={() =>
+              editShorthand ? setShorthandOpen(!shorthandOpen) : handleClick()
+            }
+            className="no-scrollbar col-span-3 w-full overflow-x-scroll whitespace-nowrap p-1 text-[12px] md:w-1/3"
+          >
             {showTrickLongForm ? (
               <ComboNameDisplay
                 setCombodexopen={setCombodexopen}
@@ -124,13 +120,18 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
               d?.ClipLabel?.shorthand ?? d.ClipLabel?.name
             )}
           </div>
-          <div className="text-xl">...</div>
+          <div
+            onClick={() => setCombodexopen((prev) => !prev)}
+            className="text-xl"
+          >
+            ...
+          </div>
           <div
             onClick={() => {
-              setLoopMe(false);
+              setLoopMe((prev) => !prev);
               console.log(loopMe);
             }}
-            className="w-4/9 flex place-items-center gap-2"
+            className="flex place-items-center gap-2"
           >
             <div className="flex min-w-[22px] place-items-center  text-lg font-black">
               {/* {d?.ClipLabel?.pointValue?.toFixed(2)} */}
@@ -148,15 +149,15 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
             {d?.clipEnd}
             </div>
           </div> */}
-            {loopMe ? (
-              <div className="z-100 whitespace-nowrap">↶</div>
-            ) : (
-              <div className="whitespace-nowrap">--&gt;</div>
-            )}
           </div>
+          {loopMe ? (
+            <div className="z-100 whitespace-nowrap">↶</div>
+          ) : (
+            <div className="whitespace-nowrap">--&gt;</div>
+          )}
         </div>
         <div
-          className="h-[30px] w-full"
+          className="h-[35px] w-full"
           onClick={() => setCombodexopen((prev) => !prev)}
         >
           <PowerAverageLineChart data={d.ClipLabel.comboArray} />

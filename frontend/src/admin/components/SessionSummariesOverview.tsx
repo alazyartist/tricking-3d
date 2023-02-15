@@ -18,10 +18,16 @@ const SessionSummariesOverview = () => {
         Sessions in Queue
       </div>
       <div className=" no-scrollbar mt-2 flex h-[35vh] w-full flex-col overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70">
-        {Array.isArray(sessions?.data) &&
+        {sessions?.data?.filter((s) => s.status !== "Reviewed").length ? (
           sessions?.data
             ?.filter((s) => s.status !== "Reviewed")
-            ?.map((s) => <SessionDisplay key={s.srcid} s={s} />)}
+            ?.map((s) => <SessionDisplay key={s.srcid} s={s} />)
+        ) : (
+          <div className="flex h-full w-full flex-col place-content-start place-items-center pt-10">
+            <div className="text-xl">Awesome.</div>
+            <div className="text-zinc-400">Nothing left to review!</div>
+          </div>
+        )}
       </div>
       <div className="mt-[2.5vh] w-full rounded-md bg-zinc-900 bg-opacity-70 p-2 font-titan text-lg font-thin text-zinc-300">
         Reviewed
