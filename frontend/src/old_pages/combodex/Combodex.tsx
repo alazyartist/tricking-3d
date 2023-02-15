@@ -116,19 +116,17 @@ const Combodex: React.FC<CombodexProps> = ({
               tricks[i + 1].pointValue * chains[`${chainNum}`]?.multiplier +
                 tricks[i + 1].pointValue,
             ]);
-            chains[`${chainNum}`].index = i;
           } else {
+            console.log("BrokeChain");
             if (obj.type === "Trick") return;
-            else chains[`${chainNum}`] = chains[`${chainNum + 1}`];
+            if (obj.name === "Redirect") chainNum++;
+            else chains[`${chainNum + 1}`] = chains[`${chainNum}`];
             chains[`${chainNum}`] = {
               chain: [],
               name: obj.name,
               count: 1,
               multiplier: obj.name === "Swing" ? 0.1 : 0.05,
-              index: i,
             };
-
-            console.log("BrokeChain");
             chainNum++;
           }
         } else {
@@ -139,7 +137,6 @@ const Combodex: React.FC<CombodexProps> = ({
               name: obj.name,
               count: 1,
               multiplier: obj.name === "Swing" ? 0.1 : 0.05,
-              index: i,
             };
           }
         }
