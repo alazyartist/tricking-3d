@@ -33,7 +33,7 @@ const TransitionsPieChart = ({ data }) => {
         .sort(null);
       //if you want half circle put below code after d3.pie() above
       let tricksArray = Array.from(d3.group(data, (d: any) => d.name));
-      console.log(tricksArray);
+      // console.log(tricksArray);
       let trickPercent = tricksArray?.map((t, i) => t[1]?.length / data.length);
       const instructions = piGen(trickPercent);
       const colors = d3

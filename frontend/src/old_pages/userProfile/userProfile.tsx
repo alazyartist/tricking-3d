@@ -54,13 +54,13 @@ const UserProfile = () => {
     exitBeforeEnter: true,
   });
   const resizeUpper = useSpring({
-    to: { height: !hidden ? "27vh" : "45vh" },
+    to: { height: hidden ? (!activeSummary ? "73vh" : "45vh") : "27vh" },
     from: { height: "27vh" },
     config: { durration: 100, tension: 260, friction: 50 },
     exitBeforeEnter: true,
   });
   const resizeLower = useSpring({
-    to: { height: !hidden ? "27vh" : "45vh" },
+    to: { height: hidden ? (!activeSummary ? "13vh" : "45vh") : "27vh" },
     from: { height: "27vh" },
     config: { durration: 100, tension: 260, friction: 50 },
     exitBeforeEnter: true,
