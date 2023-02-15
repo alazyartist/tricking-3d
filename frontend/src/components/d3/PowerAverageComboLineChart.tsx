@@ -25,10 +25,7 @@ const PowerAverageComboLineChart = ({ data }) => {
         .scaleLinear()
         .domain([0, data.length + 1])
         .range([0, width]);
-      const yScale = d3
-        .scaleLinear()
-        .domain([0, parseFloat(max)])
-        .range([height, 0]);
+      const yScale = d3.scaleLinear().domain([0, 30]).range([height, 0]);
 
       svg
         .append("linearGradient")
