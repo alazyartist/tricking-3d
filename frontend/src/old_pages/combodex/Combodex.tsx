@@ -88,41 +88,39 @@ const Combodex: React.FC<CombodexProps> = ({
       // console.log(tricks);
       tricks.forEach((obj: any, i) => {
         console.log(i, obj);
-        if (chains[`${obj?.transitionType}${chainNum}`]) {
+        if (chains[`${chainNum}`]) {
           if (
             obj.type === "Transition" &&
             // @ts-ignore
-            obj?.transitionType === tricks[i - 2]?.transitionType
+            obj?.name !== "Redirect"
           ) {
             console.log(
               "chained",
               tricks[i + 1]?.name,
               tricks[i + 1]?.pointValue
             );
-            chains[`${obj?.transitionType}${chainNum}`].count++;
+            chains[`${chainNum}`].count++;
             if (obj.name === "Swing") {
-              chains[`${obj?.transitionType}${chainNum}`].multiplier += 0.1;
+              chains[`${chainNum}`].multiplier += 0.1;
             } else {
-              chains[`${obj?.transitionType}${chainNum}`].multiplier += 0.05;
+              chains[`${chainNum}`].multiplier += 0.05;
             }
             chainScore.push([
               i + 1,
-              tricks[i + 1].pointValue *
-                chains[`${obj?.transitionType}${chainNum}`]?.multiplier,
+              tricks[i + 1].pointValue * chains[`${chainNum}`]?.multiplier,
               tricks[i + 1].name,
             ]);
-            chains[`${obj?.transitionType}${chainNum}`].chain.push([
+            chains[`${chainNum}`].chain.push([
               obj,
               tricks[i + 1],
-              tricks[i + 1].pointValue *
-                chains[`${obj?.transitionType}${chainNum}`]?.multiplier +
+              tricks[i + 1].pointValue * chains[`${chainNum}`]?.multiplier +
                 tricks[i + 1].pointValue,
             ]);
-            chains[`${obj?.transitionType}${chainNum}`].index = i;
+            chains[`${chainNum}`].index = i;
           } else {
-            chains[`${obj?.transitionType}${chainNum + 1}`] =
-              chains[`${obj?.transitionType}${chainNum}`];
-            chains[`${obj?.transitionType}${chainNum}`] = {
+            if (obj.type === "Trick") return;
+            else chains[`${chainNum}`] = chains[`${chainNum + 1}`];
+            chains[`${chainNum}`] = {
               chain: [],
               name: obj.name,
               count: 1,
@@ -131,11 +129,12 @@ const Combodex: React.FC<CombodexProps> = ({
             };
 
             console.log("BrokeChain");
+            chainNum++;
           }
         } else {
           if (obj.type === "Transition") {
             console.log("newChain");
-            chains[`${obj?.transitionType}${chainNum}`] = {
+            chains[`${chainNum}`] = {
               chain: [],
               name: obj.name,
               count: 1,
