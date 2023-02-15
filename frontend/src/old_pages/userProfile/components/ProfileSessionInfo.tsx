@@ -1,6 +1,7 @@
 import { useSessionSummariesStore } from "@admin/components/sessionreview/SessionSummaryStore";
 import PowerAverageLineChart from "@components/d3/PowerAverageLineChart";
 import UpdateComboShorthand from "@components/UpdateComboShorthand";
+import { MdInfoOutline } from "@data/icons/MdIcons";
 import Combodex from "@old_pages/combodex/Combodex";
 import useIsAdmin from "hooks/useIsAdmin";
 import React, { useEffect, useState } from "react";
@@ -104,12 +105,12 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
   return (
     <>
       <div className="flex w-full flex-col place-items-center justify-between rounded-md bg-zinc-900 bg-opacity-90 p-1 text-sm text-zinc-300 md:text-inherit">
-        <div className="grid w-full grid-cols-6 place-items-center justify-between p-1 text-sm text-zinc-300 md:text-inherit">
+        <div className="grid w-full grid-cols-7 place-items-center justify-between p-1 text-sm text-zinc-300 md:text-inherit">
           <div
             onClick={() =>
               editShorthand ? setShorthandOpen(!shorthandOpen) : handleClick()
             }
-            className="no-scrollbar col-span-3 w-full overflow-x-scroll whitespace-nowrap p-1 text-[12px] md:w-1/3"
+            className="no-scrollbar col-span-6 w-full overflow-x-scroll whitespace-nowrap p-1 text-[12px] text-zinc-300 md:w-1/3"
           >
             {showTrickLongForm ? (
               <ComboNameDisplay
@@ -121,40 +122,28 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
             )}
           </div>
           <div
-            onClick={() => setCombodexopen((prev) => !prev)}
-            className="text-xl"
-          >
-            ...
-          </div>
-          <div
             onClick={() => {
               setLoopMe((prev) => !prev);
               console.log(loopMe);
             }}
-            className="flex place-items-center gap-2"
+            className="flex w-full place-content-center place-items-center justify-around gap-2 px-2"
           >
-            <div className="flex min-w-[22px] place-items-center  text-lg font-black">
-              {/* {d?.ClipLabel?.pointValue?.toFixed(2)} */}
-              {totalScoreRes?.totalScore
-                ? totalScoreRes?.totalScore
-                : d?.totalScore
-                ? d?.totalScore
-                : d?.ClipLabel?.pointValue?.toFixed(2)}
-            </div>
-            {/* <div className="flex place-items-center rounded-md bg-zinc-900 bg-opacity-40 p-1 text-xs">
-            <div className="min-w-[48px] rounded-md text-center text-zinc-300">
-              {d?.clipStart}
-            </div>
-            <div className="min-w-[48px] rounded-md  text-center text-zinc-300">
-            {d?.clipEnd}
-            </div>
-          </div> */}
+            {loopMe ? (
+              <div className="z-100 whitespace-nowrap">↶</div>
+            ) : (
+              <div className="whitespace-nowrap">--&gt;</div>
+            )}
           </div>
-          {loopMe ? (
-            <div className="z-100 whitespace-nowrap">↶</div>
-          ) : (
-            <div className="whitespace-nowrap">--&gt;</div>
-          )}
+        </div>
+        <div className="flex w-full place-items-center gap-1 pl-2 pb-4 font-bold text-zinc-500">
+          {totalScoreRes?.totalScore
+            ? totalScoreRes?.totalScore
+            : d?.totalScore
+            ? d?.totalScore
+            : d?.ClipLabel?.pointValue?.toFixed(2)}
+          <div onClick={() => setCombodexopen((prev) => !prev)} className="">
+            <MdInfoOutline className={" fill-zinc-500"} />
+          </div>
         </div>
         <div
           className="h-[35px] w-full"
