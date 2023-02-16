@@ -49,12 +49,27 @@ const Combodex: React.FC<CombodexProps> = ({
   let executionAverage =
     sessiondatascores?.reduce((sum, b) => sum + b.executionScore, 0) /
     sessiondatascores?.length;
-  let localTotalScore = (
+  useEffect(() => {
+    if (executionAverage) {
+      setExecutionScore(executionAverage);
+    }
+  }, [executionAverage]);
+  let executionScoreTotal = ((executionAverage * combo.pointValue) / 2).toFixed(
+    2
+  );
+  let varietyScoreTotal = creativityScore
+    // (
+    // / 10) *
+    // (combo.pointValue / 2)
+    .toFixed(2);
+
+  const localTotalScore = (
     chainMap.reduce((sum, b) => sum + b[1], 0) +
     combo.pointValue +
-    (creativityScore / 10) * combo.pointValue +
-    executionAverage * combo.pointValue
+    parseFloat(varietyScoreTotal) +
+    parseFloat(executionScoreTotal)
   )?.toFixed(2);
+
   const composition = tricks
     ?.filter((t) => t.type === "Trick")
     .map((t) => {
@@ -64,6 +79,7 @@ const Combodex: React.FC<CombodexProps> = ({
           tr.variation.name === "FullTwist" || tr.variation.name === "Twist"
       ).length;
     });
+
   useEffect(() => {
     getTricks(combo.comboArray);
   }, []);
@@ -146,7 +162,9 @@ const Combodex: React.FC<CombodexProps> = ({
         .forEach((obj) => {
           if (trickCount[obj.name]) {
             trickCount[obj.name].count++;
-            trickCount[obj.name].score -= 0.1;
+            if (trickCount[obj.name].score > 0.5) {
+              trickCount[obj.name].score -= 0.1;
+            }
           } else {
             trickCount[obj.name] = {
               count: 1,
@@ -159,7 +177,9 @@ const Combodex: React.FC<CombodexProps> = ({
         .forEach((obj) => {
           if (count[obj.name]) {
             count[obj.name].count++;
-            count[obj.name].score -= 0.1;
+            if (count[obj.name].score > 0.6) {
+              count[obj.name].score -= 0.1;
+            }
           } else {
             count[obj.name] = {
               count: 1,
@@ -168,6 +188,7 @@ const Combodex: React.FC<CombodexProps> = ({
           }
         });
       console.log("chainsCore", chainScore);
+      console.log(trickCount, count);
       setChainMap(chainScore);
       setChains(chains);
       setCount(count);
@@ -179,7 +200,7 @@ const Combodex: React.FC<CombodexProps> = ({
     }
   }, [tricks]);
   useEffect(() => {
-    console.log("chains", chainsTotal);
+    console.log("chains", chainsTotal, chainMap);
   }, [chainsTotal]);
 
   let mostUsed = Object.keys(trickCountTotal)?.sort((a, b) =>
@@ -195,6 +216,7 @@ const Combodex: React.FC<CombodexProps> = ({
       .filter((t) => t.type === "Transition")
       .reduce((sum, b) => sum + b?.pointValue, 0) /
     combo.comboArray.filter((t) => t.type === "Transition").length;
+
   return (
     <div
       className={
@@ -232,7 +254,7 @@ const Combodex: React.FC<CombodexProps> = ({
             "outlineButton flex flex-col border-[1px] border-zinc-300 border-opacity-40 bg-zinc-900"
           }
         >
-          {((creativityScore / 10) * combo.pointValue).toFixed(2)}
+          {varietyScoreTotal}
           <span className="text-[8px]">{"variety"}</span>
         </div>
         <div
@@ -241,9 +263,7 @@ const Combodex: React.FC<CombodexProps> = ({
             executionOpen ? "border-amber-700" : "border-zinc-300"
           } flex flex-col border-opacity-40 bg-zinc-900`}
         >
-          {(executionAverage * combo.pointValue).toFixed(2) !== "NaN"
-            ? (executionAverage * combo.pointValue).toFixed(2)
-            : "Need Rating"}
+          {executionScoreTotal !== "NaN" ? executionScoreTotal : "Need Rating"}
           <span className="text-[8px]">{"execution"}</span>
         </div>
         <div
