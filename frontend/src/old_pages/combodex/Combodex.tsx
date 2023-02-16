@@ -116,14 +116,12 @@ const Combodex: React.FC<CombodexProps> = ({
               tricks[i + 1]?.pointValue
             );
             chains[`${chainNum}`].count++;
-            if (obj.name === "Swing") {
-              chains[`${chainNum}`].multiplier += 0.1;
-            } else {
-              chains[`${chainNum}`].multiplier += 0.05;
-            }
+
+            chains[`${chainNum}`].multiplier += obj?.multiplier;
             chainScore.push([
               i + 1,
               tricks[i + 1].pointValue * chains[`${chainNum}`]?.multiplier,
+              chains[`${chainNum}`]?.multiplier,
               tricks[i + 1].name,
             ]);
             chains[`${chainNum}`].chain.push([
@@ -133,15 +131,15 @@ const Combodex: React.FC<CombodexProps> = ({
                 tricks[i + 1].pointValue,
             ]);
           } else {
-            console.log("BrokeChain");
             if (obj.type === "Trick") return;
+            console.log("BrokeChain");
             if (obj.name === "Redirect") chainNum++;
             else chains[`${chainNum + 1}`] = chains[`${chainNum}`];
             chains[`${chainNum}`] = {
               chain: [],
               name: obj.name,
               count: 1,
-              multiplier: obj.name === "Swing" ? 0.1 : 0.05,
+              multiplier: obj.multiplier,
             };
             chainNum++;
           }
@@ -152,7 +150,7 @@ const Combodex: React.FC<CombodexProps> = ({
               chain: [],
               name: obj.name,
               count: 1,
-              multiplier: obj.name === "Swing" ? 0.1 : 0.05,
+              multiplier: obj.multiplier,
             };
           }
         }
@@ -162,9 +160,9 @@ const Combodex: React.FC<CombodexProps> = ({
         .forEach((obj) => {
           if (trickCount[obj.name]) {
             trickCount[obj.name].count++;
-            if (trickCount[obj.name].score > 0.5) {
-              trickCount[obj.name].score -= 0.1;
-            }
+            // if (trickCount[obj.name].score > 0.5) {
+            //   trickCount[obj.name].score -= 0.1;
+            // }
           } else {
             trickCount[obj.name] = {
               count: 1,
@@ -193,8 +191,8 @@ const Combodex: React.FC<CombodexProps> = ({
       setChains(chains);
       setCount(count);
       setTrickCount(trickCount);
-      let cScore = Object.keys(count)
-        .map((key) => count[key])
+      let cScore = Object.keys(trickCount)
+        .map((key) => trickCount[key])
         .reduce((sum, b) => sum + b.score, 0);
       setCreativityScore(cScore as number);
     }
@@ -432,7 +430,12 @@ export const CombodexTrickDetails = ({ tricks, chainMap }) => {
                 </div>
                 <div>
                   {chainMap.map((cm) =>
-                    cm[0] === i ? cm[1].toFixed(2) : null
+                    cm[0] === i ? (
+                      <div className="flex gap-1">
+                        <div className={"text-[10px]"}>{cm[2].toFixed(2)}x</div>
+                        <div>{cm[1].toFixed(2)}</div>
+                      </div>
+                    ) : null
                   )}
                 </div>
                 <div>
