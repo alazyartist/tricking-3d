@@ -18,7 +18,8 @@ const SessionSummariesOverview = () => {
         Sessions in Queue
       </div>
       <div className=" no-scrollbar mt-2 flex h-[35vh] w-full flex-col overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70">
-        {sessions?.data?.filter((s) => s.status !== "Reviewed").length ? (
+        {Array.isArray(sessions?.data) &&
+        sessions?.data?.filter((s) => s.status !== "Reviewed").length ? (
           sessions?.data
             ?.filter((s) => s.status !== "Reviewed")
             ?.map((s) => <SessionDisplay key={s.srcid} s={s} />)
