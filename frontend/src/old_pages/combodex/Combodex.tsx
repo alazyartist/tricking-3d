@@ -96,12 +96,10 @@ const Combodex: React.FC<CombodexProps> = ({
 
   useEffect(() => {
     if (tricks) {
-      let count = {};
       let trickCount = {};
       let chains = {};
       let chainNum = 0;
       let chainScore = [];
-      // console.log(tricks);
       tricks.forEach((obj: any, i) => {
         console.log(i, obj);
         if (chains[`${chainNum}`]) {
@@ -133,8 +131,10 @@ const Combodex: React.FC<CombodexProps> = ({
           } else {
             if (obj.type === "Trick") return;
             console.log("BrokeChain");
-            if (obj.name === "Redirect") chainNum++;
-            else chains[`${chainNum + 1}`] = chains[`${chainNum}`];
+            if (obj.name === "Redirect") {
+              chainNum++;
+              return;
+            } else chains[`${chainNum + 1}`] = chains[`${chainNum}`];
             chains[`${chainNum}`] = {
               chain: [],
               name: obj.name,
@@ -160,9 +160,6 @@ const Combodex: React.FC<CombodexProps> = ({
         .forEach((obj) => {
           if (trickCount[obj.name]) {
             trickCount[obj.name].count++;
-            // if (trickCount[obj.name].score > 0.5) {
-            //   trickCount[obj.name].score -= 0.1;
-            // }
           } else {
             trickCount[obj.name] = {
               count: 1,
@@ -170,26 +167,11 @@ const Combodex: React.FC<CombodexProps> = ({
             };
           }
         });
-      tricks
-        // .filter((t) => t.type === "Trick")
-        .forEach((obj) => {
-          if (count[obj.name]) {
-            count[obj.name].count++;
-            if (count[obj.name].score > 0.6) {
-              count[obj.name].score -= 0.1;
-            }
-          } else {
-            count[obj.name] = {
-              count: 1,
-              score: 1,
-            };
-          }
-        });
+
       console.log("chainsCore", chainScore);
-      console.log(trickCount, count);
+      console.log(trickCount);
       setChainMap(chainScore);
       setChains(chains);
-      setCount(count);
       setTrickCount(trickCount);
       let cScore = Object.keys(trickCount)
         .map((key) => trickCount[key])
@@ -202,7 +184,7 @@ const Combodex: React.FC<CombodexProps> = ({
   }, [chainsTotal]);
 
   let mostUsed = Object.keys(trickCountTotal)?.sort((a, b) =>
-    countTotal[a]?.count > countTotal[b]?.count ? -1 : 1
+    trickCountTotal[a]?.count > trickCountTotal[b]?.count ? -1 : 1
   );
   let trickDensity =
     combo.comboArray
