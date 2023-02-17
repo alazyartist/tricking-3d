@@ -8,6 +8,7 @@ export const tricksRouter = router({
     return { tricks };
   }),
   findMultipleById: publicProcedure
+    //takes in clipLable array
     .input(z.array(z.any()))
     .mutation(async ({ input, ctx }) => {
       let newData = input.map(async (trick) => {
