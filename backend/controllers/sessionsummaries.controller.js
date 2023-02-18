@@ -172,25 +172,32 @@ export const saveSessionDetails = async (req, res) => {
 						where: {
 							name: curData.name,
 							comboArray: curData.clipLabel,
-							creator: curData.admin ?? "admin696-8c94-4ca7-b163-9alazyartist",
+							creator: curData.admin || "admin696-8c94-4ca7-b163-9alazyartist",
 						},
 					});
 					if (madeCombo) {
+						console.log(madeCombo);
 						await sessiondata.findOrCreate({
 							where: {
 								id: curData.id,
 								srcid: curData.srcid,
 								clipLabel: madeCombo[0].dataValues.combo_id,
 								sessionid: curData.sessionid,
-								bail: curData.bail ?? 0,
+								bail: curData.bail || 0,
 								clipStart: curData.startTime,
 								clipEnd: curData.endTime,
-								admin: curData.admin ?? "admin696-8c94-4ca7-b163-9alazyartist",
+								admin: curData.admin || "admin696-8c94-4ca7-b163-9alazyartist",
 							},
 						});
 						console.log("savedmadeCombodata");
 					}
 				} else {
+					console.log(foundCombo.dataValues.comboArray);
+					let totals = await calculateTrickTotals(
+						foundCombo.dataValues.comboArray,
+						curData
+					);
+					console.log(totals);
 					await sessiondata.findOrCreate({
 						where: {
 							id: curData.id,
@@ -214,5 +221,98 @@ export const saveSessionDetails = async (req, res) => {
 	} catch (err) {
 		console.log(err);
 		res.status(501).send(err);
+	}
+};
+
+const calculateTrickTotals = async (tricks, curData) => {
+	if (tricks) {
+		let trickCount = {};
+		let chains = {};
+		let chainNum = 0;
+		let chainScore = [];
+		let executionAverage = 0;
+
+		const sessionDataScores = await prisma.sessiondatascores.findMany({
+			where: { sessiondataid: curData.id },
+		});
+
+		if (sessionDataScores) {
+			console.log("sessionDataScores");
+			executionAverage =
+				sessionDataScores.reduce((sum, b) => sum + b.executionScore, 0) /
+				sessionDataScores.length;
+		}
+
+		tricks.forEach((obj, i) => {
+			if (chains[`${chainNum}`]) {
+				if (obj.type === "Transition" && obj?.name !== "Redirect") {
+					//Update Current Chain
+
+					chains[`${chainNum}`].count++;
+
+					chains[`${chainNum}`].multiplier += obj?.multiplier;
+					//[index,chainScore,multiplier,name]
+					chainScore.push([
+						i + 1,
+						tricks[i + 1].pointValue * chains[`${chainNum}`]?.multiplier,
+						chains[`${chainNum}`]?.multiplier,
+						tricks[i + 1].name,
+					]);
+					//[transition,trick,chainScore + trickValue]
+					chains[`${chainNum}`].chain.push([
+						obj,
+						tricks[i + 1],
+						tricks[i + 1].pointValue * chains[`${chainNum}`]?.multiplier +
+							tricks[i + 1].pointValue,
+					]);
+				} else {
+					//Break Chain
+					// console.log("BrokeChain");
+					if (obj.type === "Trick") return;
+					if (obj.name === "Redirect") {
+						chainNum++;
+						return;
+					}
+					//Increment for Next Chain
+					chains[`${chainNum + 1}`] = chains[`${chainNum}`];
+					chains[`${chainNum}`] = {
+						chain: [],
+						name: obj.name,
+						count: 1,
+						multiplier: obj.multiplier,
+					};
+					chainNum++;
+				}
+			} else {
+				// //Make new Chain
+				if (obj.type === "Transition" && obj.name !== "Redirect") {
+					chains[`${chainNum}`] = {
+						chain: [],
+						name: obj.name,
+						count: 1,
+						multiplier: obj.multiplier,
+					};
+				}
+			}
+		});
+
+		//Get Trick Count
+		tricks
+			.filter((t) => t.type === "Trick")
+			.forEach((obj) => {
+				if (trickCount[obj.name]) {
+					trickCount[obj.name].count++;
+				} else {
+					trickCount[obj.name] = {
+						count: 1,
+						score: 1,
+					};
+				}
+			});
+		let varietyScore = Object.keys(trickCount)
+			.map((key) => trickCount[key])
+			.reduce((sum, b) => sum + b.score, 0);
+
+		return { varietyScore, chains, chainScore, trickCount, executionAverage };
 	}
 };

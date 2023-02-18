@@ -1,5 +1,6 @@
 import QueryTypes from "sequelize";
 import db from "../models/index.js";
+import { prisma } from "../prisma.js";
 const combos = await db.sequelize.models.Combo;
 const tricks = await db.sequelize.models.Tricks;
 const stances = await db.sequelize.models.Stances;
@@ -74,7 +75,7 @@ export const getAllTricks = async (req, res) => {
 				return data;
 			})
 			.then(async (data) => {
-				const allTransitions = await transitions.findAll({});
+				const allTransitions = await prisma.transitions.findMany({});
 
 				const data2 = [...data, ...allTransitions];
 				return data2;
@@ -214,11 +215,21 @@ export const getTrickPointsValue = async (req, res) => {
 		//mappint over each combo
 		await allCombos?.map(async (c) => {
 			//going through comboArray
-			let newComboArr = await c.comboArray?.map(async (t) => {
+			let trickNames = c.dataValues.name.split(">");
+			console.log(c.dataValues.name.split(">"));
+			let newComboArr = await c.comboArray?.map(async (t, i) => {
 				// console.log(t);
 				if (!t?.type) {
 					console.log("no", t);
-					return;
+					let updatedTransition = await prisma.transitions
+						.findFirst({
+							where: { name: trickNames[i] },
+							// where: { name: t?.name },
+						})
+						.catch((err) => console.log(err));
+					let resolvedTransition = await Promise.resolve(updatedTransition);
+					console.log(resolvedTransition);
+					return resolvedTransition;
 				}
 				if (t.type === "Trick") {
 					let updatedTrick = await tricks
@@ -227,16 +238,17 @@ export const getTrickPointsValue = async (req, res) => {
 						})
 						.catch((err) => console.log(err));
 					let resolvedTrick = await Promise.resolve(updatedTrick);
-					return resolvedTrick?.dataValues;
+					return resolvedTrick;
 				}
 				if (t.type === "Transition") {
-					let updatedTransition = await transitions
-						.findOne({
+					let updatedTransition = await prisma.transitions
+						.findFirst({
 							where: { name: t?.name },
 						})
 						.catch((err) => console.log(err));
 					let resolvedTransition = await Promise.resolve(updatedTransition);
-					return resolvedTransition?.dataValues;
+					console.log(resolvedTransition);
+					return resolvedTransition;
 				}
 				if (t.type === "Stance") {
 					let updatedStance = await stances
@@ -267,6 +279,7 @@ export const getTrickPointsValue = async (req, res) => {
 				await comboToUpdate
 					.update({ pointValue: comboPV })
 					.catch((err) => console.log(err));
+
 				// console.log(resolvedComboArr, c.name, c.combo_id, comboToUpdate);
 			}
 		});

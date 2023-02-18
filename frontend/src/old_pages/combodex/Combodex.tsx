@@ -40,8 +40,7 @@ const Combodex: React.FC<CombodexProps> = ({
   ).length;
 
   const [executionScore, setExecutionScore] = useState(0.1);
-  const [creativityScore, setCreativityScore] = useState(0);
-  const [countTotal, setCount] = useState({});
+  const [varietyScore, setVarietyScore] = useState(0);
   const [trickCountTotal, setTrickCount] = useState({});
   const [chainsTotal, setChains] = useState({});
   const [chainMap, setChainMap] = useState([]);
@@ -49,19 +48,10 @@ const Combodex: React.FC<CombodexProps> = ({
   let executionAverage =
     sessiondatascores?.reduce((sum, b) => sum + b.executionScore, 0) /
     sessiondatascores?.length;
-  useEffect(() => {
-    if (executionAverage) {
-      setExecutionScore(executionAverage);
-    }
-  }, [executionAverage]);
   let executionScoreTotal = ((executionAverage * combo.pointValue) / 2).toFixed(
     2
   );
-  let varietyScoreTotal = creativityScore
-    // (
-    // / 10) *
-    // (combo.pointValue / 2)
-    .toFixed(2);
+  let varietyScoreTotal = varietyScore.toFixed(2);
 
   const localTotalScore = (
     chainMap.reduce((sum, b) => sum + b[1], 0) +
@@ -80,6 +70,11 @@ const Combodex: React.FC<CombodexProps> = ({
       ).length;
     });
 
+  useEffect(() => {
+    if (executionAverage) {
+      setExecutionScore(executionAverage);
+    }
+  }, [executionAverage]);
   useEffect(() => {
     getTricks(combo.comboArray);
   }, []);
@@ -101,27 +96,25 @@ const Combodex: React.FC<CombodexProps> = ({
       let chainNum = 0;
       let chainScore = [];
       tricks.forEach((obj: any, i) => {
-        console.log(i, obj);
         if (chains[`${chainNum}`]) {
           if (
             obj.type === "Transition" &&
             // @ts-ignore
             obj?.name !== "Redirect"
           ) {
-            console.log(
-              "chained",
-              tricks[i + 1]?.name,
-              tricks[i + 1]?.pointValue
-            );
+            //Update Current Chain
+
             chains[`${chainNum}`].count++;
 
             chains[`${chainNum}`].multiplier += obj?.multiplier;
+            //[index,chainScore,multiplier,name]
             chainScore.push([
               i + 1,
               tricks[i + 1].pointValue * chains[`${chainNum}`]?.multiplier,
               chains[`${chainNum}`]?.multiplier,
               tricks[i + 1].name,
             ]);
+            //[transition,trick,chainScore + trickValue]
             chains[`${chainNum}`].chain.push([
               obj,
               tricks[i + 1],
@@ -129,12 +122,15 @@ const Combodex: React.FC<CombodexProps> = ({
                 tricks[i + 1].pointValue,
             ]);
           } else {
+            //Break Chain
+            // console.log("BrokeChain");
             if (obj.type === "Trick") return;
-            console.log("BrokeChain");
             if (obj.name === "Redirect") {
               chainNum++;
               return;
-            } else chains[`${chainNum + 1}`] = chains[`${chainNum}`];
+            }
+            //Increment for Next Chain
+            chains[`${chainNum + 1}`] = chains[`${chainNum}`];
             chains[`${chainNum}`] = {
               chain: [],
               name: obj.name,
@@ -144,8 +140,8 @@ const Combodex: React.FC<CombodexProps> = ({
             chainNum++;
           }
         } else {
-          if (obj.type === "Transition") {
-            console.log("newChain");
+          // //Make new Chain
+          if (obj.type === "Transition" && obj.name !== "Redirect") {
             chains[`${chainNum}`] = {
               chain: [],
               name: obj.name,
@@ -155,6 +151,8 @@ const Combodex: React.FC<CombodexProps> = ({
           }
         }
       });
+
+      //Get Trick Count
       tricks
         .filter((t) => t.type === "Trick")
         .forEach((obj) => {
@@ -168,20 +166,17 @@ const Combodex: React.FC<CombodexProps> = ({
           }
         });
 
-      console.log("chainsCore", chainScore);
-      console.log(trickCount);
+      //Update info For React
       setChainMap(chainScore);
       setChains(chains);
       setTrickCount(trickCount);
-      let cScore = Object.keys(trickCount)
+
+      let vScore = Object.keys(trickCount)
         .map((key) => trickCount[key])
         .reduce((sum, b) => sum + b.score, 0);
-      setCreativityScore(cScore as number);
+      setVarietyScore(vScore as number);
     }
   }, [tricks]);
-  useEffect(() => {
-    console.log("chains", chainsTotal, chainMap);
-  }, [chainsTotal]);
 
   let mostUsed = Object.keys(trickCountTotal)?.sort((a, b) =>
     trickCountTotal[a]?.count > trickCountTotal[b]?.count ? -1 : 1
@@ -203,7 +198,7 @@ const Combodex: React.FC<CombodexProps> = ({
         "no-scrollbar relative top-0 left-0 h-full w-full place-items-center gap-2 overflow-hidden bg-zinc-900 bg-opacity-[90%] font-inter backdrop-blur-md"
       }
     >
-      {/* Button Display Grid*/}
+      {/* Scores Display Grid*/}
       <div className="sticky top-0 left-0 grid h-full w-full grid-cols-4 gap-2 bg-zinc-900 p-2">
         <div
           onClick={() => setCombodexopen(false)}
