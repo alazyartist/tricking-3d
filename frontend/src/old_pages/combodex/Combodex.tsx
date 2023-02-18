@@ -69,6 +69,17 @@ const Combodex: React.FC<CombodexProps> = ({
           tr.variation.name === "FullTwist" || tr.variation.name === "Twist"
       ).length;
     });
+  const fullcomposition = tricks?.map((t) => {
+    if (t.type === "Trick") {
+      //@ts-ignore
+      return t?.variations.filter(
+        (tr) =>
+          tr.variation.name === "FullTwist" || tr.variation.name === "Twist"
+      ).length;
+    } else {
+      return null;
+    }
+  });
 
   useEffect(() => {
     if (executionAverage) {
@@ -95,7 +106,32 @@ const Combodex: React.FC<CombodexProps> = ({
       let chains = {};
       let chainNum = 0;
       let chainScore = [];
+      console.log(fullcomposition);
       tricks.forEach((obj: any, i) => {
+        if (obj.type === "Transition") {
+          console.log(
+            i,
+            obj.name,
+            tricks[i + 1]?.pointValue *
+              (chains[`${chainNum}`]?.multiplier * fullcomposition[i - 1])
+          );
+          fullcomposition[i + 1] < fullcomposition[i - 1]
+            ? console.log(
+                "went Down",
+                fullcomposition[i - 1],
+                fullcomposition[i + 1],
+                chains[`${chainNum}`]?.multiplier ** fullcomposition[i - 1]
+              )
+            : console.log(
+                "stayed same or increased",
+                fullcomposition[i - 1],
+                fullcomposition[i + 1],
+                chains[`${chainNum}`]?.multiplier *
+                  fullcomposition[i - 1] *
+                  fullcomposition[i - 1]
+              );
+        }
+
         if (chains[`${chainNum}`]) {
           if (
             obj.type === "Transition" &&
@@ -105,13 +141,24 @@ const Combodex: React.FC<CombodexProps> = ({
             //Update Current Chain
 
             chains[`${chainNum}`].count++;
-
             chains[`${chainNum}`].multiplier += obj?.multiplier;
+            let curMultiplier =
+              fullcomposition[i + 1] < fullcomposition[i - 1]
+                ? chains[`${chainNum}`]?.multiplier ** fullcomposition[i - 1]
+                : chains[`${chainNum}`]?.multiplier *
+                  fullcomposition[i - 1] *
+                  fullcomposition[i - 1];
+            let trickPV =
+              fullcomposition[i + 1] < fullcomposition[i - 1]
+                ? tricks[i + 1].pointValue / 2
+                : fullcomposition[i - 1] > 1
+                ? tricks[i + 1].pointValue * 3
+                : tricks[i + 1].pointValue;
             //[index,chainScore,multiplier,name]
             chainScore.push([
               i + 1,
-              tricks[i + 1].pointValue * chains[`${chainNum}`]?.multiplier,
-              chains[`${chainNum}`]?.multiplier,
+              trickPV * curMultiplier,
+              curMultiplier,
               tricks[i + 1].name,
             ]);
             //[transition,trick,chainScore + trickValue]
@@ -170,7 +217,7 @@ const Combodex: React.FC<CombodexProps> = ({
       setChainMap(chainScore);
       setChains(chains);
       setTrickCount(trickCount);
-
+      console.log(chainScore);
       let vScore = Object.keys(trickCount)
         .map((key) => trickCount[key])
         .reduce((sum, b) => sum + b.score, 0);

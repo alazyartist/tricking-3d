@@ -215,21 +215,22 @@ export const getTrickPointsValue = async (req, res) => {
 		//mappint over each combo
 		await allCombos?.map(async (c) => {
 			//going through comboArray
-			let trickNames = c.dataValues.name.split(">");
-			console.log(c.dataValues.name.split(">"));
+			// let trickNames = c.dataValues.name.split(">");
+			// console.log(c.dataValues.name.split(">"));
 			let newComboArr = await c.comboArray?.map(async (t, i) => {
-				// console.log(t);
+				console.log(t);
 				if (!t?.type) {
 					console.log("no", t);
-					let updatedTransition = await prisma.transitions
-						.findFirst({
-							where: { name: trickNames[i] },
-							// where: { name: t?.name },
-						})
-						.catch((err) => console.log(err));
-					let resolvedTransition = await Promise.resolve(updatedTransition);
-					console.log(resolvedTransition);
-					return resolvedTransition;
+					// let updatedTransition = await prisma.transitions
+					// 	.findFirst({
+					// 		where: { name: trickNames[i] },
+					// 		// where: { name: t?.name },
+					// 	})
+					// 	.catch((err) => console.log(err));
+					// let resolvedTransition = await Promise.resolve(updatedTransition);
+					// console.log(resolvedTransition);
+					// return resolvedTransition;
+					return;
 				}
 				if (t.type === "Trick") {
 					let updatedTrick = await tricks
@@ -247,7 +248,6 @@ export const getTrickPointsValue = async (req, res) => {
 						})
 						.catch((err) => console.log(err));
 					let resolvedTransition = await Promise.resolve(updatedTransition);
-					console.log(resolvedTransition);
 					return resolvedTransition;
 				}
 				if (t.type === "Stance") {

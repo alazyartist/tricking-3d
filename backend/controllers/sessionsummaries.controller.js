@@ -165,6 +165,10 @@ export const saveSessionDetails = async (req, res) => {
 
 		Object.keys(req.body).map(async (i) => {
 			let curData = sd[i];
+			let foundComboPrisma = await prisma.combos.findFirst({
+				where: { name: curData.name },
+			});
+			console.log(curData);
 			let foundCombo = await combo.findOne({ where: { name: curData.name } });
 			try {
 				if (!foundCombo) {
@@ -192,9 +196,9 @@ export const saveSessionDetails = async (req, res) => {
 						console.log("savedmadeCombodata");
 					}
 				} else {
-					console.log(foundCombo.dataValues.comboArray);
+					console.log("prisma", foundComboPrisma);
 					let totals = await calculateTrickTotals(
-						foundCombo.dataValues.comboArray,
+						foundComboPrisma.comboArray,
 						curData
 					);
 					console.log(totals);
@@ -202,7 +206,7 @@ export const saveSessionDetails = async (req, res) => {
 						where: {
 							id: curData.id,
 							srcid: curData.srcid,
-							clipLabel: foundCombo.dataValues.combo_id,
+							clipLabel: foundComboPrisma.combo_id,
 							sessionid: curData.sessionid,
 							clipStart: curData.startTime,
 							clipEnd: curData.endTime,
@@ -237,10 +241,12 @@ const calculateTrickTotals = async (tricks, curData) => {
 		});
 
 		if (sessionDataScores) {
-			console.log("sessionDataScores");
+			console.log("sessionDataScores", sessionDataScores);
 			executionAverage =
-				sessionDataScores.reduce((sum, b) => sum + b.executionScore, 0) /
-				sessionDataScores.length;
+				sessionDataScores.reduce((sum, b) => {
+					console.log(sum);
+					return sum + b.executionScore;
+				}, 0) / sessionDataScores.length || 0;
 		}
 
 		tricks.forEach((obj, i) => {
