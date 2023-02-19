@@ -165,8 +165,7 @@ const Combodex: React.FC<CombodexProps> = ({
             chains[`${chainNum}`].chain.push([
               obj,
               tricks[i + 1],
-              tricks[i + 1].pointValue * chains[`${chainNum}`]?.multiplier +
-                tricks[i + 1].pointValue,
+              trickPV * curMultiplier + tricks[i + 1].pointValue,
             ]);
           } else {
             //Break Chain
@@ -217,7 +216,7 @@ const Combodex: React.FC<CombodexProps> = ({
       setChainMap(chainScore);
       setChains(chains);
       setTrickCount(trickCount);
-      console.log(chainScore);
+      console.log(chainScore, trickCount);
       let vScore = Object.keys(trickCount)
         .map((key) => trickCount[key])
         .reduce((sum, b) => sum + b.score, 0);

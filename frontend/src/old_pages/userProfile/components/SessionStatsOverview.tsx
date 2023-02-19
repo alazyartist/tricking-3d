@@ -45,8 +45,9 @@ const SessionStatsOverview = ({ summary }) => {
     if (a.pointValue < b.pointValue) return 1;
     return 0;
   });
+  console.log(summary.SessionData);
   let totalPoints = summary?.SessionData?.reduce(
-    (sum, b) => sum + b?.ClipLabel?.pointValue,
+    (sum, b) => sum + b?.totalScore,
     0
   );
   let trickPercentage = Math.floor(
