@@ -318,7 +318,14 @@ const calculateTrickTotals = async (tricks, curData) => {
 		let varietyScore = Object.keys(trickCount)
 			.map((key) => trickCount[key])
 			.reduce((sum, b) => sum + b.score, 0);
-
-		return { varietyScore, chains, chainScore, trickCount, executionAverage };
+		let totalScore = 0; //total = comboPointValue + (executionAverage * comboPointValue)+ chainScore + varietyScore
+		return {
+			varietyScore,
+			chains,
+			chainScore,
+			trickCount,
+			executionAverage,
+			totalScore,
+		};
 	}
 };
