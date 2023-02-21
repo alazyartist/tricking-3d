@@ -235,6 +235,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 		let chainNum = 0;
 		let chainScore = [];
 		let executionAverage = 0;
+		let chainBreakers = ["Redirect", "Hook", "Round", "Carry Through", "Hop"];
 
 		const sessionDataScores = await prisma.sessiondatascores.findMany({
 			where: { sessiondataid: curData.id },
@@ -251,7 +252,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 
 		tricks.forEach((obj, i) => {
 			if (chains[`${chainNum}`]) {
-				if (obj.type === "Transition" && obj?.name !== "Redirect") {
+				if (obj.type === "Transition" && !chainBreakers.includes(obj.name)) {
 					//Update Current Chain
 
 					chains[`${chainNum}`].count++;
@@ -275,7 +276,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 					//Break Chain
 					// console.log("BrokeChain");
 					if (obj.type === "Trick") return;
-					if (obj.name === "Redirect") {
+					if (chainBreakers.includes(obj.name)) {
 						chainNum++;
 						return;
 					}
@@ -291,7 +292,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 				}
 			} else {
 				// //Make new Chain
-				if (obj.type === "Transition" && obj.name !== "Redirect") {
+				if (obj.type === "Transition" && !chainBreakers.includes(obj.name)) {
 					chains[`${chainNum}`] = {
 						chain: [],
 						name: obj.name,
