@@ -215,6 +215,12 @@ model sessiondata {
   bail             Int?
   totalScore Float?   @default(0)
   executionAverage Float?   @default(0)
+  varietyScore Float?   @default(0)
+  powerScore Float?   @default(0)
+  chains Json? 
+  chainTotal Float?   @default(0)
+  chainMap Json? 
+  trickCount Json? 
 }
 
 model sessiondatascores {
