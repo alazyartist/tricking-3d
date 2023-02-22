@@ -8,6 +8,7 @@ interface TrickMakerStore {
   variationsArr: any[];
   basePoints: number;
   base_id: string;
+  powerScore: number;
   getTrickInfo: () => void;
   clearTrickInfo: () => void;
   setTrickType: (value: string) => void;
@@ -19,6 +20,7 @@ interface TrickMakerStore {
   addVariation: (value: any) => void;
   removeVariation: (value: any) => void;
   setBase_id: (value: string) => void;
+  setPowerScore: (value: number) => void;
   setBasePoints: (value: number) => void;
 }
 export const useTrickMakerStore = create<TrickMakerStore>((set, get) => ({
@@ -30,6 +32,8 @@ export const useTrickMakerStore = create<TrickMakerStore>((set, get) => ({
   variationsArr: [],
   basePoints: 0,
   base_id: "",
+  powerScore: 0,
+  setPowerScore: (value) => set(() => ({ powerScore: value })),
   getTrickInfo: () => ({
     trickType: get().trickType,
     name: get().name,
@@ -37,6 +41,7 @@ export const useTrickMakerStore = create<TrickMakerStore>((set, get) => ({
     landingStance: get().landingStance,
     variationsArr: get().variationsArr,
     base_id: get().base_id,
+    pointValue: get().powerScore,
   }),
   clearTrickInfo: () =>
     set((s) => ({
