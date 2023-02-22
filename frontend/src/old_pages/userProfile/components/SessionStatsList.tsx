@@ -14,8 +14,8 @@ const SessionStatsList = ({
       <ProfileNav setActiveView={setActiveView} activeView={activeView} />
       <div className="flex h-[100%] flex-col place-content-start gap-1">
         {profileInfo.SessionSummaries.map((summary) => {
-          let pointValue = summary.SessionData.map(
-            (data) => data.ClipLabel.pointValue
+          let totalPoints = summary.SessionData.map(
+            (data) => data.totalScore
           ).reduce((sum, b) => sum + b, 0);
           console.log(summary.SessionData);
           return (
@@ -28,7 +28,7 @@ const SessionStatsList = ({
             >
               <div className="flex justify-between gap-2">
                 <div className="px-2">{summary.name}</div>
-                <div className="px-2 font-bold">{pointValue.toFixed(2)}</div>
+                <div className="px-2 font-bold">{totalPoints.toFixed(2)}</div>
               </div>
               <div className="h-[30px] w-full">
                 <PowerAverageComboLineChart

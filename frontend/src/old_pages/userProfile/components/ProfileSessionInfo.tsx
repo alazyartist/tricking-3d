@@ -145,7 +145,10 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
           className="h-[35px] w-full"
           onClick={() => setCombodexopen((prev) => !prev)}
         >
-          <PowerAverageLineChart data={d.ClipLabel.comboArray} />
+          <PowerAverageLineChart
+            chainMap={d.chainMap}
+            data={d.ClipLabel.comboArray}
+          />
         </div>
         {combodexopen && (
           <>
