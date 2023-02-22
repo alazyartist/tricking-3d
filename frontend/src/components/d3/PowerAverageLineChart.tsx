@@ -1,10 +1,17 @@
 import React, { useEffect, useRef } from "react";
 import useMeasure from "react-use-measure";
 import * as d3 from "d3";
-const PowerAverageLineChart = ({ data }) => {
+const PowerAverageLineChart = ({ data, chainMap }) => {
   const svgRef = useRef();
   const [lRef, dimensions] = useMeasure();
-
+  console.log(
+    chainMap,
+    chainMap
+      ?.filter((c) => c[0] === 3)
+      .map((c) => {
+        if (c[0] === 3) return c[1];
+      })
+  );
   useEffect(() => {
     const margin = { top: 2, left: 0, right: 0, bottom: 10 };
     const width = dimensions.width - margin.left - margin.right;
@@ -25,7 +32,7 @@ const PowerAverageLineChart = ({ data }) => {
         .scaleLinear()
         .domain([0, data.length + 1])
         .range([0, width]);
-      const yScale = d3.scaleLinear().domain([0, 5.5]).range([height, 0]);
+      const yScale = d3.scaleLinear().domain([0, 30.5]).range([height, 0]);
       //   const colorScale = d3
       //     .scaleLinear(d3.interpolateRgbBasis(["#ff4b9f", "#50d9f0"]))
       //     .domain(d3.extent(data, (d) => d.pointValue));
@@ -66,7 +73,16 @@ const PowerAverageLineChart = ({ data }) => {
           d3
             .line()
             .x((d, i) => xScale(i))
-            .y((d: any) => yScale(d.pointValue))
+            .y((d: any, i) =>
+              yScale(
+                d.pointValue +
+                  chainMap
+                    ?.filter((c) => c[0] === i)
+                    .map((c) => {
+                      if (c[0] === i) return c[1];
+                    })
+              )
+            )
             .curve(d3.curveCatmullRom)
         );
     }
