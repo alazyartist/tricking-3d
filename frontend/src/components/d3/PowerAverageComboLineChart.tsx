@@ -25,7 +25,7 @@ const PowerAverageComboLineChart = ({ data }) => {
         .scaleLinear()
         .domain([0, data.length + 1])
         .range([0, width]);
-      const yScale = d3.scaleLinear().domain([0, 30]).range([height, 0]);
+      const yScale = d3.scaleLinear().domain([0, 200]).range([height, 0]);
 
       svg
         .append("linearGradient")
@@ -69,7 +69,8 @@ const PowerAverageComboLineChart = ({ data }) => {
             .x((d, i) => xScale(i))
             .y((d: any, i) => {
               // let a = `x:${xScale(i)} y:${yScale(d.ClipLabel.pointValue)}`;
-              return yScale(d.ClipLabel.pointValue);
+              console.log(d?.totalScore || 0);
+              return yScale(d?.totalScore || 0);
             })
             .curve(d3.curveCatmullRom)
         );
