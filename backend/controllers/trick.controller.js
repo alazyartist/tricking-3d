@@ -98,6 +98,7 @@ export const makeNewTrick = async (req, res) => {
 			takeoffStance,
 			variationsArr,
 			landingStance,
+			pointValue,
 			useruuid,
 		} = await req.body;
 
@@ -105,7 +106,6 @@ export const makeNewTrick = async (req, res) => {
 		let newTrick = await tricks.findOrCreate({ where: { name } });
 
 		Promise.resolve(newTrick).then((newTrick) => {
-			console.log(newTrick[0]);
 			if (newTrick) {
 				trick_variations.destroy({
 					where: { trick_id: newTrick[0].dataValues.trick_id },
@@ -116,8 +116,10 @@ export const makeNewTrick = async (req, res) => {
 					stance_id: takeoffStance,
 					takeoffStance,
 					landingStance,
+					pointValue,
 				});
 			}
+			console.log(newTrick[0]);
 		});
 		try {
 			await variationsArr.map(async (variation) => {

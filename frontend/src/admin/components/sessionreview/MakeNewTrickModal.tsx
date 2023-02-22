@@ -28,6 +28,7 @@ const MakeNewTrickModal = () => {
   const landingStancePoints = useTrickMakerStore((s) => s.landingStancePoints);
   const setBase_id = useTrickMakerStore((s) => s.setBase_id);
   const setBasePoints = useTrickMakerStore((s) => s.setBasePoints);
+  const setPowerScore = useTrickMakerStore((s) => s.setPowerScore);
   const setVariationsArr = useTrickMakerStore((s) => s.setVariationsArr);
   const addVariation = useTrickMakerStore((s) => s.addVariation);
   const removeVariation = useTrickMakerStore((s) => s.removeVariation);
@@ -41,6 +42,18 @@ const MakeNewTrickModal = () => {
     variations: [],
   });
   let trickInfo = getTrickInfo();
+  let powerScore =
+    (variationsArr.length &&
+      variationsArr?.reduce((sum, b) => {
+        return sum + b.pointValue;
+      }, 0)) +
+    landingStancePoints +
+    basePoints;
+
+  useEffect(() => {
+    setPowerScore(powerScore);
+  }, [powerScore]);
+
   const { mutate: saveTrick, data: response } = useSaveTrick();
   // console.log("re-ran", getTrickInfo());
   useEffect(() => {
@@ -82,13 +95,8 @@ const MakeNewTrickModal = () => {
       >
         {trickType}
       </div>
-      <div className="relative left-[10%] top-[12vh]">
-        {(variationsArr.length &&
-          variationsArr?.reduce((sum, b) => {
-            return sum + b.pointValue;
-          }, 0)) +
-          landingStancePoints +
-          basePoints}
+      <div className="relative left-[10%] top-[12vh] text-zinc-300">
+        {powerScore}
       </div>
       <div className="text-md m-2 flex flex-col items-center gap-4 text-zinc-300 md:text-3xl">
         <div className="flex min-h-[15vh]  items-center gap-2 rounded-md border-2 border-zinc-700">
