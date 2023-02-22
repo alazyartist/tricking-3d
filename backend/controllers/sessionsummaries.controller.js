@@ -153,15 +153,15 @@ export const getSessionDetailsBySessionid = async (req, res) => {
 export const saveSessionDetails = async (req, res) => {
 	const sd = await req.body;
 	try {
-		try {
-			await sessiondata.destroy({
-				where: { srcid: await sd[0]?.srcid },
-			});
-		} catch (err) {
-			res.status(501).send("Couldnt Destory");
-			console.log("CouldntDestroy");
-			console.log(err);
-		}
+		// try {
+		// 	await sessiondata.destroy({
+		// 		where: { srcid: await sd[0]?.srcid },
+		// 	});
+		// } catch (err) {
+		// 	res.status(501).send("Couldnt Destory");
+		// 	console.log("CouldntDestroy");
+		// 	console.log(err);
+		// }
 
 		Object.keys(req.body).map(async (i) => {
 			let curData = sd[i];
@@ -214,6 +214,30 @@ export const saveSessionDetails = async (req, res) => {
 							admin: curData.admin ?? "admin696-8c94-4ca7-b163-9alazyartist",
 						},
 					});
+					await prisma.sessiondata.upsert({
+						where: { id: curData.id },
+						update: {
+							srcid: curData.srcid,
+							clipLabel: foundComboPrisma.combo_id,
+							sessionid: curData.sessionid,
+							clipStart: curData.startTime,
+							clipEnd: curData.endTime,
+							bail: curData?.bail ?? 0,
+							admin: curData.admin ?? "admin696-8c94-4ca7-b163-9alazyartist",
+							...totals,
+						},
+						create: {
+							id: curData.id,
+							srcid: curData.srcid,
+							clipLabel: foundComboPrisma.combo_id,
+							sessionid: curData.sessionid,
+							clipStart: curData.startTime,
+							clipEnd: curData.endTime,
+							bail: curData?.bail ?? 0,
+							admin: curData.admin ?? "admin696-8c94-4ca7-b163-9alazyartist",
+							...totals,
+						},
+					});
 					console.log("savedfoundCombodata");
 				}
 			} catch (err) {
@@ -228,19 +252,51 @@ export const saveSessionDetails = async (req, res) => {
 	}
 };
 
+const getFullTricks = async (combo) => {
+	let newData = combo.map(async (trick) => {
+		if (trick.type == "Trick") {
+			let td = await prisma.tricks.findUnique({
+				where: { trick_id: trick.trick_id },
+				include: {
+					base: true,
+					variations: { include: { variation: true } },
+				},
+			});
+			return td;
+		}
+		if (trick.type == "Transition") {
+			let td = await prisma.transitions.findUnique({
+				where: { id: trick.id },
+			});
+			return td;
+		}
+	});
+	await Promise.all(newData);
+	// console.log(newData);
+	return Promise.all(newData);
+};
+
 const calculateTrickTotals = async (tricks, curData) => {
 	if (tricks) {
 		let trickCount = {};
 		let chains = {};
 		let chainNum = 0;
-		let chainScore = [];
+		let chainMap = [];
 		let executionAverage = 0;
-		let chainBreakers = ["Redirect", "Hook", "Round", "Carry Through", "Hop"];
+		let chainBreakers = [
+			"Redirect",
+			"Hook",
+			"Round",
+			"Carry Through",
+			"Hop",
+			"Bound",
+		];
 
 		const sessionDataScores = await prisma.sessiondatascores.findMany({
 			where: { sessiondataid: curData.id },
 		});
-
+		const fullTricks = await getFullTricks(tricks);
+		let powerScore = fullTricks.reduce((sum, b) => sum + b.pointValue, 0);
 		if (sessionDataScores) {
 			console.log("sessionDataScores", sessionDataScores);
 			executionAverage =
@@ -250,18 +306,82 @@ const calculateTrickTotals = async (tricks, curData) => {
 				}, 0) / sessionDataScores.length || 0;
 		}
 
+		const fullcomposition = fullTricks?.map((t) => {
+			if (t.type === "Trick") {
+				//@ts-ignore
+				return t?.variations.filter(
+					(tr) =>
+						tr.variation.name === "FullTwist" || tr.variation.name === "Twist"
+				).length;
+			} else {
+				switch (t.transitionType) {
+					case "Singular": {
+						return 1;
+						break;
+					}
+					case "Sequential": {
+						return 0.5;
+						break;
+					}
+					case "Unified": {
+						return 0.25;
+						break;
+					}
+				}
+			}
+		});
+		console.log(fullcomposition, "fullComposition");
 		tricks.forEach((obj, i) => {
 			if (chains[`${chainNum}`]) {
+				console.log("before", chains[`${chainNum}`].multiplier);
+				if (chainBreakers.includes(obj.name)) {
+					console.log("brokeChain");
+					return chainNum++;
+				}
 				if (obj.type === "Transition" && !chainBreakers.includes(obj.name)) {
 					//Update Current Chain
 
 					chains[`${chainNum}`].count++;
-
 					chains[`${chainNum}`].multiplier += obj?.multiplier;
+					//transitionType nerf
+					//if last > next: multiplier * nerf
+					//singular:1,sequential:0.5,unified:0.25
+					if (i > 1 && fullcomposition[i - 2] > fullcomposition[i]) {
+						chains[`${chainNum}`].multiplier *= fullcomposition[i];
+					}
+					//touchdown Nerf
+					if (
+						fullTricks[i + 1].variations
+							.map((v) => v.variation.variationType)
+							.includes("Touchdown")
+					) {
+						chains[`${chainNum}`].multiplier *= 0.125;
+					}
+					console.log("after", chains[`${chainNum}`].multiplier);
+					let lastcompScore =
+						fullcomposition[i - 1] > 0 ? fullcomposition[i - 1] : 1;
+					let curMultiplier =
+						fullcomposition[i + 1] < fullcomposition[i - 1]
+							? //if next > last: multiplier * lastComp
+							  chains[`${chainNum}`]?.multiplier ** lastcompScore
+							: //if next < last: multiplier * lastComp * lastComp
+							  chains[`${chainNum}`]?.multiplier *
+							  lastcompScore *
+							  lastcompScore;
+					let trickPV =
+						fullcomposition[i + 1] < fullcomposition[i - 1]
+							? //if next < last: trick.pointValue/2
+							  tricks[i + 1].pointValue / 2
+							: fullcomposition[i - 1] > 1
+							? //if next > 1: trick.pointValue*3
+							  tricks[i + 1].pointValue * 3
+							: //else next > 1: trick.pointValue
+							  tricks[i + 1].pointValue;
+
 					//[index,chainScore,multiplier,name]
-					chainScore.push([
+					chainMap.push([
 						i + 1,
-						tricks[i + 1].pointValue * chains[`${chainNum}`]?.multiplier,
+						trickPV * curMultiplier,
 						chains[`${chainNum}`]?.multiplier,
 						tricks[i + 1].name,
 					]);
@@ -269,8 +389,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 					chains[`${chainNum}`].chain.push([
 						obj,
 						tricks[i + 1],
-						tricks[i + 1].pointValue * chains[`${chainNum}`]?.multiplier +
-							tricks[i + 1].pointValue,
+						trickPV * curMultiplier + tricks[i + 1].pointValue,
 					]);
 				} else {
 					//Break Chain
@@ -316,17 +435,22 @@ const calculateTrickTotals = async (tricks, curData) => {
 					};
 				}
 			});
+
+		let chainTotal = chainMap.reduce((sum, b) => sum + b[1], 0);
 		let varietyScore = Object.keys(trickCount)
 			.map((key) => trickCount[key])
 			.reduce((sum, b) => sum + b.score, 0);
-		let totalScore = 0; //total = comboPointValue + (executionAverage * comboPointValue)+ chainScore + varietyScore
+		let totalScore =
+			chainTotal + varietyScore + executionAverage * powerScore + powerScore; //total = comboPointValue + (executionAverage * comboPointValue)+ chainScore + varietyScore
 		return {
+			totalScore,
+			executionAverage,
 			varietyScore,
 			chains,
-			chainScore,
+			chainTotal,
+			chainMap,
 			trickCount,
-			executionAverage,
-			totalScore,
+			powerScore,
 		};
 	}
 };
