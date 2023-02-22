@@ -1,3 +1,4 @@
+import { useUserStore } from "@store/userStore";
 import React, { useEffect, useState } from "react";
 import { trpc } from "utils/trpc";
 import useGetTricks, {
@@ -88,6 +89,7 @@ const PointInput = ({ trick }) => {
     500
   );
   const [saved, setSaved] = useState(false);
+  const adminAccess = useUserStore((s) => s.userInfo.adminAccess);
   useEffect(() => {
     if (data?.status === 200 || mStatus === "success") {
       setSaved(true);
@@ -146,12 +148,14 @@ const PointInput = ({ trick }) => {
         <MdCheckCircle className={"relative left-2 text-emerald-500"} />
       )}
       <input
+        disabled={adminAccess < 4}
         onChange={(e) => setPointValue(e.target.value)}
         value={pointValue}
         className="w-1/4 bg-transparent p-1 text-center text-zinc-300"
       />
       {trick.type === "Transition" && (
         <input
+          disabled={adminAccess < 4}
           onChange={(e) => setMultiplierValue(e.target.value)}
           value={multiplierValue}
           className="w-1/4 bg-transparent p-1 text-center text-zinc-500"
