@@ -21,7 +21,7 @@ const Combodex: React.FC<CombodexProps> = ({
   updateTotalScore,
 }) => {
   const [executionOpen, setExecutionOpen] = useState(false);
-
+  console.log(sessionData);
   const { data: sessiondatascores } =
     trpc.sessionsummaries.getSessionDataScores.useQuery(
       {
@@ -39,25 +39,25 @@ const Combodex: React.FC<CombodexProps> = ({
     (t) => t.type === "Trick" && t
   ).length;
 
-  const [executionScore, setExecutionScore] = useState(0.1);
-  const [varietyScore, setVarietyScore] = useState(0);
-  const [trickCountTotal, setTrickCount] = useState({});
-  const [chainsTotal, setChains] = useState({});
-  const [chainMap, setChainMap] = useState([]);
+  const [executionScore, setExecutionScore] = useState(
+    sessionData?.executionAverage ?? 0.1
+  );
 
   let executionAverage =
     sessiondatascores?.reduce((sum, b) => sum + b.executionScore, 0) /
-    sessiondatascores?.length;
-  let executionScoreTotal = ((executionAverage * combo.pointValue) / 2).toFixed(
-    2
+      sessiondatascores?.length || 0;
+  let executionScoreTotal = executionAverage * (sessionData?.powerScore / 2);
+  console.log(
+    executionAverage,
+    executionScoreTotal,
+    sessionData.executionAverage,
+    sessionData.powerScore
   );
-  let varietyScoreTotal = varietyScore.toFixed(2);
-
   const localTotalScore = (
-    chainMap.reduce((sum, b) => sum + b[1], 0) +
-    combo.pointValue +
-    parseFloat(varietyScoreTotal) +
-    parseFloat(executionScoreTotal)
+    sessionData?.chainTotal +
+    sessionData?.powerScore +
+    sessionData?.varietyScore +
+    executionScoreTotal
   )?.toFixed(2);
 
   const composition = tricks
@@ -69,17 +69,6 @@ const Combodex: React.FC<CombodexProps> = ({
           tr.variation.name === "FullTwist" || tr.variation.name === "Twist"
       ).length;
     });
-  const fullcomposition = tricks?.map((t) => {
-    if (t.type === "Trick") {
-      //@ts-ignore
-      return t?.variations.filter(
-        (tr) =>
-          tr.variation.name === "FullTwist" || tr.variation.name === "Twist"
-      ).length;
-    } else {
-      return null;
-    }
-  });
 
   useEffect(() => {
     if (executionAverage) {
@@ -100,132 +89,10 @@ const Combodex: React.FC<CombodexProps> = ({
     }
   }, [localTotalScore]);
 
-  useEffect(() => {
-    if (tricks) {
-      let trickCount = {};
-      let chains = {};
-      let chainNum = 0;
-      let chainScore = [];
-      console.log(fullcomposition);
-      tricks.forEach((obj: any, i) => {
-        if (obj.type === "Transition") {
-          console.log(
-            i,
-            obj.name,
-            tricks[i + 1]?.pointValue *
-              (chains[`${chainNum}`]?.multiplier * fullcomposition[i - 1])
-          );
-          fullcomposition[i + 1] < fullcomposition[i - 1]
-            ? console.log(
-                "went Down",
-                fullcomposition[i - 1],
-                fullcomposition[i + 1],
-                chains[`${chainNum}`]?.multiplier ** fullcomposition[i - 1]
-              )
-            : console.log(
-                "stayed same or increased",
-                fullcomposition[i - 1],
-                fullcomposition[i + 1],
-                chains[`${chainNum}`]?.multiplier *
-                  fullcomposition[i - 1] *
-                  fullcomposition[i - 1]
-              );
-        }
-
-        if (chains[`${chainNum}`]) {
-          if (
-            obj.type === "Transition" &&
-            // @ts-ignore
-            obj?.name !== "Redirect"
-          ) {
-            //Update Current Chain
-
-            chains[`${chainNum}`].count++;
-            chains[`${chainNum}`].multiplier += obj?.multiplier;
-            let curMultiplier =
-              fullcomposition[i + 1] < fullcomposition[i - 1]
-                ? chains[`${chainNum}`]?.multiplier ** fullcomposition[i - 1]
-                : chains[`${chainNum}`]?.multiplier *
-                  fullcomposition[i - 1] *
-                  fullcomposition[i - 1];
-            let trickPV =
-              fullcomposition[i + 1] < fullcomposition[i - 1]
-                ? tricks[i + 1].pointValue / 2
-                : fullcomposition[i - 1] > 1
-                ? tricks[i + 1].pointValue * 3
-                : tricks[i + 1].pointValue;
-            //[index,chainScore,multiplier,name]
-            chainScore.push([
-              i + 1,
-              trickPV * curMultiplier,
-              curMultiplier,
-              tricks[i + 1].name,
-            ]);
-            //[transition,trick,chainScore + trickValue]
-            chains[`${chainNum}`].chain.push([
-              obj,
-              tricks[i + 1],
-              trickPV * curMultiplier + tricks[i + 1].pointValue,
-            ]);
-          } else {
-            //Break Chain
-            // console.log("BrokeChain");
-            if (obj.type === "Trick") return;
-            if (obj.name === "Redirect") {
-              chainNum++;
-              return;
-            }
-            //Increment for Next Chain
-            chains[`${chainNum + 1}`] = chains[`${chainNum}`];
-            chains[`${chainNum}`] = {
-              chain: [],
-              name: obj.name,
-              count: 1,
-              multiplier: obj.multiplier,
-            };
-            chainNum++;
-          }
-        } else {
-          // //Make new Chain
-          if (obj.type === "Transition" && obj.name !== "Redirect") {
-            chains[`${chainNum}`] = {
-              chain: [],
-              name: obj.name,
-              count: 1,
-              multiplier: obj.multiplier,
-            };
-          }
-        }
-      });
-
-      //Get Trick Count
-      tricks
-        .filter((t) => t.type === "Trick")
-        .forEach((obj) => {
-          if (trickCount[obj.name]) {
-            trickCount[obj.name].count++;
-          } else {
-            trickCount[obj.name] = {
-              count: 1,
-              score: 1,
-            };
-          }
-        });
-
-      //Update info For React
-      setChainMap(chainScore);
-      setChains(chains);
-      setTrickCount(trickCount);
-      console.log(chainScore, trickCount);
-      let vScore = Object.keys(trickCount)
-        .map((key) => trickCount[key])
-        .reduce((sum, b) => sum + b.score, 0);
-      setVarietyScore(vScore as number);
-    }
-  }, [tricks]);
-
-  let mostUsed = Object.keys(trickCountTotal)?.sort((a, b) =>
-    trickCountTotal[a]?.count > trickCountTotal[b]?.count ? -1 : 1
+  let mostUsed = Object.keys(sessionData?.trickCount)?.sort((a, b) =>
+    sessionData?.trickCount[a]?.count > sessionData?.trickCount[b]?.count
+      ? -1
+      : 1
   );
   let trickDensity =
     combo.comboArray
@@ -267,7 +134,7 @@ const Combodex: React.FC<CombodexProps> = ({
             "outlineButton flex flex-col border-[1px] border-zinc-300 border-opacity-40 bg-zinc-900"
           }
         >
-          {combo?.pointValue}
+          {sessionData.powerScore?.toFixed(2)}
           <span className="text-[8px]">{"power"}</span>
         </div>
         <div
@@ -275,7 +142,7 @@ const Combodex: React.FC<CombodexProps> = ({
             "outlineButton flex flex-col border-[1px] border-zinc-300 border-opacity-40 bg-zinc-900"
           }
         >
-          {varietyScoreTotal}
+          {sessionData.varietyScore?.toFixed(2)}
           <span className="text-[8px]">{"variety"}</span>
         </div>
         <div
@@ -284,7 +151,9 @@ const Combodex: React.FC<CombodexProps> = ({
             executionOpen ? "border-amber-700" : "border-zinc-300"
           } flex flex-col border-opacity-40 bg-zinc-900`}
         >
-          {executionScoreTotal !== "NaN" ? executionScoreTotal : "Need Rating"}
+          {executionAverage > 0.1
+            ? executionScoreTotal?.toFixed(2)
+            : "Need Rating"}
           <span className="text-[8px]">{"execution"}</span>
         </div>
         <div
@@ -292,7 +161,7 @@ const Combodex: React.FC<CombodexProps> = ({
             "outlineButton flex flex-col border-[1px] border-zinc-300 border-opacity-40 bg-zinc-900"
           }
         >
-          {chainMap.reduce((sum, b) => sum + b[1], 0).toFixed(2)}
+          {sessionData?.chainTotal?.toFixed(2)}
           <span className="text-[8px]">{"chains"}</span>
         </div>
       </div>
@@ -305,7 +174,7 @@ const Combodex: React.FC<CombodexProps> = ({
           setExecutionScore={setExecutionScore}
         />
       )}
-      <CombodexTrickDetails chainMap={chainMap} tricks={tricks} />
+      <CombodexTrickDetails chainMap={sessionData?.chainMap} tricks={tricks} />
       <div className="w-full p-2 text-center">
         <span className="text-zinc-400">Most Used: </span>
         <span className="text-zinc-200">{mostUsed[0]}</span>
@@ -474,3 +343,131 @@ export const CombodexTrickDetails = ({ tricks, chainMap }) => {
     </div>
   );
 };
+
+///TODO: \\\\\\\\ DELETE ME LATER ||||||||
+///       Y Y Y Y                 Y Y Y Y
+
+// useEffect(() => {
+//   if (tricks) {
+//     let trickCount = {};
+//     let chains = {};
+//     let chainNum = 0;
+//     let chainScore = [];
+//     console.log(fullcomposition);
+//     tricks.forEach((obj: any, i) => {
+//       if (obj.type === "Transition") {
+//         console.log(
+//           i,
+//           obj.name,
+//           tricks[i + 1]?.pointValue *
+//             (chains[`${chainNum}`]?.multiplier * fullcomposition[i - 1])
+//         );
+//         fullcomposition[i + 1] < fullcomposition[i - 1]
+//           ? console.log(
+//               "went Down",
+//               fullcomposition[i - 1],
+//               fullcomposition[i + 1],
+//               chains[`${chainNum}`]?.multiplier ** fullcomposition[i - 1]
+//             )
+//           : console.log(
+//               "stayed same or increased",
+//               fullcomposition[i - 1],
+//               fullcomposition[i + 1],
+//               chains[`${chainNum}`]?.multiplier *
+//                 fullcomposition[i - 1] *
+//                 fullcomposition[i - 1]
+//             );
+//       }
+
+//       if (chains[`${chainNum}`]) {
+//         if (
+//           obj.type === "Transition" &&
+//           // @ts-ignore
+//           obj?.name !== "Redirect"
+//         ) {
+//           //Update Current Chain
+
+//           chains[`${chainNum}`].count++;
+//           chains[`${chainNum}`].multiplier += obj?.multiplier;
+
+//           let curMultiplier =
+//             fullcomposition[i + 1] < fullcomposition[i - 1]
+//               ? chains[`${chainNum}`]?.multiplier ** fullcomposition[i - 1]
+//               : chains[`${chainNum}`]?.multiplier *
+//                 fullcomposition[i - 1] *
+//                 fullcomposition[i - 1];
+//           let trickPV =
+//             fullcomposition[i + 1] < fullcomposition[i - 1]
+//               ? tricks[i + 1].pointValue / 2
+//               : fullcomposition[i - 1] > 1
+//               ? tricks[i + 1].pointValue * 3
+//               : tricks[i + 1].pointValue;
+//           //[index,chainScore,multiplier,name]
+//           chainScore.push([
+//             i + 1,
+//             trickPV * curMultiplier,
+//             curMultiplier,
+//             tricks[i + 1].name,
+//           ]);
+//           //[transition,trick,chainScore + trickValue]
+//           chains[`${chainNum}`].chain.push([
+//             obj,
+//             tricks[i + 1],
+//             trickPV * curMultiplier + tricks[i + 1].pointValue,
+//           ]);
+//         } else {
+//           //Break Chain
+//           // console.log("BrokeChain");
+//           if (obj.type === "Trick") return;
+//           if (obj.name === "Redirect") {
+//             chainNum++;
+//             return;
+//           }
+//           //Increment for Next Chain
+//           chains[`${chainNum + 1}`] = chains[`${chainNum}`];
+//           chains[`${chainNum}`] = {
+//             chain: [],
+//             name: obj.name,
+//             count: 1,
+//             multiplier: obj.multiplier,
+//           };
+//           chainNum++;
+//         }
+//       } else {
+//         // //Make new Chain
+//         if (obj.type === "Transition" && obj.name !== "Redirect") {
+//           chains[`${chainNum}`] = {
+//             chain: [],
+//             name: obj.name,
+//             count: 1,
+//             multiplier: obj.multiplier,
+//           };
+//         }
+//       }
+//     });
+
+//     //Get Trick Count
+//     tricks
+//       .filter((t) => t.type === "Trick")
+//       .forEach((obj) => {
+//         if (trickCount[obj.name]) {
+//           trickCount[obj.name].count++;
+//         } else {
+//           trickCount[obj.name] = {
+//             count: 1,
+//             score: 1,
+//           };
+//         }
+//       });
+
+//     //Update info For React
+//     setChainMap(chainScore);
+//     setChains(chains);
+//     setTrickCount(trickCount);
+//     console.log(chainScore, trickCount);
+//     let vScore = Object.keys(trickCount)
+//       .map((key) => trickCount[key])
+//       .reduce((sum, b) => sum + b.score, 0);
+//     setVarietyScore(vScore as number);
+//   }
+// }, [tricks]);
