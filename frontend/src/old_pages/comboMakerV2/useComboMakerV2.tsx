@@ -1,3 +1,4 @@
+// IS BEING USED
 import React, { useEffect, useState } from "react";
 import useGetTricks from "../../api/useGetTricks";
 

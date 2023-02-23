@@ -1,0 +1,11 @@
+.screen {
+  @apply w-[100wh] h-[100vh] ;
+}
+.btn-trick-type {
+  @apply 
+    pl-2 pr-2 m-2
+    bg-blue-600 
+    border-2 border-zinc-300
+    rounded-lg 
+    ;
+}
