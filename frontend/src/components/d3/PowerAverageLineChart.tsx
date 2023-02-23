@@ -25,7 +25,7 @@ const PowerAverageLineChart = ({ data, chainMap }) => {
         .scaleLinear()
         .domain([0, data.length + 1])
         .range([0, width]);
-      const yScale = d3.scaleLinear().domain([0, 30.5]).range([height, 0]);
+      const yScale = d3.scaleLinear().domain([0, 100.5]).range([height, 0]);
       //   const colorScale = d3
       //     .scaleLinear(d3.interpolateRgbBasis(["#ff4b9f", "#50d9f0"]))
       //     .domain(d3.extent(data, (d) => d.pointValue));
@@ -56,8 +56,9 @@ const PowerAverageLineChart = ({ data, chainMap }) => {
         });
 
       const line = svg
-        .datum([{ pointValue: 0 }, ...data, { pointValue: 0 }])
         .append("path")
+        .datum([{ pointValue: 0 }, ...data, { pointValue: 0 }])
+        .join("path")
         .attr("fill", "none")
         .attr("stroke", "url(#line-gradient)")
         .attr("stroke-width", 1.7)
@@ -78,12 +79,16 @@ const PowerAverageLineChart = ({ data, chainMap }) => {
             })
             .curve(d3.curveCatmullRom)
         );
+
+      return () => {
+        svg.remove();
+      };
     }
   }, [data, dimensions]);
 
   return (
-    <div ref={lRef} className="h-full w-full">
-      <svg key={`key`} className="h-full w-full " ref={svgRef} />
+    <div key={`${data.length}`} ref={lRef} className="h-full w-full">
+      <svg key={"key"} className="h-full w-full " ref={svgRef} />
     </div>
   );
 };
