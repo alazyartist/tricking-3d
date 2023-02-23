@@ -10,6 +10,7 @@ import ModelDropdown from "./ModelDropdown";
 import ModalButton from "./modal/ModalButton";
 import Versions from "./modal/Versions";
 import Settings from "./modal/Settings";
+import Link from "next/link";
 import { active } from "d3";
 
 const SandboxNav = () => {
@@ -37,11 +38,13 @@ const SandboxNav = () => {
       case 5: return (<Settings />)
     }
   }
+  const back: String = "><"
 
   return (
     <div className="w-full max-h-full flex flex-col flex-grow p-2">
 
       <div className="text-3xl font-bold text-zinc-400 pb-2">
+        <a className="sandboxToHome" href="/home">{back}</a>
         {activeView === 0 && currentAnim}
         {activeView === 1 && "Change Trick"}
         {activeView === 2 && "Trick Info"}
@@ -50,41 +53,41 @@ const SandboxNav = () => {
         {activeView === 5 && "Gym Settings"}
       </div>
 
-        <div className=" p-2 flex flex-col justify-evenly w-full gap-3 bg-zinc-900 bg-opacity-50 rounded-lg">
-          <div className="flex flex-row justify-evenly">
-            <ModalButton
-              handleOpen={() => {
-                handleOpen(1);
-              }}
-              content="Trick"//{currentAnim}
-            />
-            {/**trickInfo button */}
-            <ModalButton
-              handleOpen={() => handleOpen(2)}
-              content={ <MdInfoOutline /> }
-            />
-            {/**models button*/}
-            <ModalButton
-              handleOpen={() => handleOpen(3)}
-              content="Tricker"//{currentModel}
-            />
-            {/**versions button*/}
-            {currentVersions.length > 1 && (<></>)}
-            <ModalButton
-              handleOpen={() => handleOpen(4)}
-              content={<div> Combo {currentVersions?.length > 1 ? <span className='bg-zinc-800 border-2 border-zinc-100 rounded-md pl-2 pr-2'> {currentVersions?.length} </span> : null }</div>}//"Version"
-            />
-            {/**versions button*/}
-            <ModalButton
-              handleOpen={() => handleOpen(5)}
-              content="Gym"//{<MdSettings className="fill-zinc-300 text-3xl" />}
-            />
-          </div>
-
-          <div className={`${activeView > 0 ? "p-2 " : " h-0"} w-full bg-zinc-400 rounded-b-lg bg-opacity-20 text-zinc-600 `}>
-            <NavBody />
-          </div>
+      <div className=" p-2 flex flex-col justify-evenly w-full gap-3 bg-zinc-900 bg-opacity-50 rounded-lg">
+        <div className="flex flex-row justify-evenly">
+          <ModalButton
+            handleOpen={() => {
+              handleOpen(1);
+            }}
+            content="Trick"//{currentAnim}
+          />
+          {/**trickInfo button */}
+          <ModalButton
+            handleOpen={() => handleOpen(2)}
+            content={<MdInfoOutline />}
+          />
+          {/**models button*/}
+          <ModalButton
+            handleOpen={() => handleOpen(3)}
+            content="Tricker"//{currentModel}
+          />
+          {/**versions button*/}
+          {currentVersions.length > 1 && (<></>)}
+          <ModalButton
+            handleOpen={() => handleOpen(4)}
+            content={<div> Combo {currentVersions?.length > 1 ? <span className='bg-zinc-800 border-2 border-zinc-100 rounded-md pl-2 pr-2'> {currentVersions?.length} </span> : null}</div>}//"Version"
+          />
+          {/**versions button*/}
+          <ModalButton
+            handleOpen={() => handleOpen(5)}
+            content="Gym"//{<MdSettings className="fill-zinc-300 text-3xl" />}
+          />
         </div>
+
+        <div className={`${activeView > 0 ? "p-2 " : " h-0"} w-full bg-zinc-400 rounded-b-lg bg-opacity-20 text-zinc-600 `}>
+          <NavBody />
+        </div>
+      </div>
 
     </div>
   );

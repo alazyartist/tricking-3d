@@ -2,7 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @layer components {
+  .sandboxToHome {
+    @apply 
+    absolute top-0 left-0 
+    rounded-full border-2 border-zinc-600 
+    bg-zinc-700 w-6 h-6 m-1
+    text-zinc-300 text-sm
+    shadow-lg
+    ;
+  }
   .outlineButton {
     @apply flex place-content-center place-items-center rounded-md border-2 px-1;
   }

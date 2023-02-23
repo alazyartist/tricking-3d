@@ -11,6 +11,7 @@ import SandboxNav from "./ui/SandboxNav";
 import MediaController from "@components/media/Controller";
 import DurationSlider from "./ui/DurationSlider";
 import MinimalUI from "@components/sandbox/ui/MinimalUI";
+import Link from "next/link";
 
 const Sandbox = () => {
   /*
