@@ -4,14 +4,7 @@ import * as d3 from "d3";
 const PowerAverageLineChart = ({ data, chainMap }) => {
   const svgRef = useRef();
   const [lRef, dimensions] = useMeasure();
-  console.log(
-    chainMap,
-    chainMap
-      ?.filter((c) => c[0] === 3)
-      .map((c) => {
-        if (c[0] === 3) return c[1];
-      })
-  );
+
   useEffect(() => {
     const margin = { top: 2, left: 0, right: 0, bottom: 10 };
     const width = dimensions.width - margin.left - margin.right;
@@ -73,16 +66,16 @@ const PowerAverageLineChart = ({ data, chainMap }) => {
           d3
             .line()
             .x((d, i) => xScale(i))
-            .y((d: any, i) =>
-              yScale(
+            .y((d: any, i) => {
+              return yScale(
                 d.pointValue +
-                  chainMap
+                  (chainMap
                     ?.filter((c) => c[0] === i)
                     .map((c) => {
                       if (c[0] === i) return c[1];
-                    })
-              )
-            )
+                    })[0] || 0)
+              );
+            })
             .curve(d3.curveCatmullRom)
         );
     }
