@@ -95,7 +95,7 @@ const PowerAverageLineChart = ({ data, chainMap }) => {
           d3
             .line()
             .x((d, i) => xScale(i))
-            .y((d, i) => yScale(30))
+            .y((d, i) => yScale(15))
         );
 
       const pointline = svg
