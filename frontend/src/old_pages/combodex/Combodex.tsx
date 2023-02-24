@@ -104,7 +104,7 @@ const Combodex: React.FC<CombodexProps> = ({
       .filter((t) => t.type === "Transition")
       .reduce((sum, b) => sum + b?.pointValue, 0) /
     combo.comboArray.filter((t) => t.type === "Transition").length;
-
+  const [seeRadar, setSeeRadar] = useState(false);
   return (
     <div
       className={
@@ -195,7 +195,17 @@ const Combodex: React.FC<CombodexProps> = ({
         trickDensity={trickDensity}
         transitionDensity={transitionDensity}
       />
-      {tricks && <RadarChart data={tricks} />}
+      {
+        <div
+          className="flex place-content-center p-2 text-center "
+          onClick={() => setSeeRadar(!seeRadar)}
+        >
+          <div className={"outlineButton p-2"}>
+            {!seeRadar ? "See Radar" : "Hide Radar"}
+          </div>
+        </div>
+      }
+      {tricks && seeRadar && <RadarChart data={tricks} />}
       {/* <div>
           json:{" "}
           {JSON.stringify(
