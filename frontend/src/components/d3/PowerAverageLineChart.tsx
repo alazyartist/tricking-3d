@@ -20,12 +20,24 @@ const PowerAverageLineChart = ({ data, chainMap }) => {
           "transform",
           `translate(${margin.left}px,${dimensions.height / 2 + margin.top})px`
         );
-      const max = d3.max(data, (d: any) => d.pointValue);
+      const max = d3.max(data, (d: any, i) => {
+        return parseFloat(
+          d.pointValue +
+            (chainMap
+              ?.filter((c) => c[0] === i)
+              .map((c) => {
+                if (c[0] === i) return c[1];
+              })[0] || 0)
+        );
+      });
       const xScale = d3
         .scaleLinear()
         .domain([0, data.length + 1])
         .range([0, width]);
-      const yScale = d3.scaleLinear().domain([0, 100.5]).range([height, 0]);
+      const yScale = d3
+        .scaleLinear()
+        .domain([0, max + 2])
+        .range([height, 0]);
       //   const colorScale = d3
       //     .scaleLinear(d3.interpolateRgbBasis(["#ff4b9f", "#50d9f0"]))
       //     .domain(d3.extent(data, (d) => d.pointValue));
@@ -54,8 +66,39 @@ const PowerAverageLineChart = ({ data, chainMap }) => {
         .attr("stop-color", function (d) {
           return d.color;
         });
+      svg
+        .append("path")
+        .datum([{ pointValue: 0 }, ...data, { pointValue: 0 }])
+        .join("path")
+        .attr("fill", "none")
+        .attr("stroke", "#ff4b9f")
+        .attr("opacity", "30%")
+        .attr("stroke-width", 3.7)
+        .attr(
+          "d",
+          d3
+            .line()
+            .x((d, i) => xScale(i))
+            .y((d, i) => yScale(100))
+        );
 
-      const line = svg
+      svg
+        .append("path")
+        .datum([{ pointValue: 0 }, ...data, { pointValue: 0 }])
+        .join("path")
+        .attr("fill", "none")
+        .attr("stroke", "#50d9f0")
+        .attr("opacity", "30%")
+        .attr("stroke-width", 2.7)
+        .attr(
+          "d",
+          d3
+            .line()
+            .x((d, i) => xScale(i))
+            .y((d, i) => yScale(30))
+        );
+
+      const pointline = svg
         .append("path")
         .datum([{ pointValue: 0 }, ...data, { pointValue: 0 }])
         .join("path")
