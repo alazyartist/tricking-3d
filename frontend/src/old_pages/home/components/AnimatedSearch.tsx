@@ -7,9 +7,9 @@ const AnimatedSearch = () => {
   const searchTransition = useSpring({
     to: {
       opacity: 1,
-      width: searchOpen ? "80vw" : "10vw",
-      barWidth: searchOpen ? "50vw" : "0vw",
-      marginLeft: searchOpen ? "0px" : "12px",
+      width: searchOpen ? "80vw" : "14vw",
+      barWidth: searchOpen ? "100%" : "0%",
+      marginLeft: searchOpen ? "8px" : "4px",
     },
 
     delay: 100,
@@ -18,7 +18,7 @@ const AnimatedSearch = () => {
   return (
     <animated.div
       style={{ width: searchTransition.width }}
-      className="relative mt-1 mb-2 flex w-[70vw] max-w-[600px] place-content-center place-items-center gap-2 rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
+      className={`relative mt-1 mb-2 flex w-[70vw] max-w-[600px] place-content-center place-items-center gap-2 rounded-xl bg-zinc-800 bg-opacity-80 p-1 text-center font-inter text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] `}
     >
       <IoMdSearch
         onClick={() => setSearchOpen(!searchOpen)}
@@ -28,14 +28,19 @@ const AnimatedSearch = () => {
         }}
         className={"flex-shrink-0 p-1 text-4xl"}
       />
-      <input
-        type="text"
+      <animated.div
         style={{
           //@ts-ignore
           width: searchTransition.barWidth,
         }}
-        className="relative w-full rounded-lg"
-      />
+      >
+        <input
+          type="text"
+          className={`relative w-full appearance-none rounded-lg bg-zinc-700 text-base text-zinc-300 ${
+            searchOpen ? "py-1" : "p-0"
+          }`}
+        />
+      </animated.div>
     </animated.div>
   );
 };
