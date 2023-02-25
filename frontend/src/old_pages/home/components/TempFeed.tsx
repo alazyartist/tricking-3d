@@ -12,7 +12,7 @@ const TempFeed = () => {
           //   ?.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1))
           ?.map((summary) => {
             const user = summary.user;
-            console.log(summary);
+            // console.log(summary);
             return (
               <Link
                 key={`${user.uuid},${summary.sessionid}`}
