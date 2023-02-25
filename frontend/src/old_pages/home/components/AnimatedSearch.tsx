@@ -23,13 +23,15 @@ const AnimatedSearch = () => {
       <IoMdSearch
         onClick={() => setSearchOpen(!searchOpen)}
         style={{
-          marginLeft: searchTransition.marginLeft,
+          //@ts-ignore
+          paddingLeft: searchTransition.marginLeft,
         }}
-        className={"flex-shrink-0 text-xl"}
+        className={"flex-shrink-0 p-1 text-4xl"}
       />
       <input
         type="text"
         style={{
+          //@ts-ignore
           width: searchTransition.barWidth,
         }}
         className="relative w-full rounded-lg"
