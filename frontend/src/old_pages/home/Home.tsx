@@ -21,6 +21,7 @@ import AllTrickDisplay from "@old_pages/AllTrickDisplay";
 import UserList from "@components/UserList";
 import { AiOutlineUser } from "react-icons/ai";
 import TempFeed from "./components/TempFeed";
+import AnimatedSearch from "./components/AnimatedSearch";
 const CapturesPage = dynamic(() => import("../dash/components/CapturesPage"));
 const ClaimTricks = dynamic(() => import("../claimtricks/ClaimTricks"));
 function Home() {
@@ -64,7 +65,13 @@ function Home() {
             <TrickedexLogo className={`-m-2px flex fill-zinc-300`} />
           </animated.div>
         </div>
-
+        {/*
+        //Maybe open capture buton
+         <FaQrcode
+          className={
+            "absolute top-14 left-2 place-self-start rounded-md bg-zinc-700 p-2 text-4xl"
+          }
+        /> */}
         <div className="rounded-xl bg-zinc-800 bg-opacity-40 py-2">
           {!openCaptures &&
             !openComboMaker &&
@@ -89,7 +96,7 @@ function Home() {
           */}
                 <Link
                   href={"/sandbox"}
-                  className=" mt-4 mb-4 w-[70vw] max-w-[600px]  rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-3xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)]"
+                  className=" mt-1 mb-1 w-[70vw] max-w-[600px]  rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)]"
                 >
                   <span className="flex place-content-center items-center gap-2">
                     Sandbox <BiCube />
@@ -97,18 +104,46 @@ function Home() {
                 </Link>
                 <Link
                   href={"/pppoints"}
-                  className=" mt-4 mb-4 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-3xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)]"
+                  className=" mt-1 mb-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)]"
                 >
                   BattleRooms
                 </Link>
                 <Link
+                  href="/captures"
+                  className={`mt-1 mb-1 flex w-[70vw] max-w-[600px] place-content-center place-items-center gap-2 rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)]`}
+                >
+                  <FaQrcode className={""} />
+                  <div>Capture</div>
+                </Link>
+                <AnimatedSearch />
+                <Link
                   href={accessToken ? "/addSession" : "/login"}
-                  className=" mt-4 mb-8 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-3xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
+                  className=" mt-1 mb-2 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
                 >
                   Add Session
                 </Link>
+                <div
+                  onClick={() => setOpenComboMaker(!openComboMaker)}
+                  className=" mt-1 mb-2 flex w-[70vw] max-w-[600px] place-content-center place-items-center gap-2 rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
+                >
+                  <AiOutlineUser className={"text-xl"} />
+                  <div className="">Leaderboards</div>
+                </div>
               </div>
             )}
+          {openComboMaker && (
+            <div
+              className={`neumorphicIn relative top-0 my-2 flex max-h-[75vh] w-full max-w-[700px] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-800 pt-[3vh] ${
+                openComboMaker ? "col-span-2 row-span-2 my-0" : ""
+              }`}
+            >
+              <IoIosArrowBack
+                className="absolute top-4 right-1 text-4xl"
+                onClick={() => setOpenComboMaker(!openComboMaker)}
+              />
+              <UserList />
+            </div>
+          )}
           <div className="flex w-[90vw] max-w-[600px] flex-col place-content-center">
             {!atLocal ? (
               <PublicHomePage />
@@ -118,30 +153,8 @@ function Home() {
                 {/*Button Grid Container*/}
                 <div className="flex flex-grow-0 justify-around  text-zinc-300">
                   <div className="grid w-[98%] grid-cols-2 grid-rows-2 place-content-center place-items-center gap-4">
-                    {/* Captures */}
-                    {openCaptures ? (
-                      <CapturesPage />
-                    ) : (
-                      !openTricklists &&
-                      !openComboMaker &&
-                      !openClaimtricks && (
-                        <div className="neumorphic h-full w-full rounded-lg">
-                          <Link
-                            href="/captures"
-                            className={` active:neumorphicIn 
-                            flex h-full w-full max-w-[600px] 
-                            flex-col place-content-center place-items-center 
-                            rounded-lg bg-zinc-800 text-4xl `}
-                          >
-                            <FaQrcode className={"h-24"} />
-                            <div className="text-lg font-bold">Capture</div>
-                          </Link>
-                        </div>
-                      )
-                    )}
-
                     {/* Tricklists */}
-                    {openTricklists ? (
+                    {/* {openTricklists ? (
                       <div
                         className={` relative top-0 my-2 flex max-h-[75vh] w-full max-w-[700px] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-800 bg-opacity-40 pt-[3vh] backdrop-blur-md ${
                           openTricklists ? "col-span-2 row-span-2 my-0" : ""
@@ -151,7 +164,6 @@ function Home() {
                           className="absolute top-4 right-1 text-4xl"
                           onClick={() => setOpenTricklists(!openTricklists)}
                         />
-                        {/* <TricklistPage displayOnly={false} profileuuid={uuid} /> */}
                         <AllTrickDisplay />
                       </div>
                     ) : (
@@ -166,10 +178,10 @@ function Home() {
                           <div className="text-lg font-bold">Search Tricks</div>
                         </div>
                       )
-                    )}
+                    )} */}
                     {/* ClaimTricks */}
 
-                    {openClaimtricks ? (
+                    {/* {openClaimtricks ? (
                       <div
                         className={`neumorphicIn relative my-2 flex max-w-[600px] flex-col place-items-center gap-2 rounded-xl bg-zinc-800 pt-[3vh] ${
                           openClaimtricks ? "col-span-2 row-span-2" : ""
@@ -193,9 +205,9 @@ function Home() {
                           <div className="text-lg font-bold">Claim Tricks</div>
                         </div>
                       )
-                    )}
+                    )} */}
                     {/* ComboMaker */}
-                    {openComboMaker ? (
+                    {/* {openComboMaker ? (
                       <div
                         className={`neumorphicIn relative top-0 my-2 flex max-h-[75vh] w-full max-w-[700px] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-800 pt-[3vh] ${
                           openComboMaker ? "col-span-2 row-span-2 my-0" : ""
@@ -206,7 +218,6 @@ function Home() {
                           onClick={() => setOpenComboMaker(!openComboMaker)}
                         />
                         <UserList />
-                        {/* <ComboMakerV2 /> */}
                       </div>
                     ) : (
                       !openTricklists &&
@@ -217,17 +228,13 @@ function Home() {
                           // href="/comboMaker"
                           className="neumorphic  active:neumorphicIn min-h-36 flex h-full w-full flex-col place-content-center place-items-center rounded-lg bg-zinc-800 p-4 text-4xl"
                         >
-                          {/* <ComboMakerBlueprintsvg
-                            className="h-24"
-                            fill={"#d4d4d8"}
-                          /> */}
                           <AiOutlineUser className={"h-24"} />
                           <div className="mt-[-18px] text-lg font-bold">
                             Leaderboards
                           </div>
                         </div>
                       )
-                    )}
+                    )} */}
                   </div>
                   <>
                     {/* <div className='flex flex-col gap-2 rounded-xl bg-zinc-700 p-2'>

@@ -37,7 +37,7 @@ const AnimatedSearch = () => {
         <input
           type="text"
           className={`relative w-full appearance-none rounded-lg bg-zinc-700 text-base text-zinc-300 ${
-            searchOpen ? "py-1" : "p-0"
+            searchOpen ? "px-1" : "p-0"
           }`}
         />
       </animated.div>
