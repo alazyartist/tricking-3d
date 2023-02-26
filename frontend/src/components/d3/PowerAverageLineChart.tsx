@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import useMeasure from "react-use-measure";
 import * as d3 from "d3";
-const PowerAverageLineChart = ({ data, chainMap }) => {
+const PowerAverageLineChart = ({ data, chainMap, varietyMap }) => {
   const svgRef = useRef();
   const [lRef, dimensions] = useMeasure();
 
@@ -27,6 +27,11 @@ const PowerAverageLineChart = ({ data, chainMap }) => {
               ?.filter((c) => c[0] === i)
               .map((c) => {
                 if (c[0] === i) return c[1];
+              })[0] || 0) +
+            (varietyMap
+              ?.filter((c) => c[0] === i)
+              .map((c) => {
+                if (c[0] === i) return c[2];
               })[0] || 0)
         );
       });
@@ -117,6 +122,11 @@ const PowerAverageLineChart = ({ data, chainMap }) => {
                     ?.filter((c) => c[0] === i)
                     .map((c) => {
                       if (c[0] === i) return c[1];
+                    })[0] || 0) +
+                  (varietyMap
+                    ?.filter((c) => c[0] === i)
+                    .map((c) => {
+                      if (c[0] === i) return c[2];
                     })[0] || 0)
               );
             })

@@ -41,7 +41,7 @@ const MyApp: AppType<{
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools position={"top-left"} />
+        <ReactQueryDevtools position={"top-right"} />
         <AppBackground />
         {!path.includes("/landing") && path !== "/" && <UserIcon />}
         {path.includes("/theory") ? <TheoryTabBar /> : <TabBar />}

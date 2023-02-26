@@ -20,12 +20,12 @@ const PowerAverageComboLineChart = ({ data }) => {
           "transform",
           `translate(${margin.left}px,${dimensions.height / 2 + margin.top})px`
         );
-      const max = d3.max(data, (d: any) => d.ClipLabel.pointValue);
+      const max = d3.max(data, (d: any) => d.totalScore as number);
       const xScale = d3
         .scaleLinear()
         .domain([0, data.length + 1])
         .range([0, width]);
-      const yScale = d3.scaleLinear().domain([0, 200]).range([height, 0]);
+      const yScale = d3.scaleLinear().domain([0, max]).range([height, 0]);
 
       svg
         .append("linearGradient")
@@ -51,12 +51,39 @@ const PowerAverageComboLineChart = ({ data }) => {
         });
       // console.log("datum", data);
       let line = svg
-        .datum([
-          { ClipLabel: { pointValue: 0 } },
-          ...data,
-          { ClipLabel: { pointValue: 0 } },
-        ])
+        .datum([{ totalScore: 0 }, ...data, { totalScore: 0 }])
         .append("path");
+      svg
+        .append("path")
+        .datum([{ totalScore: 0 }, ...data, { totalScore: 0 }])
+        .join("path")
+        .attr("fill", "none")
+        .attr("stroke", "#ff4b9f")
+        .attr("opacity", "30%")
+        .attr("stroke-width", 3.7)
+        .attr(
+          "d",
+          d3
+            .line()
+            .x((d, i) => xScale(i))
+            .y((d, i) => yScale(300))
+        );
+
+      svg
+        .append("path")
+        .datum([{ totalScore: 0 }, ...data, { totalScore: 0 }])
+        .join("path")
+        .attr("fill", "none")
+        .attr("stroke", "#50d9f0")
+        .attr("opacity", "30%")
+        .attr("stroke-width", 2.7)
+        .attr(
+          "d",
+          d3
+            .line()
+            .x((d, i) => xScale(i))
+            .y((d, i) => yScale(60))
+        );
 
       line
         .attr("fill", "none")
