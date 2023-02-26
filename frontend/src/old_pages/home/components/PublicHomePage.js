@@ -10,33 +10,34 @@ import ComboMakerBlueprintsvg from "@data/ComboMakerBlueprintsvg";
 const PublicHomePage = () => {
   return (
     <div className="flex flex-col place-content-center place-items-center">
-      <Link className="" href="/instructions">
+      {/* <Link className="" href="/instructions">
         <div className=" mt-4 mb-8 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-30 p-2 text-center font-titan text-3xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] ">
           <div>Instructions</div>
         </div>
-      </Link>
+      </Link> */}
 
-      <div className="m-2 flex w-full max-w-[620px] place-content-center gap-4 rounded-xl p-2 text-zinc-300">
+      {/* <div className="m-2 flex w-full max-w-[620px] place-content-center gap-4 rounded-xl p-2 text-zinc-300">
         <Link
           className="flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-zinc-800  text-4xl"
           href="/comboMaker"
-        >
-          {/* UnderConstruction Label */}
-          {/* <div className='relative top-7 right-8 -rotate-[22deg] rounded-md bg-red-500 bg-opacity-70 p-2 text-sm'>
+        > */}
+      {/* UnderConstruction Label */}
+      {/* <div className='relative top-7 right-8 -rotate-[22deg] rounded-md bg-red-500 bg-opacity-70 p-2 text-sm'>
 						Under Construction
 					</div> */}
-          <ComboMakerBlueprintsvg fill={"#d4d4d8"} />
-          {/* <ComboMakerBlueprint fill={"#d4d4d8"} /> */}
-          <div className="mt-[-14px] text-sm font-bold">Combo Maker</div>
-        </Link>
-        <Link
-          className="flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-zinc-800 text-6xl"
+      {/* <ComboMakerBlueprintsvg fill={"#d4d4d8"} /> */}
+      {/* <ComboMakerBlueprint fill={"#d4d4d8"} /> */}
+      {/* <div className="mt-[-14px] text-sm font-bold">Combo Maker</div> */}
+      {/* </Link> */}
+      {/* <Link */}
+      {/* className="flex h-20 w-full flex-col place-content-center place-items-center rounded-xl bg-gradient-to-b from-zinc-800 text-6xl" 
           href="/theory"
         >
           <TheoryCap />
           <div className="text-sm font-bold">Theory</div>
         </Link>
       </div>
+          */}
 
       <div className=" flex gap-4">
         <Link href="/login">

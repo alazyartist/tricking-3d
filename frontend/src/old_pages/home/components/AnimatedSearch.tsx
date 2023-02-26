@@ -36,7 +36,8 @@ const AnimatedSearch = () => {
       >
         <input
           type="text"
-          className={`relative w-full appearance-none rounded-lg bg-zinc-700 text-base text-zinc-300 ${
+          placeholder="Search Coming Soon..."
+          className={`relative w-full appearance-none rounded-lg bg-zinc-700 text-base text-zinc-300 outline-none ${
             searchOpen ? "px-1" : "p-0"
           }`}
         />

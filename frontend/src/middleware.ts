@@ -1,13 +1,21 @@
 import { NextResponse } from "next/server";
-import { jwtVerify } from "jose";
+import { jwtVerify, importJWK } from "jose";
 import type { NextRequest } from "next/server";
 export async function middleware(request: NextRequest) {
   // Assume a "Cookie:nextjs=fast" header to be present on the incoming request
   // Getting cookies from the request using the `RequestCookies` API
   // const cookie = request.cookies.get("jwt")?.value;
-  // console.log("cooki", cookie); // => 'fast'
-  // // let secret = new TextEncoder().encode(process.env.ACCESS_TOKEN_SECRET);
-  // // let decoded = await jwtVerify(cookie, secret, { algorithms: ["HS256"] });
+  // // console.log("cooki", cookie); // => 'fast'
+  // let s = process.env.ACCESS_TOKEN_SECRET;
+  // let secret = await importJWK(
+  //   {
+  //     kty: "RSA",
+  //     n: s,
+  //     e: "AQAB",
+  //   },
+  //   "RS256"
+  // );
+  // let decoded = await jwtVerify(cookie, secret, { algorithms: ["RS256"] });
   // console.log(cookie ? "loggedIn" : "NotLoggedIn");
   //   // Setting cookies on the response using the `ResponseCookies` API
   //   const response = NextResponse.next()
