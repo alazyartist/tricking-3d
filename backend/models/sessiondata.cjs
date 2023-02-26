@@ -50,6 +50,7 @@ module.exports = (sequelize) => {
 			chains: DataTypes.JSON,
 			chainTotal: DataTypes.FLOAT,
 			chainMap: DataTypes.JSON,
+			varietyMap: DataTypes.JSON,
 			trickCount: DataTypes.JSON,
 		},
 		{

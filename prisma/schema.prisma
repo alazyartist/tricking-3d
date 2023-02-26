@@ -220,6 +220,7 @@ model sessiondata {
   chains Json? 
   chainTotal Float?   @default(0)
   chainMap Json? 
+  varietyMap Json? 
   trickCount Json? 
 }
 
