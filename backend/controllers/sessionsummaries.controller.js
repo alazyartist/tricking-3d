@@ -206,7 +206,7 @@ export const saveSessionDetails = async (req, res) => {
 						foundComboPrisma.comboArray,
 						curData
 					);
-					console.log(totals);
+					// console.log(totals);
 					await sessiondata.findOrCreate({
 						where: {
 							id: curData.id,
@@ -287,6 +287,8 @@ const calculateTrickTotals = async (tricks, curData) => {
 		let chains = {};
 		let chainNum = 0;
 		let chainMap = [];
+		let varietyMap = [];
+		let variety = { multiplier: 0 };
 		let executionAverage = 0;
 		let chainBreakers = [
 			"Redirect",
@@ -314,13 +316,20 @@ const calculateTrickTotals = async (tricks, curData) => {
 		const fullcomposition = fullTricks?.map((t) => {
 			if (t.type === "Trick") {
 				//@ts-ignore
+				let finalScore;
 				let compScore = t?.variations.filter(
 					(tr) =>
 						tr.variation.name === "FullTwist" || tr.variation.name === "Twist"
 				).length;
 				if (compScore > 0) {
-					return compScore;
-				} else return 1;
+					finalScore = compScore;
+				} else finalScore = 1;
+				if (
+					t?.variations.some((v) => v.variation.variationType === "DoubleFlip")
+				) {
+					finalScore += 3;
+				}
+				return finalScore;
 			} else {
 				switch (t.transitionType) {
 					case "Singular": {
@@ -338,14 +347,19 @@ const calculateTrickTotals = async (tricks, curData) => {
 				}
 			}
 		});
-		// console.log(fullcomposition, "fullComposition");
+
+		console.log(fullcomposition, "fullComposition");
+
+		//CHAIN CALCULATIONS VVVV
 		tricks.forEach((obj, i) => {
+			// if (chainBreakers.includes(obj.name)) {
+			// 	console.log("brokeChain");
+			// 	return chainNum++;
+			// }
+			if (obj.type === "Trick") return;
+
 			if (chains[`${chainNum}`]) {
 				// console.log("before", chains[`${chainNum}`].multiplier);
-				if (chainBreakers.includes(obj.name)) {
-					console.log("brokeChain");
-					return chainNum++;
-				}
 				if (obj.type === "Transition" && !chainBreakers.includes(obj.name)) {
 					//Update Current Chain
 					let decrease = fullcomposition[i + 1] < fullcomposition[i - 1];
@@ -411,6 +425,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 						curMultiplier,
 						tricks[i + 1].name,
 					]);
+
 					//[transition,trick,chainScore + trickValue]
 					chains[`${chainNum}`].chain.push([
 						obj,
@@ -420,11 +435,12 @@ const calculateTrickTotals = async (tricks, curData) => {
 				} else {
 					//Break Chain
 					// console.log("BrokeChain");
-					if (obj.type === "Trick") return;
-					if (chainBreakers.includes(obj.name)) {
-						chainNum++;
-						return;
-					}
+					//maybe
+					//
+					// if (chainBreakers.includes(obj.name)) {
+					// 	chainNum++;
+					// 	return;
+					// }
 					//Increment for Next Chain
 					chains[`${chainNum + 1}`] = chains[`${chainNum}`];
 					chains[`${chainNum}`] = {
@@ -433,11 +449,18 @@ const calculateTrickTotals = async (tricks, curData) => {
 						count: 1,
 						multiplier: obj.multiplier,
 					};
+
+					chainMap.push([
+						i + 1,
+						tricks[i + 1].pointValue * chains[`${chainNum}`].multiplier,
+						chains[`${chainNum}`].multiplier,
+						tricks[i + 1].name,
+					]);
 					chainNum++;
 				}
 			} else {
 				// //Make new Chain
-				if (obj.type === "Transition" && !chainBreakers.includes(obj.name)) {
+				if (obj.type === "Transition") {
 					chains[`${chainNum}`] = {
 						chain: [],
 						name: obj.name,
@@ -448,6 +471,59 @@ const calculateTrickTotals = async (tricks, curData) => {
 			}
 		});
 
+		//VARIETY CALCULATIONS VVVV
+
+		fullTricks.forEach((trick, i) => {
+			if (trick.type !== "Trick") return;
+			let isNotVanilla = trick?.variations
+				?.map((v) => v.variation.variationType !== "Rotation")
+				.includes(true);
+			let perfectMatch =
+				trick?.variations?.map(
+					(v) => v.variation.variationType !== "Rotation"
+				) ===
+				fullTricks[i - 2]?.variations?.map(
+					(v) => v.variation.variationType !== "Rotation"
+				);
+			let uniqueVariations = Array.from(
+				new Set(
+					trick?.variations?.map((v) => {
+						if (v.variation.variationType !== "Rotation") {
+							return 0.75;
+						}
+						return 0;
+					})
+				)
+			);
+			let varietyMultiplier = uniqueVariations.reduce((sum, b) => sum + b, 0);
+			let vsubtotal = 0;
+			if (isNotVanilla && !perfectMatch) {
+				variety.multiplier += varietyMultiplier;
+				vsubtotal = variety.multiplier * trick.pointValue;
+				varietyMap.push([i, variety.multiplier, vsubtotal]);
+				console.log(
+					"Variated",
+					i,
+					variety.multiplier,
+					trick.pointValue,
+					trick.name,
+					vsubtotal
+				);
+			}
+
+			console.log(
+				"Vanilla",
+				i,
+				isNotVanilla,
+				!perfectMatch,
+				variety.multiplier,
+				trick.name,
+				vsubtotal
+			);
+
+			// trick?.variations?.map((v) => console.log(i, v.variation));
+		});
+		console.log(varietyMap);
 		//Get Trick Count
 		tricks
 			.filter((t) => t.type === "Trick")
@@ -463,9 +539,12 @@ const calculateTrickTotals = async (tricks, curData) => {
 			});
 
 		let chainTotal = chainMap.reduce((sum, b) => sum + b[1], 0);
-		let varietyScore = Object.keys(trickCount)
+
+		let uvScore = Object.keys(trickCount)
 			.map((key) => trickCount[key])
 			.reduce((sum, b) => sum + b.score, 0);
+		let varietyScore =
+			uvScore + varietyMap.map((arr) => arr[2]).reduce((sum, b) => sum + b, 0);
 		let totalScore =
 			chainTotal +
 			varietyScore +
@@ -475,6 +554,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 			totalScore,
 			executionAverage,
 			varietyScore,
+			varietyMap,
 			chains,
 			chainTotal,
 			chainMap,
