@@ -174,7 +174,11 @@ const Combodex: React.FC<CombodexProps> = ({
           setExecutionScore={setExecutionScore}
         />
       )}
-      <CombodexTrickDetails chainMap={sessionData?.chainMap} tricks={tricks} />
+      <CombodexTrickDetails
+        chainMap={sessionData?.chainMap}
+        varietyMap={sessionData?.varietyMap}
+        tricks={tricks}
+      />
       <div className="w-full p-2 text-center">
         <span className="text-zinc-400">Most Used: </span>
         <span className="text-zinc-200">{mostUsed[0]}</span>
@@ -254,7 +258,7 @@ export const DensityDisplay = ({ trickDensity, transitionDensity }) => {
   );
 };
 
-export const CombodexTrickDetails = ({ tricks, chainMap }) => {
+export const CombodexTrickDetails = ({ tricks, chainMap, varietyMap }) => {
   return (
     <div
       className={
@@ -334,16 +338,36 @@ export const CombodexTrickDetails = ({ tricks, chainMap }) => {
                   {chainMap.map((cm) =>
                     cm[0] === i ? (
                       <div className="flex gap-1">
-                        <div className={"text-[10px]"}>{cm[2].toFixed(2)}x</div>
+                        <div className={"text-[10px]"}>
+                          {cm[2].toFixed(2)}cx
+                        </div>
                         <div>{cm[1].toFixed(2)}</div>
                       </div>
                     ) : null
                   )}
                 </div>
                 <div>
-                  {chainMap.map((cm) =>
-                    cm[0] === i ? (tr.pointValue + cm[1]).toFixed(2) : null
+                  {varietyMap.map((vm) =>
+                    vm[0] === i ? (
+                      <div className="flex gap-1">
+                        <div className={"text-[10px]"}>
+                          {vm[1].toFixed(2)}vx
+                        </div>
+                        <div>{vm[2].toFixed(2)}</div>
+                      </div>
+                    ) : null
                   )}
+                </div>
+                <div>
+                  {(
+                    parseFloat(
+                      chainMap.map((cm) => (cm[0] === i ? cm[1] : 0))
+                    ) +
+                    tr.pointValue +
+                    parseFloat(
+                      varietyMap.map((vm) => (vm[0] === i ? vm[2] : 0))
+                    )
+                  ).toFixed(2)}
                 </div>
                 <div className="text-[8px]">{tr.type}</div>
               </div>
