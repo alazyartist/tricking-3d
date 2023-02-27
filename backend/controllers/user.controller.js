@@ -416,7 +416,11 @@ export const checkPassword = async (req, res) => {
 								{ expiresIn: "2min" }
 							);
 							const refreshToken = jwt.sign(
-								{ username: selectedUser.username, roles: "1000" },
+								{
+									username: selectedUser.username,
+									uuid: selectedUser.uuid,
+									roles: "1000",
+								},
 								process.env.REFRESH_TOKEN_SECRET,
 								{ expiresIn: "15days" }
 							);
