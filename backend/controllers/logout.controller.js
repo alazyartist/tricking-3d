@@ -20,6 +20,7 @@ const handleLogout = async (req, res) => {
 		return res.sendStatus(204);
 	}
 	//eat cookie
+	res.clearCookie("jwt", { httpOnly: true });
 	selectedUser.update({ refreshToken: "" });
 
 	res.status(204).json({ message: "LoggedOut" });
