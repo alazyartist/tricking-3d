@@ -7,6 +7,7 @@ import { prisma } from "../db/client";
 
 type CreateContextOptions = {
   session: Session | null;
+  user?: any;
 };
 
 /** Use this helper for:
@@ -14,8 +15,10 @@ type CreateContextOptions = {
  * - trpc's `createSSGHelpers` where we don't have req/res
  **/
 export const createContextInner = async (opts: CreateContextOptions) => {
+  // console.log("inner", opts.user);
   return {
     session: opts.session,
+    user: opts.user,
     prisma,
   };
 };
@@ -26,10 +29,18 @@ export const createContextInner = async (opts: CreateContextOptions) => {
  **/
 export const createContext = async (opts: CreateNextContextOptions) => {
   const { req, res } = opts;
+  if (req?.cookies?.jwt) {
+    const [h64, p64, s64] = req?.cookies?.jwt?.split(".");
+    const user = JSON.parse(atob(p64).toString());
+    const session = await getServerAuthSession({ req, res });
 
+    return await createContextInner({
+      session,
+      user,
+    });
+  }
   // Get the session from the server using the unstable_getServerSession wrapper function
   const session = await getServerAuthSession({ req, res });
-
   return await createContextInner({
     session,
   });

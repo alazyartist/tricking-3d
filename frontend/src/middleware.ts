@@ -22,28 +22,28 @@ export async function middleware(request: NextRequest) {
   //     alg: "HS256",
   //     k: secret,
   //   });
-    // try {
-    //   const isValid = await jwtVerify(cookie, publicKey, {
-    //     algorithms: [header.alg],
-    //     typ: "JWT",
-    //   });
-    //   console.log("isValid", isValid);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-    // console.log(cookie ? "loggedIn" : "NotLoggedIn");
-    // console.log("token", payload);
-    //   // Setting cookies on the response using the `ResponseCookies` API
-    //   const response = NextResponse.next()
-    //   response.cookies.set('vercel', 'fast')
-    //   response.cookies.set({
-    //     name: 'vercel',
-    //     value: 'fast',
-    //     path: '/test',
-    //   })
-    //   const cookie = response.cookies.get('vercel')
-    //   console.log(cookie) // => { name: 'vercel', value: 'fast', Path: '/test' }
-    //   // The outgoing response will have a `Set-Cookie:vercel=fast;path=/test` header.
-  }
+  // try {
+  //   const isValid = await jwtVerify(cookie, publicKey, {
+  //     algorithms: [header.alg],
+  //     typ: "JWT",
+  //   });
+  //   console.log("isValid", isValid);
+  // } catch (err) {
+  //   console.log(err);
+  // }
+  // console.log(cookie ? "loggedIn" : "NotLoggedIn");
+  // console.log("token", payload);
+  //   // Setting cookies on the response using the `ResponseCookies` API
+  //   const response = NextResponse.next()
+  //   response.cookies.set('vercel', 'fast')
+  //   response.cookies.set({
+  //     name: 'vercel',
+  //     value: 'fast',
+  //     path: '/test',
+  //   })
+  //   const cookie = response.cookies.get('vercel')
+  //   console.log(cookie) // => { name: 'vercel', value: 'fast', Path: '/test' }
+  //   // The outgoing response will have a `Set-Cookie:vercel=fast;path=/test` header.
+  // }
   return NextResponse.next();
 }
