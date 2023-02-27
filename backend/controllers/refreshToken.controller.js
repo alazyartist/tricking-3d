@@ -30,10 +30,26 @@ export const handleRefreshToken = async (req, res) => {
 				}
 
 				const accessToken = jwt.sign(
-					{ username: decoded.username },
+					{ username: decoded.username, uuid: selectedUser.uuid },
 					process.env.ACCESS_TOKEN_SECRET,
 					{ expiresIn: "2min" }
 				);
+				const refreshToken = jwt.sign(
+					{
+						username: selectedUser.username,
+						uuid: selectedUser.uuid,
+						roles: "1000",
+					},
+					process.env.REFRESH_TOKEN_SECRET,
+					{ expiresIn: "15days" }
+				);
+				selectedUser.update({ refreshToken });
+
+				res.cookie("jwt", refreshToken, {
+					httpOnly: true,
+					maxAge: 24 * 60 * 60 * 1000,
+				});
+
 				res.json({ accessToken });
 			}
 		);
