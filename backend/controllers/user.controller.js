@@ -407,9 +407,13 @@ export const checkPassword = async (req, res) => {
 						if (match) {
 							//JWT TOKENS HERE
 							const accessToken = jwt.sign(
-								{ username: selectedUser.username, roles: "1000" },
+								{
+									username: selectedUser.username,
+									uuid: selectedUser.uuid,
+									roles: "1000",
+								},
 								process.env.ACCESS_TOKEN_SECRET,
-								{ expiresIn: "12hr" }
+								{ expiresIn: "2min" }
 							);
 							const refreshToken = jwt.sign(
 								{ username: selectedUser.username, roles: "1000" },
