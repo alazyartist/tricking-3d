@@ -5,10 +5,12 @@ import { sessionsummariesRouter } from "./sessionsummaries";
 import { userRouter } from "./user";
 import { tricksRouter } from "./trick";
 import { transitionsRouter } from "./transitions";
+import { comboRouter } from "./combos";
 
 export const appRouter = router({
   auth: authRouter,
   userDB: userRouter,
+  combos: comboRouter,
   trick: tricksRouter,
   transition: transitionsRouter,
   sessionsummaries: sessionsummariesRouter,
