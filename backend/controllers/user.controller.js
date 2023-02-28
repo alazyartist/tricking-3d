@@ -217,6 +217,7 @@ export const findAll = async (req, res) => {
 				"email",
 				"profilePic",
 				"uuid",
+				"isAdmin",
 			],
 			include: [
 				{
