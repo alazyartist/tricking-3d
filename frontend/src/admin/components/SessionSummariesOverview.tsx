@@ -14,9 +14,9 @@ const SessionSummariesOverview = () => {
   console.log(sessions?.data);
   return (
     <div className="flex w-[90vw] flex-col place-items-center text-xs">
-      <div className=" w-full rounded-md bg-zinc-900 p-2 font-titan text-lg font-thin text-zinc-300">
+      <h1 className=" w-full rounded-md bg-zinc-900 p-2 font-titan text-lg font-thin text-zinc-300">
         Sessions in Queue
-      </div>
+      </h1>
       <div className=" no-scrollbar mt-2 flex h-[35vh] w-full flex-col overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70">
         {Array.isArray(sessions?.data) &&
         sessions?.data?.filter((s) => s.status !== "Reviewed").length ? (
@@ -25,14 +25,14 @@ const SessionSummariesOverview = () => {
             ?.map((s) => <SessionDisplay key={s.srcid} s={s} />)
         ) : (
           <div className="flex h-full w-full flex-col place-content-start place-items-center pt-10">
-            <div className="text-xl">Awesome.</div>
-            <div className="text-zinc-400">Nothing left to review!</div>
+            <h2 className="text-xl">Awesome.</h2>
+            <p className="text-zinc-400">Nothing left to review!</p>
           </div>
         )}
       </div>
-      <div className="mt-[2.5vh] w-full rounded-md bg-zinc-900 bg-opacity-70 p-2 font-titan text-lg font-thin text-zinc-300">
+      <h1 className="mt-[2.5vh] w-full rounded-md bg-zinc-900 bg-opacity-70 p-2 font-titan text-lg font-thin text-zinc-300">
         Reviewed
-      </div>
+      </h1>
       <div className="no-scrollbar mt-2 flex h-[35vh] w-full flex-col overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70">
         {Array.isArray(sessions?.data) &&
           sessions?.data
@@ -65,10 +65,10 @@ const SessionDisplay = ({ s }) => {
                 : `./noimg.jpeg`
             }
           />
-          <div>{s?.name}</div>
+          <p>{s?.name}</p>
         </div>
-        <div className="w-fit text-[8px] text-zinc-400">{s?.sessionDate}</div>
-        <div className="w-fit">{s?.type}</div>
+        <p className="w-fit text-[8px] text-zinc-400">{s?.sessionDate}</p>
+        <p className="w-fit">{s?.type}</p>
         <div className="flex w-full place-content-center place-items-center gap-2">
           <div>
             {s?.status === "In Queue" && (
@@ -84,12 +84,13 @@ const SessionDisplay = ({ s }) => {
         </div>
       </Link>
       <div>
-        <div
+        <button
+          type="button"
           onClick={() => setCaretOpen((prev) => !prev)}
-          className="flex place-content-center place-items-center font-titan text-xl text-zinc-500"
+          className="flex place-content-center place-items-center font-inter text-lg text-zinc-500"
         >
           v
-        </div>
+        </button>
         {caretOpen && (
           <OptionDropdown
             caretOpen={caretOpen}
