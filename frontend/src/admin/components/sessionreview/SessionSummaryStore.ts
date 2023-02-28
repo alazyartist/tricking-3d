@@ -46,6 +46,7 @@ interface SummaryStore {
   source: string;
   clipCombo: any[];
   setClipCombo: (value: any) => void;
+  setClipComboAppend: (value: any[]) => void;
   setClipComboRaw: (value: any) => void;
   removeClipfromCombo: (value: any) => void;
   clearClipCombo: () => void;
@@ -94,6 +95,8 @@ export const useSessionSummariesStore = create<SummaryStore>(
       clipCombo: [],
       setClipCombo: (value) =>
         set((s) => ({ clipCombo: [...s.clipCombo, value] })),
+      setClipComboAppend: (value) =>
+        set((s) => ({ clipCombo: [...s.clipCombo, ...value] })),
       setClipComboRaw: (value) => set((s) => ({ clipCombo: value })),
       removeClipfromCombo: (value) =>
         set((s) => ({
