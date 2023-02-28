@@ -82,7 +82,7 @@ const ActiveClipDisplay = () => {
       >
         Details
       </animated.span>
-      <div className="flex flex-col">
+      <div className="flex h-[60%] flex-col overflow-y-scroll">
         {sessionData?.map((e, i) => (
           <SessionDataDetailDislpay e={e} />
         ))}
@@ -97,6 +97,7 @@ const SessionDataDetailDislpay = ({ e }) => {
   const clipData = useSessionSummariesStore((s) => s.clipData);
   const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
   const setClipComboRaw = useSessionSummariesStore((s) => s.setClipComboRaw);
+  const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
   const setClipData = useSessionSummariesStore((s) => s.setClipData);
   const setSrcid = useSessionSummariesStore((s) => s.setSrcid);
   const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
@@ -116,8 +117,15 @@ const SessionDataDetailDislpay = ({ e }) => {
         className="over:bg-zinc-900 relative flex w-full place-content-center place-items-center justify-between whitespace-nowrap p-1"
         // transition delay-75 duration-[1400ms] ease-in-out hover:translate-x-[-100%] h
       >
-        <div className="no-scrollbar w-full overflow-y-scroll">{e.name}</div>
         <button
+          type="button"
+          onClick={() => setSeekTime(e.startTime)}
+          className="no-scrollbar w-full overflow-y-scroll"
+        >
+          {e.name}
+        </button>
+        <button
+          type={"button"}
           className="rounded-md bg-zinc-800 p-1"
           onClick={() => handleEdit()}
         >

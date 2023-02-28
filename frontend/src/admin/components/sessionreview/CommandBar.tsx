@@ -17,14 +17,16 @@ import {
   useSaveSessionDetails,
 } from "../../../api/useSessionSummaries";
 import { useUserStore } from "@store/userStore";
-
+import { trpc } from "../../../utils/trpc";
 const CommandBar = () => {
   const { data: tricks } = useGetTricks();
+  const { data: combos } = trpc.combos.getAll.useQuery();
   if (!tricks) return;
   return (
     <div className="fixed bottom-[0vh] left-[20vw] h-[8vh] w-[60vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:left-[20vw] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]">
       <Autocomplete
         tricks={tricks}
+        combos={combos}
         defaultActiveItemId="0"
         placeholder="/ to open cmdBar"
         openOnFocus={true}
@@ -52,7 +54,7 @@ const getQueryPattern = (query, flags = "i") => {
   return pattern;
 };
 const Autocomplete = (props: any) => {
-  const { tricks } = props;
+  const { tricks, combos } = props;
   const adminuuid = useUserStore((s) => s?.userInfo?.uuid);
   const { mutate: changeSessionStatus } = useChangeSessionStatus();
   const { mutate: saveSessionDetails } = useSaveSessionDetails();
@@ -69,6 +71,9 @@ const Autocomplete = (props: any) => {
   const setClipData = useSessionSummariesStore((s) => s.setClipData);
   const setSessionData = useSessionSummariesStore((s) => s.setSessionData);
   const setClipCombo = useSessionSummariesStore((s) => s.setClipCombo);
+  const setClipComboAppend = useSessionSummariesStore(
+    (s) => s.setClipComboAppend
+  );
   const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
   const trickMakerOpen = useSessionSummariesStore((s) => s.trickMakerOpen);
 
@@ -87,9 +92,9 @@ const Autocomplete = (props: any) => {
   const panelRootRef = useRef(null);
   const rootRef = useRef(null);
   const [count, setCount] = useState(0);
-  useEffect(() => {
-    console.log(sessionData);
-  }, [sessionData]);
+  // useEffect(() => {
+  //   console.log(sessionData);
+  // }, [sessionData]);
   const syncTime = useCallback(
     (time: number) => {
       setCurrentTime(time);
@@ -526,6 +531,70 @@ const Autocomplete = (props: any) => {
                 const { item, setQuery } = params;
                 console.log(item);
                 setClipCombo(item);
+                // item.onSelect(params);
+                setQuery("");
+              },
+            },
+            {
+              sourceId: "Combos",
+              templates: {
+                header() {
+                  return <p>Combos</p>;
+                },
+                item({ item }: any) {
+                  return (
+                    <span className="flex w-full justify-between">
+                      <p className="w-full p-2">
+                        {item.comboArray.map((t, i) => (
+                          <span>
+                            {t.name}
+                            {i !== item.comboArray.length - 1 && ">"}
+                          </span>
+                        ))}
+                      </p>
+                      {/* <p>{item?.shorthand}</p> */}
+                      {/* <span className="flex gap-2">
+                          <p className="text-2xs">{item.fromLeg}</p>
+                          <p className="text-2xs">{item.toLeg}</p>
+                        </span> */}
+                    </span>
+                  );
+                },
+              },
+              getItems: async () => {
+                const pattern = getQueryPattern(query);
+                await combos;
+                if (query.length > 0) {
+                  return combos
+                    .filter((t) => pattern.test(t.name))
+                    .sort((a, b) => {
+                      if (a.name.length < b.name.length) return -1;
+                      if (a.name.length > b.name.length) return 1;
+                      if (a.name > b.name) return 1;
+                      if (a.name < b.name) return -1;
+                      //check your filters
+                      //then check the length
+
+                      return 0;
+                    });
+                } else
+                  return combos
+                    .filter((t) => pattern.test(t.name))
+                    .sort((a, b) => {
+                      if (a.name > b.name) return 1;
+                      if (a.name < b.name) return -1;
+                      if (a.name.length < b.name.length) return -1;
+                      if (a.name.length > b.name.length) return 1;
+                      //check your filters
+                      //then check the length
+
+                      return 0;
+                    });
+              },
+              onSelect(params) {
+                const { item, setQuery } = params;
+                console.log(item);
+                setClipComboAppend(item?.comboArray as any[]);
                 // item.onSelect(params);
                 setQuery("");
               },
