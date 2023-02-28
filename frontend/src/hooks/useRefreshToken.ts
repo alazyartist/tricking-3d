@@ -21,8 +21,8 @@ const useRefreshToken = () => {
         return response.data.accessToken;
       })
       .catch((err) => {
-        setAccessToken(null);
-        logout();
+        // setAccessToken(null);
+        // logout();
         console.log("refreshErr", err);
       });
     return res;
