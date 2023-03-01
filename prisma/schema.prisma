@@ -210,6 +210,7 @@ model sessiondata {
   clipStart        String?  @db.VarChar(255)
   clipEnd          String?  @db.VarChar(255)
   admin            String?  @db.Char(36)
+  tricker_id          String?  @db.Char(36)
   createdAt        DateTime @default(now()) @db.DateTime(0)
   updatedAt        DateTime @default(now()) @db.DateTime(0)
   bail             Int?
@@ -222,6 +223,7 @@ model sessiondata {
   chainMap Json? 
   varietyMap Json? 
   trickCount Json? 
+  tricker users? @relation(fields: [tricker_id],references: [uuid])
 }
 
 model sessiondatascores {
@@ -390,6 +392,7 @@ model users {
   executionScores      sessiondatascores[]
   SessionSummaries     user_sessions[]
   sessionSummaries     sessionsummaries[]
+  Clips sessiondata[]
 
   @@index([uuid])
 }
