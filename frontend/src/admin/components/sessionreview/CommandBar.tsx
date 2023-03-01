@@ -566,7 +566,7 @@ const Autocomplete = (props: any) => {
                 await combos;
                 if (query.length > 0) {
                   return combos
-                    .filter((t) => pattern.test(t.name))
+                    ?.filter((t) => pattern.test(t.name))
                     .sort((a, b) => {
                       if (a.name.length < b.name.length) return -1;
                       if (a.name.length > b.name.length) return 1;

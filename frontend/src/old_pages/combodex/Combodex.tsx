@@ -89,11 +89,13 @@ const Combodex: React.FC<CombodexProps> = ({
     }
   }, [localTotalScore]);
 
-  let mostUsed = Object.keys(sessionData?.trickCount)?.sort((a, b) =>
-    sessionData?.trickCount[a]?.count > sessionData?.trickCount[b]?.count
-      ? -1
-      : 1
-  );
+  let mostUsed = Object.keys(sessionData?.trickCount)
+    ?.filter((key) => sessionData?.trickCount[key].count > 1)
+    .sort((a, b) =>
+      sessionData?.trickCount[a]?.count > sessionData?.trickCount[b]?.count
+        ? -1
+        : 1
+    );
   let trickDensity =
     combo.comboArray
       .filter((t) => t.type === "Trick")
@@ -179,10 +181,16 @@ const Combodex: React.FC<CombodexProps> = ({
         varietyMap={sessionData?.varietyMap}
         tricks={tricks}
       />
-      <div className="w-full p-2 text-center">
-        <span className="text-zinc-400">Most Used: </span>
-        <span className="text-zinc-200">{mostUsed[0]}</span>
-      </div>
+      {mostUsed?.length > 0 ? (
+        <div className="w-full p-2 text-center">
+          <span className="text-zinc-400">Most Used: </span>
+          <span className="text-zinc-200">{mostUsed[0]}</span>
+        </div>
+      ) : (
+        <div className="w-full p-2 text-center">
+          <span className="text-zinc-200">No Repeats!! </span>
+        </div>
+      )}
       <div className="text-center">
         A <span className="font-bold">{combo.comboArray.length}</span>
         {" hit combo with "}
@@ -267,17 +275,15 @@ export const CombodexTrickDetails = ({ tricks, chainMap, varietyMap }) => {
     >
       {tricks &&
         tricks.map((tr, i) => {
-          // if (tr.type === "Transition") {
-          //   return (
-          //     <div className="flex flex-col place-items-center gap-1 whitespace-nowrap rounded-md bg-zinc-200 bg-opacity-20 p-1">
-          //       <div>{tr.name}</div>
-          //       <div className="outlineButton flex w-full justify-between gap-2 whitespace-nowrap border-teal-300">
-          //         <div>{tr.name}</div>
-          //         <div>{tr.pointValue}</div>
-          //       </div>
-          //     </div>
-          //   );
-          // } else if (tr.type === "Trick") {
+          let bonusTotal = (
+            parseFloat(
+              chainMap?.map((cm) => (cm[0] === i ? cm[1] : "0"))[0] || 0
+            ) +
+            tr.pointValue +
+            parseFloat(
+              varietyMap?.map((vm) => (vm[0] === i ? vm[2] : "0"))[0] || 0
+            )
+          ).toFixed(2);
           return (
             <div
               className={`flex h-full flex-col place-items-center justify-between gap-1 whitespace-nowrap rounded-md bg-opacity-20 p-1 ${
@@ -358,17 +364,7 @@ export const CombodexTrickDetails = ({ tricks, chainMap, varietyMap }) => {
                     ) : null
                   )}
                 </div>
-                <div>
-                  {(
-                    parseFloat(
-                      chainMap.map((cm) => (cm[0] === i ? cm[1] : 0))
-                    ) +
-                    tr.pointValue +
-                    parseFloat(
-                      varietyMap.map((vm) => (vm[0] === i ? vm[2] : 0))
-                    )
-                  ).toFixed(2)}
-                </div>
+                <div>{bonusTotal}</div>
                 <div className="text-[8px]">{tr.type}</div>
               </div>
             </div>
