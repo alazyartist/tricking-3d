@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
-		static associate({ SessionSummaries, SessionSources, Combo }) {
+		static associate({ SessionSummaries, SessionSources, Combo, Users }) {
 			// define association here
 			this.belongsTo(SessionSources, {
 				foreignKey: "srcid",
@@ -29,6 +29,13 @@ module.exports = (sequelize) => {
 				targetKey: "combo_id",
 				constraints: false,
 			});
+			this.hasOne(Users, {
+				as: "tricker",
+				foreignKey: "uuid",
+				sourceKey: "tricker_id",
+				targetKey: "uuid",
+				constraints: false,
+			});
 		}
 	}
 	SessionData.init(
@@ -37,6 +44,7 @@ module.exports = (sequelize) => {
 			srcid: DataTypes.UUID,
 			sessionid: DataTypes.UUID,
 			clipLabel: DataTypes.UUID,
+			tricker_id: DataTypes.UUID,
 			clipStart: DataTypes.STRING,
 			clipEnd: DataTypes.STRING,
 			admin: DataTypes.UUID,

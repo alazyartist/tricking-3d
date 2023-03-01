@@ -15,17 +15,27 @@ const UpdateComboShorthand = ({ combo, setShorthandOpen }) => {
 
   return (
     <>
-      <div className="absolute top-0 left-0 flex h-full w-full place-content-center place-items-center bg-zinc-900 bg-opacity-90">
+      <MdClose
+        onClick={() => setShorthandOpen((prev) => !prev)}
+        className={"absolute top-5 right-5 z-[2] text-2xl"}
+      />
+      <div className="absolute top-0 left-0 flex h-full w-full flex-col place-content-center place-items-center bg-zinc-900 bg-opacity-90">
         <div
           className={
             "flex max-w-[90vw] flex-col place-content-center place-items-center gap-2"
           }
         >
           <h1 className="text-xs md:text-lg">
-            <div>{combo.ClipLabel.name.slice(0, 40)}</div>
-            <div>{combo.ClipLabel.name.slice(40, 80)}</div>
-            <div>{combo.ClipLabel.name.slice(80, 120)}</div>
-            <div>{combo.ClipLabel.name.slice(90, 120)}</div>
+            <div className="flex w-full flex-wrap gap-1 p-2">
+              {combo.ClipLabel.comboArray.map((item, i) => (
+                <>
+                  <span>{item.name}</span>
+                  {i !== combo.ClipLabel.comboArray.length - 1 && (
+                    <span>{">"}</span>
+                  )}
+                </>
+              ))}
+            </div>
           </h1>
           <form
             onSubmit={handleSubmit}
@@ -43,11 +53,8 @@ const UpdateComboShorthand = ({ combo, setShorthandOpen }) => {
             </button>
           </form>
         </div>
+        <div className="h-40 w-full">Testing</div>
       </div>
-      <MdClose
-        onClick={() => setShorthandOpen((prev) => !prev)}
-        className={"absolute top-5 right-5 text-2xl"}
-      />
     </>
   );
 };

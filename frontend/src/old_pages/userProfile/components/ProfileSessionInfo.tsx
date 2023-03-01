@@ -121,6 +121,7 @@ const DataDetails = ({
     setSeekTime(parseInt(d.clipStart));
     setLoopMe(true);
   };
+  console.log(d);
   return (
     <>
       <div className="flex w-full flex-col place-items-center justify-between rounded-md bg-zinc-900 bg-opacity-90 p-1 text-sm text-zinc-300 md:text-inherit">

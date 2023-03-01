@@ -136,6 +136,7 @@ export const getUserInfoByUUID = async (req, res) => {
 								include: [
 									{ model: db.sequelize.models.Combo, as: "ClipLabel" },
 									{ model: db.sequelize.models.SessionSources },
+									{ model: db.sequelize.models.Users, as: "tricker" },
 								],
 							},
 							{ model: db.sequelize.models.SessionSources },
