@@ -5,14 +5,20 @@ import { MdInfoOutline } from "@data/icons/MdIcons";
 import Combodex from "@old_pages/combodex/Combodex";
 import useIsAdmin from "hooks/useIsAdmin";
 import React, { useEffect, useState } from "react";
+import { AiOutlineFullscreen } from "react-icons/ai";
 import { FaCheck } from "react-icons/fa";
 import { IoIosWalk } from "react-icons/io";
 import { trpc } from "utils/trpc";
 
-const ProfileSessionInfo = ({ summary }) => {
+const ProfileSessionInfo = ({ summary, setFullScreenLower }) => {
   const isAdmin = useIsAdmin();
   const [editShorthand, setEditShorthand] = useState(false);
   const [showTrickLongform, setShowTrickLongform] = useState(false);
+  const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
+  const handleResize = () => {
+    setVidsrc(null);
+    setFullScreenLower((p) => !p);
+  };
   return (
     <div className=" ">
       <div className="flex justify-between gap-2">
@@ -40,6 +46,12 @@ const ProfileSessionInfo = ({ summary }) => {
           show <br />
           {showTrickLongform ? "shorthand" : "fullname"}
         </div>
+        <div
+          onClick={() => handleResize()}
+          className={`flex place-items-center p-1 text-center text-xl leading-none`}
+        >
+          <AiOutlineFullscreen />
+        </div>
       </div>
       <div className="mt-2  flex h-full w-full flex-col gap-1">
         {summary?.SessionData.sort((a, b) => {
@@ -55,6 +67,7 @@ const ProfileSessionInfo = ({ summary }) => {
           return 0;
         }).map((d) => (
           <DataDetails
+            setFullScreenLower={setFullScreenLower}
             showTrickLongForm={showTrickLongform}
             editShorthand={editShorthand}
             key={d.id}
@@ -68,7 +81,12 @@ const ProfileSessionInfo = ({ summary }) => {
 
 export default ProfileSessionInfo;
 
-const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
+const DataDetails = ({
+  setFullScreenLower,
+  d,
+  editShorthand,
+  showTrickLongForm,
+}) => {
   // console.log(d);
   const currentTime = useSessionSummariesStore((s) => s.currentTime);
   const setShorthand = useSessionSummariesStore((s) => s.setShorthand);
@@ -96,6 +114,7 @@ const DataDetails = ({ d, editShorthand, showTrickLongForm }) => {
     }
   }, [currentTime, d]);
   const handleClick = () => {
+    setFullScreenLower(false);
     clearClipCombo();
     setVidsrc(d.SessionSource.vidsrc);
     setClipComboRaw(d.ClipLabel.comboArray);

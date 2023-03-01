@@ -38,6 +38,7 @@ const UserProfile = () => {
       setActiveSummary(tempSummary);
     }
   }, [router, profileInfo]);
+  const [fullScreenLower, setFullScreenLower] = useState(false);
   const editView = useTransition(editing, {
     from: { top: -400, opacity: 0 },
     enter: { top: 0, opacity: 100 },
@@ -54,13 +55,29 @@ const UserProfile = () => {
     exitBeforeEnter: true,
   });
   const resizeUpper = useSpring({
-    to: { height: hidden ? (!activeSummary ? "73vh" : "45vh") : "27vh" },
+    to: {
+      height: hidden
+        ? !activeSummary
+          ? "73vh"
+          : fullScreenLower
+          ? "5vh"
+          : "43vh"
+        : "27vh",
+    },
     from: { height: "27vh" },
     config: { durration: 100, tension: 260, friction: 50 },
     exitBeforeEnter: true,
   });
   const resizeLower = useSpring({
-    to: { height: hidden ? (!activeSummary ? "13vh" : "45vh") : "27vh" },
+    to: {
+      height: hidden
+        ? !activeSummary
+          ? "13vh"
+          : fullScreenLower
+          ? "90vh"
+          : "45vh"
+        : "27vh",
+    },
     from: { height: "27vh" },
     config: { durration: 100, tension: 260, friction: 50 },
     exitBeforeEnter: true,
@@ -176,7 +193,10 @@ const UserProfile = () => {
                   >
                     Selected Session Breakdown
                   </div> */}
-                  <ProfileSessionInfo summary={activeSummary} />
+                  <ProfileSessionInfo
+                    setFullScreenLower={setFullScreenLower}
+                    summary={activeSummary}
+                  />
                 </>
               ) : (
                 <h1 className="h-full w-full p-2 text-center text-2xl font-bold text-zinc-300">
