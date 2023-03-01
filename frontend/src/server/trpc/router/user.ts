@@ -49,4 +49,19 @@ export const userRouter = router({
         ],
       };
     }),
+  createTempUser: protectedProcedure
+    .input(
+      z.object({
+        email: z.string(),
+        first_name: z.string(),
+        last_name: z.string(),
+        username: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      console.log("input", input);
+      const tempUser = await ctx.prisma.users.create({ data: { ...input } });
+      console.log(tempUser);
+      return tempUser;
+    }),
 });

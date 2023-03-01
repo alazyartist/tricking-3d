@@ -376,10 +376,10 @@ model users {
   email                String?             @unique(map: "email") @db.VarChar(255)
   password             String?             @db.VarChar(255)
   refresh_token        String?             @db.VarChar(255)
-  uuid                 String?             @unique @db.Char(36)
+  uuid                 String?             @unique @db.Char(36) @default(uuid())
   profilePic           String?             @db.VarChar(255)
   createdAt            DateTime            @default(now()) @db.DateTime(0)
-  updatedAt            DateTime            @db.DateTime(0)
+  updatedAt            DateTime            @db.DateTime(0) @default(now())
   deletedAt            DateTime?           @db.DateTime(0)
   isAdmin              Boolean?
   adminAccess          Int?
