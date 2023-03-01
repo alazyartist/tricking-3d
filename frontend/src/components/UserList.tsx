@@ -21,7 +21,7 @@ const UserList = () => {
               <Link
                 key={user.uuid}
                 href={`/userProfile/${user.uuid}`}
-                className="flex justify-between rounded-md bg-zinc-900 p-1"
+                className="flex justify-between rounded-md bg-zinc-900 p-1 text-zinc-300"
               >
                 <div
                   style={{
