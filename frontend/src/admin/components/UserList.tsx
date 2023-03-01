@@ -39,15 +39,15 @@ const UserList = () => {
                     }
                     alt={"profilePic"}
                     className={`h-5 w-5 rounded-full ${
+                      user.isAdmin ? "border-[1px] border-amber-500" : ""
+                    } ${
                       !user.profilePic ? " mix-blend-multiply contrast-150" : ""
                     }`}
                   />
                 </div>
                 <div className="flex w-full place-content-start  place-items-center gap-2 ">
-                  {user.isAdmin && (
-                    <MdCheckCircle className="text-sm text-emerald-500" />
-                  )}
                   {user.username}
+                  {user.isAdmin && <p className="text-amber-500">&#42;</p>}
                 </div>
                 <div className="flex place-items-center">
                   {user.first_name} {user.last_name}
