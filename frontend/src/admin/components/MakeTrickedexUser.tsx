@@ -32,25 +32,31 @@ const MakeTrickedexUser: React.FC<{ userColor: string }> = ({ userColor }) => {
     newUser.instaName === "" ||
     newUser.firstName === "" ||
     newUser.lastName === "";
+  const infoVisible =
+    newUser.instaName === "" &&
+    newUser.firstName === "" &&
+    newUser.lastName === "";
   const [open, setOpen] = useState(false);
   return (
     <div className="flex w-full flex-col place-items-center rounded-md p-4">
-      <div
+      <button
+        type="button"
         onClick={() => setOpen((o) => !o)}
-        className="text-md w-full rounded-md bg-zinc-900 bg-opacity-70 p-4"
+        className="text-md z-[5] flex w-full place-content-start rounded-md bg-zinc-900 bg-opacity-70 p-4"
       >
-        MakeTrickedexUser
-      </div>
+        Make Trickedex User
+      </button>
       {open && (
         <>
+          <div className="absolute top-0 left-0 h-screen w-screen bg-zinc-900 bg-opacity-30 backdrop-blur-md"></div>
           <form
             onSubmit={handleSubmit}
-            className="w-[80%] bg-zinc-900 bg-opacity-40 p-4"
+            className="z-[5] w-[95%] bg-zinc-900 bg-opacity-40 p-4"
           >
             <label className="flex flex-col text-xs" htmlFor="instaName">
-              {"InstaName"}
+              {"Instagram Handle"}
               <input
-                placeholder=""
+                placeholder="@username"
                 onChange={(e) =>
                   setNewUser((prev: UserShape) => ({
                     ...prev,
@@ -108,8 +114,14 @@ const MakeTrickedexUser: React.FC<{ userColor: string }> = ({ userColor }) => {
               style={{ backgroundColor: userColor }}
               className="absolute top-4 left-4 h-4 w-4 rounded-md"
             ></div>
-            <p>{newUser.instaName + "@trickedex.app"}</p>
-            <p>{newUser.firstName + " " + newUser.lastName}</p>
+            {infoVisible ? (
+              <p>Add User Details Below</p>
+            ) : (
+              <>
+                <p>{newUser.instaName + "@trickedex.app"}</p>
+                <p>{newUser.firstName + " " + newUser.lastName}</p>
+              </>
+            )}
           </div>
         </>
       )}

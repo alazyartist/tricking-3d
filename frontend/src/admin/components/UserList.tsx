@@ -10,12 +10,12 @@ const UserList = () => {
     console.log(allUsers);
   }, [allUsers]);
   const newUserColor = d3.interpolateRainbow(
-    (allUsers.length % 15) / allUsers.length + 1
+    (allUsers?.length % 15) / (allUsers?.length + 1)
   );
   return (
     <>
       <div className="no-scrollbar  w-full p-4">
-        <div>UserList</div>
+        <div className="p-2">UserList</div>
         <div className="no-scrollbar flex h-[40vh] w-full flex-col gap-2 overflow-scroll rounded-md bg-zinc-900 bg-opacity-70 p-2">
           {Array.isArray(allUsers) &&
             allUsers?.map((user, i) => (
