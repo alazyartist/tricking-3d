@@ -97,4 +97,12 @@ export const sessionsummariesRouter = router({
       });
       return deletedSummary;
     }),
+  deleteSessionDataById: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const deletedData = await ctx.prisma.sessiondata.delete({
+        where: { id: input.id },
+      });
+      return deletedData;
+    }),
 });

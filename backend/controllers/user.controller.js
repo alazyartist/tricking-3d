@@ -140,6 +140,19 @@ export const getUserInfoByUUID = async (req, res) => {
 								],
 							},
 							{ model: db.sequelize.models.SessionSources },
+							{
+								model: db.sequelize.models.Users,
+								as: "trickers",
+								through: { attributes: [] },
+								attributes: {
+									exclude: [
+										"password",
+										"deletedAt",
+										"refreshToken",
+										"createdAt",
+									],
+								},
+							},
 						],
 					},
 					{

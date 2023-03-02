@@ -67,6 +67,7 @@ const ProfileSessionInfo = ({ summary, setFullScreenLower }) => {
           return 0;
         }).map((d) => (
           <DataDetails
+            summary={summary}
             setFullScreenLower={setFullScreenLower}
             showTrickLongForm={showTrickLongform}
             editShorthand={editShorthand}
@@ -84,6 +85,7 @@ export default ProfileSessionInfo;
 const DataDetails = ({
   setFullScreenLower,
   d,
+  summary,
   editShorthand,
   showTrickLongForm,
 }) => {
@@ -194,7 +196,11 @@ const DataDetails = ({
         )}
       </div>
       {shorthandOpen && (
-        <UpdateComboShorthand setShorthandOpen={setShorthandOpen} combo={d} />
+        <UpdateComboShorthand
+          setShorthandOpen={setShorthandOpen}
+          sessiondata={d}
+          summary={summary}
+        />
       )}
     </>
   );

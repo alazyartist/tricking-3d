@@ -2,16 +2,18 @@ import { MdClose } from "@data/icons/MdIcons";
 import { useUpdateComboShorthand } from "api/useGetCombos";
 import React, { useState } from "react";
 import { FaArrowUp } from "react-icons/fa";
+import { trpc } from "utils/trpc";
 
-const UpdateComboShorthand = ({ combo, setShorthandOpen }) => {
+const UpdateComboShorthand = ({ sessiondata, setShorthandOpen, summary }) => {
   const { data: comboShorthand, mutate: updateShorthand } =
     useUpdateComboShorthand();
   const [shorthand, setShorthand] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
-    updateShorthand({ combo_id: combo.ClipLabel.combo_id, shorthand });
+    updateShorthand({ combo_id: sessiondata.ClipLabel.combo_id, shorthand });
     setShorthandOpen((prev) => !prev);
   };
+  console.log("summary", summary);
 
   return (
     <>
@@ -27,10 +29,10 @@ const UpdateComboShorthand = ({ combo, setShorthandOpen }) => {
         >
           <h1 className="text-xs md:text-lg">
             <div className="flex w-full flex-wrap gap-1 p-2">
-              {combo.ClipLabel.comboArray.map((item, i) => (
+              {sessiondata.ClipLabel.comboArray.map((item, i) => (
                 <div key={i + item.name}>
                   <span>{item.name}</span>
-                  {i !== combo.ClipLabel.comboArray.length - 1 && (
+                  {i !== sessiondata.ClipLabel.comboArray.length - 1 && (
                     <span>{">"}</span>
                   )}
                 </div>
@@ -54,9 +56,53 @@ const UpdateComboShorthand = ({ combo, setShorthandOpen }) => {
           </form>
         </div>
         <div className="h-40 w-full">Testing</div>
+        <DeleteSessionDataButton sessiondata={sessiondata} />
       </div>
     </>
   );
 };
 
 export default UpdateComboShorthand;
+
+const DeleteSessionDataButton = ({ sessiondata }) => {
+  console.log(sessiondata);
+  const { mutateAsync: deleteSessionData, isSuccess } =
+    trpc.sessionsummaries.deleteSessionDataById.useMutation();
+  const handleDelete = () => {
+    if (!!deleteCheck) {
+      deleteSessionData({ id: sessiondata.id });
+    }
+  };
+  const [deleteCheck, setDeleteCheck] = useState(false);
+
+  return (
+    <>
+      {deleteCheck ? (
+        <div className="m-4 flex gap-2">
+          <button
+            onClick={() => handleDelete()}
+            className="rounded-md bg-red-200 px-2 text-red-800"
+            type="button"
+          >
+            Delete
+          </button>
+          <button
+            onClick={() => setDeleteCheck(false)}
+            className="rounded-md bg-emerald-200 px-2 text-emerald-800"
+            type="button"
+          >
+            Just kidding.
+          </button>
+        </div>
+      ) : (
+        <button
+          className="m-4 place-self-end rounded-md bg-red-200 px-2 text-red-800"
+          onClick={() => setDeleteCheck(true)}
+          type="button"
+        >
+          Delete
+        </button>
+      )}
+    </>
+  );
+};

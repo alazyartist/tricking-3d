@@ -27,6 +27,14 @@ module.exports = (sequelize) => {
 				targetKey: "sessionid",
 				constraints: false,
 			});
+			this.belongsToMany(Users, {
+				as: "trickers",
+				through: "User_Sessions",
+				foreignKey: "sessionid",
+				sourceKey: "sessionid",
+				otherKey: "user_id",
+				targetKey: "uuid",
+			});
 		}
 	}
 	SessionSummaries.init(

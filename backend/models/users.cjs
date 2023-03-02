@@ -26,6 +26,14 @@ module.exports = (sequelize) => {
 				targetKey: "user_id",
 				constraints: false,
 			});
+			this.belongsToMany(SessionSummaries, {
+				as: "sessionSummaries",
+				through: "User_Sessions",
+				foreignKey: "user_id",
+				sourceKey: "uuid",
+				otherKey: "sessionid",
+				targetKey: "sessionid",
+			});
 			// define association here
 			this.belongsToMany(Users, {
 				through: Captures,

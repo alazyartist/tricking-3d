@@ -390,8 +390,8 @@ model users {
   captures             captures[]          @relation("captures_user_idTousers")
   captured_me          captures[]          @relation("captures_captured_idTousers")
   executionScores      sessiondatascores[]
-  SessionSummaries     user_sessions[]
-  sessionSummaries     sessionsummaries[]
+  sessionSummaries     user_sessions[]
+  SessionSummaries     sessionsummaries[]
   Clips sessiondata[]
 
   @@index([uuid])
