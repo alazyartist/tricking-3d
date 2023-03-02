@@ -8,6 +8,7 @@ import {
 import useUserInfoByUUID from "../../api/useUserInfoById";
 import useClickOutside from "hooks/useClickOutside";
 import { trpc } from "utils/trpc";
+import * as d3 from "d3";
 
 const SessionSummariesOverview = () => {
   const { data: sessions, isFetched } = useGetAllSessions();
@@ -47,6 +48,8 @@ export default SessionSummariesOverview;
 
 const SessionDisplay = ({ s }) => {
   const { data: u } = useUserInfoByUUID(s.user_id);
+  const { data: users } = trpc.userDB.findAll.useQuery();
+
   const [caretOpen, setCaretOpen] = useState(false);
 
   return (
@@ -56,7 +59,7 @@ const SessionDisplay = ({ s }) => {
         className=" col-span-5 grid w-full grid-cols-5 place-content-center place-items-center justify-between gap-2 rounded-md p-1 text-[10px] "
       >
         <div className="col-span-2 flex w-full place-items-center gap-1">
-          <img
+          {/* <img
             alt={"userProfile image"}
             className="h-6 w-6 rounded-full"
             src={
@@ -64,10 +67,37 @@ const SessionDisplay = ({ s }) => {
                 ? `/images/${u?.uuid}/${u?.profilePic}`
                 : `./noimg.jpeg`
             }
-          />
+          /> */}
+          <div
+            key={u?.uuid}
+            className="flex flex-col place-items-center
+            "
+          >
+            <div
+              style={{
+                backgroundColor: d3.interpolateRainbow(u?.id / users?.length),
+              }}
+              className={`relative h-5 w-5 rounded-full`}
+            >
+              <img
+                src={
+                  !u?.profilePic
+                    ? `/images/noimg.jpeg`
+                    : `/images/${u?.uuid}/${u?.profilePic}`
+                }
+                alt={"profilePic"}
+                className={`h-5 w-5 rounded-full ${
+                  !u?.profilePic ? " mix-blend-multiply contrast-150" : ""
+                }`}
+              />
+            </div>
+          </div>
           <p>{s?.name}</p>
         </div>
-        <p className="w-fit text-[8px] text-zinc-400">{s?.sessionDate}</p>
+        <div>
+          <p className="text-[8px]">{u?.username}</p>
+          <p className="w-fit text-[8px] text-zinc-400">{s?.sessionDate}</p>
+        </div>
         <p className="w-fit">{s?.type}</p>
         <div className="flex w-full place-content-center place-items-center gap-2">
           <div>
@@ -93,6 +123,7 @@ const SessionDisplay = ({ s }) => {
         </button>
         {caretOpen && (
           <OptionDropdown
+            users={users}
             caretOpen={caretOpen}
             s={s}
             setCaretOpen={setCaretOpen}
@@ -103,10 +134,11 @@ const SessionDisplay = ({ s }) => {
   );
 };
 
-export const OptionDropdown = ({ caretOpen, setCaretOpen, s }) => {
+export const OptionDropdown = ({ caretOpen, setCaretOpen, s, users }) => {
   const ref = useRef();
   const [deleteCheck, setDeleteCheck] = useState(false);
   const [changeStatusOpen, setChangeStatusOpen] = useState(false);
+  const [switchUserOpen, setSwitchUserOpen] = useState(false);
   const { mutateAsync: changeStatus } = useChangeSessionStatusById(s.sessionid);
   const { mutateAsync: deleteSessionSummary } =
     trpc.sessionsummaries.deleteSessionSummaryById.useMutation();
@@ -136,7 +168,7 @@ export const OptionDropdown = ({ caretOpen, setCaretOpen, s }) => {
   return (
     <div
       ref={ref}
-      className="absolute top-[12] right-7 rounded-md rounded-tr-none bg-zinc-200 p-2 text-xs text-zinc-800"
+      className="absolute top-[12] right-7 max-h-[200px] max-w-[85vw] overflow-hidden overflow-y-scroll rounded-md rounded-tr-none bg-zinc-200 p-2 text-xs text-zinc-800"
     >
       {changeStatusOpen && (
         <div className="grid grid-cols-3 gap-6 p-2">
@@ -184,8 +216,25 @@ export const OptionDropdown = ({ caretOpen, setCaretOpen, s }) => {
           </div>
         </>
       )}
-      {!deleteCheck && !changeStatusOpen && (
+      {switchUserOpen && (
+        <SwitchUsers
+          users={users}
+          setCaretOpen={setCaretOpen}
+          setSwitchUserOpen={setSwitchUserOpen}
+          s={s}
+        />
+      )}
+      {!deleteCheck && !changeStatusOpen && !switchUserOpen && (
         <>
+          <div
+            onClick={() => {
+              console.log("change", s);
+              setSwitchUserOpen(true);
+            }}
+            className="rounded-md bg-sky-100 p-1 text-sky-900"
+          >
+            Switch User
+          </div>
           <div
             onClick={() => {
               console.log("change", s);
@@ -206,6 +255,54 @@ export const OptionDropdown = ({ caretOpen, setCaretOpen, s }) => {
           </div>
         </>
       )}
+    </div>
+  );
+};
+
+const SwitchUsers = ({ s, setSwitchUserOpen, setCaretOpen, users }) => {
+  // const { data: users } = trpc.userDB.findAll.useQuery();
+  const { mutateAsync: switchUser } =
+    trpc.sessionsummaries.updateSessionSummaryOwner.useMutation();
+  const handleSwitch = (user) => {
+    switchUser({ sessionid: s.sessionid, user_id: user.uuid });
+    setSwitchUserOpen(false);
+    setCaretOpen(false);
+  };
+  return (
+    <div className="grid grid-cols-4 gap-4">
+      {users?.length &&
+        users?.map((user) => {
+          return (
+            <div
+              key={user?.uuid}
+              onClick={() => handleSwitch(user)}
+              className="flex flex-col place-items-center
+            "
+            >
+              <div
+                style={{
+                  backgroundColor: d3.interpolateRainbow(
+                    user?.id / users.length
+                  ),
+                }}
+                className={`relative h-5 w-5 rounded-full`}
+              >
+                <img
+                  src={
+                    !user?.profilePic
+                      ? `/images/noimg.jpeg`
+                      : `/images/${user?.uuid}/${user?.profilePic}`
+                  }
+                  alt={"profilePic"}
+                  className={`h-5 w-5 rounded-full ${
+                    !user?.profilePic ? " mix-blend-multiply contrast-150" : ""
+                  }`}
+                />
+              </div>
+              <p className="text-xs">{user.username}</p>
+            </div>
+          );
+        })}
     </div>
   );
 };

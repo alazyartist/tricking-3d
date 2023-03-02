@@ -115,4 +115,13 @@ export const sessionsummariesRouter = router({
       });
       return updatedData;
     }),
+  updateSessionSummaryOwner: publicProcedure
+    .input(z.object({ user_id: z.string(), sessionid: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const updatedData = await ctx.prisma.sessionsummaries.update({
+        where: { sessionid: input.sessionid },
+        data: { user_id: input.user_id },
+      });
+      return updatedData;
+    }),
 });
