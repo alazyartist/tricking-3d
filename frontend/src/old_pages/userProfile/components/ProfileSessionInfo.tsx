@@ -12,7 +12,7 @@ import { trpc } from "utils/trpc";
 
 const ProfileSessionInfo = ({ summary, setFullScreenLower }) => {
   const isAdmin = useIsAdmin();
-  const [editShorthand, setEditShorthand] = useState(false);
+  const [adminMode, setAdminMode] = useState(false);
   const [showTrickLongform, setShowTrickLongform] = useState(false);
   const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
   const handleResize = () => {
@@ -25,16 +25,15 @@ const ProfileSessionInfo = ({ summary, setFullScreenLower }) => {
         <div
           onClick={() => {
             if (isAdmin === true) {
-              setEditShorthand(!editShorthand);
+              setFullScreenLower((p) => !p);
+              setAdminMode(!adminMode);
             }
           }}
           className="sticky top-0 flex w-fit place-items-center gap-2 rounded-md p-2 text-xl"
         >
           {summary?.name}
-          {editShorthand && (
-            <span className="text-[12px] text-purple-500">
-              Editing Shorthand
-            </span>
+          {adminMode && (
+            <span className="text-[12px] text-purple-500">Admin Mode</span>
           )}
         </div>
         <div
@@ -70,7 +69,7 @@ const ProfileSessionInfo = ({ summary, setFullScreenLower }) => {
             summary={summary}
             setFullScreenLower={setFullScreenLower}
             showTrickLongForm={showTrickLongform}
-            editShorthand={editShorthand}
+            editShorthand={adminMode}
             key={d.id}
             d={d}
           />

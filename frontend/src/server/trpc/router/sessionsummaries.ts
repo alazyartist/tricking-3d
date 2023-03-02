@@ -111,6 +111,7 @@ export const sessionsummariesRouter = router({
       const updatedData = await ctx.prisma.sessiondata.update({
         where: { id: input.sessiondataid },
         data: { tricker_id: input.tricker_id },
+        include: { tricker: true },
       });
       return updatedData;
     }),

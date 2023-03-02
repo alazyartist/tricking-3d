@@ -15,7 +15,8 @@ const UpdateComboShorthand = ({ sessiondata, setShorthandOpen, summary }) => {
     setShorthandOpen((prev) => !prev);
   };
   console.log("summary", summary);
-
+  const { mutateAsync: updateTricker, data: updatedTricker } =
+    trpc.sessionsummaries.updateSessionDataTricker.useMutation();
   return (
     <>
       <MdClose
@@ -28,6 +29,10 @@ const UpdateComboShorthand = ({ sessiondata, setShorthandOpen, summary }) => {
             "mt-6 flex max-w-[90vw] flex-col place-content-center place-items-center gap-2"
           }
         >
+          <h1>
+            {updatedTricker?.tricker?.username ||
+              sessiondata?.tricker?.username}
+          </h1>
           <h1 className="text-xs md:text-lg">
             <div className="flex w-full flex-wrap gap-1 p-2">
               {sessiondata.ClipLabel.comboArray.map((item, i) => (
@@ -60,6 +65,7 @@ const UpdateComboShorthand = ({ sessiondata, setShorthandOpen, summary }) => {
           <AddUserToSessionDataButtons
             sessiondata={sessiondata}
             trickers={summary?.trickers}
+            updateTricker={updateTricker}
           />
         </div>
         <DeleteSessionDataButton sessiondata={sessiondata} />
@@ -113,9 +119,11 @@ const DeleteSessionDataButton = ({ sessiondata }) => {
   );
 };
 
-const AddUserToSessionDataButtons = ({ trickers, sessiondata }) => {
-  const { mutateAsync: updateTricker } =
-    trpc.sessionsummaries.updateSessionDataTricker.useMutation();
+const AddUserToSessionDataButtons = ({
+  trickers,
+  sessiondata,
+  updateTricker,
+}) => {
   const handleUpdateClick = (tricker) => {
     updateTricker({ tricker_id: tricker.uuid, sessiondataid: sessiondata.id });
   };
