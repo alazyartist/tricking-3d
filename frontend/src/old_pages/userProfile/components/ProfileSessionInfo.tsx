@@ -162,9 +162,9 @@ const DataDetails = ({
           <div onClick={() => setCombodexopen((prev) => !prev)} className="">
             <MdInfoOutline className={" fill-zinc-500"} />
           </div>
-          {d?.tricker && (
+          {d?.tricker?.uuid !== summary.user_id && (
             <div
-              key={d?.tricker.uuid}
+              key={d?.tricker?.uuid}
               style={{
                 backgroundColor: d3.interpolateRainbow(
                   d?.tricker?.id / summary?.trickers?.length
@@ -174,9 +174,9 @@ const DataDetails = ({
             >
               <img
                 src={
-                  !d?.tricker.profilePic
+                  !d?.tricker?.profilePic
                     ? `/images/noimg.jpeg`
-                    : `/images/${d?.tricker.uuid}/${d?.tricker.profilePic}`
+                    : `/images/${d?.tricker?.uuid}/${d?.tricker?.profilePic}`
                 }
                 alt={"profilePic"}
                 className={`h-5 w-5 rounded-full ${
