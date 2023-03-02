@@ -11,7 +11,11 @@ import { IoIosWalk } from "react-icons/io";
 import { trpc } from "utils/trpc";
 import * as d3 from "d3";
 
-const ProfileSessionInfo = ({ summary, setFullScreenLower }) => {
+const ProfileSessionInfo = ({
+  summary,
+  setFullScreenLower,
+  fullScreenLower,
+}) => {
   const isAdmin = useIsAdmin();
   const [adminMode, setAdminMode] = useState(false);
   const [showTrickLongform, setShowTrickLongform] = useState(false);
@@ -21,16 +25,18 @@ const ProfileSessionInfo = ({ summary, setFullScreenLower }) => {
     setFullScreenLower((p) => !p);
   };
   return (
-    <div className="no-scrollbar h-full overflow-hidden overflow-y-scroll">
-      <div className="flex justify-between gap-2">
+    <div className="no-scrollbar relative h-full overflow-hidden overflow-y-scroll">
+      <div
+        className={`${"sticky top-0 z-[4] bg-zinc-900 bg-opacity-40 backdrop-blur-xl"} flex justify-between gap-2`}
+      >
         <div
           onClick={() => {
             if (isAdmin === true) {
-              setFullScreenLower((p) => !p);
+              setFullScreenLower(true);
               setAdminMode(!adminMode);
             }
           }}
-          className="sticky top-0 flex w-fit place-items-center gap-2 rounded-md p-2 text-xl"
+          className=" flex w-fit place-items-center gap-2 rounded-md p-2 text-xl"
         >
           {summary?.name}
           {adminMode && (
@@ -67,6 +73,7 @@ const ProfileSessionInfo = ({ summary, setFullScreenLower }) => {
           return 0;
         }).map((d) => (
           <DataDetails
+            fullScreenLower={fullScreenLower}
             summary={summary}
             setFullScreenLower={setFullScreenLower}
             showTrickLongForm={showTrickLongform}
@@ -84,6 +91,7 @@ export default ProfileSessionInfo;
 
 const DataDetails = ({
   setFullScreenLower,
+  fullScreenLower,
   d,
   summary,
   editShorthand,

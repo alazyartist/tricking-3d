@@ -194,6 +194,7 @@ const UserProfile = () => {
                     Selected Session Breakdown
                   </div> */}
                   <ProfileSessionInfo
+                    fullScreenLower={fullScreenLower}
                     setFullScreenLower={setFullScreenLower}
                     summary={activeSummary}
                   />
