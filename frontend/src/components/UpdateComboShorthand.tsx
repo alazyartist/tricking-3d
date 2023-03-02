@@ -3,6 +3,7 @@ import { useUpdateComboShorthand } from "api/useGetCombos";
 import React, { useState } from "react";
 import { FaArrowUp } from "react-icons/fa";
 import { trpc } from "utils/trpc";
+import * as d3 from "d3";
 
 const UpdateComboShorthand = ({ sessiondata, setShorthandOpen, summary }) => {
   const { data: comboShorthand, mutate: updateShorthand } =
@@ -55,7 +56,12 @@ const UpdateComboShorthand = ({ sessiondata, setShorthandOpen, summary }) => {
             </button>
           </form>
         </div>
-        <div className="h-40 w-full">Testing</div>
+        <div className="h-full w-full">
+          <AddUserToSessionDataButtons
+            sessiondata={sessiondata}
+            trickers={summary?.trickers}
+          />
+        </div>
         <DeleteSessionDataButton sessiondata={sessiondata} />
       </div>
     </>
@@ -104,5 +110,56 @@ const DeleteSessionDataButton = ({ sessiondata }) => {
         </button>
       )}
     </>
+  );
+};
+
+const AddUserToSessionDataButtons = ({ trickers, sessiondata }) => {
+  const { mutateAsync: updateTricker } =
+    trpc.sessionsummaries.updateSessionDataTricker.useMutation();
+  const handleUpdateClick = (tricker) => {
+    updateTricker({ tricker_id: tricker.uuid, sessiondataid: sessiondata.id });
+  };
+  return (
+    <div className="flex justify-around gap-2 p-4">
+      {trickers?.length ? (
+        trickers.map((tricker) => {
+          return (
+            <>
+              <div className="flex flex-col place-items-center">
+                <div
+                  onClick={() => handleUpdateClick(tricker)}
+                  key={tricker.uuid}
+                  style={{
+                    backgroundColor: d3.interpolateRainbow(
+                      tricker.id / trickers.length
+                    ),
+                  }}
+                  className={`relative h-12 w-12 rounded-full`}
+                >
+                  <img
+                    src={
+                      !tricker.profilePic
+                        ? `/images/noimg.jpeg`
+                        : `/images/${tricker.uuid}/${tricker.profilePic}`
+                    }
+                    alt={"profilePic"}
+                    className={`h-12 w-12 rounded-full ${
+                      !tricker.profilePic
+                        ? " mix-blend-multiply contrast-150"
+                        : ""
+                    }`}
+                  />
+                </div>
+                <p className="w-ful text-center text-xs text-zinc-300">
+                  {tricker.username}
+                </p>
+              </div>
+            </>
+          );
+        })
+      ) : (
+        <p>No Trickers to Display</p>
+      )}
+    </div>
   );
 };

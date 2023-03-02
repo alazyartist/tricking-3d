@@ -25,7 +25,9 @@ const UserList = () => {
               >
                 <div
                   style={{
-                    backgroundColor: d3.interpolateRainbow(i / users.length),
+                    backgroundColor: d3.interpolateRainbow(
+                      user.id / users.length
+                    ),
                   }}
                   className={`relative h-6 w-6 rounded-full`}
                 >

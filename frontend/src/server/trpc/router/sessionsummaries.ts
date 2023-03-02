@@ -105,4 +105,13 @@ export const sessionsummariesRouter = router({
       });
       return deletedData;
     }),
+  updateSessionDataTricker: publicProcedure
+    .input(z.object({ tricker_id: z.string(), sessiondataid: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const updatedData = await ctx.prisma.sessiondata.update({
+        where: { id: input.sessiondataid },
+        data: { tricker_id: input.tricker_id },
+      });
+      return updatedData;
+    }),
 });
