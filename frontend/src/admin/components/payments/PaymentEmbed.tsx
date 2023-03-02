@@ -25,8 +25,11 @@ const PaymentEmbed = ({ setShowForm, creditAmount }) => {
   const appearance = { theme: "night" };
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex place-content-center place-items-center gap-4 text-center font-inter text-4xl">
+      <div className="flex flex-col place-content-center place-items-center gap-4 text-center font-inter text-4xl">
         {(creditAmount > 0 ? creditAmount : 1) * 5}$
+        <div className="text-xl leading-3">{`${creditAmount} credit${
+          creditAmount > 1 ? "s" : ""
+        }`}</div>
       </div>
       <div className="">
         {stripePromise && clientSecret && (

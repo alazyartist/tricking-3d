@@ -83,11 +83,12 @@ const AddSessionPage = () => {
             onClick={() => setShowOutOfCredits((prev) => !prev)}
             className="absolute top-4 left-4 rounded-md bg-gradient-to-b from-teal-400 to-emerald-500 p-2 font-bold text-zinc-900 drop-shadow-md"
           >
-            Credits: {SessionReviewCredits}
+            Credit{`${SessionReviewCredits > 1 ? "s" : ""}`}:{" "}
+            {SessionReviewCredits}
           </div>
           <form
             onSubmit={onSubmit}
-            className="relative flex w-[80vw] flex-col gap-2 rounded-md bg-zinc-700 bg-opacity-30 p-3"
+            className="relative flex w-[90vw] flex-col gap-2 rounded-md bg-zinc-700 bg-opacity-30 p-3"
           >
             <div className="p-2 text-center font-titan text-3xl text-zinc-200 drop-shadow-lg md:text-5xl">
               Submit Session
@@ -372,7 +373,7 @@ const OutOfCredits = () => {
       <button
         type="button"
         onClick={() => setShowForm(true)}
-        className="w-[200px] rounded-md bg-gradient-to-br from-emerald-500 to-sky-400 py-2 text-3xl font-bold text-zinc-900"
+        className="w-[200px] rounded-md bg-gradient-to-br from-emerald-500 to-emerald-600 py-2 text-2xl font-bold text-zinc-900"
         id="submit"
       >
         Add Credits
