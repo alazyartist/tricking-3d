@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { animated, useSpring } from "react-spring";
 import ReactPlayer from "react-player";
 import { MdClose } from "@data/icons/MdIcons";
@@ -51,27 +51,28 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
       return;
     });
   }, [activeSummary]);
-
+  // console.log("PublicSessionReview"); RERUNNING NEEDS OPTIMIZATION
+  //ISSUE IS currentTime variable. try to extract elsewhere
   useEffect(() => {
     if (currentTime !== seekTime && seekTime !== 0) {
       setCurrentTime(seekTime);
       vidRef?.current?.seekTo(seekTime);
+      setSeekTime(0);
     }
-    setSeekTime(0);
     //@ts-ignore
     setVidIsPlaying(true);
   }, [seekTime]);
-  let colors = ["bg-teal-300", "bg-emerald-300", "bg-indigo-300", "bg-sky-300"];
-  let activeWidth = `${(
-    ((parseFloat(clipData.endTime.toString()) -
-      parseFloat(clipData.startTime.toString())) /
-      vidRef.current?.getDuration()) *
-    100
-  ).toFixed(2)}%`;
-  let activeLeft = `${(
-    (parseInt(clipData.startTime.toString()) / vidRef?.current?.getDuration()) *
-    100
-  ).toFixed(2)}%`;
+  // let colors = ["bg-teal-300", "bg-emerald-300", "bg-indigo-300", "bg-sky-300"];
+  // let activeWidth = `${(
+  //   ((parseFloat(clipData.endTime.toString()) -
+  //     parseFloat(clipData.startTime.toString())) /
+  //     vidRef.current?.getDuration()) *
+  //   100
+  // ).toFixed(2)}%`;
+  // let activeLeft = `${(
+  //   (parseInt(clipData.startTime.toString()) / vidRef?.current?.getDuration()) *
+  //   100
+  // ).toFixed(2)}%`;
 
   const showDetails = useSpring<{}>({
     from: { spanOpacity: 1, opacity: 0, left: "-10vw" },
@@ -103,6 +104,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
   //     timer(vidRef.current?.getCurrentTime());
   //   }
   // }, [vidRef]);
+  const vidDuration = vidRef.current?.getDuration();
   return (
     <div key={source.srcid + "1"} className=" flex w-full flex-col gap-2 p-1">
       <animated.div
@@ -165,7 +167,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
                   value={currentTime}
                   min={0}
                   //@ts-ignore
-                  max={vidRef?.current?.getDuration()}
+                  max={vidDuration}
                   className={`w-full bg-transparent`}
                 />
 
@@ -180,7 +182,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
                             key={`${e.id}+ 'data'`}
                             e={e}
                             i={i}
-                            duration={vidRef.current?.getDuration()}
+                            duration={vidDuration}
                           />
                         )
                       );
@@ -235,7 +237,6 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
   const setSrcid = useSessionSummariesStore((s) => s.setSrcid);
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
   const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
-
   const removeSessionData = useSessionSummariesStore(
     (s) => s.removeSessionData
   );
