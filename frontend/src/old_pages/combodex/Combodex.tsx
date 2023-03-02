@@ -114,7 +114,7 @@ const Combodex: React.FC<CombodexProps> = ({
       }
     >
       {/* Scores Display Grid*/}
-      <div className="sticky top-0 left-0 grid h-full w-full grid-cols-4 gap-2 bg-zinc-900 p-2">
+      <div className="sticky top-0 left-0 grid h-[120px] w-full grid-cols-4 gap-2 bg-zinc-900 p-2">
         <div
           onClick={() => setCombodexopen(false)}
           className="outlineButton flex place-content-center place-items-center rounded-md border-transparent bg-zinc-300 bg-opacity-30 p-1 px-0 text-2xl"
@@ -217,7 +217,9 @@ const Combodex: React.FC<CombodexProps> = ({
           </div>
         </div>
       }
-      {tricks && seeRadar && <RadarChart data={tricks} />}
+      <div className={"h-[30%] w-full"}>
+        {tricks && seeRadar && <RadarChart data={tricks} />}
+      </div>
       {/* <div>
           json:{" "}
           {JSON.stringify(
