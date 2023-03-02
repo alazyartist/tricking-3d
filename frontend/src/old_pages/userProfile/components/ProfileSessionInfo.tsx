@@ -20,7 +20,7 @@ const ProfileSessionInfo = ({ summary, setFullScreenLower }) => {
     setFullScreenLower((p) => !p);
   };
   return (
-    <div className=" ">
+    <div className="no-scrollbar h-full overflow-hidden overflow-y-scroll">
       <div className="flex justify-between gap-2">
         <div
           onClick={() => {
@@ -53,7 +53,7 @@ const ProfileSessionInfo = ({ summary, setFullScreenLower }) => {
           <AiOutlineFullscreen />
         </div>
       </div>
-      <div className="mt-2  flex h-full w-full flex-col gap-1">
+      <div className="mt-2 flex h-full w-full flex-col gap-1 ">
         {summary?.SessionData.sort((a, b) => {
           if (a.totalScore > b.totalScore) return -1;
           if (a.totalScore < b.totalScore) return 1;

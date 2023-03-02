@@ -17,23 +17,23 @@ const UpdateComboShorthand = ({ combo, setShorthandOpen }) => {
     <>
       <MdClose
         onClick={() => setShorthandOpen((prev) => !prev)}
-        className={"absolute top-5 right-5 z-[2] text-2xl"}
+        className={"absolute top-2 left-2 z-[2] text-2xl"}
       />
-      <div className="absolute top-0 left-0 flex h-full w-full flex-col place-content-center place-items-center bg-zinc-900 bg-opacity-90">
+      <div className="absolute top-0 left-0 flex h-full w-full flex-col place-content-center place-items-center  bg-zinc-900 bg-opacity-90">
         <div
           className={
-            "flex max-w-[90vw] flex-col place-content-center place-items-center gap-2"
+            "mt-6 flex max-w-[90vw] flex-col place-content-center place-items-center gap-2"
           }
         >
           <h1 className="text-xs md:text-lg">
             <div className="flex w-full flex-wrap gap-1 p-2">
               {combo.ClipLabel.comboArray.map((item, i) => (
-                <>
+                <div key={i + item.name}>
                   <span>{item.name}</span>
                   {i !== combo.ClipLabel.comboArray.length - 1 && (
                     <span>{">"}</span>
                   )}
-                </>
+                </div>
               ))}
             </div>
           </h1>

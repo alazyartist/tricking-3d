@@ -183,7 +183,7 @@ const UserProfile = () => {
             </div>
           ) : null}
           {activeView === "Sessions" ? (
-            <div className="no-scrollbar relative  h-full w-full overflow-hidden overflow-y-scroll">
+            <div className="no-scrollbar relative  h-full w-full ">
               {activeSummary ? (
                 <>
                   {/* <div
