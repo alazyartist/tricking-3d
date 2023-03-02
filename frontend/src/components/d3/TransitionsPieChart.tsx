@@ -90,13 +90,15 @@ const TransitionsPieChart = ({ data }) => {
         .data(trickPercent)
         .join("text")
         .text((d, i) => tricksArray?.[i][0])
-        .style(
-          "transform",
-          (d, i) =>
-            `translate(${colorLegendScale(tricksArray?.[i][0])}px,${
-              margin.top / 2
-            }px)`
-        )
+        .attr("x", (d, i) => `${colorLegendScale(tricksArray?.[i][0])}px`)
+        .attr("y", `${margin.top / 2}`)
+        // .style(
+        //   "transform",
+        //   (d, i) =>
+        //     `translate(${colorLegendScale(tricksArray?.[i][0])}px,${
+        //       margin.top / 2
+        //     }px)`
+        // )
         .style("fill", (d, i) => colors(i))
         .style("font-size", "10px");
     }
