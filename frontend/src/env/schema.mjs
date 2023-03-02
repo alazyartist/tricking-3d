@@ -45,5 +45,6 @@ export const clientSchema = z.object({
  */
 export const clientEnv = {
   // NEXT_PUBLIC_BAR: process.env.NEXT_PUBLIC_BAR,
+  NEXT_PUBLIC_MIXPANEL_TOKEN: process.env.NEXT_PUBLIC_MIXPANEL_TOKEN,
   // NEXT_PUBLIC_PRINTFUL_API_TOKEN: process.env.NEXT_PUBLIC_PRINTFUL_API_TOKEN,
 };

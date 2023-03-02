@@ -14,6 +14,9 @@ export const userRouter = router({
         captures: true,
         SessionSummaries: true,
         sessionSummaries: true,
+        Clips: true,
+        TotalPoints: true,
+        createdAt: true,
       },
     });
     // console.log(users);
