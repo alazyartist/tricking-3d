@@ -94,6 +94,7 @@ importers:
       googleapis: ^110.0.0
       jest: ^28.1.3
       jose: ^4.12.0
+      mixpanel-browser: ^2.45.0
       next: ^13.0.5
       next-auth: ^4.18.7
       nodemailer: ^6.8.0
@@ -151,6 +152,7 @@ importers:
       glob-parent: 6.0.2
       googleapis: 110.0.0
       jose: 4.12.0
+      mixpanel-browser: 2.45.0
       next: 13.0.6_biqbaboplfbrettd7655fr4n2y
       next-auth: 4.18.7_ph7ncimqkfipxkhrqa54rmxzeq
       nodemailer: 6.8.0
@@ -6900,6 +6902,10 @@ packages:
     dependencies:
       minipass: 3.3.6
       yallist: 4.0.0
+    dev: false
+
+  /mixpanel-browser/2.45.0:
+    resolution: {integrity: sha512-PQ1DaTk68yyYtLA0iejmzPA9iNDhT4uIZpqZjRTw7HWpYfl123fydHb2laKanaKjm8YDmrGGz3+xZ4Q6joogyg==}
     dev: false
 
   /mkdirp/1.0.4:

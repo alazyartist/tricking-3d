@@ -21,6 +21,7 @@ export const serverSchema = z.object({
   GMAIL_CLIENT_ID: z.string(),
   GMAIL_CLIENT_SECRET: z.string(),
   GMAIL_REFRESH_TOKEN: z.string(),
+  MIXPANEL_TOKEN: z.string(),
   // STRIPE_SECRET_KEY: z.string(),
   // STRIPE_PUBLIC_KEY: z.string(),
   // STRIPE_WEBHOOK_SECRET: z.string(),
@@ -32,7 +33,7 @@ export const serverSchema = z.object({
  * To expose them to the client, prefix them with `NEXT_PUBLIC_`.
  */
 export const clientSchema = z.object({
-  // NEXT_PUBLIC_BAR: z.string(),
+  NEXT_PUBLIC_MIXPANEL_TOKEN: z.string(),
   // NEXT_PUBLIC_PRINTFUL_API_TOKEN: z.string(),
 });
 
