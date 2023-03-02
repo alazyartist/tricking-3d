@@ -170,7 +170,7 @@ const DataDetails = ({
                   d?.tricker?.id / summary?.trickers?.length
                 ),
               }}
-              className={`relative h-5 w-5 rounded-full`}
+              className={`relative z-[2] h-5 w-5 rounded-full`}
             >
               <img
                 src={

@@ -38,7 +38,7 @@ const SessionSummariesOverview = () => {
         {Array.isArray(sessions?.data) &&
           sessions?.data
             ?.filter((s) => s.status === "Reviewed")
-            ?.map((s) => <SessionDisplay key={s.srcid} s={s} />)}
+            ?.map((s) => <SessionDisplay s={s} />)}
       </div>
     </div>
   );
@@ -53,7 +53,10 @@ const SessionDisplay = ({ s }) => {
   const [caretOpen, setCaretOpen] = useState(false);
 
   return (
-    <div className="grid w-full grid-cols-6 gap-2 bg-zinc-800 bg-opacity-70">
+    <div
+      key={s.srcid}
+      className="grid w-full grid-cols-6 gap-2 bg-zinc-800 bg-opacity-70"
+    >
       <Link
         href={`/admin/sessionReview/${s?.sessionid}`}
         className=" col-span-5 grid w-full grid-cols-5 place-content-center place-items-center justify-between gap-2 rounded-md p-1 text-[10px] "
@@ -75,7 +78,9 @@ const SessionDisplay = ({ s }) => {
           >
             <div
               style={{
-                backgroundColor: d3.interpolateRainbow(u?.id / users?.length),
+                backgroundColor: d3.interpolateRainbow(
+                  (u?.id % 15) / users?.length
+                ),
               }}
               className={`relative h-5 w-5 rounded-full`}
             >
@@ -125,6 +130,7 @@ const SessionDisplay = ({ s }) => {
           <OptionDropdown
             users={users}
             caretOpen={caretOpen}
+            key={`option ${s.srcid}`}
             s={s}
             setCaretOpen={setCaretOpen}
           />
@@ -282,7 +288,7 @@ const SwitchUsers = ({ s, setSwitchUserOpen, setCaretOpen, users }) => {
               <div
                 style={{
                   backgroundColor: d3.interpolateRainbow(
-                    user?.id / users.length
+                    (user?.id % 15) / users.length
                   ),
                 }}
                 className={`relative h-5 w-5 rounded-full`}
