@@ -9,6 +9,7 @@ import { AiOutlineFullscreen } from "react-icons/ai";
 import { FaCheck } from "react-icons/fa";
 import { IoIosWalk } from "react-icons/io";
 import { trpc } from "utils/trpc";
+import * as d3 from "d3";
 
 const ProfileSessionInfo = ({ summary, setFullScreenLower }) => {
   const isAdmin = useIsAdmin();
@@ -161,6 +162,31 @@ const DataDetails = ({
           <div onClick={() => setCombodexopen((prev) => !prev)} className="">
             <MdInfoOutline className={" fill-zinc-500"} />
           </div>
+          {d?.tricker && (
+            <div
+              key={d?.tricker.uuid}
+              style={{
+                backgroundColor: d3.interpolateRainbow(
+                  d?.tricker?.id / summary?.trickers?.length
+                ),
+              }}
+              className={`relative h-5 w-5 rounded-full`}
+            >
+              <img
+                src={
+                  !d?.tricker.profilePic
+                    ? `/images/noimg.jpeg`
+                    : `/images/${d?.tricker.uuid}/${d?.tricker.profilePic}`
+                }
+                alt={"profilePic"}
+                className={`h-5 w-5 rounded-full ${
+                  !d?.tricker?.profilePic
+                    ? " mix-blend-multiply contrast-150"
+                    : ""
+                }`}
+              />
+            </div>
+          )}
         </div>
         <div
           className="h-[35px] w-full"
