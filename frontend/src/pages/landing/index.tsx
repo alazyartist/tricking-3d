@@ -49,7 +49,7 @@ const LandingPage: NextPage = () => {
         <div className="flex gap-2">
           <Link
             onClick={() =>
-              mixpanel.track("Click", {
+              mixpanel.track("Sandbox", {
                 source: "landing",
                 destination: "sandbox",
               })
@@ -61,7 +61,7 @@ const LandingPage: NextPage = () => {
           </Link>
           <Link
             onClick={() =>
-              mixpanel.track("Click", {
+              mixpanel.track("Home", {
                 source: "landing",
                 destination: "home",
               })
@@ -73,7 +73,7 @@ const LandingPage: NextPage = () => {
           </Link>
           <Link
             onClick={() =>
-              mixpanel.track("Click", {
+              mixpanel.track("Login", {
                 source: "landing",
                 destination: "login",
               })
@@ -166,9 +166,9 @@ const TagLine: React.FC<{ a: boolean }> = ({ a }) => {
           <br /> starts{" "}
           <span
             onClick={() => {
-              mixpanel.track("Click", {
+              mixpanel.track("Registration Page", {
                 source: "landing",
-                destination: "Registration Page",
+                destination: "register",
                 option: "a",
               });
               router.push("/register");
