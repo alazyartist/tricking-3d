@@ -22,8 +22,9 @@ const CommandBar = () => {
   const { data: tricks } = useGetTricks();
   const { data: combos } = trpc.combos.getAll.useQuery();
   if (!tricks) return;
+  if (!combos) return;
   return (
-    <div className="fixed bottom-[0vh] left-[20vw] h-[8vh] w-[60vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:left-[20vw] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]">
+    <div className="fixed bottom-[14px] left-[10vw] h-[8vh] w-[80vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:left-[20vw] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]">
       <Autocomplete
         tricks={tricks}
         combos={combos}
@@ -543,7 +544,7 @@ const Autocomplete = (props: any) => {
                 },
                 item({ item }: any) {
                   return (
-                    <span className="flex w-full justify-between">
+                    <span className="flex h-fit w-full justify-between">
                       <p className="w-full p-2">
                         {item.comboArray.map((t, i) => (
                           <span>
@@ -579,7 +580,7 @@ const Autocomplete = (props: any) => {
                     });
                 } else
                   return combos
-                    .filter((t) => pattern.test(t.name))
+                    ?.filter((t) => pattern.test(t.name))
                     .sort((a, b) => {
                       if (a.name > b.name) return 1;
                       if (a.name < b.name) return -1;

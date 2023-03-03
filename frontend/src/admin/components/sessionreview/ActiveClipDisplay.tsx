@@ -35,7 +35,7 @@ const ActiveClipDisplay = () => {
     <animated.div
       key={activeClipData?.id + "details"}
       style={{ right: showDetails.right, opacity: showDetails.opacity }}
-      className="absolute top-14 right-2 flex h-[92.5vh] w-[220px] flex-col gap-2 rounded-md rounded-r-none bg-zinc-900 bg-opacity-60 p-1 pl-6 font-inter text-xs text-zinc-300 "
+      className="absolute top-14 right-2 flex h-[92.5vh] w-[220px] flex-col gap-2 rounded-md rounded-r-none bg-zinc-900 bg-opacity-60 p-1 pl-6 font-inter text-xs text-zinc-300 backdrop-blur-xl"
     >
       <div className="w-full rounded-md rounded-r-sm bg-zinc-200 bg-opacity-70 p-2 text-center font-inter text-2xl font-bold text-zinc-900">
         <div>{activeClipData?.sessionid?.slice(-8)}</div>
@@ -59,12 +59,15 @@ const ActiveClipDisplay = () => {
       <div>{activeClipData?.user_id?.slice(-4)}</div>
       <div>{activeClipData?.bail > 0 && activeClipData?.bail}</div>
       <div>{activeClipData?.vidsrc}</div>
-      <div className="flex justify-around gap-2 text-center font-bold">
+      <div className="grid grid-cols-[1fr_1fr_1fr] justify-around gap-2 text-center font-bold">
         <div
           onClick={() => setSeekTime(activeClipData?.startTime)}
           className="min-w-10 rounded-md bg-emerald-300 p-1 text-zinc-800"
         >
           {activeClipData?.startTime}
+        </div>
+        <div className="w-24 place-self-center rounded-md bg-zinc-300 p-1 text-center font-bold text-zinc-800">
+          {Math.floor(currentTime)}
         </div>
         <div
           onClick={() => setSeekTime(activeClipData?.endTime)}
@@ -72,9 +75,6 @@ const ActiveClipDisplay = () => {
         >
           {activeClipData?.endTime}
         </div>
-      </div>
-      <div className="w-24 place-self-center rounded-md bg-zinc-300 p-1 text-center font-bold text-zinc-800">
-        {Math.floor(currentTime)}
       </div>
       <animated.span
         style={{ opacity: showDetails.spanOpacity }}
