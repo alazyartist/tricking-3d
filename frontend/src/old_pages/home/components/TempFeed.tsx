@@ -30,7 +30,9 @@ const TempFeed = () => {
                           : `/images/noimg.jpeg`
                       }
                     />
-                    <div className="text-zinc-400">{summary.user.username}</div>
+                    <div className="text-zinc-400">
+                      {summary.user.username?.slice(0, 15)}
+                    </div>
                   </div>
                 </div>
                 <div className="text-xs text-zinc-400">
