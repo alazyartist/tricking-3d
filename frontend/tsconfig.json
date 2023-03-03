@@ -28,7 +28,8 @@
       "@components/*": ["components/*"],
       "@admin/*": ["admin/*"],
       "@old_pages/*": ["old_pages/*"],
-      "@data/*": ["data/*"]
+      "@data/*": ["data/*"],
+      "@utils/*": ["utils/*"]
     }
   },
   "include": [

@@ -10,6 +10,7 @@ import TheoryTabBar from "@components/layout/TheoryTabBar";
 import { SessionProvider } from "next-auth/react";
 import type { Session } from "next-auth";
 import { useEffect } from "react";
+
 const AppBackground = dynamic(
   () => import("../components/layout/AppBackground")
 );

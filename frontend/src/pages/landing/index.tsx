@@ -5,9 +5,7 @@ import { NextPage } from "next";
 import dynamic from "next/dynamic";
 import { FaHamburger } from "react-icons/fa";
 import { useRouter } from "next/router";
-import mixpanel from "mixpanel-browser";
-import { env } from "env/client.mjs";
-mixpanel.init(env.NEXT_PUBLIC_MIXPANEL_TOKEN, { debug: true });
+import mixpanel from "@utils/mixpanel";
 const LandingCanvas = dynamic(
   () => import("@old_pages/landing/components/LandingCanvas"),
   { suspense: true }
@@ -26,6 +24,7 @@ const MovingBackground = dynamic(
 
 const LandingPage: NextPage = () => {
   const [loadScene, setLoadScene] = useState(false);
+  mixpanel.track("Landing Page View");
   return (
     <div className="no-scrollbar fixed top-0 flex h-[100vh] w-[100vw] flex-col place-items-center justify-between gap-2 overflow-y-scroll bg-zinc-100 text-zinc-800">
       <div
