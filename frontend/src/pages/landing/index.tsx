@@ -5,6 +5,9 @@ import { NextPage } from "next";
 import dynamic from "next/dynamic";
 import { FaHamburger } from "react-icons/fa";
 import { useRouter } from "next/router";
+import mixpanel from "mixpanel-browser";
+import { env } from "env/client.mjs";
+mixpanel.init(env.NEXT_PUBLIC_MIXPANEL_TOKEN, { debug: true });
 const LandingCanvas = dynamic(
   () => import("@old_pages/landing/components/LandingCanvas"),
   { suspense: true }
@@ -45,18 +48,36 @@ const LandingPage: NextPage = () => {
         </div> */}
         <div className="flex gap-2">
           <Link
+            onClick={() =>
+              mixpanel.track("Click", {
+                source: "landing",
+                destination: "sandbox",
+              })
+            }
             href="/sandbox"
             className="rounded-md bg-sky-500 p-2 font-bold text-zinc-100"
           >
             Sandbox
           </Link>
           <Link
+            onClick={() =>
+              mixpanel.track("Click", {
+                source: "landing",
+                destination: "home",
+              })
+            }
             href="/home"
             className="rounded-md bg-sky-500 p-2 font-bold text-zinc-100"
           >
             Home
           </Link>
           <Link
+            onClick={() =>
+              mixpanel.track("Click", {
+                source: "landing",
+                destination: "login",
+              })
+            }
             href="/login"
             className="rounded-md bg-sky-500 p-2 font-bold text-zinc-100"
           >
@@ -145,6 +166,11 @@ const TagLine: React.FC<{ a: boolean }> = ({ a }) => {
           <br /> starts{" "}
           <span
             onClick={() => {
+              mixpanel.track("Click", {
+                source: "landing",
+                destination: "Registration Page",
+                option: "a",
+              });
               router.push("/register");
             }}
             className="rounded-md border-[1px] border-zinc-900 px-1 font-black md:px-2"
@@ -167,6 +193,19 @@ const TagLine: React.FC<{ a: boolean }> = ({ a }) => {
         <div className="font-light md:text-3xl">
           The trickedex gives you the tools <br />
           to make sense of it in one place
+        </div>
+        <div
+          onClick={() => {
+            mixpanel.track("Registration Page", {
+              source: "landing",
+              destination: "register",
+              option: "b",
+            });
+            router.push("/register");
+          }}
+          className="rounded-md border-[1px] border-zinc-900 px-1 font-black md:px-2"
+        >
+          Register Now
         </div>
       </div>
     );
