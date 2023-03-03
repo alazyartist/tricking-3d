@@ -1,28 +1,43 @@
 import React, { useState } from "react";
-
+import * as d3 from "d3";
 /* Tricker Profile Icons - rendered in Catpures Page */
-const CapturedCard = ({ name, src, username }) => {
-	const [displayName, setDisplayName] = useState(false)
+const CapturedCard = ({ name, src, username, userid }) => {
+  const [displayName, setDisplayName] = useState(false);
 
-	return (
-		<div className='
-			flex flex-col place-items-center 
-			bg-zinc-800
-			p-2 pt-3 gap-2
-			w-[25vw] 
-			border-zinc-900 border-b-4
-			rounded-lg
+  return (
+    <div
+      className="
+			flex w-[25vw] flex-col 
+			place-items-center
+			gap-2 rounded-lg
+			bg-zinc-900 bg-opacity-60 p-2
+			pt-3
 			font-inter 
-		'>
+		"
+    >
+      {/* Profile Icon */}
+      <div
+        style={{
+          backgroundColor: d3.interpolateRainbow((userid % 15) / 15),
+        }}
+        className={`relative h-12 w-12 rounded-full`}
+      >
+        <img
+          src={src}
+          alt={"profilePic"}
+          className={`h-12 w-12 rounded-full lg:h-20 lg:w-20 ${
+            src.includes("noimg.jpeg") ? " mix-blend-multiply contrast-150" : ""
+          }`}
+        />
+      </div>
+      {/* <img src={src} className=' h-12 w-12 rounded-full lg:h-20 lg:w-20' /> */}
 
-			{/* Profile Icon */}
-			<img src={src} className=' h-12 w-12 rounded-full lg:h-20 lg:w-20' />
-
-			{/* Display Name */}
-			<div className=' tracking-wider flex align-middle text-xs'>{displayName ? name : username}</div>
-
-		</div>
-	);
+      {/* Display Name */}
+      <div className=" flex px-2 align-middle text-xs tracking-wider text-zinc-300">
+        {displayName ? name : username}
+      </div>
+    </div>
+  );
 };
 
 export default CapturedCard;
