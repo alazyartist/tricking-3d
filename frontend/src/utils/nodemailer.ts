@@ -14,10 +14,12 @@ myOAuth2Client.setCredentials({
   refresh_token: env.GMAIL_REFRESH_TOKEN,
 });
 export const myAccessToken: any = async () => {
-  const tkn = await myOAuth2Client.getAccessToken();
-  return tkn;
+  const { token } = await myOAuth2Client.getAccessToken();
+  console.log("token", token);
+  return token;
 };
-console.log(myAccessToken());
+const accessToken = myAccessToken();
+console.log("accesstoken", accessToken);
 export const mailer = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
@@ -28,7 +30,7 @@ export const mailer = nodemailer.createTransport({
     clientId: env.GMAIL_CLIENT_ID,
     clientSecret: env.GMAIL_CLIENT_SECRET,
     refreshToken: env.GMAIL_REFRESH_TOKEN,
-    accessToken: myAccessToken,
+    accessToken: accessToken,
   },
 });
 interface Params {
