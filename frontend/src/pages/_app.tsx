@@ -46,6 +46,8 @@ const MyApp: AppType<{
         components: router?.components ? Object.keys(router?.components) : [],
       });
     } else {
+      mixpanel.time_event("Login");
+
       mixpanel.track("Page View", {
         path: path,
         components: router?.components ? Object.keys(router?.components) : [],

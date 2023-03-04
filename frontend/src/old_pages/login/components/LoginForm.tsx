@@ -18,7 +18,6 @@ function LoginForm() {
   const userInfo = useUserStore((s) => s.userInfo);
   const [persist, setPersist] = useLocalStorage("persist", false);
   const nav = useRouter();
-
   const from = "/home";
   const { mutateAsync: login, data: response, error } = useLogin();
   const handleSubmit = async (e) => {
