@@ -12,6 +12,8 @@ interface LoginData {
 export interface ReturnData {
   accessToken?: string;
   username?: string;
+  first_name?: string;
+  last_name?: string;
   message?: string;
   uuid?: string;
 }
