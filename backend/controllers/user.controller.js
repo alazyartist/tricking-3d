@@ -387,9 +387,13 @@ export const findOrCreate = async (req, res) => {
         <h3 style="text-size: ">We are excited to have you! Once you login you will be able to access your account and many of it's hidden features!<a style="color:#4f4622;" href='trickedex.app/home'><h2>Go to The Dash Now</h2></a><br/> <h2>Enjoy!</h2></h3>
         </html>`,
 			});
+			return data;
 		})
-		.then(() => {
-			res.status(201).send("Successfully Registered New User");
+		.then((data) => {
+			res.status(201).json({
+				message: "Successfully Registered New User",
+				user: data.dataValues,
+			});
 		})
 		.catch((err) => {
 			if (err) {
@@ -448,7 +452,7 @@ export const checkPassword = async (req, res) => {
 							res.status(200).json({
 								accessToken,
 								message: "You are logged in!",
-								username: selectedUser.username,
+								...selectedUser.dataValues,
 							});
 							console.log("LoggedIn");
 						} else {

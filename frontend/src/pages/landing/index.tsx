@@ -24,7 +24,7 @@ const MovingBackground = dynamic(
 
 const LandingPage: NextPage = () => {
   const [loadScene, setLoadScene] = useState(false);
-  mixpanel.track("Landing Page View");
+  // mixpanel.track("Landing Page View");
   return (
     <div className="no-scrollbar fixed top-0 flex h-[100vh] w-[100vw] flex-col place-items-center justify-between gap-2 overflow-y-scroll bg-zinc-100 text-zinc-800">
       <div

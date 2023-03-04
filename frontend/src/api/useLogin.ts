@@ -13,6 +13,7 @@ export interface ReturnData {
   accessToken?: string;
   username?: string;
   message?: string;
+  uuid?: string;
 }
 export const useLogin = () => {
   const queryClient = useQueryClient();

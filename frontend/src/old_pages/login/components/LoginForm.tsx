@@ -6,6 +6,7 @@ import { ReturnData, useLogin } from "../../../api/useLogin";
 import useLocalStorage from "../../../hooks/useLocalStorage";
 import { useUserStore } from "../../../store/userStore";
 import { useRouter } from "next/navigation";
+import mixpanel from "@utils/mixpanel";
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,6 +15,7 @@ function LoginForm() {
   const [loginError, setLoginError] = useState<string>();
   const accessTokenStore = useUserStore((s) => s.accessToken);
   const user = useUserStore((s) => s.user);
+  const userInfo = useUserStore((s) => s.userInfo);
   const [persist, setPersist] = useLocalStorage("persist", false);
   const nav = useRouter();
 
@@ -36,6 +38,15 @@ function LoginForm() {
 
   useEffect(() => {
     if (response?.message === "You are logged in!") {
+      mixpanel.identify(response.uuid);
+      mixpanel.people.set({
+        $name: `${response.first_name} ${response.last_name}`,
+        $email: email,
+        $avatar: `https://trickedex.app/images/${response.uuid}/${response.profilePic}`,
+        ...response,
+      });
+      mixpanel.track("Login");
+      console.log(response);
       nav.push("/home");
     }
   }, [response]);

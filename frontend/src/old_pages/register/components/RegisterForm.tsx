@@ -1,3 +1,4 @@
+import mixpanel from "@utils/mixpanel";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import useRegister from "../../../api/useRegister";
@@ -36,7 +37,11 @@ function RegisterForm() {
         password: userData.password,
       });
       console.log(await data);
-      if ((await data) === "Successfully Registered New User") {
+      if ((await data.message) === "Successfully Registered New User") {
+        mixpanel.alias(data.user.uuid);
+        mixpanel.track("Registered New User", {
+          ...data.user,
+        });
         nav.push("/login");
       }
     } catch (err) {

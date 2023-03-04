@@ -1,6 +1,7 @@
 import api from "../api/api";
 import useApiCreds from "./useApiCreds";
 import { useUserStore } from "../store/userStore";
+import mixpanel from "@utils/mixpanel";
 
 function useLogout() {
   const setUser = useUserStore((s) => s.setUser);
@@ -17,6 +18,8 @@ function useLogout() {
     setUser(null);
     setAccessToken(null);
     setUserInfo(null);
+    mixpanel.track("Logout");
+    mixpanel.reset();
   };
 
   return logout;
