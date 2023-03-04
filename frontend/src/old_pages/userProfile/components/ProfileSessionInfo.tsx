@@ -25,7 +25,7 @@ const ProfileSessionInfo = ({
     setFullScreenLower((p) => !p);
   };
   return (
-    <div className="no-scrollbar relative h-full overflow-hidden overflow-y-scroll">
+    <div className="no-scrollbar h-full overflow-hidden overflow-y-scroll">
       <div
         className={`${"sticky top-0 z-[4] bg-zinc-900 bg-opacity-40 backdrop-blur-xl"} flex justify-between gap-2`}
       >
