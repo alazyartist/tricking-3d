@@ -12,23 +12,18 @@ interface LoginData {
 export interface ReturnData {
   accessToken?: string;
   username?: string;
+  profilePic?: string;
   first_name?: string;
   last_name?: string;
   message?: string;
   uuid?: string;
+  data?: { message?: string };
 }
 export const useLogin = () => {
   const queryClient = useQueryClient();
   const setAccessToken = useUserStore((s) => s.setAccessToken);
   const setUser = useUserStore((s) => s.setUser);
-  return useMutation<
-    {
-      data: ReturnData;
-      message?: string;
-    },
-    { response: any },
-    LoginData
-  >(
+  return useMutation<ReturnData, { response: ReturnData }, LoginData>(
     ["login"],
     async (loginData: LoginData) => {
       const { data } = await api.post(
@@ -44,8 +39,8 @@ export const useLogin = () => {
     {
       onSuccess: (data) => {
         console.log("OnSuccess", data);
-        setAccessToken(data?.data?.accessToken);
-        setUser(data?.data?.username);
+        setAccessToken(data?.accessToken);
+        setUser(data?.username);
         queryClient.invalidateQueries(["userInfo"]);
       },
     }

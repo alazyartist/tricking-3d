@@ -43,7 +43,9 @@ function LoginForm() {
         $name: `${response.first_name} ${response.last_name}`,
         $email: email,
         $avatar: `https://trickedex.app/images/${response.uuid}/${response.profilePic}`,
-        ...response,
+        first_name: response.first_name,
+        last_name: response.last_name,
+        profilePic: response.profilePic,
       });
       mixpanel.track("Login");
       console.log(response);
