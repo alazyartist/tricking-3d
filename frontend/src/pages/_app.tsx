@@ -1,4 +1,5 @@
 import type { AppType } from "next/app";
+import type { NextRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -10,7 +11,7 @@ import TheoryTabBar from "@components/layout/TheoryTabBar";
 import { SessionProvider } from "next-auth/react";
 import type { Session } from "next-auth";
 import { useEffect } from "react";
-
+import mixpanel from "@utils/mixpanel";
 const AppBackground = dynamic(
   () => import("../components/layout/AppBackground")
 );
@@ -20,7 +21,9 @@ const UserIcon = dynamic(() => import("../components/layout/UserIcon"), {
 const TabBar = dynamic(() => import("../components/layout/TabBar"), {
   ssr: false,
 });
-
+interface MyRouter extends NextRouter {
+  components?: any;
+}
 const queryClient = new QueryClient();
 const MyApp: AppType<{
   session: Session | null;
@@ -36,9 +39,23 @@ const MyApp: AppType<{
           .catch((err) => console.log("Fucked it up...", err));
       });
     }
+
+    if (path === "/") {
+      mixpanel.track("Landing Page View", {
+        path: path,
+        components: router?.components ? Object.keys(router?.components) : [],
+      });
+    } else {
+      mixpanel.track("Page View", {
+        path: path,
+        components: router?.components ? Object.keys(router?.components) : [],
+      });
+    }
   }, []);
-  const router = useRouter();
+
+  const router = useRouter() as MyRouter;
   const path = router.pathname;
+
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
