@@ -1,21 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import './general.css';
 @import './comboMaker.css';
 
 @layer components {
-  .flex-center {
-    @apply flex justify-center items-center;
-  }
-  .flex-col-center {
-    @apply flex flex-col justify-center items-center;
-  }
-  .flex-row-center {
-    @apply flex flex-row justify-center items-center;
-  }
-  .flex-grid-center {
-    @apply flex flex-row flex-wrap gap-4 justify-center items-center;
-  }
   .outlineButton {
     @apply flex place-content-center place-items-center rounded-md border-2 px-1;
   }

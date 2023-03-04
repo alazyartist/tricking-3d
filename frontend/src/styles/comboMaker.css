@@ -4,8 +4,61 @@
 .btn-trick-type {
   @apply 
     pl-2 pr-2 m-2
-    bg-blue-600 
     border-2 border-zinc-300
     rounded-lg 
     ;
 }
+.btn-trick {
+  @apply 
+    bg-green-800
+    w-[30vw] h-[20vw]
+    btn-trick-type
+;}
+.btn-transition {
+  @apply 
+    bg-blue-800
+    w-[30vw] h-[20vw]
+    btn-trick-type
+;}
+.btn-clear-combo {
+  @apply
+    absolute
+    top-0 right-0
+    m-2 
+    pl-2 pr-2 
+    bg-red-500 
+    rounded-full 
+    border-2 border-zinc-300
+;}
+
+.display-trick {
+  @apply
+    flex-row-center
+    mb-2
+    w-[80vw]
+    p-4
+    bg-zinc-500
+    rounded-lg
+    border-4
+;}
+.display-combo {
+  @apply
+    overflow-auto
+    flex flex-1
+    pt-8
+    w-screen 
+    flex-col-center 
+    bg-zinc-800
+    bg-opacity-40
+    text-white
+;}
+.build-combo {
+  @apply
+    relative
+    flex-col-center
+    h-[20vh] w-screen 
+    mb-10
+    bg-red-300 
+    bg-opacity-40
+    text-white
+;}

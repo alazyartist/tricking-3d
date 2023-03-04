@@ -1,0 +1,28 @@
+.abs-top {
+  @apply absolute top-0;
+}
+.abs-bot {
+  @apply absolute bottom-0;
+}
+
+.flex-center {
+  @apply 
+    flex 
+    justify-center items-center;
+}
+.flex-col-center {
+  @apply 
+    flex flex-col 
+    justify-center items-center;
+}
+.flex-row-center {
+  @apply 
+    flex flex-row 
+    justify-center items-center;
+}
+.flex-grid-center {
+  @apply 
+    flex flex-row 
+    flex-wrap gap-4 
+    justify-center items-center;
+}
