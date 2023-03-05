@@ -91,7 +91,10 @@ const AddSessionPage = () => {
   return (
     <div className="mt-[10vh] flex h-[80vh] flex-col place-content-center place-items-center font-inter text-zinc-300">
       {submitSuccess ? (
-        <SessionSubmitted SessionReviewCredits={SessionReviewCredits} />
+        <SessionSubmitted
+          formData={formData}
+          SessionReviewCredits={SessionReviewCredits}
+        />
       ) : (
         <>
           <button
@@ -182,12 +185,14 @@ const AddSessionPage = () => {
 
 export default AddSessionPage;
 
-const SessionSubmitted = ({ SessionReviewCredits }) => {
+const SessionSubmitted = ({ SessionReviewCredits, formData }) => {
   return (
-    <div className="flex h-full flex-col place-content-center place-items-center gap-2 font-titan">
-      <div className="text-center text-3xl">Your Session was Submitted</div>
-      <MdCheckCircle className={"text-8xl text-emerald-500"} />
+    <div className=" flex h-full w-[90vw] flex-col place-content-center place-items-center justify-around gap-2 rounded-md bg-zinc-700 bg-opacity-30 p-3 font-virgil backdrop-blur-2xl">
       <div className="text-center text-3xl">
+        Your {formData.type} was Submitted
+      </div>
+      <MdCheckCircle className={"text-6xl text-emerald-500"} />
+      <div className="text-center font-virgil text-xl">
         Please check back later for the Summary
       </div>
       <div>You have {SessionReviewCredits - 1} left</div>

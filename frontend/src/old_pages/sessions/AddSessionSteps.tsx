@@ -14,43 +14,66 @@ export const StepOne = ({ setFormData, count, formData, setCount }) => {
           leaderboards!
         </p>
       </div>
-      <div className="flex w-full place-items-center justify-around gap-2 rounded-md bg-zinc-900 bg-opacity-80 p-2">
-        <button
-          type="button"
-          className={`rounded-md  bg-opacity-30 p-2 px-4 ${
-            formData.type === "Session"
-              ? "bg-zinc-300 text-zinc-100"
-              : "bg-zinc-700 text-zinc-400"
-          }`}
-          onClick={() => setFormData((s) => ({ ...s, type: "Session" }))}
-        >
-          Session
-        </button>
-        <button
-          type="button"
-          className={`rounded-md  bg-opacity-30 p-2 px-4 ${
-            formData.type === "Battle"
-              ? "bg-zinc-300 text-zinc-100"
-              : "bg-zinc-700 text-zinc-400"
-          }`}
-          onClick={() => setFormData((s) => ({ ...s, type: "Battle" }))}
-        >
-          Battle
-        </button>
-        <button
-          type="button"
-          className={`rounded-md  bg-opacity-30 p-2 px-4 ${
-            formData.type === "Sampler"
-              ? "bg-zinc-300 text-zinc-100"
-              : "bg-zinc-700 text-zinc-400"
-          }`}
-          onClick={() => setFormData((s) => ({ ...s, type: "Sampler" }))}
-        >
-          Sampler
-        </button>
+      <div className="flex w-full flex-col gap-1">
+        <div className="flex w-full place-items-center justify-around gap-2 rounded-md bg-zinc-900 bg-opacity-80 p-2">
+          <button
+            type="button"
+            className={`rounded-md  bg-opacity-30 p-2 px-4 ${
+              formData.type === "Session"
+                ? "bg-zinc-300 text-zinc-100"
+                : "bg-zinc-700 text-zinc-400"
+            }`}
+            onClick={() => setFormData((s) => ({ ...s, type: "Session" }))}
+          >
+            Session
+          </button>
+          <button
+            type="button"
+            className={`rounded-md  bg-opacity-30 p-2 px-4 ${
+              formData.type === "Battle"
+                ? "bg-zinc-300 text-zinc-100"
+                : "bg-zinc-700 text-zinc-400"
+            }`}
+            onClick={() => setFormData((s) => ({ ...s, type: "Battle" }))}
+          >
+            Battle
+          </button>
+          <button
+            type="button"
+            className={`rounded-md  bg-opacity-30 p-2 px-4 ${
+              formData.type === "Sampler"
+                ? "bg-zinc-300 text-zinc-100"
+                : "bg-zinc-700 text-zinc-400"
+            }`}
+            onClick={() => setFormData((s) => ({ ...s, type: "Sampler" }))}
+          >
+            Sampler
+          </button>
+        </div>
+        <div className="px-2">
+          {formData.type === "Session" && (
+            <p className={`text-xs`}>
+              Sesssions are raw unedited training clips,. These may include
+              bails. Can be footage clipped together from a few days.
+            </p>
+          )}
+          {formData.type === "Battle" && (
+            <p className={`text-xs`}>
+              Battles are battles. One on One and Team Battles supported.You
+              will be able to add trickers in a later step.
+            </p>
+          )}
+          {formData.type === "Sampler" && (
+            <p className={`text-xs`}>
+              Samplers are more edited clips spanning across mulitple sessions,
+              typically over weeks to months and showcase the highlights of your
+              best moves.
+            </p>
+          )}
+        </div>
       </div>
       <div className="flex w-full flex-col">
-        <p className={`font-virgil text-sm`}>
+        <p className={`font-virgil text-sm tracking-wider`}>
           what should we call your{" "}
           <span className={` font-bold`}>{formData.type}</span>
         </p>
@@ -115,20 +138,35 @@ export const StepTwo = ({ setFormData, formData }) => {
         Tell us about <br />
         the {formData.type.toLowerCase()}
       </h1>
-      <p className={`font-virgil text-sm`}>
-        when did this{" "}
-        <span className={`font-inter font-bold`}>{formData.type}</span> take
-        place
-      </p>
-      <input
-        onChange={(e) =>
-          setFormData((s) => ({ ...s, sessionDate: e.target.value }))
-        }
-        id="date"
-        type="date"
-        value={formData.sessionDate}
-        className="rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300"
-      />
+      <div className="flex w-full flex-col gap-1">
+        <p className={`font-virgil text-sm`}>
+          when did this <span className={`font-bold`}>{formData.type}</span>{" "}
+          take place
+        </p>
+        {formData.type === "Session" && (
+          <p className={`text-xs`}>
+            please use the day of the session(not the upload date)
+          </p>
+        )}
+        {formData.type === "Battle" && (
+          <p className={`text-xs`}>please use the day the battle happened</p>
+        )}
+        {formData.type === "Sampler" && (
+          <p className={`text-xs`}>
+            please use the original upload date of the sampler
+          </p>
+        )}
+        <input
+          onChange={(e) =>
+            setFormData((s) => ({ ...s, sessionDate: e.target.value }))
+          }
+          id="date"
+          type="date"
+          value={formData.sessionDate}
+          className="rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300"
+        />
+      </div>
+
       <div className="grid grid-cols-2 gap-4">
         <div className="flex flex-col place-items-center gap-2 rounded-md bg-zinc-900 bg-opacity-80">
           <label className="w-full text-center" htmlFor="startTime">
