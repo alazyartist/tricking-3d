@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  @font-face {
+    font-family: "Virgil";
+    src: url("https://excalidraw.com/Virgil.woff2") format("woff2");
+  }
+}
+
 @layer components {
   .outlineButton {
     @apply flex place-content-center place-items-center rounded-md border-2 px-1;
