@@ -102,8 +102,16 @@ export const StepOne = ({ setFormData, count, formData, setCount }) => {
 
 export const StepTwo = ({ setFormData, formData }) => {
   return (
-    <div className="flex h-[90%] flex-col">
-      <div>Step Two</div>
+    <div className="flex h-[90%] flex-col justify-around">
+      <h1 className="pt-2 text-center font-virgil text-3xl">
+        Tell us about <br />
+        the {formData.type.toLowerCase()}
+      </h1>
+      <p className={`font-virgil text-sm`}>
+        when did this{" "}
+        <span className={`font-inter font-bold`}>{formData.type}</span> take
+        place
+      </p>
       <input
         onChange={(e) =>
           setFormData((s) => ({ ...s, sessionDate: e.target.value }))
@@ -113,35 +121,37 @@ export const StepTwo = ({ setFormData, formData }) => {
         value={formData.sessionDate}
         className="rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300"
       />
-      <div className="flex items-center gap-2 rounded-md bg-zinc-900 bg-opacity-80">
-        <label className="w-1/6 pl-2" htmlFor="startTime">
-          Start
-        </label>
-        <input
-          onChange={(e) =>
-            setFormData((s) => ({ ...s, startTime: e.target.value }))
-          }
-          id="startTime"
-          step={"00:15"}
-          className="w-full select-none place-self-end bg-transparent p-1 text-zinc-300  "
-          type="time"
-          value={formData.startTime}
-        />
-      </div>
-      <div className="flex items-center gap-2 rounded-md bg-zinc-900 bg-opacity-80">
-        <label className="w-1/6 pl-2" htmlFor="endTime">
-          End
-        </label>
-        <input
-          onChange={(e) =>
-            setFormData((s) => ({ ...s, endTime: e.target.value }))
-          }
-          id="endTime"
-          step={"00:15"}
-          className="w-full select-none place-self-end bg-transparent p-1 text-zinc-300  "
-          type="time"
-          value={formData.endTime}
-        />
+      <div className="grid grid-cols-2 gap-4">
+        <div className="flex flex-col place-items-center gap-2 rounded-md bg-zinc-900 bg-opacity-80">
+          <label className="w-full text-center" htmlFor="startTime">
+            Start
+          </label>
+          <input
+            onChange={(e) =>
+              setFormData((s) => ({ ...s, startTime: e.target.value }))
+            }
+            id="startTime"
+            step={"00:15"}
+            className="w-full select-none place-self-end bg-transparent p-1 text-zinc-300  "
+            type="time"
+            value={formData.startTime}
+          />
+        </div>
+        <div className="flex flex-col place-items-center gap-2 rounded-md bg-zinc-900 bg-opacity-80">
+          <label className="w-full text-center" htmlFor="endTime">
+            End
+          </label>
+          <input
+            onChange={(e) =>
+              setFormData((s) => ({ ...s, endTime: e.target.value }))
+            }
+            id="endTime"
+            step={"00:15"}
+            className="w-full select-none place-self-end bg-transparent p-1 text-zinc-300  "
+            type="time"
+            value={formData.endTime}
+          />
+        </div>
       </div>
     </div>
   );
@@ -170,7 +180,8 @@ export const StepThree = ({ formData, setFormData }) => {
       >
         <div className="flex w-full flex-col place-content-center place-items-center text-center text-sm">
           {formData?.trickers?.map((battler) => (
-            <div
+            <button
+              type="button"
               className={"flex flex-col gap-2 p-1"}
               onClick={() => {
                 setFormData((s) => ({
@@ -182,7 +193,7 @@ export const StepThree = ({ formData, setFormData }) => {
               }}
             >
               {battler.username}
-            </div>
+            </button>
           ))}
           {/* <div
             className={"w-[150px] rounded-md bg-emerald-500 p-1"}
@@ -200,7 +211,8 @@ export const StepThree = ({ formData, setFormData }) => {
             <div className={"grid grid-cols-3 gap-2"}>
               {availableUsers?.map((user) => {
                 return (
-                  <div
+                  <button
+                    type="button"
                     key={user.uuid}
                     onClick={() => {
                       !formData.trickers.some((item) => item.uuid === user.uuid)
@@ -231,7 +243,7 @@ export const StepThree = ({ formData, setFormData }) => {
                       alt={"image"}
                     />
                     <p className={"text-sm"}>{user.username}</p>
-                  </div>
+                  </button>
                 );
               })}
             </div>

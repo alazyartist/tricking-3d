@@ -74,13 +74,19 @@ const AddSessionPage = () => {
       true) ||
     false;
   console.log(isEnabled);
+  const [currentStep, setCurrentStep] = useState(0);
   let enabledOne =
     (formData?.name && formData.type && formData.url[0] && true) || false;
   let enabledTwo =
     (formData?.sessionDate && formData.startTime && formData.endTime && true) ||
     false;
+  let enabledThree = formData?.trickers.length >= 1;
   // const [addTrickersOpen, setAddTrickersOpen] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
+  let stepEnabled =
+    (currentStep === 0 && enabledOne) ||
+    (currentStep === 1 && enabledTwo) ||
+    (currentStep === 2 && enabledThree);
+
   return (
     <div className="mt-[10vh] flex h-[80vh] flex-col place-content-center place-items-center font-inter text-zinc-300">
       {submitSuccess ? (
@@ -131,9 +137,9 @@ const AddSessionPage = () => {
             </div>
             {currentStep !== 3 && (
               <button
-                disabled={!enabledOne}
+                disabled={!stepEnabled || currentStep === 2 ? false : true}
                 className={`m-4 rounded-lg p-2 font-virgil text-2xl  ${
-                  enabledOne
+                  stepEnabled
                     ? "bg-emerald-400 text-emerald-800"
                     : "bg-zinc-800 text-zinc-600"
                 }`}
@@ -142,7 +148,10 @@ const AddSessionPage = () => {
               >
                 {currentStep === 0 && "Gimmie Them Stats"}
                 {currentStep === 1 && "Finished"}
-                {currentStep === 2 && "That's All"}
+                {currentStep === 2 && formData.trickers.length < 1 && "Skip"}
+                {currentStep === 2 &&
+                  formData.trickers.length >= 1 &&
+                  "That's All"}
                 {currentStep === 3 && "Looks Great!"}
               </button>
             )}
