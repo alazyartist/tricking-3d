@@ -9,6 +9,7 @@ import useUserInfo from "../../api/useUserInfo";
 import { useQueryClient } from "@tanstack/react-query";
 import BackgroundCircles from "../../admin/components/BackgroundCircles";
 import { trpc } from "utils/trpc";
+import { StepOne, StepReview, StepThree, StepTwo } from "./AddSessionSteps";
 const whatsToday = () => {
   let today = new Date(Date.now());
   return `${today.getFullYear()}-${("0" + (today.getMonth() + 1)).slice(-2)}-${(
@@ -16,7 +17,7 @@ const whatsToday = () => {
   ).slice(-2)}`;
 };
 const AddSessionPage = () => {
-  const { data: availableUsers } = trpc.userDB.findAll.useQuery();
+  // const { data: availableUsers } = trpc.userDB.findAll.useQuery();
   let todaytime = new Date(Date.now()).toISOString().slice(-13, -8);
 
   const { mutateAsync: submitSession, data: response } =
@@ -37,6 +38,7 @@ const AddSessionPage = () => {
     endTime: null,
     type: "Session",
     trickers: [],
+    name: "",
   });
 
   const onSubmit = (e) => {
@@ -45,8 +47,8 @@ const AddSessionPage = () => {
     console.log("submitting", formData);
   };
   useEffect(() => {
-    console.log(availableUsers);
-  }, [availableUsers, formData]);
+    console.log(formData);
+  }, [formData]);
   useEffect(() => {
     if (response?.data?.message === "Submitted") {
       setSubmitSucces(true);
@@ -72,28 +74,165 @@ const AddSessionPage = () => {
       true) ||
     false;
   console.log(isEnabled);
-  const [addTrickersOpen, setAddTrickersOpen] = useState(false);
+  let enabledOne =
+    (formData?.name && formData.type && formData.url[0] && true) || false;
+  let enabledTwo =
+    (formData?.sessionDate && formData.startTime && formData.endTime && true) ||
+    false;
+  // const [addTrickersOpen, setAddTrickersOpen] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
   return (
-    <div className="mt-14 flex h-[80vh] flex-col place-content-center place-items-center font-inter text-zinc-300">
+    <div className="mt-[10vh] flex h-[80vh] flex-col place-content-center place-items-center font-inter text-zinc-300">
       {submitSuccess ? (
         <SessionSubmitted SessionReviewCredits={SessionReviewCredits} />
       ) : (
         <>
-          <div
+          <button
+            type="button"
+            id="addCreditbutton"
             onClick={() => setShowOutOfCredits((prev) => !prev)}
             className="absolute top-4 left-4 rounded-md bg-gradient-to-b from-teal-400 to-emerald-500 p-2 font-bold text-zinc-900 drop-shadow-md"
           >
             Credit{`${SessionReviewCredits > 1 ? "s" : ""}`}:{" "}
             {SessionReviewCredits}
-          </div>
+          </button>
           <form
             onSubmit={onSubmit}
-            className="relative flex w-[90vw] flex-col gap-2 rounded-md bg-zinc-700 bg-opacity-30 p-3"
+            className="relative flex h-full w-[90vw] flex-col gap-2 rounded-md bg-zinc-700 bg-opacity-30 p-3"
           >
-            <div className="p-2 text-center font-titan text-3xl text-zinc-200 drop-shadow-lg md:text-5xl">
-              Submit Session
+            <div className="p-2 text-center font-inter text-3xl font-bold tracking-wide text-zinc-200 drop-shadow-lg md:text-5xl">
+              Submit {formData.type}
             </div>
-            <input
+            {currentStep === 0 && (
+              <StepOne
+                setFormData={setFormData}
+                count={count}
+                setCount={setCount}
+                formData={formData}
+              />
+            )}
+            {currentStep === 1 && (
+              <StepTwo setFormData={setFormData} formData={formData} />
+            )}
+            {currentStep === 2 && (
+              <StepThree setFormData={setFormData} formData={formData} />
+            )}
+            {currentStep === 3 && <StepReview formData={formData} />}
+
+            <div className="flex w-full place-content-center gap-2">
+              {[0, 1, 2, 3].map((step) => (
+                <div
+                  onClick={() => setCurrentStep(step)}
+                  className={`h-5 w-5 rounded-full ${
+                    step === currentStep ? "bg-zinc-300" : "bg-zinc-500"
+                  }`}
+                />
+              ))}
+            </div>
+            {currentStep !== 3 && (
+              <button
+                disabled={!enabledOne}
+                className={`m-4 rounded-lg  p-2 text-2xl  ${
+                  enabledOne
+                    ? "bg-emerald-400 text-emerald-800"
+                    : "bg-zinc-800 text-zinc-600"
+                }`}
+                type="button"
+                onClick={() => setCurrentStep((currentStep + 1) % 4)}
+              >
+                {currentStep === 0 && "Gimmie Them Stats"}
+                {currentStep === 1 && "Finished"}
+                {currentStep === 2 && "That's All"}
+                {currentStep === 3 && "Looks Great!"}
+              </button>
+            )}
+            {currentStep === 3 && (
+              <button
+                type="submit"
+                value="Submit"
+                disabled={isEnabled === false ? true : false}
+                className={`rounded-lg ${
+                  isEnabled ? "bg-emerald-500" : "bg-zinc-800 text-zinc-600"
+                } m-4 p-2 text-2xl`}
+              >
+                Start Processing
+              </button>
+            )}
+          </form>
+          <div className="flex flex-col place-items-center gap-2">
+            <div>{response?.data?.message}</div>
+            {showOutOfCredits && <OutOfCredits />}
+          </div>
+        </>
+      )}
+      <BackgroundCircles />
+    </div>
+  );
+};
+
+export default AddSessionPage;
+
+const SessionSubmitted = ({ SessionReviewCredits }) => {
+  return (
+    <div className="flex h-full flex-col place-content-center place-items-center gap-2 font-titan">
+      <div className="text-center text-3xl">Your Session was Submitted</div>
+      <MdCheckCircle className={"text-8xl text-emerald-500"} />
+      <div className="text-center text-3xl">
+        Please check back later for the Summary
+      </div>
+      <div>You have {SessionReviewCredits - 1} left</div>
+      <Link href={"/home"} className={"rounded-md bg-zinc-700 p-1"}>
+        Home
+      </Link>
+    </div>
+  );
+};
+
+const OutOfCredits = () => {
+  const queryClient = useQueryClient();
+  const [showForm, setShowForm] = useState(false);
+  const [creditAmount, setcreditAmount] = useState(1);
+  useUserInfo();
+  useEffect(() => {
+    queryClient.invalidateQueries(["userInfo"]);
+  }, [showForm]);
+  return (
+    <>
+      <div className="flex place-content-center place-items-center gap-4 text-center font-inter text-4xl">
+        <div
+          className="flex h-10 w-10 place-content-center place-items-center rounded-full bg-zinc-200 bg-opacity-10"
+          onClick={() => setcreditAmount((ca) => ca - 1)}
+        >
+          -
+        </div>
+        {(creditAmount > 0 ? creditAmount : 1) * 5}$
+        <div
+          className="flex h-10 w-10 place-content-center place-items-center rounded-full bg-zinc-200 bg-opacity-10"
+          onClick={() => setcreditAmount((ca) => ca + 1)}
+        >
+          +
+        </div>
+      </div>
+      <button
+        type="button"
+        onClick={() => setShowForm(true)}
+        className="w-[200px] rounded-md bg-gradient-to-br from-emerald-500 to-emerald-600 py-2 text-2xl font-bold text-zinc-900"
+        id="submit"
+      >
+        Add Credits
+      </button>
+      {showForm && (
+        <div className="absolute top-[0vh] left-[0vw] z-[1290] h-[100vh] w-[100vw] rounded-md bg-zinc-900 bg-opacity-40 p-8 backdrop-blur-md">
+          <PaymentEmbed creditAmount={creditAmount} setShowForm={setShowForm} />
+        </div>
+      )}
+    </>
+  );
+};
+
+///DELETE LATER VVVVV
+{
+  /* <input
               onChange={(e) =>
                 setFormData((s) => ({ ...s, name: e.target.value }))
               }
@@ -101,8 +240,10 @@ const AddSessionPage = () => {
               type="text"
               className="rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300"
               placeholder="Session Name"
-            />
-            <input
+            /> */
+}
+{
+  /* <input
               onChange={(e) =>
                 setFormData((s) => ({ ...s, sessionDate: e.target.value }))
               }
@@ -140,8 +281,10 @@ const AddSessionPage = () => {
                 type="time"
                 value={formData.endTime}
               />
-            </div>
-            <div className="flex items-center gap-2 rounded-md bg-zinc-900 bg-opacity-80">
+            </div> */
+}
+{
+  /* <div className="flex items-center gap-2 rounded-md bg-zinc-900 bg-opacity-80">
               <label className="w-1/6 pl-2" htmlFor="type">
                 Type
               </label>
@@ -172,8 +315,10 @@ const AddSessionPage = () => {
                   Sampler
                 </option>
               </select>
-            </div>
-            {
+            </div> */
+}
+{
+  /* {
               <div className="flex items-center gap-2 rounded-md bg-zinc-900 bg-opacity-80">
                 <label
                   onClick={() => setAddTrickersOpen(!addTrickersOpen)}
@@ -268,8 +413,10 @@ const AddSessionPage = () => {
                   )}
                 </div>
               </div>
-            }
-            {Array.from(Array(count).keys()).map((i) => (
+            } */
+}
+{
+  /* {Array.from(Array(count).keys()).map((i) => (
               <div
                 key={`${formData.url[i]} ${i} `}
                 className="flex w-full gap-2 rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300"
@@ -303,86 +450,5 @@ const AddSessionPage = () => {
             >
               <span>Add Another URL Source</span>
               <span className="text-2xl leading-none text-emerald-500">+</span>
-            </span>
-
-            <button
-              type="submit"
-              value="Submit"
-              disabled={isEnabled === false ? true : false}
-              className={`rounded-lg ${
-                isEnabled ? "bg-emerald-500" : "bg-zinc-800 text-zinc-600"
-              } p-2`}
-            >
-              Start Processing
-            </button>
-          </form>
-          <div className="flex flex-col place-items-center gap-2">
-            <div>{response?.data?.message}</div>
-            {showOutOfCredits && <OutOfCredits />}
-          </div>
-        </>
-      )}
-      <BackgroundCircles />
-    </div>
-  );
-};
-
-export default AddSessionPage;
-
-const SessionSubmitted = ({ SessionReviewCredits }) => {
-  return (
-    <div className="flex h-full flex-col place-content-center place-items-center gap-2 font-titan">
-      <div className="text-center text-3xl">Your Session was Submitted</div>
-      <MdCheckCircle className={"text-8xl text-emerald-500"} />
-      <div className="text-center text-3xl">
-        Please check back later for the Summary
-      </div>
-      <div>You have {SessionReviewCredits - 1} left</div>
-      <Link href={"/home"} className={"rounded-md bg-zinc-700 p-1"}>
-        Home
-      </Link>
-    </div>
-  );
-};
-
-const OutOfCredits = () => {
-  const queryClient = useQueryClient();
-  const [showForm, setShowForm] = useState(false);
-  const [creditAmount, setcreditAmount] = useState(1);
-  useUserInfo();
-  useEffect(() => {
-    queryClient.invalidateQueries(["userInfo"]);
-  }, [showForm]);
-  return (
-    <>
-      <div className="flex place-content-center place-items-center gap-4 text-center font-inter text-4xl">
-        <div
-          className="flex h-10 w-10 place-content-center place-items-center rounded-full bg-zinc-200 bg-opacity-10"
-          onClick={() => setcreditAmount((ca) => ca - 1)}
-        >
-          -
-        </div>
-        {(creditAmount > 0 ? creditAmount : 1) * 5}$
-        <div
-          className="flex h-10 w-10 place-content-center place-items-center rounded-full bg-zinc-200 bg-opacity-10"
-          onClick={() => setcreditAmount((ca) => ca + 1)}
-        >
-          +
-        </div>
-      </div>
-      <button
-        type="button"
-        onClick={() => setShowForm(true)}
-        className="w-[200px] rounded-md bg-gradient-to-br from-emerald-500 to-emerald-600 py-2 text-2xl font-bold text-zinc-900"
-        id="submit"
-      >
-        Add Credits
-      </button>
-      {showForm && (
-        <div className="absolute top-[0vh] left-[0vw] z-[1290] h-[100vh] w-[100vw] rounded-md bg-zinc-900 bg-opacity-40 p-8 backdrop-blur-md">
-          <PaymentEmbed creditAmount={creditAmount} setShowForm={setShowForm} />
-        </div>
-      )}
-    </>
-  );
-};
+            </span> */
+}
