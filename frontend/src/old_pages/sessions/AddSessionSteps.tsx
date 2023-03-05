@@ -52,7 +52,7 @@ export const StepOne = ({ setFormData, count, formData, setCount }) => {
       <div className="flex w-full flex-col">
         <p className={`font-virgil text-sm`}>
           what should we call your{" "}
-          <span className={`font-inter font-bold`}>{formData.type}</span>
+          <span className={` font-bold`}>{formData.type}</span>
         </p>
         <input
           onChange={(e) => setFormData((s) => ({ ...s, name: e.target.value }))}
@@ -263,23 +263,35 @@ export const StepReview = ({ formData }) => {
         Review
       </h1>
       <div className="w-full space-y-3 text-center">
-        <h1>{formData.name}</h1>
-        <h2>{formData.sessionDate}</h2>
+        <h1 className="text-2xl font-bold">{formData.name}</h1>
+        <h2>{new Date(formData.sessionDate).toDateString()}</h2>
       </div>
-      <div>
+      <div className="grid w-[60%] grid-cols-2 gap-2">
         {formData.trickers.map((tricker) => (
-          <p>{tricker.username}</p>
+          <div className="flex flex-col place-items-center">
+            <img
+              className={`h-8 w-8 rounded-full`}
+              src={`${
+                tricker.profilePic
+                  ? `./images/${tricker?.uuid}/${tricker?.profilePic}`
+                  : `./images/noimg.jpeg`
+              }`}
+              alt={"image"}
+            />
+            <p>{tricker.username}</p>
+          </div>
         ))}
       </div>
-      <div>
+      <div className="space-y-3">
         {Object.keys(formData.url).map((key) => (
           <div className="flex flex-col place-items-center gap-2">
-            <p>
+            {/* <p>
               {formData.url[key].replace(
                 "https://www.youtube.com/watch?v=",
                 "youtube/"
-              )}
+              )} 
             </p>
+              */}
             <div className={`overflow-hidden rounded-xl`}>
               <ReactPlayer
                 config={{ facebook: { appId: "508164441188790" } }}

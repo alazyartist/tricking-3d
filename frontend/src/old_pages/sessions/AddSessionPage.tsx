@@ -130,7 +130,7 @@ const AddSessionPage = () => {
               {[0, 1, 2, 3].map((step) => (
                 <div
                   onClick={() => setCurrentStep(step)}
-                  className={`h-5 w-5 rounded-full ${
+                  className={`h-3 w-3 rounded-full ${
                     step === currentStep ? "bg-zinc-300" : "bg-zinc-500"
                   }`}
                 />
