@@ -98,7 +98,7 @@ export const StepOne = ({ setFormData, count, formData, setCount }) => {
         </div>
       ))}
       <span
-        onClick={() => setCount((c) => c + 1)}
+        onClick={() => setCount((c) => (c + 1 < 4 ? c + 1 : 4))}
         className="flex place-content-end place-items-center gap-2 font-inter font-bold tracking-wider"
       >
         <span>add more links</span>
