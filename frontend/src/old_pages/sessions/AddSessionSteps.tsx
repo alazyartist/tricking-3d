@@ -83,7 +83,14 @@ export const StepOne = ({ setFormData, count, formData, setCount }) => {
           {i > 0 && (
             <span
               className="text-2xl leading-none text-red-500"
-              onClick={() => setCount((c) => c - 1)}
+              onClick={() => {
+                setCount((c) => c - 1);
+                setFormData((fd) => {
+                  const updatedData = { ...fd };
+                  delete updatedData.url[i];
+                  return updatedData;
+                });
+              }}
             >
               -
             </span>
