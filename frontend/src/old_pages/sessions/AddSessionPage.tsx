@@ -85,7 +85,8 @@ const AddSessionPage = () => {
   let stepEnabled =
     (currentStep === 0 && enabledOne) ||
     (currentStep === 1 && enabledTwo) ||
-    (currentStep === 2 && enabledThree);
+    currentStep === 2 ||
+    enabledThree;
 
   return (
     <div className="mt-[10vh] flex h-[80vh] flex-col place-content-center place-items-center font-inter text-zinc-300">
@@ -137,7 +138,7 @@ const AddSessionPage = () => {
             </div>
             {currentStep !== 3 && (
               <button
-                disabled={!stepEnabled || currentStep === 2 ? false : true}
+                disabled={!stepEnabled}
                 className={`m-4 rounded-lg p-2 font-virgil text-2xl  ${
                   stepEnabled
                     ? "bg-emerald-400 text-emerald-800"

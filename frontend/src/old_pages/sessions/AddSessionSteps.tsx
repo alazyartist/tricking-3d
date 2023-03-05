@@ -159,30 +159,22 @@ export const StepTwo = ({ setFormData, formData }) => {
 
 export const StepThree = ({ formData, setFormData }) => {
   const { data: availableUsers } = trpc.userDB.findAll.useQuery();
-  //   const [addTrickersOpen, setAddTrickersOpen] = useState(false);
 
   return (
-    <div className="flex h-[70%] flex-col bg-zinc-900 bg-opacity-80">
-      <div>Step Three</div>
-
-      {/* <div className="flex flex-col items-center gap-2 rounded-md "> */}
-      <label
-        // onClick={() => setAddTrickersOpen(!addTrickersOpen)}
-        className="w-1/6 p-1 pl-2"
-        htmlFor="trickers"
-      >
-        Trickers
-      </label>
+    <div className="flex h-[70%] flex-col">
+      <h1 className="pt-2 text-center font-virgil text-3xl">
+        Who is in the video?
+      </h1>
 
       <div
         style={{ color: "#fff" }}
-        className="flex h-full w-full flex-col gap-2 overflow-hidden rounded-md bg-zinc-900 bg-opacity-0 p-1 text-zinc-300"
+        className="flex h-full w-full flex-col gap-2 overflow-hidden rounded-md p-1 text-zinc-300"
       >
-        <div className="flex w-full flex-col place-content-center place-items-center text-center text-sm">
+        <div className="grid w-full grid-cols-2 place-content-center place-items-center text-center text-sm">
           {formData?.trickers?.map((battler) => (
             <button
               type="button"
-              className={"flex flex-col gap-2 p-1"}
+              className={"flex place-items-center gap-2 p-1"}
               onClick={() => {
                 setFormData((s) => ({
                   ...s,
@@ -192,20 +184,23 @@ export const StepThree = ({ formData, setFormData }) => {
                 }));
               }}
             >
-              {battler.username}
+              <img
+                className={`h-8 w-8 rounded-full`}
+                src={`${
+                  battler.profilePic
+                    ? `./images/${battler?.uuid}/${battler?.profilePic}`
+                    : `./images/noimg.jpeg`
+                }`}
+                alt={"image"}
+              />
+              <p>{battler.username}</p>
             </button>
           ))}
-          {/* <div
-            className={"w-[150px] rounded-md bg-emerald-500 p-1"}
-            onClick={() => setAddTrickersOpen(!addTrickersOpen)}
-          >
-            Add
-          </div> */}
         </div>
         {availableUsers && (
           <div
             className={
-              " flex h-full w-full flex-col justify-between gap-1 overflow-hidden overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-90 p-2"
+              " flex h-full w-full flex-col justify-between gap-1 overflow-hidden overflow-y-scroll rounded-md  p-2"
             }
           >
             <div className={"grid grid-cols-3 gap-2"}>
@@ -227,14 +222,20 @@ export const StepThree = ({ formData, setFormData }) => {
                             ),
                           }));
                     }}
-                    className={`flex aspect-square w-full flex-col place-content-center place-items-center gap-1 rounded-md p-1 text-zinc-300 ${
+                    className={`flex aspect-square w-full flex-col place-content-center place-items-center gap-1 rounded-xl bg-opacity-10 p-1 text-zinc-300 ${
                       formData.trickers.some((item) => item.uuid === user.uuid)
-                        ? " bg-zinc-500 "
-                        : " bg-zinc-800 "
+                        ? " bg-zinc-900 text-zinc-500"
+                        : "  text-zinc-300"
                     }`}
                   >
                     <img
-                      className={`h-8 w-8 rounded-full`}
+                      className={`h-8 w-8 rounded-full ${
+                        formData.trickers.some(
+                          (item) => item.uuid === user.uuid
+                        )
+                          ? " opacity-40"
+                          : "  "
+                      }`}
                       src={`${
                         user.profilePic
                           ? `./images/${user?.uuid}/${user?.profilePic}`
@@ -247,16 +248,9 @@ export const StepThree = ({ formData, setFormData }) => {
                 );
               })}
             </div>
-            {/* <div
-              onClick={() => setAddTrickersOpen(false)}
-              className="flex place-content-center place-items-center rounded-md bg-emerald-500 p-1 text-2xl"
-            >
-              Done
-            </div> */}
           </div>
         )}
       </div>
-      {/* </div> */}
     </div>
   );
 };
