@@ -98,11 +98,11 @@ const AddSessionPage = () => {
           </button>
           <form
             onSubmit={onSubmit}
-            className="relative flex h-full w-[90vw] flex-col gap-2 rounded-md bg-zinc-700 bg-opacity-30 p-3"
+            className="relative flex h-full w-[90vw] flex-col gap-2 rounded-md bg-zinc-700 bg-opacity-30 p-3 backdrop-blur-2xl"
           >
-            <div className="p-2 text-center font-inter text-3xl font-bold tracking-wide text-zinc-200 drop-shadow-lg md:text-5xl">
+            {/* <div className="p-2 text-center font-inter text-3xl font-bold tracking-wide text-zinc-200 drop-shadow-lg md:text-5xl">
               Submit {formData.type}
-            </div>
+            </div> */}
             {currentStep === 0 && (
               <StepOne
                 setFormData={setFormData}
@@ -132,7 +132,7 @@ const AddSessionPage = () => {
             {currentStep !== 3 && (
               <button
                 disabled={!enabledOne}
-                className={`m-4 rounded-lg  p-2 text-2xl  ${
+                className={`m-4 rounded-lg p-2 font-virgil text-2xl  ${
                   enabledOne
                     ? "bg-emerald-400 text-emerald-800"
                     : "bg-zinc-800 text-zinc-600"

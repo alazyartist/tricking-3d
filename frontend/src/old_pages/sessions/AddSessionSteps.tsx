@@ -3,15 +3,16 @@ import React, { useState } from "react";
 
 export const StepOne = ({ setFormData, count, formData, setCount }) => {
   return (
-    <div className="flex h-[90%] flex-col gap-4">
-      <div>Name Your {formData.type}</div>
-      <input
-        onChange={(e) => setFormData((s) => ({ ...s, name: e.target.value }))}
-        id="name"
-        type="text"
-        className="rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300"
-        placeholder="Session Name"
-      />
+    <div className="flex h-[90%] flex-col justify-evenly gap-4">
+      <div>
+        <h1 className={"pt-2 text-center font-virgil text-3xl"}>
+          Get Your Stats
+        </h1>
+        <p className={`text-xs`}>
+          Submit your videos here to get a full breakdown and compete in the
+          leaderboards!
+        </p>
+      </div>
       <div className="flex w-full place-items-center justify-around gap-2 rounded-md bg-zinc-900 bg-opacity-80 p-2">
         <button
           type="button"
@@ -47,6 +48,19 @@ export const StepOne = ({ setFormData, count, formData, setCount }) => {
           Sampler
         </button>
       </div>
+      <div className="flex w-full flex-col">
+        <p className={`font-virgil text-sm`}>
+          what should we call your{" "}
+          <span className={`font-inter font-bold`}>{formData.type}</span>
+        </p>
+        <input
+          onChange={(e) => setFormData((s) => ({ ...s, name: e.target.value }))}
+          id="name"
+          type="text"
+          className="rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300"
+          placeholder={`${formData.type} Name`}
+        />
+      </div>
       {Array.from(Array(count).keys()).map((i) => (
         <div
           key={`${formData.url[i]} ${i} `}
@@ -77,9 +91,9 @@ export const StepOne = ({ setFormData, count, formData, setCount }) => {
       ))}
       <span
         onClick={() => setCount((c) => c + 1)}
-        className="flex place-items-center gap-2 font-titan"
+        className="flex place-content-end place-items-center gap-2 font-inter font-bold tracking-wider"
       >
-        <span>Add Another URL Source</span>
+        <span>add more links</span>
         <span className="text-2xl leading-none text-emerald-500">+</span>
       </span>
     </div>
