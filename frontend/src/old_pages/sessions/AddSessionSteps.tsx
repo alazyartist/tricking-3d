@@ -1,5 +1,6 @@
 import { trpc } from "@utils/trpc";
 import React, { useState } from "react";
+import ReactPlayer from "react-player";
 
 export const StepOne = ({ setFormData, count, formData, setCount }) => {
   return (
@@ -257,13 +258,44 @@ export const StepThree = ({ formData, setFormData }) => {
 
 export const StepReview = ({ formData }) => {
   return (
-    <div className="flex h-[90%] flex-col">
-      <div>Review</div>
-      {Object.keys(formData).map((key) => (
-        <div>
-          {key}:{JSON.stringify(formData[key])}
-        </div>
-      ))}
+    <div className="flex h-[90%] flex-col place-content-center place-items-center justify-around">
+      <h1 className={`w-full text-center font-virgil text-xl text-zinc-400`}>
+        Review
+      </h1>
+      <div className="w-full space-y-3 text-center">
+        <h1>{formData.name}</h1>
+        <h2>{formData.sessionDate}</h2>
+      </div>
+      <div>
+        {formData.trickers.map((tricker) => (
+          <p>{tricker.username}</p>
+        ))}
+      </div>
+      <div>
+        {Object.keys(formData.url).map((key) => (
+          <div className="flex flex-col place-items-center gap-2">
+            <p>
+              {formData.url[key].replace(
+                "https://www.youtube.com/watch?v=",
+                "youtube/"
+              )}
+            </p>
+            <div className={`overflow-hidden rounded-xl`}>
+              <ReactPlayer
+                config={{ facebook: { appId: "508164441188790" } }}
+                id={"video"}
+                controls={true}
+                muted
+                width={"70vw"}
+                height={"40vw"}
+                loop
+                playsInline
+                url={formData.url[key]}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
