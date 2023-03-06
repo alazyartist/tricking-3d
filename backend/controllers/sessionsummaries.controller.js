@@ -400,7 +400,8 @@ const calculateTrickTotals = async (tricks, curData) => {
 							if (fullcomposition[i - 1] > 1) {
 								return chains[`${chainNum}`]?.multiplier * compdif;
 							}
-							return chains[`${chainNum}`]?.multiplier * compdif;
+							console.log(compdif, compSubtotal, "comp");
+							return chains[`${chainNum}`]?.multiplier;
 						}
 					};
 					let getcurTrickPV = () => {
@@ -442,21 +443,14 @@ const calculateTrickTotals = async (tricks, curData) => {
 					// 	return;
 					// }
 					//Increment for Next Chain
-					chains[`${chainNum + 1}`] = chains[`${chainNum}`];
+					// chains[`${chainNum + 1}`] = chains[`${chainNum}`];
+					chainNum++;
 					chains[`${chainNum}`] = {
 						chain: [],
 						name: obj.name,
 						count: 1,
 						multiplier: obj.multiplier,
 					};
-
-					chainMap.push([
-						i + 1,
-						tricks[i + 1].pointValue * chains[`${chainNum}`].multiplier,
-						chains[`${chainNum}`].multiplier,
-						tricks[i + 1].name,
-					]);
-					chainNum++;
 				}
 			} else {
 				// //Make new Chain
@@ -467,6 +461,12 @@ const calculateTrickTotals = async (tricks, curData) => {
 						count: 1,
 						multiplier: obj.multiplier,
 					};
+					chainMap.push([
+						i + 1,
+						tricks[i + 1].pointValue * chains[`${chainNum}`].multiplier,
+						chains[`${chainNum}`].multiplier,
+						tricks[i + 1].name,
+					]);
 				}
 			}
 		});
@@ -497,6 +497,14 @@ const calculateTrickTotals = async (tricks, curData) => {
 			);
 			let varietyMultiplier = uniqueVariations.reduce((sum, b) => sum + b, 0);
 			let vsubtotal = 0;
+			let isHyperHook =
+				fullTricks[i].variations.some((v) =>
+					v.variation.name.includes("Hook")
+				) &&
+				fullTricks[i].variations.some((v) =>
+					v.variation.variationType.includes("Rotation")
+				);
+
 			if (isNotVanilla && !perfectMatch) {
 				variety.multiplier += varietyMultiplier;
 				vsubtotal = variety.multiplier * trick.pointValue;
@@ -509,6 +517,9 @@ const calculateTrickTotals = async (tricks, curData) => {
 					trick.name,
 					vsubtotal
 				);
+			}
+			if (i === fullTricks.length - 1 && isHyperHook) {
+				console.log("LastTrick", fullTricks[i].name, fullTricks[i]);
 			}
 
 			console.log(
@@ -548,7 +559,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 		let totalScore =
 			chainTotal +
 			varietyScore +
-			executionAverage * (powerScore / 2) +
+			executionAverage * (powerScore + varietyScore) +
 			powerScore; //total = comboPointValue + (executionAverage * comboPointValue)+ chainScore + varietyScore
 		return {
 			totalScore,

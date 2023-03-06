@@ -207,8 +207,8 @@ model sessiondata {
   srcid            String?  @db.Char(36)
   sessionid        String?  @db.Char(36)
   clipLabel        String?  @db.Char(36)
-  clipStart        String?  @db.VarChar(255)
-  clipEnd          String?  @db.VarChar(255)
+  clipStart        Float?  
+  clipEnd          Float?  
   admin            String?  @db.Char(36)
   tricker_id          String?  @db.Char(36)
   createdAt        DateTime @default(now()) @db.DateTime(0)
