@@ -33,7 +33,8 @@
 
 .display-trick {
   @apply
-    flex-row-center
+    flex flex-row
+    justify-center items-center
     mb-2
     w-[80vw]
     p-4
@@ -44,10 +45,10 @@
 .display-combo {
   @apply
     overflow-auto
-    flex flex-1
+    flex flex-col flex-1
+    justify-center items-center
     pt-8
     w-screen 
-    flex-col-center 
     bg-zinc-800
     bg-opacity-40
     text-white
@@ -55,7 +56,8 @@
 .build-combo {
   @apply
     relative
-    flex-col-center
+    flex flex-col
+    justify-center items-center
     h-[20vh] w-screen 
     mb-10
     bg-red-300 
