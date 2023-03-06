@@ -509,6 +509,11 @@ const calculateTrickTotals = async (tricks, curData) => {
 					v.variation.variationType.includes("Rotation")
 				);
 
+			const hasFlatspin = (index) => {
+				return fullTricks[index].variations.some((v) =>
+					v.variation.variationType.includes("FlatSpin")
+				);
+			};
 			if (isNotVanilla && !perfectMatch) {
 				variety.multiplier += varietyMultiplier;
 				vsubtotal = variety.multiplier * trick.pointValue;
@@ -521,6 +526,40 @@ const calculateTrickTotals = async (tricks, curData) => {
 					trick.name,
 					vsubtotal
 				);
+			}
+			// console.log(fullTricks[i].trickType);
+			if (i > 2) {
+				console.log("hasFlatspin", hasFlatspin(i), hasFlatspin(i - 2));
+			}
+			if (fullTricks[i].trickType === "Invert" && i > 2) {
+				if (fullTricks[i - 2].trickType === "Invert") {
+					if (!hasFlatspin(i)) {
+						if (hasFlatspin(i - 2)) {
+							console.log("flatspin to invert");
+						} else console.log("invert to invert");
+					}
+					if (hasFlatspin(i)) {
+						if (hasFlatspin(i - 2)) {
+							console.log("flatspin to flatspin");
+						} else {
+							console.log("invert to flatspin");
+						}
+					}
+				}
+				if (fullTricks[i - 2].trickType === "Kick") {
+					console.log("kick to invert");
+				}
+			}
+			if (fullTricks[i].trickType === "Kick" && i > 2) {
+				if (fullTricks[i - 2].trickType === "Kick") {
+					console.log("kick to kick");
+				}
+				if (fullTricks[i - 2].trickType === "Invert") {
+					console.log("invert to kick");
+					if (hasFlatspin(i - 2)) {
+						console.log("flatspin to kick");
+					}
+				}
 			}
 			if (fullTricks.length > 4 && i === fullTricks.length - 1 && isHyperHook) {
 				console.log("LastTrick", fullTricks[i].name, fullTricks[i]);
@@ -536,19 +575,19 @@ const calculateTrickTotals = async (tricks, curData) => {
 				bonusScore += 10 * fullcomposition[i];
 			}
 
-			console.log(
-				"Vanilla",
-				i,
-				isNotVanilla,
-				!perfectMatch,
-				variety.multiplier,
-				trick.name,
-				vsubtotal
-			);
+			// console.log(
+			// 	"Vanilla",
+			// 	i,
+			// 	isNotVanilla,
+			// 	!perfectMatch,
+			// 	variety.multiplier,
+			// 	trick.name,
+			// 	vsubtotal
+			// );
 
 			// trick?.variations?.map((v) => console.log(i, v.variation));
 		});
-		console.log(varietyMap);
+		// console.log(varietyMap);
 		//Get Trick Count
 		tricks
 			.filter((t) => t.type === "Trick")
