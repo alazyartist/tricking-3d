@@ -536,18 +536,21 @@ const calculateTrickTotals = async (tricks, curData) => {
 					if (!hasFlatspin(i)) {
 						if (hasFlatspin(i - 2)) {
 							console.log("flatspin to invert");
+							bonusScore += fullTricks[i].pointValue;
 						} else console.log("invert to invert");
 					}
 					if (hasFlatspin(i)) {
 						if (hasFlatspin(i - 2)) {
 							console.log("flatspin to flatspin");
 						} else {
+							bonusScore += fullTricks[i].pointValue;
 							console.log("invert to flatspin");
 						}
 					}
 				}
 				if (fullTricks[i - 2].trickType === "Kick") {
 					console.log("kick to invert");
+					bonusScore += 2 * fullTricks[i].pointValue;
 				}
 			}
 			if (fullTricks[i].trickType === "Kick" && i > 2) {
@@ -555,9 +558,12 @@ const calculateTrickTotals = async (tricks, curData) => {
 					console.log("kick to kick");
 				}
 				if (fullTricks[i - 2].trickType === "Invert") {
-					console.log("invert to kick");
 					if (hasFlatspin(i - 2)) {
 						console.log("flatspin to kick");
+						bonusScore += fullTricks[i].pointValue;
+					} else {
+						bonusScore += 2 * fullTricks[i].pointValue;
+						console.log("invert to kick");
 					}
 				}
 			}
