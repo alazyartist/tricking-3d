@@ -522,11 +522,15 @@ const calculateTrickTotals = async (tricks, curData) => {
 					vsubtotal
 				);
 			}
-			if (i === fullTricks.length - 1 && isHyperHook) {
+			if (fullTricks.length > 4 && i === fullTricks.length - 1 && isHyperHook) {
 				console.log("LastTrick", fullTricks[i].name, fullTricks[i]);
 				bonusScore += 20;
 			}
-			if (i === fullTricks.length - 1 && fullcomposition[i] >= 2) {
+			if (
+				fullTricks.length > 4 &&
+				i === fullTricks.length - 1 &&
+				fullcomposition[i] >= 2
+			) {
 				console.log("LastTrick", fullTricks[i].name, fullcomposition[i]);
 
 				bonusScore += 10 * fullcomposition[i];

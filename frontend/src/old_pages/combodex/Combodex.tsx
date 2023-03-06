@@ -116,7 +116,7 @@ const Combodex: React.FC<CombodexProps> = ({
       }
     >
       {/* Scores Display Grid*/}
-      <div className="sticky top-0 left-0 grid h-[120px] w-full grid-cols-4 gap-2 bg-zinc-900 p-2">
+      <div className="sticky top-0 left-0 grid h-[120px] w-full grid-cols-5 gap-2 bg-zinc-900 p-2">
         <div
           onClick={() => setCombodexopen(false)}
           className="outlineButton flex place-content-center place-items-center rounded-md border-transparent bg-zinc-300 bg-opacity-30 p-1 px-0 text-2xl"
@@ -125,7 +125,7 @@ const Combodex: React.FC<CombodexProps> = ({
         </div>
         <div
           className={
-            "outlineButton col-span-3 border-[1px] border-zinc-300 border-opacity-80 bg-zinc-900 text-xl"
+            "outlineButton col-span-4 border-[1px] border-zinc-300 border-opacity-80 bg-zinc-900 text-xl"
           }
         >
           <div>
@@ -167,6 +167,14 @@ const Combodex: React.FC<CombodexProps> = ({
         >
           {sessionData?.chainTotal?.toFixed(2)}
           <span className="text-[8px]">{"chains"}</span>
+        </div>
+        <div
+          className={
+            "outlineButton flex flex-col border-[1px] border-zinc-300 border-opacity-40 bg-zinc-900"
+          }
+        >
+          {sessionData.bonusScore?.toFixed(2)}
+          <span className="text-[8px]">{"bonus"}</span>
         </div>
       </div>
       {/* </div> */}
@@ -290,7 +298,7 @@ export const CombodexTrickDetails = ({ tricks, chainMap, varietyMap }) => {
           ).toFixed(2);
           return (
             <div
-              className={`flex h-full flex-col place-items-center justify-between gap-1 whitespace-nowrap rounded-md bg-opacity-20 p-1 ${
+              className={`relative flex h-full flex-col place-items-center justify-between gap-1 whitespace-nowrap rounded-md bg-opacity-20 p-1 ${
                 tr.type === "Transition" ? "bg-zinc-600" : "bg-zinc-300"
               }`}
             >
@@ -342,6 +350,17 @@ export const CombodexTrickDetails = ({ tricks, chainMap, varietyMap }) => {
                   <div>{tr.pointValue}</div>
                   {tr.defaultAnimation && (
                     <IoIosWalk className="text-emerald-500" />
+                  )}
+                </div>
+                <div>
+                  {chainMap.map((cm) =>
+                    cm[0] - 2 === i ? (
+                      <>
+                        <div
+                          className={`absolute left-[90%] bottom-[10px] z-[-1] h-4 w-[110px] rounded-md bg-zinc-300 bg-opacity-20`}
+                        />
+                      </>
+                    ) : null
                   )}
                 </div>
                 <div>
