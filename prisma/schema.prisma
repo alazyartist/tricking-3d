@@ -215,6 +215,7 @@ model sessiondata {
   updatedAt        DateTime @default(now()) @db.DateTime(0)
   bail             Int?
   totalScore Float?   @default(0)
+  bonusScore Float?   @default(0)
   executionAverage Float?   @default(0)
   varietyScore Float?   @default(0)
   powerScore Float?   @default(0)

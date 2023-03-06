@@ -46,7 +46,8 @@ const Combodex: React.FC<CombodexProps> = ({
   let executionAverage =
     sessiondatascores?.reduce((sum, b) => sum + b.executionScore, 0) /
       sessiondatascores?.length || 0;
-  let executionScoreTotal = executionAverage * (sessionData?.powerScore / 2);
+  let executionScoreTotal =
+    executionAverage * (sessionData?.powerScore + sessionData.varietyScore);
   console.log(
     executionAverage,
     executionScoreTotal,
@@ -57,6 +58,7 @@ const Combodex: React.FC<CombodexProps> = ({
     sessionData?.chainTotal +
     sessionData?.powerScore +
     sessionData?.varietyScore +
+    sessionData?.bonusScore +
     executionScoreTotal
   )?.toFixed(2);
 

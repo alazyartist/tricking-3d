@@ -286,6 +286,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 		let trickCount = {};
 		let chains = {};
 		let chainNum = 0;
+		let bonusScore = 0;
 		let chainMap = [];
 		let varietyMap = [];
 		let variety = { multiplier: 0 };
@@ -384,7 +385,10 @@ const calculateTrickTotals = async (tricks, curData) => {
 					if (
 						fullTricks[i + 1].variations
 							.map((v) => v.variation.variationType)
-							.includes("Touchdown")
+							.includes("Touchdown") &&
+						!fullTricks[i + 1].variations
+							.map((v) => v.variation.variationType)
+							.includes("Rotations")
 					) {
 						chains[`${chainNum}`].multiplier *= 0.125;
 					}
@@ -520,6 +524,12 @@ const calculateTrickTotals = async (tricks, curData) => {
 			}
 			if (i === fullTricks.length - 1 && isHyperHook) {
 				console.log("LastTrick", fullTricks[i].name, fullTricks[i]);
+				bonusScore += 20;
+			}
+			if (i === fullTricks.length - 1 && fullcomposition[i] >= 2) {
+				console.log("LastTrick", fullTricks[i].name, fullcomposition[i]);
+
+				bonusScore += 10 * fullcomposition[i];
 			}
 
 			console.log(
@@ -558,6 +568,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 			uvScore + varietyMap.map((arr) => arr[2]).reduce((sum, b) => sum + b, 0);
 		let totalScore =
 			chainTotal +
+			bonusScore +
 			varietyScore +
 			executionAverage * (powerScore + varietyScore) +
 			powerScore; //total = comboPointValue + (executionAverage * comboPointValue)+ chainScore + varietyScore
@@ -567,6 +578,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 			varietyScore,
 			varietyMap,
 			chains,
+			bonusScore,
 			chainTotal,
 			chainMap,
 			trickCount,

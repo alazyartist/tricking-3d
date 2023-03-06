@@ -53,6 +53,7 @@ module.exports = (sequelize) => {
 			updatedAt: DataTypes.DATE,
 			executionAverage: DataTypes.FLOAT,
 			totalScore: DataTypes.FLOAT,
+			bonusScore: DataTypes.FLOAT,
 			varietyScore: DataTypes.FLOAT,
 			powerScore: DataTypes.FLOAT,
 			chains: DataTypes.JSON,
