@@ -333,7 +333,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 					finalScore = compScore;
 				} else finalScore = 1;
 				if (
-					!t.trickType === "Kick" &&
+					t.trickType !== "Kick" &&
 					((t?.variations.some(
 						(v) => v.variation.variationType === "Rotation"
 					) &&
@@ -346,7 +346,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 					finalScore += 0.5;
 				}
 				if (t?.trickType === "Kick" && compScore > 1) {
-					finalScore -= 0.25;
+					finalScore -= 0.51;
 				}
 				if (
 					t?.variations.some((v) => v.variation.variationType === "DoubleFlip")
