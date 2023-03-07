@@ -430,6 +430,7 @@ const Autocomplete = (props: any) => {
                     label: "/save",
                     placeholder: "saveSessionDetails",
                     onSelect: ({ itemInputValue }) => {
+                      setSaveSuccessful(false);
                       saveSessionDetails({
                         sessionData,
                         sessionid:
@@ -623,7 +624,7 @@ const Autocomplete = (props: any) => {
 
   return (
     <>
-      <div>{saveSuccessful && saveResponse.data}</div>
+      <div>{saveSuccessful && saveResponse?.data}</div>
       <div id="commandbar" ref={commandBarRef} />
     </>
   );
