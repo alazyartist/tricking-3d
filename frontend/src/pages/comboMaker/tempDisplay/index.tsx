@@ -49,30 +49,34 @@ const TempDisplay = () => {
             if (!showTricks && trick.type === "Trick") return null;
 
             return (
-              <Trick
-                key={key}
-                name={trick.name}
-                type={trick.type}
-                id={trick.id}
-                trick_id={trick.trick_id}
-                start_position={trick.start_position}
-                end_position={trick.end_position}
-              />
+              <div className="trick-container">
+                <Trick
+                  key={key}
+                  type={trick.type}
+                  name={trick.name}
+                  id={trick.id}
+                  trick_id={trick.trick_id}
+                  start_position={[[...trick.start_position]]}
+                  end_position={[[...trick.end_position]]}
+                />
+              </div>
             )
           })}
           {allTrans && showAllTricks && allTrans.map((trick, key) => {
             if (!showTransitions && trick.type === "Transition") return null;
 
             return (
-              <Trick
-                key={key}
-                name={trick.name}
-                type={trick.type}
-                id={trick.id}
-                trick_id={trick.trick_id}
-                start_position={trick.start_position}
-                end_position={trick.end_position}
-              />
+              <div className="trick-container">
+                <Trick
+                  key={key}
+                  name={trick.name}
+                  type={trick.type}
+                  id={trick.id}
+                  trick_id={trick.trick_id}
+                  start_position={trick.start_position}
+                  end_position={trick.end_position}
+                />
+              </div>
             )
           })}
         </div>

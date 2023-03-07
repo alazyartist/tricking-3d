@@ -4,51 +4,35 @@ import useTricksForComboMaker from "../../api/useTricksForComboMaker";
 import TempDisplay from "./tempDisplay"
 import Trick from "./trick"
 
-type TrickType = {
-  name: string;
-  type: string;
-  id: string;
-  start_position?: Array<string>;
-  end_position: Array<string>;
-  variations?: Array<string>;
-}
-
 
 const ComboMaker = () => {
   const [combo, setCombo] = useState([])
-  const { trick_array: allTricks, trans_array: allTransitions }
-    : Partial<TrickType> = useTricksForComboMaker();
+  const [comboOptions, setComboOptions] = useState([])
+  const { trick_array: allTricks, trans_array: allTransitions } = useTricksForComboMaker();
 
-  const addTrick = () => {
-    const rTrick = Math.floor(Math.random() * allTricks.length)
-    const rTrans = Math.floor(Math.random() * allTransitions.length)
-    if (combo.length === 0 || combo[combo.length - 1].type === "Trick")
-      setCombo([...combo, allTransitions[rTrans], allTricks[rTrick]])
-    else
-      setCombo([...combo, allTricks[rTrick]])
+  const showTricks = () => { setComboOptions(allTricks) }
+  const showTransitions = () => { setComboOptions(allTransitions) }
+  /*
+    const random = Math.floor(Math.random() * allTransitions.length)
+    let newTrick = [allTransitions[random]]
+    if (combo.length % 2 === 1) { newTrick = [...showTricks(), ...newTrick] }
+    return newTrick
   }
-
-  const addTransition = () => {
-    const rTrick = Math.floor(Math.random() * allTricks.length)
-    const rTrans = Math.floor(Math.random() * allTransitions.length)
-    if (combo.length > 0 && combo[combo.length - 1].type === "Transition")
-      setCombo([...combo, allTricks[rTrick], allTransitions[rTrans]])
-    else
-      setCombo([...combo, allTransitions[rTrans]])
-  }
-  const clearCombo = () => { setCombo([]) }
+  */
+  const addToCombo = (trick) => { setCombo([...combo, ...trick]) }
+  const deleteLastTrick = () => { setCombo(combo.slice(0, -1)) }
 
   return (
     <div className="screen flex flex-col justify-end">
       {/* 
-      <TempDisplay />
       */}
+      <TempDisplay />
 
       {/* Display Combo */}
       <div className="display-combo">
         {combo.length > 0 ? (
           combo.map((trick, key) => (
-            <div 
+            <div key={key}
               className={`display-trick 
                 ${trick.type === "Trick" ? " border-green-500" : " border-blue-500"}`}>
               <span key={key}>{trick.type}: {trick.name}</span>
@@ -58,16 +42,42 @@ const ComboMaker = () => {
         )}
       </div>
 
+      {/* Select From Options */}
+      <div className="combo-options">
+        {comboOptions &&
+          comboOptions.map((trick, key) => (
+            /*
+              <button key={key}
+                className={`combo-option 
+                  ${trick.type === "Trick" ? " bg-green-500" : " bg-blue-500"}`}
+                onClick={() => { addToCombo([trick]) }}>
+                {trick.name} </button>
+                */
+            <div className={`rounded-lg ${trick.type === "Trick" ? " bg-green-500" : " bg-blue-500"}`}>
+              <Trick
+                key={key}
+                type={"_" + trick.type}
+                name={trick.name}
+                id={trick.id}
+                trick_id={trick.trick_id}
+                start_position={[["_"], [...trick.start_position]]}
+                end_position={[["_"], [...trick.end_position]]}
+              />
+            </div>
+          ))
+        }
+      </div>
+
       {/* Select Trick/Transition */}
       <div className="build-combo">
         <div className="flex-row-center">
-          <button className="btn-trick" onClick={() => addTrick()} >
+          <button className="btn-trick" onClick={() => showTricks()} >
             Trick </button>
-          <button className="btn-transition" onClick={() => addTransition()} >
+          <button className="btn-clear-combo" onClick={() => deleteLastTrick()} >
+            Back </button>
+          <button className="btn-transition" onClick={() => showTransitions()} >
             Transition </button>
         </div>
-        <button className="btn-clear-combo" onClick={() => clearCombo()} >
-          Clear </button>
       </div>
     </div>
   );
