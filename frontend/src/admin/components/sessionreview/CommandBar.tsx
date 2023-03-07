@@ -546,12 +546,13 @@ const Autocomplete = (props: any) => {
                   return (
                     <span className="flex h-fit w-full justify-between">
                       <p className="w-full p-2">
-                        {item.comboArray.map((t, i) => (
-                          <span>
-                            {t.name}
-                            {i !== item.comboArray.length - 1 && ">"}
-                          </span>
-                        ))}
+                        {item?.comboArray?.length &&
+                          item?.comboArray?.map((t, i) => (
+                            <span>
+                              {t.name}
+                              {i !== item.comboArray.length - 1 && ">"}
+                            </span>
+                          ))}
                       </p>
                       {/* <p>{item?.shorthand}</p> */}
                       {/* <span className="flex gap-2">
@@ -608,7 +609,7 @@ const Autocomplete = (props: any) => {
     return () => {
       search.destroy();
     };
-  }, [props, tricks, trickMakerOpen, sessionData]);
+  }, [props, tricks, combos, trickMakerOpen, sessionData]);
 
   return (
     <>
