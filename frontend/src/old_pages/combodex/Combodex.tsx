@@ -21,7 +21,7 @@ const Combodex: React.FC<CombodexProps> = ({
   updateTotalScore,
 }) => {
   const [executionOpen, setExecutionOpen] = useState(false);
-  console.log(sessionData);
+  // console.log(sessionData);
   const { data: sessiondatascores } =
     trpc.sessionsummaries.getSessionDataScores.useQuery(
       {
@@ -157,7 +157,9 @@ const Combodex: React.FC<CombodexProps> = ({
         >
           {executionAverage > 0.1
             ? executionScoreTotal?.toFixed(2)
-            : "Need Rating"}
+            : executionAverage > 0
+            ? "Need Rating"
+            : executionScoreTotal?.toFixed(2)}
           <span className="text-[8px]">{"execution"}</span>
         </div>
         <div

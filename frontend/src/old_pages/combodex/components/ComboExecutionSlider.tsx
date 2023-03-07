@@ -32,7 +32,7 @@ const ComboExecutionSlider = ({
         my = executionScore;
         mx = clamp(mx, -drag_offset_limit, drag_offset_limit);
         setExecutionScore(
-          lerp(0.1, 1, (mx + drag_offset_limit) / (drag_offset_limit * 2))
+          lerp(-0.5, 1, (mx + drag_offset_limit) / (drag_offset_limit * 2))
         );
       }
       if (last) {
