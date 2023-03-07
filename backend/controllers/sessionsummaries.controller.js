@@ -243,8 +243,8 @@ export const saveSessionDetails = async (req, res) => {
 							...totals,
 						},
 					});
-					return "Saved";
 					console.log("savedfoundCombodata");
+					return "Saved";
 				}
 			} catch (err) {
 				console.log(err);
@@ -329,6 +329,13 @@ const calculateTrickTotals = async (tricks, curData) => {
 					finalScore = compScore;
 				} else finalScore = 1;
 				if (
+					t?.variations.some((v) => v.variation.variationType === "Rotation") &&
+					t?.variations.some((v) => v.variation.name === "Hook") &&
+					t?.variations.some((v) => v.variation.name === "Round")
+				) {
+					finalScore += 0.5;
+				}
+				if (
 					t?.variations.some((v) => v.variation.variationType === "DoubleFlip")
 				) {
 					finalScore += 3;
@@ -356,10 +363,10 @@ const calculateTrickTotals = async (tricks, curData) => {
 
 		//CHAIN CALCULATIONS VVVV
 		tricks.forEach((obj, i) => {
-			// if (chainBreakers.includes(obj.name)) {
-			// 	console.log("brokeChain");
-			// 	return chainNum++;
-			// }
+			if (chainBreakers.includes(obj.name)) {
+				console.log("brokeChain");
+				return chainNum++;
+			}
 			if (obj.type === "Trick") return;
 
 			if (chains[`${chainNum}`]) {
@@ -368,7 +375,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 					//Update Current Chain
 					let decrease = fullcomposition[i + 1] < fullcomposition[i - 1];
 					let compSubtotal = fullcomposition[i - 1] + fullcomposition[i + 1];
-					let bonus = compSubtotal >= 4;
+					let bonus = compSubtotal >= 3.5;
 					chains[`${chainNum}`].count++;
 					chains[`${chainNum}`].multiplier += obj?.multiplier;
 					//transitionType nerf
@@ -519,7 +526,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 			};
 			if (isNotVanilla && !perfectMatch) {
 				variety.multiplier += varietyMultiplier;
-				vsubtotal = variety.multiplier * trick.pointValue;
+				vsubtotal = variety.multiplier * (1.25 * trick.pointValue);
 				varietyMap.push([i, variety.multiplier, vsubtotal]);
 				console.log(
 					"Variated",
