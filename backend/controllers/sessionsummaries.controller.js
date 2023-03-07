@@ -164,7 +164,7 @@ export const saveSessionDetails = async (req, res) => {
 			console.log(err);
 		}
 
-		Object.keys(req.body).map(async (i) => {
+		const updatedData = Object.keys(req.body).map(async (i) => {
 			let curData = sd[i];
 			let foundComboPrisma = await prisma.combos.findFirst({
 				where: { name: curData.name },
@@ -243,6 +243,7 @@ export const saveSessionDetails = async (req, res) => {
 							...totals,
 						},
 					});
+					return "Saved";
 					console.log("savedfoundCombodata");
 				}
 			} catch (err) {
@@ -250,7 +251,9 @@ export const saveSessionDetails = async (req, res) => {
 				// res.send(err);
 			}
 		});
-		// res.send("SavedSessionDetails");
+		const prom = await Promise.all(updatedData);
+		res.status(200).json(Array.from(new Set(prom)));
+		// res.send("Saved Successfully");
 	} catch (err) {
 		console.log(err);
 		res.status(501).send(err);

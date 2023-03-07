@@ -58,7 +58,9 @@ const Autocomplete = (props: any) => {
   const { tricks, combos } = props;
   const adminuuid = useUserStore((s) => s?.userInfo?.uuid);
   const { mutate: changeSessionStatus } = useChangeSessionStatus();
-  const { mutate: saveSessionDetails } = useSaveSessionDetails();
+  const { mutate: saveSessionDetails, data: saveResponse } =
+    useSaveSessionDetails();
+  const [saveSuccessful, setSaveSuccessful] = useState(false);
   const removeClipfromCombo = useSessionSummariesStore(
     (s) => s.removeClipfromCombo
   );
@@ -104,6 +106,14 @@ const Autocomplete = (props: any) => {
     },
     [currentTime]
   );
+  useEffect(() => {
+    if (saveResponse?.status === 200) {
+      setSaveSuccessful(true);
+      setTimeout(() => {
+        setSaveSuccessful(false);
+      }, 3000);
+    }
+  }, [saveResponse]);
   const handleSource = (e) => {
     if (
       !["0", "[", "]", "k", "j", "l"].includes(e.key) ||
@@ -613,6 +623,7 @@ const Autocomplete = (props: any) => {
 
   return (
     <>
+      <div>{saveSuccessful && saveResponse.data}</div>
       <div id="commandbar" ref={commandBarRef} />
     </>
   );
