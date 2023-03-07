@@ -538,7 +538,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 			};
 			if (isNotVanilla && !perfectMatch) {
 				variety.multiplier += varietyMultiplier;
-				vsubtotal = variety.multiplier * (1.15 * trick.pointValue);
+				vsubtotal = variety.multiplier * (1.25 * trick.pointValue);
 				varietyMap.push([i, variety.multiplier, vsubtotal]);
 				console.log(
 					"Variated",
