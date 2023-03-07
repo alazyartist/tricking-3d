@@ -329,9 +329,14 @@ const calculateTrickTotals = async (tricks, curData) => {
 					finalScore = compScore;
 				} else finalScore = 1;
 				if (
-					t?.variations.some((v) => v.variation.variationType === "Rotation") &&
-					t?.variations.some((v) => v.variation.name === "Hook") &&
-					t?.variations.some((v) => v.variation.name === "Round")
+					(t?.variations.some(
+						(v) => v.variation.variationType === "Rotation"
+					) &&
+						t?.variations.some((v) => v.variation.name === "Hook")) ||
+					(t?.variations.some(
+						(v) => v.variation.variationType === "Rotation"
+					) &&
+						t?.variations.some((v) => v.variation.name === "Round"))
 				) {
 					finalScore += 0.5;
 				}
@@ -408,11 +413,11 @@ const calculateTrickTotals = async (tricks, curData) => {
 						let compdif =
 							compSubtotal - (fullcomposition[i - 1] - fullcomposition[i + 1]);
 						if (bonus) {
-							return chains[`${chainNum}`]?.multiplier * compdif;
+							return chains[`${chainNum}`]?.multiplier * compSubtotal;
 						} else {
 							//if next > last: multiplier * lastComp INCREASE 1->2
 							if (fullcomposition[i - 1] > 1) {
-								return chains[`${chainNum}`]?.multiplier * compdif;
+								return chains[`${chainNum}`]?.multiplier * compSubtotal;
 							}
 							console.log(compdif, compSubtotal, "comp");
 							return chains[`${chainNum}`]?.multiplier;
