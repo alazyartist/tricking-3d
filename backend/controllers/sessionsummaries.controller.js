@@ -243,6 +243,10 @@ export const saveSessionDetails = async (req, res) => {
 							...totals,
 						},
 					});
+					await prisma.sessionsummaries.update({
+						where: { sessionid: curData.sessionid },
+						data: { updatedAt: new Date() },
+					});
 					console.log("savedfoundCombodata");
 					return "Saved";
 				}
@@ -342,7 +346,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 					finalScore += 0.5;
 				}
 				if (t?.trickType === "Kick" && compScore > 1) {
-					finalScore -= 1;
+					finalScore -= 0.25;
 				}
 				if (
 					t?.variations.some((v) => v.variation.variationType === "DoubleFlip")
@@ -501,20 +505,34 @@ const calculateTrickTotals = async (tricks, curData) => {
 		fullTricks.forEach((trick, i) => {
 			if (trick.type !== "Trick") return;
 			let isNotVanilla = trick?.variations
-				.filter((v) => v.variation.name === "Switch")
+				.filter((v) => v.variation.name !== "Switch")
 				?.map((v) => v.variation.variationType !== "Rotation")
 				.includes(true);
+			// console.log(
+			// 	"switchCheck",
+			// 	trick?.variations,
+			// 	trick?.variations
+			// 		.filter((v) => v.variation.name !== "Switch")
+			// 		?.map((v) => v.variation.variationType !== "Rotation"),
+			// 	trick?.variations
+			// 		.filter((v) => v.variation.name !== "Switch")
+			// 		?.map((v) => v.variation.variationType !== "Rotation")
+			// 		.includes(true)
+			// );
 			let perfectMatch =
-				trick?.variations?.map(
-					(v) => v.variation.variationType !== "Rotation"
-				) ===
-				fullTricks[i - 2]?.variations?.map(
-					(v) => v.variation.variationType !== "Rotation"
-				);
+				trick?.variations
+					?.filter((v) => v.variation.name !== "Switch")
+					.map((v) => v.variation.variationType !== "Rotation") ===
+				fullTricks[i - 2]?.variations
+					?.filter((v) => v.variation.name !== "Switch")
+					.map((v) => v.variation.variationType !== "Rotation");
 			let uniqueVariations = Array.from(
 				new Set(
 					trick?.variations?.map((v) => {
-						if (v.variation.variationType !== "Rotation") {
+						if (
+							v.variation.variationType !== "Rotation" &&
+							v.variation.type !== "Switch"
+						) {
 							return 0.75;
 						}
 						return 0;
@@ -524,6 +542,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 			let varietyMultiplier = uniqueVariations.reduce((sum, b) => sum + b, 0);
 			let vsubtotal = 0;
 			let isHyperHook =
+				fullTricks[i].trickType === "Invert" &&
 				fullTricks[i].variations.some((v) =>
 					v.variation.name.includes("Hook")
 				) &&
