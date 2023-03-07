@@ -329,16 +329,20 @@ const calculateTrickTotals = async (tricks, curData) => {
 					finalScore = compScore;
 				} else finalScore = 1;
 				if (
-					(t?.variations.some(
+					!t.trickType === "Kick" &&
+					((t?.variations.some(
 						(v) => v.variation.variationType === "Rotation"
 					) &&
 						t?.variations.some((v) => v.variation.name === "Hook")) ||
-					(t?.variations.some(
-						(v) => v.variation.variationType === "Rotation"
-					) &&
-						t?.variations.some((v) => v.variation.name === "Round"))
+						(t?.variations.some(
+							(v) => v.variation.variationType === "Rotation"
+						) &&
+							t?.variations.some((v) => v.variation.name === "Round")))
 				) {
 					finalScore += 0.5;
+				}
+				if (t?.trickType === "Kick" && compScore > 1) {
+					finalScore -= 1;
 				}
 				if (
 					t?.variations.some((v) => v.variation.variationType === "DoubleFlip")
@@ -497,6 +501,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 		fullTricks.forEach((trick, i) => {
 			if (trick.type !== "Trick") return;
 			let isNotVanilla = trick?.variations
+				.filter((v) => v.variation.name === "Switch")
 				?.map((v) => v.variation.variationType !== "Rotation")
 				.includes(true);
 			let perfectMatch =
@@ -533,7 +538,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 			};
 			if (isNotVanilla && !perfectMatch) {
 				variety.multiplier += varietyMultiplier;
-				vsubtotal = variety.multiplier * (1.25 * trick.pointValue);
+				vsubtotal = variety.multiplier * (1.15 * trick.pointValue);
 				varietyMap.push([i, variety.multiplier, vsubtotal]);
 				console.log(
 					"Variated",
@@ -598,15 +603,15 @@ const calculateTrickTotals = async (tricks, curData) => {
 				bonusScore += 10 * fullcomposition[i];
 			}
 
-			// console.log(
-			// 	"Vanilla",
-			// 	i,
-			// 	isNotVanilla,
-			// 	!perfectMatch,
-			// 	variety.multiplier,
-			// 	trick.name,
-			// 	vsubtotal
-			// );
+			console.log(
+				"Vanilla",
+				i,
+				isNotVanilla,
+				!perfectMatch,
+				variety.multiplier,
+				trick.name,
+				vsubtotal
+			);
 
 			// trick?.variations?.map((v) => console.log(i, v.variation));
 		});

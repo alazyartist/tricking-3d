@@ -220,9 +220,9 @@ export const getTrickPointsValue = async (req, res) => {
 			// let trickNames = c.dataValues.name.split(">");
 			// console.log(c.dataValues.name.split(">"));
 			let newComboArr = await c.comboArray?.map(async (t, i) => {
-				console.log(t);
+				// console.log(t);
 				if (!t?.type) {
-					console.log("no", t);
+					// console.log("no", t);
 					// let updatedTransition = await prisma.transitions
 					// 	.findFirst({
 					// 		where: { name: trickNames[i] },
