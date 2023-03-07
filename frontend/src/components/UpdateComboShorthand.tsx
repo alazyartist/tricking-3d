@@ -124,49 +124,101 @@ const AddUserToSessionDataButtons = ({
   sessiondata,
   updateTricker,
 }) => {
+  const { data: allUsers } = trpc.userDB.findAll.useQuery();
   const handleUpdateClick = (tricker) => {
     updateTricker({ tricker_id: tricker.uuid, sessiondataid: sessiondata.id });
   };
+  const [seeAll, setSeeAll] = useState(false);
   return (
-    <div className="flex justify-around gap-2 p-4">
-      {trickers?.length ? (
-        trickers.map((tricker) => {
-          return (
-            <>
-              <div className="flex flex-col place-items-center">
-                <div
-                  onClick={() => handleUpdateClick(tricker)}
-                  key={tricker.uuid}
-                  style={{
-                    backgroundColor: d3.interpolateRainbow(
-                      tricker.id / trickers.length
-                    ),
-                  }}
-                  className={`relative h-12 w-12 rounded-full`}
-                >
-                  <img
-                    src={
-                      !tricker.profilePic
-                        ? `/images/noimg.jpeg`
-                        : `/images/${tricker.uuid}/${tricker.profilePic}`
-                    }
-                    alt={"profilePic"}
-                    className={`h-12 w-12 rounded-full ${
-                      !tricker.profilePic
-                        ? " mix-blend-multiply contrast-150"
-                        : ""
-                    }`}
-                  />
+    <div className="flex flex-col justify-around gap-2 p-4">
+      <div className="flex justify-around gap-2 p-4">
+        {trickers?.length ? (
+          trickers.map((tricker) => {
+            return (
+              <>
+                <div className="flex flex-col place-items-center">
+                  <div
+                    onClick={() => handleUpdateClick(tricker)}
+                    key={tricker.uuid}
+                    style={{
+                      backgroundColor: d3.interpolateRainbow(
+                        tricker.id / trickers.length
+                      ),
+                    }}
+                    className={`relative h-12 w-12 rounded-full`}
+                  >
+                    <img
+                      src={
+                        !tricker.profilePic
+                          ? `/images/noimg.jpeg`
+                          : `/images/${tricker.uuid}/${tricker.profilePic}`
+                      }
+                      alt={"profilePic"}
+                      className={`h-12 w-12 rounded-full ${
+                        !tricker.profilePic
+                          ? " mix-blend-multiply contrast-150"
+                          : ""
+                      }`}
+                    />
+                  </div>
+                  <p className="w-ful text-center text-xs text-zinc-300">
+                    {tricker.username}
+                  </p>
                 </div>
-                <p className="w-ful text-center text-xs text-zinc-300">
-                  {tricker.username}
-                </p>
-              </div>
-            </>
-          );
-        })
-      ) : (
-        <p>No Trickers to Display</p>
+              </>
+            );
+          })
+        ) : (
+          <p>No Trickers to Display</p>
+        )}
+      </div>
+      <div className="grid w-full grid-cols-4 gap-2">
+        {allUsers?.length &&
+          seeAll &&
+          allUsers.map((tricker) => {
+            return (
+              <>
+                <div className="flex flex-col place-items-center">
+                  <div
+                    onClick={() => handleUpdateClick(tricker)}
+                    key={tricker.uuid}
+                    style={{
+                      backgroundColor: d3.interpolateRainbow(
+                        tricker.id / allUsers.length
+                      ),
+                    }}
+                    className={`relative h-12 w-12 rounded-full`}
+                  >
+                    <img
+                      src={
+                        !tricker.profilePic
+                          ? `/images/noimg.jpeg`
+                          : `/images/${tricker.uuid}/${tricker.profilePic}`
+                      }
+                      alt={"profilePic"}
+                      className={`h-12 w-12 rounded-full ${
+                        !tricker.profilePic
+                          ? " mix-blend-multiply contrast-150"
+                          : ""
+                      }`}
+                    />
+                  </div>
+                  <p className="w-ful text-center text-xs text-zinc-300">
+                    {tricker.username}
+                  </p>
+                </div>
+              </>
+            );
+          })}
+      </div>
+      {!seeAll && (
+        <button
+          type="button"
+          onClick={() => setSeeAll(true)}
+          className="flex  place-self-center rounded-md bg-sky-400 p-4 text-xl text-sky-800"
+        >
+          See All Users
+        </button>
       )}
     </div>
   );
