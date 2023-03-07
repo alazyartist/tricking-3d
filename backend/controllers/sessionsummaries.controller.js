@@ -451,6 +451,8 @@ const calculateTrickTotals = async (tricks, curData) => {
 						obj,
 						tricks[i + 1],
 						trickPV * curMultiplier + tricks[i + 1].pointValue,
+						chains[`${chainNum}`]?.multiplier,
+						curMultiplier,
 					]);
 				} else {
 					//Break Chain
