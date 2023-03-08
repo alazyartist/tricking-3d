@@ -49,9 +49,8 @@ const TempDisplay = () => {
             if (!showTricks && trick.type === "Trick") return null;
 
             return (
-              <div className="trick-container">
+              <div key={key} className="trick-container">
                 <Trick
-                  key={key}
                   type={trick.type}
                   name={trick.name}
                   id={trick.id}

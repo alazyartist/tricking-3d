@@ -30,7 +30,7 @@
 
 .display-trick {
   @apply
-    flex flex-row
+    flex flex-col
     justify-center items-center
     mb-2
     w-[80vw]
@@ -53,10 +53,9 @@
 .combo-options {
   @apply 
     overflow-x-auto
+    w-[100vw]
     flex flex-row
-    justify-center items-center
     gap-2
-    p-2
     bg-red-400 bg-opacity-40
   ;
 }
