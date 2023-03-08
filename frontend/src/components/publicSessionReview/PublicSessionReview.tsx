@@ -104,6 +104,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
   //     timer(vidRef.current?.getCurrentTime());
   //   }
   // }, [vidRef]);
+  radarData.filter((t) => t.type !== "Transition");
   const vidDuration = vidRef.current?.getDuration();
   return (
     <div key={source.srcid + "1"} className=" flex w-full flex-col gap-2 p-1">
