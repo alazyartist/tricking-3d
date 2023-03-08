@@ -23,90 +23,61 @@
 .btn-clear-combo {
   @apply
     p-2
-    bg-red-500 
     rounded-full 
     border-2 border-zinc-300
 ;}
 
-.display-trick {
-  @apply
-    flex flex-col
-    justify-center items-center
-    mb-2
-    w-[80vw]
-    p-4
-    bg-zinc-500
-    rounded-lg
-    border-4
-;}
 .display-combo {
   @apply
-    overflow-auto
-    flex flex-col flex-1
-    justify-center items-center
-    pt-8
     w-screen 
-    bg-zinc-800
-    bg-opacity-40
-    text-white
+    mb-4
+    flex flex-row
+    gap-1
+    overflow-x-auto
 ;}
-.combo-options {
+.display-trick {
+  @apply
+    rounded-lg
+    border-2
+    border-zinc-300
+    mb-1 p-2
+    text-white
+    whitespace-nowrap
+;}
+
+.display-options {
   @apply 
     overflow-x-auto
-    w-[100vw]
+    max-h-[25vh] 
     flex flex-row
-    gap-2
-    bg-red-400 bg-opacity-40
+    flex-wrap gap-1
+    justify-center items-center
+    rounded-lg
+    p-1 m-2
+    bg-zinc-400
+    bg-opacity-40
+    border-4
+    border-zinc-300
   ;
 }
-.combo-option {
+.display-option {
   @apply
-    max-h-[5vh] h-[5vh]
     flex flex-row
     p-2
     rounded-lg 
     border-2
-    text-black
+    border-zinc-800
+    text-white 
     whitespace-nowrap
   ;
 }
-.build-combo {
+.trick-or-trans {
   @apply
-    flex flex-col
+    flex flex-row
     justify-center items-center
     w-screen 
     pb-10
-    bg-red-300 
-    bg-opacity-40
     text-white
 ;}
-
-
-/*Trick Display*/
-.trick-container {
-  @apply
-    p-2 
-    flex flex-col
-    justify-center 
-    gap-1 
-    border-2 border-white 
-    rounded-lg
-    bg-zinc-600 
-  ;
-}
-.trick-content {
-  @apply
-    p-1
-    overflow-x-auto
-    flex justify-between 
-    rounded-lg 
-    border-2 border-zinc-800
-    text-white 
-  ;
-}
-
-
-
-
 
 
