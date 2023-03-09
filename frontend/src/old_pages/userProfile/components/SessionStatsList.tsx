@@ -33,21 +33,31 @@ export default SessionStatsList;
 interface SSCProps {
   summary: sessionsummaries & { SessionData: sessiondata[] };
   setActiveSummary?: React.Dispatch<React.SetStateAction<sessionsummaries>>;
+  f?: () => void;
 }
 export const SessionSummaryCard: React.FC<SSCProps> = ({
   summary,
   setActiveSummary,
+  f,
 }) => {
   let totalPoints = summary?.SessionData?.map((data) => data.totalScore).reduce(
     (sum, b) => sum + b,
     0
   );
+  const handleClick = () => {
+    if (setActiveSummary) {
+      setActiveSummary(summary);
+    }
+    if (f) {
+      f();
+    } else return;
+  };
   console.log("summarySD", summary.SessionData);
   return (
     <div
       className="flex flex-col justify-between gap-2 rounded-md bg-zinc-900 p-2"
       onClick={() => {
-        setActiveSummary(summary);
+        handleClick();
       }}
       key={Math.random() + "link"}
     >
