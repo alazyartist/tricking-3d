@@ -8,7 +8,11 @@ const CompareSessions = () => {
   return (
     <div className="text-zinc-300">
       CompareSessions
-      <div>{JSON.stringify(sessions)}</div>
+      <div>
+        {Array.isArray(sessions)
+          ? sessions.map((s) => <div className="p-2">{s}</div>)
+          : sessions}
+      </div>
     </div>
   );
 };
