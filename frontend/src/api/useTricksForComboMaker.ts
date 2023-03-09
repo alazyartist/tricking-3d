@@ -8,7 +8,7 @@ type Trick = {
   trick_id?: number;
   start_position?: Array<string>;
   end_position: Array<string>;
-  variations?: Array<string>;
+  breakdown?: any;
 }
 
 function _getTransitionStart(stances, transition) {
@@ -32,6 +32,7 @@ function _getTransitionEnd(stances, transition) {
 }
 
 const _reformatTricks = (tricks: any) => {
+  //console.log("TRICKS:", tricks)
   let trick_array: Array<Trick> = [];
   let trans_array: Array<Trick> = [];
   const stances = tricks?.filter((trick: any) => trick.type === "Stance");
@@ -48,7 +49,7 @@ const _reformatTricks = (tricks: any) => {
       trick_id: trick.trick_id,
       start_position: [trick.takeoffStance],
       end_position: [trick.landingStance],
-      variations: trick.Variations,
+      breakdown: trick.Variations,
     }
     trick_array.push(current_trick);
   });
@@ -62,6 +63,7 @@ const _reformatTricks = (tricks: any) => {
       trick_id: trick.trick_id,
       start_position: _getTransitionStart(stances, trick),
       end_position: _getTransitionEnd(stances, trick),
+      breakdown: trick.Variations,
     }
     trans_array.push(current_transition);
   })
