@@ -78,18 +78,20 @@ export const sessionsummariesRouter = router({
       });
       return sessionDataScores;
     }),
-  getAllSessionSummaries: publicProcedure.query(async ({ ctx }) => {
-    const sessionSummaries = await ctx.prisma.sessionsummaries.findMany({
-      where: { status: "Reviewed" },
-      // take: 5,
-      orderBy: { updatedAt: "desc" },
-      include: {
-        user: { select: { username: true, profilePic: true, uuid: true } },
-        SessionData: true,
-      },
-    });
-    return sessionSummaries;
-  }),
+  getAllSessionSummaries: publicProcedure
+    .input(z.object({}).optional())
+    .query(async ({ ctx }) => {
+      const sessionSummaries = await ctx.prisma.sessionsummaries.findMany({
+        where: { status: "Reviewed" },
+        // take: 5,
+        orderBy: { updatedAt: "desc" },
+        include: {
+          user: { select: { username: true, profilePic: true, uuid: true } },
+          SessionData: true,
+        },
+      });
+      return sessionSummaries;
+    }),
   deleteSessionSummaryById: publicProcedure
     .input(z.object({ sessionid: z.string() }))
     .mutation(async ({ ctx, input }) => {

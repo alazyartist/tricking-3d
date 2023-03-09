@@ -5,12 +5,18 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
-const ComparePage = () => {
+const ComparePage = ({ sessionSummaries }) => {
+  const initialSummaries = JSON.parse(sessionSummaries);
+  console.log(initialSummaries, "pp");
   const { data: summaries, status } =
-    trpc.sessionsummaries.getAllSessionSummaries.useQuery();
+    trpc.sessionsummaries.getAllSessionSummaries.useQuery(
+      {},
+      {
+        initialData: initialSummaries,
+      }
+    );
   const [compareList, addToCompare] = useState<sessionsummaries[]>([]);
-  const compareurl = compareList.map((cs) => cs.name).join("/");
-
+  const compareurl = compareList.map((cs) => cs.sessionid).join("/");
   return (
     <div className="h-full w-full text-zinc-300">
       ComparePage
@@ -50,3 +56,17 @@ const ComparePage = () => {
 };
 
 export default ComparePage;
+
+export const getStaticProps = async () => {
+  const sessionSummaries = await prisma.sessionsummaries.findMany({
+    where: { status: "Reviewed" },
+    // take: 5,
+    orderBy: { updatedAt: "desc" },
+    include: {
+      user: { select: { username: true, profilePic: true, uuid: true } },
+      SessionData: true,
+    },
+  });
+  let stringy = JSON.stringify(sessionSummaries);
+  return { props: { sessionSummaries: stringy } };
+};
