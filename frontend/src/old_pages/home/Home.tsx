@@ -72,7 +72,7 @@ function Home() {
             "absolute top-14 left-2 place-self-start rounded-md bg-zinc-700 p-2 text-4xl"
           }
         /> */}
-        <div className="rounded-xl bg-zinc-800 bg-opacity-40 py-2">
+        <div className="rounded-xl bg-zinc-800 bg-opacity-40 py-2 backdrop-blur-xl">
           {!openCaptures &&
             !openComboMaker &&
             !openClaimtricks &&
@@ -122,6 +122,12 @@ function Home() {
                 >
                   Add Session
                 </Link>
+                <Link
+                  href={"/compare"}
+                  className=" mt-1 mb-2 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
+                >
+                  Compare
+                </Link>
                 <div
                   onClick={() => setOpenComboMaker(!openComboMaker)}
                   className=" mt-1 mb-2 flex w-[70vw] max-w-[600px] place-content-center place-items-center gap-2 rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
@@ -133,7 +139,7 @@ function Home() {
             )}
           {openComboMaker && (
             <div
-              className={`neumorphicIn relative top-0 my-2 flex max-h-[75vh] w-full max-w-[700px] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-800 pt-[3vh] ${
+              className={` relative top-0 my-2 flex max-h-[75vh] w-full max-w-[700px] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-800 bg-opacity-40 pt-[3vh] backdrop-blur-xl ${
                 openComboMaker ? "col-span-2 row-span-2 my-0" : ""
               }`}
             >

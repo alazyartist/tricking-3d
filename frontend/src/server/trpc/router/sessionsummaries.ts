@@ -85,6 +85,7 @@ export const sessionsummariesRouter = router({
       orderBy: { updatedAt: "desc" },
       include: {
         user: { select: { username: true, profilePic: true, uuid: true } },
+        SessionData: true,
       },
     });
     return sessionSummaries;
