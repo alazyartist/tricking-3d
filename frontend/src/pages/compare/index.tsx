@@ -1,19 +1,26 @@
 import { SessionSummaryCard } from "@old_pages/userProfile/components/SessionStatsList";
 import { sessionsummaries } from "@prisma/client";
 import { trpc } from "@utils/trpc";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 const ComparePage = () => {
   const { data: summaries, status } =
     trpc.sessionsummaries.getAllSessionSummaries.useQuery();
   const [compareList, addToCompare] = useState<sessionsummaries[]>([]);
+  const compareurl = compareList.map((cs) => cs.name).join("/");
+
   return (
     <div className="h-full w-full text-zinc-300">
       ComparePage
       <div className="mt-14 flex flex-col gap-2 p-2">
-        <button className=" outlineButton  place-self-end px-4 py-2 text-xl">
+        <Link
+          href={`/compare/${compareurl}`}
+          className=" outlineButton  place-self-end px-4 py-2 text-xl"
+        >
           compare
-        </button>
+        </Link>
         {status === "success" &&
           summaries?.map((summary) => {
             const chosen = compareList?.find(
