@@ -1,19 +1,12 @@
+import { tricks, transitions, sessiondata } from "@prisma/client";
 import create from "zustand";
 import { devtools } from "zustand/middleware";
-interface ClipData {
-  id?: string;
+interface ClipData extends Partial<sessiondata> {
   name?: string;
-  sessionid?: string | string[];
-  srcid?: string;
-  vidsrc?: string;
-  admin?: string;
-  shorthand?: string;
   startTime?: number;
   endTime?: number;
-  bail?: number;
-  clipLabel?: any | any[];
-  user_id?: string;
 }
+
 interface SummaryStore {
   trickMakerOpen: boolean;
   setTrickMakerOpen: (value: boolean) => void;
@@ -44,7 +37,7 @@ interface SummaryStore {
   setSessionData: (value: any | any[]) => void;
   removeSessionData: (value: any) => void;
   source: string;
-  clipCombo: any[];
+  clipCombo: Array<tricks | transitions>;
   setClipCombo: (value: any) => void;
   setClipComboAppend: (value: any[]) => void;
   setClipComboRaw: (value: any) => void;

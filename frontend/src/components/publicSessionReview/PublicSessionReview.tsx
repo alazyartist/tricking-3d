@@ -4,8 +4,27 @@ import ReactPlayer from "react-player";
 import { MdClose } from "@data/icons/MdIcons";
 import { useSessionSummariesStore } from "@admin/components/sessionreview/SessionSummaryStore";
 import RadarChart from "@components/d3/RadarChartAI";
-
-const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
+import {
+  combos,
+  sessiondata,
+  sessionsources,
+  sessionsummaries,
+  transitions,
+  tricks,
+} from "@prisma/client";
+interface PSRProps {
+  source: sessionsources;
+  activeSummary: sessionsummaries & {
+    SessionData: Array<
+      sessiondata & {
+        ClipLabel: combos & { comboArray: Array<tricks | transitions> };
+        SessionSource: sessionsources;
+      }
+    >;
+  };
+  mirrored: boolean;
+}
+const PublicSessionReview = ({ source, activeSummary, mirrored }: PSRProps) => {
   const vidsrcRegex = /(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)/g;
   const vidRef = useRef<ReactPlayer>();
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
@@ -204,7 +223,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }) => {
                 {shorthand
                   ? shorthand
                   : clipCombo.map((item, index) => (
-                      <div key={`${item.trick_id} ${Math.random() * 1000}`}>
+                      <div key={`${item.name} ${Math.random() * 1000}`}>
                         {item.name}
                       </div>
                     ))}
