@@ -225,6 +225,9 @@ model sessiondata {
   varietyMap Json? 
   trickCount Json? 
   tricker users? @relation(fields: [tricker_id],references: [uuid])
+  summary sessionsummaries? @relation(fields: [sessionid],references: [sessionid] )
+  @@index([sessionid])
+
 }
 
 model sessiondatascores {
@@ -260,8 +263,8 @@ model sessionsummaries {
   updatedAt   DateTime        @default(now()) @db.DateTime(0)
   type        String?         @db.VarChar(255)
   trickers    user_sessions[]
-  user users? @relation(fields: [user_id], references: [uuid]) 
-
+  user users? @relation(fields: [user_id], references: [uuid])
+  SessionData sessiondata[]
   @@index([sessionid])
 }
 
