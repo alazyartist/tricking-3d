@@ -18,6 +18,7 @@ import {
 } from "../../../api/useSessionSummaries";
 import { useUserStore } from "@store/userStore";
 import { trpc } from "../../../utils/trpc";
+import { transitions, tricks } from "@prisma/client";
 const CommandBar = () => {
   const { data: tricks } = useGetTricks();
   const { data: combos } = trpc.combos.getAll.useQuery();

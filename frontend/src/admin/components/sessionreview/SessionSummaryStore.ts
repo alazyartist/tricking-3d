@@ -2,9 +2,17 @@ import { tricks, transitions, sessiondata } from "@prisma/client";
 import create from "zustand";
 import { devtools } from "zustand/middleware";
 interface ClipData extends Partial<sessiondata> {
+  id?: string;
   name?: string;
+  srcid?: string;
+  vidsrc?: string;
+  admin?: string;
+  shorthand?: string;
   startTime?: number;
   endTime?: number;
+  bail?: number;
+  clipLabel?: any | any[];
+  user_id?: string;
 }
 
 interface SummaryStore {
