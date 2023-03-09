@@ -14,6 +14,7 @@ import SessionStatsList from "./components/SessionStatsList";
 import SessionStatsContainer from "./components/SessionStatsContainer";
 import OverallStatDisplay from "./components/OverallStatDisplay";
 import { trpc } from "utils/trpc";
+import { sessionsummaries } from "@prisma/client";
 
 const UserProfile = () => {
   const [hidden, setHidden] = useState<boolean>(false);
@@ -25,14 +26,14 @@ const UserProfile = () => {
   //   userid: uuid as string,
   // });
   const [editing, setEditing] = useState(false);
-  const [activeSummary, setActiveSummary] = useState<any>();
+  const [activeSummary, setActiveSummary] = useState<sessionsummaries>();
   const [activeView, setActiveView] = useState("Stats");
   const isUsersPage = uuid === loggedInUUID;
   useEffect(() => {
     console.log(profileInfo);
     if (sessionid && profileInfo) {
       let tempSummary = profileInfo.SessionSummaries.find(
-        (summary) => summary.sessionid === sessionid
+        (summary: sessionsummaries) => summary.sessionid === sessionid
       );
       setActiveView("Sessions");
       setActiveSummary(tempSummary);
