@@ -58,9 +58,7 @@ const CompareSessions = () => {
       "Chain %": sessionSummaries?.map(
         (s) =>
           (
-            ((s.SessionData.reduce((sum, b) => sum + b.chainTotal, 0)?.toFixed(
-              2
-            ) as number) /
+            (s.SessionData.reduce((sum, b) => sum + b.chainTotal, 0) /
               s.SessionData.reduce((sum, b) => sum + b.totalScore, 0)) *
             100
           )?.toFixed(2) + "%"
@@ -68,9 +66,7 @@ const CompareSessions = () => {
       "Bonus %": sessionSummaries?.map(
         (s) =>
           (
-            (s.SessionData.reduce((sum, b) => sum + b.bonusScore, 0)?.toFixed(
-              2
-            ) /
+            (s.SessionData.reduce((sum, b) => sum + b.bonusScore, 0) /
               s.SessionData.reduce((sum, b) => sum + b.totalScore, 0)) *
             100
           )?.toFixed(2) + "%"
@@ -78,9 +74,7 @@ const CompareSessions = () => {
       "Variety %": sessionSummaries?.map(
         (s) =>
           (
-            (s.SessionData.reduce((sum, b) => sum + b.varietyScore, 0)?.toFixed(
-              2
-            ) /
+            (s.SessionData.reduce((sum, b) => sum + b.varietyScore, 0) /
               s.SessionData.reduce((sum, b) => sum + b.totalScore, 0)) *
             100
           )?.toFixed(2) + "%"
