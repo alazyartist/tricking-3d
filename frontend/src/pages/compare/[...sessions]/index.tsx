@@ -137,7 +137,7 @@ const CompareSessions = () => {
       <Link href={"/compare"} className=" font-semi-bold p-4 text-4xl">
         CompareSessions
       </Link>
-      <div className=" grid grid-cols-[1fr_4fr]">
+      <div className={`grid grid-cols-[1fr_${sessions?.length}fr]`}>
         <div className="flex h-full w-full place-content-end place-items-center">
           Session
         </div>
@@ -160,7 +160,7 @@ const CompareSessions = () => {
         </div>
         <div
           id={"Stat Label"}
-          className="flex h-full w-full flex-col place-content-center place-items-end text-zinc-300"
+          className="col-start-1 flex h-full w-full flex-col place-content-center place-items-end text-zinc-300"
         >
           {compareData &&
             Object.keys(compareData).map((stat) => (
@@ -171,24 +171,28 @@ const CompareSessions = () => {
         </div>
         <div
           id={"Stat Data"}
-          className={`grid grid-cols-${sessions?.length} m-4 mr-0 place-items-center rounded-md bg-zinc-800 bg-opacity-40 text-right backdrop-blur-md`}
+          className={` flex flex-col grid-cols-${sessions?.length} m-4 mr-0 place-items-center gap-x-1 overflow-hidden overflow-x-scroll rounded-md bg-zinc-800 bg-opacity-40 text-right backdrop-blur-md`}
         >
-          <div className="absolute z-[-2] h-full w-[80%] "></div>
+          <div className="absolute z-[-2] h-full w-full "></div>
           {compareData &&
-            Object.keys(compareData).map((stat) =>
-              compareData[stat].map((stat, index) => (
-                <div
-                  style={{
-                    color: d3.interpolateRainbow(
-                      (index + 1) / (sessionSummaries.length + 1)
-                    ),
-                  }}
-                  className={`min-w-[100px] text-right`}
-                >
-                  {stat}
-                </div>
-              ))
-            )}
+            Object.keys(compareData).map((stat) => (
+              <div
+                className={`grid w-full min-w-[100px] gap-2 grid-cols-${sessions?.length}`}
+              >
+                {compareData[stat].map((stat, index) => (
+                  <div
+                    style={{
+                      color: d3.interpolateRainbow(
+                        (index + 1) / (sessionSummaries.length + 1)
+                      ),
+                    }}
+                    className={`whitespace-nowrap text-right`}
+                  >
+                    {stat}
+                  </div>
+                ))}
+              </div>
+            ))}
         </div>
         <div
           className={`relative col-span-${sessions?.length} h-[45px] w-full pb-2`}
