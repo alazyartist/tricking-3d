@@ -18,16 +18,13 @@ const CompareSessions = () => {
         s.SessionData.reduce((sum, b) => sum + b.totalScore, 0)?.toFixed(2)
       ),
       "Raw Power": sessionSummaries?.map((s) =>
-        s.SessionData.reduce(
-          (sum, b) => sum + b.ClipLabel.pointValue,
-          0
-        )?.toFixed(2)
+        s.SessionData.reduce((sum, b) => sum + b.powerScore, 0)?.toFixed(2)
       ),
       "Total Combos": sessionSummaries?.map((s) => s.SessionData.length),
       "Total Tricks": sessionSummaries?.map((s) =>
         s.SessionData?.map((sd) => {
           const com = sd.ClipLabel.comboArray as any[];
-          return com.length;
+          return com.filter((t) => t.type === "Trick").length;
         }).reduce((sum, b) => sum + b, 0)
       ),
       "Total Chains": sessionSummaries?.map((s) =>
@@ -36,6 +33,26 @@ const CompareSessions = () => {
           0
         )
       ),
+      "Chain Score": sessionSummaries?.map((s) =>
+        s.SessionData.reduce((sum, b) => sum + b.chainTotal, 0)?.toFixed(2)
+      ),
+      "Bonus Score": sessionSummaries?.map((s) =>
+        s.SessionData.reduce((sum, b) => sum + b.bonusScore, 0)?.toFixed(2)
+      ),
+      "Variety Score": sessionSummaries?.map((s) =>
+        s.SessionData.reduce((sum, b) => sum + b.varietyScore, 0)?.toFixed(2)
+      ),
+      "Most Used": sessionSummaries?.map((s) => {
+        const trickCount = s.SessionData.map((sd) => sd?.trickCount).reduce(
+          (acc: {}, cur: {}) => ({ ...acc, ...cur }),
+          {}
+        );
+        return Object.keys(trickCount)
+          ?.filter((key) => trickCount[key].count > 1)
+          .sort((a, b) =>
+            trickCount[a]?.count > trickCount[b]?.count ? -1 : 1
+          )[0];
+      }),
     } as const;
     return sessionInfo;
   };
