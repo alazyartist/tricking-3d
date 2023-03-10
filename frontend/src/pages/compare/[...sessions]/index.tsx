@@ -145,7 +145,18 @@ const CompareSessions = () => {
           className={`grid grid-cols-${sessions?.length} place-items-center`}
         >
           {Array.isArray(sessionSummaries) &&
-            sessionSummaries.map((s) => <div className="p-2">{s.name}</div>)}
+            sessionSummaries.map((s, index) => (
+              <div
+                style={{
+                  color: d3.interpolateRainbow(
+                    (index + 1) / (sessionSummaries.length + 1)
+                  ),
+                }}
+                className="p-2"
+              >
+                {s.name}
+              </div>
+            ))}
         </div>
         <div
           id={"Stat Label"}
@@ -165,8 +176,17 @@ const CompareSessions = () => {
           <div className="absolute z-[-2] h-full w-[80%] "></div>
           {compareData &&
             Object.keys(compareData).map((stat) =>
-              compareData[stat].map((stat) => (
-                <div className="min-w-[100px] text-right">{stat}</div>
+              compareData[stat].map((stat, index) => (
+                <div
+                  style={{
+                    color: d3.interpolateRainbow(
+                      (index + 1) / (sessionSummaries.length + 1)
+                    ),
+                  }}
+                  className={`min-w-[100px] text-right`}
+                >
+                  {stat}
+                </div>
               ))
             )}
         </div>
@@ -174,9 +194,10 @@ const CompareSessions = () => {
           className={`relative col-span-${sessions?.length} h-[45px] w-full pb-2`}
         >
           {isSuccess &&
-            sessionSummaries.map((s) => (
+            sessionSummaries.map((s, index) => (
               <div className="absolute top-0 h-full w-full">
                 <PowerAverageComboLineChart
+                  colorized={(index + 1) / (sessionSummaries.length + 1)}
                   normalized={max}
                   data={s?.SessionData.sort((a, b) =>
                     a.clipStart < b.clipEnd ? 1 : -1

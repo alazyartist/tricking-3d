@@ -5,10 +5,12 @@ import { combos, sessiondata } from "@prisma/client";
 type LineChartProps = {
   data: (sessiondata & { ClipLabel: combos })[];
   normalized?: number;
+  colorized?: number;
 };
 const PowerAverageComboLineChart: React.FC<LineChartProps> = ({
   data,
   normalized,
+  colorized,
 }) => {
   const svgRef = useRef();
   const [lRef, dimensions] = useMeasure();
@@ -100,7 +102,10 @@ const PowerAverageComboLineChart: React.FC<LineChartProps> = ({
 
       line
         .attr("fill", "none")
-        .attr("stroke", "url(#line-gradient)")
+        .attr(
+          "stroke",
+          colorized ? d3.interpolateRainbow(colorized) : "url(#line-gradient)"
+        )
         .attr("stroke-width", 1.7)
         .attr(
           "d",
