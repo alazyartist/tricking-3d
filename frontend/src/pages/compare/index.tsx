@@ -53,32 +53,6 @@ const ComparePage = ({ sessionSummaries }) => {
                 </div>
               );
             })}
-          {status === "success" &&
-            summaries?.map((summary) => {
-              const chosen = compareList?.find(
-                (s) => JSON.stringify(s) === JSON.stringify(summary)
-              );
-              return (
-                <div
-                  className={`${
-                    chosen ? "border-2 border-zinc-300" : ""
-                  } rounded-md`}
-                >
-                  <SessionSummaryCard
-                    f={() =>
-                      !chosen
-                        ? compareList.length <= 4
-                          ? addToCompare((s) => [...s.slice(-3), summary])
-                          : addToCompare((s) => [...s, summary])
-                        : addToCompare((s) => [
-                            ...s.filter((s) => s !== summary),
-                          ])
-                    }
-                    summary={summary}
-                  />
-                </div>
-              );
-            })}
         </div>
       </div>
       <div>{compareList.map((cl) => cl.name)}</div>
