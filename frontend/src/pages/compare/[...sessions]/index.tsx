@@ -12,7 +12,7 @@ const CompareSessions = () => {
       sessions: typeof sessions !== "string" ? sessions : [sessions],
     });
   type sessionSummary = typeof sessionSummaries;
-  const transformSessionInfo = (sessionSummaries: sessionSummary) => {
+  function transformSessionInfo(sessionSummaries: sessionSummary) {
     const sessionInfo = {
       "Total Score": sessionSummaries?.map((s) =>
         s.SessionData.reduce((sum, b) => sum + b.totalScore, 0)?.toFixed(2)
@@ -104,8 +104,9 @@ const CompareSessions = () => {
       }),
     } as const;
     return sessionInfo;
-  };
-  const [compareData, setCompareData] = useState<{}>();
+  }
+  type CompareData = ReturnType<typeof transformSessionInfo>;
+  const [compareData, setCompareData] = useState<CompareData>();
   useEffect(() => {
     if (isSuccess && sessionSummaries?.length) {
       const compareDatum = transformSessionInfo(sessionSummaries);
