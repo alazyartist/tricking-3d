@@ -27,6 +27,12 @@ const CompareSessions = () => {
           return com.filter((t) => t.type === "Trick").length;
         }).reduce((sum, b) => sum + b, 0)
       ),
+      "Total Transitions": sessionSummaries?.map((s) =>
+        s.SessionData?.map((sd) => {
+          const com = sd.ClipLabel.comboArray as any[];
+          return com.filter((t) => t.type === "Transition").length;
+        }).reduce((sum, b) => sum + b, 0)
+      ),
       "Total Chains": sessionSummaries?.map((s) =>
         s.SessionData.map((sd) => Object.keys(sd.chains).length).reduce(
           (sum, b) => sum + b,
@@ -41,6 +47,13 @@ const CompareSessions = () => {
       ),
       "Variety Score": sessionSummaries?.map((s) =>
         s.SessionData.reduce((sum, b) => sum + b.varietyScore, 0)?.toFixed(2)
+      ),
+      "Execution Avg": sessionSummaries?.map((s) =>
+        s.SessionData.reduce(
+          (sum, b) =>
+            sum + b.executionAverage * (b.powerScore + b.varietyScore),
+          0
+        )?.toFixed(2)
       ),
       "Most Used": sessionSummaries?.map((s) => {
         const trickCount = s.SessionData.map((sd) => sd?.trickCount).reduce(
