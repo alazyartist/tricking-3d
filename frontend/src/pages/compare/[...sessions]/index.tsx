@@ -1,8 +1,10 @@
+import PowerAverageComboLineChart from "@components/d3/PowerAverageComboLineChart";
 import { sessionsummaries } from "@prisma/client";
 import { trpc } from "@utils/trpc";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import * as d3 from "d3";
 
 const CompareSessions = () => {
   const router = useRouter();
@@ -54,6 +56,14 @@ const CompareSessions = () => {
             sum + b.executionAverage * (b.powerScore + b.varietyScore),
           0
         )?.toFixed(2)
+      ),
+      "Power %": sessionSummaries?.map(
+        (s) =>
+          (
+            (s.SessionData.reduce((sum, b) => sum + b.powerScore, 0) /
+              s.SessionData.reduce((sum, b) => sum + b.totalScore, 0)) *
+            100
+          )?.toFixed(2) + "%"
       ),
       "Chain %": sessionSummaries?.map(
         (s) =>
@@ -113,6 +123,15 @@ const CompareSessions = () => {
       setCompareData(compareDatum);
     }
   }, [sessionSummaries]);
+  if (!isSuccess)
+    return (
+      <div className="flex h-screen w-screen place-content-center place-items-center bg-zinc-900 bg-opacity-40 p-4 text-center text-3xl text-zinc-300">
+        Analyzing Sessions For Comparison...
+      </div>
+    );
+  const max = d3.max(sessionSummaries, (s) =>
+    d3.max(s.SessionData, (sd) => sd.totalScore)
+  );
   return (
     <div className="h-screen bg-zinc-900 bg-opacity-40 p-4 text-zinc-100">
       <Link href={"/compare"} className=" font-semi-bold p-4 text-4xl">
@@ -150,6 +169,21 @@ const CompareSessions = () => {
                 <div className="min-w-[100px] text-right">{stat}</div>
               ))
             )}
+        </div>
+        <div
+          className={`relative col-span-${sessions?.length} h-[45px] w-full pb-2`}
+        >
+          {isSuccess &&
+            sessionSummaries.map((s) => (
+              <div className="absolute top-0 h-full w-full">
+                <PowerAverageComboLineChart
+                  normalized={max}
+                  data={s?.SessionData.sort((a, b) =>
+                    a.clipStart < b.clipEnd ? 1 : -1
+                  ).map((d) => d)}
+                />
+              </div>
+            ))}
         </div>
       </div>
     </div>

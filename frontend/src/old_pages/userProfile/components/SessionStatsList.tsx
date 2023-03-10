@@ -1,5 +1,5 @@
 import PowerAverageComboLineChart from "@components/d3/PowerAverageComboLineChart";
-import { sessiondata, sessionsummaries } from "@prisma/client";
+import { combos, sessiondata, sessionsummaries } from "@prisma/client";
 import React from "react";
 import ProfileNav from "./ProfileNav";
 
@@ -31,7 +31,9 @@ const SessionStatsList = ({
 export default SessionStatsList;
 
 interface SSCProps {
-  summary: sessionsummaries & { SessionData: sessiondata[] };
+  summary: sessionsummaries & {
+    SessionData: (sessiondata & { ClipLabel: combos })[];
+  };
   setActiveSummary?: React.Dispatch<React.SetStateAction<sessionsummaries>>;
   f?: () => void;
 }

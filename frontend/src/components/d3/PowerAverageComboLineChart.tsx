@@ -1,7 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import useMeasure from "react-use-measure";
 import * as d3 from "d3";
-const PowerAverageComboLineChart = ({ data }) => {
+import { combos, sessiondata } from "@prisma/client";
+type LineChartProps = {
+  data: (sessiondata & { ClipLabel: combos })[];
+  normalized?: number;
+};
+const PowerAverageComboLineChart: React.FC<LineChartProps> = ({
+  data,
+  normalized,
+}) => {
   const svgRef = useRef();
   const [lRef, dimensions] = useMeasure();
 
@@ -25,7 +33,10 @@ const PowerAverageComboLineChart = ({ data }) => {
         .scaleLinear()
         .domain([0, data.length + 1])
         .range([0, width]);
-      const yScale = d3.scaleLinear().domain([0, max]).range([height, 0]);
+      const yScale = d3
+        .scaleLinear()
+        .domain([0, !!normalized ? normalized : max])
+        .range([height, 0]);
 
       svg
         .append("linearGradient")
@@ -63,6 +74,7 @@ const PowerAverageComboLineChart = ({ data }) => {
         .attr("stroke-width", 3.7)
         .attr(
           "d",
+          //@ts-ignore
           d3
             .line()
             .x((d, i) => xScale(i))
@@ -79,6 +91,7 @@ const PowerAverageComboLineChart = ({ data }) => {
         .attr("stroke-width", 2.7)
         .attr(
           "d",
+          //@ts-ignore
           d3
             .line()
             .x((d, i) => xScale(i))
@@ -91,6 +104,7 @@ const PowerAverageComboLineChart = ({ data }) => {
         .attr("stroke-width", 1.7)
         .attr(
           "d",
+          //@ts-ignore
           d3
             .line()
             .x((d, i) => xScale(i))

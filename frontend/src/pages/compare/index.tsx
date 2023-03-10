@@ -41,7 +41,7 @@ const ComparePage = ({ sessionSummaries }) => {
                   <SessionSummaryCard
                     f={() =>
                       !chosen
-                        ? compareList.length <= 4
+                        ? compareList?.length <= 4
                           ? addToCompare((s) => [...s.slice(-3), summary])
                           : addToCompare((s) => [...s, summary])
                         : addToCompare((s) => [
@@ -69,7 +69,7 @@ export const getStaticProps = async () => {
     orderBy: { updatedAt: "desc" },
     include: {
       user: { select: { username: true, profilePic: true, uuid: true } },
-      SessionData: true,
+      SessionData: { include: { ClipLabel: true } },
     },
   });
   let stringy = JSON.stringify(sessionSummaries);
