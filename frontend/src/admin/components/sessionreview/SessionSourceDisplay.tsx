@@ -151,7 +151,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
               <div className="neumorphicIn no-scrollbar flex w-full gap-2 overflow-x-scroll rounded-md p-2 text-zinc-300">
                 {clipCombo.map((item, index) => (
                   <span
-                    key={`${item.trick_id} ${Math.random() * 1000}`}
+                    key={`${item.name} ${Math.random() * 1000}`}
                     onClick={() => {
                       removeClipfromCombo(index);
                     }}
