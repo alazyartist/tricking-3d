@@ -34,7 +34,7 @@ export const sessionsummariesRouter = router({
           trickers: {
             include: { user: true },
           },
-          SessionData: true,
+          SessionData: { include: { ClipLabel: true } },
           SessionSources: true,
         },
       });

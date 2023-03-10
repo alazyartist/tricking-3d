@@ -128,6 +128,7 @@ model combos {
   updatedAt        DateTime @db.DateTime(0)
   pointValue       Float?   @db.Float
   shorthand        String?  @db.VarChar(255)
+  Clips sessiondata[]
 }
 
 model interactions {
@@ -226,6 +227,7 @@ model sessiondata {
   trickCount Json? 
   tricker users? @relation(fields: [tricker_id],references: [uuid])
   summary sessionsummaries? @relation(fields: [sessionid],references: [sessionid] )
+  ClipLabel combos? @relation(fields: [clipLabel],references: [combo_id])
   @@index([sessionid])
 
 }
