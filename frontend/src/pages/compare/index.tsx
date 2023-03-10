@@ -18,38 +18,68 @@ const ComparePage = ({ sessionSummaries }) => {
   const compareurl = compareList.map((cs) => cs.sessionid).join("/");
   return (
     <div className="h-full w-full text-zinc-300">
-      ComparePage
-      <div className="mt-14 flex flex-col gap-2 p-2">
+      <h1 className=" font-semi-bold p-4 text-4xl">ComparePage</h1>
+      <div className=" flex flex-col gap-2 p-2">
         <Link
           href={`/compare/${compareurl}`}
           className=" outlineButton  place-self-end px-4 py-2 text-xl"
         >
           compare
         </Link>
-        {status === "success" &&
-          summaries?.map((summary) => {
-            const chosen = compareList?.find(
-              (s) => JSON.stringify(s) === JSON.stringify(summary)
-            );
-            return (
-              <div
-                className={`${
-                  chosen ? "border-2 border-zinc-300" : ""
-                } rounded-md`}
-              >
-                <SessionSummaryCard
-                  f={() =>
-                    !chosen
-                      ? compareList.length <= 4
-                        ? addToCompare((s) => [...s.slice(-3), summary])
-                        : addToCompare((s) => [...s, summary])
-                      : addToCompare((s) => [...s.filter((s) => s !== summary)])
-                  }
-                  summary={summary}
-                />
-              </div>
-            );
-          })}
+        <div className="h-[74vh] space-y-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-40 p-2">
+          {status === "success" &&
+            summaries?.map((summary) => {
+              const chosen = compareList?.find(
+                (s) => JSON.stringify(s) === JSON.stringify(summary)
+              );
+              return (
+                <div
+                  className={`${
+                    chosen ? "border-4 border-zinc-100" : ""
+                  } rounded-md`}
+                >
+                  <SessionSummaryCard
+                    f={() =>
+                      !chosen
+                        ? compareList.length <= 4
+                          ? addToCompare((s) => [...s.slice(-3), summary])
+                          : addToCompare((s) => [...s, summary])
+                        : addToCompare((s) => [
+                            ...s.filter((s) => s !== summary),
+                          ])
+                    }
+                    summary={summary}
+                  />
+                </div>
+              );
+            })}
+          {status === "success" &&
+            summaries?.map((summary) => {
+              const chosen = compareList?.find(
+                (s) => JSON.stringify(s) === JSON.stringify(summary)
+              );
+              return (
+                <div
+                  className={`${
+                    chosen ? "border-2 border-zinc-300" : ""
+                  } rounded-md`}
+                >
+                  <SessionSummaryCard
+                    f={() =>
+                      !chosen
+                        ? compareList.length <= 4
+                          ? addToCompare((s) => [...s.slice(-3), summary])
+                          : addToCompare((s) => [...s, summary])
+                        : addToCompare((s) => [
+                            ...s.filter((s) => s !== summary),
+                          ])
+                    }
+                    summary={summary}
+                  />
+                </div>
+              );
+            })}
+        </div>
       </div>
       <div>{compareList.map((cl) => cl.name)}</div>
     </div>
