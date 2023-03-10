@@ -1,9 +1,14 @@
+import { trpc } from "@utils/trpc";
 import { useRouter } from "next/router";
 import React from "react";
 
 const CompareSessions = () => {
   const router = useRouter();
   const { sessions } = router.query;
+  const { data: sessionSummaries } =
+    trpc.sessionsummaries.compareDetailsById.useQuery({
+      sessions: typeof sessions !== "string" ? sessions : [sessions],
+    });
   console.log(typeof sessions, sessions);
   return (
     <div className="text-zinc-300">
@@ -13,8 +18,8 @@ const CompareSessions = () => {
           Info
         </div>
         <div className="grid grid-cols-3 place-items-center">
-          {Array.isArray(sessions)
-            ? sessions.map((s) => <div className="p-2">{s}</div>)
+          {Array.isArray(sessionSummaries)
+            ? sessionSummaries.map((s) => <div className="p-2">{s.name}</div>)
             : sessions}
         </div>
         <div className="flex h-full w-full flex-col place-content-center place-items-end">

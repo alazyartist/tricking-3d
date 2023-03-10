@@ -25,6 +25,22 @@ export const sessionsummariesRouter = router({
         ...sessionSummary,
       };
     }),
+  compareDetailsById: publicProcedure
+    .input(z.object({ sessions: z.array(z.string()) }))
+    .query(async ({ input, ctx }) => {
+      const sessionSummaries = await ctx.prisma.sessionsummaries.findMany({
+        where: { sessionid: { in: input.sessions } },
+        include: {
+          trickers: {
+            include: { user: true },
+          },
+          SessionData: true,
+          SessionSources: true,
+        },
+      });
+
+      return sessionSummaries;
+    }),
   updateExecutionScore: publicProcedure
     .input(
       z.object({

@@ -246,7 +246,7 @@ model sessionsources {
   vidsrc    String?  @db.VarChar(255)
   createdAt DateTime @default(now()) @db.DateTime(0)
   updatedAt DateTime @default(now()) @db.DateTime(0)
-
+  SessionSummary sessionsummaries? @relation(fields: [sessionid],references: [sessionid])
   @@unique([sessionid, vidsrc], map: "vidsrckey")
 }
 
@@ -265,6 +265,7 @@ model sessionsummaries {
   trickers    user_sessions[]
   user users? @relation(fields: [user_id], references: [uuid])
   SessionData sessiondata[]
+  SessionSources sessionsources[]
   @@index([sessionid])
 }
 
