@@ -157,3 +157,7 @@ const CompareSessions = () => {
 };
 
 export default CompareSessions;
+
+type dir = "Backside" | "Inside" | "Frontside" | "Outside";
+type stance = "Complete" | "Hyper" | "Mega" | "Semi";
+type stances = `${dir}${stance}`;
