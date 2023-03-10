@@ -55,7 +55,6 @@ const ComparePage = ({ sessionSummaries }) => {
             })}
         </div>
       </div>
-      <div>{compareList.map((cl) => cl.name)}</div>
     </div>
   );
 };
