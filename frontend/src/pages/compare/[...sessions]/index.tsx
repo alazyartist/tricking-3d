@@ -1,25 +1,56 @@
 import { sessionsummaries } from "@prisma/client";
 import { trpc } from "@utils/trpc";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 const CompareSessions = () => {
   const router = useRouter();
   const { sessions } = router.query;
-  const { data: sessionSummaries } =
+  const { data: sessionSummaries, isSuccess } =
     trpc.sessionsummaries.compareDetailsById.useQuery({
       sessions: typeof sessions !== "string" ? sessions : [sessions],
     });
+  type sessionSummary = typeof sessionSummaries;
+  const transformSessionInfo = (sessionSummaries: sessionSummary) => {
+    const sessionInfo = {
+      "Total Score": sessionSummaries?.map((s) =>
+        s.SessionData.reduce((sum, b) => sum + b.totalScore, 0)?.toFixed(2)
+      ),
+      "Raw Power": sessionSummaries?.map((s) =>
+        s.SessionData.reduce(
+          (sum, b) => sum + b.ClipLabel.pointValue,
+          0
+        )?.toFixed(2)
+      ),
+      "Total Combos": sessionSummaries?.map((s) => s.SessionData.length),
+      "Total Tricks": sessionSummaries?.map((s) =>
+        s.SessionData?.map((sd) => {
+          const com = sd.ClipLabel.comboArray as any[];
+          return com.length;
+        }).reduce((sum, b) => sum + b, 0)
+      ),
+      "Total Chains": sessionSummaries?.map((s) =>
+        s.SessionData.map((sd) => Object.keys(sd.chains).length).reduce(
+          (sum, b) => sum + b,
+          0
+        )
+      ),
+    } as const;
+    return sessionInfo;
+  };
   const [compareData, setCompareData] = useState<{}>();
   useEffect(() => {
-    if (sessionSummaries.length) {
+    if (isSuccess && sessionSummaries?.length) {
       const compareDatum = transformSessionInfo(sessionSummaries);
       setCompareData(compareDatum);
     }
   }, [sessionSummaries]);
   return (
     <div className="text-zinc-300">
-      <h1 className=" font-semi-bold p-4 text-4xl">CompareSessions</h1>
+      <Link href={"/compare"} className=" font-semi-bold p-4 text-4xl">
+        CompareSessions
+      </Link>
       <div className=" grid grid-cols-[1fr_4fr]">
         <div className="flex h-full w-full place-content-end place-items-center">
           Session
@@ -50,27 +81,3 @@ const CompareSessions = () => {
 };
 
 export default CompareSessions;
-
-const transformSessionInfo = (sessionSummaries) => {
-  const sessionInfo = {
-    "Total Score": sessionSummaries?.map((s) =>
-      s.SessionData.reduce((sum, b) => sum + b.totalScore, 0)?.toFixed(2)
-    ) as string,
-    "Raw Power": sessionSummaries?.map((s) =>
-      s.SessionData.reduce(
-        (sum, b) => sum + b.ClipLabel.pointValue,
-        0
-      )?.toFixed(2)
-    ) as string,
-    "Total Combos": sessionSummaries?.map(
-      (s) => s.SessionData.length
-    ) as number,
-    "Total Tricks": sessionSummaries?.map((s) =>
-      s.SessionData?.map((sd) => sd.ClipLabel.comboArray.length).reduce(
-        (sum, b) => sum + b,
-        0
-      )
-    ) as number,
-  } as const;
-  return sessionInfo;
-};

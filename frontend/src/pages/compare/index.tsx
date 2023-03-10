@@ -7,7 +7,6 @@ import React, { useState } from "react";
 
 const ComparePage = ({ sessionSummaries }) => {
   const initialSummaries = JSON.parse(sessionSummaries);
-  console.log(initialSummaries, "pp");
   const { data: summaries, status } =
     trpc.sessionsummaries.getAllSessionSummaries.useQuery(
       {},
@@ -40,9 +39,11 @@ const ComparePage = ({ sessionSummaries }) => {
               >
                 <SessionSummaryCard
                   f={() =>
-                    chosen
-                      ? addToCompare((s) => [...s.filter((s) => s !== summary)])
-                      : addToCompare((s) => [...s, summary])
+                    !chosen
+                      ? compareList.length <= 4
+                        ? addToCompare((s) => [...s.slice(-3), summary])
+                        : addToCompare((s) => [...s, summary])
+                      : addToCompare((s) => [...s.filter((s) => s !== summary)])
                   }
                   summary={summary}
                 />

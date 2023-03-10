@@ -52,7 +52,7 @@ export const SessionSummaryCard: React.FC<SSCProps> = ({
       f();
     } else return;
   };
-  console.log("summarySD", summary.SessionData);
+  // console.log("summarySD", summary.SessionData);
   return (
     <div
       className="flex flex-col justify-between gap-2 rounded-md bg-zinc-900 p-2"
