@@ -47,7 +47,7 @@ function Home() {
   });
 
   return (
-    <div className="no-scrollbar stick h-[100vh] w-full overflow-y-scroll md:pt-[15vh] ">
+    <div className=" stick h-[100vh] w-full  md:pt-[15vh] ">
       <div
         id="AppBackground-flex"
         className="flex h-screen w-screen flex-col place-items-center"
@@ -72,7 +72,7 @@ function Home() {
             "absolute top-14 left-2 place-self-start rounded-md bg-zinc-700 p-2 text-4xl"
           }
         /> */}
-        <div className="rounded-xl bg-zinc-800 bg-opacity-40 py-2 backdrop-blur-xl">
+        <div className="no-scrollbar h-[82%] overflow-y-scroll rounded-xl bg-zinc-800 bg-opacity-40 py-2 backdrop-blur-xl">
           {!openCaptures &&
             !openComboMaker &&
             !openClaimtricks &&
