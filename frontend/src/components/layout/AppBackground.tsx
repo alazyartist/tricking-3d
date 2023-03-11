@@ -8,8 +8,8 @@ function AppBackground(props) {
       id="App-Background"
       className="fixed top-0 left-0 z-[-2] h-screen w-screen place-content-center bg-gradient-to-b from-zinc-900 to-zinc-800"
     >
-      <MovingBackground />
-      {/* <BackgroundCircles /> */}
+      {/* <MovingBackground /> */}
+      <BackgroundCircles />
       {props.children}
     </div>
   );
