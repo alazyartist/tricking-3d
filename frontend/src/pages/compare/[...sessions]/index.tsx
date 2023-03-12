@@ -266,7 +266,7 @@ export const getStaticProps = async (props) => {
 function getUserCombinations(summaries: sessionsummaries[]) {
   const result = new Set();
 
-  function getCombinationsUtil(start: string, chosen: string[]) {
+  function getCombinationsUtil(start: number, chosen: string[]) {
     if (chosen.length > 1 && chosen.length <= 4) {
       result.add([...chosen]);
     }

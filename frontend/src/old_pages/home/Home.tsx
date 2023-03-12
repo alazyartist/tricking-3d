@@ -128,6 +128,12 @@ function Home() {
                 >
                   Compare
                 </Link>
+                <Link
+                  href={"/debate"}
+                  className=" mt-1 mb-2 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
+                >
+                  Debate
+                </Link>
                 <div
                   onClick={() => setOpenComboMaker(!openComboMaker)}
                   className=" mt-1 mb-2 flex w-[70vw] max-w-[600px] place-content-center place-items-center gap-2 rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
