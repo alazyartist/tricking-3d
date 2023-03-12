@@ -1,18 +1,23 @@
 import PowerAverageComboLineChart from "@components/d3/PowerAverageComboLineChart";
-import { sessionsummaries } from "@prisma/client";
+import { PrismaClient, sessionsummaries } from "@prisma/client";
 import { trpc } from "@utils/trpc";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import * as d3 from "d3";
 
-const CompareSessions = () => {
+const CompareSessions = ({ initialSummaries }) => {
+  const initialsummariesdata = JSON.parse(initialSummaries);
   const router = useRouter();
   const { sessions } = router.query;
   const { data: sessionSummaries, isSuccess } =
-    trpc.sessionsummaries.compareDetailsById.useQuery({
-      sessions: typeof sessions !== "string" ? sessions : [sessions],
-    });
+    trpc.sessionsummaries.compareDetailsById.useQuery(
+      {
+        sessions: typeof sessions !== "string" ? sessions : [sessions],
+      },
+      { initialData: initialsummariesdata }
+    );
+
   type sessionSummary = typeof sessionSummaries;
   function transformSessionInfo(sessionSummaries: sessionSummary) {
     const sessionInfo = {
@@ -133,28 +138,39 @@ const CompareSessions = () => {
     d3.max(s.SessionData, (sd) => sd.totalScore)
   );
   return (
-    <div className="h-screen bg-zinc-900 bg-opacity-40 p-4 text-zinc-100">
+    <div className="max-w-screen h-screen w-screen bg-zinc-900 bg-opacity-40 p-4 text-zinc-100">
       <Link href={"/compare"} className=" font-semi-bold p-4 text-4xl">
         CompareSessions
       </Link>
-      <div className={`grid grid-cols-[1fr_${sessions?.length}fr]`}>
+      <div className={`grid grid-cols-[1fr_${sessions?.length}fr] `}>
         <div className="flex h-full w-full place-content-end place-items-center">
           Session
         </div>
-        <div
-          className={`grid grid-cols-${sessions?.length} place-items-center`}
-        >
+        <div className={`flex flex-col place-items-center overflow-hidden`}>
           {Array.isArray(sessionSummaries) &&
             sessionSummaries.map((s, index) => (
-              <div
-                style={{
-                  color: d3.interpolateRainbow(
-                    (index + 1) / (sessionSummaries.length + 1)
-                  ),
-                }}
-                className="p-2"
-              >
-                {s.name}
+              <div className="flex place-items-center gap-1">
+                <div
+                  style={{
+                    color: d3.interpolateRainbow(
+                      (index + 1) / (sessionSummaries.length + 1)
+                    ),
+                    background: d3.interpolateRainbow(
+                      (index + 1) / (sessionSummaries.length + 1)
+                    ),
+                  }}
+                  className="h-4 w-4 rounded-full"
+                ></div>
+                <div
+                  style={{
+                    color: d3.interpolateRainbow(
+                      (index + 1) / (sessionSummaries.length + 1)
+                    ),
+                  }}
+                  className="h-fit rounded-full p-[1px]"
+                >
+                  {s.name}
+                </div>
               </div>
             ))}
         </div>
@@ -220,3 +236,49 @@ export default CompareSessions;
 type dir = "Backside" | "Inside" | "Frontside" | "Outside";
 type stance = "Complete" | "Hyper" | "Mega" | "Semi";
 type stances = `${dir}${stance}`;
+
+const prisma = new PrismaClient();
+export const getStaticPaths = async (props) => {
+  const summaries = await prisma.sessionsummaries.findMany();
+  const summaryCombinations = getUserCombinations(summaries);
+  console.log(summaryCombinations.length);
+  return {
+    paths: summaryCombinations,
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps = async (props) => {
+  const sessionSummaries = await prisma.sessionsummaries.findMany({
+    where: { sessionid: { in: props.params.sessions } },
+    include: {
+      trickers: {
+        include: { user: true },
+      },
+      SessionData: { include: { ClipLabel: true } },
+      SessionSources: true,
+    },
+  });
+  const stringy = JSON.stringify(sessionSummaries);
+  return { props: { initialSummaries: stringy }, revalidate: 120 };
+};
+
+function getUserCombinations(summaries) {
+  const result = new Set();
+
+  function getCombinationsUtil(start, chosen) {
+    if (chosen.length > 1 && chosen.length <= 4) {
+      result.add([...chosen]);
+    }
+
+    for (let i = start; i < summaries.length; i++) {
+      chosen.push(summaries[i].sessionid);
+      getCombinationsUtil(i + 1, chosen);
+      chosen.pop();
+    }
+  }
+
+  getCombinationsUtil(0, []);
+
+  return [...result].map((r) => ({ params: { sessions: r } }));
+}
