@@ -263,10 +263,10 @@ export const getStaticProps = async (props) => {
   return { props: { initialSummaries: stringy }, revalidate: 120 };
 };
 
-function getUserCombinations(summaries) {
+function getUserCombinations(summaries: sessionsummaries[]) {
   const result = new Set();
 
-  function getCombinationsUtil(start, chosen) {
+  function getCombinationsUtil(start: string, chosen: string[]) {
     if (chosen.length > 1 && chosen.length <= 4) {
       result.add([...chosen]);
     }
