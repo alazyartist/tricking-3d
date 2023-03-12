@@ -2,7 +2,7 @@ import React from "react";
 import { pureSetups } from "../../data/trickDataModel/TrickObjects";
 function Setups() {
   return (
-    <div className="mt-4 flex flex-col place-content-center place-items-center font-inter text-zinc-400">
+    <div className=" flex flex-col place-content-center place-items-center font-inter text-zinc-400">
       <div className="flex w-[80vw] flex-col gap-4 font-normal md:grid md:grid-cols-2">
         <div>
           <h1 className="w-full pb-0 text-left font-virgil text-xl text-zinc-300">
