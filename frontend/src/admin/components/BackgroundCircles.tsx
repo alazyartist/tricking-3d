@@ -5,7 +5,7 @@ const BackgroundCircles = () => {
     <>
       <img
         src={`/swirly.jpg`}
-        className={"h-screen w-screen bg-cover blur-md"}
+        className={"absolute z-[-1] h-screen w-screen bg-cover blur-md"}
       />
 
       {/* <div className="fixed top-[50%] left-[5%] z-[-2] h-40 w-40 rounded-full bg-gradient-to-tr from-sky-500 to-teal-300 blur-md" />
