@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const DebatesOverview = () => {
   let testData = [
@@ -54,9 +54,20 @@ const DebatesOverview = () => {
     },
   ];
   const debates = testData;
+  const [debateCreationOpen, setDebateCreationOpen] = useState(false);
   return (
     <div className="backrop-blur-xl no-scrollbar flex h-[100vh] w-full flex-col place-items-center gap-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-70 p-4 pt-14 font-inter text-zinc-300">
-      <div className="place-self-start  text-4xl ">Debates</div>
+      <div className="flex w-full justify-between">
+        <div className=" text-4xl ">Debates</div>
+        <button
+          onClick={() => {
+            setDebateCreationOpen(true);
+          }}
+          className="rounded-md bg-sky-500 p-2"
+        >
+          Start Debate
+        </button>
+      </div>
       <div className="grid grid-cols-2 gap-4">
         {debates.map((debate) => {
           return (
@@ -85,8 +96,40 @@ const DebatesOverview = () => {
           );
         })}
       </div>
+      {debateCreationOpen && (
+        <OpenNewDebate setDebateCreationOpen={setDebateCreationOpen} />
+      )}
     </div>
   );
 };
 
 export default DebatesOverview;
+
+const OpenNewDebate = ({ setDebateCreationOpen }) => {
+  const handleSubmit = () => {
+    console.log("Starting New Debate");
+  };
+  return (
+    <div className="absolute top-[10vh] left-[10vw] flex h-[80vh] w-[80vw] flex-col bg-zinc-800">
+      <button
+        type="button"
+        onClick={() => setDebateCreationOpen(false)}
+        className="p-2 text-3xl"
+      >
+        X
+      </button>
+      <div className="p-2 text-3xl">Start New Debate</div>
+      <form className="flex flex-col gap-2 p-2" onSubmit={handleSubmit}>
+        <div>Title</div>
+        <input className="bg-zinc-900 p-2" />
+        <div>Topic</div>
+        <textarea className="bg-zinc-900 p-2" />
+        <div>Example(media)</div>
+        <input className="bg-zinc-900 p-2" type={"text"} />
+        <div className="flex flex-col place-items-center">
+          <button className="rounded-md bg-sky-500 p-2">Start Debate</button>
+        </div>
+      </form>
+    </div>
+  );
+};
