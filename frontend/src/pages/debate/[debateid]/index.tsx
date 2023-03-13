@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const DebatePage = () => {
@@ -6,7 +7,10 @@ const DebatePage = () => {
 
   return (
     <>
-      <div className="backrop-blur-xl no-scrollbar flex h-[80vh] w-full flex-col place-items-center gap-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-70 p-4 pt-14 font-inter">
+      <div className="backrop-blur-xl no-scrollbar flex h-[80vh] w-full flex-col place-items-center gap-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-70 p-4 font-inter">
+        <Link href={"/debate"} className={"text-4xl text-zinc-300"}>
+          Debates
+        </Link>
         <div className=" h-fit w-full rounded-md bg-zinc-100 bg-opacity-40 p-2 text-xl text-zinc-100">
           Proposition Here
           <p className="text-xs">
