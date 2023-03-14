@@ -1,9 +1,42 @@
+import { useUserStore } from "@store/userStore";
+import { trpc } from "@utils/trpc";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useState, useEffect } from "react";
+import useAblyStore from "../../../hooks/useAblyStore";
+const ably = useAblyStore.getState().ably;
 
 const DebatePage = () => {
+  const router = useRouter();
+  const { debateid } = router.query;
+  const { data: debateDetails, isSuccess } = trpc.debates.findById.useQuery({
+    debateid,
+  });
+  const { uuid } = useUserStore((s) => s.userInfo);
+  const [messages, updateMessages] = useState([]);
+  const debateChannel = ably.channels.get(`debate-${debateid}`);
+
+  ably.connection.once("connected", () => {
+    const { tokenDetails } = ably.auth;
+    console.log("Client connected to Ably using JWT", tokenDetails);
+  });
+  useEffect(() => {
+    const subscribe = async () => {
+      await debateChannel.subscribe(`message`, (m) => {
+        console.log(m, messages);
+        const newMessages = messages;
+        newMessages.push(m);
+        updateMessages(newMessages);
+      });
+    };
+    subscribe();
+
+    return () => debateChannel.unsubscribe();
+  });
+
   let messagesYay = [1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3];
-  let messagesNay = [1, 2, 3, 1, 1, 2, 3];
+
+  if (!isSuccess) return <div>Loading..</div>;
 
   return (
     <>
@@ -12,13 +45,8 @@ const DebatePage = () => {
           Debates
         </Link>
         <div className=" h-fit w-full rounded-md bg-zinc-100 bg-opacity-40 p-2 text-xl text-zinc-100">
-          Proposition Here
-          <p className="text-xs">
-            This is where the general proposition for the debate will go it will
-            show us a general overfiew of the information to be debated up on
-            and should end with a yes or format.ex. Double-cork.mega should be
-            worth more than Double-full-snapu
-          </p>
+          {debateDetails.title}
+          <p className="text-xs">{debateDetails.topic}</p>
         </div>
         <div className={` grid grid-cols-2 gap-2`}>
           <div
@@ -35,48 +63,77 @@ const DebatePage = () => {
         <div className="mb-4 grid h-full w-full grid-cols-2 gap-2">
           <div className="flex h-full w-full flex-col gap-2 rounded-md border-[1px] border-emerald-300 bg-opacity-40 p-2">
             {messagesYay.map((m) => (
-              <MessageDisplay side={"left"} />
+              <MessageDisplay message={m} side={"left"} />
             ))}
           </div>
           <div className="flex h-full w-full flex-col gap-2 rounded-md border-[1px] border-red-300 bg-opacity-40 p-2 pt-12">
-            {messagesNay.map((m) => (
-              <MessageDisplay side={"right"} />
+            {messages.map((m) => (
+              <MessageDisplay side={"right"} message={m} />
             ))}
           </div>
           <div className=" w-full rounded-md bg-emerald-500 p-2">
             {messagesYay.length}
           </div>
           <div className=" w-full rounded-md bg-red-500 p-2">
-            {messagesNay.length}
+            {messages.length}
           </div>
         </div>
       </div>
-      <MessageInput />
+      <MessageInput channel={debateChannel} />
     </>
   );
 };
 
 export default DebatePage;
 
-const MessageDisplay = ({ side }) => {
+const MessageDisplay = ({ side, message }) => {
   return (
-    <div className="relative flex rounded-md bg-zinc-500">
+    <div key={message?.id} className="relative flex rounded-md bg-zinc-500">
       {side === "left" && <div>Test message text here</div>}
       <div
         className={`relative ${side}-1 bottom-1 h-6 w-6 flex-shrink-0 rounded-full bg-indigo-600`}
       ></div>
-      {side === "right" && <div>Test message text here</div>}
+      {side === "right" && <div>{message?.data?.message}</div>}
     </div>
   );
 };
 
-const MessageInput = () => {
+const MessageInput = ({ channel }) => {
+  const [message, setMessage] = useState("");
+  const [vote, setVote] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (vote === "Yay") {
+      channel.publish("message", { vote: "Yay", message: message });
+    }
+    if (vote === "Nay") {
+      channel.publish("message", { vote: "Nay", message: message });
+    }
+  };
   return (
-    <div className="w-full p-4 pb-12">
+    <form onSubmit={handleSubmit} className="w-full p-4 pb-12">
       <input
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
         className="w-full rounded-md bg-zinc-700 p-2 text-zinc-300"
         placeholder="contribute to the debate"
       />
-    </div>
+      <div className="flex w-full place-items-center gap-2 p-2">
+        <button
+          className="w-full rounded-md  bg-emerald-300 p-2 text-center text-xl text-emerald-800"
+          type="submit"
+          onClick={() => setVote("Yay")}
+        >
+          Yay
+        </button>
+        <button
+          className="w-full rounded-md bg-red-300  p-2 text-center text-xl text-red-800"
+          type="submit"
+          onClick={() => setVote("Nay")}
+        >
+          Nay
+        </button>
+      </div>
+    </form>
   );
 };

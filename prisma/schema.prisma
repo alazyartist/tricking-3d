@@ -359,7 +359,7 @@ model tricks {
   @@index([base_id], map: "base_id")
 }
 model debates{
-  debateid     String      @id @db.Char(36)
+  debateid     String      @id @db.Char(36) @default(uuid())
   title        String      @db.VarChar(255) @unique
   topic        String      @db.Text 
   media        String?     @db.VarChar(255) 

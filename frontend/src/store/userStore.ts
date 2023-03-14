@@ -5,7 +5,7 @@ export interface UserInfo {
   accessToken?: string;
   profilePic: string;
   id?: number;
-  uuid?: string | null | Blob;
+  uuid?: string | null;
   first_name?: string;
   last_name?: string;
   username?: string;

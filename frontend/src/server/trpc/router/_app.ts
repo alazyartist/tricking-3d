@@ -6,6 +6,7 @@ import { userRouter } from "./user";
 import { tricksRouter } from "./trick";
 import { transitionsRouter } from "./transitions";
 import { comboRouter } from "./combos";
+import { debateRouter } from "./debates";
 
 export const appRouter = router({
   auth: authRouter,
@@ -14,6 +15,7 @@ export const appRouter = router({
   trick: tricksRouter,
   transition: transitionsRouter,
   sessionsummaries: sessionsummariesRouter,
+  debates: debateRouter,
 });
 
 // export type definition of API
