@@ -359,28 +359,28 @@ model tricks {
   @@index([base_id], map: "base_id")
 }
 model debates{
-  debateid    String    @id @db.Char(36)
-  title       String   @db.VarChar(255) @unique
-  topic       String   @db.Text 
-  media       String   @db.VarChar(255) 
-  verdict       String   @db.VarChar(255) 
-  closed       Boolean   
-  user_id    String    @db.Char(36)
-  createdAt    DateTime @default(now()) @db.DateTime(0)
-  updatedAt    DateTime @default(now()) @db.DateTime(0)
+  debateid     String      @id @db.Char(36)
+  title        String      @db.VarChar(255) @unique
+  topic        String      @db.Text 
+  media        String?     @db.VarChar(255) 
+  verdict      String?     @db.VarChar(255) 
+  closed       Boolean?    
+  user_id      String      @db.Char(36)
+  createdAt    DateTime    @default(now()) @db.DateTime(0)
+  updatedAt    DateTime    @default(now()) @db.DateTime(0)
   messages    debateMessages[]
-  host        users? @relation(fields: [user_id],references: [uuid])
+  host        users?       @relation(fields: [user_id],references: [uuid])
 }
 model debateMessages{
-  messageid    String    @id @db.Char(36)
-  debateid    String     @db.Char(36)
-  anonHash       String   @db.VarChar(255) 
-  message       String   @db.Text 
-  media       String   @db.VarChar(255) 
-  vote       String   @db.VarChar(10)  
-  user_id    String    @db.Char(36)
-  createdAt    DateTime @default(now()) @db.DateTime(0)
-  updatedAt    DateTime @default(now()) @db.DateTime(0)
+  messageid    String     @id @db.Char(36)
+  debateid     String     @db.Char(36)
+  anonHash     String     @db.VarChar(255) 
+  message      String     @db.Text 
+  media        String?    @db.VarChar(255) 
+  vote         String     @db.VarChar(10)  
+  user_id      String     @db.Char(36)
+  createdAt    DateTime   @default(now()) @db.DateTime(0)
+  updatedAt    DateTime   @default(now()) @db.DateTime(0)
   Debate debates? @relation(fields: [debateid],references:[debateid])
   user        users? @relation(fields: [user_id],references: [uuid])
 }
