@@ -1,26 +1,26 @@
 .screen {
   @apply w-[100wh] h-[100vh] ;
 }
-.btn-trick-type {
+.input-trick-type {
   @apply 
     pl-2 pr-2 m-2
     border-2 border-zinc-300
     rounded-lg 
     ;
 }
-.btn-trick {
+.input-trick {
   @apply 
     bg-green-800
     w-[30vw] h-[20vw]
-    btn-trick-type
+    input-trick-type
 ;}
-.btn-transition {
+.input-transition {
   @apply 
     bg-blue-800
     w-[30vw] h-[20vw]
-    btn-trick-type
+    input-trick-type
 ;}
-.btn-clear-combo {
+.input-clear-combo {
   @apply
     p-2
     rounded-full 
@@ -31,7 +31,7 @@
   @apply
     w-[90vw] 
     m-auto
-    mb-4
+    mb-0
     flex flex-row
     flex-wrap
     justify-start
@@ -106,6 +106,18 @@
     border-zinc-300
   ;
 }
+.options-header-button {
+  -webkit-tap-highlight-color: 
+    rgba(0,0,0,0);
+  @apply
+    h-8
+    m-4
+    pl-4 pr-4
+    rounded-lg
+    bg-zinc-400
+    border-2 border-zinc-800
+  ;
+}
 .display-option {
   @apply
     w-[30vw] h-[5vh]
@@ -121,7 +133,7 @@
   ;
 }
 
-.trick-or-trans {
+.input-container {
   @apply
     flex flex-row
     justify-center items-center

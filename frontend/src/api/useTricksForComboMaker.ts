@@ -32,6 +32,8 @@ function _getTransitionEnd(stances, transition) {
 }
 
 const _reformatTricks = (tricks: any) => {
+  console.log("tricks",tricks);
+  
   //console.log("TRICKS:", tricks)
   let trick_array: Array<Trick> = [];
   let trans_array: Array<Trick> = [];

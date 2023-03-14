@@ -3,11 +3,11 @@ import React, { useEffect, useState, useRef } from "react";
 import useTricksForComboMaker from "../../api/useTricksForComboMaker";
 import TempDisplay from "./tempDisplay"
 import Trick from "./trick"
+import ShowOptionsButtons from "./optionsButtons"
 
 
 const ComboMaker = () => {
   const { trick_array: allTricks, trans_array: allTransitions } = useTricksForComboMaker();
-  console.log(allTricks)
   const [combo, setCombo] = useState([])
   const [comboPosition, setComboPosition] = useState(0)
   const [comboOptions, setComboOptions] = useState([])
@@ -84,17 +84,15 @@ const ComboMaker = () => {
       options_array = options_array.filter(_trick =>
         compareArrays(_trick.end_position, next_trick.start_position))
     }
-    //let random_option = options_array[Math.floor(Math.random()*options_array.length)]
-    //let temp_combo = combo
-    //temp_combo[index] = random_option
-    //setCombo([...temp_combo])
     setComboPosition(index)
     setComboOptions(options_array)
+  }
+  const updateOptions = (newOptions) => {
+    setComboOptions(newOptions)
   }
 
   return (
     <div className="screen flex flex-col justify-end">
-      {/*<TempDisplay />*/}
 
       <div className="display-combo">
         {combo.length > 0 ? (
@@ -122,6 +120,8 @@ const ComboMaker = () => {
         </div>
       </div>
 
+      <ShowOptionsButtons data={comboOptions} updateOptions={updateOptions}/>
+
       <div className="display-options">
         {comboOptions &&
           comboOptions.map((trick, key) => (
@@ -145,18 +145,16 @@ const ComboMaker = () => {
         }
       </div>
 
-      <div className="trick-or-trans">
+      <div className="input-container">
         <button
-          className="btn-trick"
+          className="input-trick"
           onClick={() => {
             selectTrickOrTrans(allTricks);
           }}> Trick </button>
-
-        <button className="btn-clear-combo" onClick={() => deleteLastTrick()} >
+        <button className="input-clear-combo" onClick={() => deleteLastTrick()} >
           Back </button>
-
         <button
-          className="btn-transition"
+          className="input-transition"
           onClick={() => {
             selectTrickOrTrans(allTransitions);
           }}> Transition </button>
