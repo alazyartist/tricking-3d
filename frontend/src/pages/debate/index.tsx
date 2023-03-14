@@ -124,7 +124,7 @@ const OpenNewDebate = ({ setDebateCreationOpen }) => {
       </button>
       <div className="p-2 text-3xl">Start New Debate</div>
       <form className="flex flex-col gap-2 p-2" onSubmit={handleSubmit}>
-        <div>Title</div>
+        <div>Debate Title</div>
         <input className="bg-zinc-900 p-2" />
         <div>Topic</div>
         <textarea className="bg-zinc-900 p-2" />
