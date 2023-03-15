@@ -21,6 +21,7 @@ export const debateRouter = router({
     .mutation(async ({ ctx, input }) => {
       const debates = await ctx.prisma.debates.create({
         data: {
+          debateid: undefined,
           title: input.title,
           topic: input.topic,
           host: { connect: { uuid: input.user_id } },

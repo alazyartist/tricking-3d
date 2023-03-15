@@ -10,23 +10,22 @@ const DebatePage = () => {
   const router = useRouter();
   const { debateid } = router.query;
   const { data: debateDetails, isSuccess } = trpc.debates.findById.useQuery({
-    debateid,
+    debateid: debateid as string,
   });
   const { uuid } = useUserStore((s) => s.userInfo);
   const [messages, updateMessages] = useState([]);
   const debateChannel = ably.channels.get(`debate-${debateid}`);
 
   ably.connection.once("connected", () => {
+    //@ts-ignore
     const { tokenDetails } = ably.auth;
     console.log("Client connected to Ably using JWT", tokenDetails);
   });
   useEffect(() => {
     const subscribe = async () => {
       await debateChannel.subscribe(`message`, (m) => {
+        updateMessages([...messages, m]);
         console.log(m, messages);
-        const newMessages = messages;
-        newMessages.push(m);
-        updateMessages(newMessages);
       });
     };
     subscribe();
@@ -34,10 +33,10 @@ const DebatePage = () => {
     return () => debateChannel.unsubscribe();
   });
 
-  let messagesYay = [1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3];
-
   if (!isSuccess) return <div>Loading..</div>;
-
+  useEffect(() => {
+    console.log(messages);
+  }, [messages]);
   return (
     <>
       <div className="backrop-blur-xl no-scrollbar flex h-[80vh] w-full flex-col place-items-center gap-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-70 p-4 font-inter">
@@ -62,20 +61,24 @@ const DebatePage = () => {
         </div>
         <div className="mb-4 grid h-full w-full grid-cols-2 gap-2">
           <div className="flex h-full w-full flex-col gap-2 rounded-md border-[1px] border-emerald-300 bg-opacity-40 p-2">
-            {messagesYay.map((m) => (
-              <MessageDisplay message={m} side={"left"} />
-            ))}
+            {messages
+              .filter((m) => m.data.vote === "Yay")
+              .map((m) => (
+                <MessageDisplay message={m} side={"left"} />
+              ))}
           </div>
           <div className="flex h-full w-full flex-col gap-2 rounded-md border-[1px] border-red-300 bg-opacity-40 p-2 pt-12">
-            {messages.map((m) => (
-              <MessageDisplay side={"right"} message={m} />
-            ))}
+            {messages
+              .filter((m) => m.data.vote === "Nay")
+              .map((m) => (
+                <MessageDisplay side={"right"} message={m} />
+              ))}
           </div>
           <div className=" w-full rounded-md bg-emerald-500 p-2">
-            {messagesYay.length}
+            {messages.filter((m) => m.data.vote === "Yay").length}
           </div>
           <div className=" w-full rounded-md bg-red-500 p-2">
-            {messages.length}
+            {messages.filter((m) => m.data.vote === "Nay").length}
           </div>
         </div>
       </div>
@@ -89,7 +92,7 @@ export default DebatePage;
 const MessageDisplay = ({ side, message }) => {
   return (
     <div key={message?.id} className="relative flex rounded-md bg-zinc-500">
-      {side === "left" && <div>Test message text here</div>}
+      {side === "left" && <div>{message?.data?.message}</div>}
       <div
         className={`relative ${side}-1 bottom-1 h-6 w-6 flex-shrink-0 rounded-full bg-indigo-600`}
       ></div>
@@ -109,6 +112,7 @@ const MessageInput = ({ channel }) => {
     if (vote === "Nay") {
       channel.publish("message", { vote: "Nay", message: message });
     }
+    setMessage("");
   };
   return (
     <form onSubmit={handleSubmit} className="w-full p-4 pb-12">
