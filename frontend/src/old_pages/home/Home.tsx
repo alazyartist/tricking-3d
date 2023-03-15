@@ -72,7 +72,7 @@ function Home() {
             "absolute top-14 left-2 place-self-start rounded-md bg-zinc-700 p-2 text-4xl"
           }
         /> */}
-        <div className="no-scrollbar h-[82%] overflow-y-scroll rounded-xl bg-zinc-800 bg-opacity-40 py-2 backdrop-blur-xl">
+        <div className="no-scrollbar z-[1] h-[86%] overflow-y-scroll rounded-xl bg-zinc-800 bg-opacity-40 py-2 backdrop-blur-xl">
           {!openCaptures &&
             !openComboMaker &&
             !openClaimtricks &&
