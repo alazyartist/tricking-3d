@@ -32,11 +32,11 @@ const DebatePage = () => {
 
     return () => debateChannel.unsubscribe();
   });
-
-  if (!isSuccess) return <div>Loading..</div>;
   useEffect(() => {
     console.log(messages);
   }, [messages]);
+  if (!isSuccess) return <div>Loading..</div>;
+
   return (
     <>
       <div className="backrop-blur-xl no-scrollbar flex h-[80vh] w-full flex-col place-items-center gap-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-70 p-4 font-inter">
@@ -46,17 +46,18 @@ const DebatePage = () => {
         <div className=" h-fit w-full rounded-md bg-zinc-100 bg-opacity-40 p-2 text-xl text-zinc-100">
           {debateDetails.title}
           <p className="text-xs">{debateDetails.topic}</p>
+          <p className="text-[10px]">see example...</p>
         </div>
         <div className={` grid grid-cols-2 gap-2`}>
           <div
             className={`text-zinc h-fit bg-opacity-40 text-xl font-bold text-emerald-300`}
           >
-            Yay
+            Yay {messages.filter((m) => m.data.vote === "Yay").length}
           </div>
           <div
             className={`text-zinc h-fit bg-opacity-40 text-xl font-bold text-red-300`}
           >
-            Nay
+            {messages.filter((m) => m.data.vote === "Nay").length} Nay
           </div>
         </div>
         <div className="mb-4 grid h-full w-full grid-cols-2 gap-2">
@@ -74,12 +75,8 @@ const DebatePage = () => {
                 <MessageDisplay side={"right"} message={m} />
               ))}
           </div>
-          <div className=" w-full rounded-md bg-emerald-500 p-2">
-            {messages.filter((m) => m.data.vote === "Yay").length}
-          </div>
-          <div className=" w-full rounded-md bg-red-500 p-2">
-            {messages.filter((m) => m.data.vote === "Nay").length}
-          </div>
+          {/* <div className=" h-fit w-full rounded-md bg-emerald-500 p-2"></div>
+          <div className=" h-fit w-full rounded-md bg-red-500 p-2"></div> */}
         </div>
       </div>
       <MessageInput channel={debateChannel} />
@@ -113,31 +110,44 @@ const MessageInput = ({ channel }) => {
       channel.publish("message", { vote: "Nay", message: message });
     }
     setMessage("");
+    setVote("");
   };
   return (
     <form onSubmit={handleSubmit} className="w-full p-4 pb-12">
-      <input
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        className="w-full rounded-md bg-zinc-700 p-2 text-zinc-300"
-        placeholder="contribute to the debate"
-      />
-      <div className="flex w-full place-items-center gap-2 p-2">
-        <button
-          className="w-full rounded-md  bg-emerald-300 p-2 text-center text-xl text-emerald-800"
-          type="submit"
-          onClick={() => setVote("Yay")}
-        >
-          Yay
-        </button>
-        <button
-          className="w-full rounded-md bg-red-300  p-2 text-center text-xl text-red-800"
-          type="submit"
-          onClick={() => setVote("Nay")}
-        >
-          Nay
-        </button>
-      </div>
+      {(vote === "Yay" || vote === "Nay") && (
+        <div className={`grid grid-cols-[4fr_1fr] gap-2`}>
+          <input
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            className="w-full rounded-md bg-zinc-700 p-2 text-zinc-300"
+            placeholder="contribute to the debate"
+          />
+          <button
+            className="w-full rounded-md  bg-sky-500 p-2 text-center text-xl text-sky-200"
+            type="submit"
+          >
+            send
+          </button>
+        </div>
+      )}
+      {vote === "" && (
+        <div className="flex w-full place-items-center gap-2 p-2">
+          <button
+            className="w-full rounded-md  bg-emerald-300 p-2 text-center text-xl text-emerald-800"
+            type="button"
+            onClick={() => setVote("Yay")}
+          >
+            Yay
+          </button>
+          <button
+            className="w-full rounded-md bg-red-300  p-2 text-center text-xl text-red-800"
+            type="button"
+            onClick={() => setVote("Nay")}
+          >
+            Nay
+          </button>
+        </div>
+      )}
     </form>
   );
 };
