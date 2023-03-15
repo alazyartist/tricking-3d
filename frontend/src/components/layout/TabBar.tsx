@@ -32,7 +32,7 @@ function TabBar() {
   });
 
   const navToggle = useSpring<{}>({
-    from: { bottom: "-38px" },
+    from: { bottom: "-62px" },
     to: { bottom: "0px" },
     reverse: openNav,
     config: {
@@ -42,17 +42,11 @@ function TabBar() {
 
   return (
     <>
-      <div className="fixed bottom-0 w-[100%] overflow-hidden ">
+      <div className="fixed bottom-0 w-[100%] overflow-hidden p-2 ">
         <animated.div style={navToggle} className="relative">
-          <button
-            className="relative left-0 z-[1001] flex h-4 w-[100%] place-content-center place-items-center"
-            onClick={() => {
-              setOpenNav(!openNav);
-            }}
-          />
           <div
             style={navToggle}
-            className="relative left-0 z-[100] flex h-12 w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300"
+            className="relative left-0 z-[100] flex h-12 w-full place-content-center place-items-center gap-8 rounded-2xl bg-opacity-40 bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300 backdrop-blur-md"
           >
             {isAdmin && (
               <Link href="/admin">
@@ -74,6 +68,12 @@ function TabBar() {
             <HamburgerMenu onClick={() => setOpenHamburger(!openHamburger)} />
           </div>
         </animated.div>
+        <button
+          className="relative left-0 z-[1001] flex h-4 w-[100%] place-content-center place-items-center"
+          onClick={() => {
+            setOpenNav(!openNav);
+          }}
+        />
       </div>
 
       {/* Open Hamburger Menu Display */}
