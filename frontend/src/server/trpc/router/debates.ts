@@ -29,4 +29,28 @@ export const debateRouter = router({
       });
       return debates;
     }),
+  saveMessage: publicProcedure
+    .input(
+      z.object({
+        messageid: z.string(),
+        debateid: z.string(),
+        vote: z.string(),
+        anonHash: z.string(),
+        message: z.string(),
+        user_id: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const debates = await ctx.prisma.debateMessages.create({
+        data: {
+          messageid: input.messageid,
+          vote: input.vote,
+          anonHash: input.anonHash,
+          message: input.message,
+          Debate: { connect: { debateid: input.debateid } },
+          user: { connect: { uuid: input.user_id } },
+        },
+      });
+      return debates;
+    }),
 });
