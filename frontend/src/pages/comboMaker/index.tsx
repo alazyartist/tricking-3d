@@ -11,9 +11,10 @@ const ComboMaker = () => {
   const [combo, setCombo] = useState([])
   const [comboPosition, setComboPosition] = useState(0)
   const [comboOptions, setComboOptions] = useState([])
+  const [selectedTrick, setSelectedTrick] = useState()
   const ref = useRef<HTMLDivElement>();
   const scrollToBottom = () => { ref?.current?.scrollIntoView({ behavior: "smooth" }); };
-  useEffect(() => { 
+  useEffect(() => {
     scrollToBottom()
   }, [combo]);
 
@@ -27,8 +28,8 @@ const ComboMaker = () => {
   const selectTrickOrTrans = (tricks) => {
     const last_trick = combo[combo.length - 1]
     if (last_trick && last_trick?.type !== tricks[0].type) {
-        tricks = tricks.filter(trick => compareArrays(last_trick.end_position, trick.start_position))
-        tricks = tricks.filter(trans => compareArrays(trans.start_position, last_trick.end_position))
+      tricks = tricks.filter(trick => compareArrays(last_trick.end_position, trick.start_position))
+      tricks = tricks.filter(trans => compareArrays(trans.start_position, last_trick.end_position))
     }
     setComboPosition(combo.length)
     setComboOptions(tricks)
@@ -55,7 +56,7 @@ const ComboMaker = () => {
     }
 
     let new_combo = combo.map((x) => x);
-    if (comboPosition === combo.length){
+    if (comboPosition === combo.length) {
       new_combo = [...combo, ...trick]
     }
     else {
@@ -66,21 +67,23 @@ const ComboMaker = () => {
     setCombo(new_combo)
   }
 
-  const deleteLastTrick = () => { 
-    setComboPosition(Math.max(0,combo.length-1))
-    setCombo(combo.slice(0, -1)) 
+  const deleteLastTrick = () => {
+    setComboPosition(Math.max(0, combo.length - 1))
+    setCombo(combo.slice(0, -1))
   }
 
   const selectFromCombo = (trick_selected, index) => {
-    let options_array = trick_selected.type === "Trick" ? allTricks : allTransitions
+    setSelectedTrick(trick_selected)
+    let options_array
+      = trick_selected.type === "Trick" ? allTricks : allTransitions
 
     if (index > 0) {
-      const prev_trick = combo[index-1]
+      const prev_trick = combo[index - 1]
       options_array = options_array.filter(_trick =>
         compareArrays(_trick.start_position, prev_trick.end_position))
     }
     if (index < combo.length - 1) {
-      const next_trick = combo[index+1]
+      const next_trick = combo[index + 1]
       options_array = options_array.filter(_trick =>
         compareArrays(_trick.end_position, next_trick.start_position))
     }
@@ -99,8 +102,10 @@ const ComboMaker = () => {
           combo.map((trick, index) => (
             <button key={index.toString() + trick.name}
               className={`
-                ${trick.type === "Trick" ? " display-trick" : " display-transition"}
-                ${comboPosition === index ? " border-b-4 border-t-4 border-zinc-300 " : ""} 
+                ${trick.type === "Trick"
+                  ? " display-trick" : " display-transition"}
+                ${comboPosition === index
+                  ? " border-b-4 border-t-4 border-zinc-300 " : ""} 
               `}
               onClick={() => { selectFromCombo(trick, index) }}
             >
@@ -120,15 +125,21 @@ const ComboMaker = () => {
         </div>
       </div>
 
-      <ShowOptionsButtons data={comboOptions} updateOptions={updateOptions}/>
+      {comboOptions.length > 0 &&
+        <ShowOptionsButtons 
+          selectedTrick={selectedTrick}
+          data={comboOptions} 
+          updateOptions={updateOptions} 
+        />
+      }
 
       <div className="display-options">
         {comboOptions &&
           comboOptions.map((trick, key) => (
             <button key={key.toString() + trick.name}
               className={`display-option 
-                ${trick.type === "Trick" 
-                  ? " bg-green-500 text-black" 
+                ${trick.type === "Trick"
+                  ? " bg-green-500 text-black"
                   : " bg-blue-500 text-white"}`}
               onClick={() => { selectFromOptions([trick]) }}
             >

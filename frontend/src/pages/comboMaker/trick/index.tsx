@@ -5,6 +5,7 @@ interface TrickProp {
   type: string;
   id: number;
   trick_id: string;
+  value?: number;
   start_position?: Array<string>;
   end_position: Array<string>;
   breakdown?: Array<string>;

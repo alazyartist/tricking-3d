@@ -6,9 +6,9 @@ type Trick = {
   type: string;
   id?: number;
   trick_id?: number;
+  value?: number;
   start_position?: Array<string>;
   end_position: Array<string>;
-  breakdown?: any;
 }
 
 function _getTransitionStart(stances, transition) {
@@ -32,9 +32,6 @@ function _getTransitionEnd(stances, transition) {
 }
 
 const _reformatTricks = (tricks: any) => {
-  console.log("tricks",tricks);
-  
-  //console.log("TRICKS:", tricks)
   let trick_array: Array<Trick> = [];
   let trans_array: Array<Trick> = [];
   const stances = tricks?.filter((trick: any) => trick.type === "Stance");
@@ -49,23 +46,23 @@ const _reformatTricks = (tricks: any) => {
       type: trick.type,
       id: trick.id,
       trick_id: trick.trick_id,
+      value: trick.pointValue,
       start_position: [trick.takeoffStance],
       end_position: [trick.landingStance],
-      breakdown: trick.Variations,
     }
     trick_array.push(current_trick);
   });
 
   // Add Transitions
-  transitions?.forEach((trick: any) => {
+  transitions?.forEach((trans: any) => {
     const current_transition: Trick = {
-      name: trick.name,
-      type: trick.type,
-      id: trick.id,
-      trick_id: trick.trick_id,
-      start_position: _getTransitionStart(stances, trick),
-      end_position: _getTransitionEnd(stances, trick),
-      breakdown: trick.Variations,
+      name: trans.name,
+      type: trans.type,
+      id: trans.id,
+      trick_id: trans.trick_id,
+      value: trans.pointValue,
+      start_position: _getTransitionStart(stances, trans),
+      end_position: _getTransitionEnd(stances, trans),
     }
     trans_array.push(current_transition);
   })

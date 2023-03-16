@@ -1,49 +1,68 @@
 import React, { useState, useEffect } from "react"
 
 
-const optionsButtons = ({ data, updateOptions }) => {
-  const [selected, setSelected] = useState(0)
-  const [sortType, setSortType] = useState("Name (A)")
+const optionsButtons = ({ selectedTrick, data, updateOptions }) => {
+  console.log("selectedTrick",selectedTrick);
+
+  const [sortName, setSortName] = useState("Name (A)")
+  const [sortValue, setSortValue] = useState("Value (A)")
 
   const sortByName = () => {
     const newData = [...data]
-    if (sortType === "Name (A)") {
-      setSortType("Name (D)")
+    if (sortName === "Name (A)") {
+      setSortName("Name (D)")
       newData.sort((a, b) => a.name < b.name ? 1 : -1,)
     }
-    else if (sortType === "Name (D)") {
-      setSortType("Name (A)")
+    else if (sortName === "Name (D)") {
+      setSortName("Name (A)")
       newData.sort((a, b) => a.name > b.name ? 1 : -1,)
+    }
+    return newData
+  }
+  const sortByValue = () => {
+    const newData = [...data]
+    if (sortValue === "Value (A)") {
+      setSortValue("Value (D)")
+      newData.sort((a, b) => a.value < b.value ? 1 : -1,)
+    }
+    else if (sortValue === "Value (D)") {
+      setSortValue("Value (A)")
+      newData.sort((a, b) => a.value > b.value ? 1 : -1,)
+    }
+    return newData
+  }
+  const showSimilar = () => {
+    let newData = [...data]
+    if (selectedTrick) {
+      newData = newData.filter((cur) => {
+        return cur.name.includes(selectedTrick.name)
+      })
     }
     return newData
   }
 
   return (
-    <div className="flex flex-row justify-between items-center w-full">
+    <div className="flex flex-row justify-between items-center w-full p-2">
       <button className={`options-header-button
-          ${selected === 1 ? "bg-zinc-600" : ""}`}
+          ${true ? "bg-zinc-300" : ""}`}
         onClick={() => {
-          setSelected(1)
           updateOptions(sortByName())
-        }
-        }>
-        {sortType}</button>
+        }}>
+        {sortName}</button>
+
       <button className={`options-header-button
-          ${selected === 2 ? "bg-zinc-600" : ""}`}
+          ${true ? "bg-zinc-300" : ""}`}
         onClick={() => {
-          setSelected(2)
-          updateOptions("first")
-        }
-        }>
-        Rotation</button>
+          updateOptions(sortByValue())
+        }}>
+        {sortValue}</button>
+
       <button className={`options-header-button
-          ${selected === 3 ? "bg-zinc-600" : ""}`}
+          ${selectedTrick ? "bg-zinc-300" : "bg-zinc-600"}`}
         onClick={() => {
-          setSelected(3)
-          updateOptions("first")
-        }
-        }>
-        Variation</button>
+          updateOptions(showSimilar())
+        }}>
+        Similar</button>
     </div>
   )
 }
