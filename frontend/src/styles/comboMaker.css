@@ -11,13 +11,13 @@
 .input-trick {
   @apply 
     bg-green-800
-    w-[30vw] h-[20vw]
+    w-[30vw] h-[10vw]
     input-trick-type
 ;}
 .input-transition {
   @apply 
     bg-blue-800
-    w-[30vw] h-[20vw]
+    w-[30vw] h-[10vw]
     input-trick-type
 ;}
 .input-clear-combo {
@@ -27,17 +27,40 @@
     border-2 border-zinc-300
 ;}
 
+.save-combo {
+  @apply
+    w-20
+    bg-red-400
+    rounded-full
+    border-2
+    border-zinc-300
+    text-white
+  ;
+}
+
 .display-combo {
   @apply
-    w-[90vw] 
+    m-2 ml-0 mr-1
+    p-1
+    flex flex-row
+    items-center
+    overflow-x-auto
+    rounded-r-lg
+    bg-zinc-400
+    bg-opacity-40
+    border-b-4
+    border-r-4
+    border-t-4
+    border-zinc-300
+    /*
     m-auto
     mb-0
-    flex flex-row
     flex-wrap
     justify-start
-    items-center
+    */
 ;}
 .display-trick {
+  /*
   -webkit-clip-path: 
     polygon(
       0      0, 
@@ -52,17 +75,18 @@
       100% 100%, 
       0    100%, 
       20%    0);
+  */
   @apply
     flex flex-row
     justify-center items-center
-    w-[30vw]
     h-[5vh]
-    mb-1 p-2
+    p-2
     bg-green-500 
     text-black
     whitespace-nowrap 
 ;}
 .display-transition {
+  /*
   -webkit-clip-path: 
     polygon(
       0     0%, 
@@ -77,12 +101,12 @@
       80% 100%, 
       20%  100%, 
       0     0%);
+  */
   @apply
     flex flex-row
     justify-center items-center
-    w-[30vw]
     h-[3vh]
-    mb-1 p-2
+    p-2
     bg-blue-500 
     text-white
     whitespace-nowrap
@@ -99,11 +123,23 @@
     flex flex-row
     flex-wrap gap-1
     justify-center items-center
-    rounded-lg
+    rounded-b-lg
     bg-zinc-400
     bg-opacity-40
     border-4
     border-zinc-300
+  ;
+}
+.options-header {
+  @apply
+    w-[98vw] 
+    m-auto mb-0 mt-0 
+    flex flex-row 
+    justify-between items-center 
+    p-2 
+    bg-zinc-300 
+    rounded-t-lg
+    translate-y-1
   ;
 }
 .options-header-button {

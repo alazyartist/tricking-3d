@@ -1,6 +1,7 @@
 //import { useComboMarket } from "../../store/comboMarket";
 import React, { useEffect, useState, useRef } from "react";
 import useTricksForComboMaker from "../../api/useTricksForComboMaker";
+import useGetTricks from "../../api/useGetTricks";
 import TempDisplay from "./tempDisplay"
 import Trick from "./trick"
 import ShowOptionsButtons from "./optionsButtons"
@@ -8,6 +9,7 @@ import ShowOptionsButtons from "./optionsButtons"
 
 const ComboMaker = () => {
   const { trick_array: allTricks, trans_array: allTransitions } = useTricksForComboMaker();
+  const { data: ddb } = useGetTricks();
   const [combo, setCombo] = useState([])
   const [comboPosition, setComboPosition] = useState(0)
   const [comboOptions, setComboOptions] = useState([])
@@ -94,8 +96,24 @@ const ComboMaker = () => {
     setComboOptions(newOptions)
   }
 
+  const convertToDdb = () => {
+    let ddbCombo = []
+    combo.forEach((trick, i) => {
+      ddb.forEach((ddbTrick) => {
+        if (trick.id && trick.id === ddbTrick.id) { ddbCombo.push(ddbTrick) }
+        if (trick.trick_id && trick.trick_id === ddbTrick.trick_id) { ddbCombo.push(ddbTrick) }
+      })
+    })
+    console.log("ddbCombo",ddbCombo);
+  }
+
   return (
     <div className="screen flex flex-col justify-end">
+
+      <button
+        className="save-combo"
+        onClick={() => { convertToDdb() }}>
+        Save </button>
 
       <div className="display-combo">
         {combo.length > 0 ? (
@@ -119,19 +137,17 @@ const ComboMaker = () => {
               />
             </button>
           ))) : (
-          <span>Waiting..</span>
+          <span>Add a Trick or Transition...</span>
         )}
         <div ref={ref}>
         </div>
       </div>
 
-      {comboOptions.length > 0 &&
-        <ShowOptionsButtons 
-          selectedTrick={selectedTrick}
-          data={comboOptions} 
-          updateOptions={updateOptions} 
-        />
-      }
+      <ShowOptionsButtons
+        selectedTrick={selectedTrick}
+        data={comboOptions}
+        updateOptions={updateOptions}
+      />
 
       <div className="display-options">
         {comboOptions &&

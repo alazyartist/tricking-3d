@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react"
 
 
 const optionsButtons = ({ selectedTrick, data, updateOptions }) => {
-  console.log("selectedTrick",selectedTrick);
-
   const [sortName, setSortName] = useState("Name (A)")
   const [sortValue, setSortValue] = useState("Value (A)")
 
@@ -42,7 +40,7 @@ const optionsButtons = ({ selectedTrick, data, updateOptions }) => {
   }
 
   return (
-    <div className="flex flex-row justify-between items-center w-full p-2">
+    <div className="options-header ">
       <button className={`options-header-button
           ${true ? "bg-zinc-300" : ""}`}
         onClick={() => {
