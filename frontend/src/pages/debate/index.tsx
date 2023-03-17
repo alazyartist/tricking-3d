@@ -134,18 +134,15 @@ const OpenNewDebate = ({ setDebateCreationOpen }) => {
         )}
         {mediaType === "Video" && (
           <input
+            onChange={(e) =>
+              setDebateDetails((prev) => ({ ...prev, media: e.target.value }))
+            }
             value={debateDetails.media}
             className="bg-zinc-900 p-2"
             type={"text"}
           />
         )}
-        {mediaType === "Image" && (
-          <input
-            value={debateDetails.media}
-            className="bg-zinc-900 p-2 text-zinc-300"
-            type={"image"}
-          />
-        )}
+        {mediaType === "Image" && <UploadAttatchment />}
         <div className="flex flex-col place-items-center">
           <button
             disabled={isDisabled}
@@ -161,55 +158,47 @@ const OpenNewDebate = ({ setDebateCreationOpen }) => {
   );
 };
 
-// let testData = [
-//     {
-//       debateid: "somestring",
-//       title: "DebateTitle",
-//       topic:
-//         "DebateTopic would traditionally be much longer than you would expect the titles to be",
-//       createdAt: new Date().toDateString(),
-//       updatedAt: new Date().toDateString(),
-//       closed: false,
-//       verdict: "Nay",
-//     },
-//     {
-//       debateid: "someotherstring",
-//       title: "DebateTitle2",
-//       topic:
-//         "DebateTopic would traditionally be much longer than you would expect the titles to be2",
-//       createdAt: new Date().toDateString(),
-//       updatedAt: new Date().toDateString(),
-//       closed: true,
-//       verdict: "Nay",
-//     },
-//     {
-//       debateid: "someotherstring2",
-//       title: "DebateTitle2",
-//       topic:
-//         "DebateTopic would traditionally be much longer than you would expect the titles to be2",
-//       createdAt: new Date().toDateString(),
-//       updatedAt: new Date().toDateString(),
-//       closed: true,
-//       verdict: "Yay",
-//     },
-//     {
-//       debateid: "someotherstring3",
-//       title: "DebateTitle2",
-//       topic:
-//         "DebateTopic would traditionally be much longer than you would expect the titles to be2",
-//       createdAt: new Date().toDateString(),
-//       updatedAt: new Date().toDateString(),
-//       closed: false,
-//       verdict: "Nay",
-//     },
-//     {
-//       debateid: "someotherstring4",
-//       title: "DebateTitle2",
-//       topic:
-//         "DebateTopic would traditionally be much longer than you would expect the titles to be2",
-//       createdAt: new Date().toDateString(),
-//       updatedAt: new Date().toDateString(),
-//       closed: true,
-//       verdict: "Yay",
-//     },
-//   ];
+const UploadAttatchment = () => {
+  const [file, setFile] = useState<File>();
+  const [filename, setFilename] = useState<string | undefined>(
+    "Add Attachment"
+  );
+  const onSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    const formData = new FormData();
+    const { uuid } = useUserStore((s) => s.userInfo);
+
+    formData.append("file", file as File);
+    formData.append("uuid", uuid as string);
+    //send (formData)
+  };
+  const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    setFile(e?.target?.files?.[0]);
+    setFilename(e?.target?.files?.[0]?.name);
+  };
+  return (
+    <form>
+      <label
+        className=" flex w-full place-content-center place-items-center rounded-xl bg-zinc-800 p-2 text-sm text-zinc-300"
+        placeholder="Add Attachment"
+        htmlFor="profilePic"
+      >
+        {filename}
+        <input
+          onChange={onChange}
+          id={"profilePic"}
+          className="hidden"
+          type={"file"}
+          accept="image/png, image/jpeg"
+        />
+      </label>
+      {/* <label
+        className="mb-2 flex w-1/4 place-content-center place-items-center rounded-xl bg-zinc-800 p-2 text-sm text-zinc-300"
+        htmlFor="upload"
+      >
+        Upload
+        <input id="upload" className="hidden" type={"submit"} />
+      </label> */}
+    </form>
+  );
+};

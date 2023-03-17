@@ -3,6 +3,7 @@ import { trpc } from "@utils/trpc";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
+import ReactPlayer from "react-player";
 import useAblyStore from "../../../hooks/useAblyStore";
 const ably = useAblyStore.getState().ably;
 
@@ -44,6 +45,8 @@ const DebatePage = () => {
       user_id: uuid,
       debateid: debateDetails.debateid,
     });
+    setDeleteCheck(false);
+    router.push("/debate");
   };
   if (!isSuccess) return <div>Loading..</div>;
 
@@ -54,8 +57,8 @@ const DebatePage = () => {
           Debates
         </Link>
         <div className=" h-fit w-full rounded-md bg-zinc-100 bg-opacity-40 p-2 text-xl text-zinc-100">
-          {debateDetails.title}
-          <p className="text-xs">{debateDetails.topic}</p>
+          {debateDetails?.title}
+          <p className="text-xs">{debateDetails?.topic}</p>
           <button
             onClick={() => setSeeExample((prev) => !prev)}
             type="button"
@@ -64,11 +67,21 @@ const DebatePage = () => {
             see example...
           </button>
           {seeExample && (
-            <div className="h-[200px] w-full rounded-md bg-neutral-600 p-2">
-              Example GOES HERE
+            <div className="aspect-video h-[200px] w-full rounded-md bg-neutral-600 p-2">
+              <ReactPlayer
+                config={{ facebook: { appId: "508164441188790" } }}
+                id={"video"}
+                controls={true}
+                muted
+                width={"70vw"}
+                height={"40vw"}
+                loop
+                playsInline
+                url={debateDetails?.media}
+              />
             </div>
           )}
-          {uuid === debateDetails?.host?.uuid ? (
+          {uuid === debateDetails?.host?.uuid && !deleteCheck ? (
             <div className="flex gap-2">
               <button className="rounded-md bg-zinc-300 p-1 px-2 text-xs text-zinc-700">
                 edit
@@ -79,16 +92,13 @@ const DebatePage = () => {
               >
                 delete
               </button>
-              {deleteCheck && (
-                <DeleteCheck
-                  deleteCheck={deleteCheck}
-                  setDeleteCheck={setDeleteCheck}
-                  handleDelete={handleDelete}
-                />
-              )}
             </div>
           ) : (
-            ""
+            <DeleteCheck
+              deleteCheck={deleteCheck}
+              setDeleteCheck={setDeleteCheck}
+              handleDelete={handleDelete}
+            />
           )}
         </div>
         <div className={` grid grid-cols-2 gap-2`}>
@@ -197,9 +207,19 @@ const MessageInput = ({ channel }) => {
 
 const DeleteCheck = ({ deleteCheck, setDeleteCheck, handleDelete }) => {
   return (
-    <div>
-      <div>Delete</div>
-      <div>Just Kidding</div>
+    <div className="flex gap-2 text-sm">
+      <div
+        onClick={() => handleDelete()}
+        className={`rounded-md bg-red-300 p-2 text-red-800`}
+      >
+        Delete
+      </div>
+      <div
+        onClick={() => setDeleteCheck(false)}
+        className={`rounded-md bg-emerald-300 p-2 text-emerald-800`}
+      >
+        Just Kidding
+      </div>
     </div>
   );
 };
