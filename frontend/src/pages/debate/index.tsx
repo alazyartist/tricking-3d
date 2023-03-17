@@ -34,6 +34,8 @@ const DebatesOverview = () => {
 
 export default DebatesOverview;
 const DebateCard = ({ debate }) => {
+  const userInfo = useUserStore((s) => s.userInfo);
+
   return (
     <Link
       href={`/debate/${debate?.debateid}`}
@@ -44,10 +46,11 @@ const DebateCard = ({ debate }) => {
     >
       <div className="text-xl">{debate.title}</div>
       <div className="text-xs">{debate.topic}</div>
-      <div className="flex place-items-center justify-between">
-        <div className="pt-3 text-xs text-zinc-400">
+      <div className="flex place-content-center place-items-center justify-between pt-3">
+        <div className="text-xs text-zinc-400">
           {debate.createdAt.toDateString()}
         </div>
+        <div className="text-xs"></div>
         <div className="">{debate.closed && debate.verdict}</div>
         {/* <div className=" flex">
             {[1, 2, 3].map((d) => {
@@ -78,7 +81,11 @@ const OpenNewDebate = ({ setDebateCreationOpen }) => {
     topic: "",
     media: "",
   });
-
+  const [mediaType, setMediaType] = useState("");
+  const isDisabled =
+    debateDetails.title === "" ||
+    debateDetails.topic === "" ||
+    debateDetails.media === "";
   return (
     <div className="absolute top-[10vh] left-[10vw] flex h-[80vh] w-[80vw] flex-col bg-zinc-800">
       <button
@@ -107,13 +114,47 @@ const OpenNewDebate = ({ setDebateCreationOpen }) => {
           className="bg-zinc-900 p-2"
         />
         <div>Example(media)</div>
-        <input
-          value={debateDetails.media}
-          className="bg-zinc-900 p-2"
-          type={"text"}
-        />
+        {!mediaType && (
+          <div className="flex w-full place-items-center gap-2">
+            <button
+              className="w-full"
+              type="button"
+              onClick={() => setMediaType("Image")}
+            >
+              Image
+            </button>
+            <button
+              className="w-full"
+              type="button"
+              onClick={() => setMediaType("Video")}
+            >
+              Video
+            </button>
+          </div>
+        )}
+        {mediaType === "Video" && (
+          <input
+            value={debateDetails.media}
+            className="bg-zinc-900 p-2"
+            type={"text"}
+          />
+        )}
+        {mediaType === "Image" && (
+          <input
+            value={debateDetails.media}
+            className="bg-zinc-900 p-2 text-zinc-300"
+            type={"image"}
+          />
+        )}
         <div className="flex flex-col place-items-center">
-          <button className="rounded-md bg-sky-500 p-2">Start Debate</button>
+          <button
+            disabled={isDisabled}
+            className={`rounded-md  p-2 ${
+              isDisabled ? "bg-zinc-700" : "bg-sky-500"
+            }`}
+          >
+            Start Debate
+          </button>
         </div>
       </form>
     </div>

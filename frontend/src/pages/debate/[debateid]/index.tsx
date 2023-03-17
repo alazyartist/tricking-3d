@@ -12,8 +12,11 @@ const DebatePage = () => {
   const { data: debateDetails, isSuccess } = trpc.debates.findById.useQuery({
     debateid: debateid as string,
   });
+  const { mutate: deleteDebate } = trpc.debates.deleteDebate.useMutation();
   const { uuid } = useUserStore((s) => s.userInfo);
   const [messages, updateMessages] = useState([]);
+  const [seeExample, setSeeExample] = useState(false);
+  const [deleteCheck, setDeleteCheck] = useState(false);
   const debateChannel = ably.channels.get(`debate-${debateid}`);
 
   ably.connection.once("connected", () => {
@@ -35,6 +38,13 @@ const DebatePage = () => {
   useEffect(() => {
     console.log(messages);
   }, [messages]);
+
+  const handleDelete = () => {
+    deleteDebate({
+      user_id: uuid,
+      debateid: debateDetails.debateid,
+    });
+  };
   if (!isSuccess) return <div>Loading..</div>;
 
   return (
@@ -46,7 +56,40 @@ const DebatePage = () => {
         <div className=" h-fit w-full rounded-md bg-zinc-100 bg-opacity-40 p-2 text-xl text-zinc-100">
           {debateDetails.title}
           <p className="text-xs">{debateDetails.topic}</p>
-          <p className="text-[10px]">see example...</p>
+          <button
+            onClick={() => setSeeExample((prev) => !prev)}
+            type="button"
+            className="text-[10px]"
+          >
+            see example...
+          </button>
+          {seeExample && (
+            <div className="h-[200px] w-full rounded-md bg-neutral-600 p-2">
+              Example GOES HERE
+            </div>
+          )}
+          {uuid === debateDetails?.host?.uuid ? (
+            <div className="flex gap-2">
+              <button className="rounded-md bg-zinc-300 p-1 px-2 text-xs text-zinc-700">
+                edit
+              </button>
+              <button
+                onClick={() => setDeleteCheck(true)}
+                className="rounded-md bg-red-300 p-1 px-2 text-xs text-red-800"
+              >
+                delete
+              </button>
+              {deleteCheck && (
+                <DeleteCheck
+                  deleteCheck={deleteCheck}
+                  setDeleteCheck={setDeleteCheck}
+                  handleDelete={handleDelete}
+                />
+              )}
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         <div className={` grid grid-cols-2 gap-2`}>
           <div
@@ -149,5 +192,14 @@ const MessageInput = ({ channel }) => {
         </div>
       )}
     </form>
+  );
+};
+
+const DeleteCheck = ({ deleteCheck, setDeleteCheck, handleDelete }) => {
+  return (
+    <div>
+      <div>Delete</div>
+      <div>Just Kidding</div>
+    </div>
   );
 };
