@@ -3,7 +3,9 @@ import { z } from "zod";
 
 export const debateRouter = router({
   getAll: publicProcedure.query(async ({ ctx }) => {
-    const debates = await ctx.prisma.debates.findMany();
+    const debates = await ctx.prisma.debates.findMany({
+      include: { host: true },
+    });
     return debates;
   }),
   findById: publicProcedure
@@ -11,6 +13,7 @@ export const debateRouter = router({
     .query(async ({ ctx, input }) => {
       const debate = await ctx.prisma.debates.findUnique({
         where: { debateid: input.debateid },
+        include: { host: true },
       });
       return debate;
     }),
@@ -49,6 +52,21 @@ export const debateRouter = router({
           message: input.message,
           Debate: { connect: { debateid: input.debateid } },
           user: { connect: { uuid: input.user_id } },
+        },
+      });
+      return debates;
+    }),
+  deleteDebate: publicProcedure
+    .input(
+      z.object({
+        debateid: z.string(),
+        user_id: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const debates = await ctx.prisma.debates.delete({
+        where: {
+          debateid: input.debateid,
         },
       });
       return debates;
