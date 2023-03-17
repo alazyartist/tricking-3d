@@ -363,6 +363,7 @@ model debates{
   title        String      @db.VarChar(255) @unique
   topic        String      @db.Text 
   media        String?     @db.VarChar(255) 
+  mediaType    String?     @db.VarChar(7) 
   verdict      String?     @db.VarChar(255) 
   closed       Boolean?    
   user_id      String      @db.Char(36)
@@ -377,6 +378,7 @@ model debateMessages{
   anonHash     String     @db.VarChar(255) 
   message      String     @db.Text 
   media        String?    @db.VarChar(255) 
+  mediaType    String?    @db.VarChar(7) 
   vote         String     @db.VarChar(10)  
   user_id      String     @db.Char(36)
   createdAt    DateTime   @default(now()) @db.DateTime(0)
