@@ -13,13 +13,19 @@ export const debateRouter = router({
     .query(async ({ ctx, input }) => {
       const debate = await ctx.prisma.debates.findUnique({
         where: { debateid: input.debateid },
-        include: { host: true },
+        include: { host: true, messages: true },
       });
       return debate;
     }),
   openDebate: publicProcedure
     .input(
-      z.object({ title: z.string(), topic: z.string(), user_id: z.string() })
+      z.object({
+        title: z.string(),
+        topic: z.string(),
+        media: z.string(),
+        mediaType: z.string(),
+        user_id: z.string(),
+      })
     )
     .mutation(async ({ ctx, input }) => {
       const debates = await ctx.prisma.debates.create({
@@ -27,6 +33,8 @@ export const debateRouter = router({
           debateid: undefined,
           title: input.title,
           topic: input.topic,
+          media: input.media,
+          mediaType: input.mediaType,
           host: { connect: { uuid: input.user_id } },
         },
       });

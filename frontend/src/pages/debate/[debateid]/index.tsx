@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import ReactPlayer from "react-player";
 import useAblyStore from "../../../hooks/useAblyStore";
+import { v4 as uuidv4 } from "uuid";
 const ably = useAblyStore.getState().ably;
 
 const DebatePage = () => {
@@ -28,7 +29,7 @@ const DebatePage = () => {
   useEffect(() => {
     const subscribe = async () => {
       await debateChannel.subscribe(`message`, (m) => {
-        updateMessages([...messages, m]);
+        updateMessages([...messages, m.data]);
         console.log(m, messages);
       });
     };
@@ -39,6 +40,11 @@ const DebatePage = () => {
   useEffect(() => {
     console.log(messages);
   }, [messages]);
+  useEffect(() => {
+    if (debateDetails?.messages) {
+      updateMessages((prev) => Array.from(new Set(debateDetails?.messages)));
+    }
+  }, [debateDetails]);
 
   const handleDelete = () => {
     deleteDebate({
@@ -56,7 +62,7 @@ const DebatePage = () => {
         <Link href={"/debate"} className={"text-4xl text-zinc-300"}>
           Debates
         </Link>
-        <div className=" h-fit w-full rounded-md bg-zinc-100 bg-opacity-40 p-2 text-xl text-zinc-100">
+        <div className=" h-fit w-full rounded-md bg-zinc-800 bg-opacity-40 p-2 text-xl text-zinc-100">
           {debateDetails?.title}
           <p className="text-xs">{debateDetails?.topic}</p>
           <button
@@ -64,31 +70,33 @@ const DebatePage = () => {
             type="button"
             className="text-[10px]"
           >
-            see example...
+            {seeExample ? "hide" : "see"} example...
           </button>
           {seeExample && (
-            <div className="aspect-video h-[200px] w-full rounded-md bg-neutral-600 p-2">
-              <ReactPlayer
-                config={{ facebook: { appId: "508164441188790" } }}
-                id={"video"}
-                controls={true}
-                muted
-                width={"70vw"}
-                height={"40vw"}
-                loop
-                playsInline
-                url={debateDetails?.media}
-              />
+            <div className="p-2">
+              <div className="aspect-video h-[200px] w-full overflow-clip rounded-md">
+                <ReactPlayer
+                  config={{ facebook: { appId: "508164441188790" } }}
+                  id={"video"}
+                  controls={true}
+                  muted
+                  width={"100%"}
+                  height={"100%"}
+                  loop
+                  playsInline
+                  url={debateDetails?.media}
+                />
+              </div>
             </div>
           )}
           {uuid === debateDetails?.host?.uuid && !deleteCheck ? (
             <div className="flex gap-2">
-              <button className="rounded-md bg-zinc-300 p-1 px-2 text-xs text-zinc-700">
+              <button className="rounded-md  px-2 text-xs text-zinc-400">
                 edit
               </button>
               <button
                 onClick={() => setDeleteCheck(true)}
-                className="rounded-md bg-red-300 p-1 px-2 text-xs text-red-800"
+                className="rounded-md  px-2 text-xs text-red-400"
               >
                 delete
               </button>
@@ -105,25 +113,25 @@ const DebatePage = () => {
           <div
             className={`text-zinc h-fit bg-opacity-40 text-xl font-bold text-emerald-300`}
           >
-            Yay {messages.filter((m) => m.data.vote === "Yay").length}
+            Yay {messages.filter((m) => m?.vote === "Yay").length}
           </div>
           <div
             className={`text-zinc h-fit bg-opacity-40 text-xl font-bold text-red-300`}
           >
-            {messages.filter((m) => m.data.vote === "Nay").length} Nay
+            {messages.filter((m) => m?.vote === "Nay").length} Nay
           </div>
         </div>
-        <div className="mb-4 grid h-full w-full grid-cols-2 gap-2">
+        <div className="mb-4 grid h-full w-full grid-cols-1 gap-2">
           <div className="flex h-full w-full flex-col gap-2 rounded-md border-[1px] border-emerald-300 bg-opacity-40 p-2">
             {messages
-              .filter((m) => m.data.vote === "Yay")
+              .filter((m) => m?.vote === "Yay")
               .map((m) => (
                 <MessageDisplay message={m} side={"left"} />
               ))}
           </div>
           <div className="flex h-full w-full flex-col gap-2 rounded-md border-[1px] border-red-300 bg-opacity-40 p-2 pt-12">
             {messages
-              .filter((m) => m.data.vote === "Nay")
+              .filter((m) => m?.vote === "Nay")
               .map((m) => (
                 <MessageDisplay side={"right"} message={m} />
               ))}
@@ -132,7 +140,11 @@ const DebatePage = () => {
           <div className=" h-fit w-full rounded-md bg-red-500 p-2"></div> */}
         </div>
       </div>
-      <MessageInput channel={debateChannel} />
+      <MessageInput
+        uuid={uuid}
+        debateid={debateDetails.debateid}
+        channel={debateChannel}
+      />
     </>
   );
 };
@@ -141,27 +153,44 @@ export default DebatePage;
 
 const MessageDisplay = ({ side, message }) => {
   return (
-    <div key={message?.id} className="relative flex rounded-md bg-zinc-500">
-      {side === "left" && <div>{message?.data?.message}</div>}
+    <div
+      key={message?.messageid}
+      className="relative flex rounded-md bg-zinc-500"
+    >
+      {side === "left" && <div>{message?.message}</div>}
       <div
         className={`relative ${side}-1 bottom-1 h-6 w-6 flex-shrink-0 rounded-full bg-indigo-600`}
       ></div>
-      {side === "right" && <div>{message?.data?.message}</div>}
+      {side === "right" && <div>{message?.message}</div>}
+      <p className="text-[10px]">{message?.anonHash}</p>
     </div>
   );
 };
 
-const MessageInput = ({ channel }) => {
+const MessageInput = ({ channel, debateid, uuid }) => {
+  const { mutate: saveMessage } = trpc.debates.saveMessage.useMutation();
   const [message, setMessage] = useState("");
   const [vote, setVote] = useState("");
+  const anonHash = generateAnonHash();
+  console.log("anonHash", anonHash);
+  const messageid = uuidv4();
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (vote === "Yay") {
-      channel.publish("message", { vote: "Yay", message: message });
-    }
-    if (vote === "Nay") {
-      channel.publish("message", { vote: "Nay", message: message });
-    }
+    saveMessage({
+      vote: vote,
+      message: message,
+      user_id: uuid,
+      debateid: debateid,
+      anonHash: anonHash,
+      messageid: messageid,
+    });
+
+    channel.publish("message", {
+      anonHash: anonHash,
+      vote: vote,
+      message: message,
+      messageid: messageid,
+    });
     setMessage("");
     setVote("");
   };
@@ -222,4 +251,40 @@ const DeleteCheck = ({ deleteCheck, setDeleteCheck, handleDelete }) => {
       </div>
     </div>
   );
+};
+
+const generateAnonHash = () => {
+  const descriptor = [
+    "Icy",
+    "Nimble",
+    "Mystic",
+    "Thundering",
+    "Quiet",
+    "Loud",
+    "Electric",
+  ];
+  const title = [
+    "Champion",
+    "Sultan",
+    "Titan",
+    "Wizard",
+    "Gaurdian",
+    "Troll",
+    "Master",
+  ];
+  const trick = [
+    "Corks",
+    "Swings",
+    "Dubs",
+    "Kicks",
+    "Twists",
+    "Psueudoflips",
+    "Variations",
+    "Swipes",
+    "Shurikens",
+  ];
+  const getidx = (arr) => Math.floor(Math.random() * arr?.length);
+  return `${descriptor[getidx(descriptor)]} ${title[getidx(title)]} of ${
+    trick[getidx(trick)]
+  }`;
 };

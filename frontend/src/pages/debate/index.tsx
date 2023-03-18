@@ -2,6 +2,7 @@ import { useUserStore } from "@store/userStore";
 import { trpc } from "@utils/trpc";
 import Link from "next/link";
 import React, { useState } from "react";
+import ReactPlayer from "react-player";
 
 const DebatesOverview = () => {
   const { data: debates, isSuccess } = trpc.debates.getAll.useQuery();
@@ -71,6 +72,8 @@ const OpenNewDebate = ({ setDebateCreationOpen }) => {
     openDebate({
       title: debateDetails.title,
       topic: debateDetails.topic,
+      media: debateDetails.media,
+      mediaType: debateDetails.mediaType,
       user_id: userInfo.uuid,
     });
     console.log("Starting New Debate");
@@ -80,14 +83,12 @@ const OpenNewDebate = ({ setDebateCreationOpen }) => {
     title: "",
     topic: "",
     media: "",
+    mediaType: "",
   });
   const [mediaType, setMediaType] = useState("");
-  const isDisabled =
-    debateDetails.title === "" ||
-    debateDetails.topic === "" ||
-    debateDetails.media === "";
+  const isDisabled = debateDetails.title === "" || debateDetails.topic === "";
   return (
-    <div className="absolute top-[10vh] left-[10vw] flex h-[80vh] w-[80vw] flex-col bg-zinc-800">
+    <div className="no-scrollbar absolute top-[10vh] left-[10vw] flex h-[80vh] w-[80vw] flex-col overflow-hidden overflow-y-scroll  bg-zinc-800">
       <button
         type="button"
         onClick={() => setDebateCreationOpen(false)}
@@ -113,36 +114,57 @@ const OpenNewDebate = ({ setDebateCreationOpen }) => {
           }
           className="bg-zinc-900 p-2"
         />
-        <div>Example(media)</div>
-        {!mediaType && (
+        <div>Example</div>
+        {!debateDetails?.mediaType && (
           <div className="flex w-full place-items-center gap-2">
-            <button
+            {/* <button
               className="w-full"
               type="button"
-              onClick={() => setMediaType("Image")}
+              onClick={() =>
+                setDebateDetails((prev) => ({ ...prev, mediaType: "Image" }))
+              }
             >
               Image
-            </button>
+            </button> */}
             <button
               className="w-full"
               type="button"
-              onClick={() => setMediaType("Video")}
+              onClick={() =>
+                setDebateDetails((prev) => ({ ...prev, mediaType: "Video" }))
+              }
             >
-              Video
+              Add Video Link
             </button>
           </div>
         )}
-        {mediaType === "Video" && (
-          <input
-            onChange={(e) =>
-              setDebateDetails((prev) => ({ ...prev, media: e.target.value }))
-            }
-            value={debateDetails.media}
-            className="bg-zinc-900 p-2"
-            type={"text"}
-          />
+        {debateDetails?.mediaType === "Video" && (
+          <>
+            <input
+              onChange={(e) =>
+                setDebateDetails((prev) => ({ ...prev, media: e.target.value }))
+              }
+              value={debateDetails.media}
+              className="bg-zinc-900 p-2"
+              type={"text"}
+            />
+            {debateDetails.media && (
+              <div className="aspect-video h-[200px] w-full rounded-md bg-neutral-600 p-2">
+                <ReactPlayer
+                  config={{ facebook: { appId: "508164441188790" } }}
+                  id={"video"}
+                  controls={true}
+                  muted
+                  width={"70vw"}
+                  height={"40vw"}
+                  loop
+                  playsInline
+                  url={debateDetails?.media}
+                />
+              </div>
+            )}
+          </>
         )}
-        {mediaType === "Image" && <UploadAttatchment />}
+        {debateDetails?.mediaType === "Image" && <UploadAttatchment />}
         <div className="flex flex-col place-items-center">
           <button
             disabled={isDisabled}
