@@ -101,7 +101,7 @@ const DebatePage = () => {
               </div>
             </div>
           )}
-          {uuid === debateDetails?.host?.uuid && !deleteCheck ? (
+          {uuid === debateDetails?.host?.uuid && (
             <div className="flex gap-2">
               <button
                 onClick={() => setEditOpen(true)}
@@ -129,7 +129,8 @@ const DebatePage = () => {
                 {debateDetails.closed ? "reopen" : "close"}
               </button>
             </div>
-          ) : (
+          )}
+          {deleteCheck && (
             <DeleteCheck
               deleteCheck={deleteCheck}
               setDeleteCheck={setDeleteCheck}
