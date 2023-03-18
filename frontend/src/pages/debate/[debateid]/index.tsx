@@ -220,21 +220,36 @@ const MessageDisplay = ({ side, message, hidden, closed }) => {
         hidden ? "invisible" : ""
       } ${side === "right" ? "left-0 top-0" : "top-0 right-[27vw]"}`}
     >
+      {message.media && (
+        <div className="flex aspect-video rounded-md  p-2">
+          <ReactPlayer
+            config={{ facebook: { appId: "508164441188790" } }}
+            id={"video"}
+            controls={true}
+            muted
+            width={"70vw"}
+            height={"40vw"}
+            loop
+            playsInline
+            url={message?.media}
+          />
+        </div>
+      )}{" "}
       <div className={`leading-[1.15]`}>{message?.message}</div>
-      {closed && (
-        <div
-          className={`absolute bg-${color}-500 ${side}-1 bottom-1 h-4 w-4 flex-shrink-0 rounded-full`}
-        >
+      <div
+        className={`absolute bg-${color}-500 ${side}-1 bottom-1 h-4 w-4 flex-shrink-0 rounded-full`}
+      >
+        {closed && (
           <img
-            className="h-5 w-5 rounded-full"
+            className="h-4 w-4 rounded-full"
             src={
               message.user.profilePic !== null
                 ? `/images/${message.user.uuid}/${message.user.profilePic}`
                 : `/images/noimg.jpeg`
             }
           />
-        </div>
-      )}
+        )}
+      </div>
       <p
         className={`min-h-8 text-[10px] ${
           side === "left" ? "place-self-end" : ""
@@ -248,7 +263,11 @@ const MessageDisplay = ({ side, message, hidden, closed }) => {
 
 const MessageInput = ({ channel, debateid, uuid }) => {
   const { mutate: saveMessage } = trpc.debates.saveMessage.useMutation();
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState({
+    message: "",
+    media: "",
+    mediaType: "",
+  });
   const [vote, setVote] = useState("");
   const anonHash = generateAnonHash();
   console.log("anonHash", anonHash);
@@ -257,38 +276,98 @@ const MessageInput = ({ channel, debateid, uuid }) => {
     e.preventDefault();
     saveMessage({
       vote: vote,
-      message: message,
+      message: message.message,
       user_id: uuid,
       debateid: debateid,
       anonHash: anonHash,
       messageid: messageid,
+      media: message.media,
+      mediaType: message.mediaType,
     });
 
     channel.publish("message", {
       anonHash: anonHash,
       vote: vote,
-      message: message,
+      message: message.message,
       messageid: messageid,
+      media: message.media,
+      mediaType: message.mediaType,
     });
-    setMessage("");
+    setMessage((prev) => ({ media: "", message: "", mediaType: "" }));
     setVote("");
   };
   return (
     <form onSubmit={handleSubmit} className="w-full p-4 pb-12">
       {(vote === "Yay" || vote === "Nay") && (
-        <div className={`grid grid-cols-[4fr_1fr] gap-2`}>
-          <input
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            className="w-full rounded-md bg-zinc-700 p-2 text-zinc-300"
-            placeholder="contribute to the debate"
-          />
-          <button
-            className="w-full rounded-md  bg-sky-500 p-2 text-center text-xl text-sky-200"
-            type="submit"
-          >
-            send
-          </button>
+        <div>
+          <div className={`grid grid-cols-[4fr_1fr] gap-2`}>
+            <input
+              value={message.message}
+              onChange={(e) =>
+                setMessage((prev) => ({ ...prev, message: e.target.value }))
+              }
+              className="w-full rounded-md bg-zinc-700 p-2 text-zinc-300"
+              placeholder="contribute to the debate"
+            />
+            <button
+              className="w-full rounded-md  bg-sky-500 p-2 text-center text-xl text-sky-200"
+              type="submit"
+            >
+              send
+            </button>
+          </div>
+          {!message?.mediaType && (
+            <div className="flex w-full place-items-center gap-2 py-2">
+              {/* <button
+              className="w-full"
+              type="button"
+              onClick={() =>
+                setDebateDetails((prev) => ({ ...prev, mediaType: "Image" }))
+              }
+            >
+              Image
+            </button> */}
+              <button
+                className="w-full rounded-md bg-zinc-700 p-2 text-zinc-300"
+                type="button"
+                onClick={() =>
+                  setMessage((prev) => ({ ...prev, mediaType: "Video" }))
+                }
+              >
+                Add Video Link
+              </button>
+            </div>
+          )}
+          {message?.mediaType === "Video" && (
+            <>
+              <input
+                onChange={(e) =>
+                  setMessage((prev) => ({
+                    ...prev,
+                    media: e.target.value,
+                  }))
+                }
+                value={message.media}
+                className="w-full bg-zinc-900 p-2 text-zinc-300"
+                type={"text"}
+              />
+              {message.media && (
+                <div className="aspect-video h-[200px] w-full rounded-md bg-neutral-600 p-2">
+                  <ReactPlayer
+                    config={{ facebook: { appId: "508164441188790" } }}
+                    id={"video"}
+                    controls={true}
+                    muted
+                    width={"70vw"}
+                    height={"40vw"}
+                    loop
+                    playsInline
+                    url={message?.media}
+                  />
+                </div>
+              )}
+            </>
+          )}
         </div>
       )}
       {vote === "" && (

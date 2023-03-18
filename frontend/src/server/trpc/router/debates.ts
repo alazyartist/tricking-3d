@@ -57,6 +57,8 @@ export const debateRouter = router({
         anonHash: z.string(),
         message: z.string(),
         user_id: z.string(),
+        media: z.string(),
+        mediaType: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -66,6 +68,8 @@ export const debateRouter = router({
           vote: input.vote,
           anonHash: input.anonHash,
           message: input.message,
+          media: input.media,
+          mediaType: input.mediaType,
           Debate: { connect: { debateid: input.debateid } },
           user: { connect: { uuid: input.user_id } },
         },
