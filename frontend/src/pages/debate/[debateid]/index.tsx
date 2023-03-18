@@ -86,7 +86,7 @@ const DebatePage = () => {
           </button>
           {seeExample && (
             <div className="p-2">
-              <div className="aspect-video h-[200px] w-full overflow-clip rounded-md">
+              <div className="flex aspect-video w-full overflow-clip rounded-md">
                 <ReactPlayer
                   config={{ facebook: { appId: "508164441188790" } }}
                   id={"video"}
@@ -222,14 +222,14 @@ const MessageDisplay = ({ side, message, hidden, closed }) => {
       } ${side === "right" ? "left-0 top-0" : "top-0 right-[27vw]"}`}
     >
       {message.media && (
-        <div className="flex aspect-video rounded-md  p-2">
+        <div className="flex aspect-video w-full rounded-md  p-2">
           <ReactPlayer
             config={{ facebook: { appId: "508164441188790" } }}
             id={"video"}
             controls={true}
             muted
-            width={"70vw"}
-            height={"40vw"}
+            width={"100%"}
+            height={"100%"}
             loop
             playsInline
             url={message?.media}
@@ -353,14 +353,14 @@ const MessageInput = ({ channel, debateid, uuid }) => {
                 type={"text"}
               />
               {message.media && (
-                <div className="aspect-video h-[200px] w-full rounded-md bg-neutral-600 p-2">
+                <div className="flex aspect-video w-full rounded-md bg-neutral-600 p-2">
                   <ReactPlayer
                     config={{ facebook: { appId: "508164441188790" } }}
                     id={"video"}
                     controls={true}
                     muted
-                    width={"70vw"}
-                    height={"40vw"}
+                    width={"100%"}
+                    height={"100%"}
                     loop
                     playsInline
                     url={message?.media}
