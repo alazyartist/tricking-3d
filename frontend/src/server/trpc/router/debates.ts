@@ -25,12 +25,20 @@ export const debateRouter = router({
         media: z.string(),
         mediaType: z.string(),
         user_id: z.string(),
+        debateid: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const debates = await ctx.prisma.debates.create({
-        data: {
-          debateid: undefined,
+      const debates = await ctx.prisma.debates.upsert({
+        where: { debateid: input.debateid },
+        update: {
+          title: input.title,
+          topic: input.topic,
+          media: input.media,
+          mediaType: input.mediaType,
+        },
+        create: {
+          debateid: input.debateid,
           title: input.title,
           topic: input.topic,
           media: input.media,

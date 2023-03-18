@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import ReactPlayer from "react-player";
 import useAblyStore from "../../../hooks/useAblyStore";
 import { v4 as uuidv4 } from "uuid";
+import { OpenNewDebate } from "..";
 const ably = useAblyStore.getState().ably;
 
 const DebatePage = () => {
@@ -20,6 +21,7 @@ const DebatePage = () => {
   const { uuid } = useUserStore((s) => s.userInfo);
   const [messages, updateMessages] = useState([]);
   const [seeExample, setSeeExample] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
   const [deleteCheck, setDeleteCheck] = useState(false);
   const debateChannel = ably.channels.get(`debate-${debateid}`);
 
@@ -101,7 +103,10 @@ const DebatePage = () => {
           )}
           {uuid === debateDetails?.host?.uuid && !deleteCheck ? (
             <div className="flex gap-2">
-              <button className="rounded-md  px-2 text-xs text-zinc-400">
+              <button
+                onClick={() => setEditOpen(true)}
+                className="rounded-md  px-2 text-xs text-zinc-400"
+              >
                 edit
               </button>
               <button
@@ -129,6 +134,12 @@ const DebatePage = () => {
               deleteCheck={deleteCheck}
               setDeleteCheck={setDeleteCheck}
               handleDelete={handleDelete}
+            />
+          )}
+          {editOpen && (
+            <OpenNewDebate
+              setDebateCreationOpen={setEditOpen}
+              opendebateDetails={debateDetails}
             />
           )}
         </div>

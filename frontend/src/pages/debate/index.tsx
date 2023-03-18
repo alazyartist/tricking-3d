@@ -1,7 +1,8 @@
+import { debates } from "@prisma/client";
 import { useUserStore } from "@store/userStore";
 import { trpc } from "@utils/trpc";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { SetStateAction, useState } from "react";
 import ReactPlayer from "react-player";
 
 const DebatesOverview = () => {
@@ -64,7 +65,14 @@ const DebateCard = ({ debate }) => {
     </Link>
   );
 };
-const OpenNewDebate = ({ setDebateCreationOpen }) => {
+type DebateProps = {
+  setDebateCreationOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  opendebateDetails?: debates;
+};
+export const OpenNewDebate: React.FC<DebateProps> = ({
+  setDebateCreationOpen,
+  opendebateDetails,
+}) => {
   const userInfo = useUserStore((s) => s.userInfo);
   const { mutate: openDebate } = trpc.debates.openDebate.useMutation();
   const handleSubmit = (e) => {
@@ -75,17 +83,17 @@ const OpenNewDebate = ({ setDebateCreationOpen }) => {
       media: debateDetails.media,
       mediaType: debateDetails.mediaType,
       user_id: userInfo.uuid,
+      debateid: opendebateDetails?.debateid,
     });
     console.log("Starting New Debate");
     setDebateCreationOpen(false);
   };
   const [debateDetails, setDebateDetails] = useState({
-    title: "",
-    topic: "",
-    media: "",
-    mediaType: "",
+    title: opendebateDetails?.title || "",
+    topic: opendebateDetails?.topic || "",
+    media: opendebateDetails?.media || "",
+    mediaType: opendebateDetails?.mediaType || "",
   });
-  const [mediaType, setMediaType] = useState("");
   const isDisabled = debateDetails.title === "" || debateDetails.topic === "";
   return (
     <div className="no-scrollbar absolute top-[10vh] left-[10vw] flex h-[80vh] w-[80vw] flex-col overflow-hidden overflow-y-scroll  bg-zinc-800">
@@ -96,7 +104,9 @@ const OpenNewDebate = ({ setDebateCreationOpen }) => {
       >
         X
       </button>
-      <div className="p-2 text-3xl">Start New Debate</div>
+      {!opendebateDetails && (
+        <div className="p-2 text-3xl">Start New Debate</div>
+      )}
       <form className="flex flex-col gap-2 p-2" onSubmit={handleSubmit}>
         <div>Debate Title</div>
         <input
@@ -172,7 +182,7 @@ const OpenNewDebate = ({ setDebateCreationOpen }) => {
               isDisabled ? "bg-zinc-700" : "bg-sky-500"
             }`}
           >
-            Start Debate
+            {opendebateDetails ? "Update" : "Start"} Debate
           </button>
         </div>
       </form>
