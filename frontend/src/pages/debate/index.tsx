@@ -96,7 +96,7 @@ export const OpenNewDebate: React.FC<DebateProps> = ({
   });
   const isDisabled = debateDetails.title === "" || debateDetails.topic === "";
   return (
-    <div className="no-scrollbar absolute top-[10vh] left-[10vw] flex h-[80vh] w-[80vw] flex-col overflow-hidden overflow-y-scroll  rounded-md bg-zinc-800">
+    <div className="no-scrollbar absolute top-[10vh] left-[10vw] z-[200] flex h-[80vh] w-[80vw] flex-col overflow-hidden overflow-y-scroll  rounded-md bg-zinc-800">
       <div className="flex gap-2">
         <button
           type="button"
@@ -118,7 +118,7 @@ export const OpenNewDebate: React.FC<DebateProps> = ({
           onChange={(e) =>
             setDebateDetails((prev) => ({ ...prev, title: e.target.value }))
           }
-          className="bg-zinc-900 p-2"
+          className="bg-zinc-900 p-2 text-base"
         />
         <div>Topic</div>
         <textarea
@@ -126,7 +126,7 @@ export const OpenNewDebate: React.FC<DebateProps> = ({
           onChange={(e) =>
             setDebateDetails((prev) => ({ ...prev, topic: e.target.value }))
           }
-          className="bg-zinc-900 p-2"
+          className="bg-zinc-900 p-2 text-xs"
         />
         <div>Example</div>
         {!debateDetails?.mediaType && (
@@ -158,7 +158,7 @@ export const OpenNewDebate: React.FC<DebateProps> = ({
                 setDebateDetails((prev) => ({ ...prev, media: e.target.value }))
               }
               value={debateDetails.media}
-              className="bg-zinc-900 p-2"
+              className="bg-zinc-900 p-2 text-xs"
               type={"text"}
             />
             {debateDetails.media && (
