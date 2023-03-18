@@ -199,12 +199,22 @@ const DebatePage = () => {
           <div className=" h-fit w-full rounded-md bg-red-500 p-2"></div> */}
         </div>
       </div>
-      {!debateDetails.closed && (
+      {!debateDetails.closed && uuid && (
         <MessageInput
           uuid={uuid}
           debateid={debateDetails.debateid}
           channel={debateChannel}
         />
+      )}
+      {!uuid && (
+        <div className={`flex w-full flex-col place-items-center p-2 `}>
+          <Link
+            href={"/login"}
+            className={` rounded-md bg-sky-400 p-2 text-3xl text-zinc-300`}
+          >
+            Login to contribute
+          </Link>
+        </div>
       )}
     </>
   );
