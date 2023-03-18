@@ -25,7 +25,7 @@ export const debateRouter = router({
         media: z.string(),
         mediaType: z.string(),
         user_id: z.string(),
-        debateid: z.string(),
+        debateid: z.string().nullish(),
       })
     )
     .mutation(async ({ ctx, input }) => {

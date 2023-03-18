@@ -4,6 +4,7 @@ import { trpc } from "@utils/trpc";
 import Link from "next/link";
 import React, { SetStateAction, useState } from "react";
 import ReactPlayer from "react-player";
+import { v4 as uuidv4 } from "uuid";
 
 const DebatesOverview = () => {
   const { data: debates, isSuccess } = trpc.debates.getAll.useQuery();
@@ -83,7 +84,7 @@ export const OpenNewDebate: React.FC<DebateProps> = ({
       media: debateDetails.media,
       mediaType: debateDetails.mediaType,
       user_id: userInfo.uuid,
-      debateid: opendebateDetails?.debateid,
+      debateid: opendebateDetails?.debateid || uuidv4(),
     });
     console.log("Starting New Debate");
     setDebateCreationOpen(false);
@@ -199,10 +200,10 @@ const UploadAttatchment = () => {
   const [filename, setFilename] = useState<string | undefined>(
     "Add Attachment"
   );
+  const { uuid } = useUserStore((s) => s.userInfo);
   const onSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     const formData = new FormData();
-    const { uuid } = useUserStore((s) => s.userInfo);
 
     formData.append("file", file as File);
     formData.append("uuid", uuid as string);
