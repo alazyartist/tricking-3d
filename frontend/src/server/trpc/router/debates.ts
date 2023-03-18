@@ -13,7 +13,7 @@ export const debateRouter = router({
     .query(async ({ ctx, input }) => {
       const debate = await ctx.prisma.debates.findUnique({
         where: { debateid: input.debateid },
-        include: { host: true, messages: true },
+        include: { host: true, messages: { include: { user: true } } },
       });
       return debate;
     }),

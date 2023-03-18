@@ -147,18 +147,37 @@ const DebatePage = () => {
           <div
             className={`text-zinc h-fit bg-opacity-40 text-xl font-bold text-emerald-300`}
           >
-            Yay {messages.filter((m) => m?.vote === "Yay").length}
+            Yay{" "}
+            {
+              Array.from(
+                new Set(
+                  messages
+                    .filter((m) => m?.vote === "Yay")
+                    .map((m) => m.user_id)
+                )
+              ).length
+            }
           </div>
           <div
             className={`text-zinc h-fit bg-opacity-40 text-xl font-bold text-red-300`}
           >
-            {messages.filter((m) => m?.vote === "Nay").length} Nay
+            {
+              Array.from(
+                new Set(
+                  messages
+                    .filter((m) => m?.vote === "Nay")
+                    .map((m) => m.user_id)
+                )
+              ).length
+            }{" "}
+            Nay
           </div>
         </div>
         <div className="mb-4 grid h-full w-full grid-cols-2 gap-2">
           <div className="flex h-full w-full flex-col gap-2 rounded-md  bg-opacity-40 p-2">
             {messages.map((m) => (
               <MessageDisplay
+                closed={debateDetails.closed}
                 hidden={m.vote === "Nay"}
                 message={m}
                 side={"right"}
@@ -168,6 +187,7 @@ const DebatePage = () => {
           <div className="flex h-full w-full flex-col gap-2 rounded-md  bg-opacity-40 p-2">
             {messages.map((m) => (
               <MessageDisplay
+                closed={debateDetails.closed}
                 hidden={m.vote === "Yay"}
                 side={"left"}
                 message={m}
@@ -191,7 +211,7 @@ const DebatePage = () => {
 
 export default DebatePage;
 
-const MessageDisplay = ({ side, message, hidden }) => {
+const MessageDisplay = ({ side, message, hidden, closed }) => {
   let color = side === "left" ? "red" : "emerald";
   return (
     <div
@@ -201,15 +221,26 @@ const MessageDisplay = ({ side, message, hidden }) => {
       } ${side === "right" ? "left-0 top-0" : "top-0 right-[27vw]"}`}
     >
       <div className={`leading-[1.15]`}>{message?.message}</div>
-      <div
-        className={`absolute bg-${color}-500 ${side}-1 bottom-1 h-4 w-4 flex-shrink-0 rounded-full`}
-      ></div>
+      {closed && (
+        <div
+          className={`absolute bg-${color}-500 ${side}-1 bottom-1 h-4 w-4 flex-shrink-0 rounded-full`}
+        >
+          <img
+            className="h-5 w-5 rounded-full"
+            src={
+              message.user.profilePic !== null
+                ? `/images/${message.user.uuid}/${message.user.profilePic}`
+                : `/images/noimg.jpeg`
+            }
+          />
+        </div>
+      )}
       <p
         className={`min-h-8 text-[10px] ${
           side === "left" ? "place-self-end" : ""
         }`}
       >
-        {message?.anonHash}
+        {closed ? message?.user?.username : message?.anonHash}
       </p>
     </div>
   );
