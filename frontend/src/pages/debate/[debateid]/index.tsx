@@ -42,7 +42,11 @@ const DebatePage = () => {
   }, [messages]);
   useEffect(() => {
     if (debateDetails?.messages) {
-      updateMessages((prev) => Array.from(new Set(debateDetails?.messages)));
+      updateMessages((prev) =>
+        Array.from(new Set(debateDetails?.messages)).sort((a, b) =>
+          a.updatedAt < b.updatedAt ? -1 : 1
+        )
+      );
     }
   }, [debateDetails]);
 
@@ -121,20 +125,24 @@ const DebatePage = () => {
             {messages.filter((m) => m?.vote === "Nay").length} Nay
           </div>
         </div>
-        <div className="mb-4 grid h-full w-full grid-cols-1 gap-2">
+        <div className="mb-4 grid h-full w-full grid-cols-2 gap-2">
           <div className="flex h-full w-full flex-col gap-2 rounded-md border-[1px] border-emerald-300 bg-opacity-40 p-2">
-            {messages
-              .filter((m) => m?.vote === "Yay")
-              .map((m) => (
-                <MessageDisplay message={m} side={"left"} />
-              ))}
+            {messages.map((m) => (
+              <MessageDisplay
+                hidden={m.vote === "Nay"}
+                message={m}
+                side={"left"}
+              />
+            ))}
           </div>
-          <div className="flex h-full w-full flex-col gap-2 rounded-md border-[1px] border-red-300 bg-opacity-40 p-2 pt-12">
-            {messages
-              .filter((m) => m?.vote === "Nay")
-              .map((m) => (
-                <MessageDisplay side={"right"} message={m} />
-              ))}
+          <div className="flex h-full w-full flex-col gap-2 rounded-md border-[1px] border-red-300 bg-opacity-40 p-2">
+            {messages.map((m) => (
+              <MessageDisplay
+                hidden={m.vote === "Yay"}
+                side={"right"}
+                message={m}
+              />
+            ))}
           </div>
           {/* <div className=" h-fit w-full rounded-md bg-emerald-500 p-2"></div>
           <div className=" h-fit w-full rounded-md bg-red-500 p-2"></div> */}
@@ -151,11 +159,13 @@ const DebatePage = () => {
 
 export default DebatePage;
 
-const MessageDisplay = ({ side, message }) => {
+const MessageDisplay = ({ side, message, hidden }) => {
   return (
     <div
       key={message?.messageid}
-      className="relative flex rounded-md bg-zinc-500"
+      className={`relative flex rounded-md bg-zinc-500 ${
+        hidden ? "invisible" : ""
+      }`}
     >
       {side === "left" && <div>{message?.message}</div>}
       <div
