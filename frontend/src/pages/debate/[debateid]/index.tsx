@@ -15,6 +15,8 @@ const DebatePage = () => {
     debateid: debateid as string,
   });
   const { mutate: deleteDebate } = trpc.debates.deleteDebate.useMutation();
+  const { mutate: closeDebate } =
+    trpc.debates.closeOrReopenDebate.useMutation();
   const { uuid } = useUserStore((s) => s.userInfo);
   const [messages, updateMessages] = useState([]);
   const [seeExample, setSeeExample] = useState(false);
@@ -62,7 +64,11 @@ const DebatePage = () => {
 
   return (
     <>
-      <div className="backrop-blur-xl no-scrollbar flex h-[80vh] w-full flex-col place-items-center gap-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-70 p-4 font-inter">
+      <div
+        className={`backrop-blur-xl no-scrollbar flex h-[${
+          debateDetails.closed ? "95vh" : "80vh"
+        }] w-full flex-col place-items-center gap-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-70 p-4 font-inter`}
+      >
         <Link href={"/debate"} className={"text-4xl text-zinc-300"}>
           Debates
         </Link>
@@ -104,6 +110,19 @@ const DebatePage = () => {
               >
                 delete
               </button>
+              <button
+                onClick={() =>
+                  closeDebate({
+                    debateid: debateDetails.debateid,
+                    closed: !debateDetails.closed,
+                  })
+                }
+                className={`rounded-md px-2 text-xs text-${
+                  !debateDetails.closed ? "red" : "emerald"
+                }-400`}
+              >
+                {debateDetails.closed ? "reopen" : "close"}
+              </button>
             </div>
           ) : (
             <DeleteCheck
@@ -126,20 +145,20 @@ const DebatePage = () => {
           </div>
         </div>
         <div className="mb-4 grid h-full w-full grid-cols-2 gap-2">
-          <div className="flex h-full w-full flex-col gap-2 rounded-md border-[1px] border-emerald-300 bg-opacity-40 p-2">
+          <div className="flex h-full w-full flex-col gap-2 rounded-md  bg-opacity-40 p-2">
             {messages.map((m) => (
               <MessageDisplay
                 hidden={m.vote === "Nay"}
                 message={m}
-                side={"left"}
+                side={"right"}
               />
             ))}
           </div>
-          <div className="flex h-full w-full flex-col gap-2 rounded-md border-[1px] border-red-300 bg-opacity-40 p-2">
+          <div className="flex h-full w-full flex-col gap-2 rounded-md  bg-opacity-40 p-2">
             {messages.map((m) => (
               <MessageDisplay
                 hidden={m.vote === "Yay"}
-                side={"right"}
+                side={"left"}
                 message={m}
               />
             ))}
@@ -148,11 +167,13 @@ const DebatePage = () => {
           <div className=" h-fit w-full rounded-md bg-red-500 p-2"></div> */}
         </div>
       </div>
-      <MessageInput
-        uuid={uuid}
-        debateid={debateDetails.debateid}
-        channel={debateChannel}
-      />
+      {!debateDetails.closed && (
+        <MessageInput
+          uuid={uuid}
+          debateid={debateDetails.debateid}
+          channel={debateChannel}
+        />
+      )}
     </>
   );
 };
@@ -160,19 +181,25 @@ const DebatePage = () => {
 export default DebatePage;
 
 const MessageDisplay = ({ side, message, hidden }) => {
+  let color = side === "left" ? "red" : "emerald";
   return (
     <div
       key={message?.messageid}
-      className={`relative flex rounded-md bg-zinc-500 ${
+      className={` relative flex w-[70vw] flex-col rounded-md border-[1px] p-2 font-inter text-zinc-300 border-${color}-300 bg-${color}-200 border-opacity-40 bg-opacity-20 ${
         hidden ? "invisible" : ""
-      }`}
+      } ${side === "right" ? "left-0 top-0" : "top-0 right-[27vw]"}`}
     >
-      {side === "left" && <div>{message?.message}</div>}
+      <div className={`leading-[1.15]`}>{message?.message}</div>
       <div
-        className={`relative ${side}-1 bottom-1 h-6 w-6 flex-shrink-0 rounded-full bg-indigo-600`}
+        className={`absolute bg-${color}-500 ${side}-1 bottom-1 h-4 w-4 flex-shrink-0 rounded-full`}
       ></div>
-      {side === "right" && <div>{message?.message}</div>}
-      <p className="text-[10px]">{message?.anonHash}</p>
+      <p
+        className={`min-h-8 text-[10px] ${
+          side === "left" ? "place-self-end" : ""
+        }`}
+      >
+        {message?.anonHash}
+      </p>
     </div>
   );
 };

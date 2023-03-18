@@ -79,4 +79,22 @@ export const debateRouter = router({
       });
       return debates;
     }),
+  closeOrReopenDebate: publicProcedure
+    .input(
+      z.object({
+        debateid: z.string(),
+        closed: z.boolean(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const debates = await ctx.prisma.debates.update({
+        where: {
+          debateid: input.debateid,
+        },
+        data: {
+          closed: input.closed,
+        },
+      });
+      return debates;
+    }),
 });
