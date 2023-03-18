@@ -42,12 +42,16 @@ function TabBar() {
 
   return (
     <>
-      <div className="fixed bottom-0 z-[1] w-[100%] overflow-hidden p-2 ">
+      <div
+        className={`fixed bottom-0 ${
+          openNav ? "z-[1]" : "z-[1014]"
+        } w-[100%] overflow-hidden p-2 `}
+      >
         <animated.div style={navToggle} className="relative">
           <div
             style={navToggle}
             className={`relative left-0 flex ${
-              openNav ? "h-2" : "h-12"
+              openNav ? "h-3" : "h-12"
             } w-full place-content-center place-items-center gap-8 rounded-2xl bg-opacity-40 bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300 backdrop-blur-md`}
           >
             {isAdmin && (

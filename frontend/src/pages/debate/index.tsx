@@ -96,17 +96,21 @@ export const OpenNewDebate: React.FC<DebateProps> = ({
   });
   const isDisabled = debateDetails.title === "" || debateDetails.topic === "";
   return (
-    <div className="no-scrollbar absolute top-[10vh] left-[10vw] flex h-[80vh] w-[80vw] flex-col overflow-hidden overflow-y-scroll  bg-zinc-800">
-      <button
-        type="button"
-        onClick={() => setDebateCreationOpen(false)}
-        className="p-2 text-3xl"
-      >
-        X
-      </button>
-      {!opendebateDetails && (
-        <div className="p-2 text-3xl">Start New Debate</div>
-      )}
+    <div className="no-scrollbar absolute top-[10vh] left-[10vw] flex h-[80vh] w-[80vw] flex-col overflow-hidden overflow-y-scroll  rounded-md bg-zinc-800">
+      <div className="flex gap-2">
+        <button
+          type="button"
+          onClick={() => setDebateCreationOpen(false)}
+          className="p-2 text-left text-3xl"
+        >
+          X
+        </button>
+        {!opendebateDetails && (
+          <div className="flex place-items-center whitespace-nowrap p-2 text-2xl">
+            Start New Debate
+          </div>
+        )}
+      </div>
       <form className="flex flex-col gap-2 p-2" onSubmit={handleSubmit}>
         <div>Debate Title</div>
         <input
