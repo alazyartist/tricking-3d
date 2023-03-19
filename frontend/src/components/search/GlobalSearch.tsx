@@ -206,6 +206,7 @@ const Autocomplete = (props: any) => {
             onSelect(params: any) {
               const { item, setQuery } = params;
               console.log(item);
+              router.push(`/combos/${item.combo_id}`);
 
               setQuery("");
             },

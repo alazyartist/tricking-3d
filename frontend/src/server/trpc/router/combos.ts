@@ -6,4 +6,12 @@ export const comboRouter = router({
     const combos = await ctx.prisma.combos.findMany();
     return combos;
   }),
+  findById: publicProcedure
+    .input(z.object({ combo_id: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const combo = await ctx.prisma.combos.findUnique({
+        where: { combo_id: input.combo_id },
+      });
+      return combo;
+    }),
 });
