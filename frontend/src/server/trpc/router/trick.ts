@@ -5,7 +5,17 @@ export const tricksRouter = router({
   findAll: publicProcedure.query(async ({ input, ctx }) => {
     const tricks = await ctx.prisma.tricks.findMany({});
     // console.log(tricks);
-    return { tricks };
+    return tricks;
+  }),
+  findAllTransitions: publicProcedure.query(async ({ input, ctx }) => {
+    const transitions = await ctx.prisma.transitions.findMany({});
+    // console.log(transitions);
+    return transitions;
+  }),
+  findAllStances: publicProcedure.query(async ({ input, ctx }) => {
+    const stances = await ctx.prisma.stances.findMany({});
+    // console.log(stances);
+    return stances;
   }),
   findMultipleById: publicProcedure
     //takes in clipLable array
