@@ -35,7 +35,7 @@ const AnimatedSearch = () => {
           width: searchTransition.barWidth,
         }}
       >
-        <GlobalSearch />
+        <GlobalSearch searchOpen={searchOpen} />
         {/* <input
           type="text"
           placeholder="Search Coming Soon..."

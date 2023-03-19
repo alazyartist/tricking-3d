@@ -8,7 +8,7 @@ import useGetTricks from "@api/useGetTricks";
 import { trpc } from "@utils/trpc";
 import { getQueryPattern } from "../../admin/DataListCommandBar";
 import { useRouter } from "next/router";
-const GlobalSearch = () => {
+const GlobalSearch = ({ searchOpen }) => {
   const { data: tricks } = trpc.trick.findAll.useQuery();
   const { data: transitions } = trpc.trick.findAllTransitions.useQuery();
   const { data: stances } = trpc.trick.findAllStances.useQuery();
@@ -22,6 +22,7 @@ const GlobalSearch = () => {
       <Autocomplete
         classNames={{
           sourceHeader: "bg-zinc-800 rounded-md !p-4 text-zinc-300",
+          detachedSearchButton: `${!searchOpen ? "invisible" : ""}`,
         }}
         sessionsummaries={sessionsummaries}
         transitions={transitions}
@@ -431,6 +432,9 @@ const Autocomplete = (props: any) => {
             onSelect(params: any) {
               const { item, setQuery } = params;
               console.log(item);
+              router.push(
+                `/userProfile/${item.user.uuid}?sessionid=${item.sessionid}`
+              );
 
               setQuery("");
             },
