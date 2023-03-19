@@ -12,6 +12,7 @@ const DataListCommandBar = () => {
   return (
     <div className="fixed bottom-[48px] left-[20vw] h-[8vh] w-[60vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:left-[20vw] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]">
       <Autocomplete
+        classNames={{ panel: "custom-Panel" }}
         tricks={tricks}
         defaultActiveItemId="0"
         placeholder="/ to open cmdBar"
@@ -21,7 +22,7 @@ const DataListCommandBar = () => {
     </div>
   );
 };
-const getQueryPattern = (query: string, flags = "i") => {
+export const getQueryPattern = (query: string, flags = "i") => {
   const pattern = new RegExp(
     `(${query
       .trim()

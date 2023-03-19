@@ -27,6 +27,7 @@ const CommandBar = () => {
   return (
     <div className="fixed bottom-[14px] left-[10vw] h-[8vh] w-[80vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:left-[20vw] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]">
       <Autocomplete
+        classNames={{ panel: "custom-Panel" }}
         tricks={tricks}
         combos={combos}
         defaultActiveItemId="0"
