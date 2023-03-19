@@ -1,3 +1,4 @@
+import GlobalSearch from "@components/search/GlobalSearch";
 import React, { useState } from "react";
 import { IoMdSearch } from "react-icons/io";
 import { animated, useSpring } from "react-spring";
@@ -34,13 +35,14 @@ const AnimatedSearch = () => {
           width: searchTransition.barWidth,
         }}
       >
-        <input
+        <GlobalSearch />
+        {/* <input
           type="text"
           placeholder="Search Coming Soon..."
           className={`relative w-full appearance-none rounded-lg bg-zinc-700 text-base text-zinc-300 outline-none ${
             searchOpen ? "px-1" : "p-0"
           }`}
-        />
+        /> */}
       </animated.div>
     </animated.div>
   );
