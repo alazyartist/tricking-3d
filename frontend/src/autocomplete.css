@@ -1,38 +1,39 @@
 /* stylelint-disable selector-no-qualifying-type, selector-class-pattern */
 /*Backround Colors*/
 :root {
-	--aa-input-border-color-rgb: 34, 158, 188;
-	--aa-background-color-rgb: 24, 24, 27;
-	--aa-background-color-alpha: 1;
-	--aa-input-background-color-rgb: 205, 205, 205;
-	--aa-input-background-color-alpha: 1;
-	--aa-selected-color-rgb: 34, 156, 188;
-	--aa-selected-color-alpha: 0.205;
-	--aa-description-highlight-background-color-rgb: 34, 156, 188;
-	--aa-description-highlight-background-color-alpha: 0.5;
+  --aa-input-border-color-rgb: 34, 158, 188;
+  --aa-background-color-rgb: 24, 24, 27;
+  --aa-background-color-alpha: 1;
+  --aa-input-background-color-rgb: 205, 205, 205;
+  --aa-input-background-color-alpha: 1;
+  --aa-selected-color-rgb: 34, 156, 188;
+  --aa-selected-color-alpha: 0.205;
+  --aa-description-highlight-background-color-rgb: 34, 156, 188;
+  --aa-description-highlight-background-color-alpha: 0.5;
 
-	/*BorderColors*/
-	--aa-panel-border-color-rgb: 34, 156, 188;
-	--aa-panel-border-color-alpha: 0.8;
-	--aa-input-border-color-rgb: 34, 156, 188;
-	--aa-input-border-color-alpha: 0.8;
+  /*BorderColors*/
+  --aa-panel-border-color-rgb: 34, 156, 188;
+  --aa-panel-border-color-alpha: 0.8;
+  --aa-input-border-color-rgb: 34, 156, 188;
+  --aa-input-border-color-alpha: 0.8;
 
-	/*TextColors*/
+  /*TextColors*/
 
-	--aa-text-color-rgb: 169, 169, 169;
-	--aa-text-color-alpha: 1;
-	--aa-primary-color-rgb: 69, 69, 161;
-	--aa-primary-color-alpha: 0.2;
-	--aa-muted-color-rgb: 128, 126, 163;
-	--aa-muted-color-alpha: 0.6;
+  --aa-text-color-rgb: 169, 169, 169;
+  --aa-text-color-alpha: 1;
+  --aa-primary-color-rgb: 69, 69, 161;
+  --aa-primary-color-alpha: 0.2;
+  --aa-muted-color-rgb: 128, 126, 163;
+  --aa-muted-color-alpha: 0.6;
 }
-.aa-Panel {
-	max-height: 130px !important;
-	width: 100%;
-	transform: translate(0px, -190px) !important;
-}
+
 .aa-Panel--scrollable {
-	height: 130px;
-	display: flex;
-	flex-direction: column;
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+}
+.custom-Panel {
+  max-height: 130px !important;
+  width: 100%;
+  transform: translate(0px, -190px) !important;
 }

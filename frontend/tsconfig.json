@@ -29,6 +29,7 @@
       "@admin/*": ["admin/*"],
       "@old_pages/*": ["old_pages/*"],
       "@data/*": ["data/*"],
+      "@api/*": ["api/*"],
       "@utils/*": ["utils/*"]
     }
   },
