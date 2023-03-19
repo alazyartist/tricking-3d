@@ -152,6 +152,7 @@ const Autocomplete = (props: any) => {
             onSelect(params: any) {
               const { item, setQuery } = params;
               console.log(item);
+              router.push(`/tricks/${item.trick_id}`);
 
               setQuery("");
             },
@@ -316,10 +317,10 @@ const Autocomplete = (props: any) => {
             },
           },
           {
-            sourceId: "Users",
+            sourceId: "Trickers",
             templates: {
               header() {
-                return <p>Users</p>;
+                return <p>Trickers</p>;
               },
               item({ item }: any) {
                 return (
