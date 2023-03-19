@@ -7,37 +7,45 @@ import useGetTricks from "@api/useGetTricks";
 
 import { trpc } from "@utils/trpc";
 import { getQueryPattern } from "../../admin/DataListCommandBar";
+import { useRouter } from "next/router";
 const GlobalSearch = () => {
   const { data: tricks } = trpc.trick.findAll.useQuery();
   const { data: transitions } = trpc.trick.findAllTransitions.useQuery();
   const { data: stances } = trpc.trick.findAllStances.useQuery();
-  // console.log(tricks.tricks);
-  useEffect(() => {
-    console.log(document.getElementsByClassName("aa-Panel"));
-  });
   const { data: combos } = trpc.combos.getAll.useQuery();
+  const { data: users } = trpc.userDB.findAll.useQuery();
+  const { data: sessionsummaries } =
+    trpc.sessionsummaries.getAllSessionSummaries.useQuery();
+
   return (
     <div>
       <Autocomplete
+        classNames={{
+          sourceHeader: "bg-zinc-800 rounded-md !p-4 text-zinc-300",
+        }}
+        sessionsummaries={sessionsummaries}
         transitions={transitions}
         stances={stances}
         tricks={tricks}
         combos={combos}
+        users={users}
         defaultActiveItemId="0"
         placeholder="/ to open cmdBar"
         openOnFocus={true}
         autoFocus={true}
+        debug={true}
       />
     </div>
   );
 };
 
 const Autocomplete = (props: any) => {
-  const { tricks, combos, stances, transitions } = props;
+  const router = useRouter();
+  const { tricks, users, combos, stances, transitions, sessionsummaries } =
+    props;
   const commandBarRef = useRef(null);
   const panelRootRef = useRef(null);
   const rootRef = useRef(null);
-  console.log(commandBarRef);
   useEffect(() => {
     document.addEventListener("keyup", (e) => handleSlash(e));
     return () => document.removeEventListener("keyup", (e) => handleSlash(e));
@@ -51,7 +59,7 @@ const Autocomplete = (props: any) => {
       // detachedMediaQuery: "none",
       detachedMediaQuery: "",
       container: commandBarRef.current,
-      // plugins: [tagsPlugin],/
+      // plugins: [tagsPlugin],
       renderer: { createElement, Fragment, render: () => {} },
       render({ children }, root) {
         if (!panelRootRef.current || rootRef.current !== root) {
@@ -98,26 +106,13 @@ const Autocomplete = (props: any) => {
             sourceId: "Tricks",
             templates: {
               header() {
-                return <p>Tricks</p>;
+                return <div className="">Tricks</div>;
               },
               item({ item }: any) {
-                if (item.type === "Transition") {
-                  return (
-                    <span className="flex justify-between">
-                      <p>{item.name}</p>
-                      <span className="flex gap-2">
-                        <p>{item.pointValue}</p>
-                        <p className="text-2xs">{item.fromLeg}</p>
-                        <p className="text-2xs">{item.toLeg}</p>
-                      </span>
-                    </span>
-                  );
-                }
                 return (
                   <span className="flex justify-between">
                     <p>{item.name}</p>
-                    <span className="flex gap-2">
-                      <p>{item.pointValue}</p>
+                    <span className="flex gap-2 p-4">
                       <p>{item.type}</p>
                     </span>
                   </span>
@@ -167,17 +162,6 @@ const Autocomplete = (props: any) => {
                 return <p>Combos</p>;
               },
               item({ item }: any) {
-                if (item.type === "Transition") {
-                  return (
-                    <span className="flex justify-between">
-                      <p>{item.name}</p>
-                      <span className="flex gap-2">
-                        <p className="text-2xs">{item.fromLeg}</p>
-                        <p className="text-2xs">{item.toLeg}</p>
-                      </span>
-                    </span>
-                  );
-                }
                 return (
                   <span className="flex justify-between">
                     <p>{item.name}</p>
@@ -330,6 +314,127 @@ const Autocomplete = (props: any) => {
               setQuery("");
             },
           },
+          {
+            sourceId: "Users",
+            templates: {
+              header() {
+                return <p>Users</p>;
+              },
+              item({ item }: any) {
+                return (
+                  <span className="flex justify-between">
+                    <p>{item.username}</p>
+                    <span className="flex gap-2">
+                      <img
+                        className={"h-7 w-7 rounded-full"}
+                        src={
+                          item.profilePic !== null
+                            ? `/images/${item.uuid}/${item.profilePic}`
+                            : `/images/noimg.jpeg`
+                        }
+                      />
+                    </span>
+                  </span>
+                );
+              },
+            },
+            getItems: async () => {
+              const pattern = getQueryPattern(query);
+              await users;
+              if (!users) return [];
+              if (query.length > 0) {
+                return users
+                  ?.filter((t) => pattern.test(t.username))
+                  ?.sort((a, b) => {
+                    if (a.username.length < b.username.length) return -1;
+                    if (a.username.length > b.username.length) return 1;
+                    if (a.username > b.username) return 1;
+                    if (a.username < b.username) return -1;
+                    //check your filters
+                    //then check the length
+
+                    return 0;
+                  });
+              } else
+                return users?.sort((a, b) => {
+                  if (a.username > b.username) return 1;
+                  if (a.username < b.username) return -1;
+                  if (a.username.length < b.username.length) return -1;
+                  if (a.username.length > b.username.length) return 1;
+                  //check your filters
+                  //then check the length
+
+                  return 0;
+                });
+            },
+            onSelect(params: any) {
+              const { item, setQuery } = params;
+              console.log(item);
+              router.push(`/userProfile/${item.uuid}`);
+
+              setQuery("");
+            },
+          },
+          {
+            sourceId: "Samplers",
+            templates: {
+              header() {
+                return <p>Samplers</p>;
+              },
+              item({ item }: any) {
+                return (
+                  <span className="flex justify-between">
+                    <p>{item.name}</p>
+                    <span className="flex gap-2">
+                      <img
+                        className={"h-7 w-7 rounded-full"}
+                        src={
+                          item.user.profilePic !== null
+                            ? `/images/${item.user.uuid}/${item.user.profilePic}`
+                            : `/images/noimg.jpeg`
+                        }
+                      />
+                    </span>
+                  </span>
+                );
+              },
+            },
+            getItems: async () => {
+              const pattern = getQueryPattern(query);
+              await sessionsummaries;
+              if (!sessionsummaries) return [];
+              if (query.length > 0) {
+                return sessionsummaries
+                  ?.filter((t) => pattern.test(t.name))
+                  ?.sort((a, b) => {
+                    if (a.name.length < b.name.length) return -1;
+                    if (a.name.length > b.name.length) return 1;
+                    if (a.name > b.name) return 1;
+                    if (a.name < b.name) return -1;
+                    //check your filters
+                    //then check the length
+
+                    return 0;
+                  });
+              } else
+                return sessionsummaries?.sort((a, b) => {
+                  if (a.name > b.name) return 1;
+                  if (a.name < b.name) return -1;
+                  if (a.name.length < b.name.length) return -1;
+                  if (a.name.length > b.name.length) return 1;
+                  //check your filters
+                  //then check the length
+
+                  return 0;
+                });
+            },
+            onSelect(params: any) {
+              const { item, setQuery } = params;
+              console.log(item);
+
+              setQuery("");
+            },
+          },
         ];
       },
       ...props,
@@ -338,7 +443,7 @@ const Autocomplete = (props: any) => {
     return () => {
       search.destroy();
     };
-  }, [props, tricks]);
+  }, [props]);
 
   return (
     <>
