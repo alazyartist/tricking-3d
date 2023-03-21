@@ -2,7 +2,7 @@ import { trpc } from "@utils/trpc";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
-const TricksPage = () => {
+const ComboPage = () => {
   const router = useRouter();
   const { combo_id } = router.query;
   const { data: comboInfo, isSuccess } = trpc.combos.findById.useQuery({
@@ -22,7 +22,7 @@ const TricksPage = () => {
   );
 };
 
-export default TricksPage;
+export default ComboPage;
 //  <div className="flex w-full gap-2">
 //         <p
 //           className={
