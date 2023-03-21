@@ -1,5 +1,6 @@
 import GlobalSearch from "@components/search/GlobalSearch";
-import React, { useState } from "react";
+import useClickOutside from "hooks/useClickOutside";
+import React, { useState, useRef } from "react";
 import { IoMdSearch } from "react-icons/io";
 import { animated, useSpring } from "react-spring";
 
@@ -16,19 +17,33 @@ const AnimatedSearch = () => {
     delay: 100,
     config: { tension: 280, friction: 40 },
   });
+  const ref = useRef();
+  let clicked = 0;
+  useClickOutside(ref, () => {
+    if (clicked > 0) {
+      setSearchOpen(false);
+    }
+    if (ref.current && searchOpen === true) {
+      console.log("clickedOutside", clicked);
+      clicked++;
+    }
+  });
   return (
     <animated.div
+      ref={ref}
       style={{ width: searchTransition.width }}
       className={`relative mt-1 mb-2 flex w-[70vw] max-w-[600px] place-content-center place-items-center gap-2 rounded-xl bg-zinc-800 bg-opacity-80 p-1 text-center font-inter text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] `}
     >
-      <IoMdSearch
-        onClick={() => setSearchOpen(!searchOpen)}
-        style={{
-          //@ts-ignore
-          paddingLeft: searchTransition.marginLeft,
-        }}
-        className={"flex-shrink-0 p-1 text-4xl"}
-      />
+      {!searchOpen && (
+        <IoMdSearch
+          onClick={() => setSearchOpen(!searchOpen)}
+          style={{
+            //@ts-ignore
+            paddingLeft: searchTransition.marginLeft,
+          }}
+          className={"flex-shrink-0 p-1 text-4xl"}
+        />
+      )}
       <animated.div
         style={{
           //@ts-ignore

@@ -31,7 +31,7 @@ const GlobalSearch = ({ searchOpen }) => {
         combos={combos}
         users={users}
         defaultActiveItemId="0"
-        placeholder="/ to open cmdBar"
+        placeholder="search everything"
         openOnFocus={true}
         autoFocus={true}
         debug={true}
