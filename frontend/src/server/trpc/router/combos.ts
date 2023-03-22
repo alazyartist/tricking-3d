@@ -11,6 +11,11 @@ export const comboRouter = router({
     .query(async ({ input, ctx }) => {
       const combo = await ctx.prisma.combos.findUnique({
         where: { combo_id: input.combo_id },
+        include: {
+          Clips: {
+            include: { summary: { include: { SessionSources: true } } },
+          },
+        },
       });
       return combo;
     }),
