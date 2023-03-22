@@ -54,21 +54,22 @@ const TricksPage = () => {
           <div>{v.variation.pointValue}</div>
         </div>
       ))}
-      <CombosWithTrickDisplay combos={combos} />
+      <CombosWithTrickDisplay combos={combos} trick={trickInfo.name} />
     </div>
   );
 };
 
 export default TricksPage;
 
-const CombosWithTrickDisplay = ({ combos }) => {
+const CombosWithTrickDisplay = ({ combos, trick }) => {
   const [seeExample, setSeeExample] = useState();
   return (
     <div className="flex w-full flex-col gap-2 p-2">
+      <h1>Combos containing {trick}</h1>
       {combos.map((combo) => (
         <div key={combo.combo_id}>
-          <div className="flex gap-2 overflow-hidden overflow-x-scroll bg-zinc-800 p-2 text-xs">
-            <p>{combo.Clips.length > 0 && combo.Clips.length} </p>
+          <div className="flex gap-2 overflow-hidden overflow-x-scroll rounded-md bg-zinc-800 p-2 text-xs">
+            {/* <p>{combo.Clips.length > 0 && combo.Clips.length} </p> */}
             {combo.comboArray.map((trick, i) => (
               <p className={"flex  whitespace-nowrap"}>
                 <span>{trick.name}</span>
@@ -96,14 +97,17 @@ const CombosWithTrickDisplay = ({ combos }) => {
 
 const ExampleClipDisplay = ({ clip, i, seeExample, setSeeExample }) => {
   const vidRef = useRef();
-  const handleClick = (i) => {
-    setSeeExample(i);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const handleClick = (id) => {
+    setSeeExample(id);
+    setIsPlaying(true);
+    vidRef?.current?.seekTo(clip.clipStart);
     console.log(vidRef.current);
   };
 
   return (
     <>
-      {seeExample === i && (
+      {seeExample === clip.id && (
         <div>
           <div className="p-2">
             <div className="flex aspect-video w-full overflow-clip rounded-md">
@@ -113,9 +117,16 @@ const ExampleClipDisplay = ({ clip, i, seeExample, setSeeExample }) => {
                 id={"video"}
                 controls={true}
                 muted
+                playing={isPlaying}
                 width={"100%"}
                 height={"100%"}
                 loop
+                onReady={() => vidRef?.current?.seekTo(clip.clipStart)}
+                onProgress={({ playedSeconds }) => {
+                  if (playedSeconds >= clip.clipEnd) {
+                    vidRef?.current?.seekTo(clip.clipStart);
+                  }
+                }}
                 playsInline
                 url={clip.summary.SessionSources[0].vidsrc}
               />
@@ -123,7 +134,11 @@ const ExampleClipDisplay = ({ clip, i, seeExample, setSeeExample }) => {
           </div>
         </div>
       )}
-      <p onClick={() => handleClick(i)}>{`example ${i + 1}`}</p>
+      <button
+        type={"button"}
+        className={"rounded-md bg-zinc-700 px-2"}
+        onClick={() => handleClick(clip.id)}
+      >{`Clip ${i + 1}`}</button>
     </>
   );
 };
