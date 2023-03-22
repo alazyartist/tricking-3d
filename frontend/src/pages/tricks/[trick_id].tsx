@@ -76,7 +76,7 @@ const CombosWithTrickDisplay = ({ combos }) => {
               </p>
             ))}
           </div>
-          <p className={"text-xs"}>
+          <div className={"text-xs"}>
             {combo.Clips.map((clip, i) => (
               <div>
                 <ExampleClipDisplay
@@ -87,7 +87,7 @@ const CombosWithTrickDisplay = ({ combos }) => {
                 />
               </div>
             ))}
-          </p>
+          </div>
         </div>
       ))}
     </div>
