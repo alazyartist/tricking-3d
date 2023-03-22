@@ -27,7 +27,11 @@ export const tricksRouter = router({
         where: {
           comboArray: { array_contains: { trick_id: input.trick_id } },
         },
-        include: { Clips: { include: { summary: true } } },
+        include: {
+          Clips: {
+            include: { summary: { include: { SessionSources: true } } },
+          },
+        },
       });
       // console.log(combos);
       return combos;
