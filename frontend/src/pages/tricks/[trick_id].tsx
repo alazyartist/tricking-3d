@@ -1,4 +1,6 @@
+import AnimatedSearch from "@old_pages/home/components/AnimatedSearch";
 import { trpc } from "@utils/trpc";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
@@ -17,6 +19,9 @@ const TricksPage = () => {
     <div
       className={`backrop-blur-xl no-scrollbar flex h-[100vh] w-full flex-col place-items-center gap-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-70 p-4 font-inter text-zinc-300`}
     >
+      <div className="absolute top-4 left-4">
+        <AnimatedSearch />
+      </div>
       <div className="flex place-items-center gap-2">
         <h1 className="text-bold text-2xl ">{trickInfo.name}</h1>
         <p>{trickInfo.pointValue}</p>
@@ -68,14 +73,26 @@ const CombosWithTrickDisplay = ({ combos, trick }) => {
       <h1>Combos containing {trick}</h1>
       {combos.map((combo) => (
         <div key={combo.combo_id}>
-          <div className="flex gap-2 overflow-hidden overflow-x-scroll rounded-md bg-zinc-800 p-2 text-xs">
-            {/* <p>{combo.Clips.length > 0 && combo.Clips.length} </p> */}
-            {combo.comboArray.map((trick, i) => (
-              <p className={"flex  whitespace-nowrap"}>
-                <span>{trick.name}</span>
-                <span>{i !== combo.comboArray.length - 1 && ">"}</span>
-              </p>
-            ))}
+          <div className="flex justify-between overflow-hidden overflow-x-scroll rounded-md bg-zinc-800 p-2 text-xs">
+            <div className="flex gap-1 overflow-hidden overflow-x-scroll text-xs">
+              {combo.comboArray.map((trick, i) => (
+                <div
+                  className={"flex place-items-center gap-1 whitespace-nowrap"}
+                >
+                  <p
+                    className={`${
+                      trick.type === "Transition" ? "text-[8px]" : ""
+                    }`}
+                  >
+                    {trick.name}
+                  </p>
+                  <p>{i !== combo.comboArray.length - 1 && ">"}</p>
+                </div>
+              ))}
+            </div>
+            <Link href={`/combos/${combo.combo_id}`}>
+              <p className="text-xs">...</p>
+            </Link>
           </div>
           <div className={"text-xs"}>
             {combo.Clips.map((clip, i) => (
@@ -95,7 +112,7 @@ const CombosWithTrickDisplay = ({ combos, trick }) => {
   );
 };
 
-const ExampleClipDisplay = ({ clip, i, seeExample, setSeeExample }) => {
+export const ExampleClipDisplay = ({ clip, i, seeExample, setSeeExample }) => {
   const vidRef = useRef<ReactPlayer>();
   const [isPlaying, setIsPlaying] = useState(false);
   if (!vidRef?.current) return;
