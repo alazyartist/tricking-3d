@@ -96,12 +96,15 @@ const CombosWithTrickDisplay = ({ combos, trick }) => {
 };
 
 const ExampleClipDisplay = ({ clip, i, seeExample, setSeeExample }) => {
-  const vidRef = useRef();
+  const vidRef = useRef<ReactPlayer>();
   const [isPlaying, setIsPlaying] = useState(false);
+  if (!vidRef?.current) return;
   const handleClick = (id) => {
     setSeeExample(id);
     setIsPlaying(true);
-    vidRef?.current?.seekTo(clip.clipStart);
+    if (vidRef.current) {
+      vidRef?.current?.seekTo(clip.clipStart);
+    }
     console.log(vidRef.current);
   };
 
@@ -121,9 +124,11 @@ const ExampleClipDisplay = ({ clip, i, seeExample, setSeeExample }) => {
                 width={"100%"}
                 height={"100%"}
                 loop
-                onReady={() => vidRef?.current?.seekTo(clip.clipStart)}
+                onReady={() =>
+                  vidRef?.current && vidRef?.current?.seekTo(clip.clipStart)
+                }
                 onProgress={({ playedSeconds }) => {
-                  if (playedSeconds >= clip.clipEnd) {
+                  if (playedSeconds >= clip.clipEnd && vidRef?.current) {
                     vidRef?.current?.seekTo(clip.clipStart);
                   }
                 }}
