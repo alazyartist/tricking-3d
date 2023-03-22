@@ -20,6 +20,18 @@ export const tricksRouter = router({
     // console.log(tricks);
     return tricks;
   }),
+  findCombosWithTrick: publicProcedure
+    .input(z.object({ trick_id: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const combos = await ctx.prisma.combos.findMany({
+        where: {
+          comboArray: { array_contains: { trick_id: input.trick_id } },
+        },
+        include: { Clips: { include: { summary: true } } },
+      });
+      // console.log(combos);
+      return combos;
+    }),
   findAllTransitions: publicProcedure.query(async ({ input, ctx }) => {
     const transitions = await ctx.prisma.transitions.findMany({});
     // console.log(transitions);
