@@ -96,7 +96,7 @@ const CombosWithTrickDisplay = ({ combos, trick }) => {
           </div>
           <div className={"text-xs"}>
             {combo.Clips.map((clip, i) => (
-              <div>
+              <div key={`${clip.id} ${i}`}>
                 <ExampleClipDisplay
                   clip={clip}
                   i={i}
@@ -115,7 +115,6 @@ const CombosWithTrickDisplay = ({ combos, trick }) => {
 export const ExampleClipDisplay = ({ clip, i, seeExample, setSeeExample }) => {
   const vidRef = useRef<ReactPlayer>();
   const [isPlaying, setIsPlaying] = useState(false);
-  if (!vidRef?.current) return;
   const handleClick = (id) => {
     setSeeExample(id);
     setIsPlaying(true);
