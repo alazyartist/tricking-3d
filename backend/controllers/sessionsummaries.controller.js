@@ -394,13 +394,13 @@ const calculateTrickTotals = async (tricks, curData) => {
 					//transitionType nerf
 					//if last > next: multiplier * nerf
 					//singular:1,sequential:0.5,unified:0.25
-					if (
-						i > 1 &&
-						(fullcomposition[i - 2] > fullcomposition[i] ||
-							fullcomposition[i - 2] > 1)
-					) {
-						console.log("increase *=fullcomposition[i]");
-					}
+					// if (
+					// 	i > 1 &&
+					// 	(fullcomposition[i - 2] > fullcomposition[i] ||
+					// 		fullcomposition[i - 2] > 1)
+					// ) {
+					// 	console.log("increase *=fullcomposition[i]");
+					// }
 					if (bonus) {
 						chains[`${chainNum}`].multiplier += compSubtotal / 10;
 					}
@@ -418,8 +418,8 @@ const calculateTrickTotals = async (tricks, curData) => {
 					// console.log("after", chains[`${chainNum}`].multiplier);
 
 					let getcurMultiplier = () => {
-						let compdif =
-							compSubtotal - (fullcomposition[i - 1] - fullcomposition[i + 1]);
+						// let compdif =
+						// 	compSubtotal - (fullcomposition[i - 1] - fullcomposition[i + 1]);
 						if (bonus) {
 							return chains[`${chainNum}`]?.multiplier * compSubtotal;
 						} else {
@@ -427,7 +427,7 @@ const calculateTrickTotals = async (tricks, curData) => {
 							if (fullcomposition[i - 1] > 1) {
 								return chains[`${chainNum}`]?.multiplier * compSubtotal;
 							}
-							console.log(compdif, compSubtotal, "comp");
+							// console.log(compdif, compSubtotal, "comp");
 							return chains[`${chainNum}`]?.multiplier;
 						}
 					};
