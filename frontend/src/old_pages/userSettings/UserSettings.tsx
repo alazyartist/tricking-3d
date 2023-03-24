@@ -11,8 +11,8 @@ const UserSettings = () => {
     console.log(router);
   }, [router]);
   return (
-    <div className="flex h-[100vh] w-full flex-col place-content-start place-items-center gap-2 bg-zinc-800 font-inter text-zinc-300">
-      <div className=" sticky top-0 flex w-full gap-2 bg-zinc-900 p-2 pb-4 pt-16 text-3xl font-bold">
+    <div className="flex h-[100vh] w-full flex-col place-content-start place-items-center gap-2 bg-zinc-800 bg-opacity-40 font-inter text-zinc-300 backdrop-blur-xl">
+      <div className=" sticky top-0 flex w-full gap-2 p-2 pt-8 text-3xl font-bold">
         <Link href={`${"home"}`}>
           <IoIosArrowBack />
         </Link>

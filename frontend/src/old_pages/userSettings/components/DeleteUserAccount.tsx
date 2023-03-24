@@ -21,13 +21,13 @@ const DeleteUserAccount = () => {
     <>
       <div
         onClick={() => setDeleteOpen(!deleteOpen)}
-        className="neumorphic active:neumorphicIn absolute bottom-16 right-4 py-2 px-4 text-sm text-red-200"
+        className=" absolute bottom-20 right-4 py-2 px-4 text-sm text-red-200"
       >
         Delete User Account
       </div>
       {deleteOpen && (
         <div
-          className={`neumorphicIn flex flex-col place-content-center place-items-center p-10 text-base`}
+          className={` flex flex-col place-content-center place-items-center p-10 text-base`}
         >
           {deleteCheck ? (
             <div className="absolute top-0 left-0 flex h-[100vh] w-[100vw] flex-col place-content-center place-items-center bg-red-500">
@@ -38,16 +38,16 @@ const DeleteUserAccount = () => {
                   account.
                 </div>
               </div>
-              <div className="neumorphic  grid grid-cols-2 gap-2 bg-opacity-80 p-4 text-xl ">
+              <div className="  grid grid-cols-2 gap-2 bg-opacity-80 p-4 text-xl ">
                 <button
                   onClick={() => handleDeleteUser()}
-                  className="neumorphic active:neumorphicIn bg-red-500 p-2 active:bg-red-500"
+                  className=" bg-red-500 p-2 active:bg-red-500"
                 >
                   Yes, Delete It All
                 </button>
                 <button
                   onClick={() => setDeleteCheck(false)}
-                  className="neumorphic active:neumorphicIn  bg-emerald-500 p-2 active:bg-emerald-500"
+                  className="  bg-emerald-500 p-2 active:bg-emerald-500"
                 >
                   No, I was Kidding!!
                 </button>
@@ -56,7 +56,7 @@ const DeleteUserAccount = () => {
           ) : (
             <button
               onClick={() => setDeleteCheck(true)}
-              className="neumorphic active:neumorphicIn bg-red-500 bg-opacity-80 p-4 text-xl active:bg-red-500"
+              className=" bg-red-500 bg-opacity-80 p-4 text-xl active:bg-red-500"
             >
               DELETE
             </button>
