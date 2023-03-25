@@ -390,7 +390,19 @@ const calculateTrickTotals = async (tricks, curData) => {
 					let compSubtotal = fullcomposition[i - 1] + fullcomposition[i + 1];
 					let bonus = compSubtotal >= 3.5;
 					chains[`${chainNum}`].count++;
-					chains[`${chainNum}`].multiplier += obj?.multiplier;
+					//touchdown Nerf
+					if (
+						fullTricks[i + 1].variations
+							.map((v) => v.variation.variationType)
+							.includes("Touchdown") &&
+						!fullTricks[i + 1].variations
+							.map((v) => v.variation.variationType)
+							.includes("Rotations")
+					) {
+						chains[`${chainNum}`].multiplier += obj?.multiplier * 0.222;
+					} else {
+						chains[`${chainNum}`].multiplier += obj?.multiplier;
+					}
 					//transitionType nerf
 					//if last > next: multiplier * nerf
 					//singular:1,sequential:0.5,unified:0.25
@@ -403,17 +415,6 @@ const calculateTrickTotals = async (tricks, curData) => {
 					// }
 					if (bonus) {
 						chains[`${chainNum}`].multiplier += compSubtotal / 10;
-					}
-					//touchdown Nerf
-					if (
-						fullTricks[i + 1].variations
-							.map((v) => v.variation.variationType)
-							.includes("Touchdown") &&
-						!fullTricks[i + 1].variations
-							.map((v) => v.variation.variationType)
-							.includes("Rotations")
-					) {
-						chains[`${chainNum}`].multiplier *= 0.125;
 					}
 					// console.log("after", chains[`${chainNum}`].multiplier);
 
