@@ -24,8 +24,9 @@ const DebatesOverview = () => {
       </div>
       <div className="grid grid-cols-2 gap-4">
         {isSuccess &&
+          debates &&
           debates.map((debate) => {
-            return <DebateCard debate={debate} />;
+            return <DebateCard key={debate.debateid} debate={debate} />;
           })}
       </div>
       {debateCreationOpen && (
@@ -38,14 +39,12 @@ const DebatesOverview = () => {
 export default DebatesOverview;
 const DebateCard = ({ debate }) => {
   const userInfo = useUserStore((s) => s.userInfo);
-
   return (
     <Link
       href={`/debate/${debate?.debateid}`}
       className={`${
         debate.closed ? "opacity-60" : ""
       } flex flex-col rounded-md bg-zinc-800 p-4 `}
-      key={debate.debateid}
     >
       <div className="text-xl">{debate.title}</div>
       <div className="text-xs">{debate.topic}</div>
