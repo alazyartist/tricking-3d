@@ -51,7 +51,7 @@ function TabBar() {
           <div
             style={navToggle}
             className={`relative left-0 flex ${
-              openNav ? "h-3" : "h-12"
+              openNav ? "h-12" : "h-12"
             } w-full place-content-center place-items-center gap-8 rounded-2xl bg-opacity-40 bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300 backdrop-blur-md`}
           >
             {isAdmin && (
@@ -90,7 +90,7 @@ function TabBar() {
               id="side-Menu"
               style={styles}
               onClick={() => setOpenHamburger(!openHamburger)}
-              className="fixed bottom-14 z-[100] rounded-l-xl"
+              className="fixed bottom-[5rem] z-[100] rounded-l-xl"
             >
               <animated.div className="flex h-[40vh] max-w-[40vw] flex-col gap-3 rounded-l-xl bg-gradient-to-br from-zinc-900 to-zinc-800 p-3 text-sm text-white">
                 <Link href="/about">About</Link>
