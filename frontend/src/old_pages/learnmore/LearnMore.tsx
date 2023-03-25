@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router.js";
 import React from "react";
 import DonateText from "../contribute/components/DonateText";
@@ -11,20 +12,19 @@ function LearnMore() {
   return (
     <div className="flex w-full flex-col place-items-center">
       <div className="h-screen w-fit rounded-md bg-zinc-900 bg-opacity-70 px-12">
-        <div id="sticky-header" className="sticky top-0 h-14 bg-zinc-900"></div>
-        <div className="no-scrollbar m-0 flex h-[88vh] w-full flex-col place-items-center justify-center overflow-y-scroll p-1">
+        <div className="no-scrollbar m-0 flex h-[88vh] w-full flex-col place-items-center justify-center overflow-y-scroll p-1 pt-14">
           <div className="flex h-full w-[80vw] max-w-[600px] flex-col place-content-start place-items-center gap-5 font-inter text-zinc-300">
             <h1 className="text-5xl font-bold">Road to Trickedex</h1>
             <p className="indent-4 text-base font-light">
               In order to get where we would like to have this project it will
               take some time and some community support.{" "}
             </p>
-            <button
-              className="rounded-xl bg-zinc-600 p-2 font-semibold text-sky-400"
-              onClick={() => nav.push("/contribute")}
+            <Link
+              href={"/contribute"}
+              className="rounded-md bg-zinc-600 px-4 text-xl font-semibold text-sky-400"
             >
-              Contribute
-            </button>
+              I want to help!
+            </Link>
             <h2 className="text-2xl font-semibold">What is the Trickedex?</h2>
             <p className="indent-4 text-base font-light">
               The Trickedex is the final goal for the current tricking-3d
@@ -38,6 +38,12 @@ function LearnMore() {
             <MachineLearning />
 
             <WhyBuildThis />
+            <Link
+              href={"/contribute"}
+              className="rounded-md bg-zinc-600 px-4 text-xl font-semibold text-sky-400"
+            >
+              I want to help!
+            </Link>
             <DonateText />
           </div>
         </div>
