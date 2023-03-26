@@ -42,9 +42,9 @@ function TabBar() {
 
   return (
     <>
-      <div
+      <animated.div
         className={`fixed bottom-0 ${
-          openNav ? "z-[1]" : "z-[1014]"
+          openNav ? "z-[1] select-none " : "z-[1014]"
         } w-[100%] overflow-hidden p-2 `}
       >
         <animated.div style={navToggle} className="relative">
@@ -80,7 +80,7 @@ function TabBar() {
             setOpenNav(!openNav);
           }}
         />
-      </div>
+      </animated.div>
 
       {/* Open Hamburger Menu Display */}
       {hamburger(

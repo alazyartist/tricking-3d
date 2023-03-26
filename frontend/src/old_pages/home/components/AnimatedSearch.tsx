@@ -36,7 +36,9 @@ const AnimatedSearch = () => {
     >
       {!searchOpen && (
         <IoMdSearch
-          onClick={() => setSearchOpen(!searchOpen)}
+          onClick={() => {
+            setSearchOpen(!searchOpen);
+          }}
           style={{
             //@ts-ignore
             paddingLeft: searchTransition.marginLeft,
