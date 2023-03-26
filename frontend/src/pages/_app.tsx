@@ -9,6 +9,7 @@ import "../autocomplete.css";
 import { useRouter } from "next/router";
 import TheoryTabBar from "@components/layout/TheoryTabBar";
 import { SessionProvider } from "next-auth/react";
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Session } from "next-auth";
 import { useEffect } from "react";
 import mixpanel from "@utils/mixpanel";
@@ -60,13 +61,15 @@ const MyApp: AppType<{
 
   return (
     <SessionProvider session={session}>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools position={"top-right"} />
-        <AppBackground />
-        {!path.includes("/landing") && path !== "/" && <UserIcon />}
-        {path.includes("/theory") ? <TheoryTabBar /> : <TabBar />}
-        <Component {...pageProps} />
-      </QueryClientProvider>
+      <ClerkProvider {...pageProps}>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools position={"top-right"} />
+          <AppBackground />
+          {!path.includes("/landing") && path !== "/" && <UserIcon />}
+          {path.includes("/theory") ? <TheoryTabBar /> : <TabBar />}
+          <Component {...pageProps} />
+        </QueryClientProvider>
+      </ClerkProvider>
     </SessionProvider>
   );
 };
