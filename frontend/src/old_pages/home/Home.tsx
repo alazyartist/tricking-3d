@@ -22,8 +22,15 @@ import UserList from "@components/UserList";
 import { AiOutlineUser } from "react-icons/ai";
 import TempFeed from "./components/TempFeed";
 import AnimatedSearch from "./components/AnimatedSearch";
+import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  SignOutButton,
+} from "@clerk/nextjs";
 const CapturesPage = dynamic(() => import("../dash/components/CapturesPage"));
 const ClaimTricks = dynamic(() => import("../claimtricks/ClaimTricks"));
+
 function Home() {
   // const user = useUserStore((s) => s.userInfo?.username);
   const { data } = trpc.userDB.findAll.useQuery();
@@ -94,6 +101,29 @@ function Home() {
 						</Suspense>
 						
           */}
+                <SignedIn>
+                  <div
+                    className={
+                      "rounded-md bg-sky-700 p-2 text-xl text-zinc-300"
+                    }
+                  >
+                    <SignOutButton />
+                  </div>
+
+                  <p>real gs can seee this message</p>
+                </SignedIn>
+                <SignedOut>
+                  <p>
+                    you migth want to{" "}
+                    <div
+                      className={
+                        "rounded-md bg-sky-700 p-2 text-xl text-zinc-300"
+                      }
+                    >
+                      <SignInButton />
+                    </div>
+                  </p>
+                </SignedOut>
                 <Link
                   href={"/sandbox"}
                   className=" mt-1 mb-1 w-[70vw] max-w-[600px]  rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)]"
