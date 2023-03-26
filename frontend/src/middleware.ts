@@ -1,7 +1,18 @@
 import { NextResponse } from "next/server";
+import { withClerkMiddleware } from "@clerk/nextjs/server";
 import { jwtVerify, importJWK } from "jose";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
+
+export default withClerkMiddleware((req: NextRequest) => {
+  return NextResponse.next();
+});
+
+// Stop Middleware running on static files
+export const config = {
+  matcher: "/((?!_next/image|_next/static|favicon.ico).*)",
+};
+
 export async function middleware(request: NextRequest) {
   // Assume a "Cookie:nextjs=fast" header to be present on the incoming request
   // Getting cookies from the request using the `RequestCookies` API
