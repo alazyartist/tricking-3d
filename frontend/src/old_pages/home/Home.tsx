@@ -27,6 +27,7 @@ import {
   SignedIn,
   SignedOut,
   SignOutButton,
+  UserButton,
 } from "@clerk/nextjs";
 const CapturesPage = dynamic(() => import("../dash/components/CapturesPage"));
 const ClaimTricks = dynamic(() => import("../claimtricks/ClaimTricks"));
@@ -111,6 +112,7 @@ function Home() {
                   </div>
 
                   <p>real gs can seee this message</p>
+                  <UserButton />
                 </SignedIn>
                 <SignedOut>
                   <p>
@@ -120,7 +122,7 @@ function Home() {
                         "rounded-md bg-sky-700 p-2 text-xl text-zinc-300"
                       }
                     >
-                      <SignInButton />
+                      <SignInButton mode="modal" />
                     </div>
                   </p>
                 </SignedOut>
