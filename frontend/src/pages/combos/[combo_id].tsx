@@ -15,7 +15,7 @@ const ComboPage = () => {
   if (!isSuccess) return <div>Loading..</div>;
   return (
     <div
-      className={`backrop-blur-xl no-scrollbar flex h-[100vh] w-full flex-col place-items-center gap-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-70 p-4 font-inter text-zinc-300`}
+      className={`backrop-blur-xl no-scrollbar no-scrollbar flex h-[100vh] w-full flex-col place-items-center gap-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-70 p-4 font-inter text-zinc-300`}
     >
       <div className="absolute top-4 left-4">
         <AnimatedSearch />

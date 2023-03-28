@@ -102,7 +102,7 @@ function Home() {
 						</Suspense>
 						
           */}
-                <SignedIn>
+                {/* <SignedIn>
                   <div
                     className={
                       "rounded-md bg-sky-700 p-2 text-xl text-zinc-300"
@@ -125,7 +125,7 @@ function Home() {
                       <SignInButton mode="modal" />
                     </div>
                   </p>
-                </SignedOut>
+                </SignedOut> */}
                 <Link
                   href={"/sandbox"}
                   className=" mt-1 mb-1 w-[70vw] max-w-[600px]  rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)]"
@@ -177,7 +177,7 @@ function Home() {
             )}
           {openComboMaker && (
             <div
-              className={` relative top-0 my-2 flex max-h-[75vh] w-full max-w-[700px] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-800 bg-opacity-40 pt-[3vh] backdrop-blur-xl ${
+              className={` no-scrollbar relative top-0 my-2 flex max-h-[75vh] w-full max-w-[700px] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-800 bg-opacity-40 pt-[3vh] backdrop-blur-xl ${
                 openComboMaker ? "col-span-2 row-span-2 my-0" : ""
               }`}
             >

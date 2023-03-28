@@ -73,8 +73,8 @@ const CombosWithTrickDisplay = ({ combos, trick }) => {
       <h1>Combos containing {trick}</h1>
       {combos.map((combo) => (
         <div key={combo.combo_id}>
-          <div className="flex justify-between overflow-hidden overflow-x-scroll rounded-md bg-zinc-800 p-2 text-xs">
-            <div className="flex gap-1 overflow-hidden overflow-x-scroll text-xs">
+          <div className="no-scrollbar flex justify-between overflow-hidden overflow-x-scroll rounded-md bg-zinc-800 p-2 text-xs">
+            <div className="no-scrollbar flex gap-1 overflow-hidden overflow-x-scroll text-xs">
               {combo.comboArray.map((trick, i) => (
                 <div
                   className={"flex place-items-center gap-1 whitespace-nowrap"}
@@ -129,7 +129,7 @@ export const ExampleClipDisplay = ({ clip, i, seeExample, setSeeExample }) => {
       {seeExample === clip.id && (
         <div>
           <div className="p-2">
-            <div className="flex aspect-video w-full overflow-clip rounded-md">
+            <div className="no-scrollbar flex aspect-video w-full overflow-clip rounded-md">
               <ReactPlayer
                 ref={vidRef}
                 config={{ facebook: { appId: "508164441188790" } }}
