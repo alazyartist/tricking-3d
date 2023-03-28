@@ -3,7 +3,9 @@ import { z } from "zod";
 
 export const comboRouter = router({
   getAll: publicProcedure.query(async ({ ctx }) => {
-    const combos = await ctx.prisma.combos.findMany();
+    const combos = await ctx.prisma.combos.findMany({
+      include: { Clips: true },
+    });
     return combos;
   }),
   findById: publicProcedure
