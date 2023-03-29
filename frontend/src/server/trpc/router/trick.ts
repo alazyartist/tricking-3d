@@ -1,5 +1,6 @@
 import { router, publicProcedure, protectedProcedure } from "../trpc";
 import { z } from "zod";
+import { combos, tricks } from "@prisma/client";
 
 export const tricksRouter = router({
   findById: publicProcedure
@@ -19,6 +20,29 @@ export const tricksRouter = router({
     const tricks = await ctx.prisma.tricks.findMany({});
     // console.log(tricks);
     return tricks;
+  }),
+  findAllwithComboClips: publicProcedure.query(async ({ input, ctx }) => {
+    const tricks = await ctx.prisma.tricks.findMany({});
+    // console.log(tricks);
+    //@ts-ignore
+    const trickMap = tricks.map(async (trick) => {
+      const combos = await ctx.prisma.combos.findMany({
+        where: {
+          comboArray: { array_contains: { trick_id: trick.trick_id } },
+        },
+        include: {
+          Clips: {
+            include: { summary: { include: { SessionSources: true } } },
+          },
+        },
+      });
+      return { ...trick, combos: combos };
+    }) as (tricks & { combos: Awaited<Promise<combos>> })[];
+    await Promise.all(trickMap);
+    type trickarr = Awaited<typeof trickMap>;
+
+    console.log(trickMap[0]);
+    return Promise.all(trickMap);
   }),
   findCombosWithTrick: publicProcedure
     .input(z.object({ trick_id: z.string() }))
