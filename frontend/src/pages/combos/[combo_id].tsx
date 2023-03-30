@@ -1,4 +1,5 @@
 import AnimatedSearch from "@old_pages/home/components/AnimatedSearch";
+import { combos } from "@prisma/client";
 import { trpc } from "@utils/trpc";
 import { useRouter } from "next/router";
 import { ExampleClipDisplay } from "pages/tricks/[trick_id]";
@@ -13,6 +14,8 @@ const ComboPage = () => {
   });
   const [seeExample, setSeeExample] = useState("");
   if (!isSuccess) return <div>Loading..</div>;
+  //@ts-ignore
+  const comboArray = comboInfo.comboArray as combos[];
   return (
     <div
       className={`backrop-blur-xl no-scrollbar no-scrollbar flex h-[100vh] w-full flex-col place-items-center gap-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-70 p-4 font-inter text-zinc-300`}
@@ -20,8 +23,16 @@ const ComboPage = () => {
       <div className="absolute top-4 left-4">
         <AnimatedSearch />
       </div>
-      <div className="flex place-items-center gap-2">
-        <h1 className="text-bold text-2xl ">{comboInfo.name}</h1>
+      <div className="flex place-items-center gap-2 pt-14">
+        <h1 className="text-bold flex w-full flex-wrap text-2xl">
+          {Array.isArray(comboArray) &&
+            comboArray?.map((c: combos, i) => (
+              <span className={"whitespace-nowrap"}>
+                {c.name}
+                {i + 1 !== comboArray?.length ? ">" : ""}
+              </span>
+            ))}
+        </h1>
         <p>{comboInfo.pointValue}</p>
       </div>
       <p>{comboInfo.type}</p>

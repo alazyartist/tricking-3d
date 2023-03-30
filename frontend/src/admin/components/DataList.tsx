@@ -14,7 +14,8 @@ const DataList = () => {
   const { data: combos } = trpc.combos.getAll.useQuery();
   // const { data: trickPoints, refetch } = useGetTrickPoints();
   let trickMakerOpen = useSessionSummariesStore((s) => s.trickMakerOpen);
-  if (!tricks) return <div>No Tricks</div>;
+  if (!combos) return <div>Getting Combos</div>;
+  if (!tricks) return <div>Getting Tricks</div>;
 
   return (
     <div className="no-scrollbar flex max-h-[70vh] w-full flex-col place-items-center gap-2 overflow-y-scroll rounded-xl pb-14">
