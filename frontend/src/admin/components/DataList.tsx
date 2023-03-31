@@ -12,7 +12,7 @@ const DataList = () => {
   // const { data: combos } = useGetCombos();
   const { data: tricks } = trpc.trick.findAllwithComboClips.useQuery();
   const { data: combos } = trpc.combos.getAll.useQuery();
-  // const { data: trickPoints, refetch } = useGetTrickPoints();
+  const { data: trickPoints, refetch } = useGetTrickPoints();
   let trickMakerOpen = useSessionSummariesStore((s) => s.trickMakerOpen);
   if (!combos) return <div>Getting Combos</div>;
   if (!tricks) return <div>Getting Tricks</div>;
