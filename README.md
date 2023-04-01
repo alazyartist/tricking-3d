@@ -35,21 +35,9 @@ Using the XSENS Link Motion Capture System We will be capturing animation data f
 
 ---
 
-### **Working Beta**
+# Growing Project Scope
 
-Updating Alpha to interpret between animations using the interactive GUI to set parameters. -removing as many animation keyframes as possible
-
----
-
-### **Beta Release**
-
-Release of Initial Beta
-
----
-
-### **Release**
-
-**PUBLIC RELEASE OF FINAL PRODUCT!**
+the scope of this project is continuously chaninging to include everything neccessary for the Trickedex to provide the best user experience whether you're a new tricker looking to learn or an older tricker looking to stay in the know on what's happening.
 
 ---
 
