@@ -28,6 +28,7 @@ import {
   SignedOut,
   SignOutButton,
   UserButton,
+  SignUpButton,
 } from "@clerk/nextjs";
 const CapturesPage = dynamic(() => import("../dash/components/CapturesPage"));
 const ClaimTricks = dynamic(() => import("../claimtricks/ClaimTricks"));
@@ -116,10 +117,23 @@ function Home() {
                 <SignedOut>
                   <div
                     className={
-                      "rounded-xl bg-zinc-300 p-3 py-2 text-xl text-zinc-700"
+                      "flex w-full place-content-center place-items-center gap-4"
                     }
                   >
-                    <SignInButton mode="modal">Login</SignInButton>
+                    <div
+                      className={
+                        "rounded-xl bg-zinc-300 p-3 py-2 text-xl text-zinc-700"
+                      }
+                    >
+                      <SignInButton mode="modal">Login</SignInButton>
+                    </div>
+                    <div
+                      className={
+                        "rounded-xl bg-zinc-700 p-3 py-2 text-xl text-zinc-300"
+                      }
+                    >
+                      <SignUpButton mode="modal">Register</SignUpButton>
+                    </div>
                   </div>
                 </SignedOut>
                 <Button
