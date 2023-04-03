@@ -111,28 +111,25 @@ function Home() {
                     <SignOutButton />
                   </div>
 
-                  <p>real gs can seee this message</p>
                   <UserButton />
                 </SignedIn>
                 <SignedOut>
-                  <p>
-                    <div
-                      className={
-                        "rounded-md bg-sky-700 py-1 px-4 text-xl text-zinc-300"
-                      }
-                    >
-                      <SignInButton mode="modal">LogIn</SignInButton>
-                    </div>
-                  </p>
+                  <div
+                    className={
+                      "rounded-xl bg-zinc-300 p-3 py-2 text-xl text-zinc-700"
+                    }
+                  >
+                    <SignInButton mode="modal">Login</SignInButton>
+                  </div>
                 </SignedOut>
-                <Link
+                <Button
                   href={"/sandbox"}
-                  className=" mt-1 mb-1 w-[70vw] max-w-[600px]  rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)]"
-                >
-                  <span className="flex place-content-center items-center gap-2">
-                    Sandbox <BiCube />
-                  </span>
-                </Link>
+                  label={
+                    <span className="flex place-content-center items-center gap-2">
+                      Sandbox <BiCube />
+                    </span>
+                  }
+                />
                 <Link
                   href={"/pppoints"}
                   className=" mt-1 mb-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)]"
