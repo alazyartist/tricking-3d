@@ -103,7 +103,7 @@ function Home() {
 						</Suspense>
 						
           */}
-                <SignedIn>
+                {/* <SignedIn>
                   <div
                     className={
                       "rounded-md bg-sky-700 p-2 text-xl text-zinc-300"
@@ -135,7 +135,7 @@ function Home() {
                       <SignUpButton mode="modal">Register</SignUpButton>
                     </div>
                   </div>
-                </SignedOut>
+                </SignedOut> */}
                 <Button
                   href={"/sandbox"}
                   label={
