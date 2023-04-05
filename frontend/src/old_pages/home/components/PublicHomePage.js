@@ -2,7 +2,14 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 // import ComboMakerBlueprint from "../../../data/ComboMakerBlueprint.svg";
-
+import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  SignOutButton,
+  UserButton,
+  SignUpButton,
+} from "@clerk/nextjs";
 import MultiDonateButton from "../../../components/info/MultiDonateButton";
 import TheoryCap from "../../../data/icons/TheoryCap";
 import ComboMakerBlueprintsvg from "@data/ComboMakerBlueprintsvg";
@@ -40,14 +47,30 @@ const PublicHomePage = () => {
           */}
 
       <div className=" flex gap-4">
-        <Link href="/login">
+        <div
+          className={
+            "flex w-full place-content-center place-items-center gap-4"
+          }
+        >
+          <div
+            className={"rounded-xl bg-zinc-300 p-3 py-2 text-xl text-zinc-700"}
+          >
+            <SignInButton mode="modal">Login</SignInButton>
+          </div>
+          <div
+            className={"rounded-xl bg-zinc-700 p-3 py-2 text-xl text-zinc-300"}
+          >
+            <SignUpButton mode="modal">Register</SignUpButton>
+          </div>
+        </div>
+        {/* <Link href="/login">
           <div className="w-fit rounded-xl bg-zinc-300 p-3">LOGIN</div>
         </Link>
         <Link href="/register">
           <div className="w-fit rounded-xl bg-zinc-700 p-3 text-zinc-300">
             REGISTER
           </div>
-        </Link>
+        </Link> */}
       </div>
 
       <div className="bottom-8 py-8">
