@@ -20,7 +20,7 @@ import SessionSourceDisplay from "./sessionreview/SessionSourceDisplay";
 
 const AdminSessionReview = () => {
   const router = useRouter();
-  const sessionid = router.query["sessionid"];
+  const { sessionid } = router.query;
   console.log("sessionid", sessionid);
   const { data: tricks } = useGetTricks();
   const { data: combos } = trpc.combos.getAll.useQuery();
@@ -33,9 +33,9 @@ const AdminSessionReview = () => {
     (s) => s.setSessionSources
   );
   const sessionDetails = data?.data;
-  useEffect(() => {
-    clearSessionData();
-  }, []);
+  // useEffect(() => {
+  //   clearSessionData();
+  // }, []);
   useEffect(() => {
     clearSessionData();
     setSessionid(sessionid as string);

@@ -42,7 +42,6 @@ const GlobalSearch = ({
         placeholder="search everything"
         openOnFocus={true}
         autoFocus={true}
-        debug={true}
       />
     </div>
   );

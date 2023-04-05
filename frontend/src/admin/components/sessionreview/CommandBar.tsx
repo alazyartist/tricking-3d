@@ -20,6 +20,8 @@ import { useUserStore } from "@store/userStore";
 import { trpc } from "../../../utils/trpc";
 import { transitions, tricks } from "@prisma/client";
 const CommandBar = ({ tricks, combos }) => {
+  if (!tricks) return <></>;
+  if (!combos) return <></>;
   return (
     <div className="absolute bottom-[44px] left-[10vw] z-[10] h-[8vh] w-[80vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:left-[20vw] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]">
       <Autocomplete
