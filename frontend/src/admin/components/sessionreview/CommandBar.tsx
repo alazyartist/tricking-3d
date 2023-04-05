@@ -471,7 +471,7 @@ const Autocomplete = (props: any) => {
                     },
                   },
                 ]
-                  .sort((a, b) => {
+                  ?.sort((a, b) => {
                     if (a.label.length < b.label.length) return -1;
                     if (a.label.length > b.label.length) return 1;
                     if (a.label > b.label) return 1;
@@ -481,7 +481,7 @@ const Autocomplete = (props: any) => {
 
                     return 0;
                   })
-                  .filter((i) => pattern.test(i.label));
+                  ?.filter((i) => pattern.test(i.label));
               },
             },
             {
@@ -513,6 +513,7 @@ const Autocomplete = (props: any) => {
               getItems: async () => {
                 const pattern = getQueryPattern(query);
                 await tricks;
+                if (!tricks) return [];
                 if (query.length > 0) {
                   return tricks
                     ?.filter((t) => pattern.test(t.name))
@@ -578,6 +579,7 @@ const Autocomplete = (props: any) => {
               getItems: async () => {
                 const pattern = getQueryPattern(query);
                 await combos;
+                if (!combos) return [];
                 if (query.length > 0) {
                   return combos
                     ?.filter((t) => pattern.test(t.name))
