@@ -38,7 +38,7 @@ const SessionSummariesOverview = () => {
         {Array.isArray(sessions?.data) &&
           sessions?.data
             ?.filter((s) => s.status === "Reviewed")
-            ?.map((s) => <SessionDisplay s={s} />)}
+            ?.map((s) => <SessionDisplay key={s.sessionid} s={s} />)}
       </div>
     </div>
   );

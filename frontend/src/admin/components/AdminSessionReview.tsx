@@ -9,14 +9,21 @@ import SessionDetailDisplay from "./sessionreview/SessionDetailDisplay";
 import { useSessionSummariesStore } from "./sessionreview/SessionSummaryStore";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-const SessionSourceDisplay = dynamic(
-  () => import("./sessionreview/SessionSourceDisplay"),
-  { ssr: false }
-);
+import useGetTricks from "@api/useGetTricks";
+import { trpc } from "@utils/trpc";
+
+import SessionSourceDisplay from "./sessionreview/SessionSourceDisplay";
+// const SessionSourceDisplay = dynamic(
+//   () => import("./sessionreview/SessionSourceDisplay"),
+//   { ssr: false }
+// );
 
 const AdminSessionReview = () => {
   const router = useRouter();
-  const { sessionid } = router.query;
+  const sessionid = router.query["sessionid"];
+  console.log("sessionid", sessionid);
+  const { data: tricks } = useGetTricks();
+  const { data: combos } = trpc.combos.getAll.useQuery();
   const { data } = useGetSessionDetailsbySessionid(sessionid);
   const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
   const setSessionid = useSessionSummariesStore((s) => s.setSessionid);
@@ -89,7 +96,9 @@ const AdminSessionReview = () => {
       )}
       <MakeNewTrickModal />
       <ActiveClipDisplay />
-      <CommandBar />
+      {tricks !== undefined && combos !== undefined && (
+        <CommandBar tricks={tricks} combos={combos} />
+      )}
     </div>
   );
 };
