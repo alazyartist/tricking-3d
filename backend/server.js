@@ -19,12 +19,12 @@ import { battleroomRoutes } from "./routes/battleroom.routes.js";
 import { sessionSummariesRoutes } from "./routes/sessionsummaries.routes.js";
 import { webhookRoutes } from "./routes/webhook.routes.js";
 import { paymentRoutes } from "./routes/payment.routes.js";
-import {
-	ClerkExpressRequireAuth,
-	ClerkExpressWithAuth,
-} from "@clerk/clerk-sdk-node";
-import { Clerk } from "@clerk/clerk-sdk-node";
-const clerk = new Clerk({ secretKey: process.env.CLERK_SECRET_KEY });
+// import {
+// 	ClerkExpressRequireAuth,
+// 	ClerkExpressWithAuth,
+// } from "@clerk/clerk-sdk-node";
+// import { Clerk } from "@clerk/clerk-sdk-node";
+// const clerk = new Clerk({ secretKey: process.env.CLERK_SECRET_KEY });
 const corsOptions = {
 	origin: [
 		"http://localhost:3000",
@@ -55,12 +55,12 @@ app.use((req, res, next) => {
 });
 
 //Middlewares
-app.use("/api/test", ClerkExpressRequireAuth(), async (req, res) => {
-	const testUser = await clerk.users.getUser(req.auth.userId);
+// app.use("/api/test", ClerkExpressRequireAuth(), async (req, res) => {
+// 	const testUser = await clerk.users.getUser(req.auth.userId);
 
-	console.log(testUser);
-	return res.json({ test: "information", "to see": "if it works" });
-});
+// 	console.log(testUser);
+// 	return res.json({ test: "information", "to see": "if it works" });
+// });
 app.use("/api/checkout", paymentRoutes);
 app.get("/api/ablyAuth", ablyAuth);
 app.use("/api/refresh", refreshRoutes);
