@@ -8,14 +8,22 @@ import useGetTricks from "@api/useGetTricks";
 import { trpc } from "@utils/trpc";
 import { getQueryPattern } from "../../admin/DataListCommandBar";
 import { useRouter } from "next/router";
-const GlobalSearch = ({ searchOpen }) => {
-  const { data: tricks } = trpc.trick.findAll.useQuery();
-  const { data: transitions } = trpc.trick.findAllTransitions.useQuery();
-  const { data: stances } = trpc.trick.findAllStances.useQuery();
-  const { data: combos } = trpc.combos.getAll.useQuery();
-  const { data: users } = trpc.userDB.findAll.useQuery();
-  const { data: sessionsummaries } =
-    trpc.sessionsummaries.getAllSessionSummaries.useQuery();
+const GlobalSearch = ({
+  searchOpen,
+  tricks,
+  transitions,
+  stances,
+  combos,
+  users,
+  sessionsummaries,
+}) => {
+  // const { data: tricks } = trpc.trick.findAll.useQuery();
+  // const { data: transitions } = trpc.trick.findAllTransitions.useQuery();
+  // const { data: stances } = trpc.trick.findAllStances.useQuery();
+  // const { data: combos } = trpc.combos.getAll.useQuery();
+  // const { data: users } = trpc.userDB.findAll.useQuery();
+  // const { data: sessionsummaries } =
+  //   trpc.sessionsummaries.getAllSessionSummaries.useQuery();
 
   return (
     <div>
