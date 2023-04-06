@@ -18,13 +18,22 @@ import SessionSourceDisplay from "./sessionreview/SessionSourceDisplay";
 //   { ssr: false }
 // );
 
-const AdminSessionReview = () => {
-  const router = useRouter();
-  const { sessionid } = router.query;
-  console.log("sessionid", sessionid);
-  const { data: tricks } = useGetTricks();
-  const { data: combos } = trpc.combos.getAll.useQuery();
-  const { data } = useGetSessionDetailsbySessionid(sessionid);
+const AdminSessionReview = ({
+  sessionid,
+  sessionDetails,
+  initialTricks,
+  initialCombos,
+}) => {
+  // const { data: tricks } = useGetTricks();
+  const { data: tricks } = trpc.trick.getAll.useQuery(
+    {},
+    { initialData: initialTricks }
+  );
+  const { data: combos } = trpc.combos.getAll.useQuery(
+    {},
+    { initialData: initialCombos }
+  );
+  // const { data } = useGetSessionDetailsbySessionid(sessionid);
   const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
   const setSessionid = useSessionSummariesStore((s) => s.setSessionid);
   const setSessionData = useSessionSummariesStore((s) => s.setSessionData);
@@ -32,7 +41,7 @@ const AdminSessionReview = () => {
   const setSessionSources = useSessionSummariesStore(
     (s) => s.setSessionSources
   );
-  const sessionDetails = data?.data;
+  // const sessionDetails = data?.data;
   // useEffect(() => {
   //   clearSessionData();
   // }, []);
@@ -58,7 +67,6 @@ const AdminSessionReview = () => {
   }, [
     sessionid,
     sessionDetails,
-    data,
     clearSessionData,
     setSessionData,
     setSessionid,

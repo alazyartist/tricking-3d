@@ -8,22 +8,26 @@ export const sessionsummariesRouter = router({
       const sessionSummary = await ctx.prisma.sessionsummaries.findUnique({
         where: { sessionid: input.sessionid },
         include: {
-          trickers: {
-            include: { user: true },
-          },
+          SessionSources: true,
+          trickers: { include: { user: true } },
+          SessionData: { include: { ClipLabel: true, SessionSource: true } },
         },
       });
-      const SessionSources = await ctx.prisma.sessionsources.findMany({
-        where: { sessionid: input.sessionid },
-      });
-      const SessionData = await ctx.prisma.sessiondata.findMany({
-        where: { sessionid: input.sessionid },
-      });
-      return {
-        SessionData,
-        SessionSources,
-        ...sessionSummary,
-      };
+      // const sessionSummary = await ctx.prisma.sessionsummaries.findUnique({
+      //   where: { sessionid: input.sessionid },
+      //   include: {
+      //     trickers: {
+      //       include: { user: true },
+      //     },
+      //   },
+      // });
+      // const SessionSources = await ctx.prisma.sessionsources.findMany({
+      //   where: { sessionid: input.sessionid },
+      // });
+      // const SessionData = await ctx.prisma.sessiondata.findMany({
+      //   where: { sessionid: input.sessionid },
+      // });
+      return sessionSummary;
     }),
   compareDetailsById: publicProcedure
     .input(z.object({ sessions: z.array(z.string()) }))

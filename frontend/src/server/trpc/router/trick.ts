@@ -21,6 +21,15 @@ export const tricksRouter = router({
     // console.log(tricks);
     return tricks;
   }),
+  getAll: publicProcedure
+    .input(z.object({}).optional())
+    .query(async ({ input, ctx }) => {
+      const tricks = await ctx.prisma.tricks.findMany({});
+      const transitions = await ctx.prisma.transitions.findMany({});
+      const stances = await ctx.prisma.stances.findMany({});
+      // console.log(tricks);
+      return [...tricks, ...transitions, ...stances];
+    }),
   findAllwithComboClips: publicProcedure.query(async ({ input, ctx }) => {
     const tricks = await ctx.prisma.tricks.findMany({});
     // console.log(tricks);

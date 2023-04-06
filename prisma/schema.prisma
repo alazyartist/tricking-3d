@@ -228,6 +228,7 @@ model sessiondata {
   tricker users? @relation(fields: [tricker_id],references: [uuid])
   summary sessionsummaries? @relation(fields: [sessionid],references: [sessionid] )
   ClipLabel combos? @relation(fields: [clipLabel],references: [combo_id])
+  SessionSource sessionsources? @relation(fields: [srcid],references: [srcid])
   @@index([sessionid])
 
 }
@@ -249,6 +250,7 @@ model sessionsources {
   createdAt DateTime @default(now()) @db.DateTime(0)
   updatedAt DateTime @default(now()) @db.DateTime(0)
   SessionSummary sessionsummaries? @relation(fields: [sessionid],references: [sessionid])
+  SessionData sessiondata[]
   @@unique([sessionid, vidsrc], map: "vidsrckey")
 }
 

@@ -95,10 +95,14 @@ export const useGetAllSessions = () => {
     return apiPrivate.get("/sessionsummaries");
   });
 };
-export const useGetSessionDetailsbySessionid = (sessionid) => {
+export const useGetSessionDetailsbySessionid = (sessionid, initialData) => {
   const apiPrivate = useApiCreds();
   const queryClient = useQueryClient();
-  return useQuery(["sessionsummaries"], async () => {
-    return apiPrivate.get(`/sessionsummaries/${sessionid}`);
-  });
+  return useQuery(
+    ["sessionsummaries"],
+    async () => {
+      return apiPrivate.get(`/sessionsummaries/${sessionid}`);
+    },
+    { initialData: initialData }
+  );
 };
