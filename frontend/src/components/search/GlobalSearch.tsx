@@ -456,7 +456,7 @@ const Autocomplete = (props: any) => {
     return () => {
       search.destroy();
     };
-  }, [props]);
+  }, [props, tricks, transitions, stances, combos, users, sessionsummaries]);
 
   return (
     <>
