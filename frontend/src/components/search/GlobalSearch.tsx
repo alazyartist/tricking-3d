@@ -173,7 +173,7 @@ const Autocomplete = (props: any) => {
               item({ item }: any) {
                 return (
                   <span className="flex justify-between">
-                    <p>{item.name}</p>
+                    <p>{item?.name}</p>
                     <span className="flex gap-2">
                       <p>{item.type}</p>
                     </span>
