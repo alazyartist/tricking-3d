@@ -7,6 +7,14 @@ const sessionsources = await db.sequelize.models.SessionSources;
 const sessiondata = await db.sequelize.models.SessionData;
 const combo = await db.sequelize.models.Combo;
 const users = await db.sequelize.models.Users;
+export const getMLData = async (req, res) => {
+	const sessionSummaries = await prisma.sessionsummaries.findMany({
+		include: {
+			SessionData: { include: { ClipLabel: true, SessionSource: true } },
+		},
+	});
+	res.json(sessionSummaries);
+};
 export const submitSessionforReview = async (req, res) => {
 	const {
 		user_id,

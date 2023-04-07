@@ -135,10 +135,10 @@ const Autocomplete = (props: any) => {
                 return tricks
                   ?.filter((t) => pattern.test(t.name))
                   ?.sort((a, b) => {
-                    if (a.name.length < b.name.length) return -1;
-                    if (a.name.length > b.name.length) return 1;
-                    if (a.name > b.name) return 1;
-                    if (a.name < b.name) return -1;
+                    if (a?.name?.length < b?.name?.length) return -1;
+                    if (a?.name?.length > b?.name?.length) return 1;
+                    if (a?.name > b?.name) return 1;
+                    if (a?.name < b?.name) return -1;
                     //check your filters
                     //then check the length
 
@@ -189,10 +189,10 @@ const Autocomplete = (props: any) => {
                 return combos
                   ?.filter((t) => pattern.test(t.name))
                   ?.sort((a, b) => {
-                    if (a.name.length < b.name.length) return -1;
-                    if (a.name.length > b.name.length) return 1;
-                    if (a.name > b.name) return 1;
-                    if (a.name < b.name) return -1;
+                    if (a?.name?.length < b?.name?.length) return -1;
+                    if (a?.name?.length > b?.name?.length) return 1;
+                    if (a?.name > b?.name) return 1;
+                    if (a?.name < b?.name) return -1;
                     //check your filters
                     //then check the length
 
@@ -200,10 +200,10 @@ const Autocomplete = (props: any) => {
                   });
               } else
                 return combos?.sort((a, b) => {
-                  if (a.name > b.name) return 1;
-                  if (a.name < b.name) return -1;
-                  if (a.name.length < b.name.length) return -1;
-                  if (a.name.length > b.name.length) return 1;
+                  if (a?.name > b?.name) return 1;
+                  if (a?.name < b?.name) return -1;
+                  if (a?.name?.length < b?.name?.length) return -1;
+                  if (a?.name?.length > b?.name?.length) return 1;
                   //check your filters
                   //then check the length
 

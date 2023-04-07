@@ -19,6 +19,7 @@ import { battleroomRoutes } from "./routes/battleroom.routes.js";
 import { sessionSummariesRoutes } from "./routes/sessionsummaries.routes.js";
 import { webhookRoutes } from "./routes/webhook.routes.js";
 import { paymentRoutes } from "./routes/payment.routes.js";
+import { getMLData } from "./controllers/sessionsummaries.controller.js";
 // import {
 // 	ClerkExpressRequireAuth,
 // 	ClerkExpressWithAuth,
@@ -61,6 +62,7 @@ app.use((req, res, next) => {
 // 	console.log(testUser);
 // 	return res.json({ test: "information", "to see": "if it works" });
 // });
+app.use("/api/ml", getMLData);
 app.use("/api/checkout", paymentRoutes);
 app.get("/api/ablyAuth", ablyAuth);
 app.use("/api/refresh", refreshRoutes);
