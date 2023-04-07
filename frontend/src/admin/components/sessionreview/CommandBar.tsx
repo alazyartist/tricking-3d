@@ -558,7 +558,7 @@ const Autocomplete = (props: any) => {
                         {item?.comboArray?.length &&
                           item?.comboArray?.map((t, i) => (
                             <span key={item.comboid}>
-                              {t.name}
+                              {t?.name}
                               {i !== item.comboArray?.length - 1 && ">"}
                             </span>
                           ))}
