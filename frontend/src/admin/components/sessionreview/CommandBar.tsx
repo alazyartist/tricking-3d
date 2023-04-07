@@ -526,18 +526,16 @@ const Autocomplete = (props: any) => {
                       return 0;
                     });
                 } else
-                  return tricks
-                    ?.filter((t) => pattern.test(t.name))
-                    ?.sort((a, b) => {
-                      if (a.name > b.name) return 1;
-                      if (a.name < b.name) return -1;
-                      if (a.name?.length < b.name?.length) return -1;
-                      if (a.name?.length > b.name?.length) return 1;
-                      //check your filters
-                      //then check the length
+                  return tricks?.sort((a, b) => {
+                    if (a.name > b.name) return 1;
+                    if (a.name < b.name) return -1;
+                    if (a.name?.length < b.name?.length) return -1;
+                    if (a.name?.length > b.name?.length) return 1;
+                    //check your filters
+                    //then check the length
 
-                      return 0;
-                    });
+                    return 0;
+                  });
               },
               onSelect(params) {
                 const { item, setQuery } = params;
@@ -555,14 +553,11 @@ const Autocomplete = (props: any) => {
                 },
                 item({ item }: any) {
                   return (
-                    <span
-                      key={item.comboid}
-                      className="flex h-fit w-full justify-between"
-                    >
+                    <span className="flex h-fit w-full justify-between">
                       <p className="w-full p-2">
                         {item?.comboArray?.length &&
                           item?.comboArray?.map((t, i) => (
-                            <span>
+                            <span key={item.comboid}>
                               {t.name}
                               {i !== item.comboArray?.length - 1 && ">"}
                             </span>
@@ -594,18 +589,16 @@ const Autocomplete = (props: any) => {
                       return 0;
                     });
                 } else
-                  return combos
-                    ?.filter((t) => pattern.test(t?.name))
-                    ?.sort((a, b) => {
-                      if (a?.name > b?.name) return 1;
-                      if (a?.name < b?.name) return -1;
-                      if (a?.name?.length < b?.name?.length) return -1;
-                      if (a?.name?.length > b?.name?.length) return 1;
-                      //check your filters
-                      //then check the length
+                  return combos?.sort((a, b) => {
+                    if (a?.name > b?.name) return 1;
+                    if (a?.name < b?.name) return -1;
+                    if (a?.name?.length < b?.name?.length) return -1;
+                    if (a?.name?.length > b?.name?.length) return 1;
+                    //check your filters
+                    //then check the length
 
-                      return 0;
-                    });
+                    return 0;
+                  });
               },
               onSelect(params) {
                 const { item, setQuery } = params;
