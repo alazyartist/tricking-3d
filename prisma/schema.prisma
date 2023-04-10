@@ -220,6 +220,7 @@ model sessiondata {
   executionAverage Float?   @default(0)
   varietyScore Float?   @default(0)
   powerScore Float?   @default(0)
+  comboTimestamps Json? 
   chains Json? 
   chainTotal Float?   @default(0)
   chainMap Json? 

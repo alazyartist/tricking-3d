@@ -71,6 +71,31 @@ export const sessionsummariesRouter = router({
       });
       return updatedScore;
     }),
+  updateComboTimestamps: publicProcedure
+    .input(
+      z.object({
+        sessiondataid: z.string(),
+        comboTimestamps: z.array(
+          z.object({
+            type: z.string(),
+            id: z.string(),
+            name: z.string(),
+            clipStart: z.number(),
+            clipEnd: z.number(),
+          })
+        ),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      let { sessiondataid, comboTimestamps } = input;
+      const updateSD = await ctx.prisma.sessiondata.update({
+        where: {
+          id: sessiondataid,
+        },
+        data: { comboTimestamps: comboTimestamps },
+      });
+      return updateSD;
+    }),
   updateTotalScore: publicProcedure
     .input(
       z.object({
