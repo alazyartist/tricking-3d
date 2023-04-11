@@ -101,16 +101,30 @@ const ClipDataDetails = ({
   const updateTimestamp = (index, bore, value) => {
     setComboTimestamps((prev) => {
       const updatedItems = [...prev];
-      if (bore === "Start")
+      if (bore === "Start") {
         updatedItems[index] = {
           ...updatedItems[index],
           clipStart: value,
         };
-      if (bore === "End")
+        if (index - 1 >= 0) {
+          updatedItems[index - 1] = {
+            ...updatedItems[index - 1],
+            clipEnd: value,
+          };
+        }
+      }
+      if (bore === "End") {
         updatedItems[index] = {
           ...updatedItems[index],
           clipEnd: value,
         };
+        if (index + 1 <= updatedItems.length - 1) {
+          updatedItems[index + 1] = {
+            ...updatedItems[index + 1],
+            clipStart: value,
+          };
+        }
+      }
       return updatedItems;
     });
   };
@@ -247,7 +261,10 @@ const SubClips = ({
           <div>start</div>
           <div>{timestamps?.[i]?.clipStart.toFixed(2)}</div>
         </div>
-        <div className="rounded-md bg-zinc-300 p-2">{selectedClip.name}</div>
+        <div className="rounded-md bg-zinc-300 p-2">
+          {currentTime.toFixed(2)}
+          {selectedClip.name}
+        </div>
         <div
           onClick={() => updateTimestamp(i, "End", currentTime)}
           className="flex flex-col rounded-md bg-zinc-300 p-2"
