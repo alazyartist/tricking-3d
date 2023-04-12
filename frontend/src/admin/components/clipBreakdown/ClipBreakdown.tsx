@@ -97,9 +97,17 @@ const ClipDataDetails = ({
   vidDuration,
 }) => {
   const [comboTimestamps, setComboTimestamps] = useState([]);
+  const utils = trpc.useContext();
 
-  const { mutate: saveTimestamps, data: saveResponse } =
-    trpc.sessionsummaries.updateComboTimestamps.useMutation();
+  const {
+    mutate: saveTimestamps,
+    data: saveResponse,
+    isLoading,
+  } = trpc.sessionsummaries.updateComboTimestamps.useMutation({
+    onSuccess(input) {
+      utils.sessionsummaries.invalidate();
+    },
+  });
 
   const updateTimestamp = (index, bore, value) => {
     setComboTimestamps((prev) => {
@@ -151,14 +159,15 @@ const ClipDataDetails = ({
       );
       console.log(timestamps);
       setComboTimestamps(timestamps);
-      if (sd.comboTimestamps !== null) {
-        setComboTimestamps(sd.comboTimestamps);
-      }
+    }
+    if (!isLoading && sd.comboTimestamps !== null) {
+      console.log("ranSave sd.cT", saveResponse);
+      setComboTimestamps(sd.comboTimestamps);
     }
     if (saveResponse?.comboTimestamps) {
       console.log("ranSave saveResponse.cT");
       console.log(saveResponse.comboTimestamps);
-      setComboTimestamps(saveResponse.comboTimestamps);
+      setComboTimestamps(saveResponse.comboTimestamps as any[]);
     }
   }, [saveResponse]);
   return (
