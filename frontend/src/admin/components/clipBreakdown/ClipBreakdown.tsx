@@ -222,7 +222,6 @@ const SubClips = ({
         }
       >
         {e.ClipLabel.comboArray?.map((c, idx) => {
-          console.log(timestamps[idx].clipStart - e.clipStart);
           return (
             timestamps[idx] && (
               <div
