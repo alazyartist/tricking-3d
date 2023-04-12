@@ -129,8 +129,8 @@ const ClipDataDetails = ({
       return updatedItems;
     });
   };
+  const clipDuration = sd.clipEnd - sd.clipStart;
   useEffect(() => {
-    const clipDuration = sd.clipEnd - sd.clipStart;
     const avgTime = clipDuration / sd.ClipLabel.comboArray.length;
     const timestamps = sd.ClipLabel.comboArray.map(
       (c: tricks | transitions, i: number) => ({
@@ -212,6 +212,7 @@ const SubClips = ({
   let l = `${((parseInt(e.clipStart) / parseInt(duration)) * 100).toFixed(0)}%`;
   const len = e.ClipLabel?.comboArray.length;
   const currentTime = useSessionSummariesStore((s) => s.currentTime);
+  console.log("duration", duration);
   return (
     <>
       <div
@@ -220,8 +221,9 @@ const SubClips = ({
           "abso lute top-[4px] flex h-3 flex-shrink-0 rounded-[3px] bg-red-500"
         }
       >
-        {e.ClipLabel.comboArray?.map(
-          (c, idx) =>
+        {e.ClipLabel.comboArray?.map((c, idx) => {
+          console.log(timestamps[idx].clipStart - e.clipStart);
+          return (
             timestamps[idx] && (
               <div
                 onClick={() => {
@@ -236,11 +238,13 @@ const SubClips = ({
                 }}
                 style={{
                   left: `${
-                    (timestamps[idx]?.clipStart - e.clipStart) * duration
+                    ((timestamps[idx]?.clipStart - e.clipStart) / duration) *
+                    100
                   }%`,
                   width: `${
-                    (timestamps[idx]?.clipEnd - timestamps[idx]?.clipStart) *
-                    duration
+                    ((timestamps[idx]?.clipEnd - timestamps[idx]?.clipStart) /
+                      duration) *
+                    100
                   }%`,
                 }}
                 className="absolute flex-shrink-0 border-2 border-zinc-800 bg-zinc-400 text-[8px]"
@@ -248,7 +252,8 @@ const SubClips = ({
                 {c.name}
               </div>
             )
-        )}
+          );
+        })}
       </div>
       <div
         key={selectedClip.name + e.name}
