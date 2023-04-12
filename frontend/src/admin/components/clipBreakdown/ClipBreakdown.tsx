@@ -98,6 +98,9 @@ const ClipDataDetails = ({
 }) => {
   const [comboTimestamps, setComboTimestamps] = useState([]);
 
+  const { mutate: saveTimestamps, data: saveResponse } =
+    trpc.sessionsummaries.updateComboTimestamps.useMutation();
+
   const updateTimestamp = (index, bore, value) => {
     setComboTimestamps((prev) => {
       const updatedItems = [...prev];
@@ -126,25 +129,38 @@ const ClipDataDetails = ({
           };
         }
       }
+      saveTimestamps({ sessiondataid: sd.id, comboTimestamps: updatedItems });
       return updatedItems;
     });
+    console.log(sd);
   };
   const clipDuration = sd.clipEnd - sd.clipStart;
   useEffect(() => {
     const avgTime = clipDuration / sd.ClipLabel.comboArray.length;
-    const timestamps = sd.ClipLabel.comboArray.map(
-      (c: tricks | transitions, i: number) => ({
-        type: c.type,
-        //@ts-ignore
-        id: c.type === "Trick" ? c.trick_id : c.id,
-        name: c.name,
-        clipStart: sd.clipStart + avgTime * i,
-        clipEnd: sd.clipStart + (avgTime * i + avgTime),
-      })
-    );
-    console.log(timestamps);
-    setComboTimestamps(timestamps);
-  }, []);
+    if (sd.id && sd.comboTimestamps === null) {
+      console.log("ransetup");
+      const timestamps = sd.ClipLabel.comboArray.map(
+        (c: tricks | transitions, i: number) => ({
+          type: c.type,
+          //@ts-ignore
+          id: c.type === "Trick" ? c.trick_id : c.id,
+          name: c.name,
+          clipStart: sd.clipStart + avgTime * i,
+          clipEnd: sd.clipStart + (avgTime * i + avgTime),
+        })
+      );
+      console.log(timestamps);
+      setComboTimestamps(timestamps);
+      if (sd.comboTimestamps !== null) {
+        setComboTimestamps(sd.comboTimestamps);
+      }
+    }
+    if (saveResponse?.comboTimestamps) {
+      console.log("ranSave saveResponse.cT");
+      console.log(saveResponse.comboTimestamps);
+      setComboTimestamps(saveResponse.comboTimestamps);
+    }
+  }, [saveResponse]);
   return (
     <>
       <input
@@ -202,7 +218,7 @@ const SubClips = ({
   updateTimestamp,
 }) => {
   const [selectedClip, setSelectedClip] = useState({
-    ...timestamps[i],
+    ...timestamps?.[i],
   });
   const [activeIndex, setActiveIndex] = useState(0);
   let w = `${(

@@ -78,7 +78,7 @@ export const sessionsummariesRouter = router({
         comboTimestamps: z.array(
           z.object({
             type: z.string(),
-            id: z.string(),
+            id: z.string().or(z.number()),
             name: z.string(),
             clipStart: z.number(),
             clipEnd: z.number(),
