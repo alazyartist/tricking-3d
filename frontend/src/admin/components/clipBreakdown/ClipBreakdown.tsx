@@ -101,6 +101,7 @@ const ClipDataDetails = ({
   const updateTimestamp = (index, bore, value) => {
     setComboTimestamps((prev) => {
       const updatedItems = [...prev];
+      console.log(updatedItems);
       if (bore === "Start") {
         updatedItems[index] = {
           ...updatedItems[index],
@@ -203,7 +204,7 @@ const SubClips = ({
   const [selectedClip, setSelectedClip] = useState({
     ...timestamps[i],
   });
-  const [selectedClipName, setSelectedClipName] = useState("");
+  const [activeIndex, setActiveIndex] = useState(0);
   let w = `${(
     ((parseInt(e.clipEnd) - parseInt(e.clipStart)) / parseInt(duration)) *
     100
@@ -224,6 +225,7 @@ const SubClips = ({
             timestamps[idx] && (
               <div
                 onClick={() => {
+                  setActiveIndex(idx);
                   setSelectedClip({
                     type: c.type,
                     id: c?.id || c.trick_id,
@@ -255,22 +257,22 @@ const SubClips = ({
         }
       >
         <div
-          onClick={() => updateTimestamp(i, "Start", currentTime)}
+          onClick={() => updateTimestamp(activeIndex, "Start", currentTime)}
           className="flex flex-col rounded-md bg-zinc-300 p-2"
         >
           <div>start</div>
-          <div>{timestamps?.[i]?.clipStart.toFixed(2)}</div>
+          <div>{timestamps?.[activeIndex]?.clipStart.toFixed(2)}</div>
         </div>
         <div className="rounded-md bg-zinc-300 p-2">
           {currentTime.toFixed(2)}
           {selectedClip.name}
         </div>
         <div
-          onClick={() => updateTimestamp(i, "End", currentTime)}
+          onClick={() => updateTimestamp(activeIndex, "End", currentTime)}
           className="flex flex-col rounded-md bg-zinc-300 p-2"
         >
           <div>end</div>
-          <div>{timestamps?.[i]?.clipEnd.toFixed(2)}</div>
+          <div>{timestamps?.[activeIndex]?.clipEnd.toFixed(2)}</div>
         </div>
       </div>
     </>
