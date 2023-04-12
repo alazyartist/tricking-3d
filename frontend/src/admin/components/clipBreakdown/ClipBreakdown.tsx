@@ -246,7 +246,9 @@ const SubClips = ({
                     100
                   }%`,
                 }}
-                className="absolute flex-shrink-0 border-2 border-zinc-800 bg-zinc-400 text-[8px]"
+                className={`absolute flex-shrink-0 border-2 border-zinc-800 ${
+                  idx === activeIndex ? "bg-zinc-200" : "bg-zinc-400"
+                } text-[8px]`}
               >
                 {c.name}
               </div>
@@ -260,6 +262,21 @@ const SubClips = ({
           "fixed left-0 bottom-[10vh] flex w-full place-content-center place-items-center"
         }
       >
+        <div
+          onClick={() =>
+            setActiveIndex(() => {
+              if (activeIndex - 1 >= 0) {
+                return activeIndex - 1;
+              }
+              if (activeIndex - 1 < 0) {
+                return len - 1;
+              }
+            })
+          }
+          className="bg-zinc-300 p-2"
+        >
+          Prev
+        </div>
         <div
           onClick={() => updateTimestamp(activeIndex, "Start", currentTime)}
           className="flex flex-col rounded-md bg-zinc-300 p-2"
@@ -277,6 +294,12 @@ const SubClips = ({
         >
           <div>end</div>
           <div>{timestamps?.[activeIndex]?.clipEnd.toFixed(2)}</div>
+        </div>
+        <div
+          onClick={() => setActiveIndex((activeIndex + 1) % len)}
+          className="bg-zinc-300 p-2"
+        >
+          Next
         </div>
       </div>
     </>
