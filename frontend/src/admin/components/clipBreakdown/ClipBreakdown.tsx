@@ -16,7 +16,10 @@ const ClipBreakdown = ({ sessionid, initialSummary }) => {
   const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
   const vidDuration = vidRef.current?.getDuration();
   const [clipRef, dimensions] = useMeasure();
-
+  const seekTo = (val) => {
+    setCurrentTime(parseFloat(val));
+    vidRef.current.seekTo(parseFloat(val));
+  };
   return (
     <div className="no-scrollbar fixed top-0 left-0 flex h-screen w-screen flex-col content-center items-center overflow-scroll font-inter">
       <h1 className={"p-2 text-3xl text-zinc-300"}>{summary.name}</h1>
@@ -43,8 +46,7 @@ const ClipBreakdown = ({ sessionid, initialSummary }) => {
             type="range"
             step={0.001}
             onChange={(e) => {
-              setCurrentTime(parseFloat(e.target.value));
-              vidRef.current.seekTo(parseFloat(e.target.value));
+              seekTo(e.target.value);
             }}
             value={currentTime}
             min={0}
@@ -76,6 +78,7 @@ const ClipBreakdown = ({ sessionid, initialSummary }) => {
                   vidRef={vidRef}
                   dimensions={dimensions}
                   vidDuration={vidDuration}
+                  seekTo={seekTo}
                 />
               )}
             </>
@@ -95,6 +98,7 @@ const ClipDataDetails = ({
   setCurrentTime,
   vidRef,
   vidDuration,
+  seekTo,
 }) => {
   const [comboTimestamps, setComboTimestamps] = useState([]);
   const utils = trpc.useContext();
@@ -187,6 +191,7 @@ const ClipDataDetails = ({
         className={`w-full bg-transparent`}
       />
       <SubClips
+        seekTo={seekTo}
         dimensions={dimensions}
         key={`${sd.id}+ 'sessiondata'`}
         e={sd}
@@ -225,6 +230,7 @@ const SubClips = ({
   i,
   timestamps,
   updateTimestamp,
+  seekTo,
 }) => {
   const [selectedClip, setSelectedClip] = useState({
     ...timestamps?.[i],
@@ -282,49 +288,93 @@ const SubClips = ({
         })}
       </div>
       <div
-        key={selectedClip.name + e.name}
         className={
-          "fixed left-0 bottom-[10vh] flex w-full place-content-center place-items-center"
+          "fixed left-0 bottom-[10vh] flex w-full flex-col place-content-center place-items-center gap-2"
         }
       >
         <div
-          onClick={() =>
-            setActiveIndex(() => {
-              if (activeIndex - 1 >= 0) {
-                return activeIndex - 1;
-              }
-              if (activeIndex - 1 < 0) {
-                return len - 1;
-              }
-            })
+          className={
+            "flex w-full place-content-center place-items-center gap-4"
           }
-          className="bg-zinc-300 p-2"
         >
-          Prev
+          <div
+            onClick={() => {
+              seekTo(currentTime - 0.1);
+            }}
+            className={"rounded-md bg-zinc-300 p-2"}
+          >
+            F-X10
+          </div>
+          <div
+            onClick={() => {
+              seekTo(currentTime - 0.01);
+            }}
+            className={"rounded-md bg-zinc-300 p-2"}
+          >
+            FrameBack
+          </div>
+          <div
+            onClick={() => {
+              seekTo(currentTime + 0.01);
+            }}
+            className={"rounded-md bg-zinc-300 p-2"}
+          >
+            FrameForward
+          </div>
+          <div
+            onClick={() => {
+              seekTo(currentTime + 0.1);
+            }}
+            className={"rounded-md bg-zinc-300 p-2"}
+          >
+            F+x10
+          </div>
         </div>
         <div
-          onClick={() => updateTimestamp(activeIndex, "Start", currentTime)}
-          className="flex flex-col rounded-md bg-zinc-300 p-2"
+          key={activeIndex + e.name}
+          className={
+            "flex w-full place-content-center place-items-center gap-4"
+          }
         >
-          <div>start</div>
-          <div>{timestamps?.[activeIndex]?.clipStart.toFixed(2)}</div>
-        </div>
-        <div className="rounded-md bg-zinc-300 p-2">
-          {currentTime.toFixed(2)}
-          {selectedClip.name}
-        </div>
-        <div
-          onClick={() => updateTimestamp(activeIndex, "End", currentTime)}
-          className="flex flex-col rounded-md bg-zinc-300 p-2"
-        >
-          <div>end</div>
-          <div>{timestamps?.[activeIndex]?.clipEnd.toFixed(2)}</div>
-        </div>
-        <div
-          onClick={() => setActiveIndex((activeIndex + 1) % len)}
-          className="bg-zinc-300 p-2"
-        >
-          Next
+          <div
+            onClick={() =>
+              setActiveIndex(() => {
+                if (activeIndex - 1 >= 0) {
+                  return activeIndex - 1;
+                }
+                if (activeIndex - 1 < 0) {
+                  return len - 1;
+                }
+              })
+            }
+            className="rounded-md bg-zinc-300 p-2"
+          >
+            Prev
+          </div>
+          <div
+            onClick={() => updateTimestamp(activeIndex, "Start", currentTime)}
+            className="flex flex-col rounded-md bg-zinc-300 p-2 text-center"
+          >
+            <div>start</div>
+            <div>{timestamps?.[activeIndex]?.clipStart.toFixed(2)}</div>
+          </div>
+          <div className="rounded-md bg-zinc-300 p-2">
+            <div>{currentTime.toFixed(2)}</div>
+            <div>{selectedClip.name}</div>
+          </div>
+          <div
+            onClick={() => updateTimestamp(activeIndex, "End", currentTime)}
+            className="flex flex-col rounded-md bg-zinc-300 p-2 text-center"
+          >
+            <div>end</div>
+            <div>{timestamps?.[activeIndex]?.clipEnd.toFixed(2)}</div>
+          </div>
+          <div
+            onClick={() => setActiveIndex((activeIndex + 1) % len)}
+            className="rounded-md bg-zinc-300 p-2"
+          >
+            Next
+          </div>
         </div>
       </div>
     </>
