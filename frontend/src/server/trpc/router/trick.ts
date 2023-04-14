@@ -90,6 +90,7 @@ export const tricksRouter = router({
             include: {
               base: true,
               variations: { include: { variation: true } },
+              animation: true,
             },
           });
           return td;

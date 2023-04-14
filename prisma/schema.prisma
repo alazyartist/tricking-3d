@@ -32,6 +32,7 @@ model animations {
   skeleton      String? @db.VarChar(255)
   fileName      String? @db.VarChar(255)
   model         String? @db.VarChar(255)
+  tricks        tricks[]
 }
 
 model bases {
@@ -356,6 +357,7 @@ model tricks {
   landingStance    String?            @db.VarChar(255)
   defaultAnimation String?            @db.Char(36)
   pointValue       Float?             @db.Float
+  animation        animations? @relation(fields: [defaultAnimation],references: [animation_id],onDelete: Restrict,onUpdate: Restrict,map: "default_animation")
   variations       trick_variations[]
   base             bases?             @relation(fields: [base_id], references: [base_id], onDelete: Restrict, onUpdate: Restrict, map: "tricks_ibfk_1")
 

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { IoIosWalk } from "react-icons/io";
 import { trpc } from "utils/trpc";
 import ComboExecutionSlider from "./components/ComboExecutionSlider";
+import Link from "next/link";
 interface CombodexProps {
   combo: any;
   sessionData?: any;
@@ -343,7 +344,14 @@ export const CombodexTrickDetails = ({ tricks, chainMap, varietyMap }) => {
                 <div className="flex place-content-center place-items-center gap-2">
                   <div>{tr.pointValue}</div>
                   {tr.defaultAnimation && (
-                    <IoIosWalk className="text-emerald-500" />
+                    <Link
+                      href={`/sandbox/${tr.animation.model}/${tr.animation.animationName}`}
+                    >
+                      <IoIosWalk
+                        onClick={() => console.log(tr)}
+                        className="text-emerald-500"
+                      />
+                    </Link>
                   )}
                 </div>
                 <div>
