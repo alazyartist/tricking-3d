@@ -2,6 +2,7 @@ import { useSessionSummariesStore } from "@admin/components/sessionreview/Sessio
 import ExecutionAverageGaugeChart from "@components/d3/ExecutionAverageGuageChart";
 import PowerAverageComboLineChart from "@components/d3/PowerAverageComboLineChart";
 import PowerAverageLineChart from "@components/d3/PowerAverageLineChart";
+import TransitionsBarChart from "@components/d3/TransitionsBarChart";
 import TransitionsPieChart from "@components/d3/TransitionsPieChart";
 import TrickInvertGaugeChart from "@components/d3/TricikInvertGuageChart";
 import { DensityDisplay } from "@old_pages/combodex/Combodex";
@@ -178,7 +179,10 @@ const SessionStatsOverview = ({ summary }) => {
         </div>
       </div> */}
       <div className="col-span-2 flex h-full min-h-[120px] w-full flex-col justify-around">
-        <TransitionsPieChart
+        {/* <TransitionsPieChart
+          data={sessionTricksArr.filter((t) => t.type === "Transition")}
+        /> */}
+        <TransitionsBarChart
           data={sessionTricksArr.filter((t) => t.type === "Transition")}
         />
       </div>

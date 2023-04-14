@@ -205,11 +205,11 @@ const Combodex: React.FC<CombodexProps> = ({
         // )
       }
       <div className="text-center">
-        A <span className="font-bold">{combo.comboArray.length}</span>
+        A <span className="font-bold">{numOfTricks}</span>
         {" hit combo with "}
-        <span className="font-bold">{numOfTricks}</span> tricks
+        <span className="font-bold">{numOfTransitions}</span> transitions
       </div>
-      <div className="min-h-2 flex w-full gap-1 overflow-x-scroll p-2">
+      <div className="min-h-2 no-scrollbar flex w-full gap-1 overflow-x-scroll p-2">
         {composition?.map((c) => (
           <div className={`h-[${parseInt(c) * 25}px] w-full bg-zinc-800 p-1 `}>
             {c}
