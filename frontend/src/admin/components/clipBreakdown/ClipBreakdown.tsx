@@ -289,7 +289,7 @@ const SubClips = ({
       </div>
       <div
         className={
-          "fixed left-0 bottom-[10vh] flex w-full flex-col place-content-center place-items-center gap-2"
+          "fixed left-0 bottom-[10vh] flex w-full flex-col place-content-center place-items-center gap-4"
         }
       >
         <div
