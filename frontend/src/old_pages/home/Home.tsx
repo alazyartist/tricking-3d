@@ -87,12 +87,6 @@ function Home() {
             !openClaimtricks &&
             !openTricklists && (
               <div className="flex flex-col place-items-center">
-                <Link
-                  href="/learnMore"
-                  className="m-2 rounded-3xl bg-indigo-600 px-4 py-2 font-inter font-semibold text-zinc-300"
-                >
-                  Learn More
-                </Link>
                 {/* <Suspense
 						fallback={
 							<div className='text-center font-inter text-4xl font-black text-zinc-300'>
@@ -168,6 +162,12 @@ function Home() {
                 </SignedIn>
                 <Button href={"/compare"} label={"Compare"} />
                 <Button href={"/debate"} label={"Debate"} />
+                <Link
+                  href="/learnMore"
+                  className="m-2 rounded-3xl bg-indigo-600 px-4 py-2 font-inter font-semibold text-zinc-300"
+                >
+                  Learn More
+                </Link>
                 <div
                   onClick={() => setOpenComboMaker(!openComboMaker)}
                   className=" mt-1 mb-2 flex w-[70vw] max-w-[600px] place-content-center place-items-center gap-2 rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
