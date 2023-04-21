@@ -10,9 +10,9 @@ import ScoreDisplay from "./ScoreDisplay";
 
 const BattleroomStats = () => {
   const router = useRouter();
-  const { sessionID } = router.query;
+  const { sessionid } = router.query;
   const userUUID = useUserStore((s) => s.userInfo.uuid);
-  const { data: battleRoomDetails } = useGetBattleRoombySessionid(sessionID);
+  const { data: battleRoomDetails } = useGetBattleRoombySessionid(sessionid);
   const [teamScores, setTeamScores] = useState({});
   useEffect(() => {
     let [team1Score, team2Score] = getPointsNormalized(
