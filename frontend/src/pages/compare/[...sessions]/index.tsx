@@ -130,7 +130,7 @@ const CompareSessions = ({ initialSummaries }) => {
   }, [sessionSummaries]);
   if (!isSuccess)
     return (
-      <div className="flex h-screen w-screen place-content-center place-items-center bg-zinc-900 bg-opacity-40 p-4 text-center text-3xl text-zinc-300">
+      <div className="flex h-full w-full place-content-center place-items-center bg-zinc-900 bg-opacity-40 p-4 text-center text-3xl text-zinc-300">
         Analyzing Sessions For Comparison...
       </div>
     );
@@ -138,7 +138,7 @@ const CompareSessions = ({ initialSummaries }) => {
     d3.max(s.SessionData, (sd) => sd.totalScore)
   );
   return (
-    <div className="max-w-screen h-screen w-screen bg-zinc-900 bg-opacity-40 p-4 text-zinc-100">
+    <div className="h-full w-full max-w-full bg-zinc-900 bg-opacity-40 p-4 text-zinc-100">
       <Link href={"/compare"} className=" font-semi-bold p-4 text-4xl">
         CompareSessions
       </Link>
