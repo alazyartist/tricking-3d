@@ -119,7 +119,7 @@ function WinnersDisplay({ battleStats, teamScores, battleRoomDetails }) {
       {showAudienceScore ? (
         <FaUsers
           onClick={() => setShowAudienceScore(!showAudienceScore)}
-          className={`absolute bottom-16 left-5 text-3xl ${
+          className={`absolute bottom-16 left-5 z-50 text-3xl ${
             showAudienceScore ? "text-zinc-300" : "text-zinc-500"
           }`}
         />
