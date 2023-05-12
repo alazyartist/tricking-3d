@@ -56,10 +56,10 @@ function Home() {
   });
 
   return (
-    <div className=" stick h-[100vh] w-full  md:pt-[15vh] ">
+    <div className=" stick h-full w-full  md:pt-[15vh] ">
       <div
         id="AppBackground-flex"
-        className="flex h-screen w-screen flex-col place-items-center"
+        className="flex h-full w-full flex-col place-items-center"
       >
         <div
           className={`flex w-full  ${

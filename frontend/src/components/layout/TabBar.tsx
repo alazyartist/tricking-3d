@@ -71,10 +71,16 @@ function TabBar() {
             <Link href="/theory">
               <TheoryCap />
             </Link>
-            <HamburgerMenu onClick={() => setOpenHamburger(!openHamburger)} />
+            <button
+              onClick={() => setOpenHamburger(!openHamburger)}
+              type="button"
+            >
+              <HamburgerMenu />
+            </button>
           </div>
         </animated.div>
         <button
+          type="button"
           className="relative left-0 z-[1001] flex h-4 w-[100%] place-content-center place-items-center"
           onClick={() => {
             setOpenNav(!openNav);
