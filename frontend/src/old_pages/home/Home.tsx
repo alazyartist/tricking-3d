@@ -39,7 +39,7 @@ function Home() {
   const { uuid } = useUserStore((s) => s.userInfo);
   const accessToken = useUserStore((s) => s.accessToken);
   const [atLocal, setATLocal] = useState(null);
-  useUserInfo();
+  // useUserInfo();
   useEffect(() => {
     if (accessToken) {
       setATLocal(accessToken);
