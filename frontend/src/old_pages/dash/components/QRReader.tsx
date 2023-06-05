@@ -5,11 +5,13 @@ import useUserInfoByUUID from "../../../api/useUserInfoById";
 import { useUserStore } from "../../../store/userStore";
 import { useTransition, animated } from "react-spring";
 import { useRouter } from "next/router";
+import { trpc } from "@utils/trpc";
 const QRReader = () => {
   const [QRData, setQRData] = useState();
   const [QRDataResponse, setQRDataResponse] = useState("Capture Valid User");
   const activeUser = useUserStore((s) => s.userInfo);
-  const { mutate: captureUser } = useCaptureUser();
+  // const { mutate: captureUser } = useCaptureUser();
+  const { mutate: captureUser } = trpc.userDB.captureUser.useMutation();
   const [addedCapture, setAddedCapture] = useState<boolean>();
   const addCaptureSuccessAnim = useTransition(addedCapture, {
     from: { top: -300, opacity: 0 },
@@ -31,17 +33,16 @@ const QRReader = () => {
       captureUser({
         useruuid: activeUser?.uuid as string,
         captureuuid: result.text,
-        accessToken: activeUser.accessToken as string,
+        // accessToken: activeUser.accessToken as string,
       });
       console.log(capturedUserInfo);
       // result.text &&
       // 	location.pathname.includes("/home") &&
       {
-        (QRDataResponse !== "Capture Valid User" && (
+        QRDataResponse !== "Capture Valid User" &&
           setTimeout(() => {
-            nav.push(`/userProfile/${QRData}`)
-          }, 2222)
-        ))
+            nav.push(`/userProfile/${QRData}`);
+          }, 2222);
       }
     }
   };
@@ -75,8 +76,13 @@ const QRReader = () => {
               {addCaptureSuccessAnim(
                 (styles, valid) =>
                   valid && (
-                    <animated.div className={"flex bg-emerald-600 rounded-md place-item-center absolute top-0 left-0 w-full"} style={styles}>
-                      <div className="p-2 py-5 w-full">{`You Captured ${QRDataResponse}`}</div>
+                    <animated.div
+                      className={
+                        "place-item-center absolute top-0 left-0 flex w-full rounded-md bg-emerald-600"
+                      }
+                      style={styles}
+                    >
+                      <div className="w-full p-2 py-5">{`You Captured ${QRDataResponse}`}</div>
                       {/*
                   <button
                     className="rounded-lg bg-zinc-700 p-1 text-sm"

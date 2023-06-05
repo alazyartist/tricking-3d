@@ -31,7 +31,7 @@ export const userRoutes = express.Router();
 userRoutes.route("/user/login").post(checkPassword);
 userRoutes.route("/user").post(findOrCreate);
 userRoutes.route("/user/getInfo/:uuid").get(getUserInfoByUUID);
-userRoutes.use(verifyJWT);
+// userRoutes.use(verifyJWT);
 userRoutes.route("/user").get(findAll);
 userRoutes.route("/user/:user_id").delete(deleteUser);
 userRoutes.route("/user/:user_id/changePassword").put(changeUserPassword);

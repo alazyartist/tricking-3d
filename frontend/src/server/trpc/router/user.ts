@@ -68,4 +68,26 @@ export const userRouter = router({
       console.log(tempUser);
       return tempUser;
     }),
+  captureUser: publicProcedure
+    .input(
+      z.object({
+        useruuid: z.string(),
+        captureuuid: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const activeUser = await ctx.prisma.users.findFirst({
+        where: { uuid: input.useruuid },
+      });
+      const capturedUser = await ctx.prisma.users.findFirst({
+        where: { uuid: input.captureuuid },
+      });
+
+      if (activeUser.id && capturedUser.id) {
+        const captureSuccess = await ctx.prisma.captures.create({
+          data: { user_id: activeUser.id, captured_id: capturedUser.id },
+        });
+        return captureSuccess;
+      }
+    }),
 });

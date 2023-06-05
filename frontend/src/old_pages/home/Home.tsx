@@ -36,11 +36,11 @@ const ClaimTricks = dynamic(() => import("../claimtricks/ClaimTricks"));
 
 function Home() {
   // const user = useUserStore((s) => s.userInfo?.username);
-  const { isSignedIn } = useUser();
+  const { isSignedIn, user } = useUser();
   const { data } = trpc.userDB.findAll.useQuery();
   const { uuid } = useUserStore((s) => s.userInfo);
   const accessToken = useUserStore((s) => s.accessToken);
-
+  console.log(user);
   const [seeUserList, setSeeUserList] = useState(false);
   const logoAnim = useSpring({
     to: { width: isSignedIn ? "50vw" : "100vw" },
@@ -87,7 +87,6 @@ function Home() {
               >
                 <SignOutButton />
               </div>
-
               <UserButton />
             </SignedIn>
             <SignedOut></SignedOut>
