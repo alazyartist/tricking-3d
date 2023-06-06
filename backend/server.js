@@ -59,20 +59,37 @@ app.use((req, res, next) => {
 // app.use("/api/test", ClerkExpressRequireAuth(), async (req, res) => {
 // 	const testUser = await clerk.users.getUser(req.auth.userId);
 
+const prismaclient = new PrismaClient();
 app.use("/api/test2", async (req, res) => {
 	console.log(req.body);
-	const prismaclient = new PrismaClient();
 	const users = await prismaclient.users.findMany();
 	return res.json(users);
 });
 app.use("/api/clerk", async (req, res) => {
-	console.log("svix data");
-	console.log(req.body.type);
-	const user_id = req.body?.data?.user_id;
-	console.log(user_id);
+	const _event_type = req.body.type;
+	console.log(_event_type);
+	if (_event_type === "user.updated") {
+		const user_id = req.body?.data?.id;
+		const clerkUser = await clerk.users.getUser(user_id);
+		const user = await prismaclient.users.findUnique({
+			where: { username: clerkUser.username },
+		});
+		console.log(clerkUser);
+		console.log(user);
+	}
 
-	const clerkUser = await clerk.users.getUser(user_id);
-	console.log(clerkUser?.username);
+	if (_event_type === "session.created") {
+		const user_id = req.body?.data?.user_id;
+		console.log(user_id);
+
+		const clerkUser = await clerk.users.getUser(user_id);
+		console.log(clerkUser?.username);
+		const user = await prismaclient.users.findUnique({
+			where: { username: clerkUser.username },
+		});
+		console.log("user", user);
+	}
+
 	return res.sendStatus(200);
 });
 app.use("/api/ml", getMLData);
