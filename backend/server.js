@@ -26,6 +26,7 @@ import {
 } from "@clerk/clerk-sdk-node";
 import { Clerk } from "@clerk/clerk-sdk-node";
 import { PrismaClient } from "@prisma/client";
+import { handleClerkEvents } from "./controllers/webhook.controller.js";
 const clerk = new Clerk({ secretKey: process.env.CLERK_SECRET_KEY });
 const corsOptions = {
 	origin: [
@@ -65,33 +66,7 @@ app.use("/api/test2", async (req, res) => {
 	const users = await prismaclient.users.findMany();
 	return res.json(users);
 });
-app.use("/api/clerk", async (req, res) => {
-	const _event_type = req.body.type;
-	console.log(_event_type);
-	if (_event_type === "user.updated") {
-		const user_id = req.body?.data?.id;
-		const clerkUser = await clerk.users.getUser(user_id);
-		const user = await prismaclient.users.findUnique({
-			where: { username: clerkUser.username },
-		});
-		console.log(clerkUser);
-		console.log(user);
-	}
-
-	if (_event_type === "session.created") {
-		const user_id = req.body?.data?.user_id;
-		console.log(user_id);
-
-		const clerkUser = await clerk.users.getUser(user_id);
-		console.log(clerkUser?.username);
-		const user = await prismaclient.users.findUnique({
-			where: { username: clerkUser.username },
-		});
-		console.log("user", user);
-	}
-
-	return res.sendStatus(200);
-});
+app.use("/api/clerk", handleClerkEvents);
 app.use("/api/ml", getMLData);
 app.use("/api/checkout", paymentRoutes);
 app.get("/api/ablyAuth", ablyAuth);

@@ -1,3 +1,4 @@
+import { Clerk } from "@clerk/clerk-sdk-node";
 import db from "../models/index.js";
 const users = await db.sequelize.models.Users;
 import Stripe from "stripe";
@@ -69,4 +70,34 @@ export const purchaseSessionReviewCredit = async (req, res) => {
 
 	// Return a 200 res to acknowledge receipt of the event
 	res.send();
+};
+import { PrismaClient } from "@prisma/client";
+const prismaclient = new PrismaClient();
+const clerk = new Clerk({ secretKey: process.env.CLERK_SECRET_KEY });
+export const handleClerkEvents = async (req, res) => {
+	const _event_type = req.body.type;
+	console.log(_event_type);
+	if (_event_type === "user.updated") {
+		const user_id = req.body?.data?.id;
+		const clerkUser = await clerk.users.getUser(user_id);
+		const user = await prismaclient.users.findUnique({
+			where: { username: clerkUser.username },
+		});
+		console.log(clerkUser);
+		console.log(user);
+	}
+
+	if (_event_type === "session.created") {
+		const user_id = req.body?.data?.user_id;
+		console.log(user_id);
+
+		const clerkUser = await clerk.users.getUser(user_id);
+		console.log(clerkUser?.username);
+		const user = await prismaclient.users.findUnique({
+			where: { username: clerkUser.username },
+		});
+		console.log("user", user);
+	}
+
+	return res.sendStatus(200);
 };
