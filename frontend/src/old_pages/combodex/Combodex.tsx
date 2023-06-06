@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { IoIosWalk } from "react-icons/io";
 import { trpc } from "utils/trpc";
 import ComboExecutionSlider from "./components/ComboExecutionSlider";
+import Link from "next/link";
 interface CombodexProps {
   combo: any;
   sessionData?: any;
@@ -205,11 +206,11 @@ const Combodex: React.FC<CombodexProps> = ({
         // )
       }
       <div className="text-center">
-        A <span className="font-bold">{combo.comboArray.length}</span>
+        A <span className="font-bold">{numOfTricks}</span>
         {" hit combo with "}
-        <span className="font-bold">{numOfTricks}</span> tricks
+        <span className="font-bold">{numOfTransitions}</span> transitions
       </div>
-      <div className="min-h-2 flex w-full gap-1 overflow-x-scroll p-2">
+      <div className="min-h-2 no-scrollbar flex w-full gap-1 overflow-x-scroll p-2">
         {composition?.map((c) => (
           <div className={`h-[${parseInt(c) * 25}px] w-full bg-zinc-800 p-1 `}>
             {c}
@@ -343,7 +344,14 @@ export const CombodexTrickDetails = ({ tricks, chainMap, varietyMap }) => {
                 <div className="flex place-content-center place-items-center gap-2">
                   <div>{tr.pointValue}</div>
                   {tr.defaultAnimation && (
-                    <IoIosWalk className="text-emerald-500" />
+                    <Link
+                      href={`/sandbox/${tr.animation.model}/${tr.animation.animationName}`}
+                    >
+                      <IoIosWalk
+                        onClick={() => console.log(tr)}
+                        className="text-emerald-500"
+                      />
+                    </Link>
                   )}
                 </div>
                 <div>

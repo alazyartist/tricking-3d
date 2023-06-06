@@ -19,6 +19,7 @@ import { battleroomRoutes } from "./routes/battleroom.routes.js";
 import { sessionSummariesRoutes } from "./routes/sessionsummaries.routes.js";
 import { webhookRoutes } from "./routes/webhook.routes.js";
 import { paymentRoutes } from "./routes/payment.routes.js";
+import { getMLData } from "./controllers/sessionsummaries.controller.js";
 import {
 	ClerkExpressRequireAuth,
 	ClerkExpressWithAuth,
@@ -55,12 +56,9 @@ app.use((req, res, next) => {
 	next();
 });
 //Middlewares
-app.use("/api/test", ClerkExpressRequireAuth(), async (req, res) => {
-	const testUser = await clerk.users.getUser(req.auth.userId);
+// app.use("/api/test", ClerkExpressRequireAuth(), async (req, res) => {
+// 	const testUser = await clerk.users.getUser(req.auth.userId);
 
-	console.log(testUser);
-	return res.json({ test: "information", "to see": "if it works" });
-});
 app.use("/api/test2", async (req, res) => {
 	console.log(req.body);
 	const prismaclient = new PrismaClient();
@@ -77,10 +75,13 @@ app.use("/api/clerk", async (req, res) => {
 	console.log(clerkUser?.username);
 	return res.sendStatus(200);
 });
+app.use("/api/ml", getMLData);
 app.use("/api/checkout", paymentRoutes);
 app.get("/api/ablyAuth", ablyAuth);
 app.use("/api/refresh", refreshRoutes);
 app.use("/api/logout", handleLogout);
+app.use("/api/tricks", trickRoutes);
+app.use("/api/combo", comboRoutes);
 app.use("/api", userRoutes);
 app.use("/api/battlerooms", battleroomRoutes);
 app.use("/api/sessionsummaries", sessionSummariesRoutes);

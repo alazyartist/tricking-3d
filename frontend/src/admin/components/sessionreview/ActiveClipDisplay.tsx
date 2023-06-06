@@ -84,7 +84,7 @@ const ActiveClipDisplay = () => {
       </animated.span>
       <div className="flex h-[60%] flex-col overflow-y-scroll">
         {sessionData?.map((e, i) => (
-          <SessionDataDetailDislpay e={e} />
+          <SessionDataDetailDislpay key={e.id + e.name} e={e} />
         ))}
       </div>
     </animated.div>
@@ -111,7 +111,7 @@ const SessionDataDetailDislpay = ({ e }) => {
     removeSessionData(e);
   };
   return (
-    <div key={e.id + e.name} className="flex gap-1">
+    <div className="flex gap-1">
       <div
         onClick={() => console.log(e)}
         className="over:bg-zinc-900 relative flex w-full place-content-center place-items-center justify-between whitespace-nowrap p-1"

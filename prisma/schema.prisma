@@ -32,6 +32,7 @@ model animations {
   skeleton      String? @db.VarChar(255)
   fileName      String? @db.VarChar(255)
   model         String? @db.VarChar(255)
+  tricks        tricks[]
 }
 
 model bases {
@@ -220,6 +221,7 @@ model sessiondata {
   executionAverage Float?   @default(0)
   varietyScore Float?   @default(0)
   powerScore Float?   @default(0)
+  comboTimestamps Json? 
   chains Json? 
   chainTotal Float?   @default(0)
   chainMap Json? 
@@ -228,6 +230,7 @@ model sessiondata {
   tricker users? @relation(fields: [tricker_id],references: [uuid])
   summary sessionsummaries? @relation(fields: [sessionid],references: [sessionid] )
   ClipLabel combos? @relation(fields: [clipLabel],references: [combo_id])
+  SessionSource sessionsources? @relation(fields: [srcid],references: [srcid])
   @@index([sessionid])
 
 }
@@ -249,6 +252,7 @@ model sessionsources {
   createdAt DateTime @default(now()) @db.DateTime(0)
   updatedAt DateTime @default(now()) @db.DateTime(0)
   SessionSummary sessionsummaries? @relation(fields: [sessionid],references: [sessionid])
+  SessionData sessiondata[]
   @@unique([sessionid, vidsrc], map: "vidsrckey")
 }
 
@@ -353,6 +357,7 @@ model tricks {
   landingStance    String?            @db.VarChar(255)
   defaultAnimation String?            @db.Char(36)
   pointValue       Float?             @db.Float
+  animation        animations? @relation(fields: [defaultAnimation],references: [animation_id],onDelete: Restrict,onUpdate: Restrict,map: "default_animation")
   variations       trick_variations[]
   base             bases?             @relation(fields: [base_id], references: [base_id], onDelete: Restrict, onUpdate: Restrict, map: "tricks_ibfk_1")
 

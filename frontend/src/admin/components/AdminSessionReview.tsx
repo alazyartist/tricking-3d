@@ -9,15 +9,31 @@ import SessionDetailDisplay from "./sessionreview/SessionDetailDisplay";
 import { useSessionSummariesStore } from "./sessionreview/SessionSummaryStore";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-const SessionSourceDisplay = dynamic(
-  () => import("./sessionreview/SessionSourceDisplay"),
-  { ssr: false }
-);
+import useGetTricks from "@api/useGetTricks";
+import { trpc } from "@utils/trpc";
 
-const AdminSessionReview = () => {
-  const router = useRouter();
-  const { sessionid } = router.query;
-  const { data } = useGetSessionDetailsbySessionid(sessionid);
+import SessionSourceDisplay from "./sessionreview/SessionSourceDisplay";
+// const SessionSourceDisplay = dynamic(
+//   () => import("./sessionreview/SessionSourceDisplay"),
+//   { ssr: false }
+// );
+
+const AdminSessionReview = ({
+  sessionid,
+  sessionDetails,
+  initialTricks,
+  initialCombos,
+}) => {
+  // const { data: tricks } = useGetTricks();
+  const { data: tricks } = trpc.trick.getAll.useQuery(
+    {},
+    { initialData: initialTricks }
+  );
+  const { data: combos } = trpc.combos.getAll.useQuery(
+    {},
+    { initialData: initialCombos }
+  );
+  // const { data } = useGetSessionDetailsbySessionid(sessionid);
   const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
   const setSessionid = useSessionSummariesStore((s) => s.setSessionid);
   const setSessionData = useSessionSummariesStore((s) => s.setSessionData);
@@ -25,10 +41,10 @@ const AdminSessionReview = () => {
   const setSessionSources = useSessionSummariesStore(
     (s) => s.setSessionSources
   );
-  const sessionDetails = data?.data;
-  useEffect(() => {
-    clearSessionData();
-  }, []);
+  // const sessionDetails = data?.data;
+  // useEffect(() => {
+  //   clearSessionData();
+  // }, []);
   useEffect(() => {
     clearSessionData();
     setSessionid(sessionid as string);
@@ -51,7 +67,6 @@ const AdminSessionReview = () => {
   }, [
     sessionid,
     sessionDetails,
-    data,
     clearSessionData,
     setSessionData,
     setSessionid,
@@ -89,7 +104,9 @@ const AdminSessionReview = () => {
       )}
       <MakeNewTrickModal />
       <ActiveClipDisplay />
-      <CommandBar />
+      {tricks !== undefined && combos !== undefined && (
+        <CommandBar tricks={tricks} combos={combos} />
+      )}
     </div>
   );
 };

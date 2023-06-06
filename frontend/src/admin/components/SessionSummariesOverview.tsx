@@ -38,7 +38,7 @@ const SessionSummariesOverview = () => {
         {Array.isArray(sessions?.data) &&
           sessions?.data
             ?.filter((s) => s.status === "Reviewed")
-            ?.map((s) => <SessionDisplay s={s} />)}
+            ?.map((s) => <SessionDisplay key={s.sessionid} s={s} />)}
       </div>
     </div>
   );
@@ -55,7 +55,7 @@ const SessionDisplay = ({ s }) => {
   return (
     <div
       key={s.srcid}
-      className="grid w-full grid-cols-6 gap-2 bg-zinc-800 bg-opacity-70"
+      className="grid w-full grid-cols-7 gap-2 bg-zinc-800 bg-opacity-70"
     >
       <Link
         href={`/admin/sessionReview/${s?.sessionid}`}
@@ -136,6 +136,12 @@ const SessionDisplay = ({ s }) => {
           />
         )}
       </div>
+      <Link
+        className={"flex content-center items-center"}
+        href={`/admin/clipBreakdown/${s.sessionid}`}
+      >
+        clip
+      </Link>
     </div>
   );
 };

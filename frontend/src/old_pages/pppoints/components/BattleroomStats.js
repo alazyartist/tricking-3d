@@ -10,9 +10,9 @@ import ScoreDisplay from "./ScoreDisplay";
 
 const BattleroomStats = () => {
   const router = useRouter();
-  const { sessionID } = router.query;
+  const { sessionid } = router.query;
   const userUUID = useUserStore((s) => s.userInfo.uuid);
-  const { data: battleRoomDetails } = useGetBattleRoombySessionid(sessionID);
+  const { data: battleRoomDetails } = useGetBattleRoombySessionid(sessionid);
   const [teamScores, setTeamScores] = useState({});
   useEffect(() => {
     let [team1Score, team2Score] = getPointsNormalized(
@@ -119,7 +119,7 @@ function WinnersDisplay({ battleStats, teamScores, battleRoomDetails }) {
       {showAudienceScore ? (
         <FaUsers
           onClick={() => setShowAudienceScore(!showAudienceScore)}
-          className={`absolute bottom-16 left-5 text-3xl ${
+          className={`absolute bottom-16 left-5 z-50 text-3xl ${
             showAudienceScore ? "text-zinc-300" : "text-zinc-500"
           }`}
         />

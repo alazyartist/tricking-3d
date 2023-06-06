@@ -8,17 +8,17 @@ function Transitions() {
     <>
       <div className="mt-4 flex flex-col place-content-center place-items-center font-inter font-bold text-zinc-300">
         <div className="text-xl font-black text-white">Transitions</div>
-        <div className="flex gap-2">
+        {/* <div className="flex gap-2">
           <Link href="all">All</Link>
           <Link href="singular">Singular</Link>
           <Link href="sequential">Sequential</Link>
           <Link href="unified">Unified</Link>
-        </div>
-        <div className="my-2 flex h-[55vh] w-full flex-col overflow-y-auto rounded-md ">
+        </div> */}
+        <div className="no-scrollbar my-2 flex h-[55vh] w-full flex-col overflow-y-auto rounded-md">
           <div>Transitions Array</div>
           {transArr.map((e) => {
             return (
-              <div className=" my-2 flex flex-row place-content-center place-items-center justify-around gap-2 rounded-xl bg-black bg-opacity-40 p-1">
+              <div className="  my-2 flex flex-row place-content-center place-items-center justify-around gap-2 rounded-xl bg-black bg-opacity-40 p-1">
                 <div className="w-[150px] text-xl font-bold">{e.name}</div>
                 <div className="text-sm text-zinc-400">
                   {e.fromLeg && whichLeg(e.fromLeg)}

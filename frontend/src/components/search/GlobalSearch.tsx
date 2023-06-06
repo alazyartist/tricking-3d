@@ -8,14 +8,22 @@ import useGetTricks from "@api/useGetTricks";
 import { trpc } from "@utils/trpc";
 import { getQueryPattern } from "../../admin/DataListCommandBar";
 import { useRouter } from "next/router";
-const GlobalSearch = ({ searchOpen }) => {
-  const { data: tricks } = trpc.trick.findAll.useQuery();
-  const { data: transitions } = trpc.trick.findAllTransitions.useQuery();
-  const { data: stances } = trpc.trick.findAllStances.useQuery();
-  const { data: combos } = trpc.combos.getAll.useQuery();
-  const { data: users } = trpc.userDB.findAll.useQuery();
-  const { data: sessionsummaries } =
-    trpc.sessionsummaries.getAllSessionSummaries.useQuery();
+const GlobalSearch = ({
+  searchOpen,
+  tricks,
+  transitions,
+  stances,
+  combos,
+  users,
+  sessionsummaries,
+}) => {
+  // const { data: tricks } = trpc.trick.findAll.useQuery();
+  // const { data: transitions } = trpc.trick.findAllTransitions.useQuery();
+  // const { data: stances } = trpc.trick.findAllStances.useQuery();
+  // const { data: combos } = trpc.combos.getAll.useQuery();
+  // const { data: users } = trpc.userDB.findAll.useQuery();
+  // const { data: sessionsummaries } =
+  //   trpc.sessionsummaries.getAllSessionSummaries.useQuery();
 
   return (
     <div>
@@ -34,7 +42,6 @@ const GlobalSearch = ({ searchOpen }) => {
         placeholder="search everything"
         openOnFocus={true}
         autoFocus={true}
-        debug={true}
       />
     </div>
   );
@@ -128,10 +135,10 @@ const Autocomplete = (props: any) => {
                 return tricks
                   ?.filter((t) => pattern.test(t.name))
                   ?.sort((a, b) => {
-                    if (a.name.length < b.name.length) return -1;
-                    if (a.name.length > b.name.length) return 1;
-                    if (a.name > b.name) return 1;
-                    if (a.name < b.name) return -1;
+                    if (a?.name?.length < b?.name?.length) return -1;
+                    if (a?.name?.length > b?.name?.length) return 1;
+                    if (a?.name > b?.name) return 1;
+                    if (a?.name < b?.name) return -1;
                     //check your filters
                     //then check the length
 
@@ -166,7 +173,7 @@ const Autocomplete = (props: any) => {
               item({ item }: any) {
                 return (
                   <span className="flex justify-between">
-                    <p>{item.name}</p>
+                    <p>{item?.name}</p>
                     <span className="flex gap-2">
                       <p>{item.type}</p>
                     </span>
@@ -182,10 +189,10 @@ const Autocomplete = (props: any) => {
                 return combos
                   ?.filter((t) => pattern.test(t.name))
                   ?.sort((a, b) => {
-                    if (a.name.length < b.name.length) return -1;
-                    if (a.name.length > b.name.length) return 1;
-                    if (a.name > b.name) return 1;
-                    if (a.name < b.name) return -1;
+                    if (a?.name?.length < b?.name?.length) return -1;
+                    if (a?.name?.length > b?.name?.length) return 1;
+                    if (a?.name > b?.name) return 1;
+                    if (a?.name < b?.name) return -1;
                     //check your filters
                     //then check the length
 
@@ -193,10 +200,10 @@ const Autocomplete = (props: any) => {
                   });
               } else
                 return combos?.sort((a, b) => {
-                  if (a.name > b.name) return 1;
-                  if (a.name < b.name) return -1;
-                  if (a.name.length < b.name.length) return -1;
-                  if (a.name.length > b.name.length) return 1;
+                  if (a?.name > b?.name) return 1;
+                  if (a?.name < b?.name) return -1;
+                  if (a?.name?.length < b?.name?.length) return -1;
+                  if (a?.name?.length > b?.name?.length) return 1;
                   //check your filters
                   //then check the length
 
@@ -449,7 +456,7 @@ const Autocomplete = (props: any) => {
     return () => {
       search.destroy();
     };
-  }, [props]);
+  }, [props, tricks, transitions, stances, combos, users, sessionsummaries]);
 
   return (
     <>

@@ -19,10 +19,9 @@ import {
 import { useUserStore } from "@store/userStore";
 import { trpc } from "../../../utils/trpc";
 import { transitions, tricks } from "@prisma/client";
-const CommandBar = () => {
-  const { data: tricks } = useGetTricks();
-  const { data: combos } = trpc.combos.getAll.useQuery();
-
+const CommandBar = ({ tricks, combos }) => {
+  if (!tricks) return;
+  if (!combos) return;
   return (
     <div className="absolute bottom-[44px] left-[10vw] z-[10] h-[8vh] w-[80vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:left-[20vw] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]">
       <Autocomplete
@@ -471,9 +470,9 @@ const Autocomplete = (props: any) => {
                     },
                   },
                 ]
-                  .sort((a, b) => {
-                    if (a.label.length < b.label.length) return -1;
-                    if (a.label.length > b.label.length) return 1;
+                  ?.sort((a, b) => {
+                    if (a.label?.length < b.label?.length) return -1;
+                    if (a.label?.length > b.label?.length) return 1;
                     if (a.label > b.label) return 1;
                     if (a.label < b.label) return -1;
                     //check your filters
@@ -481,7 +480,7 @@ const Autocomplete = (props: any) => {
 
                     return 0;
                   })
-                  .filter((i) => pattern.test(i.label));
+                  ?.filter((i) => pattern.test(i.label));
               },
             },
             {
@@ -517,8 +516,8 @@ const Autocomplete = (props: any) => {
                   return tricks
                     ?.filter((t) => pattern.test(t.name))
                     ?.sort((a, b) => {
-                      if (a.name.length < b.name.length) return -1;
-                      if (a.name.length > b.name.length) return 1;
+                      if (a.name?.length < b.name?.length) return -1;
+                      if (a.name?.length > b.name?.length) return 1;
                       if (a.name > b.name) return 1;
                       if (a.name < b.name) return -1;
                       //check your filters
@@ -527,18 +526,16 @@ const Autocomplete = (props: any) => {
                       return 0;
                     });
                 } else
-                  return tricks
-                    ?.filter((t) => pattern.test(t.name))
-                    ?.sort((a, b) => {
-                      if (a.name > b.name) return 1;
-                      if (a.name < b.name) return -1;
-                      if (a.name.length < b.name.length) return -1;
-                      if (a.name.length > b.name.length) return 1;
-                      //check your filters
-                      //then check the length
+                  return tricks?.sort((a, b) => {
+                    if (a.name > b.name) return 1;
+                    if (a.name < b.name) return -1;
+                    if (a.name?.length < b.name?.length) return -1;
+                    if (a.name?.length > b.name?.length) return 1;
+                    //check your filters
+                    //then check the length
 
-                      return 0;
-                    });
+                    return 0;
+                  });
               },
               onSelect(params) {
                 const { item, setQuery } = params;
@@ -560,9 +557,9 @@ const Autocomplete = (props: any) => {
                       <p className="w-full p-2">
                         {item?.comboArray?.length &&
                           item?.comboArray?.map((t, i) => (
-                            <span>
-                              {t.name}
-                              {i !== item.comboArray.length - 1 && ">"}
+                            <span key={item.comboid}>
+                              {t?.name}
+                              {i !== item.comboArray?.length - 1 && ">"}
                             </span>
                           ))}
                       </p>
@@ -580,30 +577,28 @@ const Autocomplete = (props: any) => {
                 await combos;
                 if (query.length > 0) {
                   return combos
-                    ?.filter((t) => pattern.test(t.name))
+                    ?.filter((t) => pattern.test(t?.name))
                     ?.sort((a, b) => {
-                      if (a.name.length < b.name.length) return -1;
-                      if (a.name.length > b.name.length) return 1;
-                      if (a.name > b.name) return 1;
-                      if (a.name < b.name) return -1;
+                      if (a?.name?.length < b?.name?.length) return -1;
+                      if (a?.name?.length > b?.name?.length) return 1;
+                      if (a?.name > b?.name) return 1;
+                      if (a?.name < b?.name) return -1;
                       //check your filters
                       //then check the length
 
                       return 0;
                     });
                 } else
-                  return combos
-                    ?.filter((t) => pattern.test(t.name))
-                    ?.sort((a, b) => {
-                      if (a.name > b.name) return 1;
-                      if (a.name < b.name) return -1;
-                      if (a.name.length < b.name.length) return -1;
-                      if (a.name.length > b.name.length) return 1;
-                      //check your filters
-                      //then check the length
+                  return combos?.sort((a, b) => {
+                    if (a?.name > b?.name) return 1;
+                    if (a?.name < b?.name) return -1;
+                    if (a?.name?.length < b?.name?.length) return -1;
+                    if (a?.name?.length > b?.name?.length) return 1;
+                    //check your filters
+                    //then check the length
 
-                      return 0;
-                    });
+                    return 0;
+                  });
               },
               onSelect(params) {
                 const { item, setQuery } = params;

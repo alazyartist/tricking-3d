@@ -3,8 +3,17 @@ import useClickOutside from "hooks/useClickOutside";
 import React, { useState, useRef } from "react";
 import { IoMdSearch } from "react-icons/io";
 import { animated, useSpring } from "react-spring";
+import { trpc } from "@utils/trpc";
 
 const AnimatedSearch = () => {
+  const { data: tricks } = trpc.trick.findAll.useQuery();
+  const { data: transitions } = trpc.trick.findAllTransitions.useQuery();
+  const { data: stances } = trpc.trick.findAllStances.useQuery();
+  const { data: combos } = trpc.combos.getAll.useQuery();
+  const { data: users } = trpc.userDB.findAll.useQuery();
+  const { data: sessionsummaries } =
+    trpc.sessionsummaries.getAllSessionSummaries.useQuery();
+
   const [searchOpen, setSearchOpen] = useState(false);
   const searchTransition = useSpring({
     to: {
@@ -52,7 +61,15 @@ const AnimatedSearch = () => {
           width: searchTransition.barWidth,
         }}
       >
-        <GlobalSearch searchOpen={searchOpen} />
+        <GlobalSearch
+          sessionsummaries={sessionsummaries}
+          transitions={transitions}
+          stances={stances}
+          tricks={tricks}
+          combos={combos}
+          users={users}
+          searchOpen={searchOpen}
+        />
         {/* <input
           type="text"
           placeholder="Search Coming Soon..."
