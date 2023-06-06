@@ -67,6 +67,16 @@ app.use("/api/test2", async (req, res) => {
 	const users = await prismaclient.users.findMany();
 	return res.json(users);
 });
+app.use("/api/clerk", async (req, res) => {
+	console.log("svix data");
+	console.log(req.body.type);
+	const user_id = req.body?.data?.user_id;
+	console.log(user_id);
+
+	const clerkUser = await clerk.users.getUser(user_id);
+	console.log(clerkUser?.username);
+	return res.sendStatus(200);
+});
 app.use("/api/checkout", paymentRoutes);
 app.get("/api/ablyAuth", ablyAuth);
 app.use("/api/refresh", refreshRoutes);
