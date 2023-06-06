@@ -55,12 +55,16 @@ const PublicHomePage = () => {
           <div
             className={"rounded-xl bg-zinc-300 p-3 py-2 text-xl text-zinc-700"}
           >
-            <SignInButton mode="modal">Login</SignInButton>
+            <SignInButton mode="modal" redirectUrl={"/home"}>
+              Login
+            </SignInButton>
           </div>
           <div
             className={"rounded-xl bg-zinc-700 p-3 py-2 text-xl text-zinc-300"}
           >
-            <SignUpButton mode="modal">Register</SignUpButton>
+            <SignUpButton mode="modal" redirectUrl="/home">
+              Register
+            </SignUpButton>
           </div>
         </div>
         {/* <Link href="/login">
