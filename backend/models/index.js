@@ -47,18 +47,18 @@ try {
 }
 
 const dbmodels = Object.keys(db.sequelize.models);
-console.log(dbmodels);
+// console.log(dbmodels);
 for (const modelName of dbmodels) {
 	if (db.sequelize.models[modelName].associate) {
-		console.log(db.sequelize.models[modelName]);
+		// console.log(db.sequelize.models[modelName]);
 		db.sequelize.models[modelName].associate(db.sequelize.models);
 	}
 }
-console.log(
-	"models/index.js Associtions",
-	"users",
-	db.sequelize.models.Users?.associations,
-	"Tricks",
-	db.sequelize.models.Tricks?.associations
-);
+// console.log(
+// 	"models/index.js Associtions",
+// 	"users",
+// 	db.sequelize.models.Users?.associations,
+// 	"Tricks",
+// 	db.sequelize.models.Tricks?.associations
+// );
 export default db;

@@ -105,6 +105,9 @@ module.exports = (sequelize) => {
 			first_name: {
 				type: DataTypes.STRING,
 			},
+			clerk_id: {
+				type: DataTypes.STRING,
+			},
 			last_name: {
 				type: DataTypes.STRING,
 				required: true,
