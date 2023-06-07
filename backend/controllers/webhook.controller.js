@@ -77,6 +77,15 @@ const clerk = new Clerk({ secretKey: process.env.CLERK_SECRET_KEY });
 export const handleClerkEvents = async (req, res) => {
 	const _event_type = req.body.type;
 	console.log(_event_type);
+	if (_event_type === "user.deleted") {
+		const user_id = req.body?.data?.id;
+		try {
+			const deletedUser = await prismaclient.users.delete({
+				where: { clerk_id: user_id },
+			});
+			console.log(deletedUser);
+		} catch (err) {}
+	}
 	if (_event_type === "user.updated") {
 		const user_id = req.body?.data?.id;
 		const clerkUser = await clerk.users.getUser(user_id);
