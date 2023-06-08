@@ -12,9 +12,9 @@ import QRReader from "./QRReader";
 
 const CapturesPage: React.FC<any> = () => {
   const [activeView, setActiveView] = useState("Capture");
-  useEffect(() => {
-    console.log(activeView);
-  }, [activeView]);
+  // useEffect(() => {
+  //   console.log(activeView);
+  // }, [activeView]);
 
   const ContentTab = (props) => {
     let style =

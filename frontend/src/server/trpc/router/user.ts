@@ -12,6 +12,7 @@ export const userRouter = router({
         first_name: true,
         email: true,
         captures: true,
+        captured_me: true,
         SessionSummaries: true,
         sessionSummaries: true,
         Clips: true,
@@ -34,17 +35,51 @@ export const userRouter = router({
           first_name: true,
           email: true,
           captures: true,
+          captured_me: true,
           SessionSummaries: true,
           sessionSummaries: true,
         },
       });
-      console.log({
+      // console.log({
+      //   ...profileInfo,
+      //   SessionSummaries: [
+      //     ...profileInfo.sessionSummaries,
+      //     ...profileInfo.SessionSummaries,
+      //   ],
+      // });
+      return {
         ...profileInfo,
         SessionSummaries: [
           ...profileInfo.sessionSummaries,
           ...profileInfo.SessionSummaries,
         ],
+      };
+    }),
+  findByClerkId: publicProcedure
+    .input(z.object({ clerk_id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const profileInfo = await ctx.prisma.users.findUnique({
+        where: { clerk_id: input.clerk_id },
+        select: {
+          profilePic: true,
+          uuid: true,
+          username: true,
+          first_name: true,
+          clerk_id: true,
+          email: true,
+          captures: { include: { capturedUser: true } },
+          captured_me: { include: { capturedUser: true } },
+          SessionSummaries: true,
+          sessionSummaries: true,
+        },
       });
+      // console.log({
+      //   ...profileInfo,
+      //   SessionSummaries: [
+      //     ...profileInfo.sessionSummaries,
+      //     ...profileInfo.SessionSummaries,
+      //   ],
+      // });
       return {
         ...profileInfo,
         SessionSummaries: [
@@ -63,9 +98,9 @@ export const userRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      console.log("input", input);
+      // console.log("input", input);
       const tempUser = await ctx.prisma.users.create({ data: { ...input } });
-      console.log(tempUser);
+      // console.log(tempUser);
       return tempUser;
     }),
   captureUser: publicProcedure

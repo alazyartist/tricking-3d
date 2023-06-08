@@ -9,8 +9,8 @@ export interface UserInfo {
   first_name?: string;
   last_name?: string;
   username?: string;
-  Captured?: any;
-  CapturedMe?: any;
+  captures?: any;
+  captured_me?: any;
   SessionReviewCredits?: any;
   isAdmin?: null | boolean;
   adminAccess?: null | number;

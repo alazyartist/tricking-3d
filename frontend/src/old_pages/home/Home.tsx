@@ -37,9 +37,17 @@ const ClaimTricks = dynamic(() => import("../claimtricks/ClaimTricks"));
 function Home() {
   // const user = useUserStore((s) => s.userInfo?.username);
   const { isSignedIn, user } = useUser();
-  const { data } = trpc.userDB.findAll.useQuery();
+  const setUserInfo = useUserStore((s) => s.setUserInfo);
+  const { data: userData } = trpc.userDB.findByClerkId.useQuery(
+    { clerk_id: user.id },
+    {
+      onSuccess(data) {
+        setUserInfo({ ...data });
+      },
+    }
+  );
+  console.log(userData);
   const { uuid } = useUserStore((s) => s.userInfo);
-  const accessToken = useUserStore((s) => s.accessToken);
   console.log(user);
   const [seeUserList, setSeeUserList] = useState(false);
   const logoAnim = useSpring({
@@ -116,7 +124,7 @@ function Home() {
             <AnimatedSearch />
             <SignedIn>
               <Button
-                href={accessToken ? "/addSession" : "/login"}
+                href={isSignedIn ? "/addSession" : "/login"}
                 label={"Add Session"}
               />
             </SignedIn>

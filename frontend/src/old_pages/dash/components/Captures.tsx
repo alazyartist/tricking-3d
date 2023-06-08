@@ -10,8 +10,9 @@ const Captures = () => {
   const [capturedMe, setCapturedMe] = useState<any>();
   const userInfo = useUserStore((s) => s.userInfo);
   useEffect(() => {
-    setCaptured(userInfo.Captured);
-    setCapturedMe(userInfo.CapturedMe);
+    console.log(userInfo);
+    setCaptured(userInfo.captures);
+    setCapturedMe(userInfo.captured_me);
   }, [userInfo]);
 
   return (
@@ -59,29 +60,26 @@ const RenderCaptures = ({ captureContent, title }) => {
           `}
         >
           {!!captureContent &&
-            Object.keys(captureContent).map((key) => (
-              <div
-                onClick={() =>
-                  nav.push(`/userProfile/${captureContent[key].uuid}`)
-                }
-                key={captureContent[key].uuid}
-              >
-                <CapturedCard
-                  userid={captureContent[key].id}
-                  name={
-                    captureContent[key].first_name +
-                    " " +
-                    captureContent[key].last_name
-                  }
-                  src={
-                    captureContent[key].profilePic
-                      ? `./images/${captureContent[key].uuid}/${captureContent[key].profilePic}`
-                      : `./images/noimg.jpeg`
-                  }
-                  username={`${captureContent[key].username}`}
-                />
-              </div>
-            ))}
+            captureContent.map((c) => {
+              c = c.capturedUser;
+              return (
+                <div
+                  onClick={() => nav.push(`/userProfile/${c.uuid}`)}
+                  key={c.uuid}
+                >
+                  <CapturedCard
+                    userid={c.id}
+                    name={c.first_name + " " + c.last_name}
+                    src={
+                      c.profilePic
+                        ? `./images/${c.uuid}/${c.profilePic}`
+                        : `./images/noimg.jpeg`
+                    }
+                    username={`${c.username}`}
+                  />
+                </div>
+              );
+            })}
         </div>
       </div>
     </>

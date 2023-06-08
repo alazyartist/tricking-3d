@@ -87,8 +87,8 @@ model captures {
   captured_id                       Int?
   createdAt                         DateTime? @default(now()) @db.DateTime(0)
   updatedAt                         DateTime? @db.DateTime(0)
-  users_captures_user_idTousers     users?    @relation("captures_user_idTousers", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "captures_ibfk_1")
-  users_captures_captured_idTousers users?    @relation("captures_captured_idTousers", fields: [captured_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "captures_ibfk_2")
+  user     users?    @relation("captures_user_idTousers", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "captures_ibfk_1")
+  capturedUser users?    @relation("captures_captured_idTousers", fields: [captured_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "captures_ibfk_2")
 
   @@index([captured_id], map: "captured_id")
   @@index([user_id], map: "user_id")
@@ -415,7 +415,7 @@ model users {
   first_name           String?             @db.VarChar(255)
   last_name            String?             @db.VarChar(255)
   email                String?             @unique(map: "email") @db.VarChar(255)
-  clerk_id             String?             @db.VarChar(255)
+  clerk_id             String?             @db.VarChar(255) @unique
   password             String?             @db.VarChar(255)
   refresh_token        String?             @db.VarChar(255)
   uuid                 String?             @unique @db.Char(36) @default(uuid())
@@ -437,6 +437,7 @@ model users {
   Messages debateMessages[]
 
   @@index([uuid])
+  @@index([clerk_id])
 }
 
 model userscores {
