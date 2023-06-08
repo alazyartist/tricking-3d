@@ -84,6 +84,9 @@ export const debateRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const debateMessages = await ctx.prisma.debateMessages.deleteMany({
+        where: { debateid: input.debateid },
+      });
       const debates = await ctx.prisma.debates.delete({
         where: {
           debateid: input.debateid,
