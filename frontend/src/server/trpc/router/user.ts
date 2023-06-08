@@ -65,12 +65,14 @@ export const userRouter = router({
           uuid: true,
           username: true,
           first_name: true,
+          last_name: true,
           clerk_id: true,
           email: true,
           captures: { include: { capturedUser: true } },
           captured_me: { include: { capturedUser: true } },
           SessionSummaries: true,
           sessionSummaries: true,
+          SessionReviewCredits: true,
         },
       });
       // console.log({

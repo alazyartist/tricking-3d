@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { FaHamburger } from "react-icons/fa";
 import { useRouter } from "next/router";
 import mixpanel from "@utils/mixpanel";
+import { SignInButton, SignUpButton } from "@clerk/nextjs";
 const LandingCanvas = dynamic(
   () => import("@old_pages/landing/components/LandingCanvas"),
   { suspense: true }
@@ -33,9 +34,9 @@ const LandingPage: NextPage = () => {
       >
         <div className=" flex w-full place-items-center justify-between p-2">
           <TrickedexLogo className="w-[45%] flex-shrink-0 fill-zinc-800 md:w-[20%]" />
-          <div className="rounded-md border-[1px] border-zinc-800 p-2">
+          {/* <div className="rounded-md border-[1px] border-zinc-800 p-2">
             <FaHamburger className="text-2xl text-zinc-800" />
-          </div>
+          </div> */}
         </div>
         <TagLine a={Math.random() > 0.5 ? true : false}></TagLine>
         {/* <div className="mx-4 my-2 rounded-md bg-zinc-900 bg-opacity-70 p-2 px-4 text-zinc-300 backdrop-blur-md">
@@ -70,18 +71,22 @@ const LandingPage: NextPage = () => {
           >
             Home
           </Link>
-          <Link
+          <button
+            type={"button"}
             onClick={() =>
               mixpanel.track("Login", {
                 source: "landing",
                 destination: "login",
               })
             }
-            href="/login"
             className="rounded-md bg-sky-500 p-2 font-bold text-zinc-100"
           >
-            Login
-          </Link>
+            <SignInButton
+              mode="modal"
+              redirectUrl="/home"
+              children={<p>Login</p>}
+            />
+          </button>
         </div>
         <Suspense
           fallback={
@@ -170,11 +175,18 @@ const TagLine: React.FC<{ a: boolean }> = ({ a }) => {
                 destination: "register",
                 option: "a",
               });
-              router.push("/register");
+              // router.push("/register");
             }}
-            className="rounded-md border-[1px] border-zinc-900 px-1 font-black md:px-2"
           >
-            here.
+            <SignUpButton
+              mode="modal"
+              redirectUrl="/home"
+              children={
+                <span className="rounded-md border-[1px] border-zinc-900 px-1 font-black md:px-2">
+                  here.
+                </span>
+              }
+            />
           </span>
         </div>
         <div className="text-xl font-light">
@@ -200,11 +212,16 @@ const TagLine: React.FC<{ a: boolean }> = ({ a }) => {
               destination: "register",
               option: "b",
             });
-            router.push("/register");
+            // router.push("/register");
           }}
           className="rounded-md border-[1px] border-zinc-900 px-1 font-black md:px-2"
         >
-          Register Now
+          <SignUpButton
+            mode="modal"
+            redirectUrl="/home"
+            children={<p>Register Now</p>}
+          />
+          {/* Register Now */}
         </div>
       </div>
     );

@@ -3,7 +3,7 @@ import Link from "next/link";
 import ComboMakerBlueprintsvg from "../../data/ComboMakerBlueprintsvg";
 import { animated, useSpring, useTransition } from "react-spring";
 import useLogout from "../../hooks/useLogout";
-
+import { useUser } from "@clerk/nextjs";
 import TheoryCap from "../../data/icons/TheoryCap";
 import HamburgerMenu from "../../data/icons/HamburgerMenu";
 import HomeIcon from "../../data/icons/HomeIcon";
@@ -16,6 +16,7 @@ function TabBar() {
   const [openHamburger, setOpenHamburger] = useState<Boolean>();
   const [openNav, setOpenNav] = useState<Boolean>(true);
   const isAdmin = useIsAdmin();
+  const { user, isSignedIn } = useUser();
   const logout = useLogout();
   const nav = useRouter();
   // const nav = useNavigate();
@@ -102,21 +103,25 @@ function TabBar() {
                 <Link href="/about">About</Link>
                 <Link href="/contribute">Contibute</Link>
                 <Link href="/learnMore">Learn More</Link>
-                <Link href="/userSettings" replace={true}>
-                  User Settings
-                </Link>
-                <Link href="/dash" replace={true}>
-                  Dashboard
-                </Link>
-                <button
-                  className="absolute bottom-2 left-3"
-                  onClick={() => {
-                    logout();
-                    nav.push("/home");
-                  }}
-                >
-                  Logout
-                </button>
+                {isSignedIn && (
+                  <>
+                    <Link href="/userSettings" replace={true}>
+                      User Settings
+                    </Link>
+                    <Link href="/dash" replace={true}>
+                      Dashboard
+                    </Link>
+                    <button
+                      className="absolute bottom-2 left-3"
+                      onClick={() => {
+                        logout();
+                        nav.push("/home");
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </>
+                )}
               </animated.div>
             </animated.div>
           )

@@ -28,7 +28,7 @@ const UserCard: React.FC<Props> = (props) => {
       <div className="mx-2 flex w-[70vw] place-items-center justify-between rounded-xl bg-zinc-800 px-4 sm:w-[50vw] md:w-[40vw] lg:w-[25vw] lg:place-self-start xl:w-[20vw]">
         <div className="flex flex-col place-items-center">
           <img src={props.src} className="m-2 h-20 w-20 rounded-full" />
-          {props.edit && (
+          {/* {props.edit && (
             <div
               onClick={() => {
                 setEditing(!editing);
@@ -37,7 +37,7 @@ const UserCard: React.FC<Props> = (props) => {
             >
               Edit Info
             </div>
-          )}
+          )} */}
         </div>
 
         <div className="flex flex-col">

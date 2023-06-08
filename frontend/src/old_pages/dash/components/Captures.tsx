@@ -34,16 +34,16 @@ const RenderCaptures = ({ captureContent, title }) => {
       <div
         id="myCaptures"
         className={`
-          ${title === "My Captures" ? "text-cyan-200" : "text-teal-200"}
+          ${title === "My Captures" ? "text-zinc-200" : "text-zinc-300"}
           mt-4 max-h-[60vh] 
           w-full
           rounded-lg 
-          bg-zinc-400 bg-opacity-30
+          bg-zinc-900 bg-opacity-70
         `}
       >
         {/* Container Header */}
         <div
-          className={` rounded-t-lg bg-zinc-900 bg-opacity-70 p-1 pl-2 text-xl font-bold`}
+          className={` rounded-t-lg  p-1 pl-2 text-xl font-bold`}
           onClick={() => setCaptureGrid(!captureGrid)}
         >
           {title}

@@ -39,7 +39,7 @@ function Home() {
   const { isSignedIn, user } = useUser();
   const setUserInfo = useUserStore((s) => s.setUserInfo);
   const { data: userData } = trpc.userDB.findByClerkId.useQuery(
-    { clerk_id: user.id },
+    { clerk_id: user?.id },
     {
       onSuccess(data) {
         setUserInfo({ ...data });
@@ -90,11 +90,6 @@ function Home() {
             </Link>
 
             <SignedIn>
-              <div
-                className={"rounded-md bg-sky-700 p-2 text-xl text-zinc-300"}
-              >
-                <SignOutButton />
-              </div>
               <UserButton />
             </SignedIn>
             <SignedOut></SignedOut>

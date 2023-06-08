@@ -8,9 +8,7 @@ import "../styles/globals.css";
 import "../autocomplete.css";
 import { useRouter } from "next/router";
 import TheoryTabBar from "@components/layout/TheoryTabBar";
-import { SessionProvider } from "next-auth/react";
 import { ClerkProvider } from "@clerk/nextjs";
-import type { Session } from "next-auth";
 import { useEffect } from "react";
 import mixpanel from "@utils/mixpanel";
 const AppBackground = dynamic(
@@ -26,9 +24,10 @@ interface MyRouter extends NextRouter {
   components?: any;
 }
 const queryClient = new QueryClient();
-const MyApp: AppType<{
-  session: Session | null;
-}> = ({ Component, pageProps: { session, ...pageProps } }) => {
+const MyApp: AppType<{ Session: null }> = ({
+  Component,
+  pageProps: { ...pageProps },
+}) => {
   useEffect(() => {
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
@@ -60,17 +59,15 @@ const MyApp: AppType<{
   const path = router.pathname;
 
   return (
-    <SessionProvider session={session}>
-      <ClerkProvider {...pageProps}>
-        <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools position={"top-right"} />
-          <AppBackground />
-          {!path.includes("/landing") && path !== "/" && <UserIcon />}
-          {path.includes("/theory") ? <TheoryTabBar /> : <TabBar />}
-          <Component {...pageProps} />
-        </QueryClientProvider>
-      </ClerkProvider>
-    </SessionProvider>
+    <ClerkProvider {...pageProps}>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools position={"top-right"} />
+        <AppBackground />
+        {!path.includes("/landing") && path !== "/" && <UserIcon />}
+        {path.includes("/theory") ? <TheoryTabBar /> : <TabBar />}
+        <Component {...pageProps} />
+      </QueryClientProvider>
+    </ClerkProvider>
   );
 };
 
