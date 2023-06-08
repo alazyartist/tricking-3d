@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { withClerkMiddleware } from "@clerk/nextjs/server";
 import { jwtVerify, importJWK } from "jose";
 import type { NextRequest } from "next/server";
-import { getToken } from "next-auth/jwt";
 
 export default withClerkMiddleware((req: NextRequest) => {
   return NextResponse.next();

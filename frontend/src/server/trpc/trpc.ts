@@ -26,13 +26,13 @@ const isAuthed = t.middleware(({ ctx, next }) => {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
   if (ctx.user.uuid) return next({ ctx: { user: ctx.user } });
-  if (!ctx.session || !ctx.session.user) {
-    throw new TRPCError({ code: "UNAUTHORIZED" });
-  }
+  // if (!ctx.session || !ctx.session.user) {
+  //   throw new TRPCError({ code: "UNAUTHORIZED" });
+  // }
   return next({
     ctx: {
       // infers the `session` as non-nullable
-      session: { ...ctx.session, user: ctx.session.user },
+      // session: { ...ctx.session, user: ctx.session.user },
       user: { ...ctx.user },
     },
   });
