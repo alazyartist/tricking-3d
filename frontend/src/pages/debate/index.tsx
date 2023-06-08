@@ -1,3 +1,4 @@
+import { SignedIn, useUser } from "@clerk/nextjs";
 import { debates } from "@prisma/client";
 import { useUserStore } from "@store/userStore";
 import { trpc } from "@utils/trpc";
@@ -7,20 +8,33 @@ import ReactPlayer from "react-player";
 import { v4 as uuidv4 } from "uuid";
 
 const DebatesOverview = () => {
+  const { isSignedIn, user } = useUser();
+  const setUserInfo = useUserStore((s) => s.setUserInfo);
+  const { data: userData } = trpc.userDB.findByClerkId.useQuery(
+    { clerk_id: user?.id },
+    {
+      onSuccess(data) {
+        setUserInfo({ ...data });
+      },
+    }
+  );
+
   const { data: debates, isSuccess } = trpc.debates.getAll.useQuery();
   const [debateCreationOpen, setDebateCreationOpen] = useState(false);
   return (
     <div className="backrop-blur-xl no-scrollbar flex h-[100vh] w-full flex-col place-items-center gap-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-70 p-4 pt-14 font-inter text-zinc-300">
       <div className="flex w-full justify-between">
         <div className=" text-4xl ">Debates</div>
-        <button
-          onClick={() => {
-            setDebateCreationOpen(true);
-          }}
-          className="rounded-md bg-sky-500 p-2"
-        >
-          Start Debate
-        </button>
+        <SignedIn>
+          <button
+            onClick={() => {
+              setDebateCreationOpen(true);
+            }}
+            className="rounded-md bg-sky-500 p-2"
+          >
+            Start Debate
+          </button>
+        </SignedIn>
       </div>
       <div className="grid grid-cols-2 gap-4">
         {isSuccess &&

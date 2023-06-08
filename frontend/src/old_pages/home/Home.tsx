@@ -107,15 +107,17 @@ function Home() {
             >
               BattleRooms
             </Link>
-            <Button
-              href="/captures"
-              label={
-                <>
-                  <FaQrcode />
-                  <div>Capture</div>
-                </>
-              }
-            />
+            <SignedIn>
+              <Button
+                href="/captures"
+                label={
+                  <>
+                    <FaQrcode />
+                    <div>Capture</div>
+                  </>
+                }
+              />
+            </SignedIn>
             <AnimatedSearch />
             <SignedIn>
               <Button

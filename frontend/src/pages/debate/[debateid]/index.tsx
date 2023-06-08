@@ -7,9 +7,21 @@ import ReactPlayer from "react-player";
 import useAblyStore from "../../../hooks/useAblyStore";
 import { v4 as uuidv4 } from "uuid";
 import { OpenNewDebate } from "..";
+import { SignInButton, SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 const ably = useAblyStore.getState().ably;
 
 const DebatePage = () => {
+  const { isSignedIn, user } = useUser();
+  const setUserInfo = useUserStore((s) => s.setUserInfo);
+  const { data: userData } = trpc.userDB.findByClerkId.useQuery(
+    { clerk_id: user?.id },
+    {
+      onSuccess(data) {
+        setUserInfo({ ...data });
+      },
+    }
+  );
+
   const router = useRouter();
   const { debateid } = router.query;
   const { data: debateDetails, isSuccess } = trpc.debates.findById.useQuery({
@@ -199,23 +211,29 @@ const DebatePage = () => {
           <div className=" h-fit w-full rounded-md bg-red-500 p-2"></div> */}
         </div>
       </div>
-      {!debateDetails.closed && uuid && (
-        <MessageInput
-          uuid={uuid}
-          debateid={debateDetails.debateid}
-          channel={debateChannel}
-        />
+      {!debateDetails.closed && (
+        <SignedIn>
+          <MessageInput
+            uuid={uuid}
+            debateid={debateDetails.debateid}
+            channel={debateChannel}
+          />
+        </SignedIn>
       )}
-      {!uuid && (
+      <SignedOut>
         <div className={`flex w-full flex-col place-items-center p-2 `}>
-          <Link
-            href={"/login"}
+          <div
+            // href={"/login"}
             className={` rounded-md bg-sky-400 p-2 text-3xl text-zinc-300`}
           >
-            Login to contribute
-          </Link>
+            <SignInButton
+              mode="modal"
+              redirectUrl={`/debate/${debateid}`}
+              children={"Login to contribute"}
+            />
+          </div>
         </div>
-      )}
+      </SignedOut>
     </>
   );
 };

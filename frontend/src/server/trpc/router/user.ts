@@ -82,13 +82,17 @@ export const userRouter = router({
       //     ...profileInfo.SessionSummaries,
       //   ],
       // });
-      return {
-        ...profileInfo,
-        SessionSummaries: [
-          ...profileInfo.sessionSummaries,
-          ...profileInfo.SessionSummaries,
-        ],
-      };
+      if (profileInfo?.sessionSummaries && profileInfo?.SessionSummaries) {
+        return {
+          ...profileInfo,
+          SessionSummaries: [
+            ...profileInfo.sessionSummaries,
+            ...profileInfo.SessionSummaries,
+          ],
+        };
+      } else {
+        return profileInfo;
+      }
     }),
   createTempUser: protectedProcedure
     .input(
