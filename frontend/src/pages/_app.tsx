@@ -9,6 +9,7 @@ import "../autocomplete.css";
 import { useRouter } from "next/router";
 import TheoryTabBar from "@components/layout/TheoryTabBar";
 import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 import { useEffect } from "react";
 import mixpanel from "@utils/mixpanel";
 const AppBackground = dynamic(
@@ -59,7 +60,7 @@ const MyApp: AppType<{ Session: null }> = ({
   const path = router.pathname;
 
   return (
-    <ClerkProvider {...pageProps}>
+    <ClerkProvider appearance={{ baseTheme: dark }} {...pageProps}>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools position={"top-right"} />
         <AppBackground />
