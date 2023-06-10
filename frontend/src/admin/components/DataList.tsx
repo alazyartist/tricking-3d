@@ -1,5 +1,5 @@
 import { trpc } from "@utils/trpc";
-import React from "react";
+import React, { useState } from "react";
 import { FaCheck, FaCircle } from "react-icons/fa";
 import useGetCombos from "../../api/useGetCombos";
 import useGetTricks, { useGetTrickPoints } from "../../api/useGetTricks";
@@ -12,11 +12,11 @@ const DataList = () => {
   // const { data: combos } = useGetCombos();
   const { data: tricks } = trpc.trick.findAllwithComboClips.useQuery();
   const { data: combos } = trpc.combos.getAll.useQuery();
-  const { data: trickPoints, refetch } = useGetTrickPoints();
+  // const { data: trickPoints, refetch } = useGetTrickPoints();
   let trickMakerOpen = useSessionSummariesStore((s) => s.trickMakerOpen);
   if (!combos) return <div>Getting Combos</div>;
   if (!tricks) return <div>Getting Tricks</div>;
-
+  const [animPopup, toggleAnimPopup] = useState(false);
   return (
     <div className="no-scrollbar flex max-h-[70vh] w-full flex-col place-items-center gap-2 overflow-y-scroll rounded-xl pb-14">
       <h1
@@ -41,7 +41,7 @@ const DataList = () => {
             });
           })
           ?.map((trick) => (
-            <DLTrickDisplay trick={trick} />
+            <DLTrickDisplay toggleAnimPopup={toggleAnimPopup} trick={trick} />
           ))}
       </div>
       <h1 className="sticky top-0 h-full w-full bg-zinc-800 p-2 text-center text-xl font-bold">
@@ -68,7 +68,10 @@ const DataList = () => {
                 {combo?.defaultAnimation ? (
                   <FaCheck className="text-emerald-500" />
                 ) : (
-                  <FaCircle className="text-red-700" />
+                  <FaCircle
+                    onClick={() => toggleAnimPopup((p) => !p)}
+                    className="text-red-700"
+                  />
                 )}
               </div>
               <p
@@ -86,6 +89,7 @@ const DataList = () => {
 								<FaCircle className='text-red-700' />
 							)}
 						</div> */}
+              {animPopup && <AnimPopup toggle={toggleAnimPopup} />}
             </div>
           ))}
       </div>
@@ -97,7 +101,18 @@ const DataList = () => {
 
 export default DataList;
 
-const DLTrickDisplay = ({ trick }) => {
+const AnimPopup = ({ toggle }) => {
+  return (
+    <div className="absolute top-10 left-10 z-[110] h-[80vh] w-[80vw] bg-zinc-800 p-2 text-zinc-300">
+      <div className="font-black text-red-500 " onClick={() => toggle(false)}>
+        x
+      </div>
+      testttt
+    </div>
+  );
+};
+
+const DLTrickDisplay = ({ trick, toggleAnimPopup }) => {
   let numOfClips = trick.combos
     .map((combo) => combo.Clips.length)
     .reduce((sum, b) => sum + b, 0);
@@ -131,7 +146,10 @@ const DLTrickDisplay = ({ trick }) => {
         {trick?.defaultAnimation ? (
           <FaCheck className="text-emerald-500" />
         ) : (
-          <FaCircle className="text-red-700" />
+          <FaCircle
+            onClick={() => toggleAnimPopup((p) => !p)}
+            className="text-red-700"
+          />
         )}
       </div>
       <p style={{ color: d3.interpolateRdYlGn(numOfClips / 10) }}>
