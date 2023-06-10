@@ -6,9 +6,11 @@ import { tricksRouter } from "./trick";
 import { transitionsRouter } from "./transitions";
 import { comboRouter } from "./combos";
 import { debateRouter } from "./debates";
+import { animationRouter } from "./animations";
 
 export const appRouter = router({
   userDB: userRouter,
+  animations: animationRouter,
   combos: comboRouter,
   trick: tricksRouter,
   transition: transitionsRouter,

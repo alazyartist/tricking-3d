@@ -106,6 +106,7 @@ importers:
       prettier-plugin-tailwindcss: ^0.1.13
       react: ^18.2.0
       react-dom: ^18.2.0
+      react-hook-form: ^7.44.3
       react-icons: ^4.4.0
       react-qr-reader: ^3.0.0-beta-1
       react-qrcode-logo: ^2.8.0
@@ -162,6 +163,7 @@ importers:
       nodemailer: 6.8.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      react-hook-form: 7.44.3_react@18.2.0
       react-icons: 4.7.1_react@18.2.0
       react-qr-reader: 3.0.0-beta-1_biqbaboplfbrettd7655fr4n2y
       react-qrcode-logo: 2.8.0_biqbaboplfbrettd7655fr4n2y
@@ -7914,6 +7916,15 @@ packages:
 
   /react-fast-compare/3.2.0:
     resolution: {integrity: sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==}
+    dev: false
+
+  /react-hook-form/7.44.3_react@18.2.0:
+    resolution: {integrity: sha512-/tHId6p2ViAka1wECMw8FEPn/oz/w226zehHrJyQ1oIzCBNMIJCaj6ZkQcv+MjDxYh9MWR7RQic7Qqwe4a5nkw==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-icons/4.7.1_react@18.2.0:

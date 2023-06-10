@@ -17,6 +17,7 @@ const DataList = () => {
   if (!combos) return <div>Getting Combos</div>;
   if (!tricks) return <div>Getting Tricks</div>;
   const [animPopup, toggleAnimPopup] = useState(false);
+  const [currentTrick, setCurrentTrick] = useState(null);
   return (
     <div className="no-scrollbar flex max-h-[70vh] w-full flex-col place-items-center gap-2 overflow-y-scroll rounded-xl pb-14">
       <h1
@@ -102,10 +103,15 @@ const DataList = () => {
 export default DataList;
 
 const AnimPopup = ({ toggle }) => {
+  const { data: animations } = trpc.animations.findAll.useQuery();
+
   return (
     <div className="absolute top-10 left-10 z-[110] h-[80vh] w-[80vw] bg-zinc-800 p-2 text-zinc-300">
       <div className="font-black text-red-500 " onClick={() => toggle(false)}>
         x
+      </div>
+      <div className={"h-full overflow-y-scroll"}>
+        {animations && animations.map((a) => <div>{a.animationName}</div>)}
       </div>
       testttt
     </div>
