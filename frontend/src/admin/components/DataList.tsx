@@ -7,6 +7,7 @@ import DataListCommandBar from "../DataListCommandBar";
 import MakeNewTrickModal from "./sessionreview/MakeNewTrickModal";
 import { useSessionSummariesStore } from "./sessionreview/SessionSummaryStore";
 import * as d3 from "d3";
+import { combos, tricks } from "@prisma/client";
 const DataList = () => {
   // const { data: tricks } = useGetTricks();
   // const { data: combos } = useGetCombos();
@@ -18,6 +19,13 @@ const DataList = () => {
   if (!tricks) return <div>Getting Tricks</div>;
   const [animPopup, toggleAnimPopup] = useState(false);
   const [currentTrick, setCurrentTrick] = useState(null);
+  const { data: animations } = trpc.animations.findAll.useQuery();
+  console.log(animations);
+  const handleAnimPopup = (chosen: tricks | combos) => {
+    toggleAnimPopup((p) => !p);
+    setCurrentTrick(chosen);
+  };
+
   return (
     <div className="no-scrollbar flex max-h-[70vh] w-full flex-col place-items-center gap-2 overflow-y-scroll rounded-xl pb-14">
       <h1
@@ -42,7 +50,7 @@ const DataList = () => {
             });
           })
           ?.map((trick) => (
-            <DLTrickDisplay toggleAnimPopup={toggleAnimPopup} trick={trick} />
+            <DLTrickDisplay handleAnimPopup={handleAnimPopup} trick={trick} />
           ))}
       </div>
       <h1 className="sticky top-0 h-full w-full bg-zinc-800 p-2 text-center text-xl font-bold">
@@ -70,7 +78,7 @@ const DataList = () => {
                   <FaCheck className="text-emerald-500" />
                 ) : (
                   <FaCircle
-                    onClick={() => toggleAnimPopup((p) => !p)}
+                    onClick={() => handleAnimPopup(combo)}
                     className="text-red-700"
                   />
                 )}
@@ -90,10 +98,16 @@ const DataList = () => {
 								<FaCircle className='text-red-700' />
 							)}
 						</div> */}
-              {animPopup && <AnimPopup toggle={toggleAnimPopup} />}
             </div>
           ))}
       </div>
+      {animPopup && (
+        <AnimPopup
+          toggle={toggleAnimPopup}
+          currentTrick={currentTrick}
+          animations={animations}
+        />
+      )}
       <DataListCommandBar />
       {trickMakerOpen ? <MakeNewTrickModal /> : null}
     </div>
@@ -102,23 +116,31 @@ const DataList = () => {
 
 export default DataList;
 
-const AnimPopup = ({ toggle }) => {
-  const { data: animations } = trpc.animations.findAll.useQuery();
-
+const AnimPopup = ({ toggle, animations, currentTrick }) => {
   return (
-    <div className="absolute top-10 left-10 z-[110] h-[80vh] w-[80vw] bg-zinc-800 p-2 text-zinc-300">
-      <div className="font-black text-red-500 " onClick={() => toggle(false)}>
+    <div className="absolute top-10 left-10 z-[110] h-[80vh] w-[80vw] overflow-y-scroll bg-zinc-800 p-2 text-zinc-300">
+      <div
+        className="sticky top-0 z-[2] bg-zinc-800 font-black text-red-500 "
+        onClick={() => toggle(false)}
+      >
         x
       </div>
-      <div className={"h-full overflow-y-scroll"}>
-        {animations && animations.map((a) => <div>{a.animationName}</div>)}
+      <h1 className={"sticky top-2 bg-zinc-800 p-2 text-2xl text-emerald-200"}>
+        {currentTrick.name}
+      </h1>
+      <div className={"h-full "}>
+        {animations &&
+          animations
+            .sort((a, b) => {
+              return a.animationName > b.animationName ? 1 : -1;
+            })
+            .map((a) => <div>{a.animationName}</div>)}
       </div>
-      testttt
     </div>
   );
 };
 
-const DLTrickDisplay = ({ trick, toggleAnimPopup }) => {
+const DLTrickDisplay = ({ trick, handleAnimPopup }) => {
   let numOfClips = trick.combos
     .map((combo) => combo.Clips.length)
     .reduce((sum, b) => sum + b, 0);
@@ -153,7 +175,7 @@ const DLTrickDisplay = ({ trick, toggleAnimPopup }) => {
           <FaCheck className="text-emerald-500" />
         ) : (
           <FaCircle
-            onClick={() => toggleAnimPopup((p) => !p)}
+            onClick={() => handleAnimPopup(trick)}
             className="text-red-700"
           />
         )}
