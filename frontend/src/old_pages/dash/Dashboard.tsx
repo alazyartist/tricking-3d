@@ -8,6 +8,7 @@ import { useUserStore } from "@store/userStore";
 import Captures from "./components/Captures";
 import useGetTricks from "api/useGetTricks";
 import UserList from "@components/UserList";
+import SessionList from "./components/SessionList";
 
 function Dashboard() {
   const logout = useLogout();
@@ -36,6 +37,7 @@ function Dashboard() {
           p-4 
         "
         >
+          <SessionList uuid={uuid} />
           <Captures />
         </div>
       </>

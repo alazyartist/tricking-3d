@@ -203,11 +203,11 @@ const SessionSubmitted = ({ SessionReviewCredits, formData }) => {
   );
 };
 
-const OutOfCredits = () => {
+export const OutOfCredits = () => {
   const queryClient = useQueryClient();
   const [showForm, setShowForm] = useState(false);
   const [creditAmount, setcreditAmount] = useState(1);
-  useUserInfo();
+  // useUserInfo();
   useEffect(() => {
     queryClient.invalidateQueries(["userInfo"]);
   }, [showForm]);
@@ -231,7 +231,7 @@ const OutOfCredits = () => {
       <button
         type="button"
         onClick={() => setShowForm(true)}
-        className="w-[200px] rounded-md bg-gradient-to-br from-emerald-500 to-emerald-600 py-2 text-2xl font-bold text-zinc-900"
+        className="w-[200px] rounded-md bg-gradient-to-br from-emerald-500 to-emerald-600 py-2 text-2xl font-bold text-zinc-200"
         id="submit"
       >
         Add Credits

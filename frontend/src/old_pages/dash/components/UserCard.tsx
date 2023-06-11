@@ -3,6 +3,7 @@ import { animated, useTransition } from "react-spring";
 import { useUserStore } from "../../../store/userStore";
 import UpdateUserInfoForm from "../../../components/info/UpdateUserInfoForm";
 import UpdateProfilePic from "../../../components/info/UpdateProfilePic";
+import { OutOfCredits } from "@old_pages/sessions/AddSessionPage";
 
 interface Props {
   src: string;
@@ -41,12 +42,17 @@ const UserCard: React.FC<Props> = (props) => {
         </div>
 
         <div className="flex flex-col">
-          <div className="text-xl font-semibold">
+          <p className="text-xl font-semibold">
             {userInfo.first_name + " " + userInfo.last_name}
-          </div>
-          <div className="text-xs">{userInfo.username}</div>
+          </p>
+          <p className="text-xs">{userInfo.username}</p>
         </div>
       </div>
+      {userInfo.SessionReviewCredits > 1 ? (
+        <p>Credits: {userInfo.SessionReviewCredits}</p>
+      ) : (
+        <OutOfCredits />
+      )}
       {/* {editing && (
 				<div className='mt-4 h-10 w-[70vw] rounded-xl bg-zinc-800'>
 					<UpdateUserInfoForm />

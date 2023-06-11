@@ -123,6 +123,19 @@ export const sessionsummariesRouter = router({
       });
       return sessionDataScores;
     }),
+  getSessionsById: publicProcedure
+    .input(z.object({ uuid: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const sessions = await ctx.prisma.sessionsummaries.findMany({
+        where: { user_id: input.uuid },
+        orderBy: { updatedAt: "desc" },
+        include: {
+          user: { select: { username: true, profilePic: true, uuid: true } },
+          SessionData: { include: { ClipLabel: true } },
+        },
+      });
+      return sessions;
+    }),
   getAllSessionSummaries: publicProcedure
     .input(z.object({}).optional())
     .query(async ({ ctx }) => {

@@ -42,7 +42,7 @@ const CheckoutForm = ({ setShowForm }) => {
         <PaymentElement />
         <button
           type="submit"
-          className="w-[200px] rounded-md bg-emerald-500 py-2 text-3xl"
+          className="w-[200px] rounded-md bg-emerald-500 py-2 text-3xl text-zinc-200"
           disabled={isProcessing}
           id="submit"
         >
@@ -51,7 +51,7 @@ const CheckoutForm = ({ setShowForm }) => {
         <button
           onClick={() => setShowForm(false)}
           type="button"
-          className="w-[100px] rounded-md bg-red-500 py-2 text-xl"
+          className="w-[100px] rounded-md bg-red-500 py-2 text-xl text-zinc-200"
         >
           Cancel
         </button>
