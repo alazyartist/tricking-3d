@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import AxesSketch from "./components/AxesSketch";
 import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
@@ -10,11 +10,15 @@ import {
   Sphere,
   Torus,
 } from "@react-three/drei";
+import { degToRad } from "three/src/math/MathUtils";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { useFrankFollowCam } from "@hooks/useFollowCam";
 import useMediaController from "@hooks/useMediaController";
 
 const Axes = () => {
+  const [rotX, setRotX] = useState(0);
+  const [rotY, setRotY] = useState(0);
+  const [rotZ, setRotZ] = useState(0);
   return (
     <div className="flex flex-col place-content-center place-items-center text-zinc-300">
       <div>Axes</div>
@@ -22,9 +26,44 @@ const Axes = () => {
       <div className="h-80 w-full">
         <Canvas>
           <PerspectiveCamera position={[0, -1, 0]}>
-            <Scene />
+            <Scene rotX={rotX} rotY={rotY} rotZ={rotZ} />
           </PerspectiveCamera>
         </Canvas>
+      </div>
+      <div className="flex gap-2">
+        <div className="p-2 text-sm">
+          <p className="w-full text-center">X:{rotX}</p>
+          <input
+            type="range"
+            className="p-2 text-sm"
+            value={rotX}
+            max={360}
+            step={1}
+            onChange={(e) => setRotX(e.target.value)}
+          />
+        </div>
+        <div className="p-2 text-sm">
+          <p className="w-full text-center">Y:{rotY}</p>
+          <input
+            type="range"
+            className="p-2 text-sm"
+            value={rotY}
+            max={360}
+            step={1}
+            onChange={(e) => setRotY(e.target.value)}
+          />
+        </div>
+        <div className="p-2 text-sm">
+          <p className="w-full text-center">Z:{rotZ}</p>
+          <input
+            type="range"
+            className="p-2 text-sm"
+            value={rotZ}
+            max={360}
+            step={1}
+            onChange={(e) => setRotZ(e.target.value)}
+          />
+        </div>
       </div>
       <div className="w-[80%] text-sm font-light">
         Each of the base flips can be manipulated on these axes. 0 is the axis
@@ -59,7 +98,7 @@ const Donut = React.forwardRef(
   }
 );
 
-const Scene = () => {
+const Scene = ({ rotX, rotY, rotZ }) => {
   const hipsRef = useRef();
   const donut1 = useRef();
   const donut2 = useRef();
@@ -67,7 +106,7 @@ const Scene = () => {
   const donut = useRef();
   const sphereRef = useRef();
 
-  console.log(donut.current);
+  console.log(hipsRef.current);
   useFrame(() => {
     // donut.current.rotation.x = hipsRef.current.rotation.x;
     // donut.current.rotation.y = hipsRef.current.rotation.y;
@@ -81,24 +120,29 @@ const Scene = () => {
     donut.current.position.x = hipsRef?.current.position.x * 0.01;
     donut.current.position.y = hipsRef?.current.position.y * 0.01;
     donut.current.position.z = hipsRef.current.position.z * 0.01;
-    // donut.current.rotation.y = hipsRef.current.rotation.y;
-    // donut1.current.rotation.y = hipsRef.current.rotation.y;
+    // donut1.current.rotation.x = degToRad(rotX);
+    donut1.current.rotation.x = Math.PI / 2 - degToRad(rotX);
+    donut2.current.rotation.y = degToRad(rotY);
+    donut3.current.rotation.y = Math.PI / 2 - degToRad(rotZ);
     // donut1.current.rotation.z = hipsRef.current.rotation.z;
+    // donut1.current.quaternion.slerp(hipsRef.current.quaternion, 0.1);
+    // donut2.current.quaternion.slerp(hipsRef.current.quaternion, 0.1);
+    // donut3.current.quaternion.slerp(hipsRef.current.quaternion, 0.1);
     // donut1.current.rotation.y += 0.01;
-    sphereRef.current.position.x = center.x;
-    sphereRef.current.position.y = center.y;
-    sphereRef.current.position.z = center.z;
+    sphereRef.current.position.x = hipsRef.current.position.x + center.x;
+    sphereRef.current.position.y = hipsRef.current.position.y + center.y;
+    sphereRef.current.position.z = hipsRef.current.position.z + center.z;
   });
   return (
     <>
       <ambientLight intensity={0.5} />
       <spotLight position={[10, 10, 10]} angle={0.5} penumbra={1} />
 
-      <Frank hipsRef={hipsRef} />
-      <Sphere ref={sphereRef} args={[0.05, 32, 32]}>
-        <meshStandardMaterial color="orange" />
-      </Sphere>
+      <Frank visible={true} hipsRef={hipsRef} />
       <group position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]} ref={donut}>
+        <Sphere ref={sphereRef} args={[0.05, 32, 32]}>
+          <meshStandardMaterial color="green" />
+        </Sphere>
         <Donut
           ref={donut1}
           rotation={[Math.PI / 2, 0, 0]}
@@ -115,7 +159,7 @@ const Scene = () => {
         />
         <Donut
           ref={donut3}
-          rotation={[0, Math.PI / 2, 0]}
+          rotation={[0, 0, 0]}
           offset={0.002}
           position={[0, 1.5, 0]}
           color="blue"
@@ -146,7 +190,7 @@ export function Frank({ ...props }) {
 
   useFrankFollowCam(hipsRef);
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} scale={[1, 1, 1]} dispose={null}>
       <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
         <primitive ref={props.hipsRef} object={nodes.mixamorig1Hips} />
         <skinnedMesh
