@@ -23,7 +23,7 @@ const MovingBackground = dynamic(
   { suspense: false }
 );
 
-const LandingPage: NextPage<{ a: Boolean }> = ({ a }) => {
+const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
   const [loadScene, setLoadScene] = useState(false);
   // mixpanel.track("Landing Page View");
   return (
