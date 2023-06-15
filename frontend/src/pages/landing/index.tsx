@@ -23,7 +23,7 @@ const MovingBackground = dynamic(
   { suspense: false }
 );
 
-const LandingPage: NextPage = () => {
+const LandingPage: NextPage<{ a: Boolean }> = ({ a }) => {
   const [loadScene, setLoadScene] = useState(false);
   // mixpanel.track("Landing Page View");
   return (
@@ -38,7 +38,7 @@ const LandingPage: NextPage = () => {
             <FaHamburger className="text-2xl text-zinc-800" />
           </div> */}
         </div>
-        <TagLine a={Math.random() > 0.5 ? true : false}></TagLine>
+        <TagLine a={a}></TagLine>
         {/* <div className="mx-4 my-2 rounded-md bg-zinc-900 bg-opacity-70 p-2 px-4 text-zinc-300 backdrop-blur-md">
           At the Trickedex, we believe that everyone has the potential to be a
           great tricker. With the right tools and resources, anyone can master
