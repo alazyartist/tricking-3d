@@ -9,6 +9,7 @@ import Captures from "./components/Captures";
 import useGetTricks from "api/useGetTricks";
 import UserList from "@components/UserList";
 import SessionList from "./components/SessionList";
+import ClaimTricks from "@old_pages/claimtricks/ClaimTricks";
 
 function Dashboard() {
   const logout = useLogout();
@@ -38,13 +39,15 @@ function Dashboard() {
         "
         >
           <SessionList uuid={uuid} />
+          <ClaimTricks user_id={uuid} />
           <Captures />
         </div>
       </>
+
       {/* <UserList /> */}
-      <button className="fixed right-5 bottom-14" onClick={() => logout()}>
+      {/* <button className="fixed right-5 bottom-14" onClick={() => logout()}>
         Logout
-      </button>
+      </button> */}
     </div>
   );
 }

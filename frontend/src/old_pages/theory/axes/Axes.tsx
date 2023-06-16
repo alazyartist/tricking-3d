@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, MutableRefObject } from "react";
 import AxesSketch from "./components/AxesSketch";
 import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
@@ -75,36 +75,40 @@ const Axes = () => {
 
 export default Axes;
 
-const Donut = React.forwardRef(
-  ({ position, rotation, color, offset }, donutref) => {
-    //   const donutref = useRef();
+const Donut = React.forwardRef<{
+  position: any;
+  rotation: any;
+  color: any;
+  offset: any;
+}>(({ position, rotation, color, offset }, donutref) => {
+  //   const donutref = useRef();
 
-    useFrame(() => {
-      // donutref.current.rotation.x += 0.002 + offset;
-      // donutref.current.rotation.y += 0.002 + offset;
-      // donutref.current.rotation.z += 0.002 + offset;
-    });
+  useFrame(() => {
+    // donutref.current.rotation.x += 0.002 + offset;
+    // donutref.current.rotation.y += 0.002 + offset;
+    // donutref.current.rotation.z += 0.002 + offset;
+  });
 
-    return (
-      <Torus
-        args={[1.5, 0.02, 16, 100]}
-        ref={donutref}
-        position={position}
-        rotation={rotation}
-      >
-        <meshStandardMaterial color={color} />
-      </Torus>
-    );
-  }
-);
+  return (
+    // @ts-ignore
+    <Torus
+      args={[1.5, 0.02, 16, 100]}
+      ref={donutref}
+      position={position}
+      rotation={rotation}
+    >
+      <meshStandardMaterial color={color} />
+    </Torus>
+  );
+});
 
 const Scene = ({ rotX, rotY, rotZ }) => {
-  const hipsRef = useRef();
-  const donut1 = useRef();
-  const donut2 = useRef();
-  const donut3 = useRef();
-  const donut = useRef();
-  const sphereRef = useRef();
+  const hipsRef = useRef<any>();
+  const donut1 = useRef<any>();
+  const donut2 = useRef<any>();
+  const donut3 = useRef<any>();
+  const donut = useRef<any>();
+  const sphereRef = useRef<any>();
 
   console.log(hipsRef.current);
   useFrame(() => {
@@ -115,34 +119,37 @@ const Scene = ({ rotX, rotY, rotZ }) => {
     const box = new THREE.Box3().setFromObject(donut.current);
 
     const center = box.getCenter(new THREE.Vector3());
-    // donut.current.quaternion.slerp(hipsRef.current.quaternion, 0.01);
+    if (donut.current?.position) {
+      donut.current.position.x = hipsRef.current.position.x * 0.01;
+      donut.current.position.y = hipsRef.current.position.y * 0.01;
+      donut.current.position.z = hipsRef.current.position.z * 0.01;
+      donut1.current.rotation.x = Math.PI / 2 - degToRad(rotX);
+      donut2.current.rotation.y = degToRad(rotY);
+      donut3.current.rotation.y = Math.PI / 2 - degToRad(rotZ);
+    }
 
-    donut.current.position.x = hipsRef?.current.position.x * 0.01;
-    donut.current.position.y = hipsRef?.current.position.y * 0.01;
-    donut.current.position.z = hipsRef.current.position.z * 0.01;
-    // donut1.current.rotation.x = degToRad(rotX);
-    donut1.current.rotation.x = Math.PI / 2 - degToRad(rotX);
-    donut2.current.rotation.y = degToRad(rotY);
-    donut3.current.rotation.y = Math.PI / 2 - degToRad(rotZ);
     // donut1.current.rotation.z = hipsRef.current.rotation.z;
     // donut1.current.quaternion.slerp(hipsRef.current.quaternion, 0.1);
     // donut2.current.quaternion.slerp(hipsRef.current.quaternion, 0.1);
     // donut3.current.quaternion.slerp(hipsRef.current.quaternion, 0.1);
     // donut1.current.rotation.y += 0.01;
-    sphereRef.current.position.x = hipsRef.current.position.x + center.x;
-    sphereRef.current.position.y = hipsRef.current.position.y + center.y;
-    sphereRef.current.position.z = hipsRef.current.position.z + center.z;
+    // sphereRef.current.position.x = hipsRef.current.position.x;
+    // sphereRef.current.position.y = hipsRef.current.position.y;
+    // sphereRef.current.position.z = hipsRef.current.position.z;
   });
   return (
     <>
+      {/* @ts-ignore */}
       <ambientLight intensity={0.5} />
+      {/* @ts-ignore */}
       <spotLight position={[10, 10, 10]} angle={0.5} penumbra={1} />
 
       <Frank visible={true} hipsRef={hipsRef} />
+      {/* @ts-ignore */}
+      <Sphere ref={sphereRef} args={[0.05, 32, 32]}>
+        <meshStandardMaterial color="green" />
+      </Sphere>
       <group position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]} ref={donut}>
-        <Sphere ref={sphereRef} args={[0.05, 32, 32]}>
-          <meshStandardMaterial color="green" />
-        </Sphere>
         <Donut
           ref={donut1}
           rotation={[Math.PI / 2, 0, 0]}

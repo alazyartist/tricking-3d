@@ -6,7 +6,8 @@ const TempFeed = () => {
   const { data: summaries } =
     trpc.sessionsummaries.getAllSessionSummaries.useQuery();
   return (
-    <div className={`flex flex-col gap-1 p-2`}>
+    <div className={`flex flex-col gap-1 p-2 font-inter`}>
+      <p className={"text-center  text-zinc-300"}>Recently Reviewed</p>
       {summaries &&
         summaries
           //   ?.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1))
