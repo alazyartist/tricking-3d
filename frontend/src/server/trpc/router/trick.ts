@@ -106,4 +106,8 @@ export const tricksRouter = router({
       // console.log(newData);
       return Promise.all(newData);
     }),
+  getBases: publicProcedure.query(async ({ ctx }) => {
+    const bases = await ctx.prisma.bases.findMany();
+    return bases;
+  }),
 });

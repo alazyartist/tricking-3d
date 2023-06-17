@@ -4,6 +4,7 @@ import TrickOrComboDetails from "../components/info/trickInfo/TrickOrComboDetail
 import useGetTricks from "../api/useGetTricks";
 import { IoIosWalk } from "react-icons/io";
 import { useRouter } from "next/router";
+import TrickCategories from "./theory/TrickCategories";
 function AllTrickDisplay() {
   const { data: TrickListArr } = useGetTricks();
   const [filteredTricks, setFilteredTricks] = useState(TrickListArr);
@@ -55,7 +56,7 @@ function AllTrickDisplay() {
           onChange={handleFilter}
         />
         {/* Maps over data returned from filter and displays it. */}
-        <div className="flex h-[90%] w-[95%] flex-col gap-2">
+        <div className="minimalistScroll flex h-[full] max-h-[30vh] w-[95%] flex-col gap-2 overflow-y-scroll">
           {animatedFilter(({ opacity }, e) => (
             <animated.div
               style={{ opacity: opacity }}
@@ -102,6 +103,7 @@ function AllTrickDisplay() {
           ))}
         </div>
       </div>
+      <TrickCategories tricks={TrickListArr} />
     </>
   );
 }
