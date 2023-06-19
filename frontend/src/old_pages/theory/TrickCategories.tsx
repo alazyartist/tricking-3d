@@ -3,16 +3,17 @@ import * as d3 from "d3";
 import { trpc } from "@utils/trpc";
 import { bases } from "@prisma/client";
 const TrickCategories = ({ tricks }) => {
+  const [activeGroup, setActiveGroup] = useState("");
+  const { data: bases } = trpc.trick.getBases.useQuery();
+  if (!tricks || !bases) return <p>Loading..</p>;
   const cats = Array.from(
     d3.group(tricks, (t: any) => (t.type === "Trick" ? t.trickType : t.type))
   );
   const cats2 = Array.from(
     d3.group(tricks, (t: any) => t.type === "Trick" && t.base_id)
   );
-  const { data: bases } = trpc.trick.getBases.useQuery();
   console.log(cats2);
   console.log("bases");
-  const [activeGroup, setActiveGroup] = useState("");
   const baseGroups = d3.group(bases, (b: bases) => b.direction);
   const baseGroupsArr = Array.from(baseGroups);
   return (
