@@ -1,6 +1,13 @@
-import React, { useRef, useEffect, useState, MutableRefObject } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  MutableRefObject,
+  ChangeEvent,
+} from "react";
 import AxesSketch from "./components/AxesSketch";
 import * as THREE from "three";
+import { Mesh } from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   Circle,
@@ -16,15 +23,16 @@ import { useFrankFollowCam } from "@hooks/useFollowCam";
 import useMediaController from "@hooks/useMediaController";
 
 const Axes = () => {
-  const [rotX, setRotX] = useState(0);
-  const [rotY, setRotY] = useState(0);
-  const [rotZ, setRotZ] = useState(0);
+  const [rotX, setRotX] = useState<number>(0);
+  const [rotY, setRotY] = useState<number>(0);
+  const [rotZ, setRotZ] = useState<number>(0);
   return (
     <div className="flex flex-col place-content-center place-items-center text-zinc-300">
       <div>Axes</div>
       {/* <AxesSketch className="h-80 w-80" /> */}
       <div className="h-80 w-full">
         <Canvas>
+          {/* @ts-ignore */}
           <PerspectiveCamera position={[0, -1, 0]}>
             <Scene rotX={rotX} rotY={rotY} rotZ={rotZ} />
           </PerspectiveCamera>
@@ -39,7 +47,7 @@ const Axes = () => {
             value={rotX}
             max={360}
             step={1}
-            onChange={(e) => setRotX(e.target.value)}
+            onChange={(e) => setRotX(parseFloat(e.target.value))}
           />
         </div>
         <div className="p-2 text-sm">
@@ -50,7 +58,7 @@ const Axes = () => {
             value={rotY}
             max={360}
             step={1}
-            onChange={(e) => setRotY(e.target.value)}
+            onChange={(e) => setRotY(parseFloat(e.target.value))}
           />
         </div>
         <div className="p-2 text-sm">
@@ -61,7 +69,7 @@ const Axes = () => {
             value={rotZ}
             max={360}
             step={1}
-            onChange={(e) => setRotZ(e.target.value)}
+            onChange={(e) => setRotZ(parseFloat(e.target.value))}
           />
         </div>
       </div>
@@ -75,40 +83,37 @@ const Axes = () => {
 
 export default Axes;
 
-const Donut = React.forwardRef<{
-  position: any;
-  rotation: any;
-  color: any;
-  offset: any;
-}>(({ position, rotation, color, offset }, donutref) => {
-  //   const donutref = useRef();
+const Donut = React.forwardRef<any>(
+  ({ position, rotation, color, offset }, donutref) => {
+    //   const donutref = useRef();
 
-  useFrame(() => {
-    // donutref.current.rotation.x += 0.002 + offset;
-    // donutref.current.rotation.y += 0.002 + offset;
-    // donutref.current.rotation.z += 0.002 + offset;
-  });
+    useFrame(() => {
+      // donutref.current.rotation.x += 0.002 + offset;
+      // donutref.current.rotation.y += 0.002 + offset;
+      // donutref.current.rotation.z += 0.002 + offset;
+    });
 
-  return (
-    // @ts-ignore
-    <Torus
-      args={[1.5, 0.02, 16, 100]}
-      ref={donutref}
-      position={position}
-      rotation={rotation}
-    >
-      <meshStandardMaterial color={color} />
-    </Torus>
-  );
-});
+    return (
+      // @ts-ignore
+      <Torus
+        args={[1.5, 0.02, 16, 100]}
+        ref={donutref}
+        position={position}
+        rotation={rotation}
+      >
+        <meshStandardMaterial color={color} />
+      </Torus>
+    );
+  }
+);
 
 const Scene = ({ rotX, rotY, rotZ }) => {
-  const hipsRef = useRef<any>();
-  const donut1 = useRef<any>();
-  const donut2 = useRef<any>();
-  const donut3 = useRef<any>();
-  const donut = useRef<any>();
-  const sphereRef = useRef<any>();
+  const hipsRef = useRef<Mesh>();
+  const donut1 = useRef<Mesh>();
+  const donut2 = useRef<Mesh>();
+  const donut3 = useRef<Mesh>();
+  const donut = useRef<Mesh>();
+  const sphereRef = useRef<Mesh>();
 
   console.log(hipsRef.current);
   useFrame(() => {
@@ -119,14 +124,12 @@ const Scene = ({ rotX, rotY, rotZ }) => {
     const box = new THREE.Box3().setFromObject(donut.current);
 
     const center = box.getCenter(new THREE.Vector3());
-    if (donut.current?.position) {
-      donut.current.position.x = hipsRef.current.position.x * 0.01;
-      donut.current.position.y = hipsRef.current.position.y * 0.01;
-      donut.current.position.z = hipsRef.current.position.z * 0.01;
-      donut1.current.rotation.x = Math.PI / 2 - degToRad(rotX);
-      donut2.current.rotation.y = degToRad(rotY);
-      donut3.current.rotation.y = Math.PI / 2 - degToRad(rotZ);
-    }
+    donut.current.position.x = hipsRef.current.position.x * 0.01;
+    donut.current.position.y = hipsRef.current.position.y * 0.01;
+    donut.current.position.z = hipsRef.current.position.z * 0.01;
+    donut1.current.rotation.x = Math.PI / 2 - degToRad(rotX);
+    donut2.current.rotation.y = degToRad(rotY);
+    donut3.current.rotation.y = Math.PI / 2 - degToRad(rotZ);
 
     // donut1.current.rotation.z = hipsRef.current.rotation.z;
     // donut1.current.quaternion.slerp(hipsRef.current.quaternion, 0.1);

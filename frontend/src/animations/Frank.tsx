@@ -18,6 +18,7 @@ export function Frank({ ...props }) {
       <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
         <primitive ref={hipsRef} object={nodes.mixamorig1Hips} />
         <skinnedMesh
+          // @ts-ignore
           frustumCulled={false}
           geometry={nodes.Skin.geometry}
           material={materials.Ch36_Body}
