@@ -35,12 +35,14 @@ const TorqueScene: React.FC<any> = ({ gizmoHelper, model, trick }) => {
         </Suspense>
         <ambientLight intensity={0.3} />
         <spotLight
+          //  @ts-ignore
           ref={light2}
           color={"whitesmoke"}
           intensity={0.4}
           position={[0, 2, 5]}
         />
         <spotLight
+          //  @ts-ignore
           ref={light}
           color={"whitesmoke"}
           intensity={0.04}

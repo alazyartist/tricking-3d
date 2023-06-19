@@ -10,15 +10,18 @@ import { useGLTF, useAnimations, Html } from "@react-three/drei";
 import { Vector3 } from "three";
 import useMediaController from "hooks/useMediaController";
 import useFollowCam from "hooks/useFollowCam";
+import { MyGLTF } from "types/mythree";
 
 export default function TrickListModel({ ...props }) {
   const group = useRef<GroupProps>();
   const hipsRef = useRef<PrimitiveProps>();
-  const { nodes, materials, animations } = useGLTF("/Kerwood40.glb");
+  const { nodes, materials, animations } = useGLTF("/Kerwood40.glb") as MyGLTF;
+  //@ts-ignore
   const { actions, names, mixer } = useAnimations(animations, group);
   useMediaController(actions, names, mixer);
   useFollowCam(hipsRef);
   return (
+    //@ts-ignore
     <group ref={group} {...props} dispose={null}>
       <group scale={0.01}>
         <group

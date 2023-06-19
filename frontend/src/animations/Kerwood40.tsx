@@ -2,10 +2,11 @@ import React, { useRef, useEffect, useMemo } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import useFollowCam from "../hooks/useFollowCam";
 import useMediaController from "../hooks/useMediaController";
+import type { MyGLTF } from "types/mythree";
 
 export default function Kerwood40({ ...props }) {
 	const group = useRef();
-	const { nodes, materials, animations } = useGLTF("/Kerwood.glb");
+	const { nodes, materials, animations } = useGLTF("/Kerwood.glb") as MyGLTF;
 	const { actions, names, mixer } = useAnimations(animations, group);
 	const hipsRef = useRef();
 	useMediaController(actions, names, mixer);

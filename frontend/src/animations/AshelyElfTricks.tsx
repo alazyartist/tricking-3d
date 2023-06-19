@@ -7,9 +7,12 @@ import React, { useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import useMediaController from "../hooks/useMediaController";
 import useFollowCam from "../hooks/useFollowCam";
+import { MyGLTF } from "types/mythree";
 export function Ashley(props) {
   const group = useRef();
-  const { nodes, materials, animations } = useGLTF("/AshelyElfTricks.glb");
+  const { nodes, materials, animations } = useGLTF(
+    "/AshelyElfTricks.glb"
+  ) as MyGLTF;
   const { actions, names, mixer } = useAnimations(animations, group);
   const hipsRef = useRef();
   useMediaController(actions, names, mixer);

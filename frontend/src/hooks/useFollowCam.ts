@@ -14,7 +14,7 @@ export default function useFollowCam(hipsRef) {
     let vec = new Vector3(posArr[0], 0.5, posArr[2]);
     if (isFollowCam && hipsRef.current && camera) {
       camera.quaternion.slerp(quat, 0.01);
-      camera.lookAt(vec, 0.01);
+      camera.lookAt(vec);
       camera.updateProjectionMatrix();
     }
   });
@@ -32,8 +32,8 @@ export function useFrankFollowCam(hipsRef) {
     let vec = new Vector3(posArr[0], 0.5, posArr[1]);
     // console.log(camera);
     if (isFollowCam && hipsRef.current && camera) {
-      camera.quaternion.set(quat, 0.1);
-      camera.lookAt(vec, 1);
+      camera.quaternion.slerp(quat, 0.1);
+      camera.lookAt(vec);
       camera.updateProjectionMatrix();
     }
   });

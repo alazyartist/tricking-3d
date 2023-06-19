@@ -2,12 +2,13 @@ import React, { useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { useFrankFollowCam } from "../hooks/useFollowCam";
 import useMediaController from "../hooks/useMediaController";
+import { MyGLTF } from "types/mythree";
 
 export function Frank({ ...props }) {
   const group = useRef();
   //HipsRef attached to skeletons Hips
   const hipsRef = useRef();
-  const { nodes, materials, animations } = useGLTF("/Frank2.glb");
+  const { nodes, materials, animations } = useGLTF("/Frank2.glb") as MyGLTF;
   const { actions, names, mixer } = useAnimations(animations, group);
 
   useMediaController(actions, names, mixer);

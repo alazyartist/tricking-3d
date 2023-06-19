@@ -4,11 +4,12 @@ import React, {
   useState,
   MutableRefObject,
   ChangeEvent,
+  ForwardedRef,
 } from "react";
 import AxesSketch from "./components/AxesSketch";
 import * as THREE from "three";
 import { Mesh } from "three";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, Euler, Vector3, useFrame } from "@react-three/fiber";
 import {
   Circle,
   OrbitControls,
@@ -21,6 +22,7 @@ import { degToRad } from "three/src/math/MathUtils";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { useFrankFollowCam } from "@hooks/useFollowCam";
 import useMediaController from "@hooks/useMediaController";
+import { MyGLTF } from "types/mythree";
 
 const Axes = () => {
   const [rotX, setRotX] = useState<number>(0);
@@ -82,9 +84,17 @@ const Axes = () => {
 };
 
 export default Axes;
-
-const Donut = React.forwardRef<any>(
-  ({ position, rotation, color, offset }, donutref) => {
+interface DonutProps {
+  position: Vector3;
+  rotation: Euler;
+  color: string;
+  offset: number;
+}
+const Donut = React.forwardRef(
+  (
+    { position, rotation, color, offset }: DonutProps,
+    donutref: ForwardedRef<any>
+  ) => {
     //   const donutref = useRef();
 
     useFrame(() => {
@@ -152,6 +162,7 @@ const Scene = ({ rotX, rotY, rotZ }) => {
       <Sphere ref={sphereRef} args={[0.05, 32, 32]}>
         <meshStandardMaterial color="green" />
       </Sphere>
+      {/* @ts-ignore */}
       <group position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]} ref={donut}>
         <Donut
           ref={donut1}
@@ -193,7 +204,7 @@ export function Frank({ ...props }) {
   const hipsRef = props.hipsRef;
   //   HipsRef attached to skeletons Hips
 
-  const { nodes, materials, animations } = useGLTF("/Frank2.glb");
+  const { nodes, materials, animations } = useGLTF("/Frank2.glb") as MyGLTF;
   const { actions, names, mixer } = useAnimations(animations, group);
 
   useMediaController(actions, names, mixer);
