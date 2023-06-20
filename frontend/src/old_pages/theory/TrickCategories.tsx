@@ -34,9 +34,9 @@ const TrickCategories = ({ tricks }) => {
               {c[0] && (
                 <div
                   onClick={() => setActiveGroup(c[0])}
-                  className={
-                    "col-span-3 w-full rounded-md bg-zinc-800 p-2 text-center"
-                  }
+                  className={`col-span-3 ${
+                    activeGroup === c[0] ? "bg-zinc-600" : ""
+                  } w-full rounded-md bg-zinc-800 p-2 text-center`}
                   key={`${c[0]}`}
                 >
                   <p>{c[0]}</p>
@@ -55,7 +55,7 @@ const TrickCategories = ({ tricks }) => {
           } gap-2`}
         >
           {baseGroups.get(activeGroup)?.map((b) => (
-            <div className={` w-full rounded-md bg-zinc-800 p-2 text-center`}>
+            <div className={` w-full rounded-md bg-zinc-600 p-2 text-center`}>
               {b.name}
             </div>
           ))}
