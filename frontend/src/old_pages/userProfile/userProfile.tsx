@@ -103,21 +103,21 @@ const UserProfile = () => {
                 style={styles}
                 className="relative flex flex-col place-items-center gap-2"
               >
-                <ProfileInfoCardEditable
-                  setEditing={setEditing}
-                  userInfo={profileInfo}
-                />
                 {isUsersPage && (
                   <>
                     {editing}
                     <div
-                      className="flex place-content-center place-items-center gap-1"
+                      className="absolute top-0 flex place-content-center place-items-center gap-1"
                       onClick={() => setEditing(!editing)}
                     >
                       <MdOutlineClose /> <div>Close</div>
                     </div>
                   </>
                 )}
+                <ProfileInfoCardEditable
+                  setEditing={setEditing}
+                  userInfo={profileInfo}
+                />
               </animated.div>
             ) : (
               <animated.div

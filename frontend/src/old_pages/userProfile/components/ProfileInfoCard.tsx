@@ -36,7 +36,7 @@ const ProfileInfoCard = ({ userInfo }) => {
           <div className="flex place-content-center items-center justify-between">
             <div>Level</div>
             <div className="w-fit flex-grow-0 rounded-md border-[1px] border-zinc-300 p-[1px] px-[6px]">
-              4
+              TBD
             </div>
           </div>
           {/* BIFW */}
@@ -55,7 +55,8 @@ const ProfileInfoCard = ({ userInfo }) => {
           className="grid h-full min-h-[100px] w-[200px] grid-cols-5 grid-rows-2 rounded-lg bg-zinc-900 bg-opacity-40 p-3"
         >
           {/* Badge Goes Here */}
-          <ProgressBadge />
+          <p className="col-span-5 text-zinc-300">Badges Coming Soon</p>
+          {/* <ProgressBadge /> */}
         </div>
       </div>
     </div>
