@@ -10,6 +10,7 @@ import useGetTricks from "api/useGetTricks";
 import UserList from "@components/UserList";
 import SessionList from "./components/SessionList";
 import ClaimTricks from "@old_pages/claimtricks/ClaimTricks";
+import Link from "next/link";
 
 function Dashboard() {
   const logout = useLogout();
@@ -22,14 +23,16 @@ function Dashboard() {
         Welcome <span className="font-semibold text-zinc-300">{user}</span>
       </div>
       <>
-        <UserCard
-          edit
-          src={
-            profilePic !== null
-              ? `./images/${uuid}/${profilePic}`
-              : "./images/noimg.jpeg"
-          }
-        />
+        <Link href={`userProfile/${uuid}`}>
+          <UserCard
+            edit
+            src={
+              profilePic !== null
+                ? `./images/${uuid}/${profilePic}`
+                : "./images/noimg.jpeg"
+            }
+          />
+        </Link>
         <div
           className="
           m-auto max-h-[83vh] w-[98vw] max-w-[600px]

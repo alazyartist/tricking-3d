@@ -21,9 +21,9 @@ const ClaimTricks = ({ user_id }) => {
     setSearchedItems(newFilter);
   };
   return (
-    <div className="no-scrollbar h-[60vh] w-full overflow-y-scroll font-inter">
+    <div className="no-scrollbar h-[60vh] w-full overflow-y-scroll bg-zinc-900 bg-opacity-70 font-inter">
       <div className="text-center text-3xl font-bold">ClaimTricks</div>
-      <div className="my-2 w-full p-2">
+      <div className="sticky top-0 z-[4] my-2 w-full p-2 backdrop-blur-md">
         <input
           id="searchBar"
           type={"text"}
