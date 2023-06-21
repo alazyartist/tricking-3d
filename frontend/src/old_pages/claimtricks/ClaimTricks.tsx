@@ -35,7 +35,7 @@ const ClaimTricks = ({ user_id }) => {
           onChange={handleFilter}
         />
       </div>
-      <div className="flex w-[88vw] max-w-[540px] flex-col place-items-center p-2">
+      <div className="flex w-[88vw] max-w-[540px] flex-col place-items-center p-2 lg:max-w-full">
         {searchedItems?.map(
           (trick) =>
             trick.type === "Trick" && (

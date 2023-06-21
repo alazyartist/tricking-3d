@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useUserStore } from "../../../store/userStore";
 import CapturedCard from "./CapturedCard";
 
-const Captures = () => {
+const Captures = ({ dash }) => {
   const [captured, setCaptured] = useState<any>();
   const [capturedMe, setCapturedMe] = useState<any>();
   const userInfo = useUserStore((s) => s.userInfo);
@@ -16,7 +16,12 @@ const Captures = () => {
   }, [userInfo]);
 
   return (
-    <div id="captureContainer" className=" w-full">
+    <div
+      id="captureContainer"
+      className={`${
+        dash ? "pb-8 lg:col-span-2 lg:flex lg:gap-2 lg:pb-2" : ""
+      } w-full`}
+    >
       {/* My Captures */}
       <RenderCaptures captureContent={captured} title="My Captures" />
       {/* Captured Me */}
@@ -53,6 +58,7 @@ const RenderCaptures = ({ captureContent, title }) => {
         <div
           className={`
             ${captureGrid ? " flex flex-row" : " grid grid-cols-3"} 
+            minimalistScroll
             max-h-[50vh]
             gap-2
             overflow-auto

@@ -17,7 +17,7 @@ function Dashboard() {
   const { profilePic, uuid } = useUserStore((s) => s.userInfo);
 
   return (
-    <div className="mt-4 flex flex-col place-content-center place-items-center gap-2 text-zinc-400">
+    <div className="my-4 flex flex-col place-content-center place-items-center gap-2 text-zinc-400">
       <div className="p-4">
         Welcome <span className="font-semibold text-zinc-300">{user}</span>
       </div>
@@ -32,15 +32,15 @@ function Dashboard() {
         />
         <div
           className="
-          m-auto max-h-[83vh]
-          w-[98vw] max-w-[600px] rounded-xl
-          bg-zinc-900 bg-opacity-30
-          p-4 
+          m-auto max-h-[83vh] w-[98vw] max-w-[600px]
+          rounded-xl bg-zinc-900 bg-opacity-30 p-4
+          lg:grid lg:max-w-[90vw] lg:grid-cols-2
+          lg:gap-2 
         "
         >
           <SessionList uuid={uuid} />
           <ClaimTricks user_id={uuid} />
-          <Captures />
+          <Captures dash />
         </div>
       </>
 
