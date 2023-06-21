@@ -1,11 +1,9 @@
 import express from "express";
 import cors from "cors";
-import fetch from "node-fetch";
 const PORT = 5000;
 const app = express();
 import db from "./models/index.js";
 import { userRoutes } from "./routes/user.routes.js";
-import { verifyJWT } from "./middleware/verifyJWT.js";
 import { loginRoutes } from "./routes/loggedIn.routes.js";
 import { refreshRoutes } from "./routes/refresh.routes.js";
 import cookieParser from "cookie-parser";
@@ -20,14 +18,8 @@ import { sessionSummariesRoutes } from "./routes/sessionsummaries.routes.js";
 import { webhookRoutes } from "./routes/webhook.routes.js";
 import { paymentRoutes } from "./routes/payment.routes.js";
 import { getMLData } from "./controllers/sessionsummaries.controller.js";
-import {
-	ClerkExpressRequireAuth,
-	ClerkExpressWithAuth,
-} from "@clerk/clerk-sdk-node";
-import { Clerk } from "@clerk/clerk-sdk-node";
-import { PrismaClient } from "@prisma/client";
 import { handleClerkEvents } from "./controllers/webhook.controller.js";
-const clerk = new Clerk({ secretKey: process.env.CLERK_SECRET_KEY });
+// const clerk = new Clerk({ secretKey: process.env.CLERK_SECRET_KEY });
 const corsOptions = {
 	origin: [
 		"http://localhost:3000",
@@ -60,12 +52,12 @@ app.use((req, res, next) => {
 // app.use("/api/test", ClerkExpressRequireAuth(), async (req, res) => {
 // 	const testUser = await clerk.users.getUser(req.auth.userId);
 
-const prismaclient = new PrismaClient();
-app.use("/api/test2", async (req, res) => {
-	console.log(req.body);
-	const users = await prismaclient.users.findMany();
-	return res.json(users);
-});
+// const prismaclient = new PrismaClient();
+// app.use("/api/test2", async (req, res) => {
+// 	console.log(req.body);
+// 	const users = await prismaclient.users.findMany();
+// 	return res.json(users);
+// });
 app.use("/api/clerk", handleClerkEvents);
 app.use("/api/ml", getMLData);
 app.use("/api/checkout", paymentRoutes);

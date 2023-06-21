@@ -15,7 +15,7 @@ const ablyAuth = async (req, res) => {
 		req?.query?.clientId !== (undefined || "undefined")
 			? req.query.clientId
 			: rnduuid;
-	console.log(clientId, "clientid");
+	// console.log(clientId, "clientid");
 	const jwtPayload = {
 		"x-ably-capability": '{"*":["*"]}',
 		"x-ably-clientId": clientId,
