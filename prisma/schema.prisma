@@ -7,24 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model account {
-  id                String  @id
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-  user              user    @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Account_userId_fkey")
 
-  @@unique([provider, providerAccountId], map: "Account_provider_providerAccountId_key")
-  @@index([userId], map: "Account_userId_fkey")
-}
 
 model animations {
   animation_id  String  @id @db.Char(36)
@@ -194,15 +177,7 @@ model sequelizemeta {
   name String @id @unique(map: "name") @db.VarChar(255)
 }
 
-model session {
-  id           String   @id
-  sessionToken String   @unique(map: "Session_sessionToken_key")
-  userId       String
-  expires      DateTime
-  user         user     @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Session_userId_fkey")
 
-  @@index([userId], map: "Session_userId_fkey")
-}
 
 model sessiondata {
   id               String   @id @db.Char(36)
@@ -391,15 +366,7 @@ model debateMessages{
   Debate debates? @relation(fields: [debateid],references:[debateid])
   user        users? @relation(fields: [user_id],references: [uuid])
 }
-model user {
-  id            String    @id
-  name          String?
-  email         String?   @unique(map: "User_email_key")
-  emailVerified DateTime?
-  image         String?
-  account       account[]
-  session       session[]
-}
+
 
 model user_tricklists {
   id           Int      @id @default(autoincrement())
@@ -461,10 +428,3 @@ model variations {
   tricks        trick_variations[]
 }
 
-model verificationtoken {
-  identifier String
-  token      String   @unique(map: "VerificationToken_token_key")
-  expires    DateTime
-
-  @@unique([identifier, token], map: "VerificationToken_identifier_token_key")
-}
