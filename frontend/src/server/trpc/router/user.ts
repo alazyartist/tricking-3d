@@ -69,7 +69,7 @@ export const userRouter = router({
           clerk_id: true,
           email: true,
           captures: { include: { capturedUser: true } },
-          captured_me: { include: { capturedUser: true } },
+          captured_me: { include: { user: true } },
           SessionSummaries: true,
           sessionSummaries: true,
           SessionReviewCredits: true,

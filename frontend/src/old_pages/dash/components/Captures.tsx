@@ -67,7 +67,7 @@ const RenderCaptures = ({ captureContent, title }) => {
         >
           {!!captureContent &&
             captureContent.map((c) => {
-              c = c.capturedUser;
+              c = title === "My Captures" ? c.capturedUser : c.user;
               return (
                 <div
                   onClick={() => nav.push(`/userProfile/${c.uuid}`)}
