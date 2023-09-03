@@ -5,6 +5,7 @@ import ClaimedTricks from "./components/ClaimedTricks";
 const ClaimTricks = ({ user_id }) => {
   const { data: tricks } = useGetTricks();
 
+  const [sortType, setSortType] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchedItems, setSearchedItems] = useState<undefined | any[]>();
   useEffect(() => {
@@ -34,33 +35,52 @@ const ClaimTricks = ({ user_id }) => {
           value={searchTerm}
           onChange={handleFilter}
         />
+        <div className="flex gap-2 p-2">
+          <p className="place-self-center">Sort By</p>
+          <p
+            className="rounded-md border-2 border-zinc-300 p-1 px-2"
+            onClick={() =>
+              setSortType((s) => (s === "Claimed" ? "All" : "Claimed"))
+            }
+          >
+            {sortType === "Claimed" ? "All" : "Claimed"}
+          </p>
+          <p
+            className="rounded-md border-2 border-zinc-300 p-1 px-2"
+            onClick={() => setSortType("ABC")}
+          >
+            ABC
+          </p>
+          <p
+            className="rounded-md border-2 border-zinc-300 p-1 px-2"
+            onClick={() => setSortType("Family")}
+          >
+            Family
+          </p>
+        </div>
       </div>
       <div className="flex w-[88vw] max-w-[540px] flex-col place-items-center p-2 lg:max-w-full">
-        {searchedItems?.map(
-          (trick) =>
-            trick.type === "Trick" && (
-              <div
-                key={trick.trick_id}
-                className=" grid h-full w-full grid-cols-5 place-content-center justify-between rounded-xl p-2 odd:bg-zinc-700"
-              >
-                <div className="col-span-3 flex place-items-center">
-                  {trick?.name}
-                </div>
-                <div className="col-span-1 flex place-items-center">
-                  {trick?.type}
-                </div>
-                <div className="relative col-span-1 flex h-full place-content-end place-items-center gap-2">
-                  {trick.type === "Trick" && (
-                    <ClaimedTricks
-                      key={"claim" + trick.trick_id}
-                      trick_id={trick.trick_id}
-                      user_id={user_id}
-                    />
-                  )}
-                </div>
-              </div>
-            )
-        )}
+        {searchedItems
+          ?.sort((a, b) => {
+            if (sortType === "Family") {
+              console.log(a, b);
+              return a.base_id > b.base_id ? 1 : -1;
+            } else {
+              return a.name > b.name ? 1 : -1;
+            }
+          })
+          .map(
+            (trick) =>
+              trick.type === "Trick" && (
+                <ClaimedTricks
+                  trick={trick}
+                  sortType={sortType}
+                  key={"claim" + trick.trick_id}
+                  trick_id={trick.trick_id}
+                  user_id={user_id}
+                />
+              )
+          )}
       </div>
     </div>
   );
