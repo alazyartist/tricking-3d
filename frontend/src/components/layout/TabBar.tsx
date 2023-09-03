@@ -46,14 +46,14 @@ function TabBar() {
       <animated.div
         className={`fixed bottom-0 ${
           openNav ? "z-[1] select-none " : "z-[1014]"
-        } w-[100%] overflow-hidden p-2 `}
+        } w-[100%] overflow-hidden `}
       >
         <animated.div style={navToggle} className="relative">
           <div
             style={navToggle}
             className={`relative left-0 flex ${
               openNav ? "h-12" : "h-12"
-            } w-full place-content-center place-items-center gap-8 rounded-2xl bg-opacity-40 bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300 backdrop-blur-md`}
+            } w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-opacity-40 bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300 backdrop-blur-md`}
           >
             {isAdmin && (
               <Link href="/admin">
@@ -82,11 +82,15 @@ function TabBar() {
         </animated.div>
         <button
           type="button"
-          className="relative left-0 z-[1001] flex h-4 w-[100%] place-content-center place-items-center"
+          className={` ${
+            openNav ? "" : " rotate-180"
+          } relative left-0 z-[1001] flex h-4 w-[100%] place-content-center place-items-center bg-zinc-800 text-zinc-300`}
           onClick={() => {
             setOpenNav(!openNav);
           }}
-        />
+        >
+          ^^
+        </button>
       </animated.div>
 
       {/* Open Hamburger Menu Display */}

@@ -30,8 +30,8 @@ export const getServerSideProps = async (props) => {
     return {
       props: {
         a: Math.random() > 0.5 ? true : false,
+        revalidate: 120,
       },
-      revalidate: 120,
     };
   }
 };

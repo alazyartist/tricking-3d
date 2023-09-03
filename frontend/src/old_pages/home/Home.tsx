@@ -80,7 +80,7 @@ function Home() {
             "absolute top-14 left-2 place-self-start rounded-md bg-zinc-700 p-2 text-4xl"
           }
         /> */}
-        <div className="no-scrollbar z-[1] h-[86%] overflow-y-scroll rounded-xl bg-zinc-800 bg-opacity-40 py-2 backdrop-blur-xl">
+        <div className="no-scrollbar z-[1] h-[84vh] overflow-y-scroll rounded-xl bg-zinc-800 bg-opacity-40 py-2 backdrop-blur-xl">
           <div className="flex flex-col place-items-center">
             <Link
               href="/learnMore"
@@ -90,7 +90,7 @@ function Home() {
             </Link>
 
             <SignedIn>
-              <UserButton />
+              <UserButton afterSignOutUrl="/home" />
             </SignedIn>
             <SignedOut></SignedOut>
             <Button
@@ -119,24 +119,24 @@ function Home() {
               />
             </SignedIn>
             <AnimatedSearch />
-            <SignedIn>
-              <Button
-                href={isSignedIn ? "/addSession" : "/login"}
-                label={"Add Session"}
-              />
-            </SignedIn>
+            <Button
+              href={isSignedIn ? "/addSession" : "/login"}
+              label={"Add Session"}
+            />
             <Button href={"/compare"} label={"Compare"} />
             <Button href={"/debate"} label={"Debate"} />
-            <div
-              onClick={() => setSeeUserList(!seeUserList)}
-              className=" mt-1 mb-2 flex w-[70vw] max-w-[600px] place-content-center place-items-center gap-2 rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
-            >
-              <AiOutlineUser className={"text-xl"} />
-              <div className="">Leaderboards</div>
-            </div>
+            <Button
+              href={"/leaderboard"}
+              label={
+                <div className="  flex w-[70vw] max-w-[600px] place-content-center place-items-center gap-2   rounded-xl  text-center font-titan text-xl text-zinc-300 ">
+                  <AiOutlineUser className={"text-xl"} />
+                  <div className="">Leaderboards</div>
+                </div>
+              }
+            />
           </div>
 
-          {seeUserList && (
+          {/* {seeUserList && (
             <div
               className={` no-scrollbar relative top-0 my-2 flex max-h-[75vh] w-full max-w-[700px] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-800 bg-opacity-40 pt-[3vh] backdrop-blur-xl ${
                 seeUserList ? "col-span-2 row-span-2 my-0" : ""
@@ -148,8 +148,8 @@ function Home() {
               />
               <UserList />
             </div>
-          )}
-          <div className="flex w-[90vw] max-w-[600px] flex-col place-content-center">
+          )} */}
+          <div className="flex h-full w-[90vw] max-w-[600px] flex-col place-content-center">
             {!isSignedIn ? (
               <PublicHomePage />
             ) : (
