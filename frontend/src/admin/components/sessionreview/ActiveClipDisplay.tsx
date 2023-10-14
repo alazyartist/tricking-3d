@@ -82,7 +82,7 @@ const ActiveClipDisplay = () => {
       >
         Details
       </animated.span>
-      <div className="flex h-[60%] flex-col overflow-y-scroll">
+      <div className="minimalistScroll flex h-[60%] flex-col overflow-y-scroll">
         {sessionData?.map((e, i) => (
           <SessionDataDetailDislpay key={e.id + e.name} e={e} />
         ))}
@@ -111,16 +111,16 @@ const SessionDataDetailDislpay = ({ e }) => {
     removeSessionData(e);
   };
   return (
-    <div className="flex gap-1">
+    <div className=" flex gap-1">
       <div
         onClick={() => console.log(e)}
-        className="over:bg-zinc-900 relative flex w-full place-content-center place-items-center justify-between whitespace-nowrap p-1"
+        className="over:bg-zinc-900 relative flex w-full place-content-center place-items-center justify-between gap-1 whitespace-nowrap p-1"
         // transition delay-75 duration-[1400ms] ease-in-out hover:translate-x-[-100%] h
       >
         <button
           type="button"
           onClick={() => setSeekTime(e.startTime)}
-          className="no-scrollbar w-full overflow-y-scroll"
+          className="no-scrollbar h-full w-full min-w-[40px] overflow-y-scroll rounded-md bg-zinc-800"
         >
           {e.name}
         </button>

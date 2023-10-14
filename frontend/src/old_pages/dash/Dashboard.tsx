@@ -16,12 +16,27 @@ function Dashboard() {
   const logout = useLogout();
   const user = useUserStore((s) => s.user);
   const { profilePic, uuid } = useUserStore((s) => s.userInfo);
+  const [activeSection, setSection] = useState("sessions");
+
+  const getActiveSection = (section) => {
+    switch (section) {
+      case "sessions":
+        return <SessionList uuid={uuid} />;
+        break;
+      case "tricks":
+        return <ClaimTricks user_id={uuid} />;
+        break;
+      case "captures":
+        return <Captures dash />;
+        break;
+    }
+  };
 
   return (
     <div className="my-4 flex flex-col place-content-center place-items-center gap-2 text-zinc-400">
-      <div className="p-4">
+      {/* <div className="p-4">
         Welcome <span className="font-semibold text-zinc-300">{user}</span>
-      </div>
+      </div> */}
       <>
         <Link href={`userProfile/${uuid}`}>
           <UserCard
@@ -41,9 +56,39 @@ function Dashboard() {
           lg:gap-2 
         "
         >
-          <SessionList uuid={uuid} />
-          <ClaimTricks user_id={uuid} />
-          <Captures dash />
+          <div className="gap flex flex-row">
+            <p
+              onClick={() => setSection("sessions")}
+              className={`${
+                activeSection === "sessions"
+                  ? "text-emerald-500"
+                  : "text-zinc-300"
+              } rounded-t-md bg-zinc-900 bg-opacity-70  p-2`}
+            >
+              Sessions
+            </p>
+            <p
+              onClick={() => setSection("tricks")}
+              className={`${
+                activeSection === "tricks"
+                  ? "text-emerald-500"
+                  : "text-zinc-300"
+              } rounded-t-md bg-zinc-900 bg-opacity-70  p-2`}
+            >
+              Tricks
+            </p>
+            <p
+              onClick={() => setSection("captures")}
+              className={`${
+                activeSection === "captures"
+                  ? "text-emerald-500"
+                  : "text-zinc-300"
+              } rounded-t-md bg-zinc-900 bg-opacity-70  p-2`}
+            >
+              Captures
+            </p>
+          </div>
+          {getActiveSection(activeSection)}
         </div>
       </>
 

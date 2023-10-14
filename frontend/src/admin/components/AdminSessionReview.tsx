@@ -37,6 +37,7 @@ const AdminSessionReview = ({
   const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
   const setSessionid = useSessionSummariesStore((s) => s.setSessionid);
   const setSessionData = useSessionSummariesStore((s) => s.setSessionData);
+  const sessionData = useSessionSummariesStore((s) => s.sessionData);
   const clearSessionData = useSessionSummariesStore((s) => s.clearSessionData);
   const setSessionSources = useSessionSummariesStore(
     (s) => s.setSessionSources
@@ -46,23 +47,25 @@ const AdminSessionReview = ({
   //   clearSessionData();
   // }, []);
   useEffect(() => {
-    clearSessionData();
     setSessionid(sessionid as string);
-    sessionDetails?.SessionData?.forEach((sd) => {
-      console.log("sd");
-      console.log(sd);
-      setSessionData({
-        id: sd?.id,
-        sessionid: sd?.sessionid,
-        name: sd?.ClipLabel?.name,
-        startTime: sd?.clipStart,
-        endTime: sd?.clipEnd,
-        clipLabel: [...sd?.ClipLabel?.comboArray],
-        srcid: sd?.srcid,
-        vidsrc: sd?.SessionSource?.vidsrc,
-        bail: sd?.bail,
+    if (sessionData.length < 0 || sessionid !== sessionData?.[0]?.sessionid) {
+      clearSessionData();
+      sessionDetails?.SessionData?.forEach((sd) => {
+        console.log("sd");
+        console.log(sd);
+        setSessionData({
+          id: sd?.id,
+          sessionid: sd?.sessionid,
+          name: sd?.ClipLabel?.name,
+          startTime: sd?.clipStart,
+          endTime: sd?.clipEnd,
+          clipLabel: [...sd?.ClipLabel?.comboArray],
+          srcid: sd?.srcid,
+          vidsrc: sd?.SessionSource?.vidsrc,
+          bail: sd?.bail,
+        });
       });
-    });
+    }
     return;
   }, [
     sessionid,

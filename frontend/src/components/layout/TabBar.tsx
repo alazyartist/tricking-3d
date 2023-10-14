@@ -11,6 +11,7 @@ import AdminLockIcon from "../../data/icons/AdminLockIcon";
 import BiCube from "../../data/icons/BiCube";
 import { useRouter } from "next/router";
 import useIsAdmin from "hooks/useIsAdmin";
+import { IoIosPerson } from "react-icons/io";
 
 function TabBar() {
   const [openHamburger, setOpenHamburger] = useState<Boolean>();
@@ -63,8 +64,11 @@ function TabBar() {
             <Link href="/home">
               <HomeIcon />
             </Link>
-            <Link href="/comboMaker">
+            {/* <Link href="/comboMaker">
               <ComboMakerBlueprintsvg className="h-10 w-10" fill="#ffffff" />
+            </Link> */}
+            <Link href="/social">
+              <IoIosPerson />
             </Link>
             <Link href="/sandbox">
               <BiCube />
@@ -114,6 +118,9 @@ function TabBar() {
                     </Link>
                     <Link href="/dash" replace={true}>
                       Dashboard
+                    </Link>
+                    <Link href="/experiments" replace={true}>
+                      Experiments
                     </Link>
                     <button
                       className="absolute bottom-2 left-3"
