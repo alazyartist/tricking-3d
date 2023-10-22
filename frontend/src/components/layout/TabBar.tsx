@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import ComboMakerBlueprintsvg from "../../data/ComboMakerBlueprintsvg";
-import { animated, useSpring, useTransition } from "react-spring";
+import { animated, useSpring, useTransition } from "@react-spring/web";
 import useLogout from "../../hooks/useLogout";
 import { useUser } from "@clerk/nextjs";
 import TheoryCap from "../../data/icons/TheoryCap";

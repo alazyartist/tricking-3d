@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { animated, useSpring } from "react-spring";
+import { animated, useSpring } from "@react-spring/web";
 import ReactPlayer from "react-player";
 import { MdClose } from "../../../data/icons/MdIcons";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
+import { useDrag } from "@use-gesture/react";
+import useMeasure from "react-use-measure";
 
 const SessionSourceDisplay = ({ source, mirrored }) => {
   const vidsrcRegex = /(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)/g;
@@ -33,6 +35,8 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
     //@ts-ignore
     vidRef?.current?.seekTo(seekTime);
   }, [seekTime]);
+  const [timelineRef, bounds] = useMeasure();
+
   let colors = ["bg-teal-300", "bg-emerald-300", "bg-indigo-300", "bg-sky-300"];
   let activeWidth = `${(
     ((parseFloat(clipData.endTime.toString()) -
@@ -88,9 +92,12 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
               <ReactPlayer
                 ref={vidRef}
                 style={{ transform: mirrored ? "rotateY(180deg)" : "" }}
-                config={{ facebook: { appId: "508164441188790" } }}
+                config={{
+                  facebook: { appId: "508164441188790" },
+                  youtube: { playerVars: { listType: "user_uploads" } },
+                }}
                 id={"video"}
-                controls={true}
+                controls={false}
                 playing={vidIsPlaying}
                 muted
                 width={"70vw"}
@@ -120,12 +127,17 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                   className={`w-[70vw] bg-transparent`}
                 />
 
-                <div id="sessionTimelineDisplay" className=" w-full">
+                <div
+                  ref={timelineRef}
+                  id="sessionTimelineDisplay"
+                  className=" w-full"
+                >
                   {sessionData &&
                     sessionData.map((e, i) => {
                       return (
                         e.vidsrc === vidsrc && (
-                          <SessionDataDetails
+                          <TimelineElement
+                            timelineWidth={bounds.width}
                             source={source}
                             id="sesionDataDetails"
                             key={`${e.id}+ 'data'`}
@@ -136,16 +148,16 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                         )
                       );
                     })}
-                  <div
+                  {/* <div
                     style={{
                       width: activeWidth,
 
                       left: activeLeft,
                     }}
-                    id={`activeSessionClip'`}
+                    id={`active_video_element'`}
                     key={`activeSessionClip'`}
                     className={`absolute top-[4px] h-3 rounded-md bg-teal-300  `}
-                  ></div>
+                  ></div> */}
                 </div>
               </div>
               <div className="neumorphicIn no-scrollbar flex w-full gap-2 overflow-x-scroll rounded-md p-2 text-zinc-300">
@@ -179,7 +191,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
 
 export default SessionSourceDisplay;
 
-const SessionDataDetails = ({ e, i, id, duration, source }) => {
+const TimelineElement = ({ e, i, id, duration, source, timelineWidth }) => {
   const [seeDetails, setSeeDetails] = useState(false);
   const clipData = useSessionSummariesStore((s) => s.clipData);
   const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
@@ -188,20 +200,48 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
   const setSrcid = useSessionSummariesStore((s) => s.setSrcid);
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
   const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
-
   const removeSessionData = useSessionSummariesStore(
     (s) => s.removeSessionData
   );
   useEffect(() => {
     setSrcid(source?.srcid);
-    console.log("source", source);
   }, [source, vidsrc]);
-  let w = `${(
-    ((parseInt(e.endTime) - parseInt(e.startTime)) / parseInt(duration)) *
-    100
-  ).toFixed(2)}%`;
-  let l = `${((parseInt(e.startTime) / parseInt(duration)) * 100).toFixed(0)}%`;
+  let w =
+    ((parseInt(e.endTime) - parseInt(e.startTime)) / parseInt(duration)) * 100;
+  let l = parseInt(
+    ((parseInt(e.startTime) / parseInt(duration)) * 100).toFixed(2)
+  );
+  const [props, api] = useSpring(() => ({
+    w: w,
+    l: l,
+    x: 0,
+  }));
+  //needed to initialize video elements
+  useEffect(() => {
+    api.set({ w: w, l: l });
+  }, [l, w]);
 
+  const bind = useDrag(
+    ({ offset: [ox, oy] }) => {
+      console.log(ox);
+      // const dragPercent = (ox / timelineWidth) * 100;
+      api.start({ x: ox });
+    },
+    {
+      axis: "x",
+      preventDefault: true,
+      // from: ({}) => [props.l.get(), 0],
+      bounds: {
+        left: -((l / 100) * timelineWidth),
+        right: ((100 - l - w) / 100) * timelineWidth,
+      }, // Adjust the timeline width accordingly
+      onDrag: ({ movement: [mx] }) => {
+        // set({ l: mx });
+        console.log("ifired");
+        // onDrag(element.id, mx);
+      },
+    }
+  );
   return (
     <>
       {seeDetails && (
@@ -225,22 +265,28 @@ const SessionDataDetails = ({ e, i, id, duration, source }) => {
 					<div className=' '>{e.base_id}</div> */}
         </div>
       )}
-      <div
+      <animated.div
+        {...bind()}
+        id={"video_element"}
         key={`${e.id}+${Math.random()}`}
-        onClick={() => {
-          // setSrcid(source.srcid);
-          // setClipData(e);
-          // clearClipCombo();
-          // setClipComboRaw(e.clipLabel);
-          // removeSessionData(e);
-          console.log(e.startTime);
-          setSeekTime(e.startTime);
+        // onClick={() => {
+        //   // setSrcid(source.srcid);
+        //   // setClipData(e);
+        //   // clearClipCombo();
+        //   // setClipComboRaw(e.clipLabel);
+        //   // removeSessionData(e);
+        //   console.log(e.startTime);
+        //   setSeekTime(e.startTime);
+        // }}
+        // onMouseOver={() => setSeeDetails(true)}
+        // onMouseLeave={() => setSeeDetails(false)}
+        className={` absolute top-[4px] h-3 touch-none rounded-md bg-indigo-300 `}
+        style={{
+          left: props.l.to((left) => `${left}%`),
+          width: props.w.to((width) => `${width}%`),
+          x: props.x.to((x) => `${x}px`),
         }}
-        onMouseOver={() => setSeeDetails(true)}
-        onMouseLeave={() => setSeeDetails(false)}
-        style={{ width: w, left: l }}
-        className={`absolute top-[4px] h-3 rounded-md bg-indigo-300 `}
-      ></div>
+      ></animated.div>
     </>
   );
 };

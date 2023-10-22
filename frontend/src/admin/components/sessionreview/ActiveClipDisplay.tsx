@@ -1,4 +1,4 @@
-import { animated, useSpring } from "react-spring";
+import { animated, useSpring } from "@react-spring/web";
 import React, { useEffect } from "react";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
 
@@ -27,10 +27,10 @@ const ActiveClipDisplay = () => {
     // onRest: () => setOpenHamburger(!openHamburger),
   });
 
-  useEffect(
-    () => console.log(activeClipData, "activeClip"),
-    [activeClipData, sessionData]
-  );
+  // useEffect(
+  //   () => console.log(activeClipData, "activeClip"),
+  //   [activeClipData, sessionData]
+  // );
   return (
     <animated.div
       key={activeClipData?.id + "details"}

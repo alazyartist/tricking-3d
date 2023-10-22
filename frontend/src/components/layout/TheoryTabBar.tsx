@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { animated, config, useSpring, useTransition } from "react-spring";
+import { animated, config, useSpring, useTransition } from "@react-spring/web";
 import StanceCircleColor from "../../data/AdvancedStancesSelectorColor";
 import HamburgerMenu from "../../data/icons/HamburgerMenu";
 import HomeIcon from "../../data/icons/HomeIcon";

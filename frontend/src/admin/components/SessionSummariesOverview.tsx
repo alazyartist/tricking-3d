@@ -54,7 +54,7 @@ const SessionDisplay = ({ s }) => {
 
   return (
     <div
-      key={s.srcid}
+      key={s.seessionid}
       className="grid w-full grid-cols-7 gap-2 bg-zinc-800 bg-opacity-70"
     >
       <Link

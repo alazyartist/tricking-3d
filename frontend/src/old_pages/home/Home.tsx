@@ -114,7 +114,7 @@ function Home() {
             <Button href={"/social"} label={"Social"} />
           </div>
 
-          <div className="flex h-full w-[90vw] max-w-[600px] flex-col place-content-center">
+          <div className="flex h-fit w-[90vw] max-w-[600px] flex-col place-content-center">
             {!isSignedIn ? (
               <PublicHomePage />
             ) : (

@@ -1,4 +1,4 @@
-import { animated, useSpring } from "react-spring";
+import { animated, useSpring } from "@react-spring/web";
 import React, { useEffect } from "react";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
 import { trpc } from "utils/trpc";
