@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { animated, useTransition } from "react-spring";
+import { animated, useTransition } from "@react-spring/web";
 import { useUserStore } from "../../../store/userStore";
 import UpdateUserInfoForm from "../../../components/info/UpdateUserInfoForm";
 import UpdateProfilePic from "../../../components/info/UpdateProfilePic";

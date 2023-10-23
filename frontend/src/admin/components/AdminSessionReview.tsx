@@ -51,8 +51,6 @@ const AdminSessionReview = ({
     if (sessionData.length < 0 || sessionid !== sessionData?.[0]?.sessionid) {
       clearSessionData();
       sessionDetails?.SessionData?.forEach((sd) => {
-        console.log("sd");
-        console.log(sd);
         setSessionData({
           id: sd?.id,
           sessionid: sd?.sessionid,

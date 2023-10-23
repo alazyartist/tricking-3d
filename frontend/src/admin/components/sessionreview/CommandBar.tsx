@@ -31,7 +31,7 @@ const CommandBar = ({ tricks, combos }) => {
         defaultActiveItemId="0"
         placeholder="/ to open cmdBar"
         openOnFocus={true}
-        autoFocus={true}
+        autoFocus={false}
       />
     </div>
   );

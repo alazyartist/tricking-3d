@@ -42,6 +42,7 @@ interface SummaryStore {
   setCurrentTime: (value: number) => void;
   sessionData: any[];
   clearSessionData: () => void;
+  updateSessionData: (value) => void;
   setSessionData: (value: any | any[]) => void;
   removeSessionData: (value: any) => void;
   source: string;
@@ -88,6 +89,15 @@ export const useSessionSummariesStore = create<SummaryStore>(
       clearSessionData: () => set(() => ({ sessionData: [] })),
       setSessionData: (value) =>
         set((s) => ({ sessionData: [...s.sessionData, value] })),
+      updateSessionData: (value) => {
+        set((s) => ({
+          sessionData: [...s.sessionData].map((data) => {
+            if (data.id === value.id) {
+              return { ...value };
+            } else return data;
+          }),
+        }));
+      },
       removeSessionData: (value) =>
         set((s) => ({
           sessionData: [...s.sessionData].filter((data) => value !== data),

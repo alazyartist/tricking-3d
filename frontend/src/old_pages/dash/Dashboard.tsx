@@ -52,8 +52,7 @@ function Dashboard() {
           className="
           m-auto max-h-[83vh] w-[98vw] max-w-[600px]
           rounded-xl bg-zinc-900 bg-opacity-30 p-4
-          lg:grid lg:max-w-[90vw] lg:grid-cols-2
-          lg:gap-2 
+         lg:max-w-[90vw] 
         "
         >
           <div className="gap flex flex-row">

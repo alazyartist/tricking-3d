@@ -29,7 +29,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
   const setDetailsVisible = useSessionSummariesStore(
     (s) => s.setDetailsVisible
   );
-  useEffect(() => console.log(vidRef?.current), [sessionData, vidRef]);
+  // useEffect(() => console.log(vidRef?.current), [sessionData, vidRef]);
   useEffect(() => {
     setCurrentTime(seekTime);
     //@ts-ignore
@@ -143,12 +143,13 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                             key={`${e.id}+ 'data'`}
                             e={e}
                             i={i}
+                            sd={sessionData}
                             duration={vidRef.current?.getDuration()}
                           />
                         )
                       );
                     })}
-                  {/* <div
+                  <div
                     style={{
                       width: activeWidth,
 
@@ -157,7 +158,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                     id={`active_video_element'`}
                     key={`activeSessionClip'`}
                     className={`absolute top-[4px] h-3 rounded-md bg-teal-300  `}
-                  ></div> */}
+                  ></div>
                 </div>
               </div>
               <div className="neumorphicIn no-scrollbar flex w-full gap-2 overflow-x-scroll rounded-md p-2 text-zinc-300">
@@ -191,7 +192,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
 
 export default SessionSourceDisplay;
 
-const TimelineElement = ({ e, i, id, duration, source, timelineWidth }) => {
+const TimelineElement = ({ e, i, id, duration, source, timelineWidth, sd }) => {
   const [seeDetails, setSeeDetails] = useState(false);
   const clipData = useSessionSummariesStore((s) => s.clipData);
   const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
@@ -200,16 +201,89 @@ const TimelineElement = ({ e, i, id, duration, source, timelineWidth }) => {
   const setSrcid = useSessionSummariesStore((s) => s.setSrcid);
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
   const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
+  const updateSessionData = useSessionSummariesStore(
+    (s) => s.updateSessionData
+  );
   const removeSessionData = useSessionSummariesStore(
     (s) => s.removeSessionData
   );
+
+  const adjustFinalPosition = (newElement) => {
+    for (const s of sd) {
+      let offset;
+      let durr = newElement.endTime - newElement.startTime;
+      let sdurr = s.endTime - s.startTime;
+
+      if (newElement.id !== s.id) {
+        // Check if the new element's start time is within the range of the existing element
+        if (
+          newElement.startTime >= s.startTime &&
+          newElement.startTime <= s.endTime
+        ) {
+          offset = newElement.startTime - s.startTime;
+          console.log("startTime", offset, durr);
+          return {
+            ...newElement,
+            startTime: s.endTime + 0.1,
+            endTime: s.endTime + 0.1 + durr,
+          }; // There is an overlap
+        }
+        // Check if the new element's end time is within the range of the existing element
+        if (
+          newElement.endTime >= s.startTime &&
+          newElement.endTime <= s.endTime
+        ) {
+          offset = newElement.endTime - s.endTime;
+          console.log("endTime", offset, durr);
+          return {
+            ...newElement,
+            startTime: newElement.startTime - offset - sdurr,
+            endTime: newElement.endTime - offset - sdurr,
+          }; // There is an overlap
+        }
+        // Check if the existing element is completely within the range of the new element
+        if (
+          s.startTime >= newElement.startTime &&
+          s.endTime <= newElement.endTime
+        ) {
+          offset = Math.max(
+            newElement.endTime - s.endTime,
+            newElement.startTime - s.startTime
+          );
+          console.log("contained", offset, durr);
+          return {
+            ...newElement,
+            startTime: s.endTime + 0.1,
+            endTime: s.endTime + 0.1 + durr,
+          }; // There is an overlap
+        }
+        // Check if the existing element completely encompasses the new element
+        if (
+          s.startTime <= newElement.startTime &&
+          s.endTime >= newElement.endTime
+        ) {
+          offset = s.startTime - newElement.startTime;
+          console.log("encompassing", offset, durr);
+          return {
+            ...newElement,
+            startTime: newElement.startTime + offset + durr,
+            endTime: newElement.endTime + offset + durr,
+          }; // There is an overlap
+        }
+      }
+    }
+
+    return newElement;
+  };
+
   useEffect(() => {
     setSrcid(source?.srcid);
   }, [source, vidsrc]);
   let w =
-    ((parseInt(e.endTime) - parseInt(e.startTime)) / parseInt(duration)) * 100;
-  let l = parseInt(
-    ((parseInt(e.startTime) / parseInt(duration)) * 100).toFixed(2)
+    ((parseFloat(e.endTime) - parseFloat(e.startTime)) / parseFloat(duration)) *
+    100;
+  let l = parseFloat(
+    ((parseFloat(e.startTime) / parseFloat(duration)) * 100).toFixed(2)
   );
   const [props, api] = useSpring(() => ({
     w: w,
@@ -217,29 +291,47 @@ const TimelineElement = ({ e, i, id, duration, source, timelineWidth }) => {
     x: 0,
   }));
   //needed to initialize video elements
+  let isSet = false;
   useEffect(() => {
-    api.set({ w: w, l: l });
+    if (isSet === false) {
+      api.set({ w: w, l: l });
+      isSet = true;
+    }
   }, [l, w]);
 
   const bind = useDrag(
-    ({ offset: [ox, oy] }) => {
-      console.log(ox);
-      // const dragPercent = (ox / timelineWidth) * 100;
+    ({ movement: [ox, oy], last }) => {
       api.start({ x: ox });
+      if (last) {
+        const dragPercent = (ox / timelineWidth) * 100;
+        const newStartTime = parseFloat(
+          (((dragPercent + l) / 100) * duration).toFixed(2)
+        );
+        const newEndTime = parseFloat(
+          (((dragPercent + l + w) / 100) * duration).toFixed(2)
+        );
+        const newElement = {
+          id: e.id,
+          startTime: newStartTime + 0.1,
+          endTime: newEndTime + 0.1,
+        };
+        const adjustedElement = adjustFinalPosition(newElement);
+
+        updateSessionData({
+          ...e,
+          startTime: adjustedElement.startTime,
+          endTime: adjustedElement.endTime,
+        });
+        api.set({ x: 0 });
+      }
     },
     {
       axis: "x",
       preventDefault: true,
-      // from: ({}) => [props.l.get(), 0],
       bounds: {
         left: -((l / 100) * timelineWidth),
         right: ((100 - l - w) / 100) * timelineWidth,
       }, // Adjust the timeline width accordingly
-      onDrag: ({ movement: [mx] }) => {
-        // set({ l: mx });
-        console.log("ifired");
-        // onDrag(element.id, mx);
-      },
     }
   );
   return (
@@ -280,7 +372,7 @@ const TimelineElement = ({ e, i, id, duration, source, timelineWidth }) => {
         // }}
         // onMouseOver={() => setSeeDetails(true)}
         // onMouseLeave={() => setSeeDetails(false)}
-        className={` absolute top-[4px] h-3 touch-none rounded-md bg-indigo-300 `}
+        className={` absolute top-[.25rem] h-[3.5rem] touch-none rounded-sm border-[1px] border-zinc-900 bg-indigo-300 `}
         style={{
           left: props.l.to((left) => `${left}%`),
           width: props.w.to((width) => `${width}%`),
