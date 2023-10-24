@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import StanceCircle from "@data/AdvancedStancesSVG";
-import { useSpring, animated, config } from "react-spring";
+import { useSpring, animated, config } from "@react-spring/web";
 import { stances } from "../../../data/trickDataModel/TrickObjects";
 // import { ReactComponent as StanceCircleSelector } from "../../../data/AdvancedStancesSelector.svg";
 import { useComboMakerStore } from "../../../store/comboMakerStore";

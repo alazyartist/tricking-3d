@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import StanceCircle from "@data/AdvancedStancesSVG";
 import StanceCircleSelector from "@data/AdvancedStancesSelector";
 import { useStore } from "@store/store";
-import { animated, config, useSpring } from "react-spring";
+import { animated, config, useSpring } from "@react-spring/web";
 import { useComboMakerStore } from "@store/comboMakerStore";
 import { stances } from "@data/trickDataModel/TrickObjects";
 import StanceList from "./StanceList";

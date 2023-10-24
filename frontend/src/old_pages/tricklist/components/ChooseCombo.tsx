@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
-import { useTransition, animated } from "react-spring";
+import { useTransition, animated } from "@react-spring/web";
 import { useAddCombo, useGetCombos } from "../../../api/useTricklists";
 import { useUserStore } from "../../../store/userStore";
 

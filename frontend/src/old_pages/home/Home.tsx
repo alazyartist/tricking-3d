@@ -12,7 +12,7 @@ import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
 import useUserInfo from "../../api/useUserInfo";
 import { IoIosArrowBack, IoMdSearch } from "react-icons/io";
 import PublicHomePage from "./components/PublicHomePage";
-import { useSpring, animated } from "react-spring";
+import { useSpring, animated } from "@react-spring/web";
 import BiCube from "../../data/icons/BiCube";
 import { useEffect } from "react";
 import dynamic from "next/dynamic";

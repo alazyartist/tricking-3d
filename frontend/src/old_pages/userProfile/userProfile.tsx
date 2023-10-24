@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MdOutlineClose } from "../../data/icons/MdIcons";
 import { useRouter } from "next/router";
-import { useTransition, animated, useSpring } from "react-spring";
+import { useTransition, animated, useSpring } from "@react-spring/web";
 import useUserInfoByUUID from "../../api/useUserInfoById";
 import { useUserStore } from "../../store/userStore";
 import ProfileInfoCard from "./components/ProfileInfoCard";

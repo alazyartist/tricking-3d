@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaPauseCircle, FaPlayCircle } from "react-icons/fa";
 import DraggableOpacity from "../ui/DraggableOpacity";
 import { useVideoStore } from "./useVideoStore";
-import { useSpring, animated, config } from "react-spring";
+import { useSpring, animated, config } from "@react-spring/web";
 const VideoControls = () => {
   const videoPlaying = useVideoStore((s) => s.videoPlaying);
   const setVideoPlaying = useVideoStore((s) => s.setVideoPlaying);

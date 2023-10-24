@@ -10,7 +10,7 @@ import {
 } from "../../api/useBattleRoom";
 import useAblyStore from "../../hooks/useAblyStore";
 import { useUserStore } from "../../store/userStore";
-import { animated, config, useSpring } from "react-spring";
+import { animated, config, useSpring } from "@react-spring/web";
 import ScoreDisplay from "./components/ScoreDisplay";
 import MovingPoint from "./components/MovingPoint";
 import { FaUsers, FaUsersSlash } from "react-icons/fa";

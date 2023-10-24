@@ -2,7 +2,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import ComboMakerBlueprintsvg from "../../data/ComboMakerBlueprintsvg";
-import { animated, useSpring, useTransition } from "react-spring";
+import { animated, useSpring, useTransition } from "@react-spring/web";
 import useLogout from "../../hooks/useLogout";
 import { useUserStore } from "../../store/userStore";
 import TheoryCap from "../../data/icons/TheoryCap";

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { animated, useTransition, config } from "react-spring";
+import { animated, useTransition, config } from "@react-spring/web";
 import TrickOrComboDetails from "../components/info/trickInfo/TrickOrComboDetails";
 import useGetTricks from "../api/useGetTricks";
 import { IoIosWalk } from "react-icons/io";

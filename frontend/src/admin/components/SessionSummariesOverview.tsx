@@ -53,10 +53,7 @@ const SessionDisplay = ({ s }) => {
   const [caretOpen, setCaretOpen] = useState(false);
 
   return (
-    <div
-      key={s.seessionid}
-      className="grid w-full grid-cols-7 gap-2 bg-zinc-800 bg-opacity-70"
-    >
+    <div className="grid w-full grid-cols-7 gap-2 bg-zinc-800 bg-opacity-70">
       <Link
         href={`/admin/sessionReview/${s?.sessionid}`}
         className=" col-span-5 grid w-full grid-cols-5 place-content-center place-items-center justify-between gap-2 rounded-md p-1 text-[10px] "

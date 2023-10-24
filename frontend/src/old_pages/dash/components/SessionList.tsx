@@ -17,6 +17,7 @@ const SessionList = ({ uuid }) => {
         sessions.map((s) => {
           return (
             <div
+              key={s.sessionid}
               className={`flex justify-between border-b-[1px] lg:grid lg:grid-cols-[2fr_.5fr_.25fr] ${
                 s.status === "Reviewed"
                   ? "border-emerald-300"

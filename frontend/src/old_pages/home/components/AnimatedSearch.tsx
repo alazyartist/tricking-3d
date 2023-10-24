@@ -2,7 +2,7 @@ import GlobalSearch from "@components/search/GlobalSearch";
 import useClickOutside from "hooks/useClickOutside";
 import React, { useState, useRef } from "react";
 import { IoMdSearch } from "react-icons/io";
-import { animated, useSpring } from "react-spring";
+import { animated, useSpring } from "@react-spring/web";
 import { trpc } from "@utils/trpc";
 
 const AnimatedSearch = () => {

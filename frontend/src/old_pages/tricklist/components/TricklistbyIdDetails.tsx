@@ -8,7 +8,7 @@ import {
 } from "../../../api/useTricklists.js";
 import { useUserStore } from "@store/userStore";
 import { useStore } from "@store/store";
-import { useTransition, animated, config } from "react-spring";
+import { useTransition, animated, config } from "@react-spring/web";
 
 const TricklistbyIdDetails = ({
   openView,

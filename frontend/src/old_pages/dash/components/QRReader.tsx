@@ -3,7 +3,7 @@ import { QrReader } from "react-qr-reader";
 import useCaptureUser from "../../../api/useCaptures";
 import useUserInfoByUUID from "../../../api/useUserInfoById";
 import { useUserStore } from "../../../store/userStore";
-import { useTransition, animated } from "react-spring";
+import { useTransition, animated } from "@react-spring/web";
 import { useRouter } from "next/router";
 import { trpc } from "@utils/trpc";
 const QRReader = () => {

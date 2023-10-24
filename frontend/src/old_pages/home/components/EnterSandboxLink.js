@@ -4,7 +4,7 @@ import TorqueScene from "../../../scenes/TorqueScene";
 import Loader from "../../../components/loaders/Loader";
 import Link from "next/link";
 import { FaExpandArrowsAlt } from "react-icons/fa";
-import { useSpring, animated } from "react-spring";
+import { useSpring, animated } from "@react-spring/web";
 
 const EnterSandboxLink = () => {
   const [expanded, setExpanded] = useState(false);

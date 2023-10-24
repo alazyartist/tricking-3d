@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDrag } from "@use-gesture/react";
-import { useSpring, animated } from "react-spring";
+import { useSpring, animated } from "@react-spring/web";
 import { trpc } from "utils/trpc";
 import { useUserStore } from "@store/userStore";
 const ComboExecutionSlider = ({

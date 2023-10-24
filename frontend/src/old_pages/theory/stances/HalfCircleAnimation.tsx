@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSpring, animated, config } from "react-spring";
+import { useSpring, animated, config } from "@react-spring/web";
 
 export const HalfCircle = (props) => {
   const [otherStance, setOtherStance] = useState<string>();

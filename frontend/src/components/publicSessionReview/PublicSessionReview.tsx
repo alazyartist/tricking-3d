@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { animated, useSpring } from "react-spring";
+import { animated, useSpring } from "@react-spring/web";
 import ReactPlayer from "react-player";
 import { MdClose } from "@data/icons/MdIcons";
 import { useSessionSummariesStore } from "@admin/components/sessionreview/SessionSummaryStore";
