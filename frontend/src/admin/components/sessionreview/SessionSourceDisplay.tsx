@@ -3,7 +3,7 @@ import { animated, useSpring } from "@react-spring/web";
 import ReactPlayer from "react-player";
 import { MdClose } from "../../../data/icons/MdIcons";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
-import { useDrag } from "@use-gesture/react";
+import { useDrag, useGesture } from "@use-gesture/react";
 import useMeasure from "react-use-measure";
 
 const SessionSourceDisplay = ({ source, mirrored }) => {
@@ -194,6 +194,7 @@ export default SessionSourceDisplay;
 
 const TimelineElement = ({ e, i, id, duration, source, timelineWidth, sd }) => {
   const [seeDetails, setSeeDetails] = useState(false);
+  const [isLocked, setIsLocked] = useState(false);
   const clipData = useSessionSummariesStore((s) => s.clipData);
   const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
   const setClipComboRaw = useSessionSummariesStore((s) => s.setClipComboRaw);
@@ -213,6 +214,7 @@ const TimelineElement = ({ e, i, id, duration, source, timelineWidth, sd }) => {
       let offset;
       let durr = newElement.endTime - newElement.startTime;
       let sdurr = s.endTime - s.startTime;
+      const frame = 1 / 30;
 
       if (newElement.id !== s.id) {
         // Check if the new element's start time is within the range of the existing element
@@ -224,8 +226,8 @@ const TimelineElement = ({ e, i, id, duration, source, timelineWidth, sd }) => {
           console.log("startTime", offset, durr);
           return {
             ...newElement,
-            startTime: s.endTime + 0.1,
-            endTime: s.endTime + 0.1 + durr,
+            startTime: s.endTime + frame,
+            endTime: s.endTime + frame + durr,
           }; // There is an overlap
         }
         // Check if the new element's end time is within the range of the existing element
@@ -253,8 +255,8 @@ const TimelineElement = ({ e, i, id, duration, source, timelineWidth, sd }) => {
           console.log("contained", offset, durr);
           return {
             ...newElement,
-            startTime: s.endTime + 0.1,
-            endTime: s.endTime + 0.1 + durr,
+            startTime: s.endTime + frame,
+            endTime: s.endTime + frame + durr,
           }; // There is an overlap
         }
         // Check if the existing element completely encompasses the new element
@@ -299,41 +301,57 @@ const TimelineElement = ({ e, i, id, duration, source, timelineWidth, sd }) => {
     }
   }, [l, w]);
 
-  const bind = useDrag(
-    ({ movement: [ox, oy], last }) => {
-      api.start({ x: ox });
-      if (last) {
-        const dragPercent = (ox / timelineWidth) * 100;
-        const newStartTime = parseFloat(
-          (((dragPercent + l) / 100) * duration).toFixed(2)
-        );
-        const newEndTime = parseFloat(
-          (((dragPercent + l + w) / 100) * duration).toFixed(2)
-        );
-        const newElement = {
-          id: e.id,
-          startTime: newStartTime + 0.1,
-          endTime: newEndTime + 0.1,
-        };
-        const adjustedElement = adjustFinalPosition(newElement);
+  const bind = useGesture(
+    {
+      onDrag: ({ movement: [ox, oy], last, first, _bounds }) => {
+        if (isLocked) return;
+        if (first) {
+          console.log(_bounds[0]);
+        }
+        api.start({ x: ox });
+        if (last) {
+          console.log(_bounds[0]);
+          const frame = 1 / 30;
+          const dragPercent = (ox / timelineWidth) * 100;
+          const newStartTime = parseFloat(
+            (((dragPercent + l) / 100) * duration).toFixed(2)
+          );
+          const newEndTime = parseFloat(
+            (((dragPercent + l + w) / 100) * duration).toFixed(2)
+          );
+          const newElement = {
+            id: e.id,
+            startTime: newStartTime + frame,
+            endTime: newEndTime + frame,
+          };
+          const adjustedElement = adjustFinalPosition(newElement);
 
-        updateSessionData({
-          ...e,
-          startTime: adjustedElement.startTime,
-          endTime: adjustedElement.endTime,
-        });
-        api.set({ x: 0 });
-      }
+          api.set({ x: 0 });
+          updateSessionData({
+            ...e,
+            startTime: adjustedElement.startTime,
+            endTime: adjustedElement.endTime,
+          });
+        }
+      },
+      // onMouseOver: () => setSeeDetails(true),
+      // onMouseLeave: () => setSeeDetails(false),
+      onDoubleClick: () => {
+        setIsLocked((prev) => !prev);
+      },
     },
     {
-      axis: "x",
-      preventDefault: true,
-      bounds: {
-        left: -((l / 100) * timelineWidth),
-        right: ((100 - l - w) / 100) * timelineWidth,
-      }, // Adjust the timeline width accordingly
+      drag: {
+        axis: "x",
+        preventDefault: true,
+        bounds: () => ({
+          left: -((l / 100) * timelineWidth),
+          right: ((100 - l - w) / 100) * timelineWidth,
+        }), // Adjust the timeline width accordingly
+      },
     }
   );
+
   return (
     <>
       {seeDetails && (
@@ -370,9 +388,10 @@ const TimelineElement = ({ e, i, id, duration, source, timelineWidth, sd }) => {
         //   console.log(e.startTime);
         //   setSeekTime(e.startTime);
         // }}
-        // onMouseOver={() => setSeeDetails(true)}
-        // onMouseLeave={() => setSeeDetails(false)}
-        className={` absolute top-[.25rem] h-[3.5rem] touch-none rounded-sm border-[1px] border-zinc-900 bg-indigo-300 `}
+
+        className={` absolute top-[.25rem] h-[3.5rem] touch-none rounded-sm border-[1px] border-zinc-900 ${
+          isLocked ? "bg-indigo-600" : "bg-indigo-300"
+        } `}
         style={{
           left: props.l.to((left) => `${left}%`),
           width: props.w.to((width) => `${width}%`),

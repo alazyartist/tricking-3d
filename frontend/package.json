@@ -29,7 +29,7 @@
     "@trpc/react-query": "^10.8.1",
     "@trpc/server": "^10.8.1",
     "@types/three": "^0.152.1",
-    "@use-gesture/react": "^10.2.20",
+    "@use-gesture/react": "^10.3.0",
     "algoliasearch": "^4.14.2",
     "browserslist": "^4.21.4",
     "d3": "^7.7.0",
