@@ -20,6 +20,7 @@ model animations {
 
 model bases {
   base_id       String   @id @db.VarChar(255)
+  type          String   @db.VarChar(255) @default("Base")
   trick_id      String?  @db.Char(36)
   name          String?  @db.VarChar(255)
   direction     String?  @db.VarChar(255)

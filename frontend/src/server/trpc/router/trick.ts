@@ -1,6 +1,7 @@
 import { router, publicProcedure, protectedProcedure } from "../trpc";
 import { z } from "zod";
 import { combos, tricks } from "@prisma/client";
+import { TRPCError } from "@trpc/server";
 
 export const tricksRouter = router({
   findById: publicProcedure
@@ -119,4 +120,56 @@ export const tricksRouter = router({
     const data = [...allStances, ...allBases, ...allVariations];
     return data;
   }),
+  updateTrickPartPoints: publicProcedure
+    .input(
+      z.object({
+        id: z.union([z.number(), z.string()]),
+        pointValue: z.number(),
+        type: z.union([
+          z.literal("Transition"),
+          z.literal("Stance"),
+          z.literal("Base"),
+          z.literal("Variation"),
+        ]),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { id, pointValue, type } = input;
+      try {
+        if (type === "Transition") {
+          await ctx.prisma.transitions.update({
+            where: { id: id as number },
+            data: { pointValue: pointValue },
+          });
+          return "UpdatedPointValue";
+        } else if (type === "Stance") {
+          await ctx.prisma.stances.update({
+            where: { stance_id: id as string },
+            data: { pointValue: pointValue },
+          });
+
+          return "UpdatedPointValue";
+        } else if (type === "Base") {
+          await ctx.prisma.bases.update({
+            where: { base_id: id as string },
+            data: { pointValue: pointValue },
+          });
+          return "UpdatedPointValue";
+        } else if (type === "Variation") {
+          await ctx.prisma.variations.update({
+            where: { id: id as number },
+            data: { pointValue: pointValue },
+          });
+          return "UpdatedPointValue";
+        }
+      } catch (err) {
+        console.log(err);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "FAILED_TO_UPDATE_POINT_VALUE",
+        });
+      }
+
+      return;
+    }),
 });
