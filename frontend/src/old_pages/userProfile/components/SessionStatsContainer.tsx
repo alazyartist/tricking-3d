@@ -23,7 +23,7 @@ const SessionStatsContainer = ({ setActiveSummary, activeSummary, uuid }) => {
       <SessionStatsOverview summary={activeSummary} />
       {activeSummary && (
         <>
-          {activeSummary.SessionSources.map((source) => {
+          {activeSummary?.SessionSources?.map((source) => {
             return (
               <PublicSessionReview
                 source={source}

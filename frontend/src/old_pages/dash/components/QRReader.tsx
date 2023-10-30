@@ -17,7 +17,7 @@ const QRReader = () => {
     config: { durration: 300, tension: 200, friction: 50 },
   });
   const nav = useRouter();
-  const { data: capturedUserInfo } = trpc.userDB.findByUUID.useQuery({
+  const { data: capturedUserInfo } = trpc.userDB.captureByUUID.useQuery({
     userid: QRData,
   });
 

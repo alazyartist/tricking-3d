@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { MdOutlineClose } from "../../data/icons/MdIcons";
 import { useRouter } from "next/router";
 import { useTransition, animated, useSpring } from "@react-spring/web";
-import useUserInfoByUUID from "../../api/useUserInfoById";
 import { useUserStore } from "../../store/userStore";
 import ProfileInfoCard from "./components/ProfileInfoCard";
 import ProfileInfoCardEditable from "./components/ProfileInfoCardEditable";
@@ -14,26 +13,33 @@ import SessionStatsList from "./components/SessionStatsList";
 import SessionStatsContainer from "./components/SessionStatsContainer";
 import OverallStatDisplay from "./components/OverallStatDisplay";
 import { trpc } from "utils/trpc";
-import { sessionsummaries } from "@prisma/client";
+import { sessionsummaries, user_sessions } from "@prisma/client";
 
 const UserProfile = () => {
   const [hidden, setHidden] = useState<boolean>(false);
   const router = useRouter();
   const { uuid, sessionid } = router.query;
   const { uuid: loggedInUUID } = useUserStore((s) => s.userInfo);
-  const { data: profileInfo } = useUserInfoByUUID(uuid as string);
+  const { data: profileInfo } = trpc.userDB.findByUUID.useQuery({
+    userid: uuid as string,
+  });
+  // const { data: profileInfo } = useUserInfoByUUID(uuid as string);
   // const { data: profileInfo } = trpc.userDB.findByUUID.useQuery({
   //   userid: uuid as string,
   // });
   const [editing, setEditing] = useState(false);
-  const [activeSummary, setActiveSummary] = useState<sessionsummaries>();
+  const [activeSummary, setActiveSummary] = useState<
+    sessionsummaries | user_sessions
+  >();
   const [activeView, setActiveView] = useState("Stats");
   const isUsersPage = uuid === loggedInUUID;
   useEffect(() => {
     console.log(profileInfo);
-    if (sessionid && profileInfo) {
-      let tempSummary = profileInfo.SessionSummaries.find(
-        (summary: sessionsummaries) => summary.sessionid === sessionid
+    if (sessionid && profileInfo?.SessionSummaries) {
+      console.log(profileInfo?.SessionSummaries);
+      let tempSummary = profileInfo?.SessionSummaries.find(
+        (summary: sessionsummaries | user_sessions) =>
+          summary.sessionid === sessionid
       );
       setActiveView("Sessions");
       setActiveSummary(tempSummary);
@@ -92,6 +98,9 @@ const UserProfile = () => {
       setHidden(false);
     } else if (activeView === "Sessions") setHidden(true);
   }, [activeView]);
+
+  if (!profileInfo)
+    return <div className="text-center text-white">Loading the infos...</div>;
 
   return (
     <div className="flex w-full flex-col place-items-center p-2 font-inter text-zinc-300">

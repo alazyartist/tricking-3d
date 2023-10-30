@@ -14,7 +14,7 @@ const SessionStatsList = ({
     <div className="no-scrollbar h-full w-full overflow-hidden overflow-y-scroll">
       <ProfileNav setActiveView={setActiveView} activeView={activeView} />
       <div className="flex h-[100%] flex-col place-content-start gap-1">
-        {profileInfo.SessionSummaries.map((summary) => (
+        {profileInfo?.SessionSummaries.map((summary) => (
           <SessionSummaryCard
             setActiveSummary={setActiveSummary}
             summary={summary}
@@ -69,7 +69,7 @@ export const SessionSummaryCard: React.FC<SSCProps> = ({
       </div>
       <div className="h-[30px] w-full">
         <PowerAverageComboLineChart
-          data={summary.SessionData?.sort((a, b) =>
+          data={summary?.SessionData?.sort((a, b) =>
             a.clipStart > b.clipStart ? -1 : 1
           )}
         />

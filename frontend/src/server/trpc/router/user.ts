@@ -26,6 +26,80 @@ export const userRouter = router({
     return users;
   }),
   findByUUID: publicProcedure
+    .input(z.object({ userid: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const profileInfo = await ctx.prisma.users.findUnique({
+        where: { uuid: input.userid },
+        select: {
+          id: true,
+          profilePic: true,
+          uuid: true,
+          username: true,
+          first_name: true,
+          email: true,
+          captures: true,
+          captured_me: true,
+          TricksClaimed: true,
+          SessionSummaries: {
+            include: {
+              SessionData: {
+                include: {
+                  ClipLabel: true,
+                  SessionSource: true,
+                  tricker: true,
+                },
+              },
+              SessionSources: true,
+            },
+          },
+          sessionSummaries: {
+            include: {
+              sessionsummary: {
+                include: {
+                  trickers: {
+                    include: {
+                      user: {
+                        select: {
+                          id: true,
+                          username: true,
+                          password: false,
+                          deletedAt: false,
+                          refresh_token: false,
+                          createdAt: false,
+                        },
+                      },
+                    },
+                  },
+                  SessionData: {
+                    include: {
+                      ClipLabel: true,
+                      SessionSource: true,
+                      tricker: true,
+                    },
+                  },
+                  SessionSources: true,
+                },
+              },
+            },
+          },
+        },
+      });
+      // console.log({
+      //   ...profileInfo,
+      //   SessionSummaries: [
+      //     ...profileInfo.sessionSummaries,
+      //     ...profileInfo.SessionSummaries,
+      //   ],
+      // });
+      return {
+        ...profileInfo,
+        SessionSummaries: [
+          ...profileInfo.sessionSummaries.map((ss) => ss.sessionsummary),
+          ...profileInfo.SessionSummaries,
+        ],
+      };
+    }),
+  captureByUUID: publicProcedure
     .input(z.object({ userid: z.string().nullish() }))
     .query(async ({ ctx, input }) => {
       if (input.userid === undefined) return "No User";
