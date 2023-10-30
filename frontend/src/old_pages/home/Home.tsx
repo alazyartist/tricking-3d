@@ -1,55 +1,26 @@
 "use client";
-// import ComboMakerV2 from "../comboMakerV2/ComboMakerV2";
-// import Feed from "./components/Feed";
-// import ComboMakerBlueprintsvg from "../../data/ComboMakerBlueprintsvg";
-// const TricklistPage = dynamic(() => import("../tricklist/TricklistPage"));
-import React, { lazy, Suspense, useState } from "react";
-import { FaClipboardList, FaQrcode } from "react-icons/fa";
+import React from "react";
 import Link from "next/link";
-import { BsClipboardCheck } from "react-icons/bs";
 import { useUserStore } from "../../store/userStore";
 import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
-import useUserInfo from "../../api/useUserInfo";
-import { IoIosArrowBack, IoMdSearch } from "react-icons/io";
 import PublicHomePage from "./components/PublicHomePage";
 import { useSpring, animated } from "@react-spring/web";
 import BiCube from "../../data/icons/BiCube";
-import { useEffect } from "react";
-import dynamic from "next/dynamic";
 import { trpc } from "utils/trpc";
-import AllTrickDisplay from "@old_pages/AllTrickDisplay";
-import UserList from "@components/UserList";
-import { AiOutlineUser } from "react-icons/ai";
 import TempFeed from "./components/TempFeed";
 import AnimatedSearch from "./components/AnimatedSearch";
 import {
   SignInButton,
   SignedIn,
   SignedOut,
-  SignOutButton,
   UserButton,
-  SignUpButton,
   useUser,
 } from "@clerk/nextjs";
-const CapturesPage = dynamic(() => import("../dash/components/CapturesPage"));
-const ClaimTricks = dynamic(() => import("../claimtricks/ClaimTricks"));
 
 function Home() {
   // const user = useUserStore((s) => s.userInfo?.username);
-  const { isSignedIn, user } = useUser();
-  const setUserInfo = useUserStore((s) => s.setUserInfo);
-  const { data: userData } = trpc.userDB.findByClerkId.useQuery(
-    { clerk_id: user?.id },
-    {
-      onSuccess(data) {
-        setUserInfo({ ...data });
-      },
-    }
-  );
-  console.log(userData);
-  const { uuid } = useUserStore((s) => s.userInfo);
-  console.log(user);
-  const [seeUserList, setSeeUserList] = useState(false);
+  const { isSignedIn } = useUser();
+
   const logoAnim = useSpring({
     to: { width: isSignedIn ? "50vw" : "100vw" },
   });
@@ -85,6 +56,7 @@ function Home() {
 
             <SignedIn>
               <UserButton afterSignOutUrl="/home" />
+              <SnagUserInfo />
             </SignedIn>
             <AnimatedSearch />
             <Button
@@ -146,4 +118,19 @@ const Button = ({ href, label }) => {
       </div>
     </Link>
   );
+};
+
+const SnagUserInfo = () => {
+  const { isSignedIn, user } = useUser();
+  const setUserInfo = useUserStore((s) => s.setUserInfo);
+  const { data: userData } = trpc.userDB.findByClerkId.useQuery(
+    { clerk_id: user?.id },
+    {
+      onSuccess(data) {
+        setUserInfo({ ...data });
+      },
+    }
+  );
+  console.log("got the data", userData);
+  return <></>;
 };

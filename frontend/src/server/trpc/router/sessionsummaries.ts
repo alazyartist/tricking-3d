@@ -136,11 +136,24 @@ export const sessionsummariesRouter = router({
       });
       return sessions;
     }),
-  getAllSessionSummaries: publicProcedure
+  getReviewedSessionSummaries: publicProcedure
     .input(z.object({}).optional())
     .query(async ({ ctx }) => {
       const sessionSummaries = await ctx.prisma.sessionsummaries.findMany({
         where: { status: "Reviewed" },
+        // take: 5,
+        orderBy: { updatedAt: "desc" },
+        include: {
+          user: { select: { username: true, profilePic: true, uuid: true } },
+          SessionData: { include: { ClipLabel: true } },
+        },
+      });
+      return sessionSummaries;
+    }),
+  getAllSessionSummaries: publicProcedure
+    .input(z.object({}).optional())
+    .query(async ({ ctx }) => {
+      const sessionSummaries = await ctx.prisma.sessionsummaries.findMany({
         // take: 5,
         orderBy: { updatedAt: "desc" },
         include: {
@@ -184,5 +197,23 @@ export const sessionsummariesRouter = router({
         data: { user_id: input.user_id },
       });
       return updatedData;
+    }),
+  updateSessionStatus: publicProcedure
+    .input(
+      z.object({
+        sessionid: z.string(),
+        status: z.union([
+          z.literal("In Review"),
+          z.literal("Reviewed"),
+          z.literal("In Queue"),
+        ]),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const updatedStatus = await ctx.prisma.sessionsummaries.update({
+        where: { sessionid: input.sessionid },
+        data: { status: input.status },
+      });
+      return updatedStatus;
     }),
 });

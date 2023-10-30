@@ -9,8 +9,8 @@ import { MdCheckCircle } from "../../../data/icons/MdIcons";
 import useDebounce from "../../../hooks/useDebounce";
 
 const TrickPointEditor = () => {
-  const { data: trickParts, isLoading } = useGetTrickParts();
-  const { data: tricks } = useGetTricks();
+  const { data: trickParts, isLoading } = trpc.trick.getTrickParts.useQuery();
+  const { data: transitions } = trpc.trick.findAllTransitions.useQuery();
   if (isLoading) return <p>Loading...</p>;
   console.log(window?.screen?.orientation?.angle);
   return (
@@ -62,9 +62,15 @@ const TrickPointEditor = () => {
             })}
       </div>
       <div className="no-scrollbar h-[35vh] w-full min-w-[100px] overflow-y-scroll">
-        <div className="sticky top-0 bg-zinc-900 text-2xl">Transitions</div>
-        {tricks?.length &&
-          tricks
+        <div className="sticky top-0 flex place-items-end gap-2 bg-zinc-900">
+          <div className=" text-2xl">Transitions</div>
+          <div className="flex w-[80%] justify-around gap-2">
+            <p className="p-1">pointValue</p>
+            <p className="p-1">multiplier</p>
+          </div>
+        </div>
+        {transitions?.length &&
+          transitions
             ?.filter((t) => t.type === "Transition")
             ?.map((trick) => {
               return <PointInput trick={trick} />;
@@ -83,6 +89,7 @@ const PointInput = ({ trick }) => {
   const { mutateAsync: updateMultiplier, status: mStatus } =
     trpc.transition.updateMultiplier.useMutation();
   const { mutate: updatePoints, data } = useUpdateTrickPoints();
+
   const debouncedPointValue = useDebounce(pointValue, 500);
   const debouncedMultiplierValue = useDebounce(
     parseFloat(multiplierValue),
@@ -153,6 +160,7 @@ const PointInput = ({ trick }) => {
         value={pointValue}
         className="w-1/4 bg-transparent p-1 text-center text-zinc-300"
       />
+
       {trick.type === "Transition" && (
         <input
           disabled={adminAccess < 4}

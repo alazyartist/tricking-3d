@@ -13,7 +13,7 @@ const UserIcon = () => {
   const [href, setHref] = useState("/home");
   useEffect(() => {
     console.log(pathname, uuid);
-    if (uuid !== undefined) {
+    if (uuid !== undefined && uuid !== null) {
       setHref(`/userProfile/${uuid}`);
     } else {
       setHref("/home");

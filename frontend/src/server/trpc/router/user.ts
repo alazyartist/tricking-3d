@@ -29,6 +29,7 @@ export const userRouter = router({
       const profileInfo = await ctx.prisma.users.findUnique({
         where: { uuid: input.userid },
         select: {
+          id: true,
           profilePic: true,
           uuid: true,
           username: true,

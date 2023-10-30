@@ -9,6 +9,7 @@ const useGetTricks = () => {
     ["tricks"],
     async () => {
       const { data } = await apiPrivate.get("/tricks");
+      console.log("useGettricks", data);
       return data;
     },
     { onSuccess: (data) => console.log("I Got all them Tricks.") }

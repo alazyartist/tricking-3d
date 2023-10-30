@@ -17,7 +17,9 @@ export const tricksRouter = router({
       return trick;
     }),
   findAll: publicProcedure.query(async ({ input, ctx }) => {
-    const tricks = await ctx.prisma.tricks.findMany({});
+    const tricks = await ctx.prisma.tricks.findMany({
+      include: { variations: { include: { variation: true } } },
+    });
     // console.log(tricks);
     return tricks;
   }),
@@ -109,5 +111,12 @@ export const tricksRouter = router({
   getBases: publicProcedure.query(async ({ ctx }) => {
     const bases = await ctx.prisma.bases.findMany();
     return bases;
+  }),
+  getTrickParts: publicProcedure.query(async ({ ctx }) => {
+    const allStances = await ctx.prisma.stances.findMany();
+    const allBases = await ctx.prisma.bases.findMany();
+    const allVariations = await ctx.prisma.variations.findMany();
+    const data = [...allStances, ...allBases, ...allVariations];
+    return data;
   }),
 });

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import useGetTricks from "../../api/useGetTricks";
+
 import ClaimedTricks from "./components/ClaimedTricks";
+import { trpc } from "@utils/trpc";
 
 const ClaimTricks = ({ user_id }) => {
-  const { data: tricks } = useGetTricks();
+  const { data: tricks } = trpc.trick.findAll.useQuery();
 
   const [sortType, setSortType] = useState("");
   const [searchTerm, setSearchTerm] = useState("");

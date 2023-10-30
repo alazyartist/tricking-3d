@@ -1,29 +1,26 @@
 import React, { useRef, useState } from "react";
 import Link from "next/link";
-import {
-  useChangeSessionStatus,
-  useChangeSessionStatusById,
-  useGetAllSessions,
-} from "../../api/useSessionSummaries";
-import useUserInfoByUUID from "../../api/useUserInfoById";
+
 import useClickOutside from "hooks/useClickOutside";
 import { trpc } from "utils/trpc";
 import * as d3 from "d3";
+import type { FindAllUsers, GetAllSessionSummaries } from "types/trpc";
 
 const SessionSummariesOverview = () => {
-  const { data: sessions, isFetched } = useGetAllSessions();
-  console.log(sessions?.data);
+  const { data: sessions } =
+    trpc.sessionsummaries.getAllSessionSummaries.useQuery();
+
   return (
     <div className="flex w-[90vw] flex-col place-items-center text-xs">
       <h1 className=" w-full rounded-md bg-zinc-900 p-2 font-titan text-lg font-thin text-zinc-300">
         Sessions in Queue
       </h1>
       <div className=" no-scrollbar mt-2 flex h-[35vh] w-full flex-col overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70">
-        {Array.isArray(sessions?.data) &&
-        sessions?.data?.filter((s) => s.status !== "Reviewed").length ? (
-          sessions?.data
+        {Array.isArray(sessions) &&
+        sessions?.filter((s) => s.status !== "Reviewed").length ? (
+          sessions
             ?.filter((s) => s.status !== "Reviewed")
-            ?.map((s) => <SessionDisplay key={s.srcid} s={s} />)
+            ?.map((s) => <SessionDisplay key={s.sessionid} s={s} />)
         ) : (
           <div className="flex h-full w-full flex-col place-content-start place-items-center pt-10">
             <h2 className="text-xl">Awesome.</h2>
@@ -35,8 +32,8 @@ const SessionSummariesOverview = () => {
         Reviewed
       </h1>
       <div className="no-scrollbar mt-2 flex h-[35vh] w-full flex-col overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70">
-        {Array.isArray(sessions?.data) &&
-          sessions?.data
+        {Array.isArray(sessions) &&
+          sessions
             ?.filter((s) => s.status === "Reviewed")
             ?.map((s) => <SessionDisplay key={s.sessionid} s={s} />)}
       </div>
@@ -46,8 +43,8 @@ const SessionSummariesOverview = () => {
 
 export default SessionSummariesOverview;
 
-const SessionDisplay = ({ s }) => {
-  const { data: u } = useUserInfoByUUID(s.user_id);
+const SessionDisplay = ({ s }: { s: GetAllSessionSummaries[0] }) => {
+  const { data: u } = trpc.userDB.findByUUID.useQuery({ userid: s.user_id });
   const { data: users } = trpc.userDB.findAll.useQuery();
 
   const [caretOpen, setCaretOpen] = useState(false);
@@ -127,7 +124,7 @@ const SessionDisplay = ({ s }) => {
           <OptionDropdown
             users={users}
             caretOpen={caretOpen}
-            key={`option ${s.srcid}`}
+            key={`option ${s.sessionid}`}
             s={s}
             setCaretOpen={setCaretOpen}
           />
@@ -143,12 +140,24 @@ const SessionDisplay = ({ s }) => {
   );
 };
 
-export const OptionDropdown = ({ caretOpen, setCaretOpen, s, users }) => {
+export const OptionDropdown = ({
+  caretOpen,
+  setCaretOpen,
+  s,
+  users,
+}: {
+  caretOpen: boolean;
+  setCaretOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  s: GetAllSessionSummaries[0];
+  users: FindAllUsers;
+}) => {
   const ref = useRef();
   const [deleteCheck, setDeleteCheck] = useState(false);
   const [changeStatusOpen, setChangeStatusOpen] = useState(false);
   const [switchUserOpen, setSwitchUserOpen] = useState(false);
-  const { mutateAsync: changeStatus } = useChangeSessionStatusById(s.sessionid);
+
+  const { mutateAsync: changeStatus } =
+    trpc.sessionsummaries.updateSessionStatus.useMutation();
   const { mutateAsync: deleteSessionSummary } =
     trpc.sessionsummaries.deleteSessionSummaryById.useMutation();
   let clicked = 0;
@@ -166,7 +175,7 @@ export const OptionDropdown = ({ caretOpen, setCaretOpen, s, users }) => {
     console.log("StatusClick", status, s.sessionid);
     setChangeStatusOpen(false);
     setCaretOpen(false);
-    changeStatus(status);
+    changeStatus({ sessionid: s.sessionid, status: status });
   };
   const handleDeleteClick = async () => {
     console.log("Deleteing", s);
