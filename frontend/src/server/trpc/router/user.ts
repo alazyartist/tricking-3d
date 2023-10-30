@@ -36,6 +36,7 @@ export const userRouter = router({
           uuid: true,
           username: true,
           first_name: true,
+          last_name: true,
           email: true,
           captures: true,
           captured_me: true,

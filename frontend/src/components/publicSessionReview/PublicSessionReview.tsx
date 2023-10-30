@@ -177,7 +177,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }: PSRProps) => {
               />
               <div className="relative w-full">
                 <input
-                  id="sessionSummary"
+                  id="PublicSessionSummary"
                   type="range"
                   step={0.001}
                   onChange={(e) => {

@@ -70,6 +70,12 @@
   input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1);
   }
+  input[id="PublicSessionSummary"]::-webkit-slider-runnable-track {
+    @apply h-4 appearance-none rounded-sm bg-zinc-900;
+  }
+  input[id="PublicSessionSummary"]::-webkit-slider-thumb {
+    @apply h-4 w-2 appearance-none rounded-md bg-zinc-400 hover:w-8;
+  }
   input[id="sessionSummary"]::-webkit-slider-runnable-track {
     @apply h-16 appearance-none rounded-sm bg-zinc-900;
   }
