@@ -19,7 +19,10 @@ export const tricksRouter = router({
     }),
   findAll: publicProcedure.query(async ({ input, ctx }) => {
     const tricks = await ctx.prisma.tricks.findMany({
-      include: { variations: { include: { variation: true } } },
+      include: {
+        variations: { include: { variation: true } },
+        animation: true,
+      },
     });
     // console.log(tricks);
     return tricks;

@@ -102,14 +102,14 @@ function AdvancedStanceCircle() {
       >
         <HalfCircle
           onClick={() => setIsFolded(false)}
-          isFolded={isFolded}
+          isfolded={isFolded}
           stance={currentStance}
         />
         <HalfCircle
           className={"rotate-180"}
           onClick={() => setIsFolded(false)}
-          isFolded={isFolded}
-          isOtherStance
+          isfolded={isFolded}
+          isotherstance
           stance={currentStance}
         />
       </animated.div>

@@ -64,7 +64,7 @@ const MakeNewTrickModal = () => {
     let variations = trickParts?.filter((e) => e.type === "Variation");
     setAllTricks({ bases, stances, variations });
     console.log(response);
-    if (response.trick_id) {
+    if (response?.trick_id) {
       clearTrickInfo();
       setTrickMakerOpen(false);
     }

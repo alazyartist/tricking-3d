@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 import { trpc } from "utils/trpc";
 import { MdCheckCircle } from "../../../data/icons/MdIcons";
 import useDebounce from "../../../hooks/useDebounce";
+import { bases, stances, variations } from "@prisma/client";
 
 const TrickPointEditor = () => {
   const { data: trickParts, isLoading } = trpc.trick.getTrickParts.useQuery();
   const { data: transitions } = trpc.trick.findAllTransitions.useQuery();
   if (isLoading) return <p>Loading...</p>;
-  console.log(window?.screen?.orientation?.angle);
+  // console.log(window?.screen?.orientation?.angle);
   return (
     <div
       className={`no-scrollbar grid ${
@@ -30,8 +31,8 @@ const TrickPointEditor = () => {
               if (a.name < b.name) return -1;
               return 0;
             })
-            ?.map((trick) => {
-              return <PointInput trick={trick} />;
+            ?.map((trick: bases) => {
+              return <PointInput key={trick.base_id} trick={trick} />;
             })}
       </div>
       <div className="no-scrollbar h-[35vh] w-full min-w-[100px] overflow-y-scroll">
@@ -49,8 +50,8 @@ const TrickPointEditor = () => {
               if (a.name < b.name) return -1;
               return 0;
             })
-            ?.map((trick) => {
-              return <PointInput trick={trick} />;
+            ?.map((trick: stances) => {
+              return <PointInput key={trick.stance_id} trick={trick} />;
             })}
       </div>
       <div className="no-scrollbar h-[35vh] w-full min-w-[100px] overflow-y-scroll">
@@ -71,8 +72,8 @@ const TrickPointEditor = () => {
               if (a.name < b.name) return -1;
               return 0;
             })
-            ?.map((trick) => {
-              return <PointInput trick={trick} />;
+            ?.map((trick: variations) => {
+              return <PointInput key={trick?.id} trick={trick} />;
             })}
       </div>
       <div className="no-scrollbar h-[35vh] w-full min-w-[100px] overflow-y-scroll">
@@ -87,7 +88,7 @@ const TrickPointEditor = () => {
           transitions
             ?.filter((t) => t.type === "Transition")
             ?.map((trick) => {
-              return <PointInput trick={trick} />;
+              return <PointInput key={trick.id} trick={trick} />;
             })}
       </div>
     </div>

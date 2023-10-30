@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { animated, useTransition, config } from "@react-spring/web";
 import TrickOrComboDetails from "../components/info/trickInfo/TrickOrComboDetails";
-import useGetTricks from "../api/useGetTricks";
 import { IoIosWalk } from "react-icons/io";
 import { useRouter } from "next/router";
 import TrickCategories from "./theory/TrickCategories";
+import { trpc } from "@utils/trpc";
 function AllTrickDisplay() {
-  const { data: TrickListArr } = useGetTricks();
+  // const { data: TrickListArr } = useGetTricks();
+  const { data: TrickListArr } = trpc.trick.findAll.useQuery();
   const [filteredTricks, setFilteredTricks] = useState(TrickListArr);
   const nav = useRouter();
   useEffect(() => {
@@ -21,10 +22,10 @@ function AllTrickDisplay() {
     setFilteredTricks(newFilter);
   };
   const handleGoToAnim = (e) => {
-    console.log("Trying to handle anim");
-    if (e?.Animation?.model && e?.Animation?.animationName) {
+    console.log("Trying to handle anim", e);
+    if (e?.animation?.model && e?.animation?.animationName) {
       nav.push(
-        `/sandbox/${e?.Animation?.model}/${e?.Animation?.animationName}`
+        `/sandbox/${e?.animation?.model}/${e?.animation?.animationName}`
       );
     }
   };
@@ -56,11 +57,11 @@ function AllTrickDisplay() {
           onChange={handleFilter}
         />
         {/* Maps over data returned from filter and displays it. */}
-        <div className="minimalistScroll flex h-[full] max-h-[30vh] w-[95%] flex-col gap-2 overflow-y-scroll">
+        <div className="minimalistScroll flex h-[full] max-h-[80vh] w-[95%] flex-col gap-2 overflow-y-scroll">
           {animatedFilter(({ opacity }, e) => (
             <animated.div
               style={{ opacity: opacity }}
-              key={e}
+              key={e.trick_id}
               className="rounded-md bg-zinc-900 bg-opacity-40 backdrop-blur-md"
             >
               <div
@@ -103,7 +104,7 @@ function AllTrickDisplay() {
           ))}
         </div>
       </div>
-      <TrickCategories tricks={TrickListArr} />
+      {/* <TrickCategories tricks={TrickListArr} /> */}
     </>
   );
 }

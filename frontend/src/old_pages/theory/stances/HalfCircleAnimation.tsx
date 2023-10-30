@@ -19,7 +19,7 @@ export const HalfCircle = (props) => {
   };
 
   useEffect(() => {
-    if (props.isOtherStance) {
+    if (props.isotherstance) {
       if (props.stance?.includes("Backside")) {
         setOtherStance(
           props.stance
@@ -83,7 +83,7 @@ export const HalfCircle = (props) => {
     // to: {
     // 	d: "M472 472 236 472 0 70s.13 0 .13-.88a236 236 0 0 1 333.75 0c1 1 .1 2.88.472 0Z",
     // },
-    reverse: props.isFolded,
+    reverse: props.isfolded,
     config: { config: config.wobbly },
   });
 

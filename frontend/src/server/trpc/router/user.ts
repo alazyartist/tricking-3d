@@ -26,8 +26,9 @@ export const userRouter = router({
     return users;
   }),
   findByUUID: publicProcedure
-    .input(z.object({ userid: z.string() }))
+    .input(z.object({ userid: z.string().nullish() }))
     .query(async ({ ctx, input }) => {
+      if (input.userid === undefined) return "No User";
       const profileInfo = await ctx.prisma.users.findUnique({
         where: { uuid: input.userid },
         select: {

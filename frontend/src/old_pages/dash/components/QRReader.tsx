@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { QrReader } from "react-qr-reader";
-import useCaptureUser from "../../../api/useCaptures";
-import useUserInfoByUUID from "../../../api/useUserInfoById";
 import { useUserStore } from "../../../store/userStore";
 import { useTransition, animated } from "@react-spring/web";
 import { useRouter } from "next/router";
@@ -10,7 +8,6 @@ const QRReader = () => {
   const [QRData, setQRData] = useState();
   const [QRDataResponse, setQRDataResponse] = useState("Capture Valid User");
   const activeUser = useUserStore((s) => s.userInfo);
-  // const { mutate: captureUser } = useCaptureUser();
   const { mutate: captureUser } = trpc.userDB.captureUser.useMutation();
   const [addedCapture, setAddedCapture] = useState<boolean>();
   const addCaptureSuccessAnim = useTransition(addedCapture, {
@@ -20,11 +17,16 @@ const QRReader = () => {
     config: { durration: 300, tension: 200, friction: 50 },
   });
   const nav = useRouter();
-  // const location = useLocation();
-  const { data: capturedUserInfo } = useUserInfoByUUID(QRData);
+  const { data: capturedUserInfo } = trpc.userDB.findByUUID.useQuery({
+    userid: QRData,
+  });
 
   useEffect(() => {
-    capturedUserInfo && setQRDataResponse(capturedUserInfo?.username);
+    if (capturedUserInfo !== "No User") {
+      setQRDataResponse(capturedUserInfo?.username);
+      setAddedCapture(true);
+      setTimeout(() => setAddedCapture(false), 3000);
+    }
   }, [capturedUserInfo]);
   const handleResult = async (result, err) => {
     if (!!result) {
@@ -78,7 +80,7 @@ const QRReader = () => {
                   valid && (
                     <animated.div
                       className={
-                        "place-item-center absolute top-0 left-0 flex w-full rounded-md bg-emerald-600"
+                        "place-item-center absolute top-0 left-0 flex w-full rounded-md bg-emerald-600 text-zinc-100"
                       }
                       style={styles}
                     >
