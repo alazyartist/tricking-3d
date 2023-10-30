@@ -6,10 +6,12 @@ export const userRouter = router({
     const users = await ctx.prisma.users.findMany({
       select: {
         id: true,
+        isAdmin: true,
         profilePic: true,
         uuid: true,
         username: true,
         first_name: true,
+        last_name: true,
         email: true,
         captures: true,
         captured_me: true,

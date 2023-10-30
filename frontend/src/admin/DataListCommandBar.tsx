@@ -3,12 +3,12 @@ import { autocomplete } from "@algolia/autocomplete-js";
 import { createRoot } from "react-dom/client";
 import "@algolia/autocomplete-theme-classic";
 import { useSessionSummariesStore } from "./components/sessionreview/SessionSummaryStore";
-import useGetTricks from "../api/useGetTricks";
 import { useTrickMakerStore } from "./components/trickMaker/TrickMakerStore";
 import { handleSlash } from "./components/sessionreview/CommandBar";
+import { trpc } from "@utils/trpc";
 
 const DataListCommandBar = () => {
-  const { data: tricks } = useGetTricks();
+  const { data: tricks } = trpc.trick.findAll.useQuery();
   return (
     <div className="fixed bottom-[48px] left-[20vw] h-[8vh] w-[60vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:left-[20vw] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]">
       <Autocomplete
@@ -214,7 +214,7 @@ const Autocomplete = (props: any) => {
                 setTrickMakerOpen(true);
                 setName(item.name);
                 setBase_id(item.base_id);
-                let Varray = item.Variations.map((v) => v.Variation);
+                let Varray = item.variations.map((v) => v.variation);
 
                 setVariationsArr(Varray);
                 setTakeoffStance(item.takeoffStance);

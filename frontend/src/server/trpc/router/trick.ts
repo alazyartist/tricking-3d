@@ -1,8 +1,8 @@
 import { router, publicProcedure, protectedProcedure } from "../trpc";
-import { z } from "zod";
+import * as z from "zod";
 import { combos, tricks } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
-
+import { v4 as uuid } from "uuid";
 export const tricksRouter = router({
   findById: publicProcedure
     .input(z.object({ trick_id: z.string() }))
@@ -51,9 +51,7 @@ export const tricksRouter = router({
       return { ...trick, combos: combos };
     }) as (tricks & { combos: Awaited<Promise<combos>> })[];
     await Promise.all(trickMap);
-    type trickarr = Awaited<typeof trickMap>;
 
-    console.log(trickMap[0]);
     return Promise.all(trickMap);
   }),
   findCombosWithTrick: publicProcedure
@@ -171,5 +169,106 @@ export const tricksRouter = router({
       }
 
       return;
+    }),
+  makeNewTrick: publicProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        base_id: z.string(),
+        trickType: z.string(),
+        takeoffStance: z.string(),
+        variationsArr: z.array(
+          z.object({
+            id: z.number(),
+            variationType: z.string().nullish(),
+            type: z.string().nullish(),
+            name: z.string().nullish(),
+            value: z.string().nullish(),
+            pos: z.string().nullish(),
+            pointValue: z.number().nullish(),
+          })
+        ),
+        landingStance: z.string(),
+        pointValue: z.number(),
+        useruuid: z.string().optional(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        let newTrick = await ctx.prisma.tricks.findFirst({
+          where: { name: input.name },
+        });
+
+        if (newTrick) {
+          try {
+            await ctx.prisma.trick_variations.deleteMany({
+              where: { trick_id: newTrick.trick_id },
+            });
+
+            await ctx.prisma.tricks.update({
+              where: { trick_id: newTrick.trick_id },
+              data: {
+                base_id: input.base_id,
+                trickType: input.trickType,
+                takeoffStance: input.takeoffStance,
+                landingStance: input.landingStance,
+                pointValue: input.pointValue,
+              },
+            });
+            const variationMap = input.variationsArr.map((v) => {
+              return { variation_id: v.id, trick_id: newTrick.trick_id };
+            });
+            await ctx.prisma.trick_variations.createMany({
+              data: variationMap,
+            });
+          } catch (err) {
+            console.log(err);
+            throw new TRPCError({
+              code: "INTERNAL_SERVER_ERROR",
+              message: "FAILED_TO_UPDATE_EXISTING_TRICK",
+            });
+          }
+        } else {
+          try {
+            newTrick = await ctx.prisma.tricks.create({
+              data: {
+                trick_id: uuid(),
+                name: input.name,
+                base_id: input.base_id,
+                trickType: input.trickType,
+                takeoffStance: input.takeoffStance,
+                landingStance: input.landingStance,
+                pointValue: input.pointValue,
+              },
+            });
+            const variationMap = input.variationsArr.map((v) => {
+              return { variation_id: v.id, trick_id: newTrick.trick_id };
+            });
+            await ctx.prisma.trick_variations.createMany({
+              data: variationMap,
+            });
+          } catch (err) {
+            console.log(err);
+            throw new TRPCError({
+              code: "INTERNAL_SERVER_ERROR",
+              message: "FAILED_TO_CREATE_NEW_TRICK",
+            });
+          }
+        }
+
+        //if making new trick
+        const updatedTrick = await ctx.prisma.tricks.findUnique({
+          where: { trick_id: newTrick.trick_id },
+          include: { variations: { include: { variation: true } } },
+        });
+        console.log("finaltrick", updatedTrick);
+        return updatedTrick;
+      } catch (err) {
+        console.log(err);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "FAILED_TO_CREATE_OR_UPDATE_TRICK",
+        });
+      }
     }),
 });

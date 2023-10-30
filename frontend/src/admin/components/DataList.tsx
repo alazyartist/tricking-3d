@@ -1,16 +1,12 @@
 import { trpc } from "@utils/trpc";
 import React, { useState } from "react";
 import { FaCheck, FaCircle } from "react-icons/fa";
-import useGetCombos from "../../api/useGetCombos";
-import useGetTricks, { useGetTrickPoints } from "../../api/useGetTricks";
 import DataListCommandBar from "../DataListCommandBar";
 import MakeNewTrickModal from "./sessionreview/MakeNewTrickModal";
 import { useSessionSummariesStore } from "./sessionreview/SessionSummaryStore";
 import * as d3 from "d3";
 import { combos, tricks } from "@prisma/client";
 const DataList = () => {
-  // const { data: tricks } = useGetTricks();
-  // const { data: combos } = useGetCombos();
   const { data: tricks } = trpc.trick.findAllwithComboClips.useQuery();
   const { data: combos } = trpc.combos.getAll.useQuery();
   // const { data: trickPoints, refetch } = useGetTrickPoints();
@@ -18,7 +14,7 @@ const DataList = () => {
   const [animPopup, toggleAnimPopup] = useState(false);
   const [currentTrick, setCurrentTrick] = useState(null);
   const { data: animations } = trpc.animations.findAll.useQuery();
-  console.log(animations);
+  // console.log(animations);
   const handleAnimPopup = (chosen: tricks | combos) => {
     toggleAnimPopup((p) => !p);
     setCurrentTrick(chosen);
@@ -50,7 +46,11 @@ const DataList = () => {
             });
           })
           ?.map((trick) => (
-            <DLTrickDisplay handleAnimPopup={handleAnimPopup} trick={trick} />
+            <DLTrickDisplay
+              key={trick.trick_id + trick.type}
+              handleAnimPopup={handleAnimPopup}
+              trick={trick}
+            />
           ))}
       </div>
       <h1 className="sticky top-0 h-full w-full bg-zinc-800 p-2 text-center text-xl font-bold">

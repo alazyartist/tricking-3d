@@ -1,3 +1,4 @@
+import { variations } from "@prisma/client";
 import create from "zustand";
 interface TrickMakerStore {
   trickType: string;
@@ -5,11 +6,19 @@ interface TrickMakerStore {
   takeoffStance: any;
   landingStance: any;
   landingStancePoints: number;
-  variationsArr: any[];
+  variationsArr: variations[];
   basePoints: number;
   base_id: string;
   powerScore: number;
-  getTrickInfo: () => void;
+  getTrickInfo: () => {
+    trickType: string;
+    name: string;
+    takeoffStance: string;
+    landingStance: string;
+    variationsArr: variations[];
+    base_id: string;
+    pointValue: number;
+  };
   clearTrickInfo: () => void;
   setTrickType: (value: string) => void;
   setName: (value: string) => void;
@@ -17,7 +26,7 @@ interface TrickMakerStore {
   setLandingStance: (value: any) => void;
   setLandingStancePoints: (value: number) => void;
   setVariationsArr: (value: any) => void;
-  addVariation: (value: any) => void;
+  addVariation: (value: variations) => void;
   removeVariation: (value: any) => void;
   setBase_id: (value: string) => void;
   setPowerScore: (value: number) => void;

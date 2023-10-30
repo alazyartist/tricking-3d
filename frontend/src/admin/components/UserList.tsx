@@ -1,14 +1,11 @@
-import React, { useEffect } from "react";
-import useGetAllUsers from "../../api/useGetAllUsers";
-import { MdCheckCircle } from "../../data/icons/MdIcons";
+import React from "react";
 import MakeTrickedexUser from "./MakeTrickedexUser";
 import * as d3 from "d3";
+import { trpc } from "@utils/trpc";
 
 const UserList = () => {
-  const { data: allUsers } = useGetAllUsers();
-  useEffect(() => {
-    console.log(allUsers);
-  }, [allUsers]);
+  const { data: allUsers } = trpc.userDB.findAll.useQuery();
+
   const newUserColor = d3.interpolateRainbow(
     (allUsers?.length % 15) / (allUsers?.length + 1)
   );
