@@ -271,4 +271,40 @@ export const tricksRouter = router({
         });
       }
     }),
+  claimTrick: publicProcedure
+    .input(
+      z.object({
+        action: z.union([z.literal("Claim"), z.literal("Unclaim")]),
+        trick_id: z.string(),
+        user_id: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        if (input.action === "Claim") {
+          const claimedTrick = await ctx.prisma.claimedtricks.create({
+            data: { user_id: input.user_id, trick_id: input.trick_id },
+          });
+          return claimedTrick;
+        } else if (input.action === "Unclaim") {
+          const unclaimedTrick = await ctx.prisma.claimedtricks.delete({
+            where: {
+              user_id_trick_id: {
+                trick_id: input.trick_id,
+                user_id: input.user_id,
+              },
+            },
+          });
+          return unclaimedTrick;
+        }
+      } catch (err) {
+        console.log(err);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "FAILED_TO_CLAIM_TRICK",
+        });
+      }
+
+      return;
+    }),
 });

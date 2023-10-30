@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { MdCircle, MdCheckCircle } from "../../../data/icons/MdIcons";
-import { useClaimTrick, useUnClaimTrick } from "../../../api/useClaimTricks";
-import useUserInfoByUUID from "../../../api/useUserInfoById";
 import { tricks } from "@prisma/client";
+import { trpc } from "@utils/trpc";
 interface ClaimTrickProps {
   displayOnly?: boolean;
   user_id: string;
@@ -18,15 +17,19 @@ const ClaimedTricks: React.FC<ClaimTrickProps> = ({
   sortType,
 }) => {
   const [claimed, setClaimed] = useState(false);
-  const { mutate: claim } = useClaimTrick();
-  const { mutate: unclaim } = useUnClaimTrick();
-  const { data: profileInfo } = useUserInfoByUUID(user_id);
+  const { mutate: claim } = trpc.trick.claimTrick.useMutation();
+  const { data: profileInfo } = trpc.userDB.findByUUID.useQuery({
+    userid: user_id,
+  });
   const isClaimed = profileInfo?.TricksClaimed?.some(
     (combo) => combo.trick_id === trick_id
   );
+  console.log(profileInfo);
 
   const handleClaim = async () => {
-    isClaimed ? unclaim({ user_id, trick_id }) : claim({ user_id, trick_id });
+    isClaimed
+      ? claim({ action: "Unclaim", user_id, trick_id })
+      : claim({ action: "Claim", user_id, trick_id });
   };
   return sortType === "Claimed" ? (
     isClaimed && (

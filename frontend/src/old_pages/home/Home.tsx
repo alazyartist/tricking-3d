@@ -131,6 +131,5 @@ const SnagUserInfo = () => {
       },
     }
   );
-  console.log("got the data", userData);
   return <></>;
 };

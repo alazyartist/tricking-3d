@@ -84,6 +84,8 @@ model claimedcombos {
   combo_id  String?  @db.Char(36)
   createdAt DateTime @default(now()) @db.DateTime(0)
   updatedAt DateTime @db.DateTime(0)
+  user      users? @relation(fields: [user_id],references: [uuid])
+  combo     combos? @relation(fields: [combo_id],references: [combo_id])
 }
 
 model claimedtricks {
@@ -92,6 +94,10 @@ model claimedtricks {
   trick_id  String?   @db.Char(36)
   createdAt DateTime? @default(now()) @db.DateTime(0)
   updatedAt DateTime? @db.DateTime(0)
+  user      users?   @relation(fields: [user_id],references: [uuid])
+  trick     tricks? @relation(fields: [trick_id],references: [trick_id])
+
+  @@unique([user_id,trick_id])
 }
 
 model combo_animations {
@@ -113,6 +119,7 @@ model combos {
   updatedAt        DateTime @db.DateTime(0)
   pointValue       Float?   @db.Float
   shorthand        String?  @db.VarChar(255)
+  ClaimedBy        claimedcombos[]
   Clips sessiondata[]
 }
 
@@ -333,6 +340,7 @@ model tricks {
   landingStance    String?            @db.VarChar(255)
   defaultAnimation String?            @db.Char(36)
   pointValue       Float?             @db.Float
+  ClaimedBy        claimedtricks[]
   animation        animations? @relation(fields: [defaultAnimation],references: [animation_id],onDelete: Restrict,onUpdate: Restrict,map: "default_animation")
   variations       trick_variations[]
   base             bases?             @relation(fields: [base_id], references: [base_id], onDelete: Restrict, onUpdate: Restrict, map: "tricks_ibfk_1")
@@ -400,6 +408,8 @@ model users {
   executionScores      sessiondatascores[]
   sessionSummaries     user_sessions[]
   SessionSummaries     sessionsummaries[]
+  TricksClaimed        claimedtricks[]
+  ComobosClaimed       claimedcombos[]
   Clips sessiondata[]
   Debates debates[]
   Messages debateMessages[]

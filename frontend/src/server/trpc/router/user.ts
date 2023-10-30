@@ -39,6 +39,7 @@ export const userRouter = router({
           email: true,
           captures: true,
           captured_me: true,
+          TricksClaimed: true,
           SessionSummaries: true,
           sessionSummaries: true,
         },
