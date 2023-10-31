@@ -1,18 +1,37 @@
 import { NextResponse } from "next/server";
-import { withClerkMiddleware } from "@clerk/nextjs/server";
+import { authMiddleware } from "@clerk/nextjs";
 import { jwtVerify, importJWK } from "jose";
 import type { NextRequest } from "next/server";
 
-export default withClerkMiddleware((req: NextRequest) => {
-  return NextResponse.next();
+// export default withClerkMiddleware((req: NextRequest) => {
+//   return NextResponse.next();
+// });
+export default authMiddleware({
+  publicRoutes: [
+    "/",
+    "/home",
+    "/login",
+    "/sandbox(.*)",
+    "/theory(.*)",
+    "/about",
+    "/contribute",
+    "/leaderboard",
+    "/compare(.*)",
+    "/debate(.*)",
+    "/learnMore",
+    "/social",
+    "/userProfile(.*)",
+    "/api/trpc/trick(.*)",
+    "/api/trpc/sessionsummaries(.*)",
+    "/api/trpc/debates.findByID(.*)",
+    "/api/trpc/combos(.*)",
+    "/api/trpc/userDB.findAll(.*)",
+    "/api/trpc/userDB.findByClerkId(.*)",
+  ],
 });
-
 // Stop Middleware running on static files
 export const config = {
-  matcher: [
-    "/((?!_next/image|_next/static|favicon.ico).*)",
-    "/(.*?trpc.*?|(?!static|.*\\..*|_next|favicon.ico).*)",
-  ],
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/(api|trpc)(.*)"],
 };
 
 // export async function middleware(request: NextRequest) {

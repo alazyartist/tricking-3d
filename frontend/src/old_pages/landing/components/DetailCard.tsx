@@ -1,3 +1,4 @@
+import { SignUpButton } from "@clerk/nextjs";
 import Link from "next/link";
 import React from "react";
 interface DetailCardProps {
@@ -28,13 +29,17 @@ const DetailCard: React.FC<DetailCardProps> = ({
       <h1 className="mt-3 px-2 text-2xl font-black text-zinc-900">{title}</h1>
       <p className="px-2 text-sm text-zinc-900">{description}</p>
       <div className="flex h-24 w-full flex-col place-content-center place-items-center">
-        {link && (
+        {link && link !== "/register" ? (
           <Link
             className="rounded-lg bg-sky-500 px-4 py-2 font-inter text-zinc-300"
             href={link}
           >
             {cta}
           </Link>
+        ) : (
+          <div className="rounded-lg bg-sky-500 px-4 py-2 font-inter text-zinc-300">
+            <SignUpButton mode="modal">{cta}</SignUpButton>
+          </div>
         )}
       </div>
     </div>

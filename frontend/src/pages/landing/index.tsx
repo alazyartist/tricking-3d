@@ -143,13 +143,13 @@ const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
         <DetailCard
           left
           link={"/register"}
-          cta={"Register Now"}
+          cta={"Start Tracking"}
           title={"Track Your Tricking Progress with Ease"}
           description="At the Trickedex, we're committed to helping trickers of all levels reach their full potential. That's why we've created a comprehensive set of tools for tracking your progress, including detailed user profile pages and easy-to-use performance metrics. Whether you're just starting out or are a seasoned tricker, the Trickedex is the perfect way to stay motivated and reach new heights in your tricking journey."
         ></DetailCard>
         <DetailCard
           link={"/register"}
-          cta={"Register Now"}
+          cta={"Join Now"}
           title={"Join a Community of Tricking Enthusiasts"}
           description="The Trickedex isn't just a database of tricks and tutorials - it's also a vibrant community of like-minded trickers from around the world. Follow your friends, connect with new trickers, and be a part of something special. With our social media platform, you can share your tricks, give and receive feedback, and be a part of a supportive and encouraging community of trickers."
         ></DetailCard>

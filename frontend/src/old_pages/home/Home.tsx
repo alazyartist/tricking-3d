@@ -74,9 +74,9 @@ function Home() {
               />
             </SignedIn>
             <SignedOut>
-              <div className=" mt-1 mb-2 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] ">
+              <div className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] ">
                 <div className="flex place-content-center place-items-center gap-2">
-                  <SignInButton afterSignInUrl="/addSession">
+                  <SignInButton mode="modal" afterSignInUrl="/addSession">
                     Add Session
                   </SignInButton>
                 </div>
@@ -111,7 +111,7 @@ const Button = ({ href, label }) => {
   return (
     <Link
       href={href}
-      className=" mt-1 mb-2 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
+      className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
     >
       <div className="flex place-content-center place-items-center gap-2">
         {label}
@@ -124,7 +124,7 @@ const SnagUserInfo = () => {
   const { isSignedIn, user } = useUser();
   const setUserInfo = useUserStore((s) => s.setUserInfo);
   const { data: userData } = trpc.userDB.findByClerkId.useQuery(
-    { clerk_id: user?.id },
+    { clerk_id: user?.id as string },
     {
       onSuccess(data) {
         setUserInfo({ ...data });

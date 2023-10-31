@@ -118,3 +118,15 @@
     background: red;
   }
 }
+
+.cl-internal-1vi7rps {
+  @apply left-[12px];
+}
+/*hide powered by clerk*/
+.cl-internal-b3fm6y {
+  @apply hidden;
+}
+
+.cl-userButtonPopoverFooter {
+  @apply hidden;
+}

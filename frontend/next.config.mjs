@@ -25,9 +25,7 @@ export default defineNextConfig({
       },
     ];
   },
-  experimental: {
-    appDir: false,
-  },
+
   swcMinify: true,
   /** Next.js i18n docs:
    * @see https://nextjs.org/docs/advanced-features/i18n-routing

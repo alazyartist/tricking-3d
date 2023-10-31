@@ -3,12 +3,12 @@ import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
 export interface UserInfo {
   accessToken?: string;
-  profilePic: string;
+  profilePic?: string | null | undefined;
   id?: number;
   uuid?: string | null;
-  first_name?: string;
-  last_name?: string;
-  username?: string;
+  first_name?: string | null | undefined;
+  last_name?: string | null | undefined;
+  username?: string | null | undefined;
   captures?: any;
   captured_me?: any;
   SessionReviewCredits?: any;
@@ -20,7 +20,7 @@ interface UserStore {
   userInfo: UserInfo;
   accessToken: string | null;
   persist: string | null;
-  setUserInfo: (value: UserInfo | null) => void;
+  setUserInfo: (value: Partial<UserInfo> | null) => void;
   setUser: (value: string | null) => void;
   setAccessToken: (value: string | null) => void;
   setPersist: (value: any) => void;

@@ -2,7 +2,11 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "checkJs": true,
     "skipLibCheck": true,
@@ -23,16 +27,35 @@
       }
     ],
     "paths": {
-      "@store/*": ["store/*"],
-      "@hooks/*": ["hooks/*"],
-      "@scenes/*": ["scenes/*"],
-      "@components/*": ["components/*"],
-      "@admin/*": ["admin/*"],
-      "@old_pages/*": ["old_pages/*"],
-      "@data/*": ["data/*"],
-      "@api/*": ["api/*"],
-      "@utils/*": ["utils/*"]
-    }
+      "@store/*": [
+        "store/*"
+      ],
+      "@hooks/*": [
+        "hooks/*"
+      ],
+      "@scenes/*": [
+        "scenes/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@admin/*": [
+        "admin/*"
+      ],
+      "@old_pages/*": [
+        "old_pages/*"
+      ],
+      "@data/*": [
+        "data/*"
+      ],
+      "@api/*": [
+        "api/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ]
+    },
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
@@ -41,5 +64,7 @@
     ".next/types/**/*.ts",
     "src/old_pages/pppoints/BattleroomPage.jsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
