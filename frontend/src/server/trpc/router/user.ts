@@ -6,6 +6,7 @@ export const userRouter = router({
     const users = await ctx.prisma.users.findMany({
       select: {
         id: true,
+        clerk_id: true,
         isAdmin: true,
         profilePic: true,
         uuid: true,
@@ -92,18 +93,20 @@ export const userRouter = router({
       //     ...profileInfo.SessionSummaries,
       //   ],
       // });
-      return {
-        ...profileInfo,
-        SessionSummaries: [
-          ...profileInfo.sessionSummaries.map((ss) => ss.sessionsummary),
-          ...profileInfo.SessionSummaries,
-        ],
-      };
+      if (profileInfo?.sessionSummaries) {
+        return {
+          ...profileInfo,
+          SessionSummaries: [
+            ...profileInfo.sessionSummaries.map((ss) => ss.sessionsummary),
+            ...profileInfo.SessionSummaries,
+          ],
+        };
+      } else return profileInfo;
     }),
   captureByUUID: publicProcedure
     .input(z.object({ userid: z.string().nullish() }))
     .query(async ({ ctx, input }) => {
-      if (input.userid === undefined) return "No User";
+      if (!input?.userid || input.userid === undefined) return "No User";
       const profileInfo = await ctx.prisma.users.findUnique({
         where: { uuid: input.userid },
         select: {
@@ -127,13 +130,15 @@ export const userRouter = router({
       //     ...profileInfo.SessionSummaries,
       //   ],
       // });
-      return {
-        ...profileInfo,
-        SessionSummaries: [
-          ...profileInfo.sessionSummaries,
-          ...profileInfo.SessionSummaries,
-        ],
-      };
+      if (profileInfo?.sessionSummaries) {
+        return {
+          ...profileInfo,
+          SessionSummaries: [
+            ...profileInfo.sessionSummaries,
+            ...profileInfo.SessionSummaries,
+          ],
+        };
+      } else return profileInfo;
     }),
   findByClerkId: publicProcedure
     .input(z.object({ clerk_id: z.string() }))
@@ -203,6 +208,9 @@ export const userRouter = router({
       const capturedUser = await ctx.prisma.users.findFirst({
         where: { uuid: input.captureuuid },
       });
+
+      if (!activeUser?.id) return;
+      if (!capturedUser?.id) return;
 
       if (activeUser.id && capturedUser.id) {
         const captureSuccess = await ctx.prisma.captures.create({

@@ -1,7 +1,109 @@
 import { router, publicProcedure, protectedProcedure } from "../trpc";
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
+import { v4 as uuid } from "uuid";
 
 export const sessionsummariesRouter = router({
+  submitSession: protectedProcedure
+    .input(
+      z.object({
+        sessionDate: z.string(),
+        user_id: z.string(),
+        name: z.string(),
+        sessionid: z.string(),
+        startTime: z.string().nullish(),
+        endTime: z.string().nullish(),
+        url: z.union([z.string(), z.array(z.string())]),
+        type: z.string(),
+        trickers: z.array(
+          z.object({
+            uuid: z.string(),
+            email: z.string(),
+            first_name: z.string(),
+            last_name: z.string(),
+            username: z.string(),
+            clerk_id: z.string(),
+          })
+          // .partial()
+        ),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      let status = "In Queue";
+      if (!ctx.auth.userId) return { message: "Not Signed In" };
+      let submittingUser = await ctx.prisma.users.findUnique({
+        where: { clerk_id: ctx.auth.userId },
+      });
+      if (!submittingUser?.SessionReviewCredits)
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+      let credits = submittingUser?.SessionReviewCredits;
+      if (credits >= 1) {
+        try {
+          const sessionSetup = await ctx.prisma.sessionsummaries.upsert({
+            where: { sessionid: input.sessionid },
+            update: {
+              name: input.name,
+              user_id: input.user_id,
+              sessionDate: input.sessionDate,
+              startTime: input.startTime,
+              endTime: input.endTime,
+              type: input.type,
+              status: status,
+            },
+            create: {
+              sessionid: input.sessionid,
+              name: input.name,
+              user_id: input.user_id,
+              sessionDate: input.sessionDate,
+              startTime: input.startTime,
+              endTime: input.endTime,
+              type: input.type,
+              status: status,
+            },
+          });
+
+          const trickerMap = input.trickers.map((t) => {
+            return {
+              user_id: t.uuid,
+              sessionid: sessionSetup.sessionid,
+            };
+          });
+
+          const trickerSetup = await ctx.prisma.user_sessions.createMany({
+            data: trickerMap,
+          });
+
+          if (typeof input.url === "string") {
+            const sourcesSetup = await ctx.prisma.sessionsources.create({
+              data: {
+                srcid: uuid(),
+                sessionid: sessionSetup.sessionid,
+                vidsrc: input.url,
+              },
+            });
+
+            await ctx.prisma.users.update({
+              where: { clerk_id: ctx.auth.userId },
+              data: { SessionReviewCredits: credits - 1 },
+            });
+            return {
+              sourcesSetup,
+              sessionSetup,
+              trickerSetup,
+              message: "Submitted",
+            };
+          }
+        } catch (err) {
+          console.log(err);
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "FAILED_TO_SUBMIT_SESSION",
+          });
+        }
+      } else {
+        return { message: "Out of Credits" };
+      }
+    }),
   detailsById: publicProcedure
     .input(z.object({ sessionid: z.string() }))
     .query(async ({ input, ctx }) => {

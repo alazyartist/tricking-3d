@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useUserStore } from "../../store/userStore";
-import { useSubmitSessionForReview } from "../../api/useSessionSummaries";
 import { v4 as uuidv4 } from "uuid";
 import { MdCheckCircle } from "../../data/icons/MdIcons";
 import Link from "next/link";
@@ -21,8 +20,9 @@ const AddSessionPage = () => {
   // const { data: availableUsers } = trpc.userDB.findAll.useQuery();
   let todaytime = new Date(Date.now()).toISOString().slice(-13, -8);
 
-  const { mutateAsync: submitSession, data: response } =
-    useSubmitSessionForReview();
+  const { mutate: submitSession, data: response } =
+    trpc.sessionsummaries.submitSession.useMutation();
+
   const { uuid: user_id, SessionReviewCredits } = useUserStore(
     (s) => s.userInfo
   );
@@ -32,8 +32,8 @@ const AddSessionPage = () => {
   const [submitSuccess, setSubmitSucces] = useState(false);
   const [formData, setFormData] = useState({
     sessionDate: whatsToday(),
-    url: {},
-    user_id: user_id,
+    url: "",
+    user_id: user_id as string,
     sessionid: uuidv4(),
     startTime: null,
     endTime: null,
@@ -51,15 +51,12 @@ const AddSessionPage = () => {
     console.log(formData);
   }, [formData]);
   useEffect(() => {
-    if (response?.data?.message === "Submitted") {
+    if (response?.message === "Submitted") {
       setSubmitSucces(true);
     }
   }, [response]);
   useEffect(() => {
-    if (
-      response?.data?.message === "Out of Credits" ||
-      SessionReviewCredits === 0
-    ) {
+    if (response?.message === "Out of Credits" || SessionReviewCredits === 0) {
       setShowOutOfCredits(true);
     }
   }, [response]);
@@ -102,7 +99,7 @@ const AddSessionPage = () => {
             type="button"
             id="addCreditbutton"
             onClick={() => setShowOutOfCredits((prev) => !prev)}
-            className="absolute top-4 left-4 rounded-md bg-gradient-to-b from-teal-400 to-emerald-500 p-2 font-bold text-zinc-900 drop-shadow-md"
+            className="absolute left-4 top-4 rounded-md bg-gradient-to-b from-teal-400 to-emerald-500 p-2 font-bold text-zinc-900 drop-shadow-md"
           >
             Credit{`${SessionReviewCredits > 1 ? "s" : ""}`}:{" "}
             {SessionReviewCredits}
@@ -174,7 +171,7 @@ const AddSessionPage = () => {
             )}
           </form>
           <div className="flex flex-col place-items-center gap-2">
-            <div>{response?.data?.message}</div>
+            <div>{response?.message}</div>
             {showOutOfCredits && <OutOfCredits />}
           </div>
         </>
@@ -238,233 +235,10 @@ export const OutOfCredits = () => {
         Add Credits
       </button>
       {showForm && (
-        <div className="absolute top-[0vh] left-[0vw] z-[1290] h-[100vh] w-[100vw] rounded-md bg-zinc-900 bg-opacity-40 p-8 backdrop-blur-md">
+        <div className="absolute left-[0vw] top-[0vh] z-[1290] h-[100vh] w-[100vw] rounded-md bg-zinc-900 bg-opacity-40 p-8 backdrop-blur-md">
           <PaymentEmbed creditAmount={creditAmount} setShowForm={setShowForm} />
         </div>
       )}
     </>
   );
 };
-
-///DELETE LATER VVVVV
-{
-  /* <input
-              onChange={(e) =>
-                setFormData((s) => ({ ...s, name: e.target.value }))
-              }
-              id="name"
-              type="text"
-              className="rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300"
-              placeholder="Session Name"
-            /> */
-}
-{
-  /* <input
-              onChange={(e) =>
-                setFormData((s) => ({ ...s, sessionDate: e.target.value }))
-              }
-              id="date"
-              type="date"
-              value={whatsToday()}
-              className="rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300"
-            />
-            <div className="flex items-center gap-2 rounded-md bg-zinc-900 bg-opacity-80">
-              <label className="w-1/6 pl-2" htmlFor="startTime">
-                Start
-              </label>
-              <input
-                onChange={(e) =>
-                  setFormData((s) => ({ ...s, startTime: e.target.value }))
-                }
-                id="startTime"
-                step={"00:15"}
-                className="w-full select-none place-self-end bg-transparent p-1 text-zinc-300  "
-                type="time"
-                value={formData.startTime}
-              />
-            </div>
-            <div className="flex items-center gap-2 rounded-md bg-zinc-900 bg-opacity-80">
-              <label className="w-1/6 pl-2" htmlFor="endTime">
-                End
-              </label>
-              <input
-                onChange={(e) =>
-                  setFormData((s) => ({ ...s, endTime: e.target.value }))
-                }
-                id="endTime"
-                step={"00:15"}
-                className="w-full select-none place-self-end bg-transparent p-1 text-zinc-300  "
-                type="time"
-                value={formData.endTime}
-              />
-            </div> */
-}
-{
-  /* <div className="flex items-center gap-2 rounded-md bg-zinc-900 bg-opacity-80">
-              <label className="w-1/6 pl-2" htmlFor="type">
-                Type
-              </label>
-              <select
-                onChange={(e) =>
-                  setFormData((s) => ({ ...s, type: e.target.value }))
-                }
-                id="type"
-                style={{ color: "#fff" }}
-                className="w-full select-none  place-self-end bg-zinc-900 bg-opacity-0 p-1 text-zinc-800  "
-                value={formData.type}
-              >
-                <option
-                  style={{ color: "#000" }}
-                  className=""
-                  value={"Session"}
-                >
-                  Session
-                </option>
-                <option style={{ color: "#000" }} className="" value={"Battle"}>
-                  Battle
-                </option>
-                <option
-                  style={{ color: "#000" }}
-                  className=""
-                  value={"Sampler"}
-                >
-                  Sampler
-                </option>
-              </select>
-            </div> */
-}
-{
-  /* {
-              <div className="flex items-center gap-2 rounded-md bg-zinc-900 bg-opacity-80">
-                <label
-                  onClick={() => setAddTrickersOpen(!addTrickersOpen)}
-                  className="w-1/6 p-1 pl-2"
-                  htmlFor="trickers"
-                >
-                  Trickers
-                </label>
-
-                <div
-                  style={{ color: "#fff" }}
-                  className="flex w-full flex-col gap-2 rounded-md bg-zinc-900 bg-opacity-0 p-1 text-zinc-300"
-                >
-                  <div className="flex w-full flex-col place-content-center place-items-center text-center text-sm">
-                    {formData?.trickers?.map((battler) => (
-                      <div
-                        className={"flex flex-col gap-2 p-1"}
-                        onClick={() => {
-                          setFormData((s) => ({
-                            ...s,
-                            trickers: s?.trickers?.filter(
-                              (b) => b.username !== battler.username
-                            ),
-                          }));
-                        }}
-                      >
-                        {battler.username}
-                      </div>
-                    ))}
-                    <div
-                      className={"w-[150px] rounded-md bg-emerald-500 p-1"}
-                      onClick={() => setAddTrickersOpen(!addTrickersOpen)}
-                    >
-                      Add
-                    </div>
-                  </div>
-                  {availableUsers && addTrickersOpen && (
-                    <div
-                      className={
-                        "absolute top-[2.5%] left-[2.5%] flex h-[95%] w-[95%] flex-col justify-between gap-1 rounded-md bg-zinc-900 bg-opacity-90 p-2"
-                      }
-                    >
-                      <div className={"flex flex-col gap-1"}>
-                        {availableUsers?.map((user) => {
-                          return (
-                            <div
-                              key={user.uuid}
-                              onClick={() => {
-                                !formData.trickers.some(
-                                  (item) => item.uuid === user.uuid
-                                )
-                                  ? setFormData((s) => ({
-                                      ...s,
-                                      trickers: [...s.trickers, user],
-                                    }))
-                                  : setFormData((s) => ({
-                                      ...s,
-                                      trickers: s.trickers?.filter(
-                                        (b) => b.username !== user.username
-                                      ),
-                                    }));
-                              }}
-                              className={`flex w-full place-items-center gap-2 rounded-md p-1 text-zinc-300 ${
-                                formData.trickers.some(
-                                  (item) => item.uuid === user.uuid
-                                )
-                                  ? " bg-teal-500 "
-                                  : " bg-teal-800 "
-                              }`}
-                            >
-                              <img
-                                className={`h-6 w-6 rounded-full`}
-                                src={`${
-                                  user.profilePic
-                                    ? `./images/${user?.uuid}/${user?.profilePic}`
-                                    : `./images/noimg.jpeg`
-                                }`}
-                                alt={"image"}
-                              />
-                              {user.username}
-                            </div>
-                          );
-                        })}
-                      </div>
-                      <div
-                        onClick={() => setAddTrickersOpen(false)}
-                        className="flex place-content-center place-items-center rounded-md bg-emerald-500 p-1 text-2xl"
-                      >
-                        Done
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            } */
-}
-{
-  /* {Array.from(Array(count).keys()).map((i) => (
-              <div
-                key={`${formData.url[i]} ${i} `}
-                className="flex w-full gap-2 rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300"
-              >
-                <input
-                  onChange={(e) =>
-                    setFormData((s) => ({
-                      ...s,
-                      url: { ...s.url, [i]: e.target.value },
-                    }))
-                  }
-                  id={`url${i}`}
-                  className="w-full bg-transparent p-1 text-zinc-300"
-                  type="url"
-                  value={formData.url[i]}
-                  placeholder={`https://your-video.com/goes-here${i}`}
-                />
-                {i > 0 && (
-                  <span
-                    className="text-2xl leading-none text-red-500"
-                    onClick={() => setCount((c) => c - 1)}
-                  >
-                    -
-                  </span>
-                )}
-              </div>
-            ))}
-            <span
-              onClick={() => setCount((c) => c + 1)}
-              className="flex place-items-center gap-2 font-titan"
-            >
-              <span>Add Another URL Source</span>
-              <span className="text-2xl leading-none text-emerald-500">+</span>
-            </span> */
-}

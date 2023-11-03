@@ -22,10 +22,10 @@ export const publicProcedure = t.procedure;
  */
 const isAuthed = t.middleware(({ ctx, next }) => {
   // console.log("ctx", ctx);
-  if (!ctx.user.uuid) {
+  if (!ctx?.auth?.userId) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
-  if (ctx.user.uuid) return next({ ctx: { user: ctx.user } });
+  if (ctx.auth.userId) return next();
   // if (!ctx.session || !ctx.session.user) {
   //   throw new TRPCError({ code: "UNAUTHORIZED" });
   // }
@@ -33,7 +33,7 @@ const isAuthed = t.middleware(({ ctx, next }) => {
     ctx: {
       // infers the `session` as non-nullable
       // session: { ...ctx.session, user: ctx.session.user },
-      user: { ...ctx.user },
+      // user: { ...ctx.user },
     },
   });
 });

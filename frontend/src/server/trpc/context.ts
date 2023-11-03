@@ -1,15 +1,15 @@
 // src/server/router/context.ts
 import type { inferAsyncReturnType } from "@trpc/server";
 import type { CreateNextContextOptions } from "@trpc/server/adapters/next";
-import { getAuth, clerkClient } from "@clerk/nextjs/server";
+import { getAuth } from "@clerk/nextjs/server";
 import { prisma } from "../db/client";
 import type {
   SignedInAuthObject,
   SignedOutAuthObject,
-} from "@clerk/nextjs/dist/api";
+} from "@clerk/nextjs/server";
 
 type CreateContextOptions = {
-  user?: any;
+  // user?: any;
   auth: SignedInAuthObject | SignedOutAuthObject;
 };
 
@@ -21,7 +21,7 @@ export const createContextInner = async (opts: CreateContextOptions) => {
   // console.log("inner", opts.user);
   return {
     auth: opts.auth,
-    user: opts.user,
+    // user: opts.user,
     prisma,
   };
 };
@@ -32,15 +32,15 @@ export const createContextInner = async (opts: CreateContextOptions) => {
  **/
 export const createContext = async (opts: CreateNextContextOptions) => {
   const { req, res } = opts;
-  if (req?.cookies?.jwt) {
-    const [h64, p64, s64] = req?.cookies?.jwt?.split(".");
-    const user = JSON.parse(atob(p64).toString());
+  // if (req?.cookies?.jwt) {
+  //   const [h64, p64, s64] = req?.cookies?.jwt?.split(".");
+  //   const user = JSON.parse(atob(p64).toString());
 
-    return await createContextInner({
-      user,
-      auth: getAuth(opts.req),
-    });
-  }
+  //   return await createContextInner({
+  //     user,
+  //     auth: getAuth(opts.req),
+  //   });
+  // }
   // Get the session from the server using the unstable_getServerSession wrapper function
   return await createContextInner({
     auth: getAuth(opts.req),

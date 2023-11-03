@@ -85,25 +85,25 @@ export const StepOne = ({ setFormData, count, formData, setCount }) => {
           placeholder={`${formData.type} Name`}
         />
       </div>
-      {Array.from(Array(count).keys()).map((i) => (
-        <div
-          key={`${formData.url[i]} ${i} `}
-          className="flex w-full gap-2 rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300"
-        >
-          <input
-            onChange={(e) =>
-              setFormData((s) => ({
-                ...s,
-                url: { ...s.url, [i]: e.target.value },
-              }))
-            }
-            id={`url${i}`}
-            className="w-full bg-transparent p-1 text-zinc-300"
-            type="url"
-            value={formData.url[i]}
-            placeholder={`https://your-video.com/goes-here${i}`}
-          />
-          {i > 0 && (
+      {/* {Array.from(Array(count).keys()).map((i) => ( */}
+      <div
+        key={`${formData.url}`}
+        className="flex w-full gap-2 rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300"
+      >
+        <input
+          onChange={(e) =>
+            setFormData((s) => ({
+              ...s,
+              url: e.target.value,
+            }))
+          }
+          id={`url`}
+          className="w-full bg-transparent p-1 text-zinc-300"
+          type="url"
+          value={formData.url}
+          placeholder={`https://your-video.com/goes-here`}
+        />
+        {/* {i > 0 && (
             <span
               className="text-2xl leading-none text-red-500"
               onClick={() => {
@@ -117,16 +117,16 @@ export const StepOne = ({ setFormData, count, formData, setCount }) => {
             >
               -
             </span>
-          )}
-        </div>
-      ))}
-      <span
+          )} */}
+      </div>
+      {/* ))} */}
+      {/* <span
         onClick={() => setCount((c) => (c + 1 < 4 ? c + 1 : 4))}
         className="flex place-content-end place-items-center gap-2 font-inter font-bold tracking-wider"
       >
         <span>add more links</span>
         <span className="text-2xl leading-none text-emerald-500">+</span>
-      </span>
+      </span> */}
     </div>
   );
 };
@@ -328,30 +328,28 @@ export const StepReview = ({ formData }) => {
         ))}
       </div>
       <div className="space-y-3">
-        {Object.keys(formData.url).map((key) => (
-          <div className="flex flex-col place-items-center gap-2">
-            {/* <p>
+        <div className="flex flex-col place-items-center gap-2">
+          {/* <p>
               {formData.url[key].replace(
                 "https://www.youtube.com/watch?v=",
                 "youtube/"
               )} 
             </p>
               */}
-            <div className={`overflow-hidden rounded-xl`}>
-              <ReactPlayer
-                config={{ facebook: { appId: "508164441188790" } }}
-                id={"video"}
-                controls={true}
-                muted
-                width={"70vw"}
-                height={"40vw"}
-                loop
-                playsInline
-                url={formData.url[key]}
-              />
-            </div>
+          <div className={`overflow-hidden rounded-xl`}>
+            <ReactPlayer
+              config={{ facebook: { appId: "508164441188790" } }}
+              id={"video"}
+              controls={true}
+              muted
+              width={"70vw"}
+              height={"40vw"}
+              loop
+              playsInline
+              url={formData.url}
+            />
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );
