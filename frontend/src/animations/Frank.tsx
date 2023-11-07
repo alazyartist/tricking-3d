@@ -5,7 +5,7 @@ import useMediaController from "../hooks/useMediaController";
 import { MyGLTF } from "types/mythree";
 
 export function Frank({ ...props }) {
-  const group = useRef();
+  const group = useRef(null!);
   //HipsRef attached to skeletons Hips
   const hipsRef = useRef();
   const { nodes, materials, animations } = useGLTF("/Frank2.glb") as MyGLTF;

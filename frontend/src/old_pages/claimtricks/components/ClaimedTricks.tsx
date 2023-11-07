@@ -9,13 +9,13 @@ interface ClaimTrickProps {
   trick: tricks;
   sortType: string;
 }
-const ClaimedTricks: React.FC<ClaimTrickProps> = ({
+const ClaimedTricks = ({
   displayOnly,
   user_id,
   trick_id,
   trick,
   sortType,
-}) => {
+}: ClaimTrickProps) => {
   const [claimed, setClaimed] = useState(false);
   const { mutate: claim } = trpc.trick.claimTrick.useMutation();
   const { data: profileInfo } = trpc.userDB.findByUUID.useQuery({
@@ -32,7 +32,7 @@ const ClaimedTricks: React.FC<ClaimTrickProps> = ({
       : claim({ action: "Claim", user_id, trick_id });
   };
   return sortType === "Claimed" ? (
-    isClaimed && (
+    !!isClaimed && (
       <div
         key={trick.trick_id}
         className=" grid h-full w-full grid-cols-5 place-content-center justify-between rounded-xl p-2 odd:bg-zinc-700"

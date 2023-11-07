@@ -9,10 +9,10 @@ import useFollowCam from "../hooks/useFollowCam";
 import { MyGLTF } from "types/mythree";
 
 export function SamCaspio(props) {
-  const group = useRef();
+  const group = useRef(null!);
   const { nodes, materials, animations } = useGLTF("/SamCaspio.glb") as MyGLTF;
   const { actions, names, mixer } = useAnimations(animations, group);
-  const hipsRef = useRef();
+  const hipsRef = useRef(null!);
   useMediaController(actions, names, mixer);
   useFollowCam(hipsRef);
   return (

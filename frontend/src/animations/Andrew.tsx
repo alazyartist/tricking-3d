@@ -6,10 +6,10 @@ import { MyGLTF } from "types/mythree";
 // import Kerwood from "../data/AlexKerwood.gltf";
 
 export default function Andrew({ ...props }) {
-  const group = useRef();
+  const group = useRef(null!);
   const { nodes, materials, animations } = useGLTF("/Andrew.glb") as MyGLTF;
   const { actions, names, mixer } = useAnimations(animations, group);
-  const hipsRef = useRef();
+  const hipsRef = useRef(null!);
   useMediaController(actions, names, mixer);
   useFollowCam(hipsRef);
   return (

@@ -10,12 +10,12 @@ import useFollowCam from "hooks/useFollowCam";
 import type { MyGLTF } from "types/mythree";
 
 export function AdamDevenport(props) {
-  const group = useRef();
+  const group = useRef(null!);
   const { nodes, materials, animations } = useGLTF(
     "/AdamDevenport.glb"
   ) as MyGLTF;
   const { actions, names, mixer } = useAnimations(animations, group);
-  const hipsRef = useRef();
+  const hipsRef = useRef(null!);
   useMediaController(actions, names, mixer);
   useFollowCam(hipsRef);
   return (

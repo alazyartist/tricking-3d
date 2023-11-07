@@ -6,7 +6,7 @@ import useFollowCam from "../hooks/useFollowCam";
 import type { MyGLTF } from "types/mythree";
 
 export default function AlexKerwood({ ...props }) {
-  const group = useRef();
+  const group = useRef(null!);
   const { nodes, materials, animations } = useGLTF(
     "/AlexKerwood.gltf"
   ) as MyGLTF;

@@ -2,7 +2,7 @@
 import React from "react";
 
 const OverallStatDisplay = ({ profileInfo }) => {
-  if (!profileInfo) return;
+  if (!profileInfo) return null;
   let SessionSummaries = profileInfo.SessionSummaries;
   let totalTricks = SessionSummaries?.map((summary) =>
     summary.SessionData?.map((data) => data.ClipLabel.comboArray.length)

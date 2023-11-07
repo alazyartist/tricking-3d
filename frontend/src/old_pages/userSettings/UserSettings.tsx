@@ -19,7 +19,29 @@ const UserSettings = () => {
         </Link>
         <div>User Settings</div>
       </div>
-      <UserProfile />
+      <UserProfile
+        appearance={{
+          elements: {
+            headerTitle: { display: "none" },
+            headerSubtitle: { display: "none" },
+            navbar: { display: "none" },
+            page: { gap: 0, paddingTop: 0 },
+            pageScrollBox: {
+              gap: 0,
+              paddingTop: 0,
+              // backgroundColor: "#f4f4f5",
+            },
+            profilePage: { justifyItems: "start" },
+            navbarMobileMenuButton: { display: "none" },
+            profilePage__security: { display: "none" },
+            profilePage__account: {
+              padding: 0,
+              justifyContent: "space-between",
+              gap: "2rem",
+            },
+          },
+        }}
+      />
       {/* <ChangePassword /> */}
       {/* <DeleteUserAccount /> */}
     </div>

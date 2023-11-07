@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import AxesSketch from "./components/AxesSketch";
 import * as THREE from "three";
-import { Mesh } from "three";
+import { Group, Mesh } from "three";
 import { Canvas, Euler, Vector3, useFrame } from "@react-three/fiber";
 import {
   Circle,
@@ -127,6 +127,11 @@ const Scene = ({ rotX, rotY, rotZ }) => {
 
   console.log(hipsRef.current);
   useFrame(() => {
+    if (!donut.current) return;
+    if (!donut1.current) return;
+    if (!donut2.current) return;
+    if (!donut3.current) return;
+    if (!hipsRef.current) return;
     // donut.current.rotation.x = hipsRef.current.rotation.x;
     // donut.current.rotation.y = hipsRef.current.rotation.y;
     // donut.current.rotation.z = hipsRef.current.rotation.z;
@@ -200,7 +205,7 @@ const Scene = ({ rotX, rotY, rotZ }) => {
 };
 
 export function Frank({ ...props }) {
-  const group = useRef();
+  const group = useRef<Group>(null!);
   const hipsRef = props.hipsRef;
   //   HipsRef attached to skeletons Hips
 
