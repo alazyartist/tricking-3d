@@ -30,26 +30,28 @@ const Sandbox = () => {
   let vid = useRef();
   useVideoControls(vid);
 
-
-  let container_border = "min-h-[10vh] overflow-hidden rounded-lg border-2 border-zinc-800 bg-opacity-80"
+  let container_border =
+    "min-h-[10vh] overflow-hidden rounded-lg border-2 border-zinc-800 bg-opacity-80";
 
   return (
     <>
-      <div className="w-screen h-screen">
-        <Canvas className="w-screen h-screen bg-zinc-800">
+      <div className="h-screen w-screen">
+        <Canvas className="h-screen w-screen bg-zinc-800">
           <TorqueScene gizmoHelper={false} model={model} trick={trick} />
         </Canvas>
 
         {showUI ? (
           <>
-            <div className="absolute top-0 left-0 p-2 pt-2 pb-4 gap-2 w-screen">
-              <div className={`${container_border} bg-zinc-600 flex flex-col w-full max-w-[100vw] max-h-[80vh]`}>
+            <div className="absolute left-0 top-0 w-screen gap-2 p-2 pb-4 pt-2">
+              <div
+                className={`${container_border} flex max-h-[80vh] w-full max-w-[100vw] flex-col bg-zinc-600`}
+              >
                 <SandboxNav />
               </div>
             </div>
 
-            <div className="absolute bottom-0 left-0 p-2 pt-2 pb-4 w-screen">
-              <div className={`${container_border} p-4 bg-zinc-800`}>
+            <div className="absolute bottom-0 left-0 w-screen p-2 pb-4 pt-2">
+              <div className={`${container_border} bg-zinc-800 p-4`}>
                 <DurationSlider />
                 <MediaController />
               </div>
@@ -59,7 +61,11 @@ const Sandbox = () => {
           <MinimalUI />
         )}
 
-        <div className={`absolute ${showUI ? "bottom-[15vh]" : "bottom-0"} right-0`}>
+        <div
+          className={`absolute ${
+            showUI ? "bottom-[15vh]" : "bottom-[6vh]"
+          } right-[2vw]`}
+        >
           <ShowHideUI />
         </div>
       </div>

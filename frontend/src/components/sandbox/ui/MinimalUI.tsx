@@ -15,10 +15,10 @@ function MinimalUI() {
     <>
       <div
         id="minimal-ui-container"
-        className="absolute bottom-16 right-4 z-10 m-2 w-fit"
+        className="absolute bottom-24 right-[2vw] z-10 w-fit"
       >
-        <div id="container" className="flex flex-col gap-2">
-        {/*
+        <div id="container" className="flex flex-col gap-4">
+          {/*
           <MediaButton
             id="info-minimal"
             content={
@@ -33,12 +33,12 @@ function MinimalUI() {
           */}
           <MediaButton
             id="play-pause-minimal"
-            f={setIsPaused}
+            f={() => setIsPaused(!isPaused)}
             content={
               !isPaused ? (
                 <FaPause className="fill-gray-800" />
               ) : (
-                <FaPlay className=" fill-gray-800" />
+                <FaPlay className="fill-gray-800 text-xs" />
               )
             }
             isPlayPause

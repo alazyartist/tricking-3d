@@ -33,19 +33,19 @@ const TorqueScene: React.FC<any> = ({ gizmoHelper, model, trick }) => {
         <Suspense fallback={<ModelLoader />}>
           <LoadActiveBackground />
         </Suspense>
-        <ambientLight intensity={0.3} />
+        <ambientLight intensity={0.8} />
         <spotLight
           //  @ts-ignore
           ref={light2}
           color={"whitesmoke"}
-          intensity={0.4}
+          power={200}
           position={[0, 2, 5]}
         />
         <spotLight
           //  @ts-ignore
           ref={light}
           color={"whitesmoke"}
-          intensity={0.04}
+          power={200}
           position={[0, 2, -5]}
         />
         <OrbitControls />

@@ -18,8 +18,6 @@ export const MediaButton: React.FC<MediaButtonProps> = ({
     <button
       id={id}
       className={`
-      h-full
-      w-full
         ${hide ? "opacity-40" : "opacity-100"}
         ${isPlayPause ? "bg-zinc-300 hover:bg-white" : "bg-transparent"}
         can-hover 
