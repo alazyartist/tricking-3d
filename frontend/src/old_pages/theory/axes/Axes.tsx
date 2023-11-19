@@ -40,7 +40,7 @@ const Axes = () => {
           </PerspectiveCamera>
         </Canvas>
       </div>
-      <div className="flex gap-2">
+      <div className="flex w-full gap-2">
         <div className="p-2 text-sm">
           <p className="w-full text-center">X:{rotX}</p>
           <input
@@ -125,7 +125,6 @@ const Scene = ({ rotX, rotY, rotZ }) => {
   const donut = useRef<Mesh>();
   const sphereRef = useRef<Mesh>();
 
-  console.log(hipsRef.current);
   useFrame(() => {
     if (!donut.current) return;
     if (!donut1.current) return;
@@ -142,9 +141,47 @@ const Scene = ({ rotX, rotY, rotZ }) => {
     donut.current.position.x = hipsRef.current.position.x * 0.01;
     donut.current.position.y = hipsRef.current.position.y * 0.01;
     donut.current.position.z = hipsRef.current.position.z * 0.01;
-    donut1.current.rotation.x = Math.PI / 2 - degToRad(rotX);
-    donut2.current.rotation.y = degToRad(rotY);
-    donut3.current.rotation.y = Math.PI / 2 - degToRad(rotZ);
+    donut1.current.quaternion.setFromEuler(
+      new THREE.Euler(Math.PI / 2 - degToRad(rotX), 0, 0)
+    );
+    donut2.current.quaternion.setFromEuler(
+      new THREE.Euler(0, Math.PI / 2 - degToRad(rotY), 0)
+    );
+    donut3.current.quaternion.setFromEuler(
+      new THREE.Euler(0, 0, Math.PI / 2 - degToRad(rotZ))
+    );
+
+    //copy the rotation of the hips to the donut using quaternions
+    donut1.current.quaternion
+      .copy(hipsRef.current.quaternion)
+      .multiply(
+        new THREE.Quaternion().setFromEuler(new THREE.Euler(Math.PI / 2, 0, 0))
+      )
+      .multiply(
+        new THREE.Quaternion().setFromEuler(
+          new THREE.Euler(degToRad(rotX), 0, 0)
+        )
+      );
+    donut2.current.quaternion
+      .copy(hipsRef.current.quaternion)
+      .multiply(
+        new THREE.Quaternion().setFromEuler(new THREE.Euler(0, Math.PI / 2, 0))
+      )
+      .multiply(
+        new THREE.Quaternion().setFromEuler(
+          new THREE.Euler(0, degToRad(rotY), 0)
+        )
+      );
+    donut3.current.quaternion
+      .copy(hipsRef.current.quaternion)
+      .multiply(
+        new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, Math.PI / 2))
+      )
+      .multiply(
+        new THREE.Quaternion().setFromEuler(
+          new THREE.Euler(0, 0, degToRad(rotZ))
+        )
+      );
 
     // donut1.current.rotation.z = hipsRef.current.rotation.z;
     // donut1.current.quaternion.slerp(hipsRef.current.quaternion, 0.1);
@@ -158,9 +195,9 @@ const Scene = ({ rotX, rotY, rotZ }) => {
   return (
     <>
       {/* @ts-ignore */}
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={0.8} />
       {/* @ts-ignore */}
-      <spotLight position={[10, 10, 10]} angle={0.5} penumbra={1} />
+      <spotLight position={[4, 4, 4]} power={500} angle={0.6} penumbra={1} />
 
       <Frank visible={true} hipsRef={hipsRef} />
       {/* @ts-ignore */}

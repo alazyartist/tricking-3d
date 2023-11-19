@@ -10,10 +10,10 @@ export function Frank({ ...props }) {
   const hipsRef = useRef();
   const { nodes, materials, animations } = useGLTF("/Frank2.glb") as MyGLTF;
   const { actions, names, mixer } = useAnimations(animations, group);
-
   useMediaController(actions, names, mixer);
 
-  useFrankFollowCam(hipsRef);
+  // console.log(animations);
+  // useFrankFollowCam(hipsRef);
   return (
     <group ref={group} {...props} dispose={null}>
       <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>

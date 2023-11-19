@@ -30,6 +30,7 @@
     "@types/three": "^0.158.1",
     "@use-gesture/react": "^10.3.0",
     "algoliasearch": "^4.20.0",
+    "babel-plugin-glsl": "^1.0.0",
     "browserslist": "^4.22.1",
     "d3": "^7.8.5",
     "glob-parent": "^6.0.2",

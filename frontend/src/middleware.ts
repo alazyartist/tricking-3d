@@ -10,6 +10,7 @@ export default authMiddleware({
   publicRoutes: [
     "/",
     "/home",
+    "/test",
     "/login",
     "/sandbox(.*)",
     "/theory(.*)",
@@ -24,6 +25,7 @@ export default authMiddleware({
     "/api/trpc/trick(.*)",
     "/api/trpc/sessionsummaries(.*)",
     "/api/trpc/debates.findByID(.*)",
+    "/api/trpc/userDB.findByUUID(.*)",
     "/api/trpc/combos(.*)",
     "/api/trpc/userDB.findAll(.*)",
     "/api/trpc/userDB.findByClerkId(.*)",
