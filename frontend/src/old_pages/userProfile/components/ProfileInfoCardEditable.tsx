@@ -12,9 +12,10 @@ const ProfileInfoCardEditable = ({ userInfo, setEditing }) => {
     age: userInfo?.Profile?.age,
     uuid: userInfo?.uuid,
   });
+  // TODO: update api routes
   const { mutate: updateProfileInfo } = useUpdateProfileInfo();
   const { mutate: changePic } = useChangeProfilePic();
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(null!);
   const [filename, setFilename] = useState<any>();
   const handleSave = (e) => {
     e.preventDefault();
@@ -50,7 +51,7 @@ const ProfileInfoCardEditable = ({ userInfo, setEditing }) => {
               ? `/images/${userInfo?.uuid}/${userInfo?.profilePic}`
               : `/images/noimg.jpeg`
           }
-          className="relative top-8 left-2 h-12 w-12 rounded-full"
+          className="relative left-2 top-8 h-12 w-12 rounded-full"
         />
       </label>
       <div className="flex w-[80vw] min-w-[35vw] max-w-[1200px] flex-col place-content-center place-items-start gap-2 rounded-xl bg-zinc-100 p-2 pt-2 text-sm text-zinc-900">

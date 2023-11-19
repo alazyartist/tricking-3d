@@ -10,6 +10,7 @@ const ChangePassword = () => {
   });
   const [res, setRes] = useState();
   const [changePasswordOpen, setChangePasswordOpen] = useState(false);
+  //TODO: update api routes
   const { mutateAsync: changePassword } = useChangePassword();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +29,7 @@ const ChangePassword = () => {
     <>
       <div
         onClick={() => setChangePasswordOpen(!changePasswordOpen)}
-        className=" mx-4 py-2 px-4 text-xl"
+        className=" mx-4 px-4 py-2 text-xl"
       >
         Change Password
       </div>

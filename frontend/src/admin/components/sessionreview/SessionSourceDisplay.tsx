@@ -8,7 +8,7 @@ import useMeasure from "react-use-measure";
 
 const SessionSourceDisplay = ({ source, mirrored }) => {
   const vidsrcRegex = /(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)/g;
-  const vidRef = useRef<ReactPlayer>();
+  const vidRef = useRef<ReactPlayer>(null!);
   const seekTime = useSessionSummariesStore((s) => s.seekTime);
   const currentTime = useSessionSummariesStore((s) => s.currentTime);
   const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
@@ -80,7 +80,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
 
       {
         vidsrc === source?.vidsrc ? (
-          <div className="absolute top-[-35vh] left-[15vw] w-[70vw] md:top-[-15vh]">
+          <div className="absolute left-[15vw] top-[-35vh] w-[70vw] md:top-[-15vh]">
             <div className="relative flex max-h-[80vh] flex-col gap-2">
               <div
                 className="flex place-items-center gap-2"
