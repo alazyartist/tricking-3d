@@ -4,12 +4,14 @@ import {
   PerspectiveCamera,
   GizmoHelper,
   GizmoViewport,
+  OrbitControlsProps,
 } from "@react-three/drei";
 import ModelLoader from "../components/loaders/ModelLoader";
 import LoadActiveModel from "../components/media/ModelSelector";
 import { useStore } from "../store/store";
 import LoadActiveBackground from "../components/media/BackgroundSelector";
-import { SpotLightProps } from "@react-three/fiber";
+import { SpotLightProps, useFrame, useThree } from "@react-three/fiber";
+import * as THREE from "three";
 
 const TorqueScene: React.FC<any> = ({ gizmoHelper, model, trick }) => {
   const setModel = useStore((s) => s.setModel);
@@ -23,6 +25,13 @@ const TorqueScene: React.FC<any> = ({ gizmoHelper, model, trick }) => {
   const light = useRef<SpotLightProps>();
   const light2 = useRef<SpotLightProps>();
   const gizmoRef = useRef<any>();
+  const orbitRef = useRef<any>();
+  const { scene } = useThree();
+  const point = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
+  useFrame(() => {
+    scene.getObjectByName("mixamorig1Hips")?.getWorldPosition(point.current);
+    orbitRef.current.target = point.current;
+  });
   return (
     <>
       {/* @ts-ignore */}
@@ -33,7 +42,7 @@ const TorqueScene: React.FC<any> = ({ gizmoHelper, model, trick }) => {
         <Suspense fallback={<ModelLoader />}>
           <LoadActiveBackground />
         </Suspense>
-        <ambientLight intensity={0.8} />
+        <ambientLight intensity={0.3} />
         <spotLight
           //  @ts-ignore
           ref={light2}
@@ -48,7 +57,7 @@ const TorqueScene: React.FC<any> = ({ gizmoHelper, model, trick }) => {
           power={200}
           position={[0, 2, -5]}
         />
-        <OrbitControls />
+        <OrbitControls ref={orbitRef} />
         {gizmoHelper && (
           <GizmoHelper alignment={"bottom-left"} margin={[60, 220]}>
             <GizmoViewport

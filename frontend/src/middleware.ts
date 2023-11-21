@@ -24,6 +24,7 @@ export default authMiddleware({
     "/userProfile(.*)",
     "/api/trpc/trick(.*)",
     "/api/trpc/sessionsummaries(.*)",
+    "/api/trpc/animations(.*)",
     "/api/trpc/debates.findByID(.*)",
     "/api/trpc/userDB.findByUUID(.*)",
     "/api/trpc/combos(.*)",

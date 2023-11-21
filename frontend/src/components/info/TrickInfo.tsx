@@ -61,11 +61,8 @@ export default function TrickInfo() {
 
   return (
     <>
-      <div
-        id="modal-conatiner"
-        className="h-full w-full"
-      >
-        <div id="trick-info-containers-reposition" >
+      <div id="modal-conatiner" className="h-full w-full">
+        <div id="trick-info-containers-reposition">
           <div
             id="trick-info-container"
             className="flex h-auto w-auto flex-col place-items-center p-4 align-middle text-zinc-200 "
@@ -121,9 +118,6 @@ const InfoKey = () => {
       </div>
     </div>
   ) : (
-    <FaKey
-      onClick={() => showKey(!keyVisible)}
-      className="text-zinc-300"
-    />
+    <FaKey onClick={() => showKey(!keyVisible)} className="text-zinc-300" />
   );
 };

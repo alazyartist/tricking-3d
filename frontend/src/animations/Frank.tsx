@@ -13,7 +13,7 @@ export function Frank({ ...props }) {
   useMediaController(actions, names, mixer);
 
   // console.log(animations);
-  // useFrankFollowCam(hipsRef);
+  useFrankFollowCam(hipsRef);
   return (
     <group ref={group} {...props} dispose={null}>
       <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>

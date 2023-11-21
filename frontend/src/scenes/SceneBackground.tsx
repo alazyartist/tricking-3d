@@ -48,13 +48,13 @@ export default function SceneBackground({ ...props }) {
         rotation={[Math.PI / 2, 0, 0]}
         scale={[5, 1, 2]}
       />
-      <mesh
+      {/* <mesh
         geometry={nodes.Wall.geometry}
         material={materials.BlueWall}
         position={[-5, 2, 0]}
         rotation={[0, 0, -Math.PI / 2]}
         scale={[2, 1, 5]}
-      />
+      /> */}
       <mesh
         geometry={nodes.TorqueWall002.geometry}
         material={materials["TorqueWall.002"]}
@@ -64,10 +64,10 @@ export default function SceneBackground({ ...props }) {
       />
       <mesh
         geometry={nodes.Wall002.geometry}
-        material={materials["BlueWall.002"]}
+        material={materials.YonderWall}
         position={[5, 2, 0]}
-        rotation={[Math.PI, 0, Math.PI / 2]}
-        scale={[2, 1, 5]}
+        rotation={[Math.PI / 2, 0, Math.PI / 2]}
+        scale={[5, 1, 2]}
       />
       <mesh
         geometry={nodes.TorqueWall001.geometry}

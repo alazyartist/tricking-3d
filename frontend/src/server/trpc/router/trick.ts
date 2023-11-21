@@ -202,7 +202,7 @@ export const tricksRouter = router({
           where: { name: input.name },
         });
 
-        if (newTrick) {
+        if (newTrick !== null) {
           try {
             await ctx.prisma.trick_variations.deleteMany({
               where: { trick_id: newTrick.trick_id },
@@ -219,7 +219,10 @@ export const tricksRouter = router({
               },
             });
             const variationMap = input.variationsArr.map((v) => {
-              return { variation_id: v.id, trick_id: newTrick.trick_id };
+              return {
+                variation_id: v.id,
+                trick_id: newTrick?.trick_id as string,
+              };
             });
             await ctx.prisma.trick_variations.createMany({
               data: variationMap,
@@ -244,12 +247,14 @@ export const tricksRouter = router({
                 pointValue: input.pointValue,
               },
             });
-            const variationMap = input.variationsArr.map((v) => {
-              return { variation_id: v.id, trick_id: newTrick.trick_id };
-            });
-            await ctx.prisma.trick_variations.createMany({
-              data: variationMap,
-            });
+            if (newTrick !== null) {
+              const variationMap = input.variationsArr.map((v) => {
+                return { variation_id: v.id, trick_id: newTrick?.trick_id };
+              });
+              await ctx.prisma.trick_variations.createMany({
+                data: variationMap,
+              });
+            }
           } catch (err) {
             console.log(err);
             throw new TRPCError({
