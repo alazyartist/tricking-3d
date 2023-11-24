@@ -116,7 +116,7 @@ model combos {
   creator          String?  @db.Char(36)
   defaultAnimation String?  @db.Char(36)
   createdAt        DateTime @default(now()) @db.DateTime(0)
-  updatedAt        DateTime @db.DateTime(0)
+  updatedAt        DateTime @db.DateTime(0) @updatedAt
   pointValue       Float?   @db.Float
   shorthand        String?  @db.VarChar(255)
   ClaimedBy        claimedcombos[]

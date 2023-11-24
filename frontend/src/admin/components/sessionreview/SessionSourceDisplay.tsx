@@ -34,18 +34,20 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
     setCurrentTime(seekTime);
     //@ts-ignore
     vidRef?.current?.seekTo(seekTime);
+    // console.log("playerstate", vidRef.current);
   }, [seekTime]);
   const [timelineRef, bounds] = useMeasure();
 
   let colors = ["bg-teal-300", "bg-emerald-300", "bg-indigo-300", "bg-sky-300"];
   let activeWidth = `${(
-    ((parseFloat(clipData.endTime.toString()) -
-      parseFloat(clipData.startTime.toString())) /
+    ((parseFloat((clipData?.endTime as number).toString()) -
+      parseFloat((clipData?.startTime as number).toString())) /
       vidRef.current?.getDuration()) *
     100
   ).toFixed(2)}%`;
   let activeLeft = `${(
-    (parseInt(clipData.startTime.toString()) / vidRef?.current?.getDuration()) *
+    (parseInt((clipData?.startTime as number).toString()) /
+      vidRef?.current?.getDuration()) *
     100
   ).toFixed(2)}%`;
 
@@ -60,7 +62,6 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
     config: { tension: 280, friction: 40 },
     // onRest: () => setOpenHamburger(!openHamburger),
   });
-
   return (
     <div key={source.srcid + "1"} className="flex flex-col gap-2">
       <animated.div
@@ -97,7 +98,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                   youtube: { playerVars: { listType: "user_uploads" } },
                 }}
                 id={"video"}
-                controls={false}
+                // controls={false}
                 playing={vidIsPlaying}
                 muted
                 width={"70vw"}

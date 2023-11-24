@@ -31,11 +31,15 @@ const ActiveClipDisplay = () => {
   //   () => console.log(activeClipData, "activeClip"),
   //   [activeClipData, sessionData]
   // );
+  const frame = ((currentTime % 1) * 60).toFixed(0);
+  const startframe = (((activeClipData?.startTime || 0) % 1) * 60).toFixed(0);
+  const endframe = (((activeClipData?.endTime || 0) % 1) * 60).toFixed(0);
+
   return (
     <animated.div
       key={activeClipData?.id + "details"}
       style={{ right: showDetails.right, opacity: showDetails.opacity }}
-      className="absolute top-14 right-2 flex h-[92.5vh] w-[220px] flex-col gap-2 rounded-md rounded-r-none bg-zinc-900 bg-opacity-60 p-1 pl-6 font-inter text-xs text-zinc-300 backdrop-blur-xl"
+      className="absolute right-2 top-14 flex h-[92.5vh] w-[220px] flex-col gap-2 rounded-md rounded-r-none bg-zinc-900 bg-opacity-60 p-1 pl-6 font-inter text-xs text-zinc-300 backdrop-blur-xl"
     >
       <div className="w-full rounded-md rounded-r-sm bg-zinc-200 bg-opacity-70 p-2 text-center font-inter text-2xl font-bold text-zinc-900">
         <div>{activeClipData?.sessionid?.slice(-8)}</div>
@@ -54,26 +58,31 @@ const ActiveClipDisplay = () => {
       <div>
         Points:
         {clipCombo.length &&
-          clipCombo.reduce((sum, b) => sum + b.pointValue, 0)}
+          clipCombo.reduce((sum, b) => sum + (b?.pointValue ?? 0), 0)}
       </div>
       <div>{activeClipData?.user_id?.slice(-4)}</div>
-      <div>{activeClipData?.bail > 0 && activeClipData?.bail}</div>
+      <div>
+        {activeClipData?.bail &&
+          activeClipData.bail > 0 &&
+          activeClipData?.bail}
+      </div>
       <div>{activeClipData?.vidsrc}</div>
       <div className="grid grid-cols-[1fr_1fr_1fr] justify-around gap-2 text-center font-bold">
         <div
-          onClick={() => setSeekTime(activeClipData?.startTime)}
+          onClick={() => setSeekTime(activeClipData?.startTime as number)}
           className="min-w-10 rounded-md bg-emerald-300 p-1 text-zinc-800"
         >
-          {activeClipData?.startTime}
+          {Math.floor(activeClipData?.startTime as number)}|{startframe}
         </div>
         <div className="w-24 place-self-center rounded-md bg-zinc-300 p-1 text-center font-bold text-zinc-800">
-          {Math.floor(currentTime)}
+          <span>{Math.floor(currentTime)}</span>
+          <span>|{frame}</span>
         </div>
         <div
-          onClick={() => setSeekTime(activeClipData?.endTime)}
+          onClick={() => setSeekTime(activeClipData?.endTime as number)}
           className="min-w-10 rounded-md bg-red-300  p-1 text-zinc-800"
         >
-          {activeClipData?.endTime}
+          {Math.floor(activeClipData?.endTime as number)}|{endframe}
         </div>
       </div>
       <animated.span

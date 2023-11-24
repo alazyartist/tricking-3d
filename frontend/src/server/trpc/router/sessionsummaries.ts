@@ -2,6 +2,7 @@ import { router, publicProcedure, protectedProcedure } from "../trpc";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { v4 as uuid } from "uuid";
+import calculateTrickTotals from "@utils/CalculateTrickTotals";
 
 export const sessionsummariesRouter = router({
   submitSession: protectedProcedure
@@ -317,5 +318,97 @@ export const sessionsummariesRouter = router({
         data: { status: input.status },
       });
       return updatedStatus;
+    }),
+  saveSessionDetails: protectedProcedure
+    .input(
+      z.object({
+        data: z.array(
+          z.object({
+            name: z.string(),
+            startTime: z.number(),
+            endTime: z.number(),
+            bail: z.number(),
+            id: z.string(),
+            admin: z.string(),
+            srcid: z.string(),
+            vidsrc: z.string(),
+            clipLabel: z.array(z.any()),
+          })
+        ),
+        sessionid: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      console.log(input);
+      console.log(input?.data);
+      const updatedData = await Promise.all(
+        input.data.map(async (curData) => {
+          //find combo
+          let foundCombo = await ctx.prisma.combos.findFirst({
+            where: { name: curData.name },
+          });
+          let combo = foundCombo;
+          if (!foundCombo) {
+            // if no combo, create combo
+            console.log("making combo");
+            combo = await ctx.prisma.combos.create({
+              data: {
+                combo_id: uuid(),
+                pointValue: curData.clipLabel.reduce(
+                  (sum, b) => sum + b.pointValue,
+                  0
+                ),
+                creator:
+                  curData.admin || "admin696-8c94-4ca7-b163-9alazyartist",
+                name: curData.name,
+                comboArray: curData.clipLabel,
+              },
+            });
+
+            //create sessiondata
+          }
+          if (combo !== null) {
+            const totals = await calculateTrickTotals(
+              combo.comboArray,
+              curData,
+              ctx
+            );
+            console.log("totals", totals);
+            await ctx.prisma.sessiondata.upsert({
+              where: { id: curData.id },
+              update: {
+                srcid: curData.srcid,
+                clipLabel: combo.combo_id,
+                sessionid: input.sessionid,
+                clipStart: curData.startTime,
+                clipEnd: curData.endTime,
+                bail: curData.bail,
+                admin: curData.admin || "admin696-8c94-4ca7-b163-9alazyartist",
+                ...totals,
+              },
+              create: {
+                id: curData.id,
+                srcid: curData.srcid,
+                clipLabel: combo.combo_id,
+                sessionid: input.sessionid,
+                clipStart: curData.startTime,
+                clipEnd: curData.endTime,
+                bail: curData.bail,
+                admin: curData.admin || "admin696-8c94-4ca7-b163-9alazyartist",
+                ...totals,
+              },
+            });
+            await ctx.prisma.sessionsummaries.update({
+              where: { sessionid: input.sessionid },
+              data: { updatedAt: new Date() },
+            });
+          }
+          console.log(combo);
+          // if no combo, create combo
+          return "Saved";
+        })
+      );
+      console.log(updatedData);
+      return "Saved";
     }),
 });

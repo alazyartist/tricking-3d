@@ -5,12 +5,12 @@ import React, {
   createElement,
   useState,
   useCallback,
+  MutableRefObject,
 } from "react";
 import { autocomplete } from "@algolia/autocomplete-js";
-import { createRoot } from "react-dom/client";
+import { Root, createRoot } from "react-dom/client";
 import "@algolia/autocomplete-theme-classic";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
-import useGetTricks from "../../../api/useGetTricks";
 import { v4 as uuidv4 } from "uuid";
 import {
   useChangeSessionStatus,
@@ -22,17 +22,42 @@ import { transitions, tricks } from "@prisma/client";
 const CommandBar = ({ tricks, combos }) => {
   if (!tricks) return;
   if (!combos) return;
+  const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
+  const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
+  const frameRate = 0.083;
   return (
-    <div className="absolute bottom-[44px] left-[10vw] z-[10] h-[8vh] w-[80vw] rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:left-[20vw] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]">
-      <Autocomplete
-        classNames={{ panel: "custom-Panel" }}
-        tricks={tricks}
-        combos={combos}
-        defaultActiveItemId="0"
-        placeholder="/ to open cmdBar"
-        openOnFocus={true}
-        autoFocus={false}
-      />
+    <div className="absolute bottom-[44px] left-[10vw] z-[10] flex h-[8vh] w-[80vw] place-items-center justify-around gap-2 rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:left-[20vw] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]">
+      <div
+        onClick={() => {
+          setSeekTime(
+            useSessionSummariesStore.getState().currentTime - frameRate
+          );
+        }}
+        className="w-[40px] cursor-pointer text-center text-4xl"
+      >
+        &lt;
+      </div>
+      <div>
+        <Autocomplete
+          classNames={{ panel: "custom-Panel" }}
+          tricks={tricks}
+          combos={combos}
+          defaultActiveItemId="0"
+          placeholder="/ to open cmdBar"
+          openOnFocus={true}
+          autoFocus={false}
+        />
+      </div>
+      <div
+        onClick={() => {
+          setSeekTime(
+            useSessionSummariesStore.getState().currentTime + frameRate
+          );
+        }}
+        className="w-[40px] cursor-pointer text-center text-4xl"
+      >
+        &gt;
+      </div>
     </div>
   );
 };
@@ -58,8 +83,10 @@ const Autocomplete = (props: any) => {
   const { tricks, combos } = props;
   const adminuuid = useUserStore((s) => s?.userInfo?.uuid);
   const { mutate: changeSessionStatus } = useChangeSessionStatus();
-  const { mutate: saveSessionDetails, data: saveResponse } =
-    useSaveSessionDetails();
+  // const { mutate: saveSessionDetails, data: saveResponse } =
+  //   useSaveSessionDetails();
+  const { mutate: saveSessionDetailsnew, data: saveResponse } =
+    trpc.sessionsummaries.saveSessionDetails.useMutation();
   const [saveSuccessful, setSaveSuccessful] = useState(false);
   const removeClipfromCombo = useSessionSummariesStore(
     (s) => s.removeClipfromCombo
@@ -91,9 +118,9 @@ const Autocomplete = (props: any) => {
     (s) => s.setClipDetailsVisible
   );
   const timeRef = useRef(currentTime);
-  const commandBarRef = useRef(null);
-  const panelRootRef = useRef(null);
-  const rootRef = useRef(null);
+  const commandBarRef = useRef<HTMLDivElement>(null!);
+  const panelRootRef = useRef<Root | HTMLElement>(null!);
+  const rootRef = useRef<Root | HTMLElement>(null!);
   const [count, setCount] = useState(0);
   // useEffect(() => {
   //   console.log(sessionData);
@@ -107,7 +134,7 @@ const Autocomplete = (props: any) => {
     [currentTime]
   );
   useEffect(() => {
-    if (saveResponse?.status === 200) {
+    if (saveResponse === "Saved") {
       setSaveSuccessful(true);
       setTimeout(() => {
         setSaveSuccessful(false);
@@ -146,12 +173,12 @@ const Autocomplete = (props: any) => {
     if (e.key === "j") {
       e.preventDefault();
       // setSeekTime(parseInt(currentTime) - 5);
-      syncTime((currentTime as number) - 5);
+      syncTime(useSessionSummariesStore.getState().currentTime - 5);
     }
     if (e.key === "l") {
       e.preventDefault();
       // setSeekTime(parseInt(currentTime) + 5);
-      syncTime((currentTime as number) + 5);
+      syncTime(useSessionSummariesStore.getState().currentTime + 5);
     }
   };
   useEffect(() => {
@@ -182,10 +209,11 @@ const Autocomplete = (props: any) => {
       render({ children }, root) {
         if (!panelRootRef.current || rootRef.current !== root) {
           rootRef.current = root;
-
-          panelRootRef.current?.unmount();
+          //@ts-ignore
+          panelRootRef.current?.unmount() as Root;
           panelRootRef.current = createRoot(root);
         }
+        //@ts-ignore
         panelRootRef.current.render(children);
       },
       getSources: ({ query }) => {
@@ -350,6 +378,20 @@ const Autocomplete = (props: any) => {
                     }, //
                   },
                   {
+                    label: "/set start:end",
+                    placeholder: " set time start:end",
+                    onSelect: ({ state: { query } }) => {
+                      const time = query.split(" ")[1];
+                      const startTime = time.split(":")[0];
+                      const endTime = time.split(":")[1];
+                      console.log("params", startTime, endTime);
+                      setActiveClipData({
+                        startTime: parseFloat(startTime),
+                        endTime: parseFloat(endTime),
+                      });
+                    }, //
+                  },
+                  {
                     label: "/o",
                     placeholder: " set clipEnd",
                     onSelect: (params) => {
@@ -431,8 +473,14 @@ const Autocomplete = (props: any) => {
                     placeholder: "saveSessionDetails",
                     onSelect: ({ itemInputValue }) => {
                       setSaveSuccessful(false);
-                      saveSessionDetails({
-                        sessionData,
+                      // saveSessionDetails({
+                      //   sessionData,
+                      //   sessionid:
+                      //     useSessionSummariesStore.getState().sessionid,
+                      // });
+                      //TODO: DO NOT FORGET TO FINSIH
+                      saveSessionDetailsnew({
+                        data: sessionData,
                         sessionid:
                           useSessionSummariesStore.getState().sessionid,
                       });
@@ -452,7 +500,8 @@ const Autocomplete = (props: any) => {
                         sessionid:
                           useSessionSummariesStore.getState().sessionid,
                         srcid: useSessionSummariesStore.getState().srcid,
-                        vidsrc: useSessionSummariesStore.getState().vidsrc,
+                        vidsrc: useSessionSummariesStore.getState()
+                          .vidsrc as string,
                       });
                       setSessionData(
                         useSessionSummariesStore.getState().clipData
@@ -620,7 +669,7 @@ const Autocomplete = (props: any) => {
 
   return (
     <>
-      <div>{saveSuccessful && saveResponse?.data}</div>
+      <div>{saveSuccessful && saveResponse}</div>
       <div id="commandbar" ref={commandBarRef} />
     </>
   );

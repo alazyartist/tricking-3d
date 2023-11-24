@@ -28,8 +28,8 @@ interface SummaryStore {
   setShorthand: (value: string) => void;
   srcid: string;
   setSrcid: (value: string) => void;
-  vidsrc: string;
-  setVidsrc: (value: string) => void;
+  vidsrc: string | null;
+  setVidsrc: (value: string | null) => void;
   detailsVisible: boolean;
   setDetailsVisible: () => void;
   clipDetailsVisible: boolean;
