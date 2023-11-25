@@ -117,6 +117,15 @@
   .resize-detail::-webkit-resizer {
     background: red;
   }
+
+  .videoTicks {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px; /* Adjust the width of the vertical line */
+    background-color: #434242;
+    z-index: 2;
+  }
 }
 
 .cl-internal-1vi7rps {

@@ -78,7 +78,7 @@ export const useSessionSummariesStore = create<SummaryStore>(
       clipDetailsVisible: false,
       setClipDetailsVisible: () =>
         set((s) => ({ clipDetailsVisible: !s.clipDetailsVisible })),
-      vidIsPlaying: false,
+      vidIsPlaying: true,
       setVidIsPlaying: (value) =>
         set((s) => ({ vidIsPlaying: value || !s.vidIsPlaying })),
       seekTime: 0,

@@ -3,7 +3,7 @@ import { animated, useSpring } from "@react-spring/web";
 import ReactPlayer from "react-player";
 import { MdClose } from "../../../data/icons/MdIcons";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
-import { useDrag, useGesture } from "@use-gesture/react";
+import { DragBounds, useDrag, useGesture } from "@use-gesture/react";
 import useMeasure from "react-use-measure";
 
 const SessionSourceDisplay = ({ source, mirrored }) => {
@@ -29,6 +29,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
   const setDetailsVisible = useSessionSummariesStore(
     (s) => s.setDetailsVisible
   );
+  const [zoomLevel, setZoomLevel] = useState(1);
   // useEffect(() => console.log(vidRef?.current), [sessionData, vidRef]);
   useEffect(() => {
     setCurrentTime(seekTime);
@@ -50,7 +51,12 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
       vidRef?.current?.getDuration()) *
     100
   ).toFixed(2)}%`;
+  const [timelineOffset, setTimelineOffset] = useState(0);
 
+  const odur = vidRef?.current?.getDuration();
+  const dur = odur / Math.max(zoomLevel, 1);
+  const ticks = Math.floor(dur / 5);
+  const tickWidth = bounds.width / ticks;
   const showDetails = useSpring<{}>({
     from: { spanOpacity: 1, opacity: 0, left: "-10vw" },
     to: {
@@ -92,6 +98,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
               </div>
               <ReactPlayer
                 ref={vidRef}
+                s
                 style={{ transform: mirrored ? "rotateY(180deg)" : "" }}
                 config={{
                   facebook: { appId: "508164441188790" },
@@ -113,6 +120,21 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                 url={source?.vidsrc}
               />
               <div className="relative w-[70vw]">
+                <div className="absolute -left-[4rem] h-20 w-[3rem]">
+                  <p
+                    className="m-1 w-full rounded-md bg-zinc-600 text-center"
+                    onClick={() => setZoomLevel((z) => z + 1)}
+                  >
+                    +
+                  </p>
+                  <p className="w-full text-center">{zoomLevel}</p>
+                  <p
+                    className="m-1 w-full rounded-md bg-zinc-600 text-center"
+                    onClick={() => setZoomLevel((z) => (z - 1 > 1 ? z - 1 : 1))}
+                  >
+                    -
+                  </p>
+                </div>
                 <input
                   id="sessionSummary"
                   type="range"
@@ -124,14 +146,32 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                   value={currentTime}
                   min={0}
                   //@ts-ignore
-                  max={vidRef?.current?.getDuration()}
-                  className={`w-[70vw] bg-transparent`}
+                  max={dur}
+                  className={` w-[70vw] bg-transparent`}
+                />
+                <div className="absolute top-[.25rem] flex h-[3.5rem] w-fit touch-none gap-2">
+                  {Array.from({ length: ticks - 1 }).map((_, i) => (
+                    <div
+                      style={{
+                        left: `${(i == 0 ? 1 : i + 1) * tickWidth}px`,
+                        height: `${i % 5 == 0 ? "3.5rem" : ".5rem"}`,
+                      }}
+                      className="videoTicks"
+                    />
+                  ))}
+                </div>
+                <ZoomController
+                  timelineOffset={timelineOffset}
+                  setTimelineOffset={setTimelineOffset}
+                  dur={dur}
+                  odur={odur}
+                  bounds={bounds}
                 />
 
                 <div
                   ref={timelineRef}
                   id="sessionTimelineDisplay"
-                  className=" w-full"
+                  className=" z-[20] w-full"
                 >
                   {sessionData &&
                     sessionData.map((e, i) => {
@@ -145,7 +185,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                             e={e}
                             i={i}
                             sd={sessionData}
-                            duration={vidRef.current?.getDuration()}
+                            duration={dur}
                           />
                         )
                       );
@@ -192,6 +232,50 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
 };
 
 export default SessionSourceDisplay;
+
+const ZoomController = ({
+  dur,
+  odur,
+  bounds,
+  setTimelineOffset,
+  timelineOffset,
+}) => {
+  const percent = (dur / odur) * bounds.width;
+  const boundref = useRef(null!);
+  const bind = useGesture(
+    {
+      onDrag: ({ offset: [ox, oy], last, first, _bounds }) => {
+        if (first) {
+          console.log(_bounds[0]);
+          console.log(_bounds[0][0] + _bounds[0][1]);
+          console.log(bounds.width);
+        }
+        setTimelineOffset(ox);
+      },
+    },
+    {
+      drag: {
+        axis: "x",
+        preventDefault: true,
+        bounds: boundref as DragBounds, // Adjust the timeline width accordingly
+      },
+    }
+  );
+  return (
+    <div ref={boundref} className="relative h-[1rem] w-full bg-transparent">
+      <div
+        {...bind()}
+        style={{
+          width: `${percent}px`,
+          left: `${Math.max(0, timelineOffset)}px`,
+        }}
+        className={`absolute -top-[.125rem] h-[1.25rem] bg-red-800`}
+      >
+        {timelineOffset}
+      </div>
+    </div>
+  );
+};
 
 const TimelineElement = ({ e, i, id, duration, source, timelineWidth, sd }) => {
   const [seeDetails, setSeeDetails] = useState(false);
@@ -333,6 +417,7 @@ const TimelineElement = ({ e, i, id, duration, source, timelineWidth, sd }) => {
             startTime: adjustedElement.startTime,
             endTime: adjustedElement.endTime,
           });
+          setSeekTime(adjustedElement.startTime);
         }
       },
       // onMouseOver: () => setSeeDetails(true),
