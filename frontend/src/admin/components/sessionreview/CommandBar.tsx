@@ -180,6 +180,26 @@ const Autocomplete = (props: any) => {
       // setSeekTime(parseInt(currentTime) + 5);
       syncTime(useSessionSummariesStore.getState().currentTime + 5);
     }
+    if (e.key === ",") {
+      e.preventDefault();
+      // setSeekTime(parseInt(currentTime) - 5);
+      syncTime(useSessionSummariesStore.getState().currentTime - 0.083);
+    }
+    if (e.key === "," && e.shiftKey) {
+      e.preventDefault();
+      // setSeekTime(parseInt(currentTime) - 5);
+      syncTime(useSessionSummariesStore.getState().currentTime - 0.83);
+    }
+    if (e.key === ".") {
+      e.preventDefault();
+      // setSeekTime(parseInt(currentTime) + 5);
+      syncTime(useSessionSummariesStore.getState().currentTime + 0.083);
+    }
+    if (e.key === "." && e.shiftKey) {
+      e.preventDefault();
+      // setSeekTime(parseInt(currentTime) + 5);
+      syncTime(useSessionSummariesStore.getState().currentTime + 0.83);
+    }
   };
   useEffect(() => {
     if (sessionSources) {

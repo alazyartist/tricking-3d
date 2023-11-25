@@ -40,21 +40,20 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
   const [timelineRef, bounds] = useMeasure();
 
   let colors = ["bg-teal-300", "bg-emerald-300", "bg-indigo-300", "bg-sky-300"];
+  const [timelineOffset, setTimelineOffset] = useState(0);
+  const odur = vidRef?.current?.getDuration();
+  const dur = odur / Math.max(zoomLevel, 1);
+  const adjustedValue = (timelineOffset / bounds.width) * odur;
   let activeWidth = `${(
     ((parseFloat((clipData?.endTime as number).toString()) -
       parseFloat((clipData?.startTime as number).toString())) /
-      vidRef.current?.getDuration()) *
+      dur) *
     100
   ).toFixed(2)}%`;
-  let activeLeft = `${(
-    (parseInt((clipData?.startTime as number).toString()) /
-      vidRef?.current?.getDuration()) *
-    100
-  ).toFixed(2)}%`;
-  const [timelineOffset, setTimelineOffset] = useState(0);
+  let activeLeft = `${
+    (((clipData?.startTime as number) - adjustedValue) / dur) * 100
+  }%`;
 
-  const odur = vidRef?.current?.getDuration();
-  const dur = odur / Math.max(zoomLevel, 1);
   const ticks = Math.floor(odur / 5);
   const tickWidth = (bounds.width / ticks) * zoomLevel;
   const showDetails = useSpring<{}>({
@@ -91,9 +90,9 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
             <div className="relative flex max-h-[80vh] flex-col gap-2">
               <div
                 className="flex place-items-center gap-2"
-                onClick={() => setVidsrc(null)}
+                // onClick={() => setVidsrc(null)}
               >
-                {vidsrc === source?.vidsrc && <MdClose />}{" "}
+                {/* {vidsrc === source?.vidsrc && <MdClose />}{" "} */}
                 {source?.vidsrc.replace(vidsrcRegex, "")}
               </div>
               <ReactPlayer
@@ -139,7 +138,12 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                   className="relative w-full overflow-hidden"
                 >
                   <input
-                    id="sessionSummary"
+                    id={`${
+                      currentTime < adjustedValue ||
+                      currentTime > dur + adjustedValue
+                        ? "sessionSummary2"
+                        : "sessionSummary"
+                    }`}
                     type="range"
                     step={0.001}
                     onChange={(e) => {
@@ -147,9 +151,9 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                       vidRef.current.seekTo(parseFloat(e.target.value));
                     }}
                     value={currentTime}
-                    min={0}
+                    min={Math.max(0, 0 + adjustedValue)}
                     //@ts-ignore
-                    max={dur}
+                    max={dur + adjustedValue}
                     className={` w-[70vw] bg-transparent`}
                   />
                   <div className="absolute top-[.25rem] flex h-[3.5rem] w-fit touch-none gap-2">
@@ -254,9 +258,6 @@ const ZoomController = ({
     {
       onDrag: ({ offset: [ox, oy], last, first, _bounds }) => {
         if (first) {
-          console.log(_bounds[0]);
-          console.log(_bounds[0][0] + _bounds[0][1]);
-          console.log(bounds.width);
         }
         setTimelineOffset(ox);
       },
@@ -277,10 +278,8 @@ const ZoomController = ({
           width: `${percent}px`,
           left: `${Math.max(0, timelineOffset)}px`,
         }}
-        className={`absolute -top-[.125rem] h-[1.25rem] cursor-pointer touch-none bg-red-800`}
-      >
-        {timelineOffset}
-      </div>
+        className={`absolute -top-[.125rem] z-[100] h-[1.25rem] cursor-pointer touch-pan-y rounded-sm bg-zinc-400 p-2`}
+      ></div>
     </div>
   );
 };
@@ -311,6 +310,7 @@ const TimelineElement = ({
   const removeSessionData = useSessionSummariesStore(
     (s) => s.removeSessionData
   );
+  const dragBounds = useRef(document.getElementById("sessionTimelineDisplay"));
 
   const adjustFinalPosition = (newElement) => {
     for (const s of sd) {
@@ -447,10 +447,7 @@ const TimelineElement = ({
       drag: {
         axis: "x",
         preventDefault: true,
-        bounds: () => ({
-          left: -((l / 100) * timelineWidth),
-          right: ((100 - l - w) / 100) * timelineWidth,
-        }), // Adjust the timeline width accordingly
+        bounds: dragBounds as DragBounds, // Adjust the timeline width accordingly
       },
     }
   );
