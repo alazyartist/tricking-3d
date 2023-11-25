@@ -55,8 +55,8 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
 
   const odur = vidRef?.current?.getDuration();
   const dur = odur / Math.max(zoomLevel, 1);
-  const ticks = Math.floor(dur / 5);
-  const tickWidth = bounds.width / ticks;
+  const ticks = Math.floor(odur / 5);
+  const tickWidth = (bounds.width / ticks) * zoomLevel;
   const showDetails = useSpring<{}>({
     from: { spanOpacity: 1, opacity: 0, left: "-10vw" },
     to: {
@@ -98,7 +98,6 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
               </div>
               <ReactPlayer
                 ref={vidRef}
-                s
                 style={{ transform: mirrored ? "rotateY(180deg)" : "" }}
                 config={{
                   facebook: { appId: "508164441188790" },
@@ -119,7 +118,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                 playsInline
                 url={source?.vidsrc}
               />
-              <div className="relative w-[70vw]">
+              <div className="relative w-[70vw] ">
                 <div className="absolute -left-[4rem] h-20 w-[3rem]">
                   <p
                     className="m-1 w-full rounded-md bg-zinc-600 text-center"
@@ -135,73 +134,82 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                     -
                   </p>
                 </div>
-                <input
-                  id="sessionSummary"
-                  type="range"
-                  step={0.001}
-                  onChange={(e) => {
-                    setCurrentTime(parseFloat(e.target.value));
-                    vidRef.current.seekTo(parseFloat(e.target.value));
-                  }}
-                  value={currentTime}
-                  min={0}
-                  //@ts-ignore
-                  max={dur}
-                  className={` w-[70vw] bg-transparent`}
-                />
-                <div className="absolute top-[.25rem] flex h-[3.5rem] w-fit touch-none gap-2">
-                  {Array.from({ length: ticks - 1 }).map((_, i) => (
+                <div
+                  id="timeline-container"
+                  className="relative w-full overflow-hidden"
+                >
+                  <input
+                    id="sessionSummary"
+                    type="range"
+                    step={0.001}
+                    onChange={(e) => {
+                      setCurrentTime(parseFloat(e.target.value));
+                      vidRef.current.seekTo(parseFloat(e.target.value));
+                    }}
+                    value={currentTime}
+                    min={0}
+                    //@ts-ignore
+                    max={dur}
+                    className={` w-[70vw] bg-transparent`}
+                  />
+                  <div className="absolute top-[.25rem] flex h-[3.5rem] w-fit touch-none gap-2">
+                    {Array.from({ length: ticks - 1 }).map((_, i) => (
+                      <div
+                        style={{
+                          left: `${
+                            (i + 1) * tickWidth - timelineOffset * zoomLevel
+                          }px`,
+                          height: `${i % 5 == 0 ? "3.5rem" : ".5rem"}`,
+                        }}
+                        className="videoTicks"
+                      />
+                    ))}
+                  </div>
+                  <ZoomController
+                    timelineOffset={timelineOffset}
+                    setTimelineOffset={setTimelineOffset}
+                    dur={dur}
+                    odur={odur}
+                    bounds={bounds}
+                  />
+                  <div
+                    ref={timelineRef}
+                    id="sessionTimelineDisplay"
+                    className=" z-[20] w-full "
+                  >
+                    {sessionData &&
+                      sessionData.map((e, i) => {
+                        return (
+                          e.vidsrc === vidsrc && (
+                            <TimelineElement
+                              zoomLevel={zoomLevel}
+                              offset={timelineOffset}
+                              timelineWidth={bounds.width}
+                              source={source}
+                              id="sesionDataDetails"
+                              key={`${e.id}+ 'data'`}
+                              e={e}
+                              i={i}
+                              sd={sessionData}
+                              duration={dur}
+                            />
+                          )
+                        );
+                      })}
                     <div
                       style={{
-                        left: `${(i == 0 ? 1 : i + 1) * tickWidth}px`,
-                        height: `${i % 5 == 0 ? "3.5rem" : ".5rem"}`,
+                        width: activeWidth,
+
+                        left: activeLeft,
                       }}
-                      className="videoTicks"
-                    />
-                  ))}
-                </div>
-                <ZoomController
-                  timelineOffset={timelineOffset}
-                  setTimelineOffset={setTimelineOffset}
-                  dur={dur}
-                  odur={odur}
-                  bounds={bounds}
-                />
-
-                <div
-                  ref={timelineRef}
-                  id="sessionTimelineDisplay"
-                  className=" z-[20] w-full"
-                >
-                  {sessionData &&
-                    sessionData.map((e, i) => {
-                      return (
-                        e.vidsrc === vidsrc && (
-                          <TimelineElement
-                            timelineWidth={bounds.width}
-                            source={source}
-                            id="sesionDataDetails"
-                            key={`${e.id}+ 'data'`}
-                            e={e}
-                            i={i}
-                            sd={sessionData}
-                            duration={dur}
-                          />
-                        )
-                      );
-                    })}
-                  <div
-                    style={{
-                      width: activeWidth,
-
-                      left: activeLeft,
-                    }}
-                    id={`active_video_element'`}
-                    key={`activeSessionClip'`}
-                    className={`absolute top-[4px] h-3 rounded-md bg-teal-300  `}
-                  ></div>
+                      id={`active_video_element'`}
+                      key={`activeSessionClip'`}
+                      className={`absolute top-[4px] h-3 rounded-md bg-teal-300  `}
+                    ></div>
+                  </div>
                 </div>
               </div>
+
               <div className="neumorphicIn no-scrollbar flex w-full gap-2 overflow-x-scroll rounded-md p-2 text-zinc-300">
                 {clipCombo.map((item, index) => (
                   <span
@@ -269,7 +277,7 @@ const ZoomController = ({
           width: `${percent}px`,
           left: `${Math.max(0, timelineOffset)}px`,
         }}
-        className={`absolute -top-[.125rem] h-[1.25rem] bg-red-800`}
+        className={`absolute -top-[.125rem] h-[1.25rem] cursor-pointer touch-none bg-red-800`}
       >
         {timelineOffset}
       </div>
@@ -277,7 +285,17 @@ const ZoomController = ({
   );
 };
 
-const TimelineElement = ({ e, i, id, duration, source, timelineWidth, sd }) => {
+const TimelineElement = ({
+  e,
+  i,
+  id,
+  duration,
+  source,
+  timelineWidth,
+  sd,
+  offset,
+  zoomLevel,
+}) => {
   const [seeDetails, setSeeDetails] = useState(false);
   const [isLocked, setIsLocked] = useState(false);
   const clipData = useSessionSummariesStore((s) => s.clipData);
@@ -366,12 +384,11 @@ const TimelineElement = ({ e, i, id, duration, source, timelineWidth, sd }) => {
   useEffect(() => {
     setSrcid(source?.srcid);
   }, [source, vidsrc]);
+  const offsetTime = (offset / timelineWidth) * duration;
   let w =
     ((parseFloat(e.endTime) - parseFloat(e.startTime)) / parseFloat(duration)) *
     100;
-  let l = parseFloat(
-    ((parseFloat(e.startTime) / parseFloat(duration)) * 100).toFixed(2)
-  );
+  let l = ((e.startTime - offsetTime * zoomLevel) / parseFloat(duration)) * 100;
   const [props, api] = useSpring(() => ({
     w: w,
     l: l,
