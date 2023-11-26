@@ -147,6 +147,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                     type="range"
                     step={0.001}
                     onChange={(e) => {
+                      console.log(e.target.value);
                       setCurrentTime(parseFloat(e.target.value));
                       vidRef.current.seekTo(parseFloat(e.target.value));
                     }}
@@ -160,6 +161,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                   <div className="absolute top-[.25rem] flex h-[3.5rem] w-fit touch-none gap-2">
                     {Array.from({ length: ticks - 1 }).map((_, i) => (
                       <div
+                        key={`tick${i}`}
                         style={{
                           left: `${
                             (i + 1) * tickWidth - timelineOffset * zoomLevel
@@ -187,6 +189,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                         return (
                           e.vidsrc === vidsrc && (
                             <TimelineElement
+                              adjustedValue={adjustedValue}
                               zoomLevel={zoomLevel}
                               offset={timelineOffset}
                               timelineWidth={bounds.width}
@@ -294,6 +297,7 @@ const TimelineElement = ({
   timelineWidth,
   sd,
   offset,
+  adjustedValue,
   zoomLevel,
 }) => {
   const [seeDetails, setSeeDetails] = useState(false);
@@ -432,10 +436,11 @@ const TimelineElement = ({
           const newEndTime = parseFloat(
             (((dragPercent + l + w) / 100) * duration).toFixed(2)
           );
+
           const newElement = {
             id: e.id,
-            startTime: newStartTime + frame,
-            endTime: newEndTime + frame,
+            startTime: newStartTime + adjustedValue + frame,
+            endTime: newEndTime + adjustedValue + frame,
           };
           const adjustedElement = adjustFinalPosition(newElement);
 
