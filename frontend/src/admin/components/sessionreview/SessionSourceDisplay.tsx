@@ -135,7 +135,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                 </div>
                 <div
                   id="timeline-container"
-                  className="relative w-full overflow-hidden"
+                  className="relative  w-full overflow-hidden"
                 >
                   <input
                     id={`${
@@ -154,8 +154,9 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                     min={Math.max(0, 0 + adjustedValue)}
                     //@ts-ignore
                     max={dur + adjustedValue}
-                    className={` w-[70vw] bg-transparent`}
+                    className={` w-[70vw] touch-none bg-transparent`}
                   />
+                  <div className="z-[-1] h-4 w-full" />
                   <div className="absolute top-[.25rem] flex h-[3.5rem] w-fit touch-none gap-2">
                     {Array.from({ length: ticks - 1 }).map((_, i) => (
                       <div
@@ -310,8 +311,12 @@ const TimelineElement = ({
   const removeSessionData = useSessionSummariesStore(
     (s) => s.removeSessionData
   );
-  const dragBounds = useRef(document.getElementById("sessionTimelineDisplay"));
-
+  const dragBounds = useRef<HTMLElement>(null!);
+  useEffect(() => {
+    //@ts-ignoreF
+    dragBounds.current = document.getElementById("sessionTimelineDisplay");
+  }, [dragBounds]);
+  // const dragBounds = useRef(document.getElementById("sessionTimelineDisplay"));
   const adjustFinalPosition = (newElement) => {
     for (const s of sd) {
       let offset;
@@ -402,17 +407,23 @@ const TimelineElement = ({
       isSet = true;
     }
   }, [l, w]);
-
+  let lastTap = Date.now();
   const bind = useGesture(
     {
-      onDrag: ({ movement: [ox, oy], last, first, _bounds }) => {
+      onDrag: ({ movement: [ox, oy], last, first, _bounds, tap }) => {
+        if (tap) {
+          let thisTap = Date.now();
+          if (thisTap - lastTap < 600) {
+            setIsLocked((prev) => !prev);
+          }
+          lastTap = thisTap;
+        }
         if (isLocked) return;
+
         if (first) {
-          console.log(_bounds[0]);
         }
         api.start({ x: ox });
         if (last) {
-          console.log(_bounds[0]);
           const frame = 1 / 30;
           const dragPercent = (ox / timelineWidth) * 100;
           const newStartTime = parseFloat(
@@ -448,6 +459,7 @@ const TimelineElement = ({
         axis: "x",
         preventDefault: true,
         bounds: dragBounds as DragBounds, // Adjust the timeline width accordingly
+        filterTaps: true,
       },
     }
   );

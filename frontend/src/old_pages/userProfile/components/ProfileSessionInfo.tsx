@@ -165,7 +165,7 @@ const DataDetails = ({
             )}
           </div>
         </div>
-        <div className="flex w-full place-items-center gap-1 pl-2 pb-4 font-bold text-zinc-500">
+        <div className="flex w-full place-items-center gap-1 pb-4 pl-2 font-bold text-zinc-500">
           {totalScoreRes?.totalScore?.toFixed(2) || d.totalScore?.toFixed(2)}
           <div onClick={() => setCombodexopen((prev) => !prev)} className="">
             <MdInfoOutline className={" fill-zinc-500"} />

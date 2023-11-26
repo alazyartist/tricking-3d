@@ -12,7 +12,7 @@ const PowerAverageComboLineChart: React.FC<LineChartProps> = ({
   normalized,
   colorized,
 }) => {
-  const svgRef = useRef();
+  const svgRef = useRef(null!);
   const [lRef, dimensions] = useMeasure();
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const PowerAverageComboLineChart: React.FC<LineChartProps> = ({
         .range([0, width]);
       const yScale = d3
         .scaleLinear()
-        .domain([0, !!normalized ? normalized : max])
+        .domain([0, !!normalized ? (normalized as number) : (max as number)])
         .range([height, 0]);
 
       svg
@@ -115,7 +115,7 @@ const PowerAverageComboLineChart: React.FC<LineChartProps> = ({
             .x((d, i) => xScale(i))
             .y((d: any, i) => {
               // let a = `x:${xScale(i)} y:${yScale(d.ClipLabel.pointValue)}`;
-              console.log(d?.totalScore || 0);
+              // console.log(d?.totalScore || 0);
               return yScale(d?.totalScore || 0);
             })
             .curve(d3.curveCatmullRom)

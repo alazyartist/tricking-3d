@@ -5,20 +5,15 @@ import React, {
   createElement,
   useState,
   useCallback,
-  MutableRefObject,
 } from "react";
 import { autocomplete } from "@algolia/autocomplete-js";
 import { Root, createRoot } from "react-dom/client";
 import "@algolia/autocomplete-theme-classic";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
 import { v4 as uuidv4 } from "uuid";
-import {
-  useChangeSessionStatus,
-  useSaveSessionDetails,
-} from "../../../api/useSessionSummaries";
+
 import { useUserStore } from "@store/userStore";
 import { trpc } from "../../../utils/trpc";
-import { transitions, tricks } from "@prisma/client";
 const CommandBar = ({ tricks, combos }) => {
   if (!tricks) return;
   if (!combos) return;
@@ -82,7 +77,9 @@ const getQueryPattern = (query, flags = "i") => {
 const Autocomplete = (props: any) => {
   const { tricks, combos } = props;
   const adminuuid = useUserStore((s) => s?.userInfo?.uuid);
-  const { mutate: changeSessionStatus } = useChangeSessionStatus();
+  // const { mutate: changeSessionStatus } = useChangeSessionStatus();
+  const { mutate: changeSessionStatus } =
+    trpc.sessionsummaries.updateSessionStatus.useMutation();
   // const { mutate: saveSessionDetails, data: saveResponse } =
   //   useSaveSessionDetails();
   const { mutate: saveSessionDetailsnew, data: saveResponse } =
@@ -185,20 +182,11 @@ const Autocomplete = (props: any) => {
       // setSeekTime(parseInt(currentTime) - 5);
       syncTime(useSessionSummariesStore.getState().currentTime - 0.083);
     }
-    if (e.key === "," && e.shiftKey) {
-      e.preventDefault();
-      // setSeekTime(parseInt(currentTime) - 5);
-      syncTime(useSessionSummariesStore.getState().currentTime - 0.83);
-    }
+
     if (e.key === ".") {
       e.preventDefault();
       // setSeekTime(parseInt(currentTime) + 5);
       syncTime(useSessionSummariesStore.getState().currentTime + 0.083);
-    }
-    if (e.key === "." && e.shiftKey) {
-      e.preventDefault();
-      // setSeekTime(parseInt(currentTime) + 5);
-      syncTime(useSessionSummariesStore.getState().currentTime + 0.83);
     }
   };
   useEffect(() => {
@@ -448,8 +436,12 @@ const Autocomplete = (props: any) => {
                     label: "/completed",
                     placeholder: " change status to completed",
                     onSelect: ({ itemInputValue }) => {
-                      let status = "Reviewed";
-                      changeSessionStatus(status);
+                      let status = "Reviewed" as const;
+                      changeSessionStatus({
+                        status: status,
+                        sessionid:
+                          useSessionSummariesStore.getState().sessionid,
+                      });
 
                       // console.log("selectVideo");
                       // document.getElementById("video").focus();
@@ -459,8 +451,12 @@ const Autocomplete = (props: any) => {
                     label: "/in review",
                     placeholder: " change status to In Review",
                     onSelect: ({ itemInputValue }) => {
-                      let status = "In Review";
-                      changeSessionStatus(status);
+                      let status = "In Review" as const;
+                      changeSessionStatus({
+                        status: status,
+                        sessionid:
+                          useSessionSummariesStore.getState().sessionid,
+                      });
 
                       // console.log("selectVideo");
                       // document.getElementById("video").focus();

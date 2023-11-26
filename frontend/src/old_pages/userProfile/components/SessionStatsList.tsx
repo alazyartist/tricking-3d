@@ -42,10 +42,9 @@ export const SessionSummaryCard: React.FC<SSCProps> = ({
   setActiveSummary,
   f,
 }) => {
-  let totalPoints = summary?.SessionData?.map((data) => data.totalScore).reduce(
-    (sum, b) => sum + b,
-    0
-  );
+  let totalPoints = summary?.SessionData?.map((data) => {
+    if (data.totalScore !== null) return data.totalScore;
+  }).reduce((sum: number, b: number) => sum + b, 0);
   const handleClick = () => {
     if (setActiveSummary) {
       setActiveSummary(summary);
@@ -57,11 +56,11 @@ export const SessionSummaryCard: React.FC<SSCProps> = ({
   // console.log("summarySD", summary.SessionData);
   return (
     <div
+      key={summary.sessionid}
       className="flex flex-col justify-between gap-2 rounded-md bg-zinc-900 p-2"
       onClick={() => {
         handleClick();
       }}
-      key={Math.random() + "link"}
     >
       <div className="flex justify-between gap-2">
         <div className="px-2">{summary.name}</div>
@@ -69,9 +68,11 @@ export const SessionSummaryCard: React.FC<SSCProps> = ({
       </div>
       <div className="h-[30px] w-full">
         <PowerAverageComboLineChart
-          data={summary?.SessionData?.sort((a, b) =>
-            a.clipStart > b.clipStart ? -1 : 1
-          )}
+          data={summary?.SessionData?.sort((a, b) => {
+            if (a.clipStart === null) return -1;
+            if (b.clipStart === null) return 1;
+            else return a.clipStart > b.clipStart ? -1 : 1;
+          })}
         />
       </div>
     </div>
