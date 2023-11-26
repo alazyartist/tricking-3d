@@ -5,12 +5,12 @@ import { MdClose } from "../../../data/icons/MdIcons";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
 import { DragBounds, useDrag, useGesture } from "@use-gesture/react";
 import useMeasure from "react-use-measure";
+import { z } from "zod";
 
 const SessionSourceDisplay = ({ source, mirrored }) => {
   const vidsrcRegex = /(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)/g;
   const vidRef = useRef<ReactPlayer>(null!);
   const seekTime = useSessionSummariesStore((s) => s.seekTime);
-  const currentTime = useSessionSummariesStore((s) => s.currentTime);
   const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
   const clipData = useSessionSummariesStore((s) => s.clipData);
   const setVidIsPlaying = useSessionSummariesStore((s) => s.setVidIsPlaying);
@@ -53,8 +53,8 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
   let activeLeft = `${
     (((clipData?.startTime as number) - adjustedValue) / dur) * 100
   }%`;
-
-  const ticks = Math.floor(odur / 5);
+  const [tickAmt, setTickAmt] = useState(5);
+  const ticks = Math.floor(odur / tickAmt);
   const tickWidth = (bounds.width / ticks) * zoomLevel;
   const showDetails = useSpring<{}>({
     from: { spanOpacity: 1, opacity: 0, left: "-10vw" },
@@ -67,6 +67,31 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
     config: { tension: 280, friction: 40 },
     // onRest: () => setOpenHamburger(!openHamburger),
   });
+  const zoomControllerWidth = (dur / odur) * bounds.width;
+
+  useEffect(() => {
+    if (zoomLevel === 1) {
+      setTimelineOffset(0);
+      setTickAmt(5);
+    }
+    console.log(bounds.width);
+
+    if (bounds.width - timelineOffset < zoomControllerWidth && zoomLevel > 1) {
+      setTimelineOffset(
+        (prev) => prev + (bounds.width - timelineOffset - zoomControllerWidth)
+      );
+    }
+
+    if (zoomLevel === 3) {
+      setTickAmt(2.5);
+    }
+    if (zoomLevel > 3) {
+      setTickAmt(1);
+    }
+    if (zoomLevel < 3) {
+      setTickAmt(5);
+    }
+  }, [zoomLevel]);
   return (
     <div key={source.srcid + "1"} className="flex flex-col gap-2">
       <animated.div
@@ -137,25 +162,10 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                   id="timeline-container"
                   className="relative  w-full overflow-hidden"
                 >
-                  <input
-                    id={`${
-                      currentTime < adjustedValue ||
-                      currentTime > dur + adjustedValue
-                        ? "sessionSummary2"
-                        : "sessionSummary"
-                    }`}
-                    type="range"
-                    step={0.001}
-                    onChange={(e) => {
-                      console.log(e.target.value);
-                      setCurrentTime(parseFloat(e.target.value));
-                      vidRef.current.seekTo(parseFloat(e.target.value));
-                    }}
-                    value={currentTime}
-                    min={Math.max(0, 0 + adjustedValue)}
-                    //@ts-ignore
-                    max={dur + adjustedValue}
-                    className={` w-[70vw] touch-none bg-transparent`}
+                  <CurrentTimeDiplay
+                    adjustedValue={adjustedValue}
+                    dur={dur}
+                    vidRef={vidRef}
                   />
                   <div className="z-[-1] h-4 w-full" />
                   <div className="absolute top-[.25rem] flex h-[3.5rem] w-fit touch-none gap-2">
@@ -248,7 +258,32 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
 };
 
 export default SessionSourceDisplay;
+const CurrentTimeDiplay = ({ adjustedValue, dur, vidRef }) => {
+  const currentTime = useSessionSummariesStore((s) => s.currentTime);
+  const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
 
+  return (
+    <input
+      id={`${
+        currentTime < adjustedValue || currentTime > dur + adjustedValue
+          ? "sessionSummary2"
+          : "sessionSummary"
+      }`}
+      type="range"
+      step={0.001}
+      onChange={(e) => {
+        console.log(e.target.value);
+        setCurrentTime(parseFloat(e.target.value));
+        vidRef.current.seekTo(parseFloat(e.target.value));
+      }}
+      value={currentTime}
+      min={Math.max(0, 0 + adjustedValue)}
+      //@ts-ignore
+      max={dur + adjustedValue}
+      className={` w-[70vw] touch-none bg-transparent`}
+    />
+  );
+};
 const ZoomController = ({
   dur,
   odur,
@@ -302,19 +337,13 @@ const TimelineElement = ({
 }) => {
   const [seeDetails, setSeeDetails] = useState(false);
   const [isLocked, setIsLocked] = useState(false);
-  const clipData = useSessionSummariesStore((s) => s.clipData);
   const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
-  const setClipComboRaw = useSessionSummariesStore((s) => s.setClipComboRaw);
-  const setClipData = useSessionSummariesStore((s) => s.setClipData);
   const setSrcid = useSessionSummariesStore((s) => s.setSrcid);
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
-  const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
   const updateSessionData = useSessionSummariesStore(
     (s) => s.updateSessionData
   );
-  const removeSessionData = useSessionSummariesStore(
-    (s) => s.removeSessionData
-  );
+
   const dragBounds = useRef<HTMLElement>(null!);
   useEffect(() => {
     //@ts-ignoreF

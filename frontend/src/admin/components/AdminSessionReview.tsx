@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
-import { useGetSessionDetailsbySessionid } from "../../api/useSessionSummaries";
 import ActiveClipDisplay from "./sessionreview/ActiveClipDisplay";
 import CommandBar from "./sessionreview/CommandBar";
 import MakeNewTrickModal from "./sessionreview/MakeNewTrickModal";
 import SessionDetailDisplay from "./sessionreview/SessionDetailDisplay";
 import { useSessionSummariesStore } from "./sessionreview/SessionSummaryStore";
-import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
-import useGetTricks from "@api/useGetTricks";
 import { trpc } from "@utils/trpc";
 
 import SessionSourceDisplay from "./sessionreview/SessionSourceDisplay";
