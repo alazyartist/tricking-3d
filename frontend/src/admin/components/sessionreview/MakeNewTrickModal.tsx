@@ -45,7 +45,7 @@ const MakeNewTrickModal = () => {
   let powerScore =
     (variationsArr.length &&
       variationsArr?.reduce((sum, b) => {
-        return sum + b.pointValue;
+        return sum + (b?.pointValue as number);
       }, 0)) +
     landingStancePoints +
     basePoints;
@@ -62,6 +62,7 @@ const MakeNewTrickModal = () => {
     let bases = trickParts?.filter((e) => e.type === "Base");
     let stances = trickParts?.filter((e) => e.type === "Stance");
     let variations = trickParts?.filter((e) => e.type === "Variation");
+    //@ts-ignore
     setAllTricks({ bases, stances, variations });
     console.log(response);
     if (response?.trick_id) {
@@ -71,14 +72,14 @@ const MakeNewTrickModal = () => {
   }, [response, trickParts]);
   return trickMakerOpen ? (
     <>
-      <div className="fixed top-[3vh] left-[2.5vw] z-[4000] h-[80vh] w-[95vw] overflow-hidden rounded-xl bg-zinc-800 font-inter md:left-[15vw] md:w-[70vw]">
+      <div className="fixed left-[2.5vw] top-[3vh] z-[4000] h-[80vh] w-[95vw] overflow-hidden rounded-xl bg-zinc-800 font-inter md:left-[15vw] md:w-[70vw]">
         <MdClose
-          className={`absolute top-2 right-2 text-2xl text-zinc-300 md:text-5xl`}
+          className={`absolute right-2 top-2 text-2xl text-zinc-300 md:text-5xl`}
           onClick={() => setTrickMakerOpen(false)}
         />
         <MdSave
           onClick={() => saveTrick(trickInfo)}
-          className={`absolute top-12 right-2 text-2xl text-zinc-300 md:top-[10vh] md:text-5xl`}
+          className={`absolute right-2 top-12 text-2xl text-zinc-300 md:top-[10vh] md:text-5xl`}
         />
         <div className="flex w-full place-content-center ">
           <input
@@ -179,7 +180,7 @@ const MakeNewTrickModal = () => {
           </div>
         </div>
       </div>
-      <div className="absolute top-0 left-0 z-[3400] h-[100vh] w-[100vw] backdrop-blur-sm" />
+      <div className="absolute left-0 top-0 z-[3400] h-[100vh] w-[100vw] backdrop-blur-sm" />
     </>
   ) : null;
 };

@@ -10,7 +10,7 @@ const ClipBreakdown = ({ sessionid, initialSummary }) => {
     { sessionid: sessionid },
     { initialData: initialSummary }
   );
-  const vidRef = useRef<ReactPlayer>();
+  const vidRef = useRef<ReactPlayer>(null!);
   const vidIsPlaying = useSessionSummariesStore((s) => s.vidIsPlaying);
   const currentTime = useSessionSummariesStore((s) => s.currentTime);
   const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
@@ -20,9 +20,11 @@ const ClipBreakdown = ({ sessionid, initialSummary }) => {
     setCurrentTime(parseFloat(val));
     vidRef.current.seekTo(parseFloat(val));
   };
+  if (!summary) return null;
   return (
-    <div className="no-scrollbar fixed top-0 left-0 flex h-screen w-screen flex-col content-center items-center overflow-scroll font-inter">
+    <div className="no-scrollbar fixed left-0 top-0 flex h-screen w-screen flex-col content-center items-center overflow-scroll font-inter">
       <h1 className={"p-2 text-3xl text-zinc-300"}>{summary.name}</h1>
+      {/* @ts-ignore */}
       <ReactPlayer
         ref={vidRef}
         config={{ facebook: { appId: "508164441188790" } }}
@@ -37,7 +39,7 @@ const ClipBreakdown = ({ sessionid, initialSummary }) => {
         // onPlay={() => handleTimeUpdate()}
         loop
         playsInline
-        url={summary.SessionSources?.[0]?.vidsrc}
+        url={summary.SessionSources?.[0]?.vidsrc as string}
       />
       <div id={"sessionData-combos"} className={"w-[70vw] py-2"}>
         <div className="relative w-full">
@@ -68,19 +70,20 @@ const ClipBreakdown = ({ sessionid, initialSummary }) => {
         <div className="relative w-full">
           {summary.SessionData.map((sd, i) => (
             <>
-              {sd.clipStart <= currentTime && currentTime <= sd.clipEnd && (
-                <ClipDataDetails
-                  key={`${sd.id} clipData`}
-                  currentTime={currentTime}
-                  setCurrentTime={setCurrentTime}
-                  sd={sd}
-                  i={i}
-                  vidRef={vidRef}
-                  dimensions={dimensions}
-                  vidDuration={vidDuration}
-                  seekTo={seekTo}
-                />
-              )}
+              {(sd.clipStart as number) <= currentTime &&
+                currentTime <= (sd.clipEnd as number) && (
+                  <ClipDataDetails
+                    key={`${sd.id} clipData`}
+                    currentTime={currentTime}
+                    setCurrentTime={setCurrentTime}
+                    sd={sd}
+                    i={i}
+                    vidRef={vidRef}
+                    dimensions={dimensions}
+                    vidDuration={vidDuration}
+                    seekTo={seekTo}
+                  />
+                )}
             </>
           ))}
         </div>
@@ -100,7 +103,7 @@ const ClipDataDetails = ({
   vidDuration,
   seekTo,
 }) => {
-  const [comboTimestamps, setComboTimestamps] = useState([]);
+  const [comboTimestamps, setComboTimestamps] = useState<any[]>([null!]);
   const utils = trpc.useContext();
 
   const {
@@ -115,7 +118,7 @@ const ClipDataDetails = ({
 
   const updateTimestamp = (index, bore, value) => {
     setComboTimestamps((prev) => {
-      const updatedItems = [...prev];
+      let updatedItems = [...prev];
       console.log(updatedItems);
       if (bore === "Start") {
         updatedItems[index] = {
@@ -289,7 +292,7 @@ const SubClips = ({
       </div>
       <div
         className={
-          "fixed left-0 bottom-[10vh] flex w-full flex-col place-content-center place-items-center gap-4"
+          "fixed bottom-[10vh] left-0 flex w-full flex-col place-content-center place-items-center gap-4"
         }
       >
         <div
@@ -344,6 +347,8 @@ const SubClips = ({
                 }
                 if (activeIndex - 1 < 0) {
                   return len - 1;
+                } else {
+                  return 0;
                 }
               })
             }

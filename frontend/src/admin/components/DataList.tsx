@@ -12,7 +12,7 @@ const DataList = () => {
   // const { data: trickPoints, refetch } = useGetTrickPoints();
   let trickMakerOpen = useSessionSummariesStore((s) => s.trickMakerOpen);
   const [animPopup, toggleAnimPopup] = useState(false);
-  const [currentTrick, setCurrentTrick] = useState(null);
+  const [currentTrick, setCurrentTrick] = useState<combos | tricks>(null!);
   const { data: animations } = trpc.animations.findAll.useQuery();
   // console.log(animations);
   const handleAnimPopup = (chosen: tricks | combos) => {
@@ -32,15 +32,16 @@ const DataList = () => {
       </h1>
       <div className="w-[90vw] text-sm">
         {tricks
+          //@ts-ignore
           ?.sort((a, b) => {
-            if (a.type < b.type) return 1;
-            if (a.type > b.type) return -1;
-            if (a.base_id > b.base_id) return 1;
-            if (a.base_id < b.base_id) return -1;
-            if (a.pointValue > b.pointValue) return 1;
-            if (b.pointValue < a.pointValue) return -1;
+            if ((a.type as string) < (b.type as string)) return 1;
+            if ((a.type as string) > (b.type as string)) return -1;
+            if ((a.base_id as string) > (b.base_id as string)) return 1;
+            if ((a.base_id as string) < (b.base_id as string)) return -1;
+            if ((a.pointValue as number) > (b.pointValue as number)) return 1;
+            if ((b.pointValue as number) < (a.pointValue as number)) return -1;
 
-            return a.name?.localeCompare(b.name, undefined, {
+            return a.name?.localeCompare(b.name as string, undefined, {
               numeric: true,
               sensitivity: "base",
             });
@@ -59,8 +60,8 @@ const DataList = () => {
       <div>
         {combos
           ?.sort((a, b) => {
-            if (a.pointValue > b.pointValue) return 1;
-            if (a.pointValue < b.pointValue) return -1;
+            if ((a.pointValue as number) > (b.pointValue as number)) return 1;
+            if ((a.pointValue as number) < (b.pointValue as number)) return -1;
             return 0;
           })
           ?.map((combo) => (
@@ -118,7 +119,7 @@ export default DataList;
 
 const AnimPopup = ({ toggle, animations, currentTrick }) => {
   return (
-    <div className="absolute top-10 left-10 z-[110] h-[80vh] w-[80vw] overflow-y-scroll bg-zinc-800 p-2 text-zinc-300">
+    <div className="absolute left-10 top-10 z-[110] h-[80vh] w-[80vw] overflow-y-scroll bg-zinc-800 p-2 text-zinc-300">
       <div
         className="sticky top-0 z-[2] bg-zinc-800 font-black text-red-500 "
         onClick={() => toggle(false)}

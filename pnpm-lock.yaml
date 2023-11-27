@@ -9,7 +9,6 @@ importers:
       axios: ^0.27.2
       concurrently: ^7.2.1
       prisma: ^4.8.1
-      react-player: ^2.11.0
       typescript: ^4.9.3
       uuid: ^9.0.0
     dependencies:
@@ -17,7 +16,6 @@ importers:
       ably: 1.2.29
       axios: 0.27.2
       concurrently: 7.2.2
-      react-player: 2.11.0
       uuid: 9.0.0
     devDependencies:
       prisma: 4.8.1
@@ -85,7 +83,7 @@ importers:
       '@trpc/server': ^10.43.0
       '@types/d3': ^7.4.2
       '@types/node': 20.8.2
-      '@types/react': ^18.2.33
+      '@types/react': ^18.2.38
       '@types/react-dom': ^18.2.14
       '@types/three': ^0.158.1
       '@use-gesture/react': ^10.3.0
@@ -109,7 +107,8 @@ importers:
       react: ^18.2.0
       react-dom: ^18.2.0
       react-hook-form: ^7.47.0
-      react-icons: ^4.11.0
+      react-icons: ^4.12.0
+      react-player: ^2.13.0
       react-qr-reader: ^3.0.0-beta-1
       react-qrcode-logo: ^2.9.0
       react-use-measure: ^2.1.1
@@ -151,6 +150,7 @@ importers:
       '@trpc/next': 10.43.0_pklfjzysequwri6r7m42a5ihrq
       '@trpc/react-query': 10.43.0_zllrtccgogobjwyylxpuv23zju
       '@trpc/server': 10.43.0
+      '@types/react': 18.2.38
       '@types/three': 0.158.1
       '@use-gesture/react': 10.3.0_react@18.2.0
       algoliasearch: 4.20.0
@@ -166,7 +166,8 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-hook-form: 7.47.0_react@18.2.0
-      react-icons: 4.11.0_react@18.2.0
+      react-icons: 4.12.0_react@18.2.0
+      react-player: 2.13.0_react@18.2.0
       react-qr-reader: 3.0.0-beta-1_biqbaboplfbrettd7655fr4n2y
       react-qrcode-logo: 2.9.0_biqbaboplfbrettd7655fr4n2y
       react-use-measure: 2.1.1_biqbaboplfbrettd7655fr4n2y
@@ -190,7 +191,6 @@ importers:
     devDependencies:
       '@types/d3': 7.4.2
       '@types/node': 20.8.2
-      '@types/react': 18.2.33
       '@types/react-dom': 18.2.14
       autoprefixer: 10.4.16_postcss@8.4.31
       eslint: 8.52.0
@@ -3249,34 +3249,26 @@ packages:
   /@types/react-dom/18.2.14:
     resolution: {integrity: sha512-V835xgdSVmyQmI1KLV2BEIUgqEuinxp9O4G6g3FqO/SqLac049E53aysv0oEFD2kHfejeKU+ZqL2bcFWj9gLAQ==}
     dependencies:
-      '@types/react': 18.2.33
+      '@types/react': 18.2.38
 
   /@types/react-reconciler/0.26.7:
     resolution: {integrity: sha512-mBDYl8x+oyPX/VBb3E638N0B7xG+SPk/EAMcVPeexqus/5aTpTphQi0curhhshOqRrc9t6OPoJfEUkbymse/lQ==}
     dependencies:
-      '@types/react': 18.2.36
+      '@types/react': 18.2.38
     dev: false
 
   /@types/react-reconciler/0.28.7:
     resolution: {integrity: sha512-sNYVByOrgx0a7vX4v3KUMqUA2Iaxc4SozXdUUFxcgUXUMlIUQMgHJRlp7ig42180gknti8DRHleC7Ru4aLlyBQ==}
     dependencies:
-      '@types/react': 18.2.36
+      '@types/react': 18.2.38
     dev: false
 
-  /@types/react/18.2.33:
-    resolution: {integrity: sha512-v+I7S+hu3PIBoVkKGpSYYpiBT1ijqEzWpzQD62/jm4K74hPpSP7FF9BnKG6+fg2+62weJYkkBWDJlZt5JO/9hg==}
+  /@types/react/18.2.38:
+    resolution: {integrity: sha512-cBBXHzuPtQK6wNthuVMV6IjHAFkdl/FOPFIlkd81/Cd1+IqkHu/A+w4g43kaQQoYHik/ruaQBDL72HyCy1vuMw==}
     dependencies:
       '@types/prop-types': 15.7.9
       '@types/scheduler': 0.16.5
       csstype: 3.1.2
-
-  /@types/react/18.2.36:
-    resolution: {integrity: sha512-o9XFsHYLLZ4+sb9CWUYwHqFVoG61SesydF353vFMMsQziiyRu8np4n2OYMUSDZ8XuImxDr9c5tR7gidlH29Vnw==}
-    dependencies:
-      '@types/prop-types': 15.7.9
-      '@types/scheduler': 0.16.5
-      csstype: 3.1.2
-    dev: false
 
   /@types/responselike/1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
@@ -4858,7 +4850,6 @@ packages:
   /deepmerge/4.3.1:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /defer-to-connect/2.0.1:
     resolution: {integrity: sha512-4tvttepXG1VaYGrRibk5EwJd1t4udunSOVMdLSAL6mId1ix438oPwPZMALY41FCijukO1L0twNcGsdzS7dHgDg==}
@@ -8389,8 +8380,8 @@ packages:
       scheduler: 0.23.0
     dev: false
 
-  /react-fast-compare/3.2.0:
-    resolution: {integrity: sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==}
+  /react-fast-compare/3.2.2:
+    resolution: {integrity: sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==}
     dev: false
 
   /react-hook-form/7.47.0_react@18.2.0:
@@ -8402,8 +8393,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /react-icons/4.11.0_react@18.2.0:
-    resolution: {integrity: sha512-V+4khzYcE5EBk/BvcuYRq6V/osf11ODUM2J8hg2FDSswRrGvqiYUYPRy4OdrWaQOBj4NcpJfmHZLNaD+VH0TyA==}
+  /react-icons/4.12.0_react@18.2.0:
+    resolution: {integrity: sha512-IBaDuHiShdZqmfc/TwHu6+d6k2ltNCf3AszxNmjJc1KUfXdEeRJOKyNvLmAHaarhzGmTSVygNdyu8/opXv2gaw==}
     peerDependencies:
       react: '*'
     dependencies:
@@ -8424,16 +8415,17 @@ packages:
     resolution: {integrity: sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==}
     dev: false
 
-  /react-player/2.11.0:
-    resolution: {integrity: sha512-fIrwpuXOBXdEg1FiyV9isKevZOaaIsAAtZy5fcjkQK9Nhmk1I2NXzY/hkPos8V0zb/ZX416LFy8gv7l/1k3a5w==}
+  /react-player/2.13.0_react@18.2.0:
+    resolution: {integrity: sha512-gkY7ZdbVFztlKFFhCPcnDrFQm+L399b8fhWsKatZ+b2wpKJwfUHBXQFMRxqYQGT0ic1/wQ7D7EZEWy7ZBqk2pw==}
     peerDependencies:
       react: '>=16.6.0'
     dependencies:
-      deepmerge: 4.2.2
+      deepmerge: 4.3.1
       load-script: 1.0.0
       memoize-one: 5.2.1
       prop-types: 15.8.1
-      react-fast-compare: 3.2.0
+      react: 18.2.0
+      react-fast-compare: 3.2.2
     dev: false
 
   /react-qr-reader/3.0.0-beta-1_biqbaboplfbrettd7655fr4n2y:

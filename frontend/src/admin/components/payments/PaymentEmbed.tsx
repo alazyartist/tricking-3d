@@ -12,6 +12,7 @@ const PaymentEmbed = ({ setShowForm, creditAmount }) => {
   useEffect(() => {
     apiPrivate
       .get("/checkout")
+      //@ts-ignore
       .then(async (response) => setStripePromise(loadStripe(response?.data)));
   }, []);
   useEffect(() => {

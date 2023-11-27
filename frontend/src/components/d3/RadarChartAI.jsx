@@ -7,6 +7,7 @@ const RadarChart = ({ data }) => {
   const container = useRef(null);
   const [mRef, dimensions] = useMeasure();
   let byBase = Array.from(
+    //@ts-ignore
     d3.group(data, (d) => (d.type === "Transition" ? d.name : d.base_id))
   ).filter((d) => d[0] !== undefined && d[0] !== "Hook" && d[0] !== "Round");
   let max = d3.max(byBase.map((b) => b[1].length));

@@ -15,11 +15,11 @@ import { v4 as uuidv4 } from "uuid";
 import { useUserStore } from "@store/userStore";
 import { trpc } from "../../../utils/trpc";
 const CommandBar = ({ tricks, combos }) => {
-  if (!tricks) return;
-  if (!combos) return;
   const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
   const frameRate = 0.083;
+  if (!tricks) return null;
+  if (!combos) return null;
   return (
     <div className="absolute bottom-[44px] left-[10vw] z-[10] flex h-[8vh] w-[80vw] place-items-center justify-around gap-2 rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:left-[20vw] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]">
       <div
