@@ -1,7 +1,5 @@
 name: Build Trickedex
 on:
-  push:
-    branches: [master]
   workflow_dispatch:
 
 jobs:
@@ -15,6 +13,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "16.x"
+          cache: "pnpm"
 
       - name: PNPM Setup
         uses: pnpm/action-setup@v2
