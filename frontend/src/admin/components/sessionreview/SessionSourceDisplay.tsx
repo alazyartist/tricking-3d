@@ -487,6 +487,11 @@ const TimelineElement = ({
       onDoubleClick: () => {
         setIsLocked((prev) => !prev);
       },
+      onContextMenu: ({ event }) => {
+        event.preventDefault();
+        console.log(e);
+        setSeeDetails((prev) => !prev);
+      },
     },
     {
       drag: {
@@ -501,13 +506,22 @@ const TimelineElement = ({
   return (
     <>
       {seeDetails && (
-        <div
-          style={{ width: "fit", left: l }}
+        <animated.div
+          className="absolute top-[-4px] z-10 flex rounded bg-zinc-900 bg-opacity-90 p-2"
+          style={{
+            left: props.l.to((left) => `${left + 5}%`),
+            width: "fit",
+            x: props.x.to((x) => `${x}px`),
+          }}
           key={`${e.trick_id} detaildropdown`}
-          className="absolute top-[-24px] flex rounded bg-zinc-900 bg-opacity-40 p-2"
         >
-          <div className="flex h-full flex-col gap-1 text-sm">
+          <div className="flex h-full cursor-pointer flex-col gap-1 text-sm">
+            <div className=" cursor-not-allowed">Clip menu</div>
+            <div className=" border-b-2 border-zinc-100"></div>
             <div className=" ">{e.name}</div>
+            <div onClick={() => setIsLocked((l) => !l)} className=" ">
+              {isLocked ? "Unlock" : "Lock"}
+            </div>
             {/* <div className="flex justify-between">
               <div className="bg-emerald-300 p-1 text-zinc-800 ">
                 {e.startTime}
@@ -519,7 +533,7 @@ const TimelineElement = ({
           {/* <div className=' '>{e.takeoffStance}</div>
 					<div className=' '>{e.landingStance}</div>
 					<div className=' '>{e.base_id}</div> */}
-        </div>
+        </animated.div>
       )}
       <animated.div
         {...bind()}
@@ -535,7 +549,7 @@ const TimelineElement = ({
         //   setSeekTime(e.startTime);
         // }}
 
-        className={` absolute top-[.25rem] h-[3.5rem] touch-none rounded-sm border-[1px] border-zinc-900 ${
+        className={`absolute top-[.25rem] h-[3.5rem] cursor-grab touch-none rounded-sm border-[1px] border-zinc-900 ${
           isLocked ? "bg-indigo-600" : "bg-indigo-300"
         } `}
         style={{
