@@ -47,9 +47,6 @@ jobs:
           echo -e "${{secrets.env_file}}" > .env
           echo "Setup env file successfully"
 
-      - name: Print TypeScript version
-        run: npx tsc -v
-
       - name: Build
         run: pnpm run build
 
@@ -63,6 +60,19 @@ jobs:
         run: ssh-keyscan -H "trickedex.app" >> ~/.ssh/known_hosts
 
       - name: Deploy with rsync
-        run: rsync -avz --delete . root@trickedex.app:/root/tricking-3d-tester
+        working-directory: ./frontend/.next
+        run: rsync -avz --delete . root@trickedex.app:/root/tricking-3d/frontend/.next
 
+      - name: SSH to Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: "trickedex.app"
+          username: "root"
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            cd tricking-3d
+            pnpm i
+            pm2 restart all
+            echo "Deployed Successfully"
   # Add more jobs or steps as needed
