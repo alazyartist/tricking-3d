@@ -177,12 +177,11 @@ const DLTrickDisplay = ({ trick, handleAnimPopup }) => {
       <div className="col-span-1 flex place-content-end place-items-center gap-2">
         DA
         {trick?.defaultAnimation ? (
-          <FaCheck className="text-emerald-500" />
+          <FaCheck color="rgb(16 185 129)" />
         ) : (
-          <FaCircle
-            onClick={() => handleAnimPopup(trick)}
-            className="text-red-700"
-          />
+          <span onClick={() => handleAnimPopup(trick)}>
+            <FaCircle color="rgb(185 28 28)" />
+          </span>
         )}
       </div>
       <p style={{ color: d3.interpolateRdYlGn(numOfClips / 10) }}>

@@ -69,16 +69,14 @@ function Controller() {
                 currentTime - 0.05 * timescale * Math.sign(timescale)
               );
             else {
-              setIsPlaying();
+              // setIsPlaying();
             }
           }}
           hide={speedControl}
           content={
-            <FaStepBackward
-              className={`${
-                isPaused ? "opacity-100" : "opacity-40"
-              } hover:fill-white' fill-slate-200 text-xl`}
-            />
+            <span className={`${isPaused ? "opacity-100" : "opacity-40"}`}>
+              <FaStepBackward color="#d4d4d8" size={20} />
+            </span>
           }
         />
 
@@ -88,9 +86,9 @@ function Controller() {
           hide={speedControl}
           content={
             !isPaused ? (
-              <FaPause className="fill-gray-800 p-0" />
+              <FaPause color={"#1f2937"} />
             ) : (
-              <FaPlay className="flex items-center  justify-around fill-gray-800" />
+              <FaPlay color={"#1f2937"} />
             )
           }
           isPlayPause
@@ -104,16 +102,14 @@ function Controller() {
                 currentTime + 0.05 * timescale * Math.sign(timescale)
               );
             else {
-              setIsPlaying();
+              // setIsPlaying();
             }
           }}
           hide={speedControl}
           content={
-            <FaStepForward
-              className={`${
-                isPaused ? "opacity-100" : "opacity-40"
-              } hover:fill-white' fill-slate-200 text-xl`}
-            />
+            <span className={`${isPaused ? "opacity-100" : "opacity-40"}`}>
+              <FaStepForward color={"#e2e8f0"} size={20} />
+            </span>
           }
         />
 
@@ -138,7 +134,7 @@ function Controller() {
           hide={speedControl}
           content={
             <AiOutlineColumnWidth
-              size={30}
+              size={20}
               color={`${trimToggle ? "#facc15" : "#d4d4d8"}`}
             />
           }

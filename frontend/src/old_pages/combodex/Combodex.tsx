@@ -112,11 +112,11 @@ const Combodex: React.FC<CombodexProps> = ({
   return (
     <div
       className={
-        "no-scrollbar relative top-0 left-0 h-full w-full place-items-center gap-2 overflow-hidden bg-zinc-900 bg-opacity-[90%] font-inter backdrop-blur-md"
+        "no-scrollbar relative left-0 top-0 h-full w-full place-items-center gap-2 overflow-hidden bg-zinc-900 bg-opacity-[90%] font-inter backdrop-blur-md"
       }
     >
       {/* Scores Display Grid*/}
-      <div className="sticky top-0 left-0 grid h-[120px] w-full grid-cols-5 gap-2 bg-zinc-900 p-2">
+      <div className="sticky left-0 top-0 grid h-[120px] w-full grid-cols-5 gap-2 bg-zinc-900 p-2">
         <div
           onClick={() => setCombodexopen(false)}
           className="outlineButton flex place-content-center place-items-center rounded-md border-transparent bg-zinc-300 bg-opacity-30 p-1 px-0 text-2xl"
@@ -346,11 +346,10 @@ export const CombodexTrickDetails = ({ tricks, chainMap, varietyMap }) => {
                   {tr.defaultAnimation && (
                     <Link
                       href={`/sandbox/${tr.animation.model}/${tr.animation.animationName}`}
+                      onClick={() => console.log(tr)}
+                      className="text-emerald-500"
                     >
-                      <IoIosWalk
-                        onClick={() => console.log(tr)}
-                        className="text-emerald-500"
-                      />
+                      <IoIosWalk />
                     </Link>
                   )}
                 </div>
@@ -359,7 +358,7 @@ export const CombodexTrickDetails = ({ tricks, chainMap, varietyMap }) => {
                     cm[0] - 2 === i ? (
                       <>
                         <div
-                          className={`absolute left-[90%] bottom-[10px] z-[-1] h-4 w-[110px] rounded-md bg-zinc-300 bg-opacity-20`}
+                          className={`absolute bottom-[10px] left-[90%] z-[-1] h-4 w-[110px] rounded-md bg-zinc-300 bg-opacity-20`}
                         />
                       </>
                     ) : null

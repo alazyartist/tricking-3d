@@ -36,9 +36,9 @@ function MinimalUI() {
             f={() => setIsPaused(!isPaused)}
             content={
               !isPaused ? (
-                <FaPause className="fill-gray-800" />
+                <FaPause color={"#1f2937"} />
               ) : (
-                <FaPlay className="fill-gray-800 text-xs" />
+                <FaPlay color={"#1f2937"} />
               )
             }
             isPlayPause
@@ -48,9 +48,9 @@ function MinimalUI() {
             f={() => setTimescale(-timescale)}
             content={
               timescale < 0 ? (
-                <MdLoop className="text-3xl text-green-300" />
+                <MdLoop color={"rgb(134 239 172)"} />
               ) : (
-                <MdLoop className="text-3xl text-red-300" />
+                <MdLoop color={"rgb(252 165 165)"} />
               )
             }
           />

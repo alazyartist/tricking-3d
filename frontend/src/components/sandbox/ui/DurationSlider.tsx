@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import { useStore } from "@store/store";
-import { TrimToggle } from "./TrimToggle";
-import { FaCheckCircle } from "react-icons/fa";
 
 function DurationSlider() {
   let clipDuration = useStore((s) => s.clipDuration);

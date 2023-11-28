@@ -71,7 +71,7 @@ function AllTrickDisplay() {
                 <div className="p-2">{e.name.toUpperCase()}</div>
                 <div className="p-2">
                   {e.defaultAnimation && (
-                    <IoIosWalk className="text-emerald-400" />
+                    <IoIosWalk color={"rgb(52 211 153)"} />
                   )}
                 </div>
               </div>
