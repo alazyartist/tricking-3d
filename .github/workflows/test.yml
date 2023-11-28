@@ -25,6 +25,8 @@ jobs:
             cd tricking-3d
             which pnpm
             which pm2
+            echo $PATH
+            echo $USER
             PNPM_PATH=$(which pnpm)
             PM2_PATH=$(which pm2)
             pnpm i
