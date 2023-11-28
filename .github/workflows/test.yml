@@ -23,7 +23,7 @@ jobs:
           port: 22
           script: |
             cd tricking-3d
-            sudo ln-s "$NVM_DIR/versions/node/$(nvm version)/bin/node" "/usr/local/bin/node"
+            sudo ln -s "$NVM_DIR/versions/node/$(nvm version)/bin/node" "/usr/local/bin/node"
             sudo ln -s "$NVM_DIR/versions/node/$(nvm version)/bin/pnpm" "/usr/local/bin/pnpm"
             sudo ln -s "$/root/.local/share/pnpm/pm2" "/usr/local/bin/pm2"
             pnpm i
