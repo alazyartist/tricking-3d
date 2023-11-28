@@ -120,6 +120,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                 {/* {vidsrc === source?.vidsrc && <MdClose />}{" "} */}
                 {source?.vidsrc.replace(vidsrcRegex, "")}
               </div>
+              //@ts-ignore
               <ReactPlayer
                 ref={vidRef}
                 style={{ transform: mirrored ? "rotateY(180deg)" : "" }}
@@ -227,7 +228,6 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                   </div>
                 </div>
               </div>
-
               <div className="neumorphicIn no-scrollbar flex w-full gap-2 overflow-x-scroll rounded-md p-2 text-zinc-300">
                 {clipCombo.map((item, index) => (
                   <span
