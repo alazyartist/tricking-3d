@@ -6,5 +6,5 @@ interface IIcon {
 }
 
 declare module "react-icons" {
-  export interface IconBaseProps extends IIcon {}
+  export interface IconType extends IIcon {}
 }
