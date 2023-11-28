@@ -45,15 +45,17 @@ const AdminNav = ({ displayItem, setDisplayItem }) => {
   return (
     <div className="z-[100] mt-4 grid w-full grid-cols-5 justify-around gap-2 rounded-md rounded-l-none bg-zinc-900 p-2 px-4 text-2xl md:text-4xl">
       <IoIosList
-        className={`${
-          displayItem === "Tricks" ? "text-emerald-500" : "text-zinc-300"
-        }`}
+        style={{
+          color:
+            displayItem === "Tricks" ? "rgb(16 185 129)" : "rgb(212 212 216)",
+        }}
         onClick={() => setDisplayItem("Tricks")}
       />
       <IoIosPeople
-        className={`${
-          displayItem === "Users" ? "text-emerald-500" : "text-zinc-300"
-        }`}
+        style={{
+          color:
+            displayItem === "Users" ? "rgb(16 185 129)" : "rgb(212 212 216)",
+        }}
         onClick={() => setDisplayItem("Users")}
       />
       <span

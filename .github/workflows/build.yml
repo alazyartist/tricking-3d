@@ -34,7 +34,16 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Additional Step
-        run: echo "This is an additional step"
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          known_hosts: "unnecessary"
+
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H "trickedex.app" >> ~/.ssh/known_hosts
+
+      - name: Deploy with rsync
+        run: rsync -avz --delete . root@trickedex.app:/root/tricking-3d-tester
 
   # Add more jobs or steps as needed
