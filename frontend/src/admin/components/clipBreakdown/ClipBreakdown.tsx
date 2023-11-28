@@ -4,12 +4,14 @@ import ReactPlayer from "react-player";
 import { useSessionSummariesStore } from "../sessionreview/SessionSummaryStore";
 import useMeasure from "react-use-measure";
 import { transitions, tricks } from "@prisma/client";
+import { useRouter } from "next/router";
 
-const ClipBreakdown = ({ sessionid, initialSummary }) => {
-  const { data: summary } = trpc.sessionsummaries.detailsById.useQuery(
-    { sessionid: sessionid },
-    { initialData: initialSummary }
-  );
+const ClipBreakdown = () => {
+  const router = useRouter();
+  const sessionid = router.query.sessionid as string;
+  const { data: summary } = trpc.sessionsummaries.detailsById.useQuery({
+    sessionid: sessionid,
+  });
   const vidRef = useRef<ReactPlayer>(null!);
   const vidIsPlaying = useSessionSummariesStore((s) => s.vidIsPlaying);
   const currentTime = useSessionSummariesStore((s) => s.currentTime);
