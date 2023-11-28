@@ -120,9 +120,8 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                 {/* {vidsrc === source?.vidsrc && <MdClose />}{" "} */}
                 {source?.vidsrc.replace(vidsrcRegex, "")}
               </div>
-              {/* //@ts-ignore */}
               <ReactPlayer
-                ref={vidRef as React.MutableRefObject<ReactPlayer>}
+                ref={vidRef}
                 style={{ transform: mirrored ? "rotateY(180deg)" : "" }}
                 config={{
                   facebook: { appId: "508164441188790" },
