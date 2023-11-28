@@ -75,8 +75,11 @@ const AdminSessionReview = ({
   const [mirrored, toggleMirrored] = useState(false);
   return (
     <div className="no-scrollbar fixed left-0 top-0 h-screen w-screen overflow-scroll">
-      <Link href={"/admin"}>
-        <IoIosArrowBack className="absolute left-2 top-4 text-3xl text-zinc-300" />
+      <Link
+        className="absolute left-2 top-4 text-3xl text-zinc-300"
+        href={"/admin"}
+      >
+        <IoIosArrowBack />
       </Link>
       {sessionDetails && (
         <div className="mt-4 flex flex-col place-items-center text-zinc-300 md:mt-8">

@@ -34,9 +34,9 @@ function MinimalUI() {
             f={setIsPaused}
             content={
               !isPaused ? (
-                <FaPause className="fill-gray-800" />
+                <FaPause color="#1f2937" />
               ) : (
-                <FaPlay className=" fill-gray-800" />
+                <FaPlay color="#1f2937" />
               )
             }
             isPlayPause
