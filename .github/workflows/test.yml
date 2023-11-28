@@ -1,0 +1,14 @@
+name: Test ENV
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: Build
+    steps:
+      - name: setup Env file from github secret
+        shell: bash
+        run: |
+          echo "${{secrets.env_file}}"" > .env
+          cat .env
