@@ -6,17 +6,14 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import * as d3 from "d3";
 
-const CompareSessions = ({ initialSummaries }) => {
-  const initialsummariesdata = JSON.parse(initialSummaries);
+const CompareSessions = ({}) => {
+  // const initialsummariesdata = JSON.parse(initialSummaries);
   const router = useRouter();
   const { sessions } = router.query;
   const { data: sessionSummaries, isSuccess } =
-    trpc.sessionsummaries.compareDetailsById.useQuery(
-      {
-        sessions: typeof sessions !== "string" ? sessions : [sessions],
-      },
-      { initialData: initialsummariesdata }
-    );
+    trpc.sessionsummaries.compareDetailsById.useQuery({
+      sessions: typeof sessions !== "string" ? sessions : [sessions],
+    });
 
   type sessionSummary = typeof sessionSummaries;
   function transformSessionInfo(sessionSummaries: sessionSummary) {
@@ -233,35 +230,35 @@ const CompareSessions = ({ initialSummaries }) => {
 
 export default CompareSessions;
 
-type dir = "Backside" | "Inside" | "Frontside" | "Outside";
-type stance = "Complete" | "Hyper" | "Mega" | "Semi";
-type stances = `${dir}${stance}`;
+// type dir = "Backside" | "Inside" | "Frontside" | "Outside";
+// type stance = "Complete" | "Hyper" | "Mega" | "Semi";
+// type stances = `${dir}${stance}`;
 
-const prisma = new PrismaClient();
-export const getStaticPaths = async (props) => {
-  const summaries = await prisma.sessionsummaries.findMany();
-  const summaryCombinations = getUserCombinations(summaries);
-  console.log(summaryCombinations.length);
-  return {
-    paths: summaryCombinations,
-    fallback: "blocking",
-  };
-};
+// const prisma = new PrismaClient();
+// export const getStaticPaths = async (props) => {
+//   const summaries = await prisma.sessionsummaries.findMany();
+//   const summaryCombinations = getUserCombinations(summaries);
+//   console.log(summaryCombinations.length);
+//   return {
+//     paths: summaryCombinations,
+//     fallback: "blocking",
+//   };
+// };
 
-export const getStaticProps = async (props) => {
-  const sessionSummaries = await prisma.sessionsummaries.findMany({
-    where: { sessionid: { in: props.params.sessions } },
-    include: {
-      trickers: {
-        include: { user: true },
-      },
-      SessionData: { include: { ClipLabel: true } },
-      SessionSources: true,
-    },
-  });
-  const stringy = JSON.stringify(sessionSummaries);
-  return { props: { initialSummaries: stringy }, revalidate: 120 };
-};
+// export const getStaticProps = async (props) => {
+//   const sessionSummaries = await prisma.sessionsummaries.findMany({
+//     where: { sessionid: { in: props.params.sessions } },
+//     include: {
+//       trickers: {
+//         include: { user: true },
+//       },
+//       SessionData: { include: { ClipLabel: true } },
+//       SessionSources: true,
+//     },
+//   });
+//   const stringy = JSON.stringify(sessionSummaries);
+//   return { props: { initialSummaries: stringy }, revalidate: 120 };
+// };
 
 function getUserCombinations(summaries: sessionsummaries[]) {
   const result = new Set();
