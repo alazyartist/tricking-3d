@@ -27,8 +27,8 @@ jobs:
       - name: setup Env file from github secret
         shell: bash
         run: |
-          echo -e ${{secrets.env_file}} > .env
-          cat .env
+          echo -e "${{secrets.env_file}}" > .env
+          echo "Setup env file successfully"
 
       - name: Build
         run: pnpm run build
