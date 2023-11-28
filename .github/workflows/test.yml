@@ -13,5 +13,6 @@ jobs:
           echo "${{secrets.env_file}}" > .env
           echo "Setup was a success"
           pwd
+          ls
           cd /frontend
           pwd
