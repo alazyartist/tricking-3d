@@ -5,6 +5,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: Build
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -22,6 +23,10 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: setup Env file from github secret
+        run: echo ${{secrets.env_file}} > .env
+        run: cat .env
 
       - name: Build
         run: pnpm run build
