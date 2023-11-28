@@ -10,5 +10,5 @@ jobs:
       - name: setup Env file from github secret
         shell: bash
         run: |
-          echo "${{secrets.env_file}}"" > .env
+          echo "${{secrets.env_file}}" > .env
           cat .env
