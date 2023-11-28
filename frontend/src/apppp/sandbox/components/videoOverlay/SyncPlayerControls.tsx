@@ -22,9 +22,13 @@ const SyncPlayerControls = () => {
   return (
     <div className="text-xl text-zinc-300">
       {playBoth ? (
-        <FaPauseCircle onClick={() => setPlayBoth(false)} />
+        <div onClick={() => setPlayBoth(false)}>
+          <FaPauseCircle />
+        </div>
       ) : (
-        <FaPlayCircle onClick={() => setPlayBoth(true)} />
+        <div onClick={() => setPlayBoth(true)}>
+          <FaPlayCircle />
+        </div>
       )}
     </div>
   );

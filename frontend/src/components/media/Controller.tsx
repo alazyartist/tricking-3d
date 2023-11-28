@@ -75,8 +75,9 @@ function Controller() {
           hide={speedControl}
           content={
             <FaStepBackward
-              className={`${isPaused ? "opacity-100" : "opacity-40"
-                } hover:fill-white' fill-slate-200 text-xl`}
+              className={`${
+                isPaused ? "opacity-100" : "opacity-40"
+              } hover:fill-white' fill-slate-200 text-xl`}
             />
           }
         />
@@ -109,8 +110,9 @@ function Controller() {
           hide={speedControl}
           content={
             <FaStepForward
-              className={`${isPaused ? "opacity-100" : "opacity-40"
-                } hover:fill-white' fill-slate-200 text-xl`}
+              className={`${
+                isPaused ? "opacity-100" : "opacity-40"
+              } hover:fill-white' fill-slate-200 text-xl`}
             />
           }
         />
@@ -136,8 +138,8 @@ function Controller() {
           hide={speedControl}
           content={
             <AiOutlineColumnWidth
-              className={`${trimToggle ? "fill-yellow-400" : "fill-zinc-300"
-                } text-2xl`}
+              size={30}
+              color={`${trimToggle ? "#facc15" : "#d4d4d8"}`}
             />
           }
         />

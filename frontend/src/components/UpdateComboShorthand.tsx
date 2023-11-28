@@ -21,9 +21,9 @@ const UpdateComboShorthand = ({ sessiondata, setShorthandOpen, summary }) => {
     <>
       <MdClose
         onClick={() => setShorthandOpen((prev) => !prev)}
-        className={"absolute top-2 left-2 z-[6] text-2xl"}
+        className={"absolute left-2 top-2 z-[6] text-2xl"}
       />
-      <div className="absolute top-0 left-0 z-[4] flex h-full w-full flex-col place-content-center place-items-center  bg-zinc-900 bg-opacity-90">
+      <div className="absolute left-0 top-0 z-[4] flex h-full w-full flex-col place-content-center place-items-center  bg-zinc-900 bg-opacity-90">
         <div
           className={
             "mt-6 flex max-w-[90vw] flex-col place-content-center place-items-center gap-2"
@@ -56,8 +56,8 @@ const UpdateComboShorthand = ({ sessiondata, setShorthandOpen, summary }) => {
               value={shorthand}
               onChange={(e) => setShorthand(e.target.value)}
             />
-            <button type="submit" className="">
-              <FaArrowUp className="fill-sky-500 text-3xl" />
+            <button type="submit" className="fill-sky-500 text-3xl">
+              <FaArrowUp />
             </button>
           </form>
         </div>

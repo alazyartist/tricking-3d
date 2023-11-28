@@ -76,12 +76,16 @@ const DataList = () => {
               <div className="flex place-content-end place-items-center gap-2">
                 DA
                 {combo?.defaultAnimation ? (
-                  <FaCheck className="text-emerald-500" />
+                  <div className="text-emerald-500">
+                    <FaCheck />
+                  </div>
                 ) : (
-                  <FaCircle
-                    onClick={() => handleAnimPopup(combo)}
+                  <div
                     className="text-red-700"
-                  />
+                    onClick={() => handleAnimPopup(combo)}
+                  >
+                    <FaCircle />
+                  </div>
                 )}
               </div>
               <p

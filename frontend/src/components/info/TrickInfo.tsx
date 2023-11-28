@@ -118,6 +118,8 @@ const InfoKey = () => {
       </div>
     </div>
   ) : (
-    <FaKey onClick={() => showKey(!keyVisible)} className="text-zinc-300" />
+    <div onClick={() => showKey(!keyVisible)} className="text-zinc-300">
+      <FaKey />
+    </div>
   );
 };

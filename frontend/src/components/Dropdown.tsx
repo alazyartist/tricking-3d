@@ -9,9 +9,9 @@ function Dropdown(props) {
         <button
           id="dropdown-link"
           onClick={() => setOpen(!open)}
-          className="z-[-1] flex w-full items-center justify-center  text-center align-middle text-2xl font-semibold text-zinc-300 "
+          className="z-[-1] flex w-full items-center justify-center  text-center align-middle text-2xl font-semibold text-zinc-300 hover:fill-gray-600"
         >
-          <FaAngleDown className={"hover:fill-gray-600"} />
+          <FaAngleDown />
           {props.name}
         </button>
 
@@ -28,7 +28,7 @@ function Dropdown(props) {
             return (
               <button
                 id="dropdown-item"
-                className="z-10 mt-1 mb-2 flex h-fit w-full justify-center rounded-lg font-inter text-xl font-light text-zinc-200 hover:text-zinc-400"
+                className="z-10 mb-2 mt-1 flex h-fit w-full justify-center rounded-lg font-inter text-xl font-light text-zinc-200 hover:text-zinc-400"
                 onClick={() => {
                   props.f(e);
                   setOpen(!open);
@@ -48,7 +48,7 @@ function Dropdown(props) {
       <>
         <div
           id="dropdown-content-container"
-          className="no-scrollbar fixed top-16 left-[6vw] mt-2 h-fit w-fit overflow-y-auto rounded-xl p-4"
+          className="no-scrollbar fixed left-[6vw] top-16 mt-2 h-fit w-fit overflow-y-auto rounded-xl p-4"
         >
           <div
             id="dropped-content"
@@ -79,7 +79,7 @@ function Dropdown(props) {
       {open && (
         <div
           id="trick-info-modal-bg"
-          className="fixed top-0 left-0 z-[1] h-full w-full bg-zinc-800 bg-opacity-20 filter backdrop-blur-md"
+          className="fixed left-0 top-0 z-[1] h-full w-full bg-zinc-800 bg-opacity-20 filter backdrop-blur-md"
           onClick={() => setOpen(!open)}
         ></div>
       )}
