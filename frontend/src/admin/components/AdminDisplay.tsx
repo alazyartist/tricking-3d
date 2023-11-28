@@ -5,6 +5,7 @@ const DataList = lazy(() => import("./DataList"));
 const SessionSummariesOverview = lazy(
   () => import("./SessionSummariesOverview")
 );
+
 const TrickPointEditor = lazy(() => import("./trickMaker/TrickPointEditor"));
 const UserList = lazy(() => import("./UserList"));
 const AdminDisplay = () => {
@@ -43,18 +44,28 @@ export default AdminDisplay;
 
 const AdminNav = ({ displayItem, setDisplayItem }) => {
   return (
-    <div className="z-[100] mt-4 grid w-full grid-cols-5 justify-around gap-2 rounded-md rounded-l-none bg-zinc-900 p-2 px-4 text-2xl md:text-4xl">
-      <IoIosList
-        color={
-          displayItem === "Tricks" ? "rgb(16 185 129)" : "rgb(212 212 216)"
-        }
+    <div className="z-[100] mt-4 grid w-full grid-cols-4 justify-around gap-2 rounded-md rounded-l-none bg-zinc-900 p-2 px-4 text-2xl md:text-4xl">
+      <div
         onClick={() => setDisplayItem("Tricks")}
-      />
-      <IoIosPeople
-        color={displayItem === "Users" ? "rgb(16 185 129)" : "rgb(212 212 216)"}
+        className="place-self-center"
+      >
+        <IoIosList
+          color={
+            displayItem === "Tricks" ? "rgb(16 185 129)" : "rgb(212 212 216)"
+          }
+        />
+      </div>
+      <div
         onClick={() => setDisplayItem("Users")}
-      />
-      <span
+        className="place-self-center"
+      >
+        <IoIosPeople
+          color={
+            displayItem === "Users" ? "rgb(16 185 129)" : "rgb(212 212 216)"
+          }
+        />
+      </div>
+      <div
         onClick={() => setDisplayItem("SessionSummaries")}
         className={`${
           displayItem === "SessionSummaries"
@@ -63,15 +74,15 @@ const AdminNav = ({ displayItem, setDisplayItem }) => {
         } text-center font-titan text-xl md:text-2xl`}
       >
         S
-      </span>
-      <span
+      </div>
+      <div
         onClick={() => setDisplayItem("TrickPoints")}
         className={`${
           displayItem === "TrickPoints" ? "text-emerald-500" : "text-zinc-300"
         } text-center font-titan text-xl md:text-2xl`}
       >
         TP
-      </span>
+      </div>
     </div>
   );
 };

@@ -15,8 +15,6 @@ export const getServerSideProps = async (props) => {
   const { req } = props;
   const sessionID = req.cookies.__session;
 
-  console.log(req, sessionID);
-
   if (sessionID) {
     // User is not logged in, you can handle this case accordingly
     return {
