@@ -27,7 +27,7 @@ jobs:
       - name: setup Env file from github secret
         shell: bash
         run: |
-          echo ${{secrets.env_file}} > .env
+          echo -e ${{secrets.env_file}} > .env
           cat .env
 
       - name: Build
