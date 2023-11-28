@@ -11,9 +11,10 @@ jobs:
         shell: bash
         working-directory: ./frontend
         run: |
-          echo "${{secrets.env_file}}" > .env
+          echo -e "${{secrets.env_file}}" > .env
           echo "Setup was a success"
           ls -R
+
       - name: SSH to Server
         uses: appleboy/ssh-action@master
         with:
