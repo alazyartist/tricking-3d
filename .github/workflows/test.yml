@@ -23,6 +23,7 @@ jobs:
           port: 22
           script: |
             cd tricking-3d
+            exec bash \-l
             sudo ln -s "/root/.nvm/versions/node/v16.18.1/bin/node" "/usr/local/bin/node" || true
             sudo ln -s "/root/.nvm/versions/node/v16.18.1/bin/pnpm" "/usr/local/bin/pnpm" || true
             sudo ln -s "$/root/.local/share/pnpm/pm2" "/usr/local/bin/pm2"  || true
