@@ -14,4 +14,20 @@ jobs:
           echo "${{secrets.env_file}}" > .env
           echo "Setup was a success"
           ls -R
+      - name: SSH to Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: "trickedex.app"
+          username: "root"
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            cd tricking-3d
+            which pnpm
+            which pm2
+            PNPM_PATH=$(which pnpm)
+            PM2_PATH=$(which pm2)
+            pnpm i
+            pm2 restart all
+            echo "Deployed Successfully"
         
