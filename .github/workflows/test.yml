@@ -9,7 +9,6 @@ jobs:
     steps:
       - name: setup Env file from github secret
         shell: bash
-        working-directory: ./frontend
         run: |
           echo -e "${{secrets.env_file}}" > .env
           echo "Setup was a success"
