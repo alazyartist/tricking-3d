@@ -9,7 +9,6 @@ jobs:
     steps:
       - name: setup Env file from github secret
         shell: bash
-        working-directory: /tricking-3d/frontend
         run: |
           echo "${{secrets.env_file}}" > .env
           echo "Setup was a success"
