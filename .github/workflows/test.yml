@@ -14,7 +14,7 @@ jobs:
           echo "${{secrets.env_file}}" > .env
           echo "Setup was a success"
           ls -R
-       - name: SSH to Server
+      - name: SSH to Server
         uses: appleboy/ssh-action@master
         with:
           host: "trickedex.app"
