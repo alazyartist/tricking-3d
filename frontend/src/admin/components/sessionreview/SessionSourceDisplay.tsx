@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { animated, useSpring } from "@react-spring/web";
 import ReactPlayer from "react-player";
-import { MdClose } from "../../../data/icons/MdIcons";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
-import { DragBounds, useDrag, useGesture } from "@use-gesture/react";
+import { DragBounds, useGesture } from "@use-gesture/react";
 import useMeasure from "react-use-measure";
-import { z } from "zod";
 import { createPortal } from "react-dom";
 
 const SessionSourceDisplay = ({ source, mirrored }) => {
@@ -31,16 +29,13 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
     (s) => s.setDetailsVisible
   );
   const [zoomLevel, setZoomLevel] = useState(1);
-  // useEffect(() => console.log(vidRef?.current), [sessionData, vidRef]);
   useEffect(() => {
     setCurrentTime(seekTime);
     //@ts-ignore
     vidRef?.current?.seekTo(seekTime);
-    // console.log("playerstate", vidRef.current);
   }, [seekTime]);
   const [timelineRef, bounds] = useMeasure();
 
-  let colors = ["bg-teal-300", "bg-emerald-300", "bg-indigo-300", "bg-sky-300"];
   const [timelineOffset, setTimelineOffset] = useState(0);
   const odur = vidRef?.current?.getDuration();
   const dur = odur / Math.max(zoomLevel, 1);
@@ -113,149 +108,136 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
         </div>
       </animated.div>
 
-      {
-        vidsrc === source?.vidsrc ? (
-          <div className="absolute left-[15vw] top-[-35vh] w-[70vw] md:top-[-15vh]">
-            <div className="relative flex max-h-[80vh] flex-col gap-2">
-              <div
-                className="flex place-items-center gap-2"
-                // onClick={() => setVidsrc(null)}
-              >
-                {/* {vidsrc === source?.vidsrc && <MdClose />}{" "} */}
-                {source?.vidsrc.replace(vidsrcRegex, "")}
-              </div>
-              <ReactPlayer
-                ref={vidRef}
-                style={{ transform: mirrored ? "rotateY(180deg)" : "" }}
-                config={{
-                  facebook: { appId: "508164441188790" },
-                  youtube: { playerVars: { listType: "user_uploads" } },
-                }}
-                id={"video"}
-                // controls={false}
-                playing={vidIsPlaying}
-                muted
-                width={"70vw"}
-                height={"40vw"}
-                onReady={() => setSrcid(source?.srcid)}
-                onProgress={({ playedSeconds }) =>
-                  setCurrentTime(playedSeconds)
-                }
-                // onPlay={() => handleTimeUpdate()}
-                loop
-                playsInline
-                url={source?.vidsrc}
-              />
-              <div className="relative w-[70vw] ">
-                <div className="absolute -left-[4rem] h-20 w-[3rem]">
-                  <p
-                    className="m-1 w-full rounded-md bg-zinc-600 text-center"
-                    onClick={() => setZoomLevel((z) => z + 1)}
-                  >
-                    +
-                  </p>
-                  <p className="w-full text-center">{zoomLevel}</p>
-                  <p
-                    className="m-1 w-full rounded-md bg-zinc-600 text-center"
-                    onClick={() => setZoomLevel((z) => (z - 1 > 1 ? z - 1 : 1))}
-                  >
-                    -
-                  </p>
-                </div>
-                <div
-                  id="timeline-container"
-                  className="noTouch relative w-full overflow-hidden"
+      {vidsrc === source?.vidsrc ? (
+        <div className="absolute left-[15vw] top-[-35vh] w-[70vw] md:top-[-15vh]">
+          <div className="relative flex max-h-[80vh] flex-col gap-2">
+            <div
+              className="flex place-items-center gap-2"
+              // onClick={() => setVidsrc(null)}
+            >
+              {/* {vidsrc === source?.vidsrc && <MdClose />}{" "} */}
+              {source?.vidsrc.replace(vidsrcRegex, "")}
+            </div>
+            <ReactPlayer
+              ref={vidRef}
+              style={{ transform: mirrored ? "rotateY(180deg)" : "" }}
+              config={{
+                facebook: { appId: "508164441188790" },
+                youtube: { playerVars: { listType: "user_uploads" } },
+              }}
+              id={"video"}
+              // controls={false}
+              playing={vidIsPlaying}
+              muted
+              width={"70vw"}
+              height={"40vw"}
+              onReady={() => setSrcid(source?.srcid)}
+              onProgress={({ playedSeconds }) => setCurrentTime(playedSeconds)}
+              // onPlay={() => handleTimeUpdate()}
+              loop
+              playsInline
+              url={source?.vidsrc}
+            />
+            <div className="relative w-[70vw] ">
+              <div className="absolute -left-[4rem] h-20 w-[3rem]">
+                <p
+                  className="m-1 w-full rounded-md bg-zinc-600 text-center"
+                  onClick={() => setZoomLevel((z) => z + 1)}
                 >
-                  <CurrentTimeDiplay
-                    adjustedValue={adjustedValue}
-                    dur={dur}
-                    vidRef={vidRef}
-                  />
-                  <div className="noTouch z-[-1] h-4 w-full touch-none" />
-                  <div className="noTouch absolute top-[.25rem] flex h-[3.5rem] w-fit touch-none gap-2">
-                    {Array.from({ length: ticks - 1 }).map((_, i) => (
-                      <div
-                        key={`tick${i}`}
-                        style={{
-                          left: `${
-                            (i + 1) * tickWidth - timelineOffset * zoomLevel
-                          }px`,
-                          height: `${i % 5 == 0 ? "3.5rem" : ".5rem"}`,
-                        }}
-                        className="noTouch videoTicks touch-none"
-                      />
-                    ))}
-                  </div>
-                  <ZoomController
-                    timelineOffset={timelineOffset}
-                    setTimelineOffset={setTimelineOffset}
-                    dur={dur}
-                    odur={odur}
-                    bounds={bounds}
-                  />
-                  <div
-                    ref={timelineRef}
-                    id="sessionTimelineDisplay"
-                    className="noTouch z-[20] w-full "
-                  >
-                    {sessionData &&
-                      sessionData.map((e, i) => {
-                        return (
-                          e.vidsrc === vidsrc && (
-                            <TimelineElement
-                              adjustedValue={adjustedValue}
-                              zoomLevel={zoomLevel}
-                              offset={timelineOffset}
-                              timelineWidth={bounds.width}
-                              source={source}
-                              id="sesionDataDetails"
-                              key={`${e.id}+ 'data'`}
-                              e={e}
-                              i={i}
-                              sd={sessionData}
-                              duration={dur}
-                            />
-                          )
-                        );
-                      })}
-                    <div
-                      style={{
-                        width: activeWidth,
-
-                        left: activeLeft,
-                      }}
-                      id={`active_video_element'`}
-                      key={`activeSessionClip'`}
-                      className={`noTouch absolute top-[4px] h-3 rounded-md bg-teal-300  `}
-                    ></div>
-                  </div>
-                </div>
+                  +
+                </p>
+                <p className="w-full text-center">{zoomLevel}</p>
+                <p
+                  className="m-1 w-full rounded-md bg-zinc-600 text-center"
+                  onClick={() => setZoomLevel((z) => (z - 1 > 1 ? z - 1 : 1))}
+                >
+                  -
+                </p>
               </div>
-              <div className="neumorphicIn no-scrollbar flex w-full gap-2 overflow-x-scroll rounded-md p-2 text-zinc-300">
-                {clipCombo.map((item, index) => (
-                  <span
-                    key={`${item.name} ${Math.random() * 1000}`}
-                    onClick={() => {
-                      removeClipfromCombo(index);
+              <div
+                id="timeline-container"
+                className="noTouch relative w-full overflow-hidden"
+              >
+                <CurrentTimeDiplay
+                  adjustedValue={adjustedValue}
+                  dur={dur}
+                  vidRef={vidRef}
+                />
+                <div className="noTouch z-[-1] h-4 w-full touch-none" />
+                <div className="noTouch absolute top-[.25rem] flex h-[3.5rem] w-fit touch-none gap-2">
+                  {Array.from({ length: ticks - 1 }).map((_, i) => (
+                    <div
+                      key={`tick${i}`}
+                      style={{
+                        left: `${
+                          (i + 1) * tickWidth - timelineOffset * zoomLevel
+                        }px`,
+                        height: `${i % 5 == 0 ? "3.5rem" : ".5rem"}`,
+                      }}
+                      className="noTouch videoTicks touch-none"
+                    />
+                  ))}
+                </div>
+                <ZoomController
+                  timelineOffset={timelineOffset}
+                  setTimelineOffset={setTimelineOffset}
+                  dur={dur}
+                  odur={odur}
+                  bounds={bounds}
+                />
+                <div
+                  ref={timelineRef}
+                  id="sessionTimelineDisplay"
+                  className="noTouch z-[20] w-full "
+                >
+                  {sessionData &&
+                    sessionData.map((e, i) => {
+                      return (
+                        e.vidsrc === vidsrc && (
+                          <TimelineElement
+                            adjustedValue={adjustedValue}
+                            zoomLevel={zoomLevel}
+                            offset={timelineOffset}
+                            timelineWidth={bounds.width}
+                            source={source}
+                            id="sesionDataDetails"
+                            key={`${e.id}+ 'data'`}
+                            e={e}
+                            i={i}
+                            sd={sessionData}
+                            duration={dur}
+                          />
+                        )
+                      );
+                    })}
+                  <div
+                    style={{
+                      width: activeWidth,
+
+                      left: activeLeft,
                     }}
-                  >
-                    {item.name}
-                  </span>
-                ))}
+                    id={`active_video_element'`}
+                    key={`activeSessionClip'`}
+                    className={`noTouch absolute top-[4px] h-3 rounded-md bg-teal-300  `}
+                  ></div>
+                </div>
               </div>
             </div>
+            <div className="neumorphicIn no-scrollbar flex w-full gap-2 overflow-x-scroll rounded-md p-2 text-zinc-300">
+              {clipCombo.map((item, index) => (
+                <span
+                  key={`${item.name} ${Math.random() * 1000}`}
+                  onClick={() => {
+                    removeClipfromCombo(index);
+                  }}
+                >
+                  {item.name}
+                </span>
+              ))}
+            </div>
           </div>
-        ) : null
-        // <div
-        // 	key={source?.vidsrc.replace(vidsrcRegex, "")}
-        // 	className='mt-2 flex w-full flex-col gap-4 rounded-md pl-0'>
-        // 	<div
-        // 		className='rounded-md rounded-l-none bg-zinc-700 p-2'
-        // 		onClick={() => setVidsrc(source.vidsrc)}>
-        // 		{source?.vidsrc.replace(vidsrcRegex, "")}
-        // 	</div>
-        // </div>
-      }
+        </div>
+      ) : null}
     </div>
   );
 };
