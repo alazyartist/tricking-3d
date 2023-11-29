@@ -112,7 +112,7 @@ const CircleWipe = ({
 }) => {
   const ref = useRef<THREE.ShaderMaterial & waveShaderMaterialType>(null!);
   const ref1 = useRef<THREE.Mesh>(null!);
-  const texture = useLoader(THREE.TextureLoader, "/stances.png");
+  const texture = useLoader(THREE.TextureLoader, "/Stances.png");
   useFrame(({ clock, raycaster, pointer, camera }) => {
     raycaster.setFromCamera(pointer, camera);
     if (ref.current && ref1.current) {
@@ -285,13 +285,13 @@ const Scene = ({ isPlaying }) => {
           color={new THREE.Color(0.3, 0.5, 0.9)}
         />
         <OrbitControls />
-        {/* <Grids
+        <Grids
           flat={flat}
           setFlat={setFlat}
           isPlaying={isPlaying}
           size={[5, 50]}
           color={new THREE.Color(0.9, 0.2, 0.3)}
-        /> */}
+        />
 
         <CircleWipe
           isPlaying={isPlaying}
@@ -315,7 +315,6 @@ const Scene = ({ isPlaying }) => {
           intensity={8}
         />
       </Canvas>
-      <img src={"/stances.png"} />
     </div>
   );
 };

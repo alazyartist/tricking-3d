@@ -93,11 +93,11 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
     }
   }, [zoomLevel]);
   return (
-    <div key={source.srcid + "1"} className="flex flex-col gap-2">
+    <div key={source.srcid + "1"} className="noTouch flex flex-col gap-2">
       <animated.div
         style={{ left: showDetails.left, opacity: showDetails.opacity }}
         key={source?.vidsrc.replace(vidsrcRegex, "")}
-        className="relative mt-2 flex w-full flex-col gap-4 rounded-md pl-0"
+        className="noTouch relative mt-2 flex w-full flex-col gap-4 rounded-md pl-0"
       >
         <div
           className={`rounded-md rounded-l-none ${
@@ -160,15 +160,15 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                 </div>
                 <div
                   id="timeline-container"
-                  className="relative  w-full overflow-hidden"
+                  className="noTouch relative w-full overflow-hidden"
                 >
                   <CurrentTimeDiplay
                     adjustedValue={adjustedValue}
                     dur={dur}
                     vidRef={vidRef}
                   />
-                  <div className="z-[-1] h-4 w-full" />
-                  <div className="absolute top-[.25rem] flex h-[3.5rem] w-fit touch-none gap-2">
+                  <div className="noTouch z-[-1] h-4 w-full" />
+                  <div className="noTouch absolute top-[.25rem] flex h-[3.5rem] w-fit touch-none gap-2">
                     {Array.from({ length: ticks - 1 }).map((_, i) => (
                       <div
                         key={`tick${i}`}
@@ -178,7 +178,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                           }px`,
                           height: `${i % 5 == 0 ? "3.5rem" : ".5rem"}`,
                         }}
-                        className="videoTicks"
+                        className="noTouch videoTicks touch-none"
                       />
                     ))}
                   </div>
@@ -192,7 +192,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                   <div
                     ref={timelineRef}
                     id="sessionTimelineDisplay"
-                    className=" z-[20] w-full "
+                    className="noTouch z-[20] w-full "
                   >
                     {sessionData &&
                       sessionData.map((e, i) => {
@@ -222,7 +222,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                       }}
                       id={`active_video_element'`}
                       key={`activeSessionClip'`}
-                      className={`absolute top-[4px] h-3 rounded-md bg-teal-300  `}
+                      className={`noTouch absolute top-[4px] h-3 rounded-md bg-teal-300  `}
                     ></div>
                   </div>
                 </div>
@@ -279,7 +279,7 @@ const CurrentTimeDiplay = ({ adjustedValue, dur, vidRef }) => {
       min={Math.max(0, 0 + adjustedValue)}
       //@ts-ignore
       max={dur + adjustedValue}
-      className={` w-[70vw] touch-none bg-transparent`}
+      className={`noTouch w-[70vw] touch-none bg-transparent`}
     />
   );
 };
@@ -309,14 +309,17 @@ const ZoomController = ({
     }
   );
   return (
-    <div ref={boundref} className="relative h-[1rem] w-full bg-transparent">
+    <div
+      ref={boundref}
+      className="noTouch relative h-[1rem] w-full bg-transparent"
+    >
       <div
         {...bind()}
         style={{
           width: `${percent}px`,
           left: `${Math.max(0, timelineOffset)}px`,
         }}
-        className={`absolute -top-[.125rem] z-[100] h-[1.25rem] cursor-pointer touch-pan-y rounded-sm bg-zinc-400 p-2`}
+        className={`noTouch absolute -top-[.125rem] z-[100] h-[1.25rem] cursor-pointer touch-pan-y rounded-sm bg-zinc-400 p-2`}
       ></div>
     </div>
   );

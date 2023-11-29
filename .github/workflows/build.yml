@@ -27,9 +27,13 @@ jobs:
           path: |
             ~/.pnpm-store
             ~/.pnpm-cache
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+            ${{github.workspace}}/frontend/.next
+          key: |
+            ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}-
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -79,4 +83,3 @@ jobs:
             pnpm i
             pm2 restart all
             echo "Deployed Successfully"
-  # Add more jobs or steps as needed

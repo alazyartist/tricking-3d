@@ -19,7 +19,6 @@ export default ClipBreakdownPage;
 //       SessionData: { include: { ClipLabel: true, SessionSource: true } },
 //     },
 //   });
-
 //   const sessionStringy = JSON.stringify(initialSummary);
 //   return {
 //     props: {
