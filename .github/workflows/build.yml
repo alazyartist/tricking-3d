@@ -80,6 +80,8 @@ jobs:
             sudo ln -s "/root/.nvm/versions/node/v16.18.1/bin/node" "/usr/local/bin/node" || true
             sudo ln -s "/root/.nvm/versions/node/v16.18.1/bin/pnpm" "/usr/local/bin/pnpm" || true
             sudo ln -s "$/root/.local/share/pnpm/pm2" "/usr/local/bin/pm2"  || true
+            git pull
             pnpm i
             pm2 restart all
+            pm2 status
             echo "Deployed Successfully"

@@ -6,6 +6,7 @@ import { useSessionSummariesStore } from "./SessionSummaryStore";
 import { DragBounds, useDrag, useGesture } from "@use-gesture/react";
 import useMeasure from "react-use-measure";
 import { z } from "zod";
+import { createPortal } from "react-dom";
 
 const SessionSourceDisplay = ({ source, mirrored }) => {
   const vidsrcRegex = /(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)/g;
@@ -93,7 +94,10 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
     }
   }, [zoomLevel]);
   return (
-    <div key={source.srcid + "1"} className="noTouch flex flex-col gap-2">
+    <div
+      key={source.srcid + "1"}
+      className="noTouch flex h-0 touch-none flex-col gap-2"
+    >
       <animated.div
         style={{ left: showDetails.left, opacity: showDetails.opacity }}
         key={source?.vidsrc.replace(vidsrcRegex, "")}
@@ -167,7 +171,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
                     dur={dur}
                     vidRef={vidRef}
                   />
-                  <div className="noTouch z-[-1] h-4 w-full" />
+                  <div className="noTouch z-[-1] h-4 w-full touch-none" />
                   <div className="noTouch absolute top-[.25rem] flex h-[3.5rem] w-fit touch-none gap-2">
                     {Array.from({ length: ticks - 1 }).map((_, i) => (
                       <div
@@ -311,7 +315,7 @@ const ZoomController = ({
   return (
     <div
       ref={boundref}
-      className="noTouch relative h-[1rem] w-full bg-transparent"
+      className="noTouch relative h-[2rem] w-full touch-none bg-transparent"
     >
       <div
         {...bind()}
@@ -319,7 +323,7 @@ const ZoomController = ({
           width: `${percent}px`,
           left: `${Math.max(0, timelineOffset)}px`,
         }}
-        className={`noTouch absolute -top-[.125rem] z-[100] h-[1.25rem] cursor-pointer touch-pan-y rounded-sm bg-zinc-400 p-2`}
+        className={`noTouch absolute -top-[.125rem] z-[100] h-[2.25rem] cursor-pointer touch-none rounded-sm bg-zinc-400 p-2`}
       ></div>
     </div>
   );
@@ -430,9 +434,13 @@ const TimelineElement = ({
     100;
   let l = ((e.startTime - offsetTime * zoomLevel) / parseFloat(duration)) * 100;
   const [props, api] = useSpring(() => ({
-    w: w,
-    l: l,
-    x: 0,
+    from: {
+      w: w,
+      l: l,
+      y: 0,
+      x: 0,
+    },
+    config: { tension: 222, friction: 22 },
   }));
   //needed to initialize video elements
   let isSet = false;
@@ -445,18 +453,18 @@ const TimelineElement = ({
   let lastTap = Date.now();
   const bind = useGesture(
     {
-      onDrag: ({ movement: [ox, oy], last, first, _bounds, tap }) => {
+      onDrag: ({ movement: [ox, oy], last, xy: [x, y], tap }) => {
         if (tap) {
           let thisTap = Date.now();
           if (thisTap - lastTap < 600) {
-            setIsLocked((prev) => !prev);
+            // setIsLocked((prev) => !prev);
+            setSeeDetails((prev) => !prev);
+            api.set({ y: y });
           }
           lastTap = thisTap;
         }
-        if (isLocked) return;
 
-        if (first) {
-        }
+        if (isLocked) return;
         api.start({ x: ox });
         if (last) {
           const frame = 1 / 30;
@@ -486,9 +494,10 @@ const TimelineElement = ({
       },
       // onMouseOver: () => setSeeDetails(true),
       // onMouseLeave: () => setSeeDetails(false),
-      onDoubleClick: () => {
-        setIsLocked((prev) => !prev);
-      },
+
+      // onDoubleClick: () => {
+      //   setIsLocked((prev) => !prev);
+      // },
       onContextMenu: ({ event }) => {
         event.preventDefault();
         console.log(e);
@@ -507,36 +516,48 @@ const TimelineElement = ({
 
   return (
     <>
-      {seeDetails && (
-        <animated.div
-          className="absolute top-[-4px] z-10 flex rounded bg-zinc-900 bg-opacity-90 p-2"
-          style={{
-            left: props.l.to((left) => `${left + 5}%`),
-            width: "fit",
-            x: props.x.to((x) => `${x}px`),
-          }}
-          key={`${e.trick_id} detaildropdown`}
-        >
-          <div className="flex h-full cursor-pointer flex-col gap-1 text-sm">
-            <div className=" cursor-not-allowed">Clip menu</div>
-            <div className=" border-b-2 border-zinc-100"></div>
-            <div className=" ">{e.name}</div>
-            <div onClick={() => setIsLocked((l) => !l)} className=" ">
-              {isLocked ? "Unlock" : "Lock"}
-            </div>
-            {/* <div className="flex justify-between">
+      {seeDetails &&
+        createPortal(
+          <animated.div
+            className="relative left-[2.5vw] top-4 z-[100] flex w-[95vw] rounded bg-zinc-900 bg-opacity-90 p-2 text-zinc-300"
+            style={{
+              // left: props.l.to((left) => `${left + 5}%`),
+              //top from last mouse position
+              top: props.y.to((y) => `${y}px`),
+              width: "fit",
+              // x: props.x.to((x) => `${x}px`),
+            }}
+            key={`${e.trick_id} detaildropdown`}
+          >
+            <div className="flex h-full cursor-pointer flex-col gap-2 text-sm">
+              <div className="" onClick={() => setSeeDetails(false)}>
+                Clip menu
+              </div>
+              <div className=" border-b-2 border-zinc-100"></div>
+              <div className=" ">{e.name}</div>
+              <div
+                onClick={() => {
+                  setIsLocked((l) => !l);
+                  setSeeDetails(false);
+                }}
+                className=" "
+              >
+                {isLocked ? "Unlock" : "Lock"}
+              </div>
+              {/* <div className="flex justify-between">
               <div className="bg-emerald-300 p-1 text-zinc-800 ">
                 {e.startTime}
               </div>
               <div className="bg-red-300 p-1 text-zinc-800 ">{e.endTime}</div>
             </div> */}
-            {/* <div className=" ">{e.admin}</div> */}
-          </div>
-          {/* <div className=' '>{e.takeoffStance}</div>
+              {/* <div className=" ">{e.admin}</div> */}
+            </div>
+            {/* <div className=' '>{e.takeoffStance}</div>
 					<div className=' '>{e.landingStance}</div>
 					<div className=' '>{e.base_id}</div> */}
-        </animated.div>
-      )}
+          </animated.div>,
+          document.getElementById("portal-root")
+        )}
       <animated.div
         {...bind()}
         id={"video_element"}

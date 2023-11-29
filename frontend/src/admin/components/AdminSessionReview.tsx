@@ -74,7 +74,7 @@ const AdminSessionReview = ({
   }, [sessionDetails, setSessionSources, setVidsrc]);
   const [mirrored, toggleMirrored] = useState(false);
   return (
-    <div className="no-scrollbar fixed left-0 top-0 h-screen w-screen overflow-scroll">
+    <div className="no-scrollbar noTouch fixed left-0 top-0 h-screen w-screen overflow-scroll">
       <Link
         className="absolute left-2 top-4 text-3xl text-zinc-300"
         href={"/admin"}
@@ -102,6 +102,7 @@ const AdminSessionReview = ({
           </div>
         </div>
       )}
+      <div id={"portal-root"}></div>
       <MakeNewTrickModal />
       <ActiveClipDisplay />
       {tricks !== undefined && combos !== undefined && (
