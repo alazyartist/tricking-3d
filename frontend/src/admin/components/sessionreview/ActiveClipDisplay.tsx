@@ -16,11 +16,12 @@ const ActiveClipDisplay = () => {
     (s) => s.setClipDetailsVisible
   );
   const showDetails = useSpring({
-    from: { spanOpacity: 1, opacity: 0, right: "-10vw" },
+    from: { spanOpacity: 1, opacity: 0, right: "-10vw", width: "0px" },
     to: {
-      spanOpacity: !clipDetailsVisible ? 1 : 0,
-      opacity: clipDetailsVisible ? 1 : 1,
-      right: clipDetailsVisible ? "0" : "-200px",
+      spanOpacity: !clipDetailsVisible ? 1 : 1,
+      opacity: clipDetailsVisible ? 0 : 1,
+      // right: clipDetailsVisible ? "0" : "-200px",
+      width: !clipDetailsVisible ? "220px" : "10px",
     },
     delay: 100,
     config: { tension: 280, friction: 40 },
@@ -38,12 +39,62 @@ const ActiveClipDisplay = () => {
   return (
     <animated.div
       key={activeClipData?.id + "details"}
-      style={{ right: showDetails.right, opacity: showDetails.opacity }}
-      className="absolute right-2 top-14 flex h-[92.5vh] w-[220px] flex-col gap-2 rounded-md rounded-r-none bg-zinc-900 bg-opacity-60 p-1 pl-6 font-inter text-xs text-zinc-300 backdrop-blur-xl"
+      style={{
+        // right: showDetails.right,
+        width: showDetails.width,
+      }}
+      className="absolute right-2 top-14 z-[100] flex h-[92.5vh] w-[220px] flex-col gap-2 rounded-md rounded-r-none bg-zinc-900 bg-opacity-60 p-1 pl-6 font-inter text-xs text-zinc-300 backdrop-blur-xl"
     >
-      <div className="w-full rounded-md rounded-r-sm bg-zinc-200 bg-opacity-70 p-2 text-center font-inter text-2xl font-bold text-zinc-900">
-        <div>{activeClipData?.sessionid?.slice(-8)}</div>
-      </div>
+      <animated.div
+        className="flex flex-col gap-2"
+        style={{
+          display: clipDetailsVisible ? "none" : "flex",
+        }}
+      >
+        <div className="w-full overflow-hidden rounded-md rounded-r-sm bg-zinc-200 bg-opacity-70 p-2 text-center font-inter text-2xl font-bold text-zinc-900">
+          <div>{activeClipData?.sessionid?.slice(-8)}</div>
+        </div>
+        <div className="whitespace-pre-wrap">
+          {clipCombo.map((e) => e.name).join(">")}
+        </div>
+        <div>{activeClipData?.name}</div>
+        <div>
+          Points:
+          {clipCombo.length &&
+            clipCombo.reduce((sum, b) => sum + (b?.pointValue ?? 0), 0)}
+        </div>
+        <div>{activeClipData?.user_id?.slice(-4)}</div>
+        <div>
+          {activeClipData?.bail &&
+            activeClipData.bail > 0 &&
+            activeClipData?.bail}
+        </div>
+        <div>{activeClipData?.vidsrc}</div>
+        <div className="grid h-[2rem] w-full grid-cols-[1fr_1fr_1fr] justify-around gap-2 overflow-hidden text-center font-bold">
+          <div
+            onClick={() => setSeekTime(activeClipData?.startTime as number)}
+            className="min-w-10 h-full place-self-center rounded-md bg-emerald-300 p-1 text-zinc-800"
+          >
+            {Math.floor(activeClipData?.startTime as number)}|{startframe}
+          </div>
+          <div className="h-fit w-full place-self-center rounded-md bg-zinc-300 p-1 text-center font-bold text-zinc-800">
+            <span>{Math.floor(currentTime)}</span>
+            <span>|{frame}</span>
+          </div>
+          <div
+            onClick={() => setSeekTime(activeClipData?.endTime as number)}
+            className="min-w-10 h-full place-self-center rounded-md bg-red-300  p-1 text-zinc-800"
+          >
+            {Math.floor(activeClipData?.endTime as number)}|{endframe}
+          </div>
+        </div>
+        <div className="minimalistScroll flex h-[60%] flex-col overflow-y-scroll">
+          {sessionData?.map((e, i) => (
+            <SessionDataDetailDislpay key={e.id + e.name} e={e} />
+          ))}
+        </div>
+      </animated.div>
+
       <div
         onClick={() => {
           setClipDetailsVisible();
@@ -51,51 +102,12 @@ const ActiveClipDisplay = () => {
         }}
         className="absolute left-[-4px] h-full w-[25px] "
       />
-      <div className="whitespace-pre-wrap">
-        {clipCombo.map((e) => e.name).join(">")}
-      </div>
-      <div>{activeClipData?.name}</div>
-      <div>
-        Points:
-        {clipCombo.length &&
-          clipCombo.reduce((sum, b) => sum + (b?.pointValue ?? 0), 0)}
-      </div>
-      <div>{activeClipData?.user_id?.slice(-4)}</div>
-      <div>
-        {activeClipData?.bail &&
-          activeClipData.bail > 0 &&
-          activeClipData?.bail}
-      </div>
-      <div>{activeClipData?.vidsrc}</div>
-      <div className="grid grid-cols-[1fr_1fr_1fr] justify-around gap-2 text-center font-bold">
-        <div
-          onClick={() => setSeekTime(activeClipData?.startTime as number)}
-          className="min-w-10 rounded-md bg-emerald-300 p-1 text-zinc-800"
-        >
-          {Math.floor(activeClipData?.startTime as number)}|{startframe}
-        </div>
-        <div className="w-24 place-self-center rounded-md bg-zinc-300 p-1 text-center font-bold text-zinc-800">
-          <span>{Math.floor(currentTime)}</span>
-          <span>|{frame}</span>
-        </div>
-        <div
-          onClick={() => setSeekTime(activeClipData?.endTime as number)}
-          className="min-w-10 rounded-md bg-red-300  p-1 text-zinc-800"
-        >
-          {Math.floor(activeClipData?.endTime as number)}|{endframe}
-        </div>
-      </div>
       <animated.span
         style={{ opacity: showDetails.spanOpacity }}
         className="absolute left-[-11px] top-[4.5vh] -rotate-90"
       >
         Details
       </animated.span>
-      <div className="minimalistScroll flex h-[60%] flex-col overflow-y-scroll">
-        {sessionData?.map((e, i) => (
-          <SessionDataDetailDislpay key={e.id + e.name} e={e} />
-        ))}
-      </div>
     </animated.div>
   );
 };
