@@ -329,7 +329,7 @@ export const sessionsummariesRouter = router({
             endTime: z.number(),
             bail: z.number(),
             id: z.string(),
-            admin: z.string(),
+            admin: z.string().optional(),
             srcid: z.string(),
             vidsrc: z.string(),
             clipLabel: z.array(z.any()),
