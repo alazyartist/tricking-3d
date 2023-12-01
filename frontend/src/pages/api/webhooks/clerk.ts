@@ -1,19 +1,23 @@
 import { clerkClient } from "@clerk/nextjs";
+import Mixpanel from "mixpanel";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "server/db/client";
-
+const mixpanel = Mixpanel.init(process.env.MIXPANEL_TOKEN);
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const _event_type = req.body.type;
   console.log(_event_type);
+  console.log("req.body", req.body);
+
   if (_event_type === "user.deleted") {
     const user_id = req.body?.data?.id;
     try {
       const deletedUser = await prisma.users.delete({
         where: { clerk_id: user_id },
       });
+      mixpanel.track("Deleted User", { ...deletedUser });
       console.log(deletedUser);
     } catch (err) {}
   }
@@ -65,6 +69,15 @@ export default async function handler(
               SessionReviewCredits: 2,
             },
           });
+          mixpanel.people.set(newUser.uuid, {
+            $email: newUser.email,
+            $first_name: newUser.first_name,
+            $last_name: newUser.last_name,
+            $username: newUser.username,
+            $created: newUser.createdAt,
+            $last_login: newUser.updatedAt,
+          });
+          mixpanel.track("Registered New User", { ...newUser });
           console.log("newUser");
           console.log(newUser);
         }
@@ -77,12 +90,27 @@ export default async function handler(
   }
   if (_event_type === "session.created") {
     const user_id = req.body?.data?.user_id;
-    console.log(user_id);
+    console.log("Session created for" + user_id);
     const clerkUser = await clerkClient.users.getUser(user_id);
-    console.log(clerkUser?.username);
     const user = await prisma.users.findUnique({
       where: { username: clerkUser.username },
     });
+    await prisma.users.update({
+      where: { username: clerkUser.username },
+      data: { updatedAt: new Date() },
+    });
+    mixpanel.people.set(user.uuid, {
+      $email: user.email,
+      $first_name: user.first_name,
+      $last_name: user.last_name,
+      $username: user.username,
+      $created: user.createdAt,
+      $last_login: user.updatedAt,
+    });
+    mixpanel.track("Login");
+
+    console.log(clerkUser?.username);
     console.log("user", user);
+    return res.status(200);
   }
 }

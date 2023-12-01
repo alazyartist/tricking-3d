@@ -8,6 +8,7 @@ import type { NextRequest } from "next/server";
 // });
 export default authMiddleware({
   publicRoutes: [
+    "/api/webhooks/(.*)",
     "/",
     "/home",
     "/test",

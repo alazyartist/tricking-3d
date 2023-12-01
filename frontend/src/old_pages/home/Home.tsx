@@ -16,6 +16,7 @@ import {
   UserButton,
   useUser,
 } from "@clerk/nextjs";
+import mixpanel from "@utils/mixpanel";
 
 function Home() {
   // const user = useUserStore((s) => s.userInfo?.username);
@@ -127,6 +128,7 @@ const SnagUserInfo = () => {
     {
       onSuccess(data) {
         setUserInfo({ ...data });
+        mixpanel.identify(data.uuid);
       },
     }
   );
