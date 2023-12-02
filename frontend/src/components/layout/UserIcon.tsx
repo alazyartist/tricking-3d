@@ -25,9 +25,9 @@ const UserIcon = () => {
   return (
     <Link
       href={href}
-      className="fixed top-2.5 right-5 z-[1002] h-[50px] w-[50px] rounded-full border-2 border-zinc-300 border-opacity-20"
+      className="fixed right-5 top-2.5 z-[1002] h-[50px] w-[50px] rounded-full border-2 border-zinc-300 border-opacity-20"
     >
-      <img src={src} className="h-full w-full rounded-full" />
+      <img id="user-icon" src={src} className="h-full w-full rounded-full" />
     </Link>
   );
 };

@@ -17,6 +17,8 @@ import {
   useUser,
 } from "@clerk/nextjs";
 import mixpanel from "@utils/mixpanel";
+import GetStartedPopup from "./components/GetStartedPopup";
+import { FaQuestionCircle } from "react-icons/fa";
 
 function Home({ userInfo: stringy }) {
   // const user = useUserStore((s) => s.userInfo?.username);
@@ -41,9 +43,27 @@ function Home({ userInfo: stringy }) {
   const logoAnim = useSpring({
     to: { width: isSignedIn ? "50vw" : "100vw" },
   });
-
+  const [helpVisible, setHelpVisible] = React.useState(true);
   return (
     <div className=" stick h-full w-full  md:pt-[15vh] ">
+      {/* <GetStartedPopup
+        setHelpVisible={setHelpVisible}
+        helpVisible={helpVisible}
+        steps={[
+          {
+            title: "Welcome",
+            content: "need some help",
+            id: "add-session-button",
+          },
+          { title: "UserIcon", content: "testing", id: "user-icon" },
+          { title: "TempFeed", content: "testing", id: "temp-feed" },
+          {
+            title: "Add Session",
+            content: "testing",
+            id: "add-session-button",
+          },
+        ]}
+      /> */}
       <div
         id="AppBackground-flex"
         className="flex h-full w-full flex-col place-items-center"
@@ -63,6 +83,12 @@ function Home({ userInfo: stringy }) {
         </div>
         <div className="no-scrollbar z-[1] h-[84vh] overflow-y-scroll rounded-xl bg-zinc-800 bg-opacity-40 py-2 backdrop-blur-xl">
           <div className="flex flex-col place-items-center">
+            <div
+              className="absolute right-5"
+              onClick={() => setHelpVisible(true)}
+            >
+              <FaQuestionCircle color={"#cccccc"} size={30} />
+            </div>
             <Link
               href="/learnMore"
               className="m-2 rounded-3xl bg-indigo-600 px-4 py-2 font-inter font-semibold text-zinc-300"
@@ -85,7 +111,7 @@ function Home({ userInfo: stringy }) {
             <SignedIn>
               <Button
                 href={isSignedIn ? "/addSession" : "/login"}
-                label={"Add Session"}
+                label={<span id="add-session-button">Add Session</span>}
               />
             </SignedIn>
             <SignedOut>
