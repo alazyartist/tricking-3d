@@ -22,8 +22,9 @@ const ClaimTricks = ({ user_id }) => {
     setSearchTerm(searchTerm);
     setSearchedItems(newFilter);
   };
+  console.log(searchedItems);
   return (
-    <div className="no-scrollbar h-[60vh] w-full overflow-y-scroll bg-zinc-900 bg-opacity-70 font-inter">
+    <div className="no-scrollbar flex h-[60vh] w-full flex-col place-items-start overflow-y-scroll bg-zinc-900 bg-opacity-70 font-inter ">
       <div className="text-center text-3xl font-bold">ClaimTricks</div>
       <div className="sticky top-0 z-[4] my-2 w-full p-2 backdrop-blur-md">
         <input
@@ -60,7 +61,7 @@ const ClaimTricks = ({ user_id }) => {
           </p>
         </div>
       </div>
-      <div className="flex w-[88vw] max-w-[540px] flex-col place-items-center p-2 lg:max-w-full">
+      <div className="flex w-[88vw] max-w-[540px] flex-col place-items-center p-2  lg:max-w-full">
         {searchedItems
           ?.sort((a, b) => {
             if (sortType === "Family") {

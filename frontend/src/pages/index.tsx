@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import React from "react";
+import { getAuth } from "@clerk/nextjs/server";
 import LandingPage from "./landing/index";
 const Index: NextPage<{ a: boolean }> = ({ a }) => {
   return (
@@ -12,10 +13,10 @@ const Index: NextPage<{ a: boolean }> = ({ a }) => {
 export default Index;
 
 export const getServerSideProps = async (props) => {
-  const { req } = props;
-  const sessionID = req.cookies.__session;
+  const auth = getAuth(props.req);
+  const userId = auth?.userId;
 
-  if (sessionID) {
+  if (userId) {
     // User is not logged in, you can handle this case accordingly
     return {
       redirect: {
@@ -24,7 +25,7 @@ export const getServerSideProps = async (props) => {
       },
     };
   }
-  if (!sessionID) {
+  if (!userId) {
     return {
       props: {
         a: Math.random() > 0.5 ? true : false,

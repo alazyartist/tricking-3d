@@ -219,4 +219,17 @@ export const userRouter = router({
         return captureSuccess;
       }
     }),
+  getDashInfo: publicProcedure.query(async ({ ctx }) => {
+    if (!ctx?.auth.userId) return "No User";
+    const user = await ctx.prisma.users.findUnique({
+      where: { clerk_id: ctx?.auth.userId },
+      select: {
+        uuid: true,
+        profilePic: true,
+        clerk_id: true,
+        username: true,
+      },
+    });
+    return user;
+  }),
 });

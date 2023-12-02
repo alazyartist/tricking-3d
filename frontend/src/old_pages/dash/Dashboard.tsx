@@ -6,16 +6,15 @@ import UserCard from "./components/UserCard";
 import useLogout from "../../hooks/useLogout";
 import { useUserStore } from "@store/userStore";
 import Captures from "./components/Captures";
-import useGetTricks from "api/useGetTricks";
 import UserList from "@components/UserList";
 import SessionList from "./components/SessionList";
 import ClaimTricks from "@old_pages/claimtricks/ClaimTricks";
 import Link from "next/link";
 
-function Dashboard() {
+function Dashboard({ uuid, profilePic }) {
   const logout = useLogout();
   const user = useUserStore((s) => s.user);
-  const { profilePic, uuid } = useUserStore((s) => s.userInfo);
+  // const { profilePic, uuid } = useUserStore((s) => s.userInfo);
   const [activeSection, setSection] = useState("sessions");
 
   const getActiveSection = (section) => {

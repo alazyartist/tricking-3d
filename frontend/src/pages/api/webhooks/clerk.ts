@@ -93,10 +93,10 @@ export default async function handler(
     console.log("Session created for" + user_id);
     const clerkUser = await clerkClient.users.getUser(user_id);
     const user = await prisma.users.findUnique({
-      where: { username: clerkUser.username },
+      where: { clerk_id: clerkUser.id },
     });
     await prisma.users.update({
-      where: { username: clerkUser.username },
+      where: { clerk_id: clerkUser.id },
       data: { updatedAt: new Date() },
     });
     mixpanel.people.set(user.uuid, {
@@ -111,6 +111,6 @@ export default async function handler(
 
     console.log(clerkUser?.username);
     console.log("user", user);
-    return res.status(200);
+    return res.status(200).send("OK");
   }
 }

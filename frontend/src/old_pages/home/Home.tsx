@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { useUserStore } from "../../store/userStore";
 import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
@@ -18,9 +18,25 @@ import {
 } from "@clerk/nextjs";
 import mixpanel from "@utils/mixpanel";
 
-function Home() {
+function Home({ userInfo: stringy }) {
   // const user = useUserStore((s) => s.userInfo?.username);
+  const setUserInfo = useUserStore((s) => s.setUserInfo);
   const { isSignedIn } = useUser();
+  useEffect(() => {
+    if (isSignedIn && stringy) {
+      const userInfo = JSON.parse(stringy);
+      setUserInfo(userInfo);
+      mixpanel.identify(userInfo.uuid);
+      mixpanel.people.set({
+        $email: userInfo.email,
+        $username: userInfo.username,
+        $name: userInfo.username,
+        $created: userInfo.createdAt,
+        $last_login: userInfo.lastLoginAt,
+        $image: userInfo.profilePic,
+      });
+    }
+  }, []);
 
   const logoAnim = useSpring({
     to: { width: isSignedIn ? "50vw" : "100vw" },
@@ -56,7 +72,6 @@ function Home() {
 
             <SignedIn>
               <UserButton afterSignOutUrl="/home" />
-              <SnagUserInfo />
             </SignedIn>
             <AnimatedSearch />
             <Button
@@ -118,19 +133,4 @@ const Button = ({ href, label }) => {
       </div>
     </Link>
   );
-};
-
-const SnagUserInfo = () => {
-  const { isSignedIn, user } = useUser();
-  const setUserInfo = useUserStore((s) => s.setUserInfo);
-  const { data: userData } = trpc.userDB.findByClerkId.useQuery(
-    { clerk_id: user?.id as string },
-    {
-      onSuccess(data) {
-        setUserInfo({ ...data });
-        mixpanel.identify(data.uuid);
-      },
-    }
-  );
-  return <></>;
 };
