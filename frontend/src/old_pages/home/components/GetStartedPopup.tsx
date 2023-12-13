@@ -62,6 +62,9 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
         : activeElement?.left,
       isOutOfBounds
     );
+    console.log("h", window?.innerHeight, activeElement?.top, bounds.height);
+    console.log("w", window?.innerWidth, activeElement?.left, bounds.width);
+    console.log(isOutOfBounds);
   }, [currentStep, activeStep]);
 
   const transitions = useTransition(currentStep, {
@@ -88,7 +91,7 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
           left: isOutOfBounds
             ? activeElement.left - bounds.width > 0
               ? activeElement.left - bounds.width / 2
-              : activeElement.left + bounds.width
+              : activeElement.left
             : activeElement?.left,
           top: isOutOfBounds
             ? activeElement?.top + bounds.height / 2 > window.innerHeight

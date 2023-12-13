@@ -150,7 +150,6 @@ export const userRouter = router({
           clerk_id: true,
         },
       });
-      console.log(user);
       if (user?.clerk_id) {
         const clerkUser = await clerkClient.users.getUser(user?.clerk_id!);
         if (clerkUser?.imageUrl) {

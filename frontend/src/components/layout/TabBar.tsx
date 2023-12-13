@@ -15,7 +15,7 @@ import { IoIosPerson } from "react-icons/io";
 
 function TabBar() {
   const [openHamburger, setOpenHamburger] = useState<Boolean>();
-  const [openNav, setOpenNav] = useState<Boolean>(true);
+  const [openNav, setOpenNav] = useState<Boolean>(false);
   const isAdmin = useIsAdmin();
   const { user, isSignedIn } = useUser();
   const logout = useLogout();
