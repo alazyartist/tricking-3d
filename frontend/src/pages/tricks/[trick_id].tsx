@@ -1,8 +1,10 @@
+import UserProfilePicById from "@components/info/UserProfilePicById";
 import AnimatedSearch from "@old_pages/home/components/AnimatedSearch";
 import { trpc } from "@utils/trpc";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import ReactPlayer from "react-player";
 
 const TricksPage = () => {
@@ -19,7 +21,7 @@ const TricksPage = () => {
     <div
       className={`backrop-blur-xl no-scrollbar flex h-[100vh] w-full flex-col place-items-center gap-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-70 p-4 font-inter text-zinc-300`}
     >
-      <div className="absolute top-4 left-4">
+      <div className="absolute left-4 top-4">
         <AnimatedSearch />
       </div>
       <div className="flex place-items-center gap-2">
@@ -81,7 +83,7 @@ const CombosWithTrickDisplay = ({ combos, trick }) => {
                 >
                   <p
                     className={`${
-                      trick.type === "Transition" ? "text-[8px]" : ""
+                      trick.type === "Transition" ? "text-[10px]" : ""
                     }`}
                   >
                     {trick.name}
@@ -94,7 +96,7 @@ const CombosWithTrickDisplay = ({ combos, trick }) => {
               <p className="text-xs">...</p>
             </Link>
           </div>
-          <div className={"text-xs"}>
+          <div className={"flex gap-2 pt-2 text-xs"}>
             {combo.Clips.map((clip, i) => (
               <div key={`${clip.id} ${i}`}>
                 <ExampleClipDisplay
@@ -121,14 +123,16 @@ export const ExampleClipDisplay = ({ clip, i, seeExample, setSeeExample }) => {
     if (vidRef.current) {
       vidRef?.current?.seekTo(clip.clipStart);
     }
-    console.log(vidRef.current);
   };
+  const { data: user_image } = trpc.userDB.findUserImageById.useQuery({
+    uuid: clip.summary.user_id,
+  });
 
   return (
     <>
       {seeExample === clip.id && (
         <div>
-          <div className="p-2">
+          {createPortal(
             <div className="no-scrollbar flex aspect-video w-full overflow-clip rounded-md">
               <ReactPlayer
                 ref={vidRef}
@@ -151,15 +155,22 @@ export const ExampleClipDisplay = ({ clip, i, seeExample, setSeeExample }) => {
                 playsInline
                 url={clip.summary.SessionSources[0].vidsrc}
               />
-            </div>
-          </div>
+            </div>,
+            document.getElementById("video-portal")
+          )}
         </div>
       )}
       <button
         type={"button"}
-        className={"rounded-md bg-zinc-700 px-2"}
+        className={"flex justify-between gap-2 rounded-md bg-zinc-700 p-2"}
         onClick={() => handleClick(clip.id)}
-      >{`Clip ${i + 1}`}</button>
+      >
+        <img
+          src={user_image}
+          className={"h-6 w-6 place-self-start rounded-full"}
+        />
+        <p>{`Clip ${i + 1}`}</p>
+      </button>
     </>
   );
 };

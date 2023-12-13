@@ -1,5 +1,6 @@
 import { router, publicProcedure, protectedProcedure } from "../trpc";
 import { z } from "zod";
+import { clerkClient } from "@clerk/nextjs";
 
 export const userRouter = router({
   findAll: publicProcedure.query(async ({ input, ctx }) => {
@@ -139,6 +140,21 @@ export const userRouter = router({
           ],
         };
       } else return profileInfo;
+    }),
+  findUserImageById: publicProcedure
+    .input(z.object({ uuid: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const user = await ctx.prisma.users.findUnique({
+        where: { uuid: input.uuid },
+        select: {
+          clerk_id: true,
+        },
+      });
+
+      const clerkUser = await clerkClient.users.getUser(user?.clerk_id!);
+      console.log(clerkUser.imageUrl);
+
+      return clerkUser.imageUrl;
     }),
   findByClerkId: publicProcedure
     .input(z.object({ clerk_id: z.string() }))

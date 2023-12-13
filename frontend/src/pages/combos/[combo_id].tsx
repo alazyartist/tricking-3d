@@ -20,7 +20,7 @@ const ComboPage = () => {
     <div
       className={`backrop-blur-xl no-scrollbar no-scrollbar flex h-[100vh] w-full flex-col place-items-center gap-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-70 p-4 font-inter text-zinc-300`}
     >
-      <div className="absolute top-4 left-4">
+      <div className="absolute left-4 top-4">
         <AnimatedSearch />
       </div>
       <div className="flex place-items-center gap-2 pt-14">
@@ -50,6 +50,7 @@ const ComboPage = () => {
           varietyMap={[]}
         />
       )}
+      <div id={"video-portal"} />
       <div>{comboInfo.Clips.length > 0 ? "Clips" : "No Clips Yet"}</div>
       {comboInfo.Clips.map((clip, i) => (
         <div key={clip.id}>
@@ -147,7 +148,7 @@ const ComboDetails = ({ tricks, chainMap, varietyMap }) => {
                       cm[0] - 2 === i ? (
                         <>
                           <div
-                            className={`absolute left-[90%] bottom-[10px] z-[-1] h-4 w-[110px] rounded-md bg-zinc-300 bg-opacity-20`}
+                            className={`absolute bottom-[10px] left-[90%] z-[-1] h-4 w-[110px] rounded-md bg-zinc-300 bg-opacity-20`}
                           />
                         </>
                       ) : null
