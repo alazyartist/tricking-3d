@@ -24,7 +24,18 @@ const TricksPage = () => {
       <div className="absolute left-4 top-4">
         <AnimatedSearch />
       </div>
-      <div className="flex place-items-center gap-2">
+      <TrickInfoGrid trickInfo={trickInfo} />
+      <div id={"video-portal"} />
+      <CombosWithTrickDisplay combos={combos} trick={trickInfo.name} />
+    </div>
+  );
+};
+
+export default TricksPage;
+const TrickInfoGrid = ({ trickInfo }) => {
+  return (
+    <div className="flex w-full flex-col place-items-center gap-2 md:max-w-[800px]">
+      <div className="flex place-items-center gap-2 ">
         <h1 className="text-bold text-2xl ">{trickInfo.name}</h1>
         <p>{trickInfo.pointValue}</p>
       </div>
@@ -61,12 +72,9 @@ const TricksPage = () => {
           <div>{v.variation.pointValue}</div>
         </div>
       ))}
-      <CombosWithTrickDisplay combos={combos} trick={trickInfo.name} />
     </div>
   );
 };
-
-export default TricksPage;
 
 const CombosWithTrickDisplay = ({ combos, trick }) => {
   const [seeExample, setSeeExample] = useState();

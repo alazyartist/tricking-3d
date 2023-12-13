@@ -84,7 +84,7 @@ function TabBar() {
             </button>
           </div>
         </animated.div>
-        <button
+        {/* <button
           type="button"
           className={` ${
             openNav ? "" : " rotate-180"
@@ -94,7 +94,7 @@ function TabBar() {
           }}
         >
           ^^
-        </button>
+        </button> */}
       </animated.div>
 
       {/* Open Hamburger Menu Display */}
