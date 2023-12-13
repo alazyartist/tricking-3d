@@ -54,7 +54,14 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
         setWasOutOfBounds(false);
       }
     }
-    console.log(previousElement, activeElement);
+    console.log(
+      isOutOfBounds
+        ? activeElement.left - bounds.width > 0
+          ? activeElement.left
+          : activeElement.left + bounds.width / 2
+        : activeElement?.left,
+      isOutOfBounds
+    );
   }, [currentStep, activeStep]);
 
   const transitions = useTransition(currentStep, {
@@ -62,10 +69,12 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
       ? {
           opacity: 0,
           left: wasOutOfBounds
-            ? previousElement.current.left - bounds.width / 2
+            ? previousElement.current.left - bounds.width / 2 > 0
+              ? previousElement.current.left - bounds.width / 2
+              : 0
             : previousElement.current.left,
           top: wasOutOfBounds
-            ? previousElement.current.top + bounds.height / 2
+            ? previousElement.current.top - bounds.height / 2
             : previousElement.current.top,
         }
       : {
@@ -77,10 +86,14 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
       ? {
           opacity: 1,
           left: isOutOfBounds
-            ? activeElement?.left - bounds.width / 2
+            ? activeElement.left - bounds.width > 0
+              ? activeElement.left - bounds.width / 2
+              : activeElement.left + bounds.width
             : activeElement?.left,
           top: isOutOfBounds
-            ? activeElement?.top + bounds.height / 2
+            ? activeElement?.top + bounds.height / 2 > window.innerHeight
+              ? window.innerHeight - 1.5 * bounds.height
+              : activeElement?.top + bounds.height / 2
             : activeElement?.top,
         }
       : { opacity: 1 },
@@ -99,18 +112,22 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
       {transitions(({ opacity, left, top }, item, i) => (
         <animated.div
           key={item.title + i}
-          className="absolute left-[50%] z-[100] flex h-fit w-fit translate-x-[-50%] flex-col place-content-center place-items-center rounded-md bg-zinc-800 p-8 text-xl text-zinc-200"
+          className={`absolute left-[50%] z-[100] flex h-fit w-fit ${
+            activeStep === 0 && "translate-x-[-50%]"
+          } flex-col place-content-center place-items-center rounded-md bg-zinc-800 text-xl text-zinc-200`}
           style={{ opacity, left: left, top: top }}
           ref={measureRef}
         >
-          <h3 className="">{item.title}</h3>
-          <p className=" text-sm font-extralight">{item.content}</p>
-          <div className="flex gap-2">
+          <div className="p-8">
+            <h3 className="">{item.title}</h3>
+            <p className=" text-sm font-extralight">{item.content}</p>
+          </div>
+          <div className="flex w-full justify-around gap-2 pb-4">
             <button
               onClick={() => setHelpVisible(false)}
-              className="rounded-3xl bg-red-500 p-2 py-1 text-sm"
+              className="rounded-lg bg-red-500 p-2 py-1 text-sm"
             >
-              dismiss
+              skip
             </button>
             {activeStep != steps.length - 1 && (
               <button
@@ -119,7 +136,7 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
                     ? setActiveStep(activeStep + 1)
                     : closePopover()
                 }
-                className="rounded-3xl bg-zinc-700 p-2 py-1 text-sm"
+                className="rounded-lg bg-zinc-700 p-2 py-1 text-sm"
               >
                 next
               </button>
@@ -141,7 +158,7 @@ const Arrow = ({ from, to }) => {
     // Calculate center points of source and target elements
     const fromCenterX = from.left + from.width / 2;
     const fromCenterY = from.top + from.height / 2;
-    const toCenterX = to.left - 5;
+    const toCenterX = to.left + 5;
     const toCenterY = to.top + to.height - 5;
 
     // Calculate distance and angle between elements
@@ -151,13 +168,17 @@ const Arrow = ({ from, to }) => {
     const length = Math.sqrt(deltaX ** 2 + deltaY ** 2);
 
     return {
-      position: "absolute",
+      position: "fixed",
+      overflow: "hidden",
       width: `${length}px`,
       height: "8px", // adjust thickness of the arrow
-      backgroundColor: "white", // arrow color
+      backgroundColor: "#d4d4d4", // arrow color
       transformOrigin: "0 0",
       transform: `translate(${fromCenterX}px, ${fromCenterY}px) rotate(${angle}deg)`,
       pointerEvents: "none", // ensure arrow doesn't interfere with other elements
+      borderRadius: "80%",
+      opacity: 0.62,
+      filter: "blur(3px)",
     };
   }
   const animatedStyle = useSpring({

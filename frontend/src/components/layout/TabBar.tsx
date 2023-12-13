@@ -73,7 +73,7 @@ function TabBar() {
             <Link href="/sandbox">
               <BiCube />
             </Link>
-            <Link href="/theory">
+            <Link id={"theory-target"} href="/theory">
               <TheoryCap />
             </Link>
             <button

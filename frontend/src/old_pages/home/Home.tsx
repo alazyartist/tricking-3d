@@ -53,18 +53,38 @@ function Home({ userInfo: stringy }) {
           steps={[
             {
               title: "Welcome",
-              content: "need some help",
+              content:
+                "This walkthrough will show you around the site, you can close it at any time by pressing skip",
               id: "add-session-button",
             },
-            { title: "UserIcon", content: "testing", id: "user-icon" },
-            { title: "TempFeed", content: "testing", id: "temp-feed" },
+            {
+              title: "UserIcon",
+              content: "Click here to go to your profile",
+              id: "user-icon",
+            },
+            {
+              title: "TempFeed",
+              content:
+                "This is the temp feed, it will be replaced with a real feed soon",
+              id: "temp-feed",
+            },
             {
               title: "Add Session",
-              content: "testing",
+              content: "Click here to add a session",
               id: "add-session-button",
             },
             {
-              title: "Good Luck",
+              title: "Theory",
+              content: "Click here to add a session",
+              id: "theory-target",
+            },
+            {
+              title: "Search",
+              content: "Search for tricks, combos, users, and more",
+              id: "search-bar",
+            },
+            {
+              title: "Enjoy!",
               content: "You Can find this walkthrough again in the help menu",
               id: "help-button",
             },
