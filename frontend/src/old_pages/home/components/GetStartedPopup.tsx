@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import useMeasure from "react-use-measure";
-import { useTransition, animated } from "@react-spring/web";
+import { useTransition, animated, a, useSpring } from "@react-spring/web";
 
 interface Step {
   title: string;
@@ -90,9 +90,12 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
         }
       : { opacity: 0 },
   });
-
+  const closePopover = () => {
+    setHelpVisible(false);
+    setActiveStep(0);
+  };
   return (
-    <div className="welcome-popover">
+    <div className="welcome-popover font-inter">
       {transitions(({ opacity, left, top }, item, i) => (
         <animated.div
           key={item.title + i}
@@ -101,7 +104,7 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
           ref={measureRef}
         >
           <h3 className="">{item.title}</h3>
-          <p className="">{item.content}</p>
+          <p className=" text-sm font-extralight">{item.content}</p>
           <div className="flex gap-2">
             <button
               onClick={() => setHelpVisible(false)}
@@ -109,17 +112,65 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
             >
               dismiss
             </button>
-            <button
-              onClick={() => setActiveStep((activeStep + 1) % steps.length)}
-              className="rounded-3xl bg-zinc-700 p-2 py-1 text-sm"
-            >
-              next
-            </button>
+            {activeStep != steps.length - 1 && (
+              <button
+                onClick={() =>
+                  activeStep + 1 <= steps.length
+                    ? setActiveStep(activeStep + 1)
+                    : closePopover()
+                }
+                className="rounded-3xl bg-zinc-700 p-2 py-1 text-sm"
+              >
+                next
+              </button>
+            )}
           </div>
         </animated.div>
       ))}
+      {activeStep > 0 && activeElement && previousElement && (
+        <Arrow from={bounds} to={previousElement.current} />
+      )}
     </div>
   );
 };
 
 export default GetStartedPopup;
+
+const Arrow = ({ from, to }) => {
+  function calculateArrowStyle(from, to) {
+    // Calculate center points of source and target elements
+    const fromCenterX = from.left + from.width / 2;
+    const fromCenterY = from.top + from.height / 2;
+    const toCenterX = to.left - 5;
+    const toCenterY = to.top + to.height - 5;
+
+    // Calculate distance and angle between elements
+    const deltaX = toCenterX - fromCenterX;
+    const deltaY = toCenterY - fromCenterY;
+    const angle = (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
+    const length = Math.sqrt(deltaX ** 2 + deltaY ** 2);
+
+    return {
+      position: "absolute",
+      width: `${length}px`,
+      height: "8px", // adjust thickness of the arrow
+      backgroundColor: "white", // arrow color
+      transformOrigin: "0 0",
+      transform: `translate(${fromCenterX}px, ${fromCenterY}px) rotate(${angle}deg)`,
+      pointerEvents: "none", // ensure arrow doesn't interfere with other elements
+    };
+  }
+  const animatedStyle = useSpring({
+    to: calculateArrowStyle(from, to),
+    from: {
+      width: "0px",
+    },
+    config: {
+      tension: 200,
+      friction: 20,
+    },
+  });
+
+  // const style = calculateArrowStyle(from, to);
+  return <animated.div className="z-[80]" style={animatedStyle} />;
+};
