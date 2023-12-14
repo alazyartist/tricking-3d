@@ -23,6 +23,8 @@ import { FaQuestionCircle } from "react-icons/fa";
 function Home({ userInfo: stringy }) {
   // const user = useUserStore((s) => s.userInfo?.username);
   const setUserInfo = useUserStore((s) => s.setUserInfo);
+  const walkthroughSeen = useUserStore((s) => s.walkthroughSeen.home);
+
   const { isSignedIn } = useUser();
   useEffect(() => {
     if (isSignedIn && stringy) {
@@ -43,9 +45,9 @@ function Home({ userInfo: stringy }) {
   const logoAnim = useSpring({
     to: { width: isSignedIn ? "50vw" : "100vw" },
   });
-  const [helpVisible, setHelpVisible] = React.useState(true);
+  const [helpVisible, setHelpVisible] = React.useState(!walkthroughSeen);
   return (
-    <div className=" stick h-full w-full ">
+    <div className=" stick h-full w-full overflow-hidden ">
       {helpVisible && (
         <GetStartedPopup
           setHelpVisible={setHelpVisible}

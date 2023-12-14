@@ -21,37 +21,44 @@ const CommandBar = ({ tricks, combos }) => {
   if (!tricks) return null;
   if (!combos) return null;
   return (
-    <div className="absolute bottom-[44px] left-[10vw] z-[10] flex h-[8vh] w-[80vw] place-items-center justify-around gap-2 rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:left-[20vw] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]">
-      <div
-        onClick={() => {
-          setSeekTime(
-            useSessionSummariesStore.getState().currentTime - frameRate
-          );
-        }}
-        className="w-[40px] cursor-pointer text-center text-4xl"
-      >
-        &lt;
+    <div className="absolute bottom-[3rem] left-[10vw] z-[10] flex h-[10vh] w-[80vw] flex-col place-items-center justify-around rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:left-[20vw] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]">
+      <div className="flex w-full justify-around gap-2">
+        {["in", "last", "next", "out"].map((n) => (
+          <p className="p-2">{n}</p>
+        ))}
       </div>
-      <div>
-        <Autocomplete
-          classNames={{ panel: "custom-Panel" }}
-          tricks={tricks}
-          combos={combos}
-          defaultActiveItemId="0"
-          placeholder="/ to open cmdBar"
-          openOnFocus={true}
-          autoFocus={false}
-        />
-      </div>
-      <div
-        onClick={() => {
-          setSeekTime(
-            useSessionSummariesStore.getState().currentTime + frameRate
-          );
-        }}
-        className="w-[40px] cursor-pointer text-center text-4xl"
-      >
-        &gt;
+      <div className="jusfity-around flex place-items-center gap-2">
+        <div
+          onClick={() => {
+            setSeekTime(
+              useSessionSummariesStore.getState().currentTime - frameRate
+            );
+          }}
+          className="w-[40px] cursor-pointer text-center text-4xl"
+        >
+          &lt;
+        </div>
+        <div>
+          <Autocomplete
+            classNames={{ panel: "custom-Panel" }}
+            tricks={tricks}
+            combos={combos}
+            defaultActiveItemId="0"
+            placeholder="/ to open cmdBar"
+            openOnFocus={true}
+            autoFocus={false}
+          />
+        </div>
+        <div
+          onClick={() => {
+            setSeekTime(
+              useSessionSummariesStore.getState().currentTime + frameRate
+            );
+          }}
+          className="w-[40px] cursor-pointer text-center text-4xl"
+        >
+          &gt;
+        </div>
       </div>
     </div>
   );

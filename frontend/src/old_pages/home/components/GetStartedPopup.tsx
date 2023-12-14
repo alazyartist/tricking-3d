@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import useMeasure from "react-use-measure";
 import { useTransition, animated, a, useSpring } from "@react-spring/web";
+import { useUserStore } from "@store/userStore";
 
 interface Step {
   title: string;
@@ -27,12 +28,24 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
   const [measureRef, bounds] = useMeasure();
   const [isOutOfBounds, setIsOutOfBounds] = useState(false);
   const [wasOutOfBounds, setWasOutOfBounds] = useState(false);
-
+  const setWalkthroughSeen = useUserStore((s) => s.setWalkthroughSeen);
   useEffect(() => {
     const element = document.getElementById(
       steps[activeStep + 1 < steps.length ? activeStep + 1 : 0].id
     );
+    const lastElement = document.getElementById(
+      steps[activeStep >= 0 ? activeStep : 0].id
+    );
+    const lastlastElement = document.getElementById(
+      steps[activeStep - 1 >= 0 ? activeStep - 1 : 0].id
+    );
     if (!element) return;
+    if (lastElement) {
+      lastElement.classList.add("border-2", "border-[#22DDFF]");
+    }
+    if (lastlastElement) {
+      lastlastElement.classList.remove("border-2", "border-[#22DDFF]");
+    }
     previousElement.current = activeElementRef.current;
     activeElementRef.current = element.getBoundingClientRect();
     setActiveElement(activeElementRef.current);
@@ -54,7 +67,16 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
         setWasOutOfBounds(false);
       }
     }
+    return () => {
+      element.classList.remove("border-2", "border-red-500");
+      lastElement?.classList.remove("border-2", "border-red-500");
+    };
   }, [currentStep, activeStep]);
+  const nextStep = () => {
+    activeStep + 1 <= steps.length
+      ? setActiveStep(activeStep + 1)
+      : closePopover();
+  };
 
   const transitions = useTransition(currentStep, {
     from: previousElement.current
@@ -98,9 +120,11 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
   const closePopover = () => {
     setHelpVisible(false);
     setActiveStep(0);
+    setWalkthroughSeen({ home: true });
   };
   return (
-    <div className="welcome-popover  font-inter">
+    <div className="welcome-popover absolute z-[60] h-full max-h-[100vh] w-full max-w-[100vw] overflow-hidden font-inter">
+      <div className="absolute h-full w-full" onClick={() => closePopover()} />
       {transitions(({ opacity, left, top }, item, i) => (
         <animated.div
           key={item.title + i}
@@ -116,18 +140,14 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
           </div>
           <div className="flex w-full justify-around gap-2 pb-4">
             <button
-              onClick={() => setHelpVisible(false)}
+              onClick={() => closePopover()}
               className="rounded-lg bg-red-500 p-2 py-1 text-sm"
             >
               skip
             </button>
             {activeStep != steps.length - 1 && (
               <button
-                onClick={() =>
-                  activeStep + 1 <= steps.length
-                    ? setActiveStep(activeStep + 1)
-                    : closePopover()
-                }
+                onClick={() => nextStep()}
                 className="rounded-lg bg-zinc-700 p-2 py-1 text-sm"
               >
                 next

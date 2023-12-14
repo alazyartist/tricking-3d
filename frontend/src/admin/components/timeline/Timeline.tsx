@@ -438,7 +438,7 @@ const TimelineElement = ({
       {seeDetails &&
         createPortal(
           <animated.div
-            className="relative left-[2.5vw] top-4 z-[100] flex w-[95vw] rounded bg-zinc-900 bg-opacity-90 p-2 text-zinc-300"
+            className="relative left-[2.5vw] top-4 z-[1000] flex w-[95vw] rounded bg-zinc-900 bg-opacity-90 p-2 text-zinc-300"
             style={{
               // left: props.l.to((left) => `${left + 5}%`),
               //top from last mouse position
@@ -452,7 +452,7 @@ const TimelineElement = ({
               <div className="" onClick={() => setSeeDetails(false)}>
                 Clip menu
               </div>
-              <div className=" border-b-2 border-zinc-100"></div>
+              <div className=" border-b-[2px] border-zinc-100 border-opacity-30"></div>
               <div className=" ">{e.name}</div>
               <div
                 onClick={() => {

@@ -16,6 +16,10 @@ export interface UserInfo {
   adminAccess?: null | number;
 }
 interface UserStore {
+  walkthroughSeen: {
+    home: boolean;
+  };
+  setWalkthroughSeen: (value: { home: boolean }) => void;
   user: string | null;
   userInfo: UserInfo;
   accessToken: string | null;
@@ -29,6 +33,9 @@ export const useUserStore = create<UserStore>(
   devtools(
     persist(
       (set, get) => ({
+        walkthroughSeen: {
+          home: false,
+        },
         user: null,
         userInfo: { profilePic: "noimg.jpeg", uuid: null },
         accessToken: null,
@@ -36,6 +43,10 @@ export const useUserStore = create<UserStore>(
           (typeof window !== "undefined" && localStorage.getItem("persist")) ||
             "false"
         ),
+        setWalkthroughSeen: (value) =>
+          set(() => ({
+            walkthroughSeen: { ...get().walkthroughSeen, ...value },
+          })),
         setUserInfo: (value) =>
           set(() => ({ userInfo: value ?? { profilePic: "noimg.jpeg" } })),
         setUser: (value) => set(() => ({ user: value })),
