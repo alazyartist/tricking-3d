@@ -121,6 +121,7 @@ model combos {
   shorthand        String?  @db.VarChar(255)
   ClaimedBy        claimedcombos[]
   Clips sessiondata[]
+  OnList tricklist_combos[]
 }
 
 model interactions {
@@ -318,15 +319,22 @@ model tricklist_combos {
   tricklist_id String?  @db.Char(36)
   combo_id     String?  @db.Char(36)
   createdAt    DateTime @default(now()) @db.DateTime(0)
-  updatedAt    DateTime @db.DateTime(0)
+  updatedAt    DateTime @db.DateTime(0) @updatedAt
+  combo        combos?   @relation(fields: [combo_id], references: [combo_id])
+  tricklist    tricklists? @relation(fields: [tricklist_id], references: [tricklist_id])
+
+  @@unique([tricklist_id, combo_id], map: "tricklist_id:combo_id")
 }
 
 model tricklists {
   tricklist_id String   @id @db.Char(36)
   name         String?  @db.VarChar(255)
   owner        String?  @db.Char(36)
-  createdAt    DateTime @default(now()) @db.DateTime(0)
-  updatedAt    DateTime @db.DateTime(0)
+  createdAt    DateTime @default(now()) @db.DateTime(0) 
+  updatedAt    DateTime @db.DateTime(0) @updatedAt
+  combos       tricklist_combos[]
+  Owner        users?   @relation(fields: [owner], references: [uuid])
+  WatchedBy    user_tricklists[]
 }
 
 model tricks {
@@ -383,6 +391,10 @@ model user_tricklists {
   tricklist_id String?  @db.Char(36)
   createdAt    DateTime @default(now()) @db.DateTime(0)
   updatedAt    DateTime @db.DateTime(0)
+  watchedBy         users?   @relation(fields: [user_id], references: [uuid])
+  tricklist    tricklists? @relation(fields: [tricklist_id], references: [tricklist_id])
+
+  @@unique([user_id, tricklist_id], map: "user_id:tricklist_id")
 }
 
 model users {
@@ -413,6 +425,8 @@ model users {
   Clips sessiondata[]
   Debates debates[]
   Messages debateMessages[]
+  Tricklists           tricklists[]
+  WatchedTricklists    user_tricklists[]
 
   @@index([uuid])
   @@index([clerk_id])

@@ -5,6 +5,7 @@ import { useStore } from "../../../store/store";
 import { useDeleteTricklist, useDeleteCombo } from "../../../api/useTricklists";
 import { useUserStore } from "../../../store/userStore";
 import Claimed from "./Claimed";
+import { trpc } from "@utils/trpc";
 
 const TrickList_Component: React.FC<any> = ({
   data,
@@ -14,6 +15,7 @@ const TrickList_Component: React.FC<any> = ({
   fn,
   drag_offset,
 }) => {
+  console.log("tldata", data);
   const selected = useStore((s) => s.selected_TrickList);
   const setSelected = useStore((s) => s.setSelected_TrickList);
   const userInfo = useUserStore((s) => s.userInfo);
@@ -34,10 +36,17 @@ const TrickList_Component: React.FC<any> = ({
   const { mutate: deleteTricklist } = useDeleteTricklist(
     selected?.tricklist_id
   );
-  const { mutate: deleteCombo } = useDeleteCombo();
+  // const { mutate: deleteCombo } = useDeleteCombo();
+  const { mutate: deleteCombo } =
+    trpc.tricklists.deleteComboFromTricklist.useMutation();
 
   const swipe_left = () => {
-    data.type ? deleteCombo(selected?.Tricklist_Combos) : deleteTricklist();
+    data.type
+      ? deleteCombo({
+          combo_id: selected?.combo_id,
+          //TODO: needs tricklist_id
+        })
+      : deleteTricklist();
     setSelected(undefined);
   };
   const swipe_right = () => {

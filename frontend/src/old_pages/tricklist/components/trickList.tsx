@@ -11,8 +11,8 @@ const Tricklist: React.FC<any> = ({
   swipe_left,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const innerArray = data.TricklistCombos
-    ? data.TricklistCombos
+  const innerArray = data.combos
+    ? data.combos.map((c) => c.combo)
     : data.comboArray;
 
   const setSelected = useStore((s) => s.setSelected_TrickList);

@@ -10,12 +10,16 @@ import UserList from "@components/UserList";
 import SessionList from "./components/SessionList";
 import ClaimTricks from "@old_pages/claimtricks/ClaimTricks";
 import Link from "next/link";
+import Tricklist from "@old_pages/tricklist/components/trickList";
+import { trpc } from "@utils/trpc";
+import TricklistPage from "@old_pages/tricklist/TricklistPage";
 
 function Dashboard({ uuid, profilePic }) {
   const logout = useLogout();
   const user = useUserStore((s) => s.user);
   // const { profilePic, uuid } = useUserStore((s) => s.userInfo);
   const [activeSection, setSection] = useState("sessions");
+  const { data } = trpc.tricklists.findTricklistById.useQuery({ uuid: uuid });
 
   const getActiveSection = (section) => {
     switch (section) {
@@ -27,6 +31,9 @@ function Dashboard({ uuid, profilePic }) {
         break;
       case "captures":
         return <Captures dash />;
+        break;
+      case "tricklists":
+        return <TricklistPage profileuuid={uuid} displayOnly={false} />;
         break;
     }
   };
@@ -84,6 +91,16 @@ function Dashboard({ uuid, profilePic }) {
               } rounded-t-md bg-zinc-900 bg-opacity-70  p-2`}
             >
               Captures
+            </p>
+            <p
+              onClick={() => setSection("tricklists")}
+              className={`${
+                activeSection === "captures"
+                  ? "text-emerald-500"
+                  : "text-zinc-300"
+              } rounded-t-md bg-zinc-900 bg-opacity-70  p-2`}
+            >
+              TrickLists
             </p>
           </div>
           {getActiveSection(activeSection)}

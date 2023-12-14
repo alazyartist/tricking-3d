@@ -1,3 +1,4 @@
+import { trpc } from "@utils/trpc";
 import React, { useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import useMakeTricklist from "../../../api/useMakeTricklist";
@@ -6,7 +7,9 @@ import { useUserStore } from "../../../store/userStore";
 const MakeNewTrickList = ({ setOpen }) => {
   const [name, setName] = useState("");
   const { uuid } = useUserStore((s) => s.userInfo);
-  const { mutate: makeNewTricklist } = useMakeTricklist();
+  // const { mutate: makeNewTricklist } = useMakeTricklist();
+  const { mutate: makeNewTricklist } =
+    trpc.tricklists.makeTricklist.useMutation();
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submit new Tricklist");

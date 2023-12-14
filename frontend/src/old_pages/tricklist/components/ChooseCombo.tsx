@@ -3,14 +3,18 @@ import { IoIosArrowBack } from "react-icons/io";
 import { useTransition, animated } from "@react-spring/web";
 import { useAddCombo, useGetCombos } from "../../../api/useTricklists";
 import { useUserStore } from "../../../store/userStore";
+import { trpc } from "@utils/trpc";
 
 const ChooseCombo = ({ setOpen, open, tricklist_id }) => {
   const userInfo = useUserStore((s) => s.userInfo);
   const [showCombo, setShowCombo] = useState(false);
   const [addedCombo, setAddedCombo] = useState<boolean>();
 
-  const { mutate: addComboDB, isSuccess } = useAddCombo(tricklist_id);
-  const { data: comboArr } = useGetCombos();
+  // const { mutate: addComboDB, isSuccess } = useAddCombo(tricklist_id);
+  const { mutate: addComboDB, isSuccess } =
+    trpc.tricklists.addComboToTricklist.useMutation();
+  // const { data: comboArr } = useGetCombos();
+  const { data: comboArr } = trpc.combos.getAll.useQuery();
 
   const handleClick = (e) => {
     if (e.target.id === "addItemBackground") {
@@ -89,10 +93,10 @@ const ChooseCombo = ({ setOpen, open, tricklist_id }) => {
 									</div> */}
                   </div>
                   <div className="flex">
-                    {combo.comboArray &&
+                    {Array.isArray(combo.comboArray) &&
                       showCombo &&
-                      combo.comboArray.map((item) => (
-                        <div>{item.name}&gt;</div>
+                      combo.comboArray.map((item: { name: string }) => (
+                        <div>{item?.name}&gt;</div>
                       ))}
                   </div>
                 </div>

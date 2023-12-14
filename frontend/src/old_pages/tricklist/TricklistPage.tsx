@@ -4,10 +4,14 @@ import useGetTricklists from "../../api/useTricklists";
 import AddListButton from "./components/AddListButton";
 import AddComboItemToTricklist from "./components/AddComboItemToTricklist";
 import { useStore } from "../../store/store";
+import { trpc } from "@utils/trpc";
 
 //TODO @TODO: Something with displayOnly
 const TricklistPage = ({ displayOnly, profileuuid }) => {
-  const { data: lists } = useGetTricklists(profileuuid);
+  // const { data: lists } = useGetTricklists(profileuuid);
+  const { data: lists } = trpc.tricklists.findTricklistById.useQuery({
+    uuid: profileuuid,
+  });
   const [data, setData] = useState(lists);
   const selected = useStore((s) => s.selected_TrickList);
   const [addItemopen, setAddItemopen] = useState(false);
