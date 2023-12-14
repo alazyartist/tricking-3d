@@ -18,9 +18,7 @@ const Captures = ({ dash }) => {
   return (
     <div
       id="captureContainer"
-      className={`${
-        dash ? "pb-8 lg:col-span-2 lg:flex lg:gap-2 lg:pb-2" : ""
-      } w-full`}
+      className={`${dash ? "pb-8  lg:pb-2" : ""} w-full`}
     >
       {/* My Captures */}
       <RenderCaptures captureContent={captured} title="My Captures" />

@@ -10,7 +10,6 @@ import UserList from "@components/UserList";
 import SessionList from "./components/SessionList";
 import ClaimTricks from "@old_pages/claimtricks/ClaimTricks";
 import Link from "next/link";
-import Tricklist from "@old_pages/tricklist/components/trickList";
 import { trpc } from "@utils/trpc";
 import TricklistPage from "@old_pages/tricklist/TricklistPage";
 
@@ -95,7 +94,7 @@ function Dashboard({ uuid, profilePic }) {
             <p
               onClick={() => setSection("tricklists")}
               className={`${
-                activeSection === "captures"
+                activeSection === "tricklists"
                   ? "text-emerald-500"
                   : "text-zinc-300"
               } rounded-t-md bg-zinc-900 bg-opacity-70  p-2`}

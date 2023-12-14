@@ -54,17 +54,6 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
         setWasOutOfBounds(false);
       }
     }
-    console.log(
-      isOutOfBounds
-        ? activeElement.left - bounds.width > 0
-          ? activeElement.left
-          : activeElement.left + bounds.width / 2
-        : activeElement?.left,
-      isOutOfBounds
-    );
-    console.log("h", window?.innerHeight, activeElement?.top, bounds.height);
-    console.log("w", window?.innerWidth, activeElement?.left, bounds.width);
-    console.log(isOutOfBounds);
   }, [currentStep, activeStep]);
 
   const transitions = useTransition(currentStep, {
@@ -111,11 +100,11 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
     setActiveStep(0);
   };
   return (
-    <div className="welcome-popover font-inter">
+    <div className="welcome-popover  font-inter">
       {transitions(({ opacity, left, top }, item, i) => (
         <animated.div
           key={item.title + i}
-          className={`absolute left-[50%] z-[100] flex h-fit w-fit ${
+          className={`absolute left-[50%] z-[100] flex h-fit w-fit max-w-[90vw] ${
             activeStep === 0 && "translate-x-[-50%]"
           } flex-col place-content-center place-items-center rounded-md bg-zinc-800 text-xl text-zinc-200`}
           style={{ opacity, left: left, top: top }}
@@ -147,7 +136,7 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
           </div>
         </animated.div>
       ))}
-      {activeStep > 0 && activeElement && previousElement && (
+      {activeStep > 0 && activeElement && previousElement.current && (
         <Arrow from={bounds} to={previousElement.current} />
       )}
     </div>

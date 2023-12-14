@@ -74,6 +74,7 @@ model captures {
   user     users?    @relation("captures_user_idTousers", fields: [user_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "captures_ibfk_1")
   capturedUser users?    @relation("captures_captured_idTousers", fields: [captured_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "captures_ibfk_2")
 
+  @@unique([user_id, captured_id])
   @@index([captured_id], map: "captured_id")
   @@index([user_id], map: "user_id")
 }
