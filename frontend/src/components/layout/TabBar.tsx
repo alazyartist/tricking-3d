@@ -50,7 +50,7 @@ function TabBar() {
           openNav ? "z-[1] select-none " : "z-[1014]"
         } w-[100%] overflow-hidden `}
       >
-        <div id="commandBar-root" className="h-[15vh] w-full "></div>
+        <div id="commandBar-root" className="z-[100] h-[22vh] w-full "></div>
         <animated.div style={navToggle} className="relative">
           <div
             style={navToggle}

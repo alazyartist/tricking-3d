@@ -20,28 +20,21 @@ import CommandBarControls from "./CommandBarControls";
 const CommandBar = ({ tricks, combos }) => {
   const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
-  const [yOffset, setYOffset] = useState(0);
   const [root, setRoot] = useState(null);
   const frameRate = 0.083;
   if (!tricks) return null;
   if (!combos) return null;
   useEffect(() => {
-    let element = document.getElementById("tabBar");
     let element2 = document.getElementById("commandBar-root");
     if (element2) {
       setRoot(element2);
-    }
-    if (element) {
-      let yhi = element.getBoundingClientRect().height;
-      console.log(yhi);
-      setYOffset(yhi);
     }
   }, []);
   return (
     root &&
     createPortal(
       <div
-        className={` absolute left-[10vw]  top-[0]  z-[10] flex h-[15vh] w-[80vw] flex-col place-items-center justify-around rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:bottom-12 md:left-[20vw] md:h-[10vh] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]`}
+        className={` absolute left-[10vw]  top-[0]  z-[10] flex h-[22vh] w-[80vw] flex-col place-items-center justify-around rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:bottom-12 md:left-[20vw] md:h-[10vh] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]`}
       >
         <CommandBarControls />
         <div className="jusfity-around flex place-items-center gap-2">

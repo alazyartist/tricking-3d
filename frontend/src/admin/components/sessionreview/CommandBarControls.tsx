@@ -34,6 +34,14 @@ const CommandBarControls = () => {
         }),
     },
     {
+      title: "save",
+      command: () => console.log("save"),
+    },
+    {
+      title: "clear",
+      command: () => console.log("clear"),
+    },
+    {
       title: "add",
       command: () => {
         let combo = useSessionSummariesStore.getState().clipCombo;
@@ -63,11 +71,15 @@ const CommandBarControls = () => {
     ,
   ];
   return (
-    <div className="flex w-full justify-around gap-2">
+    <div className="z-[-500] grid h-full max-h-[9vh] w-full grid-cols-3 place-content-center place-items-center justify-around gap-2">
       {controls.map((n) => (
-        <p key={n.title} onClick={n.command} className="p-2">
+        <button
+          key={n.title}
+          onClick={n.command}
+          className="h-fit w-full  rounded-md border-[1px] border-b-2 border-zinc-100 border-opacity-30 p-1 text-center"
+        >
           {n.title}
-        </p>
+        </button>
       ))}
     </div>
   );
