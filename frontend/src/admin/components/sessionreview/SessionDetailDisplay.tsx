@@ -49,7 +49,7 @@ const SessionDetailDisplay = ({ sessionDetails, mirrored, toggleMirrored }) => {
           {mirrored ? "Mirrored" : "Normal"}
         </div>
       </div>
-      <div className="w-full text-center">
+      {/* <div className="w-full text-center">
         {new Date(sessionDetails?.sessionDate).toDateString()}
       </div>
       <div className="flex place-content-center gap-2">
@@ -59,7 +59,7 @@ const SessionDetailDisplay = ({ sessionDetails, mirrored, toggleMirrored }) => {
         <div className="rounded-md bg-zinc-200 bg-opacity-20 p-1  font-semibold text-red-400">
           {sessionDetails?.endTime}
         </div>
-      </div>
+      </div> */}
       <animated.span
         style={{ opacity: showDetails.spanOpacity }}
         className="absolute right-[-11px] top-[9.5vh] rotate-90"

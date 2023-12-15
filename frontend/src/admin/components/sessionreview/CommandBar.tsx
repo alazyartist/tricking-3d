@@ -14,55 +14,75 @@ import { v4 as uuidv4 } from "uuid";
 
 import { useUserStore } from "@store/userStore";
 import { trpc } from "../../../utils/trpc";
+import { createPortal } from "react-dom";
+import { MdClose } from "@data/icons/MdIcons";
+import CommandBarControls from "./CommandBarControls";
 const CommandBar = ({ tricks, combos }) => {
   const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
+  const [yOffset, setYOffset] = useState(0);
+  const [root, setRoot] = useState(null);
   const frameRate = 0.083;
   if (!tricks) return null;
   if (!combos) return null;
+  useEffect(() => {
+    let element = document.getElementById("tabBar");
+    let element2 = document.getElementById("commandBar-root");
+    if (element2) {
+      setRoot(element2);
+    }
+    if (element) {
+      let yhi = element.getBoundingClientRect().height;
+      console.log(yhi);
+      setYOffset(yhi);
+    }
+  }, []);
   return (
-    <div className="absolute bottom-[3rem] left-[10vw] z-[10] flex h-[10vh] w-[80vw] flex-col place-items-center justify-around rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:left-[20vw] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]">
-      <div className="flex w-full justify-around gap-2">
-        {["in", "last", "next", "out"].map((n) => (
-          <p className="p-2">{n}</p>
-        ))}
-      </div>
-      <div className="jusfity-around flex place-items-center gap-2">
-        <div
-          onClick={() => {
-            setSeekTime(
-              useSessionSummariesStore.getState().currentTime - frameRate
-            );
-          }}
-          className="w-[40px] cursor-pointer text-center text-4xl"
-        >
-          &lt;
+    root &&
+    createPortal(
+      <div
+        className={` absolute left-[10vw]  top-[0]  z-[10] flex h-[15vh] w-[80vw] flex-col place-items-center justify-around rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:bottom-12 md:left-[20vw] md:h-[10vh] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]`}
+      >
+        <CommandBarControls />
+        <div className="jusfity-around flex place-items-center gap-2">
+          <div
+            onClick={() => {
+              setSeekTime(
+                useSessionSummariesStore.getState().currentTime - frameRate
+              );
+            }}
+            className="w-[40px] cursor-pointer text-center text-4xl"
+          >
+            &lt;
+          </div>
+          <div>
+            <Autocomplete
+              classNames={{ panel: "custom-Panel" }}
+              tricks={tricks}
+              combos={combos}
+              defaultActiveItemId="0"
+              placeholder="/ to open cmdBar"
+              openOnFocus={true}
+              autoFocus={false}
+            />
+          </div>
+          <div
+            onClick={() => {
+              setSeekTime(
+                useSessionSummariesStore.getState().currentTime + frameRate
+              );
+            }}
+            className="w-[40px] cursor-pointer text-center text-4xl"
+          >
+            &gt;
+          </div>
         </div>
-        <div>
-          <Autocomplete
-            classNames={{ panel: "custom-Panel" }}
-            tricks={tricks}
-            combos={combos}
-            defaultActiveItemId="0"
-            placeholder="/ to open cmdBar"
-            openOnFocus={true}
-            autoFocus={false}
-          />
-        </div>
-        <div
-          onClick={() => {
-            setSeekTime(
-              useSessionSummariesStore.getState().currentTime + frameRate
-            );
-          }}
-          className="w-[40px] cursor-pointer text-center text-4xl"
-        >
-          &gt;
-        </div>
-      </div>
-    </div>
+      </div>,
+      root
+    )
   );
 };
+
 export const handleSlash = (e) => {
   if (e.key !== "/" || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey) return;
   e.preventDefault();
@@ -84,14 +104,13 @@ const getQueryPattern = (query, flags = "i") => {
 const Autocomplete = (props: any) => {
   const { tricks, combos } = props;
   const adminuuid = useUserStore((s) => s?.userInfo?.uuid);
-  // const { mutate: changeSessionStatus } = useChangeSessionStatus();
   const { mutate: changeSessionStatus } =
     trpc.sessionsummaries.updateSessionStatus.useMutation();
-  // const { mutate: saveSessionDetails, data: saveResponse } =
-  //   useSaveSessionDetails();
+
   const { mutate: saveSessionDetailsnew, data: saveResponse } =
     trpc.sessionsummaries.saveSessionDetails.useMutation();
   const [saveSuccessful, setSaveSuccessful] = useState(false);
+  const [seeShortcuts, setSeeShortcuts] = useState(false);
   const removeClipfromCombo = useSessionSummariesStore(
     (s) => s.removeClipfromCombo
   );
@@ -335,213 +354,7 @@ const Autocomplete = (props: any) => {
               },
               getItems() {
                 const pattern = getQueryPattern(query);
-                return [
-                  {
-                    label: "/h",
-                    placeholder: " or press h to hideDetails",
-                    onSelect: (params: any) => {
-                      setDetailsVisible();
-                    },
-                  },
-                  {
-                    label: "/ha",
-                    placeholder: " hide ActiveClip Detials",
-                    onSelect: (params: any) => {
-                      setClipDetailsVisible();
-                    },
-                  },
-                  {
-                    label: "/p",
-                    placeholder: " or press k to play/pause",
-                    onSelect: (params: any) => {
-                      setVidIsPlaying();
-                    },
-                  },
-                  {
-                    label: "/c",
-                    placeholder: "clear clipCombo",
-                    onSelect: (params: any) => {
-                      clearClipCombo();
-                    },
-                  },
-                  {
-                    label: "/cio",
-                    placeholder: "clear in/out markers",
-                    onSelect: (params: any) => {
-                      setClipData({ startTime: 0, endTime: 0 });
-                    },
-                  },
-                  {
-                    label: "/m",
-                    placeholder: "open TrickMaker",
-                    onSelect: (params: any) => {
-                      setTrickMakerOpen(true);
-                    },
-                  },
-                  {
-                    label: "/i",
-                    placeholder: " set clipStart",
-                    onSelect: (params) => {
-                      console.log(timeRef);
-                      setActiveClipData({
-                        startTime: parseFloat(
-                          useSessionSummariesStore
-                            .getState()
-                            .currentTime.toFixed(2)
-                        ),
-                      });
-                    }, //
-                  },
-                  {
-                    label: "/set start:end",
-                    placeholder: " set time start:end",
-                    onSelect: ({ state: { query } }) => {
-                      const time = query.split(" ")[1];
-                      const startTime = time.split(":")[0];
-                      const endTime = time.split(":")[1];
-                      console.log("params", startTime, endTime);
-                      setActiveClipData({
-                        startTime: parseFloat(startTime),
-                        endTime: parseFloat(endTime),
-                      });
-                    }, //
-                  },
-                  {
-                    label: "/o",
-                    placeholder: " set clipEnd",
-                    onSelect: (params) => {
-                      console.log(timeRef);
-                      setActiveClipData({
-                        endTime: parseFloat(
-                          useSessionSummariesStore
-                            .getState()
-                            .currentTime.toFixed(2)
-                        ),
-                      });
-                    },
-                  },
-                  {
-                    label: "/s",
-                    placeholder: "seekTo time",
-                    onSelect: ({ itemInputValue }) => {
-                      let seekTime = itemInputValue.split(" ")[1];
-                      let time;
-                      if (seekTime.includes(":")) {
-                        let min = seekTime.split(":")[0];
-                        let sec = seekTime.split(":")[1];
-                        time = parseInt(min) * 60 + parseInt(sec);
-                      } else {
-                        time = seekTime;
-                      }
-                      console.log(time);
-                      setSeekTime(time);
-                      // console.log("selectVideo");
-                      // document.getElementById("video").focus();
-                    },
-                  },
-                  {
-                    label: "/completed",
-                    placeholder: " change status to completed",
-                    onSelect: ({ itemInputValue }) => {
-                      let status = "Reviewed" as const;
-                      changeSessionStatus({
-                        status: status,
-                        sessionid:
-                          useSessionSummariesStore.getState().sessionid,
-                      });
-
-                      // console.log("selectVideo");
-                      // document.getElementById("video").focus();
-                    },
-                  },
-                  {
-                    label: "/in review",
-                    placeholder: " change status to In Review",
-                    onSelect: ({ itemInputValue }) => {
-                      let status = "In Review" as const;
-                      changeSessionStatus({
-                        status: status,
-                        sessionid:
-                          useSessionSummariesStore.getState().sessionid,
-                      });
-
-                      // console.log("selectVideo");
-                      // document.getElementById("video").focus();
-                    },
-                  },
-                  {
-                    label: "/b",
-                    placeholder: "set bail amount",
-                    onSelect: ({ itemInputValue }) => {
-                      let bailAmount = itemInputValue.split(" ")[1];
-                      if (bailAmount > 5) {
-                        bailAmount = 5;
-                      }
-                      if (bailAmount < 1) {
-                        bailAmount = 0;
-                      }
-                      setClipData({ bail: bailAmount });
-                    },
-                  },
-                  {
-                    label: "/r",
-                    placeholder: "remove item",
-                    onSelect: ({ itemInputValue }) => {
-                      let index = itemInputValue.split(" ")[1];
-                      removeClipfromCombo(index - 1);
-                    },
-                  },
-                  {
-                    label: "/save",
-                    placeholder: "saveSessionDetails",
-                    onSelect: ({ itemInputValue }) => {
-                      setSaveSuccessful(false);
-                      // saveSessionDetails({
-                      //   sessionData,
-                      //   sessionid:
-                      //     useSessionSummariesStore.getState().sessionid,
-                      // });
-                      //TODO: DO NOT FORGET TO FINSIH
-                      saveSessionDetailsnew({
-                        data: sessionData,
-                        sessionid:
-                          useSessionSummariesStore.getState().sessionid,
-                      });
-                    },
-                  },
-                  {
-                    label: "/a",
-                    placeholder: "add clip to sesison",
-                    onSelect: ({ itemInputValue }) => {
-                      let combo = useSessionSummariesStore.getState().clipCombo;
-                      let name = combo.map((c) => c.name).join(">");
-                      setClipData({
-                        id: uuidv4(),
-                        admin: adminuuid as string,
-                        clipLabel: combo,
-                        name: name,
-                        sessionid:
-                          useSessionSummariesStore.getState().sessionid,
-                        srcid: useSessionSummariesStore.getState().srcid,
-                        vidsrc: useSessionSummariesStore.getState()
-                          .vidsrc as string,
-                      });
-                      setSessionData(
-                        useSessionSummariesStore.getState().clipData
-                      );
-                      setClipData({
-                        name: "",
-                        startTime: 0,
-                        endTime: 0,
-                        clipLabel: [],
-                        srcid: "",
-                        vidsrc: "",
-                        bail: 0,
-                      });
-                      clearClipCombo();
-                    },
-                  },
-                ]
+                return actionsArray
                   ?.sort((a, b) => {
                     if (a.label?.length < b.label?.length) return -1;
                     if (a.label?.length > b.label?.length) return 1;
@@ -689,16 +502,251 @@ const Autocomplete = (props: any) => {
       search.destroy();
     };
   }, [props, tricks, combos, trickMakerOpen, sessionData]);
+  const actionsArray = [
+    {
+      label: "/h",
+      placeholder: " or press h to hideDetails",
+      onSelect: (params: any) => {
+        setDetailsVisible();
+      },
+    },
+    {
+      label: "/ha",
+      placeholder: " hide ActiveClip Detials",
+      onSelect: (params: any) => {
+        setClipDetailsVisible();
+      },
+    },
+    {
+      label: "/p",
+      placeholder: " or press k to play/pause",
+      onSelect: (params: any) => {
+        setVidIsPlaying();
+      },
+    },
 
+    {
+      label: "/k",
+      placeholder: "see keyboard shortcut overlay",
+      onSelect: ({ itemInputValue }) => {
+        setSeeShortcuts((ss) => !ss);
+      },
+    },
+    {
+      label: "/m",
+      placeholder: "open TrickMaker",
+      onSelect: (params: any) => {
+        setTrickMakerOpen(true);
+      },
+    },
+    {
+      label: "/i",
+      placeholder: " set clipStart",
+      onSelect: (params) => {
+        console.log(timeRef);
+        setActiveClipData({
+          startTime: parseFloat(
+            useSessionSummariesStore.getState().currentTime.toFixed(2)
+          ),
+        });
+      }, //
+    },
+    {
+      label: "/o",
+      placeholder: " set clipEnd",
+      onSelect: (params) => {
+        console.log(timeRef);
+        setActiveClipData({
+          endTime: parseFloat(
+            useSessionSummariesStore.getState().currentTime.toFixed(2)
+          ),
+        });
+      },
+    },
+    {
+      label: "/cio",
+      placeholder: "clear in/out markers",
+      onSelect: (params: any) => {
+        setClipData({ startTime: 0, endTime: 0 });
+      },
+    },
+    {
+      label: "/set start:end",
+      placeholder: " set time start:end",
+      onSelect: ({ state: { query } }) => {
+        const time = query.split(" ")[1];
+        const startTime = time.split(":")[0];
+        const endTime = time.split(":")[1];
+        console.log("params", startTime, endTime);
+        setActiveClipData({
+          startTime: parseFloat(startTime),
+          endTime: parseFloat(endTime),
+        });
+      }, //
+    },
+    {
+      label: "/a",
+      placeholder: "add clip to sesison",
+      onSelect: ({ itemInputValue }) => {
+        let combo = useSessionSummariesStore.getState().clipCombo;
+        let name = combo.map((c) => c.name).join(">");
+        setClipData({
+          id: uuidv4(),
+          admin: adminuuid as string,
+          clipLabel: combo,
+          name: name,
+          sessionid: useSessionSummariesStore.getState().sessionid,
+          srcid: useSessionSummariesStore.getState().srcid,
+          vidsrc: useSessionSummariesStore.getState().vidsrc as string,
+        });
+        setSessionData(useSessionSummariesStore.getState().clipData);
+        setClipData({
+          name: "",
+          startTime: 0,
+          endTime: 0,
+          clipLabel: [],
+          srcid: "",
+          vidsrc: "",
+          bail: 0,
+        });
+        clearClipCombo();
+      },
+    },
+    {
+      label: "/s",
+      placeholder: "seekTo time",
+      onSelect: ({ itemInputValue }) => {
+        let seekTime = itemInputValue.split(" ")[1];
+        let time;
+        if (seekTime.includes(":")) {
+          let min = seekTime.split(":")[0];
+          let sec = seekTime.split(":")[1];
+          time = parseInt(min) * 60 + parseInt(sec);
+        } else {
+          time = seekTime;
+        }
+        console.log(time);
+        setSeekTime(time);
+        // console.log("selectVideo");
+        // document.getElementById("video").focus();
+      },
+    },
+
+    {
+      label: "/r",
+      placeholder: "remove item",
+      onSelect: ({ itemInputValue }) => {
+        let index = itemInputValue.split(" ")[1];
+        removeClipfromCombo(index - 1);
+      },
+    },
+    ,
+    {
+      label: "/c",
+      placeholder: "clear clipCombo",
+      onSelect: (params: any) => {
+        clearClipCombo();
+      },
+    },
+    {
+      label: "/b",
+      placeholder: "set bail amount",
+      onSelect: ({ itemInputValue }) => {
+        let bailAmount = itemInputValue.split(" ")[1];
+        if (bailAmount > 5) {
+          bailAmount = 5;
+        }
+        if (bailAmount < 1) {
+          bailAmount = 0;
+        }
+        setClipData({ bail: bailAmount });
+      },
+    },
+    {
+      label: "/save",
+      placeholder: "saveSessionDetails",
+      onSelect: ({ itemInputValue }) => {
+        setSaveSuccessful(false);
+        // saveSessionDetails({
+        //   sessionData,
+        //   sessionid:
+        //     useSessionSummariesStore.getState().sessionid,
+        // });
+        //TODO: DO NOT FORGET TO FINSIH
+        saveSessionDetailsnew({
+          data: sessionData,
+          sessionid: useSessionSummariesStore.getState().sessionid,
+        });
+      },
+    },
+    {
+      label: "/in review",
+      placeholder: " change status to In Review",
+      onSelect: ({ itemInputValue }) => {
+        let status = "In Review" as const;
+        changeSessionStatus({
+          status: status,
+          sessionid: useSessionSummariesStore.getState().sessionid,
+        });
+
+        // console.log("selectVideo");
+        // document.getElementById("video").focus();
+      },
+    },
+    {
+      label: "/completed",
+      placeholder: " change status to completed",
+      onSelect: ({ itemInputValue }) => {
+        let status = "Reviewed" as const;
+        changeSessionStatus({
+          status: status,
+          sessionid: useSessionSummariesStore.getState().sessionid,
+        });
+
+        // console.log("selectVideo");
+        // document.getElementById("video").focus();
+      },
+    },
+  ];
   return (
     <>
       <div>{saveSuccessful && saveResponse}</div>
       <div id="commandbar" ref={commandBarRef} />
+      {seeShortcuts && (
+        <KeyboardShortcutOverlay
+          actions={actionsArray}
+          setSeeShortcuts={setSeeShortcuts}
+        />
+      )}
     </>
   );
 };
 export default CommandBar;
-
+const KeyboardShortcutOverlay = ({ actions, setSeeShortcuts }) => {
+  if (typeof window === "undefined") return null;
+  return createPortal(
+    <div className="absolute left-[10vw] top-[10vh] z-[2222] w-[80vw] rounded-md bg-zinc-800 p-2 text-zinc-100">
+      <button
+        className="flex h-full w-full place-content-end place-items-center gap-2 p-2"
+        onClick={() => setSeeShortcuts((ss) => !ss)}
+      >
+        <p>exit</p>
+        <MdClose />
+      </button>
+      <div className="grid grid-flow-col grid-rows-6 gap-4">
+        {actions.map((a) => {
+          return (
+            <div className="flex justify-between bg-zinc-700 p-2">
+              <p>{a.label}</p>
+              <p>{a.placeholder}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>,
+    document.getElementById("portal-root")
+  );
+};
 export function ProductItem({ hit, components }) {
   return (
     <a href={hit.url} className="aa-ItemLink">

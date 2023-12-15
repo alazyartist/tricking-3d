@@ -9,10 +9,6 @@ import { useSessionSummariesStore } from "./sessionreview/SessionSummaryStore";
 import { trpc } from "@utils/trpc";
 
 import SessionSourceDisplay from "./sessionreview/SessionSourceDisplay";
-// const SessionSourceDisplay = dynamic(
-//   () => import("./sessionreview/SessionSourceDisplay"),
-//   { ssr: false }
-// );
 
 const AdminSessionReview = ({
   sessionid,
@@ -20,7 +16,6 @@ const AdminSessionReview = ({
   initialTricks,
   initialCombos,
 }) => {
-  // const { data: tricks } = useGetTricks();
   const { data: tricks } = trpc.trick.getAll.useQuery(
     {},
     { initialData: initialTricks }
@@ -29,7 +24,6 @@ const AdminSessionReview = ({
     {},
     { initialData: initialCombos }
   );
-  // const { data } = useGetSessionDetailsbySessionid(sessionid);
   const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
   const setSessionid = useSessionSummariesStore((s) => s.setSessionid);
   const setSessionData = useSessionSummariesStore((s) => s.setSessionData);
@@ -38,10 +32,7 @@ const AdminSessionReview = ({
   const setSessionSources = useSessionSummariesStore(
     (s) => s.setSessionSources
   );
-  // const sessionDetails = data?.data;
-  // useEffect(() => {
-  //   clearSessionData();
-  // }, []);
+
   useEffect(() => {
     setSessionid(sessionid as string);
     if (sessionData.length < 0 || sessionid !== sessionData?.[0]?.sessionid) {
@@ -93,13 +84,13 @@ const AdminSessionReview = ({
               />
             ))}
           </div>
-          <div className="fo absolute left-2 top-0 w-[135px] font-inter">
+          {/* <div className="fo absolute left-2 top-0 w-[135px] font-inter">
             <SessionDetailDisplay
               mirrored={mirrored}
               toggleMirrored={toggleMirrored}
               sessionDetails={sessionDetails}
             />
-          </div>
+          </div> */}
         </div>
       )}
       <div id={"portal-root"}></div>

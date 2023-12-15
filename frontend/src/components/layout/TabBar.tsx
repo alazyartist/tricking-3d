@@ -45,10 +45,12 @@ function TabBar() {
   return (
     <>
       <animated.div
+        id={"tabBar"}
         className={`fixed bottom-0 ${
           openNav ? "z-[1] select-none " : "z-[1014]"
         } w-[100%] overflow-hidden `}
       >
+        <div id="commandBar-root" className="h-[15vh] w-full "></div>
         <animated.div style={navToggle} className="relative">
           <div
             style={navToggle}

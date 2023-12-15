@@ -46,34 +46,21 @@ const ActiveClipDisplay = () => {
       className="absolute right-2 top-14 z-[100] flex h-[92.5vh] w-[220px] flex-col gap-2 rounded-md rounded-r-none bg-zinc-900 bg-opacity-60 p-1 pl-6 font-inter text-xs text-zinc-300 backdrop-blur-xl"
     >
       <animated.div
-        className="flex flex-col gap-2"
+        className="flex h-full flex-col gap-2"
         style={{
           display: clipDetailsVisible ? "none" : "flex",
         }}
       >
-        <div className="w-full overflow-hidden rounded-md rounded-r-sm bg-zinc-200 bg-opacity-70 p-2 text-center font-inter text-2xl font-bold text-zinc-900">
-          <div>{activeClipData?.sessionid?.slice(-8)}</div>
+        <div id="progressBar" className="h-fit min-h-[2rem] w-full">
+          <p className="w-full text-center">percentage reviewed</p>
         </div>
-        <div className="whitespace-pre-wrap">
-          {clipCombo.map((e) => e.name).join(">")}
-        </div>
-        <div>{activeClipData?.name}</div>
-        <div>
-          Points:
-          {clipCombo.length &&
-            clipCombo.reduce((sum, b) => sum + (b?.pointValue ?? 0), 0)}
-        </div>
-        <div>{activeClipData?.user_id?.slice(-4)}</div>
-        <div>
-          {activeClipData?.bail &&
-            activeClipData.bail > 0 &&
-            activeClipData?.bail}
-        </div>
-        <div>{activeClipData?.vidsrc}</div>
-        <div className="grid h-[2rem] w-full grid-cols-[1fr_1fr_1fr] justify-around gap-2 overflow-hidden text-center font-bold">
+        {/* <div className="w-full overflow-hidden rounded-md rounded-r-sm bg-zinc-200 bg-opacity-70 p-2 text-center font-inter text-2xl font-bold text-zinc-900"></div> */}
+        {/* <div>{activeClipData?.name}</div> */}
+        {/* <div>{activeClipData?.user_id?.slice(-4)}</div> */}
+        <div className="grid h-[2rem] w-full grid-cols-[1fr_1fr_1fr] justify-around gap-2 overflow-hidden pt-2 text-center font-bold">
           <div
             onClick={() => setSeekTime(activeClipData?.startTime as number)}
-            className="min-w-10 h-full place-self-center rounded-md bg-emerald-300 p-1 text-zinc-800"
+            className="min-w-10 h-fit place-self-center rounded-md bg-emerald-300 p-1 text-zinc-800"
           >
             {Math.floor(activeClipData?.startTime as number)}|{startframe}
           </div>
@@ -83,12 +70,13 @@ const ActiveClipDisplay = () => {
           </div>
           <div
             onClick={() => setSeekTime(activeClipData?.endTime as number)}
-            className="min-w-10 h-full place-self-center rounded-md bg-red-300  p-1 text-zinc-800"
+            className="min-w-10 h-fit place-self-center rounded-md bg-red-300  p-1 text-zinc-800"
           >
             {Math.floor(activeClipData?.endTime as number)}|{endframe}
           </div>
         </div>
-        <div className="minimalistScroll flex h-[60%] flex-col overflow-y-scroll">
+
+        <div className="minimalistScroll flex h-full flex-col overflow-y-scroll">
           {sessionData?.map((e, i) => (
             <SessionDataDetailDislpay key={e.id + e.name} e={e} />
           ))}

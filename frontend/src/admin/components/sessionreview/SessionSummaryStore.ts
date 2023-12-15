@@ -30,6 +30,8 @@ interface SummaryStore {
   setSrcid: (value: string) => void;
   vidsrc: string | null;
   setVidsrc: (value: string | null) => void;
+  vidDuration: number | null;
+  setVidDuration: (value: number | null) => void;
   detailsVisible: boolean;
   setDetailsVisible: () => void;
   clipDetailsVisible: boolean;
@@ -72,6 +74,8 @@ export const useSessionSummariesStore = create<SummaryStore>(
       setSrcid: (value) => set(() => ({ srcid: value })),
       vidsrc: "",
       setVidsrc: (value) => set(() => ({ vidsrc: value })),
+      vidDuration: null,
+      setVidDuration: (value: number) => set(() => ({ vidDuration: value })),
       detailsVisible: false,
       setDetailsVisible: () =>
         set((s) => ({ detailsVisible: !s.detailsVisible })),
