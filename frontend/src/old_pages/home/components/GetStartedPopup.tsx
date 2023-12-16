@@ -5,7 +5,7 @@ import { useUserStore } from "@store/userStore";
 
 interface Step {
   title: string;
-  content: string;
+  content: string | React.ReactNode;
   id: string;
 }
 
@@ -26,15 +26,14 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
   const [activeElement, setActiveElement] = useState<DOMRect>(null!);
   const previousElement = useRef<DOMRect>();
   const [measureRef, bounds] = useMeasure();
-  const [isOutOfBounds, setIsOutOfBounds] = useState(false);
-  const [wasOutOfBounds, setWasOutOfBounds] = useState(false);
+
   const setWalkthroughSeen = useUserStore((s) => s.setWalkthroughSeen);
   useEffect(() => {
     const element = document.getElementById(
       steps[activeStep + 1 < steps.length ? activeStep + 1 : 0].id
     );
     const lastElement = document.getElementById(
-      steps[activeStep >= 0 ? activeStep : 0].id
+      steps[activeStep > 0 ? activeStep : 0].id
     );
     const lastlastElement = document.getElementById(
       steps[activeStep - 1 >= 0 ? activeStep - 1 : 0].id
@@ -49,33 +48,14 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
     previousElement.current = activeElementRef.current;
     activeElementRef.current = element.getBoundingClientRect();
     setActiveElement(activeElementRef.current);
-    console.log(activeElementRef.current);
-    console.log(previousElement.current);
-    if (
-      activeElementRef.current.left + bounds.width > window.innerWidth ||
-      activeElementRef.current.top - bounds.height < window.innerHeight
-    ) {
-      setIsOutOfBounds(true);
-    } else {
-      setIsOutOfBounds(false);
-    }
-    if (previousElement.current) {
-      if (
-        previousElement.current.left + bounds.width > window.innerWidth ||
-        previousElement.current.top - bounds.height < window.innerHeight
-      ) {
-        setWasOutOfBounds(true);
-      } else {
-        setWasOutOfBounds(false);
-      }
-    }
+
     return () => {
-      element.classList.remove("border-2", "border-red-500");
-      lastElement?.classList.remove("border-2", "border-red-500");
+      element.classList.remove("border-2", "border-[#22DDFF]");
+      lastElement?.classList.remove("border-2", "border-[22DDFF]");
     };
   }, [currentStep, activeStep]);
   const nextStep = () => {
-    activeStep + 1 <= steps.length
+    activeStep + 1 <= steps.length - 1
       ? setActiveStep(activeStep + 1)
       : closePopover();
   };
@@ -84,14 +64,8 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
     from: previousElement.current
       ? {
           opacity: 0,
-          left: wasOutOfBounds
-            ? previousElement.current.left - bounds.width / 2 > 0
-              ? previousElement.current.left - bounds.width / 2
-              : 0
-            : previousElement.current.left,
-          top: wasOutOfBounds
-            ? previousElement.current.top - bounds.height / 2
-            : previousElement.current.top,
+          left: previousElement.current.left,
+          top: previousElement.current.top,
         }
       : {
           opacity: 0,
@@ -101,16 +75,18 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
     enter: activeElement
       ? {
           opacity: 1,
-          left: isOutOfBounds
-            ? activeElement.left - bounds.width > 0
-              ? activeElement.left - bounds.width / 2
-              : activeElement.left
-            : activeElement?.left,
-          top: isOutOfBounds
-            ? activeElement?.top + bounds.height / 2 > window.innerHeight
-              ? window.innerHeight - 1.5 * bounds.height
-              : activeElement?.top + bounds.height / 2
-            : activeElement?.top,
+          left:
+            activeElement?.left + bounds.width < window.innerWidth
+              ? activeElement?.left - bounds.width < 0
+                ? 35
+                : activeElement.left
+              : window.innerWidth - bounds.width - 35,
+          top:
+            activeElement?.top - bounds.height > 0
+              ? activeElement?.top + bounds.height > window.innerHeight
+                ? window.innerHeight - bounds.height - 48
+                : activeElement.top - bounds.height
+              : 35,
         }
       : { opacity: 1 },
     leave: activeElement
@@ -130,7 +106,8 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
       {transitions(({ opacity, left, top }, item, i) => (
         <animated.div
           key={item.title + i}
-          className={`absolute left-[50%] z-[100] flex h-fit w-fit max-w-[90vw] ${
+          onClick={() => nextStep()}
+          className={`absolute left-[50%] z-[100] flex h-fit w-fit max-w-[80vw] ${
             activeStep === 0 && "translate-x-[-50%]"
           } flex-col place-content-center place-items-center rounded-md bg-zinc-800 text-xl text-zinc-200`}
           style={{ opacity, left: left, top: top }}

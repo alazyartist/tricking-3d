@@ -87,7 +87,17 @@ function Home({ userInfo: stringy }) {
             },
             {
               title: "Enjoy!",
-              content: "You Can find this walkthrough again in the help menu",
+              content: (
+                <div>
+                  You Can find this walkthrough again
+                  <br /> in the help menu under the{" "}
+                  <FaQuestionCircle
+                    className="inline"
+                    color={"#cccccc"}
+                    size={22}
+                  />
+                </div>
+              ),
               id: "help-button",
             },
           ]}
