@@ -105,7 +105,11 @@ const Autocomplete = (props: any) => {
 
   const { mutate: saveSessionDetailsnew, data: saveResponse } =
     trpc.sessionsummaries.saveSessionDetails.useMutation();
-  const [saveSuccessful, setSaveSuccessful] = useState(false);
+  // const [saveSuccessful, setSaveSuccessful] = useState(false);
+  const saveSuccessful = useSessionSummariesStore((s) => s.saveSuccessful);
+  const setSaveSuccessful = useSessionSummariesStore(
+    (s) => s.setSaveSuccessful
+  );
   const [seeShortcuts, setSeeShortcuts] = useState(false);
   const removeClipfromCombo = useSessionSummariesStore(
     (s) => s.removeClipfromCombo
@@ -721,7 +725,7 @@ export default CommandBar;
 const KeyboardShortcutOverlay = ({ actions, setSeeShortcuts }) => {
   if (typeof window === "undefined") return null;
   return createPortal(
-    <div className="absolute left-[10vw] top-[10vh] z-[2222] w-[80vw] rounded-md bg-zinc-800 p-2 text-zinc-100">
+    <div className="absolute left-[10vw] top-[10vh] z-[2] w-[80vw] rounded-md bg-zinc-800 p-2 text-zinc-100">
       <button
         className="flex h-full w-full place-content-end place-items-center gap-2 p-2"
         onClick={() => setSeeShortcuts((ss) => !ss)}

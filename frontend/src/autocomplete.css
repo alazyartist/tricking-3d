@@ -32,7 +32,9 @@
   display: flex;
   flex-direction: column;
 }
+
 .custom-Panel {
+  z-index: 9999 !important;
   max-height: 130px !important;
   width: 100%;
   transform: translate(0px, -190px) !important;

@@ -67,14 +67,14 @@ const calculateTrickTotals = async (tricks, curData, ctx) => {
         } else finalScore = 1;
         if (
           t.trickType !== "Kick" &&
-          ((t?.variations.some(
+          ((t?.variations?.some(
             (v) => v.variation.variationType === "Rotation"
           ) &&
-            t?.variations.some((v) => v.variation.name === "Hook")) ||
-            (t?.variations.some(
+            t?.variations?.some((v) => v.variation.name === "Hook")) ||
+            (t?.variations?.some(
               (v) => v.variation.variationType === "Rotation"
             ) &&
-              t?.variations.some((v) => v.variation.name === "Round")))
+              t?.variations?.some((v) => v.variation.name === "Round")))
         ) {
           finalScore += 0.5;
         }
@@ -82,7 +82,7 @@ const calculateTrickTotals = async (tricks, curData, ctx) => {
           finalScore -= 0.51;
         }
         if (
-          t?.variations.some((v) => v.variation.variationType === "DoubleFlip")
+          t?.variations?.some((v) => v.variation.variationType === "DoubleFlip")
         ) {
           finalScore += 3;
         }
@@ -280,15 +280,15 @@ const calculateTrickTotals = async (tricks, curData, ctx) => {
       let vsubtotal = 0;
       let isHyperHook =
         fullTricks[i].trickType === "Invert" &&
-        fullTricks[i].variations.some((v) =>
+        fullTricks[i].variations?.some((v) =>
           v.variation.name.includes("Hook")
         ) &&
-        fullTricks[i].variations.some((v) =>
+        fullTricks[i].variations?.some((v) =>
           v.variation.variationType.includes("Rotation")
         );
 
       const hasFlatspin = (index) => {
-        return fullTricks[index].variations.some((v) =>
+        return fullTricks[index].variations?.some((v) =>
           v.variation.variationType.includes("FlatSpin")
         );
       };

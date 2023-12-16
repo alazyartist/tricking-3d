@@ -54,6 +54,8 @@ interface SummaryStore {
   setClipComboRaw: (value: any) => void;
   removeClipfromCombo: (value: any) => void;
   clearClipCombo: () => void;
+  saveSuccessful: boolean;
+  setSaveSuccessful: (value: boolean) => void;
 }
 export const useSessionSummariesStore = create<SummaryStore>(
   devtools(
@@ -118,6 +120,8 @@ export const useSessionSummariesStore = create<SummaryStore>(
           clipCombo: [...s.clipCombo].filter((t, i) => i !== value),
         })),
       clearClipCombo: () => set((s) => ({ clipCombo: [] })),
+      saveSuccessful: false,
+      setSaveSuccessful: (value) => set(() => ({ saveSuccessful: value })),
     })
     // { name: "SessionSummaryStore" }
   )

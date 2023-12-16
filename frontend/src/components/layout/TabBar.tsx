@@ -46,8 +46,8 @@ function TabBar() {
     },
   });
   const height = useSpring<{}>({
-    from: { height: "0vh" },
-    to: { height: "22vh" },
+    from: { height: window.innerWidth < 768 ? "0vh" : "10rem" },
+    to: { height: window.innerWidth < 768 ? "22vh" : "10rem" },
     reverse: !clipDetailsVisible,
     config: {
       config: { tension: 40, friction: 12 },

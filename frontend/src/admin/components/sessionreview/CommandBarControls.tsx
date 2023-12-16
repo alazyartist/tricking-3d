@@ -1,6 +1,8 @@
 import { useSessionSummariesStore } from "./SessionSummaryStore";
 import { v4 as uuidv4 } from "uuid";
 import { useUserStore } from "@store/userStore";
+import { trpc } from "@utils/trpc";
+import { useEffect } from "react";
 
 const CommandBarControls = () => {
   const setClipData = useSessionSummariesStore((s) => s.setClipData);
@@ -9,6 +11,19 @@ const CommandBarControls = () => {
   const adminuuid = useUserStore((s) => s?.userInfo?.uuid);
   const setSessionData = useSessionSummariesStore((s) => s.setSessionData);
   const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
+  const setSaveSuccessful = useSessionSummariesStore(
+    (s) => s.setSaveSuccessful
+  );
+  const { mutate: saveSessionDetails, data: saveResponse } =
+    trpc.sessionsummaries.saveSessionDetails.useMutation();
+  useEffect(() => {
+    if (saveResponse === "Saved") {
+      setSaveSuccessful(true);
+      setTimeout(() => {
+        setSaveSuccessful(false);
+      }, 3000);
+    }
+  }, [saveResponse]);
 
   const controls = [
     {
@@ -35,7 +50,13 @@ const CommandBarControls = () => {
     },
     {
       title: "save",
-      command: () => console.log("save"),
+      command: () => {
+        setSaveSuccessful(false);
+        saveSessionDetails({
+          data: useSessionSummariesStore.getState().sessionData,
+          sessionid: useSessionSummariesStore.getState().sessionid,
+        });
+      },
     },
     {
       title: "clear",
@@ -71,7 +92,7 @@ const CommandBarControls = () => {
     ,
   ];
   return (
-    <div className="z-[-500] grid h-full max-h-[9vh] w-full grid-cols-3 place-content-center place-items-center justify-around gap-2">
+    <div className=" grid h-full max-h-[9vh] w-full grid-cols-3 place-content-center place-items-center justify-around gap-2">
       {controls.map((n) => (
         <button
           key={n.title}
