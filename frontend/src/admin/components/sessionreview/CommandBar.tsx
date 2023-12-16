@@ -25,14 +25,14 @@ const CommandBar = ({ tricks, combos }) => {
   );
   const [root, setRoot] = useState(null);
   const frameRate = 0.083;
-  if (!tricks) return null;
-  if (!combos) return null;
   useEffect(() => {
     let element2 = document.getElementById("commandBar-root");
     if (element2) {
       setRoot(element2);
     }
   }, []);
+  if (!tricks) return null;
+  if (!combos) return null;
   return (
     root &&
     createPortal(
