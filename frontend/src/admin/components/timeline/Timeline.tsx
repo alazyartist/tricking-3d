@@ -304,7 +304,7 @@ const TimelineElement = ({
   let lastTap = Date.now();
   const bind = useGesture(
     {
-      onDrag: ({ movement: [ox, oy], last, xy: [x, y], tap }) => {
+      onDrag: ({ movement: [ox, oy], last, xy: [x, y], tap, target }) => {
         if (tap) {
           let thisTap = Date.now();
           if (thisTap - lastTap < 600) {
@@ -332,6 +332,26 @@ const TimelineElement = ({
             startTime: newStartTime + adjustedValue + frame,
             endTime: newEndTime + adjustedValue + frame,
           };
+          // let newElement = {};
+          // if (target) {
+          //   const targetcontainer = (
+          //     target as HTMLElement
+          //   )?.getBoundingClientRect();
+          //   // console.log(x, targetcontainer.x + targetcontainer.width / 2);
+          //   if (x > targetcontainer.x + targetcontainer.width / 2) {
+          //     newElement = {
+          //       id: e.id,
+          //       startTime: e.startTime,
+          //       endTime: newEndTime + adjustedValue + frame,
+          //     };
+          //   } else if (x < targetcontainer.x + targetcontainer.width / 2) {
+          //     newElement = {
+          //       id: e.id,
+          //       startTime: newStartTime + adjustedValue + frame,
+          //       endTime: e.endTime,
+          //     };
+          //   }
+          // }
           const adjustedElement = adjustFinalPosition(newElement, sd);
 
           api.set({ x: 0 });
@@ -369,44 +389,13 @@ const TimelineElement = ({
     <>
       {seeDetails &&
         createPortal(
-          <animated.div
-            className="relative left-[2.5vw] top-4 z-[1000] flex w-[95vw] rounded bg-zinc-900 bg-opacity-90 p-2 text-zinc-300"
-            style={{
-              // left: props.l.to((left) => `${left + 5}%`),
-              //top from last mouse position
-              top: props.y.to((y) => `${y}px`),
-              width: "fit",
-              // x: props.x.to((x) => `${x}px`),
-            }}
-            key={`${e.trick_id} detaildropdown`}
-          >
-            <div className="flex h-full cursor-pointer flex-col gap-2 text-sm">
-              <div className="" onClick={() => setSeeDetails(false)}>
-                Clip menu
-              </div>
-              <div className=" border-b-[2px] border-zinc-100 border-opacity-30"></div>
-              <div className=" ">{e.name}</div>
-              <div
-                onClick={() => {
-                  setIsLocked((l) => !l);
-                  setSeeDetails(false);
-                }}
-                className=" "
-              >
-                {isLocked ? "Unlock" : "Lock"}
-              </div>
-              {/* <div className="flex justify-between">
-                <div className="bg-emerald-300 p-1 text-zinc-800 ">
-                  {e.startTime}
-                </div>
-                <div className="bg-red-300 p-1 text-zinc-800 ">{e.endTime}</div>
-              </div> */}
-              {/* <div className=" ">{e.admin}</div> */}
-            </div>
-            {/* <div className=' '>{e.takeoffStance}</div>
-                      <div className=' '>{e.landingStance}</div>
-                      <div className=' '>{e.base_id}</div> */}
-          </animated.div>,
+          <ClipMenu
+            setIsLocked={setIsLocked}
+            setSeeDetails={setSeeDetails}
+            isLocked={isLocked}
+            e={e}
+            props={props}
+          />,
           document.getElementById("portal-root")
         )}
       <animated.div
@@ -436,4 +425,69 @@ const TimelineElement = ({
   );
 };
 
+const ClipMenu = ({ e, setSeeDetails, setIsLocked, props, isLocked }) => {
+  const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
+  const removeSessionData = useSessionSummariesStore(
+    (s) => s.removeSessionData
+  );
+  const setClipData = useSessionSummariesStore((s) => s.setClipData);
+  const setClipComboRaw = useSessionSummariesStore((s) => s.setClipComboRaw);
+
+  const handleEdit = () => {
+    setClipData(e);
+    clearClipCombo();
+    setClipComboRaw(e.clipLabel);
+    removeSessionData(e);
+  };
+
+  return (
+    <>
+      <animated.div
+        className="absolute left-[2.5vw] top-4 z-[2022] flex w-[95vw] rounded bg-zinc-900 bg-opacity-90 p-2 text-zinc-300 md:left-[25vw] md:w-[50vw]"
+        style={{
+          // left: props.l.to((left) => `${left + 5}%`),
+          //top from last mouse position
+          top: props.y.to((y) => `${y}px`),
+          width: "fit",
+          // x: props.x.to((x) => `${x}px`),
+        }}
+        key={`${e.trick_id} detaildropdown`}
+      >
+        <div className="flex h-full cursor-pointer flex-col gap-2 text-sm">
+          <div className="" onClick={() => setSeeDetails(false)}>
+            Clip menu
+          </div>
+          <div className=" border-b-[2px] border-zinc-100 border-opacity-30"></div>
+          <div className={`${!e?.name ? "text-red-500" : ""}`}>
+            {e?.name ? e.name : "Unnamed"}
+          </div>
+          <button
+            onClick={() => {
+              setIsLocked((l) => !l);
+              setSeeDetails(false);
+            }}
+            className=" "
+          >
+            {isLocked ? "Unlock" : "Lock"}
+          </button>
+          <button onClick={() => handleEdit()}>Edit</button>
+          {/* <div className="flex justify-between">
+      <div className="bg-emerald-300 p-1 text-zinc-800 ">
+        {e.startTime}
+      </div>
+      <div className="bg-red-300 p-1 text-zinc-800 ">{e.endTime}</div>
+    </div> */}
+          {/* <div className=" ">{e.admin}</div> */}
+        </div>
+        {/* <div className=' '>{e.takeoffStance}</div>
+            <div className=' '>{e.landingStance}</div>
+            <div className=' '>{e.base_id}</div> */}
+      </animated.div>
+      <div
+        className="absolute left-0 top-0 z-[10] h-[100vh] w-[100vw]"
+        onClick={() => setSeeDetails(false)}
+      />
+    </>
+  );
+};
 export default Timeline;

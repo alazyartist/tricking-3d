@@ -35,19 +35,10 @@ const ActiveClipDisplay = () => {
   const frame = ((currentTime % 1) * 60).toFixed(0);
   const startframe = (((activeClipData?.startTime || 0) % 1) * 60).toFixed(0);
   const endframe = (((activeClipData?.endTime || 0) % 1) * 60).toFixed(0);
-  useEffect(() => {
-    let element = document.getElementById("commandBar-root");
-    if (element) {
-      //translate element by showDetails.width
-      if (parseInt(showDetails.width.get().replace("px", "")) > 100) {
-        element.classList.add("hidden");
-      } else {
-        element.classList.remove("hidden");
-      }
-    }
-  }, [showDetails]);
+
   return (
     <animated.div
+      id="activeClipDisplay"
       key={activeClipData?.id + "details"}
       style={{
         // right: showDetails.right,

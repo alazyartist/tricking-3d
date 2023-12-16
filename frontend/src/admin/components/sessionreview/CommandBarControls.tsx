@@ -39,7 +39,7 @@ const CommandBarControls = () => {
     },
     {
       title: "clear",
-      command: () => console.log("clear"),
+      command: () => setClipData({ startTime: 0, endTime: 0 }),
     },
     {
       title: "add",

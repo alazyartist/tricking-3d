@@ -20,6 +20,9 @@ import CommandBarControls from "./CommandBarControls";
 const CommandBar = ({ tricks, combos }) => {
   const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
+  const clipDetailsVisible = useSessionSummariesStore(
+    (s) => s.clipDetailsVisible
+  );
   const [root, setRoot] = useState(null);
   const frameRate = 0.083;
   if (!tricks) return null;
@@ -34,7 +37,7 @@ const CommandBar = ({ tricks, combos }) => {
     root &&
     createPortal(
       <div
-        className={` absolute left-[10vw]  top-[0]  z-[10] flex h-[22vh] w-[80vw] flex-col place-items-center justify-around rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:bottom-12 md:left-[20vw] md:h-[10vh] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]`}
+        className={` relative left-[10vw]  top-[0]  z-[10] flex h-[22vh] w-[80vw] flex-col place-items-center justify-around rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:bottom-12 md:left-[20vw] md:h-[10rem] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]`}
       >
         <CommandBarControls />
         <div className="jusfity-around flex place-items-center gap-2">
@@ -726,7 +729,7 @@ const KeyboardShortcutOverlay = ({ actions, setSeeShortcuts }) => {
         <p>exit</p>
         <MdClose />
       </button>
-      <div className="grid grid-flow-col grid-rows-6 gap-4">
+      <div className="flex flex-col gap-4 md:grid md:grid-flow-col md:grid-rows-6">
         {actions.map((a) => {
           return (
             <div className="flex justify-between bg-zinc-700 p-2">

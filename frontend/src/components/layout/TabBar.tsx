@@ -12,6 +12,7 @@ import BiCube from "../../data/icons/BiCube";
 import { useRouter } from "next/router";
 import useIsAdmin from "hooks/useIsAdmin";
 import { IoIosPerson } from "react-icons/io";
+import { useSessionSummariesStore } from "@admin/components/sessionreview/SessionSummaryStore";
 
 function TabBar() {
   const [openHamburger, setOpenHamburger] = useState<Boolean>();
@@ -20,6 +21,9 @@ function TabBar() {
   const { user, isSignedIn } = useUser();
   const logout = useLogout();
   const nav = useRouter();
+  const clipDetailsVisible = useSessionSummariesStore(
+    (s) => s.clipDetailsVisible
+  );
   // const nav = useNavigate();
   // const location = useLocation();
 
@@ -41,6 +45,14 @@ function TabBar() {
       config: { tension: 40, friction: 12 },
     },
   });
+  const height = useSpring<{}>({
+    from: { height: "22vh" },
+    to: { height: "0vh" },
+    reverse: clipDetailsVisible,
+    config: {
+      config: { tension: 40, friction: 12 },
+    },
+  });
 
   return (
     <>
@@ -50,13 +62,17 @@ function TabBar() {
           openNav ? "z-[1] select-none " : "z-[1014]"
         } w-[100%] overflow-hidden `}
       >
-        <div id="commandBar-root" className="z-[100] h-[22vh] w-full "></div>
+        <animated.div
+          id="commandBar-root"
+          style={height}
+          className={`z-[1] h-[22vh] w-[80vw] touch-none md:h-[10rem]`}
+        ></animated.div>
         <animated.div style={navToggle} className="relative">
           <div
             style={navToggle}
             className={`relative left-0 flex ${
               openNav ? "h-12" : "h-12"
-            } w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-opacity-40 bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300 backdrop-blur-md`}
+            } z-[10] w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-opacity-40 bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300 backdrop-blur-md`}
           >
             {isAdmin && (
               <Link href="/admin">

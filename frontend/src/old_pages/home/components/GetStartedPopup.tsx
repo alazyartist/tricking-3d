@@ -49,6 +49,8 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
     previousElement.current = activeElementRef.current;
     activeElementRef.current = element.getBoundingClientRect();
     setActiveElement(activeElementRef.current);
+    console.log(activeElementRef.current);
+    console.log(previousElement.current);
     if (
       activeElementRef.current.left + bounds.width > window.innerWidth ||
       activeElementRef.current.top - bounds.height < window.innerHeight
