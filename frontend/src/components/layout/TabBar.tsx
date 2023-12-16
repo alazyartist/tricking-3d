@@ -85,10 +85,10 @@ function TabBar() {
             {/* <Link href="/comboMaker">
               <ComboMakerBlueprintsvg className="h-10 w-10" fill="#ffffff" />
             </Link> */}
-            <Link href="/social">
+            <Link id={"social-target"} href="/social">
               <IoIosPerson />
             </Link>
-            <Link href="/sandbox">
+            <Link id={"sandbox-target2"} href="/sandbox">
               <BiCube />
             </Link>
             <Link id={"theory-target"} href="/theory">

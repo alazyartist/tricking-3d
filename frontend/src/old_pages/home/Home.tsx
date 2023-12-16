@@ -65,16 +65,38 @@ function Home({ userInfo: stringy }) {
               id: "user-icon",
             },
             {
-              title: "TempFeed",
-              content:
-                "This is the temp feed, it will be replaced with a real feed soon",
-              id: "temp-feed",
+              title: "SandBox",
+              content: "Click here to go to the sandbox",
+              id: "sandbox-target",
+            },
+            {
+              title: "SandBox..",
+              content: "You can also access the sandbox from here",
+              id: "sandbox-target2",
             },
             {
               title: "Add Session",
               content: "Click here to add a session",
               id: "add-session-button",
             },
+            {
+              title: "Socials",
+              content: "Click here to go to the socials",
+              id: "social-target-home",
+            },
+            {
+              title: "Socials..",
+              content: "you can also access the socials from here",
+              id: "social-target",
+            },
+
+            {
+              title: "TempFeed",
+              content:
+                "This is the temp feed, it will be replaced with a real feed soon",
+              id: "temp-feed",
+            },
+
             {
               title: "Theory",
               content: "Click here to add a session",
@@ -141,6 +163,7 @@ function Home({ userInfo: stringy }) {
             </SignedIn>
             <AnimatedSearch />
             <Button
+              id={"sandbox-target"}
               href={"/sandbox"}
               label={
                 <span className="flex place-content-center items-center gap-2">
@@ -150,8 +173,9 @@ function Home({ userInfo: stringy }) {
             />
             <SignedIn>
               <Button
+                id={"add-session-button"}
                 href={isSignedIn ? "/addSession" : "/login"}
-                label={<span id="add-session-button">Add Session</span>}
+                label={<span>Add Session</span>}
               />
             </SignedIn>
             <SignedOut>
@@ -164,7 +188,11 @@ function Home({ userInfo: stringy }) {
               </div>
             </SignedOut>
 
-            <Button href={"/social"} label={"Social"} />
+            <Button
+              id={"social-target-home"}
+              href={"/social"}
+              label={"Social"}
+            />
           </div>
 
           <div className="flex h-fit w-[90vw] max-w-[600px] flex-col place-content-center">
@@ -188,9 +216,10 @@ function Home({ userInfo: stringy }) {
 
 export default Home;
 
-const Button = ({ href, label }) => {
+const Button = ({ href, label, id }) => {
   return (
     <Link
+      id={id}
       href={href}
       className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
     >
