@@ -42,10 +42,15 @@ function Home({ userInfo: stringy }) {
     }
   }, []);
 
-  const logoAnim = useSpring({
-    to: { width: isSignedIn ? "50vw" : "100vw" },
-  });
-  const [helpVisible, setHelpVisible] = React.useState(!walkthroughSeen);
+  // const logoAnim = useSpring({
+  //   to: { width: isSignedIn ? "50vw" : "100vw" },
+  // });
+  const [helpVisible, setHelpVisible] = React.useState(false);
+  useEffect(() => {
+    if (walkthroughSeen) {
+      setHelpVisible(!walkthroughSeen);
+    }
+  }, [walkthroughSeen]);
   return (
     <div className=" stick h-full w-full overflow-hidden ">
       {helpVisible && (
@@ -129,7 +134,7 @@ function Home({ userInfo: stringy }) {
         id="AppBackground-flex"
         className="flex h-full w-full flex-col place-items-center"
       >
-        <div
+        {/* <div
           className={`flex w-full  ${
             isSignedIn ? "place-content-start" : "place-content-center"
           } text-center text-zinc-200 xl:absolute xl:top-0`}
@@ -141,7 +146,7 @@ function Home({ userInfo: stringy }) {
             {!isSignedIn && "Welcome to the"}
             <TrickedexLogo className={`-m-2px flex fill-zinc-300`} />
           </animated.div>
-        </div>
+        </div> */}
         <div className="no-scrollbar z-[1] h-[84vh] overflow-y-scroll rounded-xl bg-zinc-800 bg-opacity-40 py-2 backdrop-blur-xl">
           <div className="flex flex-col place-items-center">
             <div
@@ -174,7 +179,7 @@ function Home({ userInfo: stringy }) {
             <SignedIn>
               <Button
                 id={"add-session-button"}
-                href={isSignedIn ? "/addSession" : "/login"}
+                href="addSession"
                 label={<span>Add Session</span>}
               />
             </SignedIn>
@@ -195,19 +200,16 @@ function Home({ userInfo: stringy }) {
             />
           </div>
 
-          <div className="flex h-fit w-[90vw] max-w-[600px] flex-col place-content-center">
-            {!isSignedIn ? (
+          <SignedOut>
+            <div className="flex h-fit w-[90vw] max-w-[600px] flex-col place-content-center">
               <PublicHomePage />
-            ) : (
-              // LoggedIn
-              <>
-                {/* <div className="flex flex-grow-0 justify-around  text-zinc-300">
-                  <div className="grid w-[98%] grid-cols-2 grid-rows-2 place-content-center place-items-center gap-4"></div>
-                </div> */}
-              </>
-            )}
-            <TempFeed />
-          </div>
+            </div>
+          </SignedOut>
+          <SignedIn>
+            <div className="flex h-fit w-[90vw] max-w-[600px] flex-col place-content-center">
+              <TempFeed />
+            </div>
+          </SignedIn>
         </div>
       </div>
     </div>

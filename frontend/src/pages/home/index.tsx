@@ -3,6 +3,7 @@ import { NextPage } from "next";
 import React from "react";
 import { getAuth } from "@clerk/nextjs/server";
 import { users } from "@prisma/client";
+import { prisma } from "server/db/client";
 
 const HomePage: NextPage<{ userInfo: Partial<users> }> = (props) => {
   return <Home userInfo={props?.userInfo} />;
