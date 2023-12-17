@@ -62,11 +62,13 @@ function TabBar() {
           openNav ? "z-[1] select-none " : "z-[1014]"
         } w-[100%] overflow-hidden `}
       >
-        <animated.div
-          id="commandBar-root"
-          style={height}
-          className={`z-[1] h-[22vh] w-[80vw] touch-none md:h-[10rem]`}
-        ></animated.div>
+        {nav?.pathname?.includes("sessionReview") && (
+          <animated.div
+            id="commandBar-root"
+            style={height}
+            className={`z-[1] h-[22vh] w-[80vw] touch-none md:h-[10rem]`}
+          ></animated.div>
+        )}
         <animated.div style={navToggle} className="relative">
           <div
             style={navToggle}
@@ -85,10 +87,10 @@ function TabBar() {
             {/* <Link href="/comboMaker">
               <ComboMakerBlueprintsvg className="h-10 w-10" fill="#ffffff" />
             </Link> */}
-            <Link id={"social-target"} href="/social">
+            <Link id={"social-target-tabBar"} href="/social">
               <IoIosPerson />
             </Link>
-            <Link id={"sandbox-target2"} href="/sandbox">
+            <Link id={"sandbox-target-tabBar"} href="/sandbox">
               <BiCube />
             </Link>
             <Link id={"theory-target"} href="/theory">

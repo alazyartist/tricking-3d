@@ -6,7 +6,6 @@ import { TrickedexLogo } from "../../data/icons/TrickedexLogo";
 import PublicHomePage from "./components/PublicHomePage";
 import { useSpring, animated } from "@react-spring/web";
 import BiCube from "../../data/icons/BiCube";
-import { trpc } from "utils/trpc";
 import TempFeed from "./components/TempFeed";
 import AnimatedSearch from "./components/AnimatedSearch";
 import {
@@ -42,9 +41,9 @@ function Home({ userInfo: stringy }) {
     }
   }, []);
 
-  // const logoAnim = useSpring({
-  //   to: { width: isSignedIn ? "50vw" : "100vw" },
-  // });
+  const logoAnim = useSpring({
+    to: { width: isSignedIn ? "50vw" : "100vw" },
+  });
   const [helpVisible, setHelpVisible] = React.useState(false);
   useEffect(() => {
     if (walkthroughSeen) {
@@ -56,7 +55,6 @@ function Home({ userInfo: stringy }) {
       {helpVisible && (
         <GetStartedPopup
           setHelpVisible={setHelpVisible}
-          helpVisible={helpVisible}
           steps={[
             {
               title: "Welcome",
@@ -72,12 +70,12 @@ function Home({ userInfo: stringy }) {
             {
               title: "SandBox",
               content: "Click here to go to the sandbox",
-              id: "sandbox-target",
+              id: "sandbox-target-home",
             },
             {
               title: "SandBox..",
               content: "You can also access the sandbox from here",
-              id: "sandbox-target2",
+              id: "sandbox-target-tabBar",
             },
             {
               title: "Add Session",
@@ -92,7 +90,7 @@ function Home({ userInfo: stringy }) {
             {
               title: "Socials..",
               content: "you can also access the socials from here",
-              id: "social-target",
+              id: "social-target-tabBar",
             },
 
             {
@@ -134,7 +132,7 @@ function Home({ userInfo: stringy }) {
         id="AppBackground-flex"
         className="flex h-full w-full flex-col place-items-center"
       >
-        {/* <div
+        <div
           className={`flex w-full  ${
             isSignedIn ? "place-content-start" : "place-content-center"
           } text-center text-zinc-200 xl:absolute xl:top-0`}
@@ -146,7 +144,7 @@ function Home({ userInfo: stringy }) {
             {!isSignedIn && "Welcome to the"}
             <TrickedexLogo className={`-m-2px flex fill-zinc-300`} />
           </animated.div>
-        </div> */}
+        </div>
         <div className="no-scrollbar z-[1] h-[84vh] overflow-y-scroll rounded-xl bg-zinc-800 bg-opacity-40 py-2 backdrop-blur-xl">
           <div className="flex flex-col place-items-center">
             <div
@@ -168,7 +166,7 @@ function Home({ userInfo: stringy }) {
             </SignedIn>
             <AnimatedSearch />
             <Button
-              id={"sandbox-target"}
+              id={"sandbox-target-home"}
               href={"/sandbox"}
               label={
                 <span className="flex place-content-center items-center gap-2">

@@ -5,6 +5,7 @@ const BackgroundCircles = () => {
     <>
       <img
         src={`/swirly.jpg`}
+        alt="swirly background"
         className={
           "noTouch absolute z-[-1] h-screen w-screen touch-none mix-blend-multiply blur-md"
         }

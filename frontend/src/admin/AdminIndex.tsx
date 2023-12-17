@@ -1,11 +1,9 @@
 "use client";
 import useIsAdmin from "hooks/useIsAdmin";
 import React from "react";
-import { useUserStore } from "../store/userStore";
 import AdminDisplay from "./components/AdminDisplay";
 
 const AdminIndex = () => {
-  const userInfo = useUserStore((s) => s.userInfo);
   const isAdmin = useIsAdmin();
   return (
     <>

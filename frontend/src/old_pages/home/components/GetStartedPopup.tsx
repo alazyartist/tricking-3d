@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useMeasure from "react-use-measure";
 import { useTransition, animated, a, useSpring } from "@react-spring/web";
 import { useUserStore } from "@store/userStore";
@@ -11,13 +11,11 @@ interface Step {
 
 interface GetStartedPopupprops {
   steps: Step[];
-  helpVisible: boolean;
   setHelpVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
   steps,
-  helpVisible,
   setHelpVisible,
 }) => {
   const [activeStep, setActiveStep] = useState(0);
@@ -84,9 +82,9 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
           top:
             activeElement?.top - bounds.height > 0
               ? activeElement?.top + bounds.height > window.innerHeight
-                ? window.innerHeight - bounds.height - 48
+                ? window.innerHeight - bounds.height - 129
                 : activeElement.top - bounds.height
-              : 35,
+              : 45,
         }
       : { opacity: 1 },
     leave: activeElement
@@ -107,7 +105,7 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
         <animated.div
           key={item.title + i}
           onClick={() => nextStep()}
-          className={`absolute left-[50%] z-[100] flex h-fit w-fit max-w-[80vw] ${
+          className={`absolute left-[50%] z-[100] m-2 flex h-fit w-fit max-w-[80vw] ${
             activeStep === 0 && "translate-x-[-50%]"
           } flex-col place-content-center place-items-center rounded-md bg-zinc-800 text-xl text-zinc-200`}
           style={{ opacity, left: left, top: top }}

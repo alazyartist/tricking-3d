@@ -178,7 +178,7 @@ const ClipDataDetails = ({
       console.log(saveResponse.comboTimestamps);
       setComboTimestamps(saveResponse.comboTimestamps as any[]);
     }
-  }, [saveResponse]);
+  }, [saveResponse, clipDuration, sd]);
   return (
     <>
       <input
@@ -241,11 +241,11 @@ const SubClips = ({
     ...timestamps?.[i],
   });
   const [activeIndex, setActiveIndex] = useState(0);
-  let w = `${(
-    ((parseInt(e.clipEnd) - parseInt(e.clipStart)) / parseInt(duration)) *
-    100
-  ).toFixed(2)}%`;
-  let l = `${((parseInt(e.clipStart) / parseInt(duration)) * 100).toFixed(0)}%`;
+  // let w = `${(
+  //   ((parseInt(e.clipEnd) - parseInt(e.clipStart)) / parseInt(duration)) *
+  //   100
+  // ).toFixed(2)}%`;
+  // let l = `${((parseInt(e.clipStart) / parseInt(duration)) * 100).toFixed(0)}%`;
   const len = e.ClipLabel?.comboArray.length;
   const currentTime = useSessionSummariesStore((s) => s.currentTime);
   console.log("duration", duration);
