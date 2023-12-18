@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import useApiCreds from "../../../hooks/useApiCreds";
 import CheckoutForm from "./CheckoutForm";
 import { useUserStore } from "../../../store/userStore";
+import { trpc } from "@utils/trpc";
 const PaymentEmbed = ({ setShowForm, creditAmount }) => {
-  const apiPrivate = useApiCreds();
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState(null);
   const { uuid } = useUserStore((s) => s.userInfo);
+
+  const { data: stripeKey } = trpc.payments.getSecretKey.useQuery();
   useEffect(() => {
-    apiPrivate
-      .get("/checkout")
-      //@ts-ignore
-      .then(async (response) => setStripePromise(loadStripe(response?.data)));
-  }, []);
+    if (stripeKey) {
+      setStripePromise(loadStripe(stripeKey));
+    }
+  }, [stripeKey]);
+
+  const { data: response } = trpc.payments.createPaymentIntent.useQuery({
+    amount: creditAmount,
+    user_id: uuid,
+  });
   useEffect(() => {
-    apiPrivate
-      .post("/checkout", {
-        user_id: uuid,
-        amount: creditAmount,
-      })
-      .then(async (response) => setClientSecret(response?.data?.clientSecret));
+    setClientSecret(response?.client_secret);
   }, [creditAmount]);
   const appearance = { theme: "night" };
   return (

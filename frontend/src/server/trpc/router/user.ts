@@ -251,4 +251,14 @@ export const userRouter = router({
     });
     return user;
   }),
+  getCurrentCredits: protectedProcedure.query(async ({ ctx }) => {
+    if (!ctx?.auth.userId) return "No User";
+    const user = await ctx.prisma.users.findUnique({
+      where: { clerk_id: ctx?.auth.userId },
+      select: {
+        SessionReviewCredits: true,
+      },
+    });
+    return user.SessionReviewCredits;
+  }),
 });

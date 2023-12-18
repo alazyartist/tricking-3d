@@ -113,6 +113,7 @@ importers:
       react-qr-reader: ^3.0.0-beta-1
       react-qrcode-logo: ^2.9.0
       react-use-measure: ^2.1.1
+      stripe: ^11.1.0
       superjson: ^1.13.3
       tailwindcss: ^3.3.5
       three: ^0.158.0
@@ -173,6 +174,7 @@ importers:
       react-qr-reader: 3.0.0-beta-1_biqbaboplfbrettd7655fr4n2y
       react-qrcode-logo: 2.9.0_biqbaboplfbrettd7655fr4n2y
       react-use-measure: 2.1.1_biqbaboplfbrettd7655fr4n2y
+      stripe: 11.1.0
       superjson: 1.13.3
       three: 0.158.0
       web-vitals: 2.1.4
@@ -3217,10 +3219,6 @@ packages:
 
   /@types/node/16.18.6:
     resolution: {integrity: sha512-vmYJF0REqDyyU0gviezF/KHq/fYaUbFhkcNbQCuPGFQj6VTbXuHZoxs/Y7mutWe73C8AC6l9fFu8mSYiBAqkGA==}
-    dev: false
-
-  /@types/node/18.7.23:
-    resolution: {integrity: sha512-DWNcCHolDq0ZKGizjx2DZjR/PqsYwAcYUJmfMWqtVU2MBMG5Mo+xFZrhGId5r/O5HOuMPyQEcM6KUBp5lBZZBg==}
     dev: false
 
   /@types/node/20.8.2:
@@ -9174,8 +9172,8 @@ packages:
     resolution: {integrity: sha512-erOslPQZSYKOotQjmKRy4eBon/tdhzLIYzBdPSNVWDdatSQozkkPlh8mVeXNwubYYZYx61/yS23eWiGDF93z2w==}
     engines: {node: '>=12.*'}
     dependencies:
-      '@types/node': 18.7.23
-      qs: 6.11.0
+      '@types/node': 20.8.2
+      qs: 6.11.2
     dev: false
 
   /styled-jsx/5.1.1_react@18.2.0:

@@ -23,11 +23,12 @@ const AddSessionPage = () => {
   const { mutate: submitSession, data: response } =
     trpc.sessionsummaries.submitSession.useMutation();
 
-  const { uuid: user_id, SessionReviewCredits } = useUserStore(
-    (s) => s.userInfo
-  );
+  const { uuid: user_id } = useUserStore((s) => s.userInfo);
+
   const userInfo = useUserStore((s) => s.userInfo);
-  console.log(userInfo);
+  // console.log(userInfo);
+  const { data: SessionReviewCredits } =
+    trpc.userDB.getCurrentCredits.useQuery();
   const [showOutOfCredits, setShowOutOfCredits] = useState(false);
   const [submitSuccess, setSubmitSucces] = useState(false);
   const [formData, setFormData] = useState({

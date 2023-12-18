@@ -8,6 +8,7 @@ import { comboRouter } from "./combos";
 import { debateRouter } from "./debates";
 import { animationRouter } from "./animations";
 import { tricklistRouter } from "./tricklist";
+import { paymentsRouter } from "./payments";
 
 export const appRouter = router({
   userDB: userRouter,
@@ -18,6 +19,7 @@ export const appRouter = router({
   sessionsummaries: sessionsummariesRouter,
   debates: debateRouter,
   tricklists: tricklistRouter,
+  payments: paymentsRouter,
 });
 
 // export type definition of API
