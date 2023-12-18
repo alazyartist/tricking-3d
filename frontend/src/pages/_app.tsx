@@ -65,6 +65,8 @@ const MyApp: AppType<{ Session: null }> = ({
         <ReactQueryDevtools position={"top-right"} />
         <AppBackground />
         {!path.includes("/landing") && path !== "/" && <UserIcon />}
+        <div id={"portal-root"}></div>
+
         {path.includes("/theory") ? <TheoryTabBar /> : <TabBar />}
         <Component {...pageProps} />
       </QueryClientProvider>

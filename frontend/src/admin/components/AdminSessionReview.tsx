@@ -93,7 +93,7 @@ const AdminSessionReview = ({
           </div> */}
         </div>
       )}
-      <div id={"portal-root"}></div>
+      {/* <div id={"portal-root"}></div> */}
       <MakeNewTrickModal />
       <ActiveClipDisplay />
       {tricks !== undefined && combos !== undefined && (

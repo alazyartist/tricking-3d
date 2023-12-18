@@ -42,6 +42,8 @@ const adjustFinalPosition = (newElement, sd) => {
           newElement.startTime - s.startTime
         );
         console.log("contained", offset, durr);
+        console.log("old", s.startTime, s.endTime);
+        console.log("new", newElement.startTime, newElement.endTime);
         return {
           ...newElement,
           startTime: s.endTime + frame,

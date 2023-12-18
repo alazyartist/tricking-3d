@@ -60,13 +60,13 @@ function TabBar() {
         id={"tabBar"}
         className={`fixed bottom-0 ${
           openNav ? "z-[1] select-none " : "z-[1014]"
-        } w-[100%] overflow-hidden `}
+        } w-[100%] `}
       >
         {nav?.pathname?.includes("sessionReview") && (
           <animated.div
             id="commandBar-root"
             style={height}
-            className={`z-[1] h-[22vh] w-[80vw] touch-none md:h-[10rem]`}
+            className={` z-[1] h-[22vh] w-[80vw] touch-none md:h-[10rem]`}
           ></animated.div>
         )}
         <animated.div style={navToggle} className="relative">
