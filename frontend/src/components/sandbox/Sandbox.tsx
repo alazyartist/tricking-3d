@@ -50,7 +50,7 @@ const Sandbox = () => {
               </div>
             </div>
 
-            <div className="absolute bottom-0 left-0 w-screen p-2 pb-4 pt-2">
+            <div className="absolute bottom-[3rem] left-0 w-screen p-2 pb-4 pt-2">
               <div className={`${container_border} bg-zinc-800 p-4`}>
                 <DurationSlider />
                 <MediaController />
@@ -63,7 +63,7 @@ const Sandbox = () => {
 
         <div
           className={`absolute ${
-            showUI ? "bottom-[15vh]" : "bottom-[6vh]"
+            showUI ? "bottom-[27vh]" : "bottom-[30vh]"
           } right-[2vw]`}
         >
           <ShowHideUI />

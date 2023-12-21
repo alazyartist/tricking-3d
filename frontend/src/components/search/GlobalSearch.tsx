@@ -148,8 +148,8 @@ const Autocomplete = (props: any) => {
                 return tricks?.sort((a, b) => {
                   if (a.name > b.name) return 1;
                   if (a.name < b.name) return -1;
-                  if (a.name.length < b.name.length) return -1;
-                  if (a.name.length > b.name.length) return 1;
+                  if (a.name?.length < b?.name?.length) return -1;
+                  if (a.name?.length > b?.name?.length) return 1;
                   //check your filters
                   //then check the length
 

@@ -145,7 +145,7 @@ function Home({ userInfo: stringy }) {
             <TrickedexLogo className={`-m-2px flex fill-zinc-300`} />
           </animated.div>
         </div>
-        <div className="no-scrollbar z-[1] h-[84vh] overflow-y-scroll rounded-xl bg-zinc-800 bg-opacity-40 py-2 backdrop-blur-xl">
+        <div className="no-scrollbar z-[1] h-[82vh] overflow-y-scroll rounded-xl bg-zinc-800 bg-opacity-40 py-2 backdrop-blur-xl">
           <div className="flex flex-col place-items-center">
             <div
               id="help-button"
@@ -161,9 +161,6 @@ function Home({ userInfo: stringy }) {
               Learn More
             </Link>
 
-            <SignedIn>
-              <UserButton afterSignOutUrl="/home" />
-            </SignedIn>
             <AnimatedSearch />
             <Button
               id={"sandbox-target-home"}
