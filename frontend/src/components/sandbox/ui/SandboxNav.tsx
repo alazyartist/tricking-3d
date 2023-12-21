@@ -56,12 +56,12 @@ const SandboxNav = () => {
       </div>
 
       <div className=" flex w-full flex-col justify-evenly gap-3 rounded-lg bg-zinc-900 bg-opacity-50 p-2">
-        <div className="flex flex-row justify-evenly">
+        <div className="flex flex-row place-items-center justify-evenly">
           <ModalButton
             handleOpen={() => {
               handleOpen(1);
             }}
-            content="Trick" //{currentAnim}
+            content="Tricks" //{currentAnim}
           />
           {/**trickInfo button */}
           <ModalButton
@@ -75,21 +75,23 @@ const SandboxNav = () => {
           />
           {/**versions button*/}
           {currentVersions.length > 1 && <></>}
-          <ModalButton
-            handleOpen={() => handleOpen(4)}
-            content={
-              <div>
-                {" "}
-                Combo{" "}
-                {currentVersions?.length > 1 ? (
-                  <span className="rounded-md border-2 border-zinc-100 bg-zinc-800 pl-2 pr-2">
-                    {" "}
-                    {currentVersions?.length}{" "}
-                  </span>
-                ) : null}
-              </div>
-            } //"Version"
-          />
+          {currentVersions?.length > 1 && (
+            <ModalButton
+              handleOpen={() => handleOpen(4)}
+              content={
+                <div>
+                  {" "}
+                  Combo{" "}
+                  {currentVersions?.length > 1 ? (
+                    <span className="rounded-md border-2 border-zinc-100 bg-zinc-800 pl-2 pr-2">
+                      {" "}
+                      {currentVersions?.length}{" "}
+                    </span>
+                  ) : null}
+                </div>
+              } //"Version"
+            />
+          )}
           {/**versions button*/}
           <ModalButton
             handleOpen={() => handleOpen(5)}
