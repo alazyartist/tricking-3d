@@ -18,15 +18,13 @@ const whatsToday = () => {
 };
 const AddSessionPage = () => {
   // const { data: availableUsers } = trpc.userDB.findAll.useQuery();
-  let todaytime = new Date(Date.now()).toISOString().slice(-13, -8);
+  // let todaytime = new Date(Date.now()).toISOString().slice(-13, -8);
 
   const { mutate: submitSession, data: response } =
     trpc.sessionsummaries.submitSession.useMutation();
 
   const { uuid: user_id } = useUserStore((s) => s.userInfo);
 
-  const userInfo = useUserStore((s) => s.userInfo);
-  // console.log(userInfo);
   const { data: SessionReviewCredits } =
     trpc.userDB.getCurrentCredits.useQuery();
   const [showOutOfCredits, setShowOutOfCredits] = useState(false);

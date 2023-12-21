@@ -1,8 +1,11 @@
 "use client";
+import HomeIcon from "@data/icons/HomeIcon";
+import useClickOutside from "@hooks/useClickOutside";
 import { trpc } from "@utils/trpc";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { IoIosDesktop, IoIosPerson, IoIosSettings } from "react-icons/io";
 import { useUserStore } from "../../store/userStore";
 
 const UserIcon = () => {
@@ -13,6 +16,7 @@ const UserIcon = () => {
   const { data: image } = trpc.userDB.findUserImageById.useQuery({
     uuid: uuid,
   });
+  const [quickMenuOpen, setQuickMenuOpen] = useState(false);
   useEffect(() => {
     // console.log(pathname, uuid);
     if (uuid !== undefined && uuid !== null) {
@@ -22,13 +26,61 @@ const UserIcon = () => {
     }
   }, [uuid, profilePic, pathname]);
   return (
-    <Link
-      href={href}
-      className="fixed right-5 top-2.5 z-[1002] h-[50px] w-[50px] rounded-full border-2 border-zinc-300 border-opacity-20"
-    >
-      <img id="user-icon" src={image} className="h-full w-full rounded-full" />
-    </Link>
+    <>
+      <button
+        onClick={() => {
+          setQuickMenuOpen((q) => !q);
+        }}
+        // href={href}
+        className="fixed right-5 top-2.5 z-[1002] h-[50px] w-[50px] rounded-full border-2 border-zinc-300 border-opacity-20"
+      >
+        <img
+          id="user-icon"
+          src={image}
+          className="h-full w-full rounded-full"
+        />
+      </button>
+      <QuickMenu
+        uuid={uuid}
+        setQuickMenuOpen={setQuickMenuOpen}
+        quickMenuOpen={quickMenuOpen}
+      />
+    </>
   );
 };
 
 export default UserIcon;
+type optionsProps = {
+  title: string;
+  href: string;
+  icon: React.ReactNode;
+};
+const QuickMenu = ({ setQuickMenuOpen, quickMenuOpen, uuid }) => {
+  const menuref = useClickOutside(() => setQuickMenuOpen(false));
+  const options: optionsProps[] = [
+    { icon: <HomeIcon />, title: "Home", href: "/home" },
+    { icon: <IoIosPerson />, title: "Profile", href: `/userProfile/${uuid}` },
+    { icon: <IoIosDesktop />, title: "Dash", href: "/dash" },
+    { icon: <IoIosSettings />, title: "Settings", href: "/userSettings" },
+  ];
+  return (
+    !!quickMenuOpen && (
+      <div
+        ref={menuref}
+        id="quick-menu"
+        className="fixed right-5 top-20 z-[1014] w-[90vw] rounded-md bg-zinc-900 p-4 text-zinc-300 md:w-[30vw]"
+      >
+        <div className="flex w-full flex-col gap-3">
+          {options.map((opt) => (
+            <div className="flex place-items-center gap-3">
+              {opt.icon}
+              <Link onClick={() => setQuickMenuOpen(false)} href={opt.href}>
+                <p className="bg-zinc-900 text-xl">{opt.title}</p>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  );
+};

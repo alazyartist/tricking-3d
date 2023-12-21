@@ -5,6 +5,7 @@ const useClickOutside = (callback) => {
   const handleClick = (e) => {
     if (!ref.current?.contains(e.target)) {
       callback();
+      console.log("You clicked outside of me!");
     }
   };
   useEffect(() => {

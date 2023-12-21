@@ -62,7 +62,7 @@ const MyApp: AppType<{ Session: null }> = ({
   return (
     <ClerkProvider appearance={{ baseTheme: dark }} {...pageProps}>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools position={"top-right"} />
+        {/* <ReactQueryDevtools position={"top-right"} /> */}
         <AppBackground />
         {!path.includes("/landing") && path !== "/" && <UserIcon />}
         <div id={"portal-root"}></div>

@@ -22,6 +22,7 @@ export const serverSchema = z.object({
   GMAIL_CLIENT_SECRET: z.string(),
   GMAIL_REFRESH_TOKEN: z.string(),
   MIXPANEL_TOKEN: z.string(),
+  ABLY_API_KEY: z.string(),
   STRIPE_SECRET_KEY: z.string(),
   STRIPE_PUBLIC_KEY: z.string(),
   STRIPE_WEBHOOK_SECRET: z.string(),

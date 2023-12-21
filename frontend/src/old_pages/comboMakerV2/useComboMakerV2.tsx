@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import useGetTricks from "../../api/useGetTricks";
+import { trpc } from "@utils/trpc";
+import { useEffect, useState } from "react";
 
 export const getStanceLeg = (stance) => {
   switch (stance) {
@@ -34,7 +34,7 @@ const useComboMakerV2 = () => {
   const [filter, setFilter] = useState<string>();
   const [deleteLast, setDeleteLast] = useState<number>(0);
   const [stances, setStances] = useState<any>();
-  const { data, status, isSuccess } = useGetTricks();
+  const { data, status, isSuccess } = trpc.trick.getAll.useQuery();
   useEffect(() => {
     setStances(data?.filter((t) => t.type === "Stance"));
     setTricks(data);

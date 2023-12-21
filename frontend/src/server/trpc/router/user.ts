@@ -95,12 +95,21 @@ export const userRouter = router({
       //   ],
       // });
       if (profileInfo?.sessionSummaries) {
+        //combine the two arrays and de duplicate based on sessionid
+        const combined = [
+          ...profileInfo.sessionSummaries.map((ss) => ss.sessionsummary),
+          ...profileInfo.SessionSummaries,
+        ];
+        const unique = combined.filter(
+          (thing, index, self) =>
+            index ===
+            self.findIndex(
+              (t) => t.sessionid === thing.sessionid && t.sessionid !== null
+            )
+        );
         return {
           ...profileInfo,
-          SessionSummaries: [
-            ...profileInfo.sessionSummaries.map((ss) => ss.sessionsummary),
-            ...profileInfo.SessionSummaries,
-          ],
+          SessionSummaries: unique,
         };
       } else return profileInfo;
     }),

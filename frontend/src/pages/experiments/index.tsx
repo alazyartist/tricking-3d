@@ -10,8 +10,8 @@ const ExperimentsPage = () => {
         finished. Feel free to explore and let us know what's still broken!
       </p>
       <Link
-        href={"/ppoints"}
-        className=" mt-1 mb-2 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
+        href={"/pppoints"}
+        className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
       >
         <div className="flex place-content-center place-items-center gap-2">
           BattleRooms
@@ -19,7 +19,7 @@ const ExperimentsPage = () => {
       </Link>
       <Link
         href={"/comboMaker"}
-        className=" mt-1 mb-2 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
+        className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
       >
         <div className="flex place-content-center place-items-center gap-2">
           ComboMaker

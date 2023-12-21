@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import useMeasure from "react-use-measure";
 import { useTransition, animated, a, useSpring } from "@react-spring/web";
 import { useUserStore } from "@store/userStore";
+import useClickOutside from "@hooks/useClickOutside";
 
 interface Step {
   title: string;
@@ -98,9 +99,14 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
     setActiveStep(0);
     setWalkthroughSeen({ home: true });
   };
+  const ref = useClickOutside(() => closePopover());
+  const setRefs = (node) => {
+    ref.current = node;
+    measureRef(node);
+  };
   return (
     <div className="welcome-popover absolute z-[60] h-full max-h-[100vh] w-full max-w-[100vw] overflow-hidden font-inter">
-      <div className="absolute h-full w-full" onClick={() => closePopover()} />
+      {/* <div className="absolute h-full w-full" onClick={() => closePopover()} /> */}
       {transitions(({ opacity, left, top }, item, i) => (
         <animated.div
           key={item.title + i}
@@ -109,7 +115,7 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
             activeStep === 0 && "translate-x-[-50%]"
           } flex-col place-content-center place-items-center rounded-md bg-zinc-800 text-xl text-zinc-200`}
           style={{ opacity, left: left, top: top }}
-          ref={measureRef}
+          ref={setRefs}
         >
           <div className="p-8">
             <h3 className="">{item.title}</h3>

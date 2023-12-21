@@ -11,8 +11,9 @@ import AdminLockIcon from "../../data/icons/AdminLockIcon";
 import BiCube from "../../data/icons/BiCube";
 import { useRouter } from "next/router";
 import useIsAdmin from "hooks/useIsAdmin";
-import { IoIosPerson } from "react-icons/io";
+import { IoIosPeople, IoIosPerson } from "react-icons/io";
 import { useSessionSummariesStore } from "@admin/components/sessionreview/SessionSummaryStore";
+import useClickOutside from "@hooks/useClickOutside";
 
 function TabBar() {
   const [openHamburger, setOpenHamburger] = useState<Boolean>();
@@ -53,7 +54,7 @@ function TabBar() {
       config: { tension: 40, friction: 12 },
     },
   });
-
+  const ref = useClickOutside(() => setOpenHamburger(false));
   return (
     <>
       <animated.div
@@ -88,7 +89,7 @@ function TabBar() {
               <ComboMakerBlueprintsvg className="h-10 w-10" fill="#ffffff" />
             </Link> */}
             <Link id={"social-target-tabBar"} href="/social">
-              <IoIosPerson />
+              <IoIosPeople size={30} color={"#d4d4d8"} />
             </Link>
             <Link id={"sandbox-target-tabBar"} href="/sandbox">
               <BiCube />
@@ -124,6 +125,7 @@ function TabBar() {
             <animated.div
               id="side-Menu"
               style={styles}
+              ref={ref}
               onClick={() => setOpenHamburger(!openHamburger)}
               className="fixed bottom-[5rem] z-[100] rounded-l-xl"
             >

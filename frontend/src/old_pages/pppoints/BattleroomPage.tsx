@@ -378,9 +378,9 @@ const BattleroomPage = () => {
     startPending();
   }, [resultsPending]);
   return (
-    <div className="fixed top-0 left-0 flex h-screen w-screen flex-col place-items-center p-2 pt-14 text-zinc-300">
+    <div className="fixed left-0 top-0 flex h-screen w-screen flex-col place-items-center p-2 pt-14 text-zinc-300">
       <div
-        className="absolute top-20 left-4 text-3xl"
+        className="absolute left-4 top-20 text-3xl"
         onClick={() => router.back()}
       >
         <IoIosArrowBack />

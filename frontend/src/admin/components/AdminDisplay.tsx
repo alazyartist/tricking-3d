@@ -44,7 +44,7 @@ export default AdminDisplay;
 
 const AdminNav = ({ displayItem, setDisplayItem }) => {
   return (
-    <div className="z-[100] mt-4 grid w-full grid-cols-4 justify-around gap-2 rounded-md rounded-l-none bg-zinc-900 p-2 px-4 text-2xl md:text-4xl">
+    <div className="relative right-5 z-[100] mt-4 grid w-[80vw] grid-cols-4 justify-around gap-2 rounded-md rounded-l-none bg-zinc-900 p-2 px-4 text-2xl md:text-4xl">
       <div
         onClick={() => setDisplayItem("Tricks")}
         className="place-self-center"
