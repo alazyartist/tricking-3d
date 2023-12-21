@@ -9,17 +9,38 @@ const OverallStatDisplay = ({ profileInfo }) => {
   );
   let allSessionTricks = SessionSummaries?.map((summary) =>
     summary.SessionData?.map((data) =>
-      data.ClipLabel.comboArray.map((combo) => combo.name)
+      data.ClipLabel.comboArray
+        .map((trick) => {
+          if (trick.type != "Transition") {
+            console.log(trick);
+          }
+          if (trick.type != ("Transition" || "Stance")) return trick.name;
+        })
+        .filter((combo) => combo != undefined)
     )
   );
-  console.log(allSessionTricks);
+  //count tricks to find most used trick
+  const favoriteTrick = allSessionTricks.flat(2).reduce((acc, curr) => {
+    if (acc[curr]) {
+      acc[curr]++;
+    } else {
+      acc[curr] = 1;
+    }
+    return acc;
+  }, {});
+  const favoriteTrickName = Object.keys(favoriteTrick)
+    .map((key) => {
+      return [key, favoriteTrick[key]];
+    })
+    .sort((a, b) => b[1] - a[1]);
+  console.log(favoriteTrickName, favoriteTrick);
   totalTricks = totalTricks
     ?.map((a) => {
       return a?.reduce((sum, b) => sum + b, 0);
     })
     .reduce((sum, b) => sum + b, 0);
   return (
-    <div className="text-[12px] text-zinc-400">
+    <div className="space-y-2 text-[12px] text-zinc-400">
       <div>
         Sesions Submitted:{" "}
         <span className="text-zinc-300">
@@ -27,6 +48,19 @@ const OverallStatDisplay = ({ profileInfo }) => {
         </span>
       </div>
       <div>Total Tricks: {totalTricks}</div>
+      <div className="flex w-full place-items-center gap-2 whitespace-nowrap">
+        <p>Favorite Tricks:</p>
+        <div className="flex w-full flex-wrap gap-2">
+          {favoriteTrickName?.map(
+            (ft, i) =>
+              i < 5 && (
+                <p className="whitespace-nowrap rounded-md bg-zinc-800 p-1">
+                  {ft[0]} {ft[1]}
+                </p>
+              )
+          )}
+        </div>
+      </div>
       {/* <div className={"absolute right-5 top-5 h-[200px] w-[400px]"}>
         <RadarChart data={allSessionTricks} />
       </div> */}
