@@ -121,7 +121,7 @@ function Controller() {
               <div className="relative">
                 <MdSpeed className="fill-zinc-300 text-2xl" />
                 <span className="absolute inset-x-0.5 top-6 text-[.9rem] ">
-                  {Math.abs(timescale)}
+                  {Math.abs(timescale).toFixed(2)}
                 </span>
               </div>
             }
