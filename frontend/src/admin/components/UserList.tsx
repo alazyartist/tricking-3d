@@ -13,7 +13,7 @@ const UserList = () => {
     <>
       <div className="no-scrollbar  w-full p-4">
         <div className="p-2">UserList</div>
-        <div className="no-scrollbar flex h-[40vh] w-full flex-col gap-2 overflow-scroll rounded-md bg-zinc-900 bg-opacity-70 p-2">
+        <div className="no-scrollbar flex h-[40vh] w-[100vw] flex-col gap-2 overflow-scroll rounded-md bg-zinc-900 bg-opacity-70 p-2">
           {Array.isArray(allUsers) &&
             allUsers?.map((user, i) => (
               <div
