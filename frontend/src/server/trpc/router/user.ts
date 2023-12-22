@@ -24,7 +24,6 @@ export const userRouter = router({
         createdAt: true,
       },
     });
-    // console.log(users);
     return users;
   }),
   findByUUID: publicProcedure
@@ -87,13 +86,7 @@ export const userRouter = router({
           },
         },
       });
-      // console.log({
-      //   ...profileInfo,
-      //   SessionSummaries: [
-      //     ...profileInfo.sessionSummaries,
-      //     ...profileInfo.SessionSummaries,
-      //   ],
-      // });
+
       if (profileInfo?.sessionSummaries) {
         //combine the two arrays and de duplicate based on sessionid
         const combined = [
@@ -133,13 +126,7 @@ export const userRouter = router({
           sessionSummaries: true,
         },
       });
-      // console.log({
-      //   ...profileInfo,
-      //   SessionSummaries: [
-      //     ...profileInfo.sessionSummaries,
-      //     ...profileInfo.SessionSummaries,
-      //   ],
-      // });
+
       if (profileInfo?.sessionSummaries) {
         return {
           ...profileInfo,
@@ -188,13 +175,7 @@ export const userRouter = router({
           SessionReviewCredits: true,
         },
       });
-      // console.log({
-      //   ...profileInfo,
-      //   SessionSummaries: [
-      //     ...profileInfo.sessionSummaries,
-      //     ...profileInfo.SessionSummaries,
-      //   ],
-      // });
+
       if (profileInfo?.sessionSummaries && profileInfo?.SessionSummaries) {
         return {
           ...profileInfo,
@@ -217,9 +198,7 @@ export const userRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      // console.log("input", input);
       const tempUser = await ctx.prisma.users.create({ data: { ...input } });
-      // console.log(tempUser);
       return tempUser;
     }),
   captureUser: publicProcedure

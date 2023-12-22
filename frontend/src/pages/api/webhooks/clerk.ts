@@ -82,7 +82,6 @@ export default async function handler(
           console.log(newUser);
         }
       }
-      // console.log(user);
     } catch (err) {
       console.log("Failed to Create User");
       return res.status(401).json(err);
@@ -109,8 +108,6 @@ export default async function handler(
     });
     mixpanel.track("Login");
 
-    console.log(clerkUser?.username);
-    console.log("user", user);
     return res.status(200).send("OK");
   }
 }

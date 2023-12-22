@@ -10,7 +10,6 @@ export const tricklistRouter = router({
         where: { owner: input.uuid },
         include: { combos: { include: { combo: true } } },
       });
-      console.log(tricklists);
       return tricklists;
     }),
   makeTricklist: protectedProcedure

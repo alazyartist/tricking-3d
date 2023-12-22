@@ -40,16 +40,13 @@ export const animationRouter = router({
             }
           })
         );
-        console.log("info", info);
         return info;
       } else {
-        console.log(input.animation);
         const trickInfo = await ctx.prisma.tricks.findFirst({
           where: { name: input.animation },
           include: { variations: { include: { variation: true } } },
         });
         if (trickInfo) {
-          console.log(trickInfo);
           return [{ isCombo: false, ...trickInfo }];
         } else {
           console.log("not found");

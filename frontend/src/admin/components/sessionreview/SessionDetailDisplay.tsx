@@ -24,10 +24,6 @@ const SessionDetailDisplay = ({ sessionDetails, mirrored, toggleMirrored }) => {
     sessionid: sessionDetails.sessionid,
   });
 
-  // useEffect(
-  //   () => console.log(sessionDetails, sessionSummary),
-  //   [sessionDetails, sessionSummary]
-  // );
   return (
     <animated.div
       key={sessionDetails.sessionid + "details"}

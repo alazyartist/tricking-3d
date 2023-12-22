@@ -134,8 +134,8 @@ function Home({ userInfo: stringy }) {
       >
         <div
           className={`flex w-full  ${
-            isSignedIn ? "place-content-start" : "place-content-center"
-          } text-center text-zinc-200 xl:absolute xl:top-0`}
+            isSignedIn ? "place-content-start" : "place-content-center "
+          } text-center text-zinc-200 `}
         >
           <animated.div
             style={{ ...logoAnim }}

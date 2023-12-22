@@ -5,7 +5,6 @@ import { TRPCError } from "@trpc/server";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2022-11-15",
 });
-console.log(process.env.STRIPE_SECRET_KEY);
 export const paymentsRouter = router({
   getSecretKey: protectedProcedure.query(async ({ ctx }) => {
     const secretKey = process.env.STRIPE_PUBLIC_KEY;

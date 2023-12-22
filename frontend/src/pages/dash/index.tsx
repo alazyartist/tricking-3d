@@ -21,7 +21,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       username: true,
     },
   });
-  console.log("auth", data);
   return {
     props: {
       profilePic: data.profilePic,

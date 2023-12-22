@@ -18,7 +18,6 @@ type CreateContextOptions = {
  * - trpc's `createSSGHelpers` where we don't have req/res
  **/
 export const createContextInner = async (opts: CreateContextOptions) => {
-  // console.log("inner", opts.user);
   return {
     auth: opts.auth,
     // user: opts.user,

@@ -14,7 +14,6 @@ export const tricksRouter = router({
           variations: { include: { variation: true } },
         },
       });
-      // console.log(tricks);
       return trick;
     }),
   findAll: publicProcedure.query(async ({ input, ctx }) => {
@@ -24,7 +23,6 @@ export const tricksRouter = router({
         animation: true,
       },
     });
-    // console.log(tricks);
     return tricks;
   }),
   getAll: publicProcedure
@@ -33,12 +31,10 @@ export const tricksRouter = router({
       const tricks = await ctx.prisma.tricks.findMany({});
       const transitions = await ctx.prisma.transitions.findMany({});
       const stances = await ctx.prisma.stances.findMany({});
-      // console.log(tricks);
       return [...tricks, ...transitions, ...stances];
     }),
   findAllwithComboClips: publicProcedure.query(async ({ input, ctx }) => {
     const tricks = await ctx.prisma.tricks.findMany({});
-    // console.log(tricks);
     //@ts-ignore
     const trickMap = tricks.map(async (trick) => {
       const combos = await ctx.prisma.combos.findMany({
@@ -70,17 +66,14 @@ export const tricksRouter = router({
           },
         },
       });
-      // console.log(combos);
       return combos;
     }),
   findAllTransitions: publicProcedure.query(async ({ input, ctx }) => {
     const transitions = await ctx.prisma.transitions.findMany({});
-    // console.log(transitions);
     return transitions;
   }),
   findAllStances: publicProcedure.query(async ({ input, ctx }) => {
     const stances = await ctx.prisma.stances.findMany({});
-    // console.log(stances);
     return stances;
   }),
   findMultipleById: publicProcedure
@@ -107,7 +100,6 @@ export const tricksRouter = router({
         }
       });
       await Promise.all(newData);
-      // console.log(newData);
       return Promise.all(newData);
     }),
   getBases: publicProcedure.query(async ({ ctx }) => {

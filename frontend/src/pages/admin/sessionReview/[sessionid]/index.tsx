@@ -48,7 +48,6 @@ export const getStaticProps = async (props) => {
   const tricks = await prisma.tricks.findMany({});
   const transitions = await prisma.transitions.findMany({});
   const stances = await prisma.stances.findMany({});
-  // console.log(tricks);
 
   const allTricks = [...tricks, ...transitions, ...stances];
   const sessionstringy = JSON.stringify(sessionSummary);

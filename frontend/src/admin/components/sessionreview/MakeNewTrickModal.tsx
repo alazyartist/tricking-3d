@@ -57,14 +57,12 @@ const MakeNewTrickModal = () => {
   // const { mutate: saveTrick, data: response } = useSaveTrick();
   const { mutate: saveTrick, data: response } =
     trpc.trick.makeNewTrick.useMutation();
-  // console.log("re-ran", getTrickInfo());
   useEffect(() => {
     let bases = trickParts?.filter((e) => e.type === "Base");
     let stances = trickParts?.filter((e) => e.type === "Stance");
     let variations = trickParts?.filter((e) => e.type === "Variation");
     //@ts-ignore
     setAllTricks({ bases, stances, variations });
-    console.log(response);
     if (response?.trick_id) {
       clearTrickInfo();
       setTrickMakerOpen(false);

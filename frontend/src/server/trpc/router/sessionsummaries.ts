@@ -339,8 +339,6 @@ export const sessionsummariesRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      // console.log(input);
-      // console.log(input?.data);
       try {
         const updatedData = await Promise.all(
           input.data.map(async (curData) => {
@@ -352,7 +350,6 @@ export const sessionsummariesRouter = router({
             let combo = foundCombo;
             if (!foundCombo) {
               // if no combo, create combo
-              // console.log("making combo");
               combo = await ctx.prisma.combos.create({
                 data: {
                   combo_id: uuid(),
@@ -375,7 +372,6 @@ export const sessionsummariesRouter = router({
                 curData,
                 ctx
               );
-              // console.log("totals", totals);
               await ctx.prisma.sessiondata.upsert({
                 where: { id: curData.id },
                 update: {
@@ -407,12 +403,10 @@ export const sessionsummariesRouter = router({
                 data: { updatedAt: new Date() },
               });
             }
-            // console.log(combo);
             // if no combo, create combo
             return "Saved";
           })
         );
-        // console.log(updatedData);
         return "Saved";
       } catch (err) {
         console.log(err);

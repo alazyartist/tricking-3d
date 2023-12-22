@@ -28,10 +28,6 @@ const ActiveClipDisplay = () => {
     // onRest: () => setOpenHamburger(!openHamburger),
   });
 
-  // useEffect(
-  //   () => console.log(activeClipData, "activeClip"),
-  //   [activeClipData, sessionData]
-  // );
   const frame = ((currentTime % 1) * 60).toFixed(0);
   const startframe = (((activeClipData?.startTime || 0) % 1) * 60).toFixed(0);
   const endframe = (((activeClipData?.endTime || 0) % 1) * 60).toFixed(0);
@@ -87,7 +83,6 @@ const ActiveClipDisplay = () => {
       <div
         onClick={() => {
           setClipDetailsVisible();
-          console.log(activeClipData);
         }}
         className="absolute left-[-4px] h-full w-[25px] "
       />
@@ -123,7 +118,6 @@ const SessionDataDetailDislpay = ({ e }) => {
   return (
     <div className=" flex gap-1">
       <div
-        onClick={() => console.log(e)}
         className="over:bg-zinc-900 relative flex w-full place-content-center place-items-center justify-between gap-1 whitespace-nowrap p-1"
         // transition delay-75 duration-[1400ms] ease-in-out hover:translate-x-[-100%] h
       >

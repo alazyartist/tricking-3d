@@ -12,7 +12,6 @@ const adjustFinalPosition = (newElement, sd) => {
         newElement.startTime <= s.endTime
       ) {
         offset = newElement.startTime - s.startTime;
-        console.log("startTime", offset, durr);
         return {
           ...newElement,
           startTime: s.endTime + frame,
@@ -25,7 +24,6 @@ const adjustFinalPosition = (newElement, sd) => {
         newElement.endTime <= s.endTime
       ) {
         offset = newElement.endTime - s.endTime;
-        console.log("endTime", offset, durr);
         return {
           ...newElement,
           startTime: newElement.startTime - offset - sdurr,
@@ -41,9 +39,6 @@ const adjustFinalPosition = (newElement, sd) => {
           newElement.endTime - s.endTime,
           newElement.startTime - s.startTime
         );
-        console.log("contained", offset, durr);
-        console.log("old", s.startTime, s.endTime);
-        console.log("new", newElement.startTime, newElement.endTime);
         return {
           ...newElement,
           startTime: s.endTime + frame,
@@ -56,7 +51,6 @@ const adjustFinalPosition = (newElement, sd) => {
         s.endTime >= newElement.endTime
       ) {
         offset = s.startTime - newElement.startTime;
-        console.log("encompassing", offset, durr);
         return {
           ...newElement,
           startTime: newElement.startTime + offset + durr,

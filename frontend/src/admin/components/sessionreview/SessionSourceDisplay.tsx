@@ -32,9 +32,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
     //@ts-ignore
     vidRef?.current?.seekTo(seekTime);
   }, [seekTime]);
-  useEffect(() => {
-    console.log(ready);
-  }, [ready]);
+
   const [percent, setPercent] = useState(
     (sessionData?.reduce((sum, b) => sum + (b.endTime - b.startTime), 0) /
       vidRef?.current?.getDuration()) *
@@ -46,7 +44,6 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
         vidRef?.current?.getDuration()) *
         100
     );
-    console.log(sessionData);
   }, [sessionData]);
 
   const showDetails = useSpring<{}>({
@@ -149,7 +146,6 @@ const ProgressBar = ({ percent }) => {
     if (percent && d3Container.current) {
       const svg = d3.select(d3Container.current);
       svg.selectAll("*").remove(); // Clear svg content before adding new elements
-      console.log(percent);
       // Set dimensions
       const width = 192;
       const height = 20;

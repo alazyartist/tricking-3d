@@ -210,7 +210,6 @@ const Autocomplete = (props: any) => {
               },
               onSelect(params: any) {
                 const { item, setQuery } = params;
-                console.log(item);
                 setTrickMakerOpen(true);
                 setName(item.name);
                 setBase_id(item.base_id);

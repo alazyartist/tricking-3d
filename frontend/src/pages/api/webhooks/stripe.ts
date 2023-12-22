@@ -86,10 +86,6 @@ export default async function handler(
         res.status(200).json({ received: true });
         console.log(`Unhandled event type ${event.type}`);
     }
-
-    // console.log(paymentIntent);
-    // console.log(event);
-    // console.log(event?.data);
   } catch (err) {
     console.log(err);
     res.status(400).send(`Webhook Error: ${err.message}`);

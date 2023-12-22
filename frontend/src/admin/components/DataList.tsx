@@ -14,7 +14,6 @@ const DataList = () => {
   const [animPopup, toggleAnimPopup] = useState(false);
   const [currentTrick, setCurrentTrick] = useState<combos | tricks>(null!);
   const { data: animations } = trpc.animations.findAll.useQuery();
-  // console.log(animations);
   const handleAnimPopup = (chosen: tricks | combos) => {
     toggleAnimPopup((p) => !p);
     setCurrentTrick(chosen);
@@ -157,7 +156,6 @@ const DLTrickDisplay = ({ trick, handleAnimPopup }) => {
   return (
     <div
       key={Math.random()}
-      onClick={() => console.log(trick)}
       className=" grid  w-full grid-cols-7 place-items-center justify-between p-2 odd:bg-zinc-700 odd:bg-opacity-70 even:bg-zinc-900 even:bg-opacity-70"
     >
       <div className="col-span-3 max-w-[1/3] place-self-start">

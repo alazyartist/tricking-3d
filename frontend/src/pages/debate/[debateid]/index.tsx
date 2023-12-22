@@ -46,16 +46,13 @@ const DebatePage = () => {
     const subscribe = async () => {
       await debateChannel.subscribe(`message`, (m) => {
         updateMessages([...messages, m.data]);
-        console.log(m, messages);
       });
     };
     subscribe();
 
     return () => debateChannel.unsubscribe();
   });
-  useEffect(() => {
-    console.log(messages);
-  }, [messages]);
+  useEffect(() => {}, [messages]);
   useEffect(() => {
     if (debateDetails?.messages) {
       updateMessages((prev) =>
@@ -247,7 +244,7 @@ const MessageDisplay = ({ side, message, hidden, closed }) => {
       key={message?.messageid}
       className={` relative flex w-[70vw] flex-col rounded-md border-[1px] p-2 font-inter text-zinc-300 border-${color}-300 bg-${color}-200 border-opacity-40 bg-opacity-20 ${
         hidden ? "invisible" : ""
-      } ${side === "right" ? "left-0 top-0" : "top-0 right-[27vw]"}`}
+      } ${side === "right" ? "left-0 top-0" : "right-[27vw] top-0"}`}
     >
       {message.media && (
         <div className="flex aspect-video w-full rounded-md  p-2">
@@ -299,7 +296,6 @@ const MessageInput = ({ channel, debateid, uuid }) => {
   });
   const [vote, setVote] = useState("");
   const anonHash = generateAnonHash();
-  console.log("anonHash", anonHash);
   const messageid = uuidv4();
   const handleSubmit = (e) => {
     e.preventDefault();

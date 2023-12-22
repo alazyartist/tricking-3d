@@ -21,7 +21,6 @@ const useZoom = (vidRef) => {
       setTimelineOffset(0);
       setTickAmt(5);
     }
-    console.log(bounds.width);
 
     if (bounds.width - timelineOffset < zoomControllerWidth && zoomLevel > 1) {
       setTimelineOffset(
@@ -408,7 +407,6 @@ const TimelineElement = ({
         //   // clearClipCombo();
         //   // setClipComboRaw(e.clipLabel);
         //   // removeSessionData(e);
-        //   console.log(e.startTime);
         //   setSeekTime(e.startTime);
         // }}
 

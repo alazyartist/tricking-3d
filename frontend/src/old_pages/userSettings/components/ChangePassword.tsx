@@ -17,7 +17,6 @@ const ChangePassword = () => {
     try {
       const response = await changePassword(passwords);
       if (await response) {
-        console.log(response);
         setRes(response.message);
       }
     } catch (err) {

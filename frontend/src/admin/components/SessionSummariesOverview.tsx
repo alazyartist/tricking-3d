@@ -165,19 +165,16 @@ export const OptionDropdown = ({
       setCaretOpen(false);
     }
     if (ref.current && caretOpen === true) {
-      console.log("clickedOutside", clicked);
       clicked++;
     }
   });
 
   const handleStatusClick = async (status) => {
-    console.log("StatusClick", status, s.sessionid);
     setChangeStatusOpen(false);
     setCaretOpen(false);
     changeStatus({ sessionid: s.sessionid, status: status });
   };
   const handleDeleteClick = async () => {
-    console.log("Deleteing", s);
     deleteSessionSummary({ sessionid: s.sessionid });
     setDeleteCheck(false);
     setCaretOpen(false);
@@ -245,7 +242,6 @@ export const OptionDropdown = ({
         <>
           <div
             onClick={() => {
-              console.log("change", s);
               setSwitchUserOpen(true);
             }}
             className="rounded-md bg-sky-100 p-1 text-sky-900"
@@ -254,7 +250,6 @@ export const OptionDropdown = ({
           </div>
           <div
             onClick={() => {
-              console.log("change", s);
               setChangeStatusOpen(true);
             }}
             className="rounded-md bg-lime-100 p-1 text-lime-900"
@@ -263,7 +258,6 @@ export const OptionDropdown = ({
           </div>
           <div
             onClick={() => {
-              console.log("delete", s);
               setDeleteCheck(true);
             }}
             className="rounded-md bg-red-100 p-1 text-red-900"

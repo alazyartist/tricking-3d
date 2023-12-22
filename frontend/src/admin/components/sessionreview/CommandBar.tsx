@@ -145,9 +145,7 @@ const Autocomplete = (props: any) => {
   const panelRootRef = useRef<Root | HTMLElement>(null!);
   const rootRef = useRef<Root | HTMLElement>(null!);
   const [count, setCount] = useState(0);
-  // useEffect(() => {
-  //   console.log(sessionData);
-  // }, [sessionData]);
+
   const syncTime = useCallback(
     (time: number) => {
       setCurrentTime(time);
@@ -424,7 +422,6 @@ const Autocomplete = (props: any) => {
               },
               onSelect(params) {
                 const { item, setQuery } = params;
-                console.log(item);
                 setClipCombo(item);
                 // item.onSelect(params);
                 setQuery("");
@@ -487,7 +484,6 @@ const Autocomplete = (props: any) => {
               },
               onSelect(params) {
                 const { item, setQuery } = params;
-                console.log(item);
                 setClipComboAppend(item?.comboArray as any[]);
                 // item.onSelect(params);
                 setQuery("");
@@ -543,7 +539,6 @@ const Autocomplete = (props: any) => {
       label: "/i",
       placeholder: " set clipStart",
       onSelect: (params) => {
-        console.log(timeRef);
         setActiveClipData({
           startTime: parseFloat(
             useSessionSummariesStore.getState().currentTime.toFixed(2)
@@ -555,7 +550,6 @@ const Autocomplete = (props: any) => {
       label: "/o",
       placeholder: " set clipEnd",
       onSelect: (params) => {
-        console.log(timeRef);
         setActiveClipData({
           endTime: parseFloat(
             useSessionSummariesStore.getState().currentTime.toFixed(2)
@@ -577,7 +571,6 @@ const Autocomplete = (props: any) => {
         const time = query.split(" ")[1];
         const startTime = time.split(":")[0];
         const endTime = time.split(":")[1];
-        console.log("params", startTime, endTime);
         setActiveClipData({
           startTime: parseFloat(startTime),
           endTime: parseFloat(endTime),
@@ -625,9 +618,7 @@ const Autocomplete = (props: any) => {
         } else {
           time = seekTime;
         }
-        console.log(time);
         setSeekTime(time);
-        // console.log("selectVideo");
         // document.getElementById("video").focus();
       },
     },
@@ -689,7 +680,6 @@ const Autocomplete = (props: any) => {
           sessionid: useSessionSummariesStore.getState().sessionid,
         });
 
-        // console.log("selectVideo");
         // document.getElementById("video").focus();
       },
     },
@@ -703,7 +693,6 @@ const Autocomplete = (props: any) => {
           sessionid: useSessionSummariesStore.getState().sessionid,
         });
 
-        // console.log("selectVideo");
         // document.getElementById("video").focus();
       },
     },

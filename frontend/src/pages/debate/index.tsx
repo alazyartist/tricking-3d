@@ -99,7 +99,6 @@ export const OpenNewDebate: React.FC<DebateProps> = ({
       user_id: userInfo.uuid,
       debateid: opendebateDetails?.debateid || uuidv4(),
     });
-    console.log("Starting New Debate");
     setDebateCreationOpen(false);
   };
   const [debateDetails, setDebateDetails] = useState({
@@ -110,7 +109,7 @@ export const OpenNewDebate: React.FC<DebateProps> = ({
   });
   const isDisabled = debateDetails.title === "" || debateDetails.topic === "";
   return (
-    <div className="no-scrollbar absolute top-[10vh] left-[10vw] z-[200] flex h-[80vh] w-[80vw] flex-col overflow-hidden overflow-y-scroll  rounded-md bg-zinc-800">
+    <div className="no-scrollbar absolute left-[10vw] top-[10vh] z-[200] flex h-[80vh] w-[80vw] flex-col overflow-hidden overflow-y-scroll  rounded-md bg-zinc-800">
       <div className="flex gap-2">
         <button
           type="button"

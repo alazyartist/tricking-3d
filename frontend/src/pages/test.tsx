@@ -171,7 +171,6 @@ const Grids = ({
   const lineGeometry = new THREE.BufferGeometry().setFromPoints([pos, pos]);
   const line = new THREE.Line(lineGeometry, lineMaterial);
   //add and remove line
-  //   console.log(texture);
   useEffect(() => {
     scene.add(line);
     return () => {

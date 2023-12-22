@@ -5,7 +5,6 @@ env.config();
 export const verifyJWT = (req, res, next) => {
 	const authHeader = req.headers.authorization;
 	if (!authHeader) return res.sendStatus(400);
-	console.log("authHeader", authHeader);
 
 	const token = authHeader.split(" ")[1];
 

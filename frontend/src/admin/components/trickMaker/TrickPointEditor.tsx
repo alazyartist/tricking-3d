@@ -9,7 +9,6 @@ const TrickPointEditor = () => {
   const { data: trickParts, isLoading } = trpc.trick.getTrickParts.useQuery();
   const { data: transitions } = trpc.trick.findAllTransitions.useQuery();
   if (isLoading) return <p>Loading...</p>;
-  // console.log(window?.screen?.orientation?.angle);
   return (
     <div
       className={`no-scrollbar grid ${

@@ -135,7 +135,6 @@ export const handleClerkEvents = async (req, res) => {
 					console.log(newUser);
 				}
 			}
-			// console.log(user);
 		} catch (err) {
 			console.log("Failed to Create User");
 			return res.status(401).json(err);
