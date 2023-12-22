@@ -8,7 +8,7 @@ import "../styles/globals.css";
 import "../autocomplete.css";
 import { useRouter } from "next/router";
 import TheoryTabBar from "@components/layout/TheoryTabBar";
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, SignedIn } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { useEffect } from "react";
 import mixpanel from "@utils/mixpanel";
@@ -64,7 +64,9 @@ const MyApp: AppType<{ Session: null }> = ({
       <QueryClientProvider client={queryClient}>
         {/* <ReactQueryDevtools position={"top-right"} /> */}
         <AppBackground />
-        {!path.includes("/landing") && path !== "/" && <UserIcon />}
+        <SignedIn>
+          {!path.includes("/landing") && path !== "/" && <UserIcon />}
+        </SignedIn>
         <div id={"portal-root"}></div>
 
         {path.includes("/theory") ? <TheoryTabBar /> : <TabBar />}
