@@ -151,7 +151,6 @@ export const OptionDropdown = ({
   s: GetAllSessionSummaries[0];
   users: FindAllUsers;
 }) => {
-  const ref = useRef();
   const [deleteCheck, setDeleteCheck] = useState(false);
   const [changeStatusOpen, setChangeStatusOpen] = useState(false);
   const [switchUserOpen, setSwitchUserOpen] = useState(false);
@@ -161,7 +160,7 @@ export const OptionDropdown = ({
   const { mutateAsync: deleteSessionSummary } =
     trpc.sessionsummaries.deleteSessionSummaryById.useMutation();
   let clicked = 0;
-  useClickOutside(ref, () => {
+  const ref = useClickOutside(() => {
     if (clicked > 0) {
       setCaretOpen(false);
     }
@@ -186,7 +185,7 @@ export const OptionDropdown = ({
   return (
     <div
       ref={ref}
-      className="absolute top-[12] right-7 max-h-[200px] max-w-[85vw] overflow-hidden overflow-y-scroll rounded-md rounded-tr-none bg-zinc-200 p-2 text-xs text-zinc-800"
+      className="absolute right-7 top-[12] max-h-[200px] max-w-[85vw] overflow-hidden overflow-y-scroll rounded-md rounded-tr-none bg-zinc-200 p-2 text-xs text-zinc-800"
     >
       {changeStatusOpen && (
         <div className="grid grid-cols-3 gap-6 p-2">
