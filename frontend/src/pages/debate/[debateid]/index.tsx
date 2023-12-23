@@ -40,7 +40,7 @@ const DebatePage = () => {
   ably.connection.once("connected", () => {
     //@ts-ignore
     const { tokenDetails } = ably.auth;
-    console.log("Client connected to Ably using JWT", tokenDetails);
+    // console.log("Client connected to Ably using JWT", tokenDetails);
   });
   useEffect(() => {
     const subscribe = async () => {
