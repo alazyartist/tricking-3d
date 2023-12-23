@@ -31,7 +31,6 @@ const Axes = () => {
   return (
     <div className="flex flex-col place-content-center place-items-center text-zinc-300">
       <div>Axes</div>
-      {/* <AxesSketch className="h-80 w-80" /> */}
       <div className="h-80 w-full">
         <Canvas>
           {/* @ts-ignore */}
@@ -40,7 +39,7 @@ const Axes = () => {
           </PerspectiveCamera>
         </Canvas>
       </div>
-      <div className="flex w-full gap-2">
+      {/* <div className="flex w-full gap-2">
         <div className="p-2 text-sm">
           <p className="w-full text-center">X:{rotX}</p>
           <input
@@ -72,13 +71,15 @@ const Axes = () => {
             max={360}
             step={1}
             onChange={(e) => setRotZ(parseFloat(e.target.value))}
-          />
-        </div>
-      </div>
+            />
+            </div> 
+            </div>
+          */}
       <div className="w-[80%] text-sm font-light">
         Each of the base flips can be manipulated on these axes. 0 is the axis
         of the pure flips 45 is the axis cork 90 is the axis of the btwist
       </div>
+      <AxesSketch className="h-80 w-80" />
     </div>
   );
 };

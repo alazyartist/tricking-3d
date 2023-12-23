@@ -17,7 +17,7 @@ function AllTrickDisplay() {
   const handleFilter = (event) => {
     const searchTerm = event.target.value || "";
     const newFilter = TrickListArr.filter((value) => {
-      return value.name.toLowerCase().includes(searchTerm.toLowerCase());
+      return value?.name?.toLowerCase().includes(searchTerm.toLowerCase());
     });
     setFilteredTricks(newFilter);
   };
@@ -27,6 +27,8 @@ function AllTrickDisplay() {
       nav.push(
         `/sandbox/${e?.animation?.model}/${e?.animation?.animationName}`
       );
+    } else {
+      nav.push(`/tricks/${e?.trick_id}`);
     }
   };
   const animatedFilter = useTransition(filteredTricks, {
@@ -68,7 +70,7 @@ function AllTrickDisplay() {
                 onClick={() => handleGoToAnim(e)}
                 className="flex place-items-center justify-between text-xs text-zinc-400"
               >
-                <div className="p-2">{e.name.toUpperCase()}</div>
+                <div className="p-2">{e?.name?.toUpperCase()}</div>
                 <div className="p-2">
                   {e.defaultAnimation && (
                     <IoIosWalk color={"rgb(52 211 153)"} />
