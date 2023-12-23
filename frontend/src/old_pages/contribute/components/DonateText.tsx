@@ -4,7 +4,7 @@ import MultiDonateButton from "@components/info/MultiDonateButton";
 
 function DonateText() {
   return (
-    <div className="m-4 place-content-center place-items-center rounded-xl bg-gradient-to-b from-emerald-600 to-emerald-700 p-4 pb-0 md:max-w-[60vw]">
+    <div className="m-4 place-content-center place-items-center rounded-xl bg-opacity-25 bg-gradient-to-b from-zinc-600 to-zinc-700 p-4 pb-0 md:max-w-[60vw]">
       <div className="text-center font-inter text-2xl font-bold text-zinc-300">
         Help Support the Project!
       </div>
