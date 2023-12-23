@@ -10,14 +10,14 @@ import { v4 as uuidv4 } from "uuid";
 const DebatesOverview = () => {
   const { isSignedIn, user } = useUser();
   const setUserInfo = useUserStore((s) => s.setUserInfo);
-  const { data: userData } = trpc.userDB.findByClerkId.useQuery(
-    { clerk_id: user?.id },
-    {
-      onSuccess(data) {
-        setUserInfo({ ...data });
-      },
-    }
-  );
+  // const { data: userData } = trpc.userDB.findByClerkId.useQuery(
+  //   { clerk_id: user?.id },
+  //   {
+  //     onSuccess(data) {
+  //       setUserInfo({ ...data });
+  //     },
+  //   }
+  // );
 
   const { data: debates, isSuccess } = trpc.debates.getAll.useQuery();
   const [debateCreationOpen, setDebateCreationOpen] = useState(false);
@@ -56,9 +56,7 @@ const DebateCard = ({ debate }) => {
   return (
     <Link
       href={`/debate/${debate?.debateid}`}
-      className={`${
-        debate.closed ? "opacity-60" : ""
-      } flex flex-col rounded-md bg-zinc-800 p-4 `}
+      className={` flex flex-col rounded-md bg-zinc-800 p-4 `}
     >
       <div className="text-xl">{debate.title}</div>
       <div className="text-xs">{debate.topic}</div>
@@ -72,10 +70,11 @@ const DebateCard = ({ debate }) => {
             {[1, 2, 3].map((d) => {
               return (
                 <div className=" -mr-2 h-4 w-4 flex-shrink-0 rounded-full border-[1px] border-zinc-800 bg-sky-300" />
-              );
-            })}
-          </div> */}
+                );
+              })}
+            </div> */}
       </div>
+      {debate.closed && <p className="text-sm text-red-500">Closed</p>}
     </Link>
   );
 };

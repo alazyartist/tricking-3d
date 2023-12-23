@@ -4,23 +4,23 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import ReactPlayer from "react-player";
-import useAblyStore from "../../../hooks/useAblyStore";
+import AblyStore from "../../../hooks/useAblyStore";
 import { v4 as uuidv4 } from "uuid";
 import { OpenNewDebate } from "..";
 import { SignInButton, SignedIn, SignedOut, useUser } from "@clerk/nextjs";
-const ably = useAblyStore.getState().ably;
 
+const ably = AblyStore.getState().ably;
 const DebatePage = () => {
   const { isSignedIn, user } = useUser();
   const setUserInfo = useUserStore((s) => s.setUserInfo);
-  const { data: userData } = trpc.userDB.findByClerkId.useQuery(
-    { clerk_id: user?.id },
-    {
-      onSuccess(data) {
-        setUserInfo({ ...data });
-      },
-    }
-  );
+  // const { data: userData } = trpc.userDB.findByClerkId.useQuery(
+  //   { clerk_id: user?.id },
+  //   {
+  //     onSuccess(data) {
+  //       setUserInfo({ ...data });
+  //     },
+  //   }
+  // );
 
   const router = useRouter();
   const { debateid } = router.query;
@@ -241,7 +241,7 @@ const MessageDisplay = ({ side, message, hidden, closed }) => {
   let color = side === "left" ? "red" : "emerald";
   return (
     <div
-      key={message?.messageid}
+      key={message?.messageid + side}
       className={` relative flex w-[70vw] flex-col rounded-md border-[1px] p-2 font-inter text-zinc-300 border-${color}-300 bg-${color}-200 border-opacity-40 bg-opacity-20 ${
         hidden ? "invisible" : ""
       } ${side === "right" ? "left-0 top-0" : "right-[27vw] top-0"}`}
