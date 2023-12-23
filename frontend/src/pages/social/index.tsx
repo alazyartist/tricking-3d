@@ -1,3 +1,4 @@
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
 import React from "react";
 import { FaQrcode } from "react-icons/fa";
@@ -10,17 +11,30 @@ const SocialPage = () => {
         Here you can Capture Friends, See what's happening on the leaderboards,
         and debate with the community!
       </p>
-      <Link
-        href={"/captures"}
-        className=" mt-1 mb-2 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
-      >
-        <div className="flex place-content-center place-items-center gap-2">
-          <FaQrcode /> Captures
+      <SignedIn>
+        <Link
+          href={"/captures"}
+          className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
+        >
+          <div className="flex place-content-center place-items-center gap-2">
+            <FaQrcode /> Captures
+          </div>
+        </Link>
+      </SignedIn>
+      <SignedOut>
+        <div className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] ">
+          <div className="flex place-content-center place-items-center gap-2">
+            <SignInButton mode="modal" afterSignInUrl="/addSession">
+              <div className="flex place-content-center place-items-center gap-2">
+                <FaQrcode /> Captures
+              </div>
+            </SignInButton>
+          </div>
         </div>
-      </Link>
+      </SignedOut>
       <Link
         href={"/leaderboard"}
-        className=" mt-1 mb-2 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
+        className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
       >
         <div className="flex place-content-center place-items-center gap-2">
           Leaderboards
@@ -28,7 +42,7 @@ const SocialPage = () => {
       </Link>
       <Link
         href={"/compare"}
-        className=" mt-1 mb-2 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
+        className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
       >
         <div className="flex place-content-center place-items-center gap-2">
           Compare
@@ -36,7 +50,7 @@ const SocialPage = () => {
       </Link>
       <Link
         href={"/debate"}
-        className=" mt-1 mb-2 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
+        className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
       >
         <div className="flex place-content-center place-items-center gap-2">
           Debate

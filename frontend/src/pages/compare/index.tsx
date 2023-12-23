@@ -27,31 +27,34 @@ const ComparePage = ({ sessionSummaries }) => {
         </Link>
         <div className="h-[74vh] space-y-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-40 p-2">
           {status === "success" &&
-            summaries?.map((summary) => {
-              const chosen = compareList?.find(
-                (s) => JSON.stringify(s) === JSON.stringify(summary)
-              );
-              return (
-                <div
-                  className={`${
-                    chosen ? "border-4 border-zinc-100" : ""
-                  } rounded-md`}
-                >
-                  <SessionSummaryCard
-                    f={() =>
-                      !chosen
-                        ? compareList?.length <= 4
-                          ? addToCompare((s) => [...s.slice(-3), summary])
-                          : addToCompare((s) => [...s, summary])
-                        : addToCompare((s) => [
-                            ...s.filter((s) => s !== summary),
-                          ])
-                    }
-                    summary={summary}
-                  />
-                </div>
-              );
-            })}
+            summaries
+              ?.filter((s) => s.status === "Reviewed")
+              .map((summary) => {
+                const chosen = compareList?.find(
+                  (s) => JSON.stringify(s) === JSON.stringify(summary)
+                );
+                return (
+                  <div
+                    key={summary.sessionid}
+                    className={`${
+                      chosen ? "border-4 border-zinc-100" : ""
+                    } rounded-md`}
+                  >
+                    <SessionSummaryCard
+                      f={() =>
+                        !chosen
+                          ? compareList?.length <= 4
+                            ? addToCompare((s) => [...s.slice(-3), summary])
+                            : addToCompare((s) => [...s, summary])
+                          : addToCompare((s) => [
+                              ...s.filter((s) => s !== summary),
+                            ])
+                      }
+                      summary={summary}
+                    />
+                  </div>
+                );
+              })}
         </div>
       </div>
     </div>

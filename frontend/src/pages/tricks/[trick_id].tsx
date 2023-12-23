@@ -79,14 +79,17 @@ const TrickInfoGrid = ({ trickInfo }) => {
 const CombosWithTrickDisplay = ({ combos, trick }) => {
   const [seeExample, setSeeExample] = useState();
   return (
-    <div className="flex w-full flex-col gap-2 p-2">
-      <h1>Combos containing {trick}</h1>
+    <div className="minimalistScroll flex w-full flex-col place-content-start gap-2 overflow-y-scroll p-2 pt-0">
+      <h1 className="sticky top-0 bg-zinc-900 p-2 text-xl">
+        Combos containing {trick}
+      </h1>
       {combos.map((combo) => (
         <div key={combo.combo_id}>
           <div className="no-scrollbar flex justify-between overflow-hidden overflow-x-scroll rounded-md bg-zinc-800 p-2 text-xs">
             <div className="no-scrollbar flex gap-1 overflow-hidden overflow-x-scroll text-xs">
               {combo.comboArray.map((trick, i) => (
                 <div
+                  key={`${trick.name} ${i}`}
                   className={"flex place-items-center gap-1 whitespace-nowrap"}
                 >
                   <p
@@ -118,6 +121,8 @@ const CombosWithTrickDisplay = ({ combos, trick }) => {
           </div>
         </div>
       ))}
+      <div className="w-full">no more...</div>
+      <div className="w-full p-10" />
     </div>
   );
 };
