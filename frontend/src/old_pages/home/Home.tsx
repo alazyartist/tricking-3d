@@ -39,7 +39,7 @@ function Home({ userInfo: stringy }) {
         $image: userInfo.profilePic,
       });
     }
-  }, []);
+  }, [stringy, isSignedIn]);
 
   const logoAnim = useSpring({
     to: { width: isSignedIn ? "50vw" : "100vw" },
