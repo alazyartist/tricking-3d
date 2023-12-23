@@ -14,7 +14,7 @@ const MachineLearning = () => {
                 id === title
                   ? "bg-zinc-500 text-zinc-200"
                   : "bg-zinc-300 text-zinc-800"
-              } p-2 text-xl
+              } p-2 md:text-xl
 `}
         >
           {title}
