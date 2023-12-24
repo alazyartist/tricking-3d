@@ -48,7 +48,7 @@ function TabBar() {
   });
   const height = useSpring<{}>({
     from: { height: window.innerWidth < 768 ? "0vh" : "10rem" },
-    to: { height: window.innerWidth < 768 ? "22vh" : "10rem" },
+    to: { height: window.innerWidth < 768 ? "35vh" : "10rem" },
     reverse: !clipDetailsVisible,
     config: {
       config: { tension: 40, friction: 12 },
@@ -67,7 +67,7 @@ function TabBar() {
           <animated.div
             id="commandBar-root"
             style={height}
-            className={` z-[1] h-[22vh] w-[80vw] touch-none md:h-[10rem]`}
+            className={` z-[1] h-[35vh] w-[80vw] touch-none md:h-[10rem]`}
           ></animated.div>
         )}
         <animated.div style={navToggle} className="relative">
@@ -127,7 +127,7 @@ function TabBar() {
               style={styles}
               ref={ref}
               onClick={() => setOpenHamburger(!openHamburger)}
-              className="fixed bottom-[5rem] z-[100] rounded-l-xl"
+              className="fixed bottom-[5rem] z-[2000] rounded-l-xl"
             >
               <animated.div className="flex h-[40vh] max-w-[40vw] flex-col gap-3 rounded-l-xl bg-gradient-to-br from-zinc-900 to-zinc-800 p-3 text-sm text-white">
                 <Link href="/about">About</Link>

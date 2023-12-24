@@ -11,6 +11,7 @@ const CommandBarControls = () => {
   const adminuuid = useUserStore((s) => s?.userInfo?.uuid);
   const setSessionData = useSessionSummariesStore((s) => s.setSessionData);
   const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
+  const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
   const setSaveSuccessful = useSessionSummariesStore(
     (s) => s.setSaveSuccessful
   );
@@ -24,8 +25,30 @@ const CommandBarControls = () => {
       }, 3000);
     }
   }, [saveResponse]);
+  const frameRate = 0.083;
 
   const controls = [
+    {
+      title: "<",
+      command: () => {
+        setSeekTime(
+          useSessionSummariesStore.getState().currentTime - frameRate
+        );
+      },
+    },
+    {
+      title: vidIsPlaying ? "pause" : "play",
+      command: () => setVidIsPlaying(),
+    },
+
+    {
+      title: ">",
+      command: () => {
+        setSeekTime(
+          useSessionSummariesStore.getState().currentTime + frameRate
+        );
+      },
+    },
     {
       title: "in",
       command: () =>
@@ -35,33 +58,7 @@ const CommandBarControls = () => {
           ),
         }),
     },
-    {
-      title: vidIsPlaying ? "pause" : "play",
-      command: () => setVidIsPlaying(),
-    },
-    {
-      title: "out",
-      command: () =>
-        setClipData({
-          endTime: parseFloat(
-            useSessionSummariesStore.getState().currentTime.toFixed(2)
-          ),
-        }),
-    },
-    {
-      title: "save",
-      command: () => {
-        setSaveSuccessful(false);
-        saveSessionDetails({
-          data: useSessionSummariesStore.getState().sessionData,
-          sessionid: useSessionSummariesStore.getState().sessionid,
-        });
-      },
-    },
-    {
-      title: "clear",
-      command: () => setClipData({ startTime: 0, endTime: 0 }),
-    },
+
     {
       title: "add",
       command: () => {
@@ -89,6 +86,30 @@ const CommandBarControls = () => {
         clearClipCombo();
       },
     },
+    {
+      title: "out",
+      command: () =>
+        setClipData({
+          endTime: parseFloat(
+            useSessionSummariesStore.getState().currentTime.toFixed(2)
+          ),
+        }),
+    },
+    {
+      title: "save",
+      command: () => {
+        setSaveSuccessful(false);
+        saveSessionDetails({
+          data: useSessionSummariesStore.getState().sessionData,
+          sessionid: useSessionSummariesStore.getState().sessionid,
+        });
+      },
+    },
+    {
+      title: "clear",
+      command: () => setClipData({ startTime: 0, endTime: 0 }),
+    },
+
     ,
   ];
   return (

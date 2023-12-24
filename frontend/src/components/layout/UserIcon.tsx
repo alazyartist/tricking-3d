@@ -65,22 +65,25 @@ const QuickMenu = ({ setQuickMenuOpen, quickMenuOpen, uuid }) => {
   ];
   return (
     !!quickMenuOpen && (
-      <div
-        ref={menuref}
-        id="quick-menu"
-        className="fixed right-5 top-20 z-[1014] w-[90vw] rounded-md bg-zinc-900 p-4 text-zinc-300 md:w-[30vw]"
-      >
-        <div className="flex w-full flex-col gap-3">
-          {options.map((opt) => (
-            <div className="flex place-items-center gap-3">
-              {opt.icon}
-              <Link onClick={() => setQuickMenuOpen(false)} href={opt.href}>
-                <p className="bg-zinc-900 text-xl">{opt.title}</p>
-              </Link>
-            </div>
-          ))}
+      <>
+        <div
+          ref={menuref}
+          id="quick-menu"
+          className="fixed right-5 top-20 z-[1014] w-[90vw] rounded-md bg-zinc-900 p-4 text-zinc-300 md:w-[30vw]"
+        >
+          <div className="flex w-full flex-col gap-3">
+            {options.map((opt) => (
+              <div className="flex place-items-center gap-3">
+                {opt.icon}
+                <Link onClick={() => setQuickMenuOpen(false)} href={opt.href}>
+                  <p className="bg-zinc-900 text-xl">{opt.title}</p>
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+        <div className="absolute left-0 top-0 z-[1000] h-[100vh] w-[100vw] bg-zinc-800 bg-opacity-30 backdrop-blur-md" />
+      </>
     )
   );
 };

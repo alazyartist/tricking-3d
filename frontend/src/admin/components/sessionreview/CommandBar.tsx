@@ -18,13 +18,10 @@ import { createPortal } from "react-dom";
 import { MdClose } from "@data/icons/MdIcons";
 import CommandBarControls from "./CommandBarControls";
 const CommandBar = ({ tricks, combos }) => {
-  const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
-  const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
   const clipDetailsVisible = useSessionSummariesStore(
     (s) => s.clipDetailsVisible
   );
   const [root, setRoot] = useState(null);
-  const frameRate = 0.083;
   useEffect(() => {
     let element2 = document.getElementById("commandBar-root");
     if (element2) {
@@ -37,10 +34,10 @@ const CommandBar = ({ tricks, combos }) => {
     root &&
     createPortal(
       <div
-        className={` relative left-[10vw]  top-[0]  z-[10] flex h-[22vh] w-[80vw] flex-col place-items-center justify-around rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:bottom-12 md:left-[20vw] md:h-[10rem] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]`}
+        className={` relative left-[10vw]  top-[0]  z-[10] flex h-[35vh] w-[80vw] flex-col place-items-center justify-around rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:bottom-12 md:left-[20vw] md:h-[10rem] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]`}
       >
         <CommandBarControls />
-        <div className="jusfity-around flex place-items-center gap-2">
+        {/* <div className="jusfity-around flex place-items-center gap-2">
           <div
             onClick={() => {
               setSeekTime(
@@ -50,28 +47,17 @@ const CommandBar = ({ tricks, combos }) => {
             className="w-[40px] cursor-pointer text-center text-4xl"
           >
             &lt;
-          </div>
-          <div>
-            <Autocomplete
-              classNames={{ panel: "custom-Panel" }}
-              tricks={tricks}
-              combos={combos}
-              defaultActiveItemId="0"
-              placeholder="/ to open cmdBar"
-              openOnFocus={true}
-              autoFocus={false}
-            />
-          </div>
-          <div
-            onClick={() => {
-              setSeekTime(
-                useSessionSummariesStore.getState().currentTime + frameRate
-              );
-            }}
-            className="w-[40px] cursor-pointer text-center text-4xl"
-          >
-            &gt;
-          </div>
+          </div> */}
+        <div>
+          <Autocomplete
+            classNames={{ panel: "custom-Panel" }}
+            tricks={tricks}
+            combos={combos}
+            defaultActiveItemId="0"
+            placeholder="/ to open cmdBar"
+            openOnFocus={true}
+            autoFocus={false}
+          />
         </div>
       </div>,
       root

@@ -50,12 +50,12 @@ const SessionDisplay = ({ s }: { s: GetAllSessionSummaries[0] }) => {
   const [caretOpen, setCaretOpen] = useState(false);
 
   return (
-    <div className="grid w-full grid-cols-7 gap-2 bg-zinc-800 bg-opacity-70">
+    <div className="grid w-full grid-cols-7 place-content-center place-items-center gap-2 bg-zinc-800 bg-opacity-70">
       <Link
         href={`/admin/sessionReview/${s?.sessionid}`}
         className=" col-span-5 grid w-full grid-cols-5 place-content-center place-items-center justify-between gap-2 rounded-md p-1 text-[10px] "
       >
-        <div className="col-span-2 flex w-full place-items-center gap-1">
+        <div className="col-span-3 flex w-full place-items-center gap-1">
           {/* <img
             alt={"userProfile image"}
             className="h-6 w-6 rounded-full"
@@ -93,11 +93,13 @@ const SessionDisplay = ({ s }: { s: GetAllSessionSummaries[0] }) => {
           </div>
           <p>{s?.name}</p>
         </div>
-        <div>
-          <p className="text-[8px]">{u?.username}</p>
+        <div className="col-span-2">
+          <p className="text-[8px]">{u?.username.slice(0, 19)}</p>
           <p className="w-fit text-[8px] text-zinc-400">{s?.sessionDate}</p>
         </div>
-        <p className="w-fit">{s?.type}</p>
+        {/* <p className="w-fit">{s?.type}</p> */}
+      </Link>
+      <div className="col-span-2 flex gap-2">
         <div className="flex w-full place-content-center place-items-center gap-2">
           <div>
             {s?.status === "In Queue" && (
@@ -111,31 +113,31 @@ const SessionDisplay = ({ s }: { s: GetAllSessionSummaries[0] }) => {
             )}
           </div>
         </div>
-      </Link>
-      <div>
-        <button
-          type="button"
-          onClick={() => setCaretOpen((prev) => !prev)}
-          className="flex place-content-center place-items-center font-inter text-lg text-zinc-500"
+        <div>
+          <button
+            type="button"
+            onClick={() => setCaretOpen((prev) => !prev)}
+            className="flex place-content-center place-items-center font-inter text-lg text-zinc-500"
+          >
+            v
+          </button>
+          {caretOpen && (
+            <OptionDropdown
+              users={users}
+              caretOpen={caretOpen}
+              key={`option ${s.sessionid}`}
+              s={s}
+              setCaretOpen={setCaretOpen}
+            />
+          )}
+        </div>
+        <Link
+          className={"flex content-center items-center"}
+          href={`/admin/clipBreakdown/${s.sessionid}`}
         >
-          v
-        </button>
-        {caretOpen && (
-          <OptionDropdown
-            users={users}
-            caretOpen={caretOpen}
-            key={`option ${s.sessionid}`}
-            s={s}
-            setCaretOpen={setCaretOpen}
-          />
-        )}
+          clip
+        </Link>
       </div>
-      <Link
-        className={"flex content-center items-center"}
-        href={`/admin/clipBreakdown/${s.sessionid}`}
-      >
-        clip
-      </Link>
     </div>
   );
 };

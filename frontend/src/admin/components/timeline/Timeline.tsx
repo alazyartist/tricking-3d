@@ -80,7 +80,7 @@ const Timeline = ({ vidRef, source }) => {
   }%`;
   return (
     <div className="relative w-[70vw] ">
-      <div className="absolute -left-[4rem] h-20 w-[3rem]">
+      {/* <div className="absolute -left-[4rem] h-20 w-[3rem]">
         <p
           className="m-1 w-full rounded-md bg-zinc-600 text-center"
           onClick={() => setZoomLevel((z) => z + 1)}
@@ -94,7 +94,7 @@ const Timeline = ({ vidRef, source }) => {
         >
           -
         </p>
-      </div>
+      </div> */}
       <div
         id="timeline-container"
         className="noTouch relative w-full overflow-hidden"
@@ -118,6 +118,8 @@ const Timeline = ({ vidRef, source }) => {
           dur={dur}
           odur={odur}
           bounds={bounds}
+          zoomLevel={zoomLevel}
+          setZoomLevel={setZoomLevel}
         />
         <div
           ref={timelineRef}
@@ -212,9 +214,12 @@ const ZoomController = ({
   bounds,
   setTimelineOffset,
   timelineOffset,
+  zoomLevel,
+  setZoomLevel,
 }) => {
-  const percent = (dur / odur) * bounds.width;
   const boundref = useRef(null!);
+  const percent =
+    (dur / odur) * boundref?.current?.getBoundingClientRect().width;
   const bind = useGesture(
     {
       onDrag: ({ offset: [ox, oy], last, first, _bounds }) => {
@@ -232,18 +237,33 @@ const ZoomController = ({
     }
   );
   return (
-    <div
-      ref={boundref}
-      className="noTouch relative h-[2rem] w-full touch-none bg-transparent"
-    >
+    <div className="grid grid-cols-[1fr_8fr_1fr] gap-1">
+      <button
+        className="w-full rounded-md bg-zinc-600 p-1 text-center"
+        onClick={() => setZoomLevel((z) => (z - 1 > 1 ? z - 1 : 1))}
+      >
+        -
+      </button>
+      {/* <p className="w-full text-center">{zoomLevel}</p> */}
       <div
-        {...bind()}
-        style={{
-          width: `${percent}px`,
-          left: `${Math.max(0, timelineOffset)}px`,
-        }}
-        className={`noTouch absolute -top-[.125rem] z-[100] h-[2.25rem] cursor-pointer touch-none rounded-sm bg-zinc-400 p-2`}
-      ></div>
+        ref={boundref}
+        className="noTouch grid-span-8 relative h-[2rem] w-full touch-none bg-transparent"
+      >
+        <div
+          {...bind()}
+          style={{
+            width: `${percent}px`,
+            left: `${Math.max(0, timelineOffset)}px`,
+          }}
+          className={`noTouch absolute -top-[.125rem] z-[100] h-[2.25rem] cursor-pointer touch-none rounded-sm bg-zinc-400 p-2`}
+        ></div>
+      </div>
+      <button
+        className="w-full rounded-md bg-zinc-600 p-1 text-center"
+        onClick={() => setZoomLevel((z) => z + 1)}
+      >
+        +
+      </button>
     </div>
   );
 };
