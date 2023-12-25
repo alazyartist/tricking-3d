@@ -69,7 +69,11 @@ const MyApp: AppType<{ Session: null }> = ({
         </SignedIn>
         <div id={"portal-root"}></div>
 
-        {path.includes("/theory") ? <TheoryTabBar /> : <TabBar />}
+        {path.includes("/theory") ? (
+          <TheoryTabBar />
+        ) : (
+          path !== "/" && <TabBar />
+        )}
         <Component {...pageProps} />
       </QueryClientProvider>
     </ClerkProvider>

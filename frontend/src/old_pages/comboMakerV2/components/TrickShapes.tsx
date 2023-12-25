@@ -13,7 +13,7 @@ const TrickShapes = ({ newCombo, allTricks, lastItem, setCurrentItem }) => {
     <>
       {activeDropdown !== "" && (
         <div
-          className="absolute top-[23vh] right-[15vw] text-4xl"
+          className="absolute right-[15vw] top-[23vh] text-4xl"
           onClick={() => setActiveDropdown("")}
         >
           <MdClose />
@@ -68,7 +68,7 @@ const TrickShapes = ({ newCombo, allTricks, lastItem, setCurrentItem }) => {
                   setCurrentItem((s) => [...s, trick]);
                   setActiveDropdown("");
                 }}
-                key={trick.trick_id}
+                key={trick.trick_id + "trick"}
               >
                 {trick.name}
               </div>
@@ -86,7 +86,7 @@ const TrickShapes = ({ newCombo, allTricks, lastItem, setCurrentItem }) => {
                   setCurrentItem((s) => [...s, trick]);
                   setActiveDropdown("");
                 }}
-                key={trick.trick_id}
+                key={trick.id + "transition"}
               >
                 <div>{trick.name}</div>
                 <div className="flex w-1/2 justify-between gap-2">
