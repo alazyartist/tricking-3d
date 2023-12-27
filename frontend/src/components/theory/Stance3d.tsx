@@ -11,34 +11,45 @@ import { Suspense, useRef, useState } from "react";
 import CircleShader from "shaders/CircleShader";
 import * as THREE from "three";
 import { Frank } from "animations/Frank";
+import { useStore } from "@store/store";
 import StanceShader from "shaders/StanceShader";
 import { stanceShaderType } from "shaders/StanceShader";
+import useCreateVersions from "apppp/sandbox/components/ui/modal/useCreateVersions";
 extend({ THREE });
 const Stances3d = () => {
   const orbitRef = useRef<any>();
   const [flat, setFlat] = useState(false);
+  const animSet = useCreateVersions();
+  const selectAnim = useStore((state) => state.selectAnim);
   return (
-    <Canvas className={"h-full w-full bg-zinc-500"}>
-      {/* @ts-ignore */}
-      <PerspectiveCamera position={[0, -1, 0]}>
-        <ambientLight intensity={0.3} />
-        <spotLight
-          //  @ts-ignore
-          color={"whitesmoke"}
-          power={200}
-          position={[0, 2, 5]}
-        />
-        <spotLight
-          //  @ts-ignore
-          color={"whitesmoke"}
-          power={200}
-          position={[0, 2, -5]}
-        />
-        <Frank position={[0, 0, 0]} />
-        <StanceDiagram flat={flat} setFlat={setFlat} />
-        <OrbitControls ref={orbitRef} />
-      </PerspectiveCamera>
-    </Canvas>
+    <>
+      <Canvas className={"h-full w-full bg-zinc-500"}>
+        {/* @ts-ignore */}
+        <PerspectiveCamera position={[0, -1, 0]}>
+          <ambientLight intensity={0.3} />
+          <spotLight
+            //  @ts-ignore
+            color={"whitesmoke"}
+            power={200}
+            position={[0, 2, 5]}
+          />
+          <spotLight
+            //  @ts-ignore
+            color={"whitesmoke"}
+            power={200}
+            position={[0, 2, -5]}
+          />
+          <Frank position={[0, 0, 0]} />
+          <StanceDiagram flat={flat} setFlat={setFlat} />
+          <OrbitControls ref={orbitRef} />
+        </PerspectiveCamera>
+      </Canvas>
+      <div className="flex flex-col gap-2 text-zinc-300">
+        {animSet.map((anim, i) => {
+          return <button onClick={() => selectAnim(anim)}>{anim}</button>;
+        })}
+      </div>
+    </>
   );
 };
 
@@ -74,6 +85,11 @@ const StanceDiagram = ({ flat, setFlat }) => {
       ?.getWorldPosition(point) as THREE.Vector3;
     scene.getObjectByName("mixamorig1LeftFoot")?.getWorldPosition(point2);
     scene.getObjectByName("mixamorig1RightFoot")?.getWorldPosition(point3);
+    if (shaderRef.current) {
+      if (stanceTexture) {
+        shaderRef.current.uniforms.uTexture.value = stanceTexture;
+      }
+    }
     if (circleRef.current && shaderRef.current) {
       raycasters.forEach((r, i) => {
         r.set(points[i], pos);
@@ -108,6 +124,7 @@ const StanceDiagram = ({ flat, setFlat }) => {
     );
     // camera.position.lerp(point.sub(new THREE.Vector3(2, 0, 2)), 0.569);
   });
+
   return (
     <mesh
       onClick={() => setFlat((prev) => !prev)}

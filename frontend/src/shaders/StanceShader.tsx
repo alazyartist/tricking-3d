@@ -24,6 +24,7 @@ const uniforms = {
   uMouse: [0, 1],
   uRF: new THREE.Vector2(0.0, 0.0),
   uLF: new THREE.Vector2(0.0, 0.0),
+  uTexture: new THREE.Texture(),
 };
 
 const StanceShader = shaderMaterial(
@@ -58,6 +59,7 @@ const StanceShader = shaderMaterial(
   uniform vec2 uMouse;
   uniform vec2 uRF;
   uniform vec2 uLF;
+  uniform sampler2D uTexture; 
 
   varying vec2 vUv;
   varying vec3 v_pos;
@@ -116,9 +118,11 @@ float crosss(in vec2 _st, float _size){
   void main(){
 
     //position(x,y)->shape(float)->mask(float)->color(rgb)->mix(rgb)=finalCol(rgb)
+    vec3 tex = texture2D(uTexture,vUv).rgb;
     vec3 pos = v_pos;
     vec3 am = vec3(0.5);
     vec3 finalCol = vec3(0.);
+    finalCol += tex;
     vec3 blu = vec3(0.4,0.9,0.9);
     vec3 red = vec3(0.9,0.2,0.2);
     vec3 whit = vec3(1.);
@@ -137,8 +141,8 @@ float crosss(in vec2 _st, float _size){
     float cir5 = smoothstep(radius - 0.1, radius + 0.1, dtml);
     cir4=step(cir4,0.002);
     cir5 = step(cir5,0.002);
-    finalCol += vec3(0.3)*cir4;
-    finalCol += vec3(0.3)*cir5;
+    // finalCol += vec3(0.3)*cir4;
+    // finalCol += vec3(0.3)*cir5;
     
     
     
@@ -146,21 +150,13 @@ float crosss(in vec2 _st, float _size){
     uv0 +=.5;
     float cir = smoothstep(length(vUv-.5),0.3,0.05);
     float cir2 = step(length(vUv-.5),0.3);
-    float cros = 1.-crosss(vUv-vec2(.25),.3);
-    float cros2 = 1.-crosss(vUv+vec2(.25),.3);
-    float cros3 = 1.-crosss(vUv+vec2(.25,-.25),0.1);
-    float cros4 = 1.-crosss(vUv+vec2(-.25,.25),.1);
     vec3 col = vec3(0.9,uv0);
-    finalCol += blu*cir;
-    finalCol += col*cir2;
+    // finalCol += blu*cir;
+    // finalCol += col*cir2;
     // finalCol += finalCol-line;
-    cros = step(cros,0.);
-    cros4 = step(cros4,0.);
-    // finalCol = mix(finalCol,vec3(1.,.550,.1),cros);
-    // finalCol = mix(finalCol,vec3(1.,.950,.1),cros4);
+
     // finalCol += mix(finalCol,red,line);
-    // finalCol*=vec3(cros2)*vec3(cros3);
-    finalCol = mix(finalCol,blu,cir4)*mix(finalCol,red,cir5);
+    finalCol = max(mix(finalCol,vec3(0.8),cir4),mix(finalCol,red,cir5));
     gl_FragColor = vec4(finalCol,1.0);
 
     }`
