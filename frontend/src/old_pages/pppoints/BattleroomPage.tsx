@@ -15,6 +15,7 @@ import ScoreDisplay from "./components/ScoreDisplay";
 import MovingPoint from "./components/MovingPoint";
 import { FaUsers, FaUsersSlash } from "react-icons/fa";
 import { useRouter } from "next/router";
+import { trpc } from "@utils/trpc";
 const ably = useAblyStore.getState().ably;
 export const getPointsNormalized = (team1Points, team2Points) => {
   let totalPoints = team1Points + team2Points;
@@ -28,7 +29,7 @@ export const getPointsNormalized = (team1Points, team2Points) => {
   return [team1PointsNormalized, team2PointsNormalized];
 };
 const BattleroomPage = () => {
-  const [host, setHost] = useState();
+  const [host, setHost] = useState("");
   const [judges, setJudges] = useState([]);
   const [team1, setTeam1] = useState([]);
   const [team2, setTeam2] = useState([]);
@@ -42,20 +43,32 @@ const BattleroomPage = () => {
   const [duration, setDuration] = useState(0);
   const userUUID = useUserStore((s) => s.userInfo.uuid);
   const router = useRouter();
-  const { sessionid } = router.query;
-  const sessionChannel = ably.channels.get(`[?rewind=10m]points:${sessionid}`);
+  const { battleroomid } = router.query;
+  const sessionChannel = ably.channels.get(
+    `[?rewind=10m]points:${battleroomid}`
+  );
   const [team1points, setTeam1points] = useState(0);
   const [team2points, setTeam2points] = useState(0);
   const [publicTeam1Points, setPublicTeam1points] = useState(0);
   const [publicTeam2Points, setPublicTeam2points] = useState(0);
   let isHost = host === userUUID;
   let isJudge = judges.some((j) => j.uuid === userUUID);
-  const { data: roomSetup } = useGetBattleRoombySessionid(sessionid);
-  const { mutate: closeRoom } = useBattleRoomClose(sessionid as string);
-  const { mutate: updateRoomStats } = useBattleRoomUpdate(sessionid as string);
-  const { mutate: updateRoomScore } = useBattleRoomUpdateScore(
-    sessionid as string
-  );
+  // const { data: roomSetup } = useGetBattleRoombySessionid(sessionid);
+  const { data: roomSetup } = trpc.battleroom.getRoomById.useQuery({
+    battleroomid: battleroomid as string,
+  });
+  // const { mutate: closeRoom } = useBattleRoomClose(sessionid as string);
+  const { mutate: closeRoom } = trpc.battleroom.closeRoom.useMutation();
+  // const { mutate: updateRoomStats } = useBattleRoomUpdate(
+  //   battleroomid as string
+  // );
+  const { mutate: updateRoomStats } =
+    trpc.battleroom.updateRoomStats.useMutation();
+  // const { mutate: updateRoomScore } = useBattleRoomUpdateScore(
+  //   battleroomid as string
+  // );
+  const { mutate: updateRoomScore } =
+    trpc.battleroom.updateRoomScore.useMutation();
   useEffect(() => {
     console.log(roomSetup);
     Array.isArray(roomSetup?.judges) && setJudges([...roomSetup?.judges]);
@@ -162,11 +175,13 @@ const BattleroomPage = () => {
             addJudgeMessage((jms) => [...jms, t.data]);
             //TODOupdateJudgeScores
             updateRoomScore({
+              battleroomid: battleroomid as string,
               judge: t.data.judge,
               team: "Team1",
               score: t.data.team1,
             });
             updateRoomScore({
+              battleroomid: battleroomid as string,
               judge: t.data.judge,
               team: "Team2",
               score: t.data.team2,
@@ -177,11 +192,13 @@ const BattleroomPage = () => {
             //TODOupdateUserScores
             if (userUUID) {
               updateRoomScore({
+                battleroomid: battleroomid as string,
                 user: userUUID,
                 team: "Team1",
                 score: t.data.team1,
               });
               updateRoomScore({
+                battleroomid: battleroomid as string,
                 user: userUUID,
                 team: "Team2",
                 score: t.data.team2,
@@ -196,6 +213,7 @@ const BattleroomPage = () => {
           if (t.data.message === "getTotals") {
             const { winner, audienceWinner } = getWinners();
             updateRoomStats({
+              battleroomid: battleroomid as string,
               team1Score: team1points,
               team2Score: team2points,
               team1AudienceScore: publicTeam1Points,
@@ -225,7 +243,7 @@ const BattleroomPage = () => {
           setPublicTeam2points(0);
           setTimeout(() => {
             sessionChannel.publish("getTotals", { message: "getTotals" });
-            closeRoom();
+            closeRoom({ battleroomid: battleroomid as string });
           }, 2000);
         }
         setTimeout(() => {
@@ -355,9 +373,7 @@ const BattleroomPage = () => {
   };
   const [team1ref, bounds1] = useMeasure();
   const [team2ref, bounds2] = useMeasure();
-  useEffect(() => {
-    console.log(bounds1, bounds2);
-  }, [bounds1, bounds2]);
+
   useEffect(() => {
     function startPending() {
       let rnd = Math.random() * 100;
@@ -497,7 +513,7 @@ function ResultScoreDisplay({
   judgeMessages,
   winner,
 }) {
-  console.log(winner);
+  // console.log(winner);
   const [showAudienceScore, setShowAudienceScore] = useState(false);
   return (
     <>
@@ -551,7 +567,10 @@ function ResultScoreDisplay({
 }
 export function PlayerMap({ player, imgGrow }) {
   return (
-    <div className="flex flex-col place-items-center text-zinc-300">
+    <div
+      key={player?.uuid}
+      className="flex flex-col place-items-center text-zinc-300"
+    >
       <div>{player.username}</div>
       <animated.img
         style={{ ...imgGrow }}
@@ -578,7 +597,10 @@ function JudgeDisplay({ judges, judgeMessages }) {
         )[0]?.team2;
         console.log(judgeTeam1, judgeTeam2);
         return (
-          <div className="flex w-full flex-col place-items-center">
+          <div
+            key={p?.uuid}
+            className="flex w-full flex-col place-items-center"
+          >
             <ScoreDisplay team1Score={judgeTeam1} team2Score={judgeTeam2} />
             <PlayerMap imgGrow={false} player={p} />
           </div>

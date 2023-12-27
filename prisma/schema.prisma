@@ -40,20 +40,24 @@ model bases {
 model battlerooms {
   id        Int       @id @default(autoincrement())
   host      String?   @db.Char(36)
-  sessionid String?   @unique(map: "sessionid") @db.Char(36)
+  battleroomid String?   @unique(map: "battleroomid") @db.Char(36)
   team1     Json?
   team2     Json?
   judges    Json?
   duration  Int?
   isOpen    Boolean?
   createdAt DateTime  @default(now()) @db.DateTime(0)
-  updatedAt DateTime  @db.DateTime(0)
+  updatedAt DateTime  @db.DateTime(0) @updatedAt
   deletedAt DateTime? @db.DateTime(0)
+  Host      users?    @relation(fields: [host], references: [uuid])
+  UserScores userscores[]
+  BattleRoomStats battleroomstats[]
+  JudgeScores judgescores[]
 }
 
 model battleroomstats {
   id                 Int       @id @default(autoincrement())
-  sessionid          String?   @unique(map: "sessionid") @db.Char(36)
+  battleroomid       String?   @unique(map: "battleroomid") @db.Char(36)
   team1Score         Int?
   team2Score         Int?
   team1AudienceScore Int?
@@ -61,8 +65,9 @@ model battleroomstats {
   winner             Json?
   audienceWinner     Json?
   createdAt          DateTime  @default(now()) @db.DateTime(0)
-  updatedAt          DateTime  @db.DateTime(0)
+  updatedAt          DateTime  @db.DateTime(0) @updatedAt
   deletedAt          DateTime? @db.DateTime(0)
+  BattleRoom         battlerooms? @relation(fields: [battleroomid], references: [battleroomid])
 }
 
 model captures {
@@ -138,12 +143,14 @@ model interactions {
 
 model judgescores {
   id        Int      @id @default(autoincrement())
-  sessionid String?  @db.Char(36)
+  battleroomid String?  @db.Char(36)
   judge     String?  @db.Char(36)
   team      Json?
   score     Int?
   createdAt DateTime @default(now()) @db.DateTime(0)
   updatedAt DateTime @db.DateTime(0)
+  BattleRoom battlerooms? @relation(fields: [battleroomid], references: [battleroomid])
+  Judge     users? @relation(fields: [judge], references: [uuid])
 }
 
 model pointsledger {
@@ -428,6 +435,9 @@ model users {
   Messages debateMessages[]
   Tricklists           tricklists[]
   WatchedTricklists    user_tricklists[]
+  BattleRooms          battlerooms[]
+  UserScores           userscores[]
+  JudgeScores          judgescores[]
 
   @@index([uuid])
   @@index([clerk_id])
@@ -435,12 +445,16 @@ model users {
 
 model userscores {
   id        Int      @id @default(autoincrement())
-  sessionid String?  @db.Char(36)
+  battleroomid String?  @db.Char(36)
   userid    String?  @db.Char(36)
   team      Json?
   score     Int?
   createdAt DateTime @default(now()) @db.DateTime(0)
   updatedAt DateTime @db.DateTime(0)
+  User      users? @relation(fields: [userid], references: [uuid])
+  BattleRoom battlerooms? @relation(fields: [battleroomid], references: [battleroomid])
+
+
 }
 
 model variations {

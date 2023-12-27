@@ -10,6 +10,7 @@ import { animationRouter } from "./animations";
 import { tricklistRouter } from "./tricklist";
 import { paymentsRouter } from "./payments";
 import { ablyRouter } from "./ablyRouter";
+import battleroomRouter from "./battleroomRouter";
 
 export const appRouter = router({
   userDB: userRouter,
@@ -22,6 +23,7 @@ export const appRouter = router({
   tricklists: tricklistRouter,
   payments: paymentsRouter,
   ably: ablyRouter,
+  battleroom: battleroomRouter,
 });
 
 // export type definition of API

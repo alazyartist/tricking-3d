@@ -3,12 +3,14 @@ import Link from "next/link";
 import { useGetBattleRooms } from "../../../api/useBattleRoom";
 import { useUserStore } from "../../../store/userStore";
 import { FaGavel } from "react-icons/fa";
+import { trpc } from "@utils/trpc";
 const LiveBattlerooms = ({ ably }) => {
   const liveSessionsChannel = ably?.channels.get("[?rewind=10m]LiveSessions");
   const userUUID = useUserStore((s) => s.userInfo.uuid);
 
   const [liveSessionsFeed, updateLiveSessionsFeed] = useState([]);
-  const { data: battleRooms } = useGetBattleRooms();
+  // const { data: battleRooms } = useGetBattleRooms();
+  const { data: battleRooms } = trpc.battleroom.getRooms.useQuery();
   useEffect(() => {
     console.log(battleRooms);
   }, [battleRooms]);
@@ -40,31 +42,40 @@ const LiveBattlerooms = ({ ably }) => {
             return (
               <Link
                 className="flex w-full place-items-center justify-around gap-2 rounded-md bg-zinc-900 p-2"
-                href={`pppoints/${room.sessionid}`}
+                href={`pppoints/${room.battleroomid}`}
               >
                 <span>
-                  {room?.team1?.map((user, index) => (
-                    <span key={user.uuid}>
-                      {user.username}{" "}
-                      {room?.team1.length > 1 &&
-                        room?.team1.length - 1 !== index &&
-                        "&"}{" "}
-                    </span>
-                  ))}
+                  {Array.isArray(room?.team1) &&
+                    room?.team1?.map(
+                      (user: { username: string; uuid: string }, index) => (
+                        <span key={user.uuid}>
+                          {user.username}{" "}
+                          {Array.isArray(room?.team1) &&
+                            room?.team1.length > 1 &&
+                            room?.team1.length - 1 !== index &&
+                            "&"}{" "}
+                        </span>
+                      )
+                    )}
                   <span className="text-xs text-zinc-400">vs</span>
-                  {room?.team2?.map((user, index) => (
-                    <span>
-                      {user.username}
-                      {room?.team2.length > 1 &&
-                        room?.team2.length - 1 !== index &&
-                        "&"}{" "}
-                    </span>
-                  ))}
+                  {Array.isArray(room?.team2) &&
+                    room?.team2?.map(
+                      (user: { username: string; uuid: string }, index) => (
+                        <span>
+                          {user.username}
+                          {Array.isArray(room?.team2) &&
+                            room?.team2.length > 1 &&
+                            room?.team2.length - 1 !== index &&
+                            "&"}{" "}
+                        </span>
+                      )
+                    )}
                 </span>
                 <span>
-                  {room.judges.some((j) => j.uuid === userUUID) && (
-                    <FaGavel className="text-emerald-500" />
-                  )}
+                  {Array.isArray(room?.judges) &&
+                    room.judges.some(
+                      (j: { uuid: string }) => j.uuid === userUUID
+                    ) && <FaGavel className="text-emerald-500" />}
                 </span>
               </Link>
             );

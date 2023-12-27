@@ -6,6 +6,7 @@ import useGetAllUsers from "../../../api/useGetAllUsers";
 import { useUserStore } from "../../../store/userStore";
 import DurationSetup from "../BattleroomSetup/DurationSetup";
 import { useRouter } from "next/router";
+import { trpc } from "@utils/trpc";
 
 const BattleroomSetup = ({ setSetupVisible, ably }) => {
   const userInfo = useUserStore((s) => s.userInfo);
@@ -15,19 +16,22 @@ const BattleroomSetup = ({ setSetupVisible, ably }) => {
   const [judges, setJudges] = useState([]);
   const [availableUsers, setAvailableUsers] = useState([]);
   const [activeTeam, setActiveTeam] = useState("Team1");
-  const { mutate: saveSessionSetup } = useBattleRoomSetup();
-  const { data: users } = useGetAllUsers();
+  // const { mutate: saveSessionSetup } = useBattleRoomSetup();
+  const { mutate: saveSessionSetup } =
+    trpc.battleroom.makeNewRoom.useMutation();
+  // const { data: users } = useGetAllUsers();
+  const { data: users } = trpc.userDB.findAll.useQuery();
   const nav = useRouter();
   const createSession = () => {
-    let sessionId = uuidv4();
-    console.log(sessionId);
-    const sessionChannel = ably.channels.get(`points:${sessionId}`);
+    let battleroomid = uuidv4();
+    console.log(battleroomid);
+    const sessionChannel = ably.channels.get(`points:${battleroomid}`);
     let newSession = {
-      hostID: userInfo,
+      hostid: userInfo.uuid,
       team1: team1,
       team2: team2,
       judges: judges,
-      sessionid: sessionId,
+      battleroomid: battleroomid,
       duration: sessionTimer,
     };
     saveSessionSetup(newSession);
@@ -35,7 +39,7 @@ const BattleroomSetup = ({ setSetupVisible, ably }) => {
 
     setSetupVisible(false);
     setTimeout(() => {
-      nav.push(`pppoints/${sessionId}`);
+      nav.push(`pppoints/${battleroomid}`);
     }, 69);
 
     //make uuid
@@ -75,7 +79,7 @@ const BattleroomSetup = ({ setSetupVisible, ably }) => {
     <>
       <MdClose
         onClick={() => setSetupVisible(false)}
-        className="absolute top-2 right-2 text-2xl"
+        className="absolute right-2 top-2 text-2xl"
       />
       <div className="font-titan text-2xl">Prepare BattleRoom </div>
       <div className="w-full place-self-start p-2">
@@ -92,6 +96,7 @@ const BattleroomSetup = ({ setSetupVisible, ably }) => {
               </h1>
               {team1?.map((member) => (
                 <div
+                  key={member?.uuid}
                   onClick={() =>
                     setTeam1((prevTeam) => {
                       console.log(member);

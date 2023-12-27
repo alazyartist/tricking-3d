@@ -1,3 +1,4 @@
+import { trpc } from "@utils/trpc";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { FaUsers, FaUsersSlash } from "react-icons/fa";
@@ -10,9 +11,12 @@ import ScoreDisplay from "./ScoreDisplay";
 
 const BattleroomStats = () => {
   const router = useRouter();
-  const { sessionid } = router.query;
+  const { battleroomid } = router.query;
   const userUUID = useUserStore((s) => s.userInfo.uuid);
-  const { data: battleRoomDetails } = useGetBattleRoombySessionid(sessionid);
+  // const { data: battleRoomDetails } = useGetBattleRoombySessionid(sessionid);
+  const { data: battleRoomDetails } = trpc.battleroom.getRoomById.useQuery({
+    battleroomid: battleroomid as string,
+  });
   const [teamScores, setTeamScores] = useState({});
   useEffect(() => {
     let [team1Score, team2Score] = getPointsNormalized(
@@ -31,13 +35,13 @@ const BattleroomStats = () => {
     });
     console.log(battleRoomDetails);
   }, [battleRoomDetails]);
-  let battleStats = battleRoomDetails?.BattleRoomStat;
+  let battleStats = battleRoomDetails?.BattleRoomStats;
   let updatedAt = new Date(battleRoomDetails?.updatedAt).toDateString();
 
   return (
-    <div className="fixed top-0 left-0 flex h-screen w-screen flex-col place-items-center p-2 pt-14 text-zinc-300">
+    <div className="fixed left-0 top-0 flex h-screen w-screen flex-col place-items-center p-2 pt-14 text-zinc-300">
       <div
-        className="absolute top-20 left-4 text-3xl"
+        className="absolute left-4 top-20 text-3xl"
         onClick={() => router.back()}
       >
         <IoIosArrowBack />

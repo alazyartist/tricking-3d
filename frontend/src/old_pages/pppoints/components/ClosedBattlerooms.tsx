@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { useGetBattleRooms } from "../../../api/useBattleRoom";
 import { IoCheckmark, IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { FaCheck, FaGavel } from "react-icons/fa";
 import { useUserStore } from "../../../store/userStore";
+import { trpc } from "@utils/trpc";
 
 const ClosedBattlerooms = () => {
-  const { data: battleRooms } = useGetBattleRooms();
+  const { data: battleRooms } = trpc.battleroom.getRooms.useQuery();
   const userUUID = useUserStore((s) => s.userInfo.uuid);
 
   const [dateFilter, setDateFilter] = useState(
@@ -43,31 +43,40 @@ const ClosedBattlerooms = () => {
             return (
               <Link
                 className="flex w-full place-items-center justify-around gap-2 rounded-md bg-zinc-900 p-2"
-                href={`pppoints/stats/${room.sessionid}`}
+                href={`pppoints/stats/${room.battleroomid}`}
               >
                 <span>
-                  {room?.team1?.map((user, index) => (
-                    <span key={user.uuid}>
-                      {user.username}{" "}
-                      {room?.team1.length > 1 &&
-                        room?.team1.length - 1 !== index &&
-                        "&"}{" "}
-                    </span>
-                  ))}
+                  {Array.isArray(room?.team1) &&
+                    room?.team1?.map(
+                      (user: { uuid: string; username: string }, index) => (
+                        <span key={user?.uuid}>
+                          {user?.username}{" "}
+                          {Array.isArray(room.team1) &&
+                            room?.team1.length > 1 &&
+                            room?.team1.length - 1 !== index &&
+                            "&"}{" "}
+                        </span>
+                      )
+                    )}
                   <span className="text-xs text-zinc-400"> vs </span>
-                  {room?.team2?.map((user, index) => (
-                    <span>
-                      {user.username}
-                      {room?.team2.length > 1 &&
-                        room?.team2.length - 1 !== index &&
-                        "&"}{" "}
-                    </span>
-                  ))}
+                  {Array.isArray(room?.team2) &&
+                    room?.team2?.map(
+                      (user: { uuid: string; username: string }, index) => (
+                        <span key={user?.uuid}>
+                          {user.username}
+                          {Array.isArray(room?.team2) &&
+                            room?.team2.length > 1 &&
+                            room?.team2.length - 1 !== index &&
+                            "&"}{" "}
+                        </span>
+                      )
+                    )}
                 </span>
                 <span className="flex gap-2 text-xs text-zinc-500">
-                  {room.judges.some((j) => j.uuid === userUUID) && (
-                    <FaGavel className="text-emerald-500" />
-                  )}
+                  {Array.isArray(room.judges) &&
+                    room.judges.some(
+                      (j: { uuid: string }) => j.uuid === userUUID
+                    ) && <FaGavel className="text-emerald-500" />}
                 </span>
                 <span className="flex gap-2 text-xs text-zinc-500">
                   {room.host === userUUID && (
