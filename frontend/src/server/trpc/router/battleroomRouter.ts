@@ -58,6 +58,7 @@ const battleroomRouter = router({
       const battleroom = await ctx.prisma.battleroomstats.upsert({
         where: { battleroomid: input.battleroomid },
         create: {
+          battleroomid: input.battleroomid,
           team1Score: input.team1Score,
           team2Score: input.team2Score,
           team1AudienceScore: input.team1AudienceScore,

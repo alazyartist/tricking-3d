@@ -3,8 +3,6 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { FaUsers, FaUsersSlash } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
-// import { Link, useParams } from "react-router-dom";
-import { useGetBattleRoombySessionid } from "../../../api/useBattleRoom";
 import { useUserStore } from "../../../store/userStore";
 import { getPointsNormalized, PlayerMap } from "../BattleroomPage";
 import ScoreDisplay from "./ScoreDisplay";
@@ -13,7 +11,6 @@ const BattleroomStats = () => {
   const router = useRouter();
   const { battleroomid } = router.query;
   const userUUID = useUserStore((s) => s.userInfo.uuid);
-  // const { data: battleRoomDetails } = useGetBattleRoombySessionid(sessionid);
   const { data: battleRoomDetails } = trpc.battleroom.getRoomById.useQuery({
     battleroomid: battleroomid as string,
   });
@@ -35,7 +32,7 @@ const BattleroomStats = () => {
     });
     console.log(battleRoomDetails);
   }, [battleRoomDetails]);
-  let battleStats = battleRoomDetails?.BattleRoomStats;
+  let battleStats = battleRoomDetails?.BattleRoomStats?.[0];
   let updatedAt = new Date(battleRoomDetails?.updatedAt).toDateString();
 
   return (

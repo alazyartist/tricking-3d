@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useGetBattleRooms } from "../../../api/useBattleRoom";
 import { useUserStore } from "../../../store/userStore";
 import { FaGavel } from "react-icons/fa";
 import { trpc } from "@utils/trpc";
@@ -9,11 +8,10 @@ const LiveBattlerooms = ({ ably }) => {
   const userUUID = useUserStore((s) => s.userInfo.uuid);
 
   const [liveSessionsFeed, updateLiveSessionsFeed] = useState([]);
-  // const { data: battleRooms } = useGetBattleRooms();
   const { data: battleRooms } = trpc.battleroom.getRooms.useQuery();
-  useEffect(() => {
-    console.log(battleRooms);
-  }, [battleRooms]);
+  // useEffect(() => {
+  //   console.log(battleRooms);
+  // }, [battleRooms]);
   // useEffect(() => {
   // 	const subscribe = async () => {
   // 		await liveSessionsChannel.subscribe("newSession", (m) => {
