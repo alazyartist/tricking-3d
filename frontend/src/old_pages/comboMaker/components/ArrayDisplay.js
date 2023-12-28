@@ -36,7 +36,7 @@ export function ArrayDisplay(props) {
         <div
           className={`${
             props.isCollapsable && isOpen
-              ? "fixed top-[20vh] left-0 z-[10] max-h-[70vh] overflow-y-auto p-4 "
+              ? "fixed left-0 top-[20vh] z-[10] max-h-[70vh] overflow-y-auto p-4 "
               : ""
           } no-scrollbar flex w-full flex-col place-items-center `}
         >
@@ -115,7 +115,7 @@ export function whichLeg(toLeg) {
       );
     }
     default:
-      console.log("it didnt work");
+      null;
   }
   return;
 }

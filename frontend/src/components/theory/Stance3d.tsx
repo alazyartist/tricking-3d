@@ -20,6 +20,7 @@ const Stances3d = () => {
   const orbitRef = useRef<any>();
   const [flat, setFlat] = useState(false);
   const animSet = useCreateVersions();
+  const animationsArray = useStore((s) => s.animationsArray);
   const selectAnim = useStore((state) => state.selectAnim);
   return (
     <>
@@ -45,7 +46,7 @@ const Stances3d = () => {
         </PerspectiveCamera>
       </Canvas>
       <div className="flex flex-col gap-2 text-zinc-300">
-        {animSet.map((anim, i) => {
+        {animationsArray.map((anim, i) => {
           return <button onClick={() => selectAnim(anim)}>{anim}</button>;
         })}
       </div>
@@ -73,6 +74,7 @@ const StanceDiagram = ({ flat, setFlat }) => {
   });
   const rot = new THREE.Euler(-Math.PI / 2, 0, -Math.PI);
   const rot2 = new THREE.Euler(0, 0, 0);
+  let lastPosition = new THREE.Vector3();
   useFrame(({ clock, camera, scene }) => {
     if (shaderRef.current) {
       shaderRef.current.uTime = clock.getElapsedTime();
@@ -123,6 +125,30 @@ const StanceDiagram = ({ flat, setFlat }) => {
       1
     );
     // camera.position.lerp(point.sub(new THREE.Vector3(2, 0, 2)), 0.569);
+    // const currentPosition = new THREE.Vector3();
+    // scene.getObjectByName("mixamorig1Hips")?.getWorldPosition(currentPosition);
+
+    // // Direction vector based on x and z components
+    // const direction = new THREE.Vector3(
+    //   currentPosition.x - lastPosition.x,
+    //   Math.PI / 2, // Ignoring y component
+    //   currentPosition.z - lastPosition.z
+    // ).normalize();
+
+    // // Convert direction vector to rotation
+    // const forward = new THREE.Vector3(0, 0, 1);
+    // const rotation = new THREE.Quaternion().setFromUnitVectors(
+    //   forward,
+    //   direction
+    // );
+
+    // // Apply this rotation to circleRef
+    // if (circleRef.current) {
+    //   circleRef.current.setRotationFromQuaternion(rotation);
+    // }
+
+    // // Update lastPosition for the next frame
+    // lastPosition.copy(currentPosition);
   });
 
   return (

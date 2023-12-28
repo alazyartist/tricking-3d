@@ -10,7 +10,7 @@ const Right = (props: SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <defs>
-      <style>{".cls-1{fill:#662f8e}"}</style>
+      <style>{".cls-1{fill:#d4d4d8}"}</style>
     </defs>
     <g id="Right">
       <path

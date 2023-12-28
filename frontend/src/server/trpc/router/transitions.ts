@@ -13,4 +13,8 @@ export const transitionsRouter = router({
       });
       return { transition };
     }),
+  getTransitions: publicProcedure.query(async ({ ctx }) => {
+    const transitions = await ctx.prisma.transitions.findMany();
+    return transitions;
+  }),
 });
