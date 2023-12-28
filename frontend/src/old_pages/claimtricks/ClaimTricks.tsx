@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import ClaimedTricks from "./components/ClaimedTricks";
 import { trpc } from "@utils/trpc";
+import { stances, transitions, tricks } from "@prisma/client";
 
 const ClaimTricks = ({ user_id }) => {
   const { data: tricks } = trpc.trick.findAll.useQuery();
@@ -9,6 +10,38 @@ const ClaimTricks = ({ user_id }) => {
   const [sortType, setSortType] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchedItems, setSearchedItems] = useState<undefined | any[]>();
+
+  const { data: profileInfo } = trpc.userDB.findByUUID.useQuery({
+    userid: user_id,
+  });
+
+  const allSessionTricks = profileInfo.SessionSummaries?.map((summary) =>
+    summary.SessionData?.map(
+      (data) =>
+        Array.isArray(data.ClipLabel.comboArray) &&
+        data.ClipLabel.comboArray
+          .map((trick: tricks | transitions | stances) => {
+            if (trick.type != "Transition") {
+              // console.log(trick);
+            }
+            if (trick.type != ("Transition" || "Stance"))
+              return trick as tricks;
+          })
+          .filter((combo) => combo != undefined)
+    )
+  ).flat(2);
+  const uniqueTricks = Object.keys(
+    allSessionTricks?.reduce((acc, curr) => {
+      if (acc[curr.name]) {
+        acc[curr.name]++;
+      } else {
+        acc[curr.name] = 1;
+      }
+      return acc;
+    }, {})
+  );
+  const totalTricksClaimed =
+    profileInfo?.TricksClaimed?.length + uniqueTricks.length;
   useEffect(() => {
     if ((tricks !== undefined && !searchTerm) || searchedItems?.length === 0) {
       setSearchedItems(tricks);
@@ -25,7 +58,12 @@ const ClaimTricks = ({ user_id }) => {
   console.log(searchedItems);
   return (
     <div className="no-scrollbar flex h-[60vh] w-full flex-col place-items-start overflow-y-scroll bg-zinc-900 bg-opacity-70 font-inter ">
-      <div className="text-center text-3xl font-bold">ClaimTricks</div>
+      <div className="flex w-full place-content-center place-items-center justify-between text-center text-2xl font-bold">
+        <h1 className="p-2">ClaimTricks:</h1>
+        <p className="p-4 text-center text-sm">
+          {totalTricksClaimed}/{tricks?.length}
+        </p>
+      </div>
       <div className="sticky top-0 z-[4] my-2 w-full p-2 backdrop-blur-md">
         <input
           id="searchBar"
@@ -40,21 +78,27 @@ const ClaimTricks = ({ user_id }) => {
         <div className="flex gap-2 p-2">
           <p className="place-self-center">Sort By</p>
           <p
-            className="rounded-md border-2 border-zinc-300 p-1 px-2"
+            className={`${
+              sortType == "Claimed" ? " text-emerald-500" : ""
+            } rounded-md border-2 border-zinc-300 p-1 px-2`}
             onClick={() =>
               setSortType((s) => (s === "Claimed" ? "All" : "Claimed"))
             }
           >
-            {sortType === "Claimed" ? "All" : "Claimed"}
+            {sortType === "Claimed" ? "Proven" : "All"}
           </p>
           <p
-            className="rounded-md border-2 border-zinc-300 p-1 px-2"
+            className={`${
+              sortType == "ABC" ? " text-emerald-500" : ""
+            } rounded-md border-2 border-zinc-300 p-1 px-2`}
             onClick={() => setSortType("ABC")}
           >
             ABC
           </p>
           <p
-            className="rounded-md border-2 border-zinc-300 p-1 px-2"
+            className={`${
+              sortType == "Family" ? " text-emerald-500" : ""
+            } rounded-md border-2 border-zinc-300 p-1 px-2`}
             onClick={() => setSortType("Family")}
           >
             Family
@@ -75,6 +119,8 @@ const ClaimTricks = ({ user_id }) => {
             (trick) =>
               trick.type === "Trick" && (
                 <ClaimedTricks
+                  profileInfo={profileInfo}
+                  uniqueTricks={uniqueTricks}
                   trick={trick}
                   sortType={sortType}
                   key={"claim" + trick.trick_id}

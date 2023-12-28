@@ -1,38 +1,47 @@
 import React, { useState } from "react";
 import { MdCircle, MdCheckCircle } from "../../../data/icons/MdIcons";
-import { tricks } from "@prisma/client";
+import { stances, transitions, tricks } from "@prisma/client";
 import { trpc } from "@utils/trpc";
+import { ProfileInfo } from "types/trpc";
 interface ClaimTrickProps {
   displayOnly?: boolean;
   user_id: string;
   trick_id: string;
   trick: tricks;
   sortType: string;
+  profileInfo: ProfileInfo;
+  uniqueTricks: string[];
 }
 const ClaimedTricks = ({
   displayOnly,
   user_id,
   trick_id,
   trick,
+  profileInfo,
+  uniqueTricks,
   sortType,
 }: ClaimTrickProps) => {
   const [claimed, setClaimed] = useState(false);
   const { mutate: claim } = trpc.trick.claimTrick.useMutation();
-  const { data: profileInfo } = trpc.userDB.findByUUID.useQuery({
-    userid: user_id,
-  });
+
   const isClaimed = profileInfo?.TricksClaimed?.some(
     (combo) => combo.trick_id === trick_id
   );
-  console.log(profileInfo);
+  // const isProven = allSessionTricks?.some(
+  //   (combo) => combo.trick_id === trick_id
+  // );
+  const isProven = uniqueTricks.includes(trick.name);
 
+  // const { data:combos } = trpc.trick.findCombosWithTrick.useQuery({
+  //   trick_id: trick.trick_id,
+  // });
   const handleClaim = async () => {
     isClaimed
       ? claim({ action: "Unclaim", user_id, trick_id })
       : claim({ action: "Claim", user_id, trick_id });
   };
   return sortType === "Claimed" ? (
-    !!isClaimed && (
+    !!isProven && (
       <div
         key={trick.trick_id}
         className=" grid h-full w-full grid-cols-5 place-content-center justify-between rounded-xl p-2 odd:bg-zinc-700"
@@ -46,12 +55,14 @@ const ClaimedTricks = ({
               // "Claim",
               // listItem?.Combo.combo_id,
               // listItem.Combo.name)}
-              setClaimed(!claimed);
-              !displayOnly && handleClaim();
+              // setClaimed(!claimed);
+              if (!isProven) {
+                !displayOnly && handleClaim();
+              }
             }}
             className="h-full w-8 text-3xl text-emerald-500"
           >
-            {isClaimed ? (
+            {isProven ? (
               <MdCheckCircle />
             ) : (
               <MdCircle className="text-yellow-500" />
@@ -74,13 +85,14 @@ const ClaimedTricks = ({
             // "Claim",
             // listItem?.Combo.combo_id,
             // listItem.Combo.name)}
+            if (isProven) return;
             setClaimed(!claimed);
             !displayOnly && handleClaim();
           }}
-          className="h-full w-8 text-3xl text-emerald-500"
+          className="h-full w-8 text-3xl text-green-800"
         >
-          {isClaimed ? (
-            <MdCheckCircle />
+          {isClaimed || isProven ? (
+            <MdCheckCircle className={`${isProven ? "fill-green-500" : ""}`} />
           ) : (
             <MdCircle className="text-yellow-500" />
           )}
