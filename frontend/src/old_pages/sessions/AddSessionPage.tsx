@@ -192,7 +192,7 @@ const SessionSubmitted = ({ SessionReviewCredits, formData }) => {
       <div className="text-center font-virgil text-xl">
         Please check back later for the Summary
       </div>
-      <div>You have {SessionReviewCredits - 1} left</div>
+      <div>You have {SessionReviewCredits} left</div>
       <Link href={"/home"} className={"rounded-md bg-zinc-700 p-1"}>
         Home
       </Link>

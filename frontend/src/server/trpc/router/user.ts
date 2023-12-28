@@ -53,6 +53,9 @@ export const userRouter = router({
               },
               SessionSources: true,
             },
+            orderBy: {
+              sessionDate: "desc",
+            },
           },
           sessionSummaries: {
             include: {

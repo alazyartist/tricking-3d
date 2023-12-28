@@ -23,7 +23,7 @@ export const sessionsummariesRouter = router({
             first_name: z.string(),
             last_name: z.string(),
             username: z.string(),
-            clerk_id: z.string(),
+            clerk_id: z.string().nullish(),
           })
           // .partial()
         ),

@@ -6,3 +6,5 @@ type RouterOutput = inferRouterOutputs<AppRouter>;
 export type GetAllSessionSummaries =
   RouterOutput["sessionsummaries"]["getAllSessionSummaries"];
 export type FindAllUsers = RouterOutput["userDB"]["findAll"];
+
+export type ProfileInfo = RouterOutput["userDB"]["findByUUID"];

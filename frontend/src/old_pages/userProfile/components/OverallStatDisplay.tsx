@@ -49,7 +49,6 @@ const OverallStatDisplay = ({ profileInfo }) => {
       </div>
       <div>Total Tricks: {totalTricks}</div>
       <div className="flex w-full place-items-center gap-2 whitespace-nowrap">
-        <p>Favorite Tricks:</p>
         <div className="flex w-full flex-wrap gap-2">
           {favoriteTrickName?.map(
             (ft, i) =>

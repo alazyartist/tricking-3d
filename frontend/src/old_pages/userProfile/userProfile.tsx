@@ -14,6 +14,7 @@ import SessionStatsContainer from "./components/SessionStatsContainer";
 import OverallStatDisplay from "./components/OverallStatDisplay";
 import { trpc } from "utils/trpc";
 import { sessionsummaries, user_sessions } from "@prisma/client";
+import LastSessionStats from "./components/LastSessionStats";
 
 const UserProfile = () => {
   const [hidden, setHidden] = useState<boolean>(false);
@@ -23,10 +24,6 @@ const UserProfile = () => {
   const { data: profileInfo } = trpc.userDB.findByUUID.useQuery({
     userid: uuid as string,
   });
-  // const { data: profileInfo } = useUserInfoByUUID(uuid as string);
-  // const { data: profileInfo } = trpc.userDB.findByUUID.useQuery({
-  //   userid: uuid as string,
-  // });
   const [editing, setEditing] = useState(false);
   const [activeSummary, setActiveSummary] = useState<
     sessionsummaries | user_sessions
@@ -149,7 +146,7 @@ const UserProfile = () => {
       <div className="relative top-0 z-[2] flex max-h-[95vh] w-full flex-col place-items-center gap-2 rounded-lg p-2">
         <animated.div
           style={resizeUpper}
-          className="relative h-[40vh] w-full rounded-lg bg-zinc-800 bg-opacity-40 p-2 backdrop-blur-xl"
+          className="relative h-[40vh] w-full overflow-y-scroll rounded-lg bg-zinc-800 bg-opacity-40 p-2 backdrop-blur-xl"
         >
           {activeView === "Stats" ? (
             <div>
@@ -189,7 +186,7 @@ const UserProfile = () => {
               className="mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4"
               // onClick={() => setActiveView("Sessions")}
             >
-              Last Session Stats
+              <LastSessionStats profileInfo={profileInfo} />
             </div>
           ) : null}
           {activeView === "Sessions" ? (
