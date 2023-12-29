@@ -254,8 +254,6 @@ model sessionsummaries {
   user_id     String?         @db.Char(36)
   admin       String?         @db.Char(36)
   sessionDate String?         @db.VarChar(255)
-  startTime   String?         @db.VarChar(255)
-  endTime     String?         @db.VarChar(255)
   status      String?         @db.VarChar(255)
   createdAt   DateTime        @default(now()) @db.DateTime(0)
   updatedAt   DateTime        @default(now()) @db.DateTime(0)

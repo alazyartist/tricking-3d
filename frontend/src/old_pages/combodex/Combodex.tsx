@@ -342,7 +342,7 @@ export const CombodexTrickDetails = ({ tricks, chainMap, varietyMap }) => {
               </div>
               <div className="flex flex-col">
                 <div className="flex place-content-center place-items-center gap-2">
-                  <div>{tr.pointValue}</div>
+                  {/* <div>{tr.pointValue}</div> */}
                   {tr.defaultAnimation && (
                     <Link
                       href={`/sandbox/${tr.animation.model}/${tr.animation.animationName}`}
@@ -364,7 +364,7 @@ export const CombodexTrickDetails = ({ tricks, chainMap, varietyMap }) => {
                     ) : null
                   )}
                 </div>
-                <div>
+                {/* <div>
                   {chainMap.map((cm) =>
                     cm[0] === i ? (
                       <div className="flex gap-1">
@@ -375,8 +375,8 @@ export const CombodexTrickDetails = ({ tricks, chainMap, varietyMap }) => {
                       </div>
                     ) : null
                   )}
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                   {varietyMap.map((vm) =>
                     vm[0] === i ? (
                       <div className="flex gap-1">
@@ -387,8 +387,8 @@ export const CombodexTrickDetails = ({ tricks, chainMap, varietyMap }) => {
                       </div>
                     ) : null
                   )}
-                </div>
-                <div>{bonusTotal}</div>
+                </div> */}
+                {/* <div>{bonusTotal}</div> */}
                 <div className="text-[8px]">{tr.type}</div>
               </div>
             </div>

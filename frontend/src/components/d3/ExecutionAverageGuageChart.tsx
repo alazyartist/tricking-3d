@@ -81,11 +81,25 @@ const ExecutionAverageGaugeChart = ({ data }) => {
         .text((d, i) => (i === 0 ? `${(d.value * 100).toFixed(0)}%` : ""))
         .style("color", "#d4d4d4")
         .style("font-size", "10px");
+
+      //add text "Execution Average" underneath chart
+      svg
+        .selectAll("text2")
+        .data([0])
+        .join("text")
+        .text("Execution Average")
+        .attr("text-anchor", "middle")
+        .style(
+          "transform",
+          `translate(${dimensions.width / 2}px, ${dimensions.height}px)`
+        )
+        .style("font-size", "12px")
+        .style("fill", "#d4d4d8");
     }
   }, [data, dimensions]);
   return (
     <div ref={piRef} className="h-full max-h-[200px] min-h-[110px] w-full">
-      <svg key={"pichartKey"} className="h-full w-full" ref={svgRef} />
+      <svg key={"executionAverageKey"} className="h-full w-full" ref={svgRef} />
     </div>
   );
 };

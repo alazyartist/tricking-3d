@@ -51,6 +51,9 @@ const UserProfile = () => {
     config: { durration: 100, tension: 260, friction: 50 },
     exitBeforeEnter: true,
   });
+  //if window orientation is horizontal, make the upper section full height, and the lower section hidden
+  const isSideways = window.orientation === 90 || window.orientation === -90;
+  console.log(isSideways);
 
   const hideStyles = useSpring({
     to: { height: hidden ? "0vh" : "27vh", opacity: hidden ? 0 : 1 },

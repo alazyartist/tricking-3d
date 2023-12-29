@@ -79,13 +79,17 @@ const TrickInvertGaugeChart = ({ data }) => {
           //@ts-ignore
           let c = arcGen.centroid(d);
           return `translate(${
-            dimensions.width / 2 + c[0] - 9
-          }px , ${dimensions.height / 2 + margin.top + c[1] + 3}px)`;
+            dimensions.width / 2 + c[0] - 12
+          }px , ${dimensions.height / 2 + margin.top + c[1] + 5}px)`;
         })
         .join("text")
         .text((d, i) => tricksArray?.[i][0])
-        .style("color", "#d4d4d4")
-        .style("font-size", "10px");
+        .style("fill", (d, i) =>
+          tricksArray[i][0] === "Kick" ? "#d4d4d8" : "#18181b"
+        )
+        .style("font-family", "Inter")
+        .style("font-weight", "bold")
+        .style("font-size", "12px");
     }
   }, [data, dimensions]);
   return (

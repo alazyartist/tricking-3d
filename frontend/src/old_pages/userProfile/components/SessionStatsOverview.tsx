@@ -178,7 +178,7 @@ const SessionStatsOverview = ({ summary }) => {
           }
         </div>
       </div> */}
-      <div className="col-span-2 flex h-full min-h-[120px] w-full flex-col justify-around">
+      <div className="col-span-2 flex h-full min-h-[120px] w-full flex-col justify-around md:min-h-[200px]">
         {/* <TransitionsPieChart
           data={sessionTricksArr.filter((t) => t.type === "Transition")}
         /> */}

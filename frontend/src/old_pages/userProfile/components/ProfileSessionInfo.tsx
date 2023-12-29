@@ -131,7 +131,6 @@ const DataDetails = ({
     setSeekTime(parseInt(d.clipStart));
     setLoopMe(true);
   };
-  console.log("i'm rerunning");
   return (
     <>
       <div className="flex w-full flex-col place-items-center justify-between rounded-md bg-zinc-900 bg-opacity-90 p-1 text-sm text-zinc-300 md:text-inherit">
@@ -170,7 +169,8 @@ const DataDetails = ({
           <div onClick={() => setCombodexopen((prev) => !prev)} className="">
             <MdInfoOutline className={" fill-zinc-500"} />
           </div>
-          {d?.tricker?.uuid !== summary.user_id && (
+          {/* TODO: update tricker images to pull from clerk */}
+          {/* {d?.tricker?.uuid !== summary.user_id && (
             <div
               key={d?.tricker?.uuid}
               style={{
@@ -194,7 +194,7 @@ const DataDetails = ({
                 }`}
               />
             </div>
-          )}
+          )} */}
         </div>
         <div
           className="h-[35px] w-full"

@@ -115,7 +115,6 @@ export function whichLeg(toLeg) {
       );
     }
     default:
-      null;
   }
   return;
 }

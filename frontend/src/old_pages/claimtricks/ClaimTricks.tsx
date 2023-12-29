@@ -15,33 +15,37 @@ const ClaimTricks = ({ user_id }) => {
     userid: user_id,
   });
 
-  const allSessionTricks = profileInfo.SessionSummaries?.map((summary) =>
-    summary.SessionData?.map(
+  const allSessionTricks = profileInfo?.SessionSummaries?.map((summary) =>
+    summary?.SessionData?.map(
       (data) =>
-        Array.isArray(data.ClipLabel.comboArray) &&
-        data.ClipLabel.comboArray
+        Array.isArray(data?.ClipLabel?.comboArray) &&
+        data?.ClipLabel?.comboArray
           .map((trick: tricks | transitions | stances) => {
             if (trick.type != "Transition") {
               // console.log(trick);
             }
-            if (trick.type != ("Transition" || "Stance"))
+            if (trick?.type != ("Transition" || "Stance"))
               return trick as tricks;
           })
           .filter((combo) => combo != undefined)
     )
   ).flat(2);
-  const uniqueTricks = Object.keys(
-    allSessionTricks?.reduce((acc, curr) => {
-      if (acc[curr.name]) {
-        acc[curr.name]++;
-      } else {
-        acc[curr.name] = 1;
-      }
-      return acc;
-    }, {})
-  );
+  let uniqueTricks = [];
+
+  if (allSessionTricks) {
+    uniqueTricks = Object.keys(
+      allSessionTricks?.reduce((acc, curr) => {
+        if (acc[curr.name]) {
+          acc[curr.name]++;
+        } else {
+          acc[curr.name] = 1;
+        }
+        return acc;
+      }, {})
+    );
+  }
   const totalTricksClaimed =
-    profileInfo?.TricksClaimed?.length + uniqueTricks.length;
+    profileInfo?.TricksClaimed?.length + uniqueTricks?.length;
   useEffect(() => {
     if ((tricks !== undefined && !searchTerm) || searchedItems?.length === 0) {
       setSearchedItems(tricks);
@@ -58,9 +62,9 @@ const ClaimTricks = ({ user_id }) => {
   console.log(searchedItems);
   return (
     <div className="no-scrollbar flex h-[60vh] w-full flex-col place-items-start overflow-y-scroll bg-zinc-900 bg-opacity-70 font-inter ">
-      <div className="flex w-full place-content-center place-items-center justify-between text-center text-2xl font-bold">
+      <div className="flex place-content-center place-items-center justify-between text-center text-3xl font-bold">
         <h1 className="p-2">ClaimTricks:</h1>
-        <p className="p-4 text-center text-sm">
+        <p className="w-full p-2 text-sm">
           {totalTricksClaimed}/{tricks?.length}
         </p>
       </div>

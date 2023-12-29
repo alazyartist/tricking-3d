@@ -6,7 +6,7 @@ const TransitionsBarChart = ({ data }) => {
   const [piRef, dimensions] = useMeasure();
 
   useEffect(() => {
-    const margin = { top: 50, left: 10, right: 10, bottom: 20 };
+    const margin = { top: 30, left: 10, right: 10, bottom: 20 };
     const width = dimensions.width - margin.left - margin.right;
     const height = dimensions.height - margin.top - margin.bottom;
     if (svgRef.current !== undefined) {
@@ -107,7 +107,7 @@ const TransitionsBarChart = ({ data }) => {
   }, [data, dimensions]);
   return (
     <div ref={piRef} className="h-full w-full">
-      <svg key={"pichartKey"} className="h-full w-full" ref={svgRef} />
+      <svg key={"transitionsChartKey"} className="h-full w-full" ref={svgRef} />
     </div>
   );
 };

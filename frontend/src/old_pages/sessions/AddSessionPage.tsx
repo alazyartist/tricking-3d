@@ -34,8 +34,6 @@ const AddSessionPage = () => {
     url: "",
     user_id: user_id as string,
     sessionid: uuidv4(),
-    startTime: null,
-    endTime: null,
     type: "Session",
     trickers: [],
     name: "",
@@ -62,8 +60,6 @@ const AddSessionPage = () => {
   const [count, setCount] = useState(1);
   let isEnabled =
     (SessionReviewCredits > 0 &&
-      formData.startTime &&
-      formData.endTime &&
       formData.type &&
       formData.sessionDate &&
       formData.sessionid &&
@@ -74,10 +70,9 @@ const AddSessionPage = () => {
   const [currentStep, setCurrentStep] = useState(0);
   let enabledOne =
     (formData?.name && formData.type && formData.url[0] && true) || false;
-  let enabledTwo =
-    (formData?.sessionDate && formData.startTime && formData.endTime && true) ||
-    false;
+  let enabledTwo = (formData?.sessionDate && true) || false;
   let enabledThree = formData?.trickers.length >= 1;
+  //TODO: get rid of step 2 and make it a date picker
   // const [addTrickersOpen, setAddTrickersOpen] = useState(false);
   let stepEnabled =
     (currentStep === 0 && enabledOne) ||

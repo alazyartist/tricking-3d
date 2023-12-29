@@ -142,13 +142,13 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }: PSRProps) => {
         >
           Watch Session
         </div> */}
-        {radarData && <RadarChart data={radarData} />}
+        {/* {radarData && <RadarChart data={radarData} />} */}
       </animated.div>
 
       {
         vidsrc === source?.vidsrc ? (
           <div className=" md:top-[0vh]">
-            <div className="absolute top-0 left-0 z-[1025] flex aspect-video h-[100%] w-[100%] flex-col gap-2 rounded-md bg-zinc-900 p-2">
+            <div className="absolute left-0 top-0 z-[1025] flex aspect-video h-[100%] w-[100%] flex-col gap-2 rounded-md bg-zinc-900 p-2">
               <div
                 className="flex place-items-center gap-2"
                 onClick={() => setVidsrc(null)}

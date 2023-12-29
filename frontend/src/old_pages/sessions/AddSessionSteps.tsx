@@ -167,7 +167,7 @@ export const StepTwo = ({ setFormData, formData }) => {
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      {/* <div className="grid grid-cols-2 gap-4">
         <div className="flex flex-col place-items-center gap-2 rounded-md bg-zinc-900 bg-opacity-80">
           <label className="w-full text-center" htmlFor="startTime">
             Start
@@ -198,7 +198,7 @@ export const StepTwo = ({ setFormData, formData }) => {
             value={formData.endTime}
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
