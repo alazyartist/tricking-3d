@@ -263,10 +263,24 @@ export const sessionsummariesRouter = router({
   deleteSessionSummaryById: publicProcedure
     .input(z.object({ sessionid: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      const deletedSummary = await ctx.prisma.sessionsummaries.delete({
-        where: { sessionid: input.sessionid },
-      });
-      return deletedSummary;
+      try {
+        await ctx.prisma.sessionsources.deleteMany({
+          where: { sessionid: input.sessionid },
+        });
+        await ctx.prisma.sessiondata.deleteMany({
+          where: { sessionid: input.sessionid },
+        });
+        await ctx.prisma.user_sessions.deleteMany({
+          where: { sessionid: input.sessionid },
+        });
+        const deletedSummary = await ctx.prisma.sessionsummaries.delete({
+          where: { sessionid: input.sessionid },
+        });
+        return deletedSummary;
+      } catch (err) {
+        console.log(err);
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+      }
     }),
   deleteSessionDataById: publicProcedure
     .input(z.object({ id: z.string() }))
