@@ -43,16 +43,14 @@ function Dashboard({ uuid, profilePic }) {
         Welcome <span className="font-semibold text-zinc-300">{user}</span>
       </div> */}
       <>
-        <Link href={`userProfile/${uuid}`}>
-          <UserCard
-            edit
-            src={
-              profilePic !== null
-                ? `./images/${uuid}/${profilePic}`
-                : "./images/noimg.jpeg"
-            }
-          />
-        </Link>
+        <UserCard
+          edit
+          src={
+            profilePic !== null
+              ? `./images/${uuid}/${profilePic}`
+              : "./images/noimg.jpeg"
+          }
+        />
         <div
           className="
           m-auto max-h-[83vh] w-[98vw] max-w-[600px]

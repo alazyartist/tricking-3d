@@ -85,6 +85,32 @@ export const StepOne = ({ setFormData, count, formData, setCount }) => {
           placeholder={`${formData.type} Name`}
         />
       </div>
+      <div className="flex w-full flex-col gap-1">
+        <p className={`font-virgil text-sm`}>
+          when did this <span className={`font-bold`}>{formData.type}</span>{" "}
+          take place
+        </p>
+        {formData.type === "Session" && (
+          <p className={`text-xs`}>please use the day of the session</p>
+        )}
+        {formData.type === "Battle" && (
+          <p className={`text-xs`}>please use the day the battle happened</p>
+        )}
+        {formData.type === "Sampler" && (
+          <p className={`text-xs`}>
+            please use the original upload date of the sampler
+          </p>
+        )}
+        <input
+          onChange={(e) =>
+            setFormData((s) => ({ ...s, sessionDate: e.target.value }))
+          }
+          id="date"
+          type="date"
+          value={formData.sessionDate}
+          className="rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300"
+        />
+      </div>
       {/* {Array.from(Array(count).keys()).map((i) => ( */}
       <div
         key={`${formData.url}`}

@@ -138,9 +138,9 @@ function TabBar() {
                     <Link href="/userSettings" replace={true}>
                       User Settings
                     </Link>
-                    <Link href="/dash" replace={true}>
+                    {/* <Link href="/dash" replace={true}>
                       Dashboard
-                    </Link>
+                    </Link> */}
                     <Link href="/experiments" replace={true}>
                       Experiments
                     </Link>

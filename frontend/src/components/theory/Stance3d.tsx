@@ -18,7 +18,7 @@ import useCreateVersions from "apppp/sandbox/components/ui/modal/useCreateVersio
 extend({ THREE });
 const Stances3d = () => {
   const orbitRef = useRef<any>();
-  const [flat, setFlat] = useState(false);
+  const [flat, setFlat] = useState(true);
   const animSet = useCreateVersions();
   const animationsArray = useStore((s) => s.animationsArray);
   const selectAnim = useStore((state) => state.selectAnim);

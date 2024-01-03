@@ -76,7 +76,10 @@ const ClaimedTricks = ({
       key={trick.trick_id}
       className=" grid h-full w-full grid-cols-5 place-content-center justify-between rounded-xl p-2 odd:bg-zinc-700"
     >
-      <div className="col-span-3 flex place-items-center">{trick?.name}</div>
+      <div className="col-span-3 flex place-items-center justify-between">
+        <p>{trick?.name}</p>
+        {/* <p className="pr-4">{trick?.pointValue}</p> */}
+      </div>
       <div className="col-span-1 flex place-items-center">{trick?.type}</div>
       <div className="relative col-span-1 flex h-full place-content-end place-items-center gap-2">
         <div

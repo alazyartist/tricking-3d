@@ -113,16 +113,16 @@ const AddSessionPage = () => {
                 formData={formData}
               />
             )}
-            {currentStep === 1 && (
+            {/* {currentStep === 1 && (
               <StepTwo setFormData={setFormData} formData={formData} />
-            )}
+            )} */}
             {currentStep === 2 && (
               <StepThree setFormData={setFormData} formData={formData} />
             )}
             {currentStep === 3 && <StepReview formData={formData} />}
 
             <div className="flex w-full place-content-center gap-2">
-              {[0, 1, 2, 3].map((step) => (
+              {[0, 2, 3].map((step) => (
                 <div
                   onClick={() => setCurrentStep(step)}
                   className={`h-3 w-3 rounded-full ${

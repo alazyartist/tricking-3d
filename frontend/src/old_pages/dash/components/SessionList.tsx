@@ -1,3 +1,4 @@
+import SessionLineChart from "@components/d3/SessionLineChart";
 import { trpc } from "@utils/trpc";
 import Link from "next/link";
 import React from "react";
@@ -6,6 +7,7 @@ const SessionList = ({ uuid }) => {
   const { data: sessions } = trpc.sessionsummaries.getSessionsById.useQuery({
     uuid: uuid,
   });
+
   return (
     <div
       className={
@@ -13,6 +15,7 @@ const SessionList = ({ uuid }) => {
       }
     >
       <div className={"p-2"}>My Sessions</div>
+      {sessions && <SessionLineChart data={sessions} />}
       {sessions &&
         sessions.map((s) => {
           return (
