@@ -8,3 +8,4 @@ export type GetAllSessionSummaries =
 export type FindAllUsers = RouterOutput["userDB"]["findAll"];
 
 export type ProfileInfo = RouterOutput["userDB"]["findByUUID"];
+export type SessionsById = RouterOutput["sessionsummaries"]["getSessionsById"];
