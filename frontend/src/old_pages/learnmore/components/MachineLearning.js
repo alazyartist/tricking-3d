@@ -1,27 +1,8 @@
 import React, { useState } from "react";
+import { MyH3 } from "./WhatDoesItInclude";
 
 const MachineLearning = () => {
   const [id, setId] = useState("Capturing");
-  const MyH3 = ({ title }) => {
-    return (
-      <>
-        <h3
-          onClick={() => {
-            setId(title);
-          }}
-          className={`rounded-lg
-							bg-emerald-300 ${
-                id === title
-                  ? "bg-zinc-500 text-zinc-200"
-                  : "bg-zinc-300 text-zinc-800"
-              } p-2 md:text-xl
-`}
-        >
-          {title}
-        </h3>
-      </>
-    );
-  };
 
   return (
     <>
@@ -34,9 +15,9 @@ const MachineLearning = () => {
         Machine Learning
       </h2>
       <div className="flex gap-2">
-        <MyH3 title={"Capturing"} />
-        <MyH3 title={"Analysis"} />
-        <MyH3 title={"Generation"} />
+        <MyH3 setId={setId} id={id} title={"Capturing"} />
+        <MyH3 setId={setId} id={id} title={"Analysis"} />
+        <MyH3 setId={setId} id={id} title={"Generation"} />
       </div>
       {id === "Capturing" && (
         <p id="videoCapture" className="indent-4 text-base font-light">

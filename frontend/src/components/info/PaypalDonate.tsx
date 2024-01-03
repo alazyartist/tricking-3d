@@ -5,7 +5,7 @@ function PaypalDonate() {
   return (
     <div id="dontate-button-container" className="flex place-content-center">
       <a
-        className="m-2 flex place-items-center justify-center rounded-xl bg-inherit p-2 font-inter text-xl font-black text-zinc-700"
+        className="m-2 flex place-items-center justify-center rounded-xl bg-inherit p-2 font-inter text-xl font-black text-zinc-800"
         href="https://www.paypal.com/donate/?hosted_button_id=PT53YGXKXLBNL"
       >
         <div className="mr-1 flex h-full w-full place-items-center">

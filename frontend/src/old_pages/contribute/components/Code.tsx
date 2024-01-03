@@ -31,27 +31,20 @@ function Code() {
       <div className=" px-4">
         <div className="text-2xl font-bold">Technologies Used</div>
         <ul className="grid grid-cols-2 place-content-center pl-2 text-sm font-bold">
-          <div className="col-span-2 w-[80%] text-center">Javascript</div>
+          <div className="col-span-2 w-[80%] text-center">Typescript</div>
           <div>
             <ul className="flex flex-col font-semibold">
               Frontend
               <li className="pl-3 font-light">Nextjs</li>
               <li className="pl-3 font-light">React</li>
-              <li className="pl-3 font-light">React-Router(depricating)</li>
               <li className="pl-3 font-light">React-Three-Fiber</li>
               <li className="pl-3 font-light">Three-JS</li>
-              <li className="pl-3 font-light">
-                Tensorflow-JS(not yet implemented)
-              </li>
             </ul>
           </div>
           <div>
             <ul className="flex flex-col pl-14 font-semibold">
               Backend
-              <li className="pl-3 font-light">Node</li>
-              <li className="pl-3 font-light">Express</li>
               <li className="pl-3 font-light">MySQL</li>
-              <li className="pl-3 font-light">Sequelize</li>
               <li className="pl-3 font-light">Neo4j</li>
               <li className="pl-3 font-light">Redis</li>
             </ul>

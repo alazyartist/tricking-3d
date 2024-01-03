@@ -3,7 +3,7 @@ function KoFiDonate() {
   return (
     <div id="dontate-button-container" className="flex place-content-center">
       <a
-        className="m-2 flex place-items-center justify-center rounded-xl bg-inherit p-2 font-inter text-xl font-black text-zinc-700"
+        className="m-2 flex place-items-center justify-center rounded-xl bg-inherit p-2 font-inter text-xl font-black text-zinc-800"
         href="https://ko-fi.com/tricking3d"
       >
         <Kofi className="mr-1 h-8 w-8" />

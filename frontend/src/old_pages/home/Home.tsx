@@ -18,6 +18,7 @@ import {
 import mixpanel from "@utils/mixpanel";
 import GetStartedPopup from "./components/GetStartedPopup";
 import { FaQuestionCircle } from "react-icons/fa";
+import MultiDonateButton from "@components/info/MultiDonateButton";
 
 function Home({ userInfo: stringy }) {
   // const user = useUserStore((s) => s.userInfo?.username);
@@ -162,12 +163,16 @@ function Home({ userInfo: stringy }) {
             </Link>
 
             <AnimatedSearch />
+            <div className="py-3">
+              <MultiDonateButton />
+            </div>
             <Button
               id={"sandbox-target-home"}
               href={"/sandbox"}
               label={
                 <span className="flex place-content-center items-center gap-2">
-                  Sandbox <BiCube />
+                  Sandbox 3D
+                  <BiCube />
                 </span>
               }
             />

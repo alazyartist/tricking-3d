@@ -1,34 +1,34 @@
 import React, { useState } from "react";
 
+export const MyH3 = ({ title, id, setId }) => {
+  return (
+    <>
+      <h3
+        onClick={() => {
+          setId(title);
+        }}
+        className={`cursor-pointer rounded-md
+           ${
+             id === title
+               ? "bg-orange-500 text-zinc-200"
+               : "bg-zinc-600 text-zinc-400"
+           } p-2 md:text-xl
+`}
+      >
+        {title}
+      </h3>
+    </>
+  );
+};
 const WhatDoesItInclude = () => {
   const [id, setId] = useState("Tricktionary");
-  const MyH3 = ({ title }) => {
-    return (
-      <>
-        <h3
-          onClick={() => {
-            setId(title);
-          }}
-          className={`rounded-lg
-							bg-teal-300 ${
-                id === title
-                  ? "bg-zinc-500 text-zinc-200"
-                  : "bg-zinc-300 text-zinc-800"
-              } p-2 md:text-xl
-`}
-        >
-          {title}
-        </h3>
-      </>
-    );
-  };
   return (
     <>
       <h2 className="text-2xl font-semibold">What does it include?</h2>
       <div className="flex gap-2 font-inter font-semibold ">
-        <MyH3 title="Tricktionary" />
-        <MyH3 title="Theory" />
-        <MyH3 title="Social" />
+        <MyH3 setId={setId} id={id} title="Tricktionary" />
+        <MyH3 setId={setId} id={id} title="Theory" />
+        <MyH3 setId={setId} id={id} title="Social" />
       </div>
       {id === "Tricktionary" && (
         <p className="indent-4 text-base font-light">
