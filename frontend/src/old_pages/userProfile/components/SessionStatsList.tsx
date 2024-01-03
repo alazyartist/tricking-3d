@@ -9,7 +9,7 @@ const SessionStatsList = ({
   profileInfo,
   setActiveSummary,
 }) => {
-  console.log("sessionStatsList pI", profileInfo);
+  // console.log("sessionStatsList pI", profileInfo);
   return (
     <div className="no-scrollbar h-full w-full overflow-hidden overflow-y-scroll">
       <ProfileNav setActiveView={setActiveView} activeView={activeView} />

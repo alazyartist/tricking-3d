@@ -6,6 +6,7 @@ import TransitionsBarChart from "@components/d3/TransitionsBarChart";
 import TransitionsPieChart from "@components/d3/TransitionsPieChart";
 import TrickInvertGaugeChart from "@components/d3/TricikInvertGuageChart";
 import { DensityDisplay } from "@old_pages/combodex/Combodex";
+import Image from "next/image";
 import React from "react";
 import { IoPlayCircle } from "react-icons/io5";
 
@@ -237,9 +238,10 @@ export const OverviewCard = ({
           onClick={() => {
             setVidsrc(summary?.SessionSources?.[0]?.vidsrc);
           }}
-          className="rounded-md p-4 text-xs text-zinc-300"
+          className="relative rounded-md p-4 text-xs text-zinc-300"
         >
-          <IoPlayCircle className="fill-emerald-500 text-3xl" />
+          <YoutubeThumnail src={summary?.SessionSources?.[0]?.vidsrc} />
+          <IoPlayCircle className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] fill-emerald-500 text-3xl" />
         </div>
         {/* <div className="text-sm text-zinc-400">
       {summary?.name}
@@ -258,6 +260,24 @@ export const OverviewCard = ({
         <span className="font-bold">{sessionCombosArr?.length}</span>
         {" Combos"}
       </div>
+    </div>
+  );
+};
+
+const YoutubeThumnail = ({ src }) => {
+  const vidsrcRegex =
+    /(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)|&t=\d*\w/g;
+  const srcid = src?.replace(vidsrcRegex, "");
+
+  return (
+    <div className="h-full w-full">
+      <Image
+        alt={"youtube thumnail preview"}
+        width={480}
+        height={360}
+        className="aspect-video h-full w-full rounded-md object-cover"
+        src={`https://img.youtube.com/vi/${srcid}/hqdefault.jpg`}
+      />
     </div>
   );
 };

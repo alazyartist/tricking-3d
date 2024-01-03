@@ -52,8 +52,8 @@ const UserProfile = () => {
     exitBeforeEnter: true,
   });
   //if window orientation is horizontal, make the upper section full height, and the lower section hidden
-  const isSideways = window.orientation === 90 || window.orientation === -90;
-  console.log(isSideways);
+  // const isSideways = window.orientation === 90 || window.orientation === -90;
+  // console.log(isSideways);
 
   const hideStyles = useSpring({
     to: { height: hidden ? "0vh" : "27vh", opacity: hidden ? 0 : 1 },
@@ -163,12 +163,14 @@ const UserProfile = () => {
           {activeView === "Sessions" ? (
             <div className=" flex h-full w-full gap-2 ">
               {!activeSummary ? (
-                <SessionStatsList
-                  setActiveView={setActiveView}
-                  activeView={activeView}
-                  profileInfo={profileInfo}
-                  setActiveSummary={setActiveSummary}
-                />
+                profileInfo && (
+                  <SessionStatsList
+                    setActiveView={setActiveView}
+                    activeView={activeView}
+                    profileInfo={profileInfo}
+                    setActiveSummary={setActiveSummary}
+                  />
+                )
               ) : (
                 <SessionStatsContainer
                   uuid={uuid}

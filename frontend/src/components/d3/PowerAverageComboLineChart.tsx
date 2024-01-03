@@ -126,7 +126,11 @@ const PowerAverageComboLineChart: React.FC<LineChartProps> = ({
 
   return (
     <div ref={lRef} className="h-full w-full">
-      <svg key={Math.random()} className="h-full w-full" ref={svgRef} />
+      <svg
+        key={`chart ${data?.[0]?.sessionid}`}
+        className="h-full w-full"
+        ref={svgRef}
+      />
     </div>
   );
 };

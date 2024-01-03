@@ -25,7 +25,9 @@ export default defineNextConfig({
       },
     ];
   },
-
+  images: {
+    domains: ["img.youtube.com"],
+  },
   swcMinify: true,
   /** Next.js i18n docs:
    * @see https://nextjs.org/docs/advanced-features/i18n-routing
