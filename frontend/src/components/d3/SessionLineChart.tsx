@@ -130,12 +130,20 @@ const SessionLineChart: React.FC<LineChartProps> = ({
             .curve(d3.curveCatmullRom)
         );
     }
+
+    return () => {
+      //cleanup svg
+      if (svgRef.current) {
+        console.log("unmounting");
+        d3.select(svgRef.current).selectAll("*").remove();
+      }
+    };
     // console.log("paclc", data);
   }, [data, dimensions]);
 
   return (
-    <div ref={lRef} className="h-full w-full">
-      <svg key={Math.random()} className="h-full w-full" ref={svgRef} />
+    <div ref={lRef} className="h-28 w-full">
+      <svg key={"sessionLineChart1"} className="h-full w-full" ref={svgRef} />
     </div>
   );
 };
