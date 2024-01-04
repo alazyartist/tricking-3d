@@ -6,7 +6,7 @@ export const StepOne = ({ setFormData, count, formData, setCount }) => {
   return (
     <div className="flex h-[90%] flex-col justify-evenly gap-4">
       <div>
-        <h1 className={"pt-2 text-center font-virgil text-3xl"}>
+        <h1 className={"pt-2 text-center font-inter text-3xl"}>
           Get Your Stats
         </h1>
         <p className={`text-xs`}>
@@ -73,7 +73,7 @@ export const StepOne = ({ setFormData, count, formData, setCount }) => {
         </div>
       </div>
       <div className="flex w-full flex-col">
-        <p className={`font-virgil text-sm tracking-wider`}>
+        <p className={`font-inter text-sm tracking-wider`}>
           what should we call your{" "}
           <span className={` font-bold`}>{formData.type}</span>
         </p>
@@ -86,10 +86,19 @@ export const StepOne = ({ setFormData, count, formData, setCount }) => {
         />
       </div>
       <div className="flex w-full flex-col gap-1">
-        <p className={`font-virgil text-sm`}>
+        <p className={`font-inter text-sm`}>
           when did this <span className={`font-bold`}>{formData.type}</span>{" "}
           take place
         </p>
+        <input
+          onChange={(e) =>
+            setFormData((s) => ({ ...s, sessionDate: e.target.value }))
+          }
+          id="date"
+          type="date"
+          value={formData.sessionDate}
+          className="rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300"
+        />
         {formData.type === "Session" && (
           <p className={`text-xs`}>please use the day of the session</p>
         )}
@@ -101,15 +110,6 @@ export const StepOne = ({ setFormData, count, formData, setCount }) => {
             please use the original upload date of the sampler
           </p>
         )}
-        <input
-          onChange={(e) =>
-            setFormData((s) => ({ ...s, sessionDate: e.target.value }))
-          }
-          id="date"
-          type="date"
-          value={formData.sessionDate}
-          className="rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300"
-        />
       </div>
       {/* {Array.from(Array(count).keys()).map((i) => ( */}
       <div
@@ -160,12 +160,12 @@ export const StepOne = ({ setFormData, count, formData, setCount }) => {
 export const StepTwo = ({ setFormData, formData }) => {
   return (
     <div className="flex h-[90%] flex-col justify-around">
-      <h1 className="pt-2 text-center font-virgil text-3xl">
+      <h1 className="pt-2 text-center font-inter text-3xl">
         Tell us about <br />
         the {formData.type.toLowerCase()}
       </h1>
       <div className="flex w-full flex-col gap-1">
-        <p className={`font-virgil text-sm`}>
+        <p className={`font-inter text-sm`}>
           when did this <span className={`font-bold`}>{formData.type}</span>{" "}
           take place
         </p>
@@ -234,7 +234,7 @@ export const StepThree = ({ formData, setFormData }) => {
 
   return (
     <div className="flex h-[70%] flex-col">
-      <h1 className="pt-2 text-center font-virgil text-3xl">
+      <h1 className="pt-2 text-center font-inter text-3xl">
         Who is in the video?
       </h1>
 
@@ -330,7 +330,7 @@ export const StepThree = ({ formData, setFormData }) => {
 export const StepReview = ({ formData }) => {
   return (
     <div className="flex h-[90%] flex-col place-content-center place-items-center justify-around">
-      <h1 className={`w-full text-center font-virgil text-xl text-zinc-400`}>
+      <h1 className={`w-full text-center font-inter text-xl text-zinc-400`}>
         Review
       </h1>
       <div className="w-full space-y-3 text-center">

@@ -14,7 +14,7 @@ const MachineLearning = () => {
       >
         Machine Learning
       </h2>
-      <div className="flex gap-2">
+      <div className="grid w-full grid-cols-3 gap-1">
         <MyH3 setId={setId} id={id} title={"Capturing"} />
         <MyH3 setId={setId} id={id} title={"Analysis"} />
         <MyH3 setId={setId} id={id} title={"Generation"} />

@@ -14,7 +14,7 @@ const SocialPage = () => {
       <SignedIn>
         <Link
           href={"/captures"}
-          className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
+          className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-inter text-xl font-semibold text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
         >
           <div className="flex place-content-center place-items-center gap-2">
             <FaQrcode /> Captures
@@ -22,7 +22,7 @@ const SocialPage = () => {
         </Link>
       </SignedIn>
       <SignedOut>
-        <div className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] ">
+        <div className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-inter text-xl font-semibold text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] ">
           <div className="flex place-content-center place-items-center gap-2">
             <SignInButton mode="modal" afterSignInUrl="/addSession">
               <div className="flex place-content-center place-items-center gap-2">
@@ -34,7 +34,7 @@ const SocialPage = () => {
       </SignedOut>
       <Link
         href={"/leaderboard"}
-        className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
+        className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-inter text-xl font-semibold text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
       >
         <div className="flex place-content-center place-items-center gap-2">
           Leaderboards
@@ -42,7 +42,7 @@ const SocialPage = () => {
       </Link>
       <Link
         href={"/compare"}
-        className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
+        className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-inter text-xl font-semibold text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
       >
         <div className="flex place-content-center place-items-center gap-2">
           Compare
@@ -50,7 +50,7 @@ const SocialPage = () => {
       </Link>
       <Link
         href={"/debate"}
-        className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
+        className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-inter text-xl font-semibold text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
       >
         <div className="flex place-content-center place-items-center gap-2">
           Debate

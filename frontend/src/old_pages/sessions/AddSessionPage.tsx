@@ -10,6 +10,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import BackgroundCircles from "../../admin/components/BackgroundCircles";
 import { trpc } from "utils/trpc";
 import { StepOne, StepReview, StepThree, StepTwo } from "./AddSessionSteps";
+import useClickOutside from "@hooks/useClickOutside";
 const whatsToday = () => {
   let today = new Date(Date.now());
   return `${today.getFullYear()}-${("0" + (today.getMonth() + 1)).slice(-2)}-${(
@@ -116,13 +117,13 @@ const AddSessionPage = () => {
             {/* {currentStep === 1 && (
               <StepTwo setFormData={setFormData} formData={formData} />
             )} */}
-            {currentStep === 2 && (
+            {currentStep === 1 && (
               <StepThree setFormData={setFormData} formData={formData} />
             )}
-            {currentStep === 3 && <StepReview formData={formData} />}
+            {currentStep === 2 && <StepReview formData={formData} />}
 
             <div className="flex w-full place-content-center gap-2">
-              {[0, 2, 3].map((step) => (
+              {[0, 1, 2].map((step) => (
                 <div
                   onClick={() => setCurrentStep(step)}
                   className={`h-3 w-3 rounded-full ${
@@ -134,7 +135,7 @@ const AddSessionPage = () => {
             {currentStep !== 3 && (
               <button
                 disabled={!stepEnabled}
-                className={`m-4 rounded-lg p-2 font-virgil text-2xl  ${
+                className={`m-4 rounded-lg p-2 font-inter text-2xl  ${
                   stepEnabled
                     ? "bg-emerald-400 text-emerald-800"
                     : "bg-zinc-800 text-zinc-600"
@@ -142,13 +143,13 @@ const AddSessionPage = () => {
                 type="button"
                 onClick={() => setCurrentStep((currentStep + 1) % 4)}
               >
-                {currentStep === 0 && "Gimmie Them Stats"}
-                {currentStep === 1 && "Finished"}
-                {currentStep === 2 && formData.trickers.length < 1 && "Skip"}
-                {currentStep === 2 &&
+                {currentStep === 0 && "Add Trickers"}
+                {currentStep === 1 && formData.trickers.length < 1 && "Skip"}
+                {currentStep === 1 &&
                   formData.trickers.length >= 1 &&
                   "That's All"}
-                {currentStep === 3 && "Looks Great!"}
+                {/* {currentStep === 1 && "Finished"} */}
+                {currentStep === 2 && "Submit"}
               </button>
             )}
             {currentStep === 3 && (
@@ -166,7 +167,9 @@ const AddSessionPage = () => {
           </form>
           <div className="flex flex-col place-items-center gap-2">
             <div>{response?.message}</div>
-            {showOutOfCredits && <OutOfCredits />}
+            {showOutOfCredits && (
+              <OutOfCredits closePopover={() => setShowOutOfCredits(false)} />
+            )}
           </div>
         </>
       )}
@@ -179,12 +182,12 @@ export default AddSessionPage;
 
 const SessionSubmitted = ({ SessionReviewCredits, formData }) => {
   return (
-    <div className=" flex h-full w-[90vw] flex-col place-content-center place-items-center justify-around gap-2 rounded-md bg-zinc-700 bg-opacity-30 p-3 font-virgil backdrop-blur-2xl">
+    <div className=" flex h-full w-[90vw] flex-col place-content-center place-items-center justify-around gap-2 rounded-md bg-zinc-700 bg-opacity-30 p-3 font-inter backdrop-blur-2xl">
       <div className="text-center text-3xl">
         Your {formData.type} was Submitted
       </div>
       <MdCheckCircle className={"text-6xl text-emerald-500"} />
-      <div className="text-center font-virgil text-xl">
+      <div className="text-center font-inter text-xl">
         Please check back later for the Summary
       </div>
       <div>You have {SessionReviewCredits} left</div>
@@ -195,7 +198,7 @@ const SessionSubmitted = ({ SessionReviewCredits, formData }) => {
   );
 };
 
-export const OutOfCredits = () => {
+export const OutOfCredits = ({ closePopover }) => {
   const queryClient = useQueryClient();
   const [showForm, setShowForm] = useState(false);
   const [creditAmount, setcreditAmount] = useState(1);
@@ -203,8 +206,12 @@ export const OutOfCredits = () => {
   useEffect(() => {
     queryClient.invalidateQueries(["userInfo"]);
   }, [showForm]);
+  const ref = useClickOutside(() => closePopover());
   return (
-    <>
+    <div
+      ref={ref}
+      className="absolute top-[10vh] z-[200] space-y-2 rounded-md bg-zinc-700 p-8"
+    >
       <div className="flex place-content-center place-items-center gap-4 text-center font-inter text-4xl">
         <div
           className="flex h-10 w-10 place-content-center place-items-center rounded-full bg-zinc-200 bg-opacity-10"
@@ -233,6 +240,6 @@ export const OutOfCredits = () => {
           <PaymentEmbed creditAmount={creditAmount} setShowForm={setShowForm} />
         </div>
       )}
-    </>
+    </div>
   );
 };

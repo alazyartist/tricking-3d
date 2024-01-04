@@ -12,7 +12,7 @@ export const MyH3 = ({ title, id, setId }) => {
              id === title
                ? "bg-orange-500 text-zinc-200"
                : "bg-zinc-600 text-zinc-400"
-           } p-2 md:text-xl
+           } p-2 text-center text-sm font-semibold
 `}
       >
         {title}
@@ -25,7 +25,7 @@ const WhatDoesItInclude = () => {
   return (
     <>
       <h2 className="text-2xl font-semibold">What does it include?</h2>
-      <div className="flex gap-2 font-inter font-semibold ">
+      <div className="grid grid-cols-3 gap-1 font-inter font-semibold ">
         <MyH3 setId={setId} id={id} title="Tricktionary" />
         <MyH3 setId={setId} id={id} title="Theory" />
         <MyH3 setId={setId} id={id} title="Social" />

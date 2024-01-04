@@ -157,15 +157,12 @@ function Home({ userInfo: stringy }) {
             </div>
             <Link
               href="/learnMore"
-              className="m-2 rounded-3xl bg-indigo-600 px-4 py-2 font-inter font-semibold text-zinc-300"
+              className="m-2 rounded-3xl bg-orange-600 px-8 py-2 font-inter font-semibold text-zinc-800"
             >
               Learn More
             </Link>
 
             <AnimatedSearch />
-            <div className="py-3">
-              <MultiDonateButton />
-            </div>
             <Button
               id={"sandbox-target-home"}
               href={"/sandbox"}
@@ -198,6 +195,9 @@ function Home({ userInfo: stringy }) {
               href={"/social"}
               label={"Social"}
             />
+            <div className="py-3">
+              <MultiDonateButton />
+            </div>
           </div>
 
           <SignedOut>
@@ -223,7 +223,7 @@ const Button = ({ href, label, id }) => {
     <Link
       id={id}
       href={href}
-      className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
+      className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-inter text-xl font-semibold text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] "
     >
       <div className="flex place-content-center place-items-center gap-2">
         {label}

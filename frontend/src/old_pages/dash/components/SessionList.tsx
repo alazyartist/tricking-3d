@@ -7,7 +7,7 @@ const SessionList = ({ uuid }) => {
   const { data: sessions } = trpc.sessionsummaries.getSessionsById.useQuery({
     uuid: uuid,
   });
-
+  if (!sessions) return <div>loading</div>;
   return (
     <div
       className={
