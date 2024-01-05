@@ -90,6 +90,19 @@ const TrickInvertGaugeChart = ({ data }) => {
         .style("font-family", "Inter")
         .style("font-weight", "bold")
         .style("font-size", "12px");
+      //add text "Trick/Invert" underneath chart
+      svg
+        .selectAll("text2")
+        .data([0])
+        .join("text")
+        .text("Trick/Invert")
+        .attr("text-anchor", "middle")
+        .style(
+          "transform",
+          `translate(${dimensions.width / 2}px, ${dimensions.height}px)`
+        )
+        .style("font-size", "12px")
+        .style("fill", "#d4d4d8");
     }
   }, [data, dimensions]);
   return (

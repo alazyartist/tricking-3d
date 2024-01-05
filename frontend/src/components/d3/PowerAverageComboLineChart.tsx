@@ -121,6 +121,12 @@ const PowerAverageComboLineChart: React.FC<LineChartProps> = ({
             .curve(d3.curveCatmullRom)
         );
     }
+    return () => {
+      if (svgRef.current) {
+        d3.select(svgRef.current).selectAll("*").remove();
+      }
+    };
+
     // console.log("paclc", data);
   }, [data, dimensions]);
 

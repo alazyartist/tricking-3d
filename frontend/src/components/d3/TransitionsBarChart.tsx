@@ -104,6 +104,12 @@ const TransitionsBarChart = ({ data }) => {
         .style("fill", (d, i) => colors(i))
         .style("font-size", "10px");
     }
+
+    return () => {
+      if (svgRef.current) {
+        d3.select(svgRef.current).selectAll("*").remove();
+      }
+    };
   }, [data, dimensions]);
   return (
     <div ref={piRef} className="h-full w-full">

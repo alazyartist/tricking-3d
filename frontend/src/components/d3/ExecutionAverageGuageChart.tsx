@@ -39,50 +39,86 @@ const ExecutionAverageGaugeChart = ({ data }) => {
       //   const instructions = piGen(ea);
       const instructions = piGen([ea, 1 - ea]);
       let emptyInstructions = piGen([0, 1]);
-      const arc = svg
-        .selectAll("path")
-        .data(instructions)
-        .attr("class", "slice")
-        .join("path")
-        .attr("stroke", "black")
-        .style("fill", (instruction, index) =>
-          index === 0 ? colors(instruction.data) : "#eee"
-        )
-        .style("opacity", (instruction, index) => (index === 0 ? 1 : 0.4))
-        .style(
-          "transform",
-          `translate(${dimensions.width / 2}px , ${
-            dimensions.height / 2 + margin.top
-          }px)`
-        )
-        .transition()
-        .duration(2000)
-        .attrTween("d", function (nextI) {
-          //@ts-ignore
-          const interpolator = d3.interpolate(this?.lastI, nextI);
-          //@ts-ignore
-          this.lastI = interpolator(0);
-          return function (t) {
-            //@ts-ignore
-            return arcGen(interpolator(t));
-          };
-        });
-      svg
-        .selectAll("text")
-        .data(instructions)
-        .style("transform", function (d) {
-          //@ts-ignore
-          let c = arcGen.centroid(d);
-          return `translate(${
-            dimensions.width / 2 + c[0] - 7
-          }px , ${dimensions.height / 2 + margin.top + c[1] + 3}px)`;
-        })
-        .join("text")
-        .text((d, i) => (i === 0 ? `${(d.value * 100).toFixed(0)}%` : ""))
-        .style("color", "#d4d4d4")
-        .style("font-size", "10px");
+      console.log(instructions);
+      if (Number.isNaN(instructions[0].data)) {
+        console.log("nodata", instructions);
+        svg
+          .selectAll("text3")
+          .data([0])
+          .join("text")
+          .text("No Data")
+          .attr("text-anchor", "middle")
+          .style(
+            "transform",
+            `translate(${dimensions.width / 2}px, ${dimensions.height / 2}px)`
+          )
+          .style("font-size", "16px")
+          .style("fill", "#d4d4d8");
 
-      //add text "Execution Average" underneath chart
+        svg
+          .selectAll("text4")
+          .data([0])
+          .join("text")
+          .text(" update combos to see data")
+          .attr("text-anchor", "middle")
+          .style(
+            "transform",
+            `translate(${dimensions.width / 2}px, ${
+              dimensions.height / 2 + 20
+            }px)`
+          )
+          .style("font-size", "10px")
+          .style("fill", "#d4d4d8");
+      } else {
+        const arc = svg
+          .selectAll("path")
+          .data(instructions)
+          .attr("class", "slice")
+          .join("path")
+          .attr("stroke", "black")
+          .style("fill", (instruction, index) =>
+            index === 0 ? colors(instruction.data) : "#eee"
+          )
+          .style("opacity", (instruction, index) => (index === 0 ? 1 : 0.4))
+          .style(
+            "transform",
+            `translate(${dimensions.width / 2}px , ${
+              dimensions.height / 2 + margin.top
+            }px)`
+          )
+          .transition()
+          .duration(2000)
+          .attrTween("d", function (nextI) {
+            //@ts-ignore
+            const interpolator = d3.interpolate(this?.lastI, nextI);
+            //@ts-ignore
+            this.lastI = interpolator(0);
+            return function (t) {
+              //@ts-ignore
+              return arcGen(interpolator(t));
+            };
+          });
+
+        svg
+          .selectAll("text")
+          .data(instructions)
+          .join("text")
+          .text((d, i) => (i === 0 ? `${(d.value * 100).toFixed(0)}%` : ""))
+          .attr("text-anchor", "middle")
+          .style("transform", function (d) {
+            //@ts-ignore
+            let c = arcGen.centroid(d);
+            return `translate(${
+              dimensions.width / 2 + c[0] + 3
+            }px , ${dimensions.height / 2 + margin.top + c[1] + 3}px)`;
+          })
+          .style("font-family", "Inter")
+          .style("font-weight", "bold")
+          .style("font-size", "10px")
+          .style("fill", "#18181b");
+
+        //add text "Execution Average" underneath chart
+      }
       svg
         .selectAll("text2")
         .data([0])
@@ -96,6 +132,12 @@ const ExecutionAverageGaugeChart = ({ data }) => {
         .style("font-size", "12px")
         .style("fill", "#d4d4d8");
     }
+
+    return () => {
+      if (svgRef.current) {
+        d3.select(svgRef.current).selectAll("*").remove();
+      }
+    };
   }, [data, dimensions]);
   return (
     <div ref={piRef} className="h-full max-h-[200px] min-h-[110px] w-full">

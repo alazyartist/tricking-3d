@@ -134,7 +134,6 @@ const SessionLineChart: React.FC<LineChartProps> = ({
     return () => {
       //cleanup svg
       if (svgRef.current) {
-        console.log("unmounting");
         d3.select(svgRef.current).selectAll("*").remove();
       }
     };

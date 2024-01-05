@@ -211,12 +211,19 @@ const Combodex: React.FC<CombodexProps> = ({
         <span className="font-bold">{numOfTransitions}</span> transitions
       </div>
       <div className="min-h-2 no-scrollbar flex w-full gap-1 overflow-x-scroll p-2">
-        {composition?.map((c) => (
-          <div className={`h-[${parseInt(c) * 25}px] w-full bg-zinc-800 p-1 `}>
-            {c}
-          </div>
-        ))}
+        <div className="w-[50%]">
+          <h1>Compositon</h1>
+          <p className="text-[10px] leading-none">
+            the rotation of each trick in the combo
+          </p>
+        </div>
+        <div className="overflow-scroll-x flex w-[50%] gap-1">
+          {composition?.map((c) => (
+            <div className={`h-full w-full bg-zinc-800 p-1 `}>{c}</div>
+          ))}
+        </div>
       </div>
+
       <DensityDisplay
         trickDensity={trickDensity}
         transitionDensity={transitionDensity}
@@ -248,7 +255,13 @@ export const DensityDisplay = ({ trickDensity, transitionDensity }) => {
         onClick={() => setDetailsVisible((prev) => !prev)}
         className="flex w-full justify-between rounded-md bg-zinc-800 p-2"
       >
-        <div>Density</div>
+        <div>
+          <h1>Density</h1>
+
+          <p className="w-[45%] text-[10px] leading-none">
+            this is an average of the raw trick score across the combo
+          </p>
+        </div>
         <div>{(trickDensity + transitionDensity)?.toFixed(3)}</div>
       </div>
       {detailsVisible && (

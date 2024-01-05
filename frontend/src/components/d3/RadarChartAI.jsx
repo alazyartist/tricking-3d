@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import { ticks } from "d3";
 import useMeasure from "react-use-measure";
 
 const RadarChart = ({ data }) => {
@@ -17,21 +16,21 @@ const RadarChart = ({ data }) => {
     const margin = { top: 30, right: 30, bottom: 30, left: 30 };
     const width = dimensions.width - margin.left - margin.right;
     const height = dimensions.height - margin.top - margin.bottom;
-
     let radius = d3.min([width, height]);
     const svg = d3
       .select(container.current)
       .join("svg")
       .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .select("g")
+      .attr("height", height + margin.top + margin.bottom);
+
+    const g = svg
+      .select(".group")
       .style(
         "transform",
         `translate(${dimensions.width / 2 - 100}px,${
           dimensions.height / 2 - 100
         }px)`
       );
-
     let radialScale = d3
       .scaleLinear()
       .domain([0, 1])
@@ -47,9 +46,9 @@ const RadarChart = ({ data }) => {
     }
 
     ticks.forEach((t) =>
-      svg
+      g
         .append("circle")
-        .join("circle")
+        // .join("circle")
         .attr("cx", 100)
         .attr("cy", 100)
         .attr("fill", "none")
@@ -58,9 +57,9 @@ const RadarChart = ({ data }) => {
     );
 
     ticks.forEach((t) =>
-      svg
+      g
         .append("text")
-        .join("text")
+        // .join("text")
         .style("fill", "#d4d4d4")
         .style("font-size", "8px")
         .attr("x", 100)
@@ -95,8 +94,7 @@ const RadarChart = ({ data }) => {
       let label_coordinate = angleToCoordinate(angle, 1 + 0.15);
 
       //draw axis line
-      svg
-        .append("line")
+      g.append("line")
         .join("line")
         .attr("x1", 100)
         .attr("y1", 100)
@@ -105,8 +103,7 @@ const RadarChart = ({ data }) => {
         .attr("stroke", "#2c2c2f");
 
       //draw axis label
-      svg
-        .append("text")
+      g.append("text")
         .join("text")
         .style("fill", "#ddd")
         .style("font-size", "12px")
@@ -151,8 +148,7 @@ const RadarChart = ({ data }) => {
       let coordinates = getPathCoordinates(d);
 
       //draw the path element
-      svg
-        .append("path")
+      g.append("path")
         .join("path")
         .datum(coordinates)
         //@ts-ignore
@@ -162,11 +158,18 @@ const RadarChart = ({ data }) => {
         .attr("fill", "#d4d4d4")
         .attr("opacity", 0.8);
     }
+    console.log(data);
+    return () => {
+      if (container.current) {
+        console.log("unmoutingRadar");
+        d3.select(container.current).selectAll("*").remove();
+      }
+    };
   }, [data, dimensions]);
 
   return (
-    <div ref={mRef} className={"aspect-square h-full w-full max-w-[500px]"}>
-      <svg key={`${data[0]}`} className=" h-full w-full" ref={container}>
+    <div ref={mRef} className={"aspect-square  h-full w-full"}>
+      <svg key={`svg-RadarChart`} className=" h-full w-full" ref={container}>
         <g className="group" />
       </svg>
     </div>
