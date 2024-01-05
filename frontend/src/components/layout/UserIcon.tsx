@@ -73,12 +73,16 @@ const QuickMenu = ({ setQuickMenuOpen, quickMenuOpen, uuid }) => {
         >
           <div className="flex w-full flex-col gap-3">
             {options.map((opt) => (
-              <div className="flex place-items-center gap-3">
-                {opt.icon}
-                <Link onClick={() => setQuickMenuOpen(false)} href={opt.href}>
+              <Link
+                key={opt.title}
+                onClick={() => setQuickMenuOpen(false)}
+                href={opt.href}
+              >
+                <div className="flex place-items-center gap-3">
+                  {opt.icon}
                   <p className="bg-zinc-900 text-xl">{opt.title}</p>
-                </Link>
-              </div>
+                </div>
+              </Link>
             ))}
           </div>
         </div>

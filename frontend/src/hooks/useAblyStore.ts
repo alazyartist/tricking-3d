@@ -1,9 +1,7 @@
-import React from "react";
 import create from "zustand";
 import { useUserStore } from "../store/userStore";
 import Ably from "ably/promises";
 import { apiPrivate } from "../api/api";
-import { trpc } from "@utils/trpc";
 const cid = useUserStore.getState().userInfo.uuid;
 const ably = new Ably.Realtime({
   authCallback: async ({}, callback) => {

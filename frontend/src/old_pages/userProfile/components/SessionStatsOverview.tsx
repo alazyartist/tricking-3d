@@ -1,9 +1,9 @@
 import { useSessionSummariesStore } from "@admin/components/sessionreview/SessionSummaryStore";
 import ExecutionAverageGaugeChart from "@components/d3/ExecutionAverageGuageChart";
 import PowerAverageComboLineChart from "@components/d3/PowerAverageComboLineChart";
-import PowerAverageLineChart from "@components/d3/PowerAverageLineChart";
+// import PowerAverageLineChart from "@components/d3/PowerAverageLineChart";
 import TransitionsBarChart from "@components/d3/TransitionsBarChart";
-import TransitionsPieChart from "@components/d3/TransitionsPieChart";
+// import TransitionsPieChart from "@components/d3/TransitionsPieChart";
 import TrickInvertGaugeChart from "@components/d3/TricikInvertGuageChart";
 import { DensityDisplay } from "@old_pages/combodex/Combodex";
 import Image from "next/image";
@@ -50,23 +50,23 @@ const SessionStatsOverview = ({ summary }) => {
     (sum, b) => sum + b?.totalScore,
     0
   );
-  let trickPercentage = Math.floor(
-    (tricksByPoints?.[0]?.pointValue / totalPoints) * 100
-  );
-  let comboPercentage = Math.floor(
-    (greatestCombo?.pointValue / totalPoints) * 100
-  );
-  let uniqueTrickPercentage = Math.floor(
-    (uniqueTricks?.filter((t: { type: string }) => t.type === "Trick").length /
-      totalPoints) *
-      100
-  );
-  let uniqueTransitionPercentage = Math.floor(
-    (uniqueTricks?.filter((t: { type: string }) => t.type === "Transition")
-      .length /
-      totalPoints) *
-      100
-  );
+  // let trickPercentage = Math.floor(
+  //   (tricksByPoints?.[0]?.pointValue / totalPoints) * 100
+  // );
+  // let comboPercentage = Math.floor(
+  //   (greatestCombo?.pointValue / totalPoints) * 100
+  // );
+  // let uniqueTrickPercentage = Math.floor(
+  //   (uniqueTricks?.filter((t: { type: string }) => t.type === "Trick").length /
+  //     totalPoints) *
+  //     100
+  // );
+  // let uniqueTransitionPercentage = Math.floor(
+  //   (uniqueTricks?.filter((t: { type: string }) => t.type === "Transition")
+  //     .length /
+  //     totalPoints) *
+  //     100
+  // );
   let transitiondensityArr = sessionCombosArr
     .map(
       (s) =>
@@ -93,9 +93,9 @@ const SessionStatsOverview = ({ summary }) => {
     .map((s) => s.executionAverage)
     .filter((s) => s !== 0);
 
-  let sessionExecutionAverage =
-    nonZeroExecutionAverages.reduce((sum, b) => sum + b, 0) /
-    nonZeroExecutionAverages.length;
+  // let sessionExecutionAverage =
+  //   nonZeroExecutionAverages.reduce((sum, b) => sum + b, 0) /
+  //   nonZeroExecutionAverages.length;
   return (
     <div className=" grid w-full grid-cols-2 flex-col gap-1 text-xs">
       <OverviewCard

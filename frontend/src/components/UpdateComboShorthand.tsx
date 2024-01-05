@@ -6,8 +6,7 @@ import { trpc } from "utils/trpc";
 import * as d3 from "d3";
 
 const UpdateComboShorthand = ({ sessiondata, setShorthandOpen, summary }) => {
-  const { data: comboShorthand, mutate: updateShorthand } =
-    useUpdateComboShorthand();
+  const { mutate: updateShorthand } = useUpdateComboShorthand();
   const [shorthand, setShorthand] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();

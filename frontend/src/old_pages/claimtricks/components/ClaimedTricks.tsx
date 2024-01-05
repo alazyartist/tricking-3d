@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MdCircle, MdCheckCircle } from "../../../data/icons/MdIcons";
-import { stances, transitions, tricks } from "@prisma/client";
+import { tricks } from "@prisma/client";
 import { trpc } from "@utils/trpc";
 import { ProfileInfo } from "types/trpc";
 interface ClaimTrickProps {

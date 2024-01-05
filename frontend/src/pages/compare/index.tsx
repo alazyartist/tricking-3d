@@ -2,7 +2,6 @@ import { SessionSummaryCard } from "@old_pages/userProfile/components/SessionSta
 import { PrismaClient, sessionsummaries } from "@prisma/client";
 import { trpc } from "@utils/trpc";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 const ComparePage = ({ sessionSummaries }) => {
   const initialSummaries = JSON.parse(sessionSummaries);

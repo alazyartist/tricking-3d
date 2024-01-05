@@ -1,5 +1,3 @@
-import api from "../api/api";
-import useApiCreds from "./useApiCreds";
 import { useClerk } from "@clerk/nextjs";
 import { useUserStore } from "../store/userStore";
 import mixpanel from "@utils/mixpanel";

@@ -1,5 +1,3 @@
-import { IconType } from "react-icons/lib";
-
 interface IIcon {
   className?: string;
   onClick?: () => void;

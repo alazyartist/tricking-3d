@@ -1,10 +1,8 @@
-import React, { useEffect, useMemo } from "react";
+import React from "react";
 import { stances } from "@data/trickDataModel/TrickObjects";
-import { useComboMakerStore } from "@store/comboMakerStore";
-import { useStore } from "@store/store";
+// import { useComboMakerStore } from "@store/comboMakerStore";
+// import { useStore } from "@store/store";
 import TransitionButtons from "@old_pages/comboMaker/components/TransitionButtons";
-import { stanceInfoText as stanceText } from "./stanceInfoText";
-import StanceSVG from "./StanceSVG";
 export const color = {
   Backside: `bg-[#07b9e9]`,
   Inside: `bg-[#06d8b7]`,
@@ -20,14 +18,12 @@ export const color = {
   BacksideHyper: `bg-[#6bcee9]`,
 };
 function StanceInfo(props) {
-  const currentLeg = useComboMakerStore((s) => s.currentLeg);
-  const stanceColor = useStore((s) => s.stanceColor);
+  // const currentLeg = useComboMakerStore((s) => s.currentLeg);
+  // const stanceColor = useStore((s) => s.stanceColor);
 
   let currentColor = color[props.stance];
   // let curColor = `bg-[#4171ca]`;
-  let curColor = `${color[props.stance]} `;
-  console.log("Current Stance", props.stance);
-  console.log("Current Color", curColor);
+  // let curColor = `${color[props.stance]} `;
   return (
     <div
       className={`place-content-center 

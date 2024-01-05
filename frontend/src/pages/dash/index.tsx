@@ -1,7 +1,6 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import { GetServerSideProps } from "next";
-import { trpc } from "@utils/trpc";
 import { getAuth } from "@clerk/nextjs/server";
 import { prisma } from "../../server/db/client";
 const Dashboard = dynamic(() => import("@old_pages/dash/Dashboard"));

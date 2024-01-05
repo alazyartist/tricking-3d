@@ -21,13 +21,13 @@ const ClaimTricks = ({ user_id }) => {
         Array.isArray(data?.ClipLabel?.comboArray) &&
         data?.ClipLabel?.comboArray
           .map((trick: tricks | transitions | stances) => {
-            if (trick.type != "Transition") {
+            if (trick.type !== "Transition") {
               // console.log(trick);
             }
-            if (trick?.type != ("Transition" || "Stance"))
+            if (trick?.type !== ("Transition" || "Stance"))
               return trick as tricks;
           })
-          .filter((combo) => combo != undefined)
+          .filter((combo) => combo !== undefined)
     )
   ).flat(2);
   let uniqueTricks = [];
@@ -83,7 +83,7 @@ const ClaimTricks = ({ user_id }) => {
           <p className="place-self-center">Sort By</p>
           <p
             className={`${
-              sortType == "Claimed" ? " text-emerald-500" : ""
+              sortType === "Claimed" ? " text-emerald-500" : ""
             } rounded-md border-2 border-zinc-300 p-1 px-2`}
             onClick={() =>
               setSortType((s) => (s === "Claimed" ? "All" : "Claimed"))
@@ -93,7 +93,7 @@ const ClaimTricks = ({ user_id }) => {
           </p>
           <p
             className={`${
-              sortType == "ABC" ? " text-emerald-500" : ""
+              sortType === "ABC" ? " text-emerald-500" : ""
             } rounded-md border-2 border-zinc-300 p-1 px-2`}
             onClick={() => setSortType("ABC")}
           >
@@ -101,7 +101,7 @@ const ClaimTricks = ({ user_id }) => {
           </p>
           <p
             className={`${
-              sortType == "Family" ? " text-emerald-500" : ""
+              sortType === "Family" ? " text-emerald-500" : ""
             } rounded-md border-2 border-zinc-300 p-1 px-2`}
             onClick={() => setSortType("Family")}
           >

@@ -1,9 +1,5 @@
 import dynamic from "next/dynamic";
 import React from "react";
-import { createProxySSGHelpers } from "@trpc/react-query/ssg";
-import { appRouter } from "server/trpc/router/_app";
-import { createContextInner } from "server/trpc/context";
-import superjson from "superjson";
 
 const UserProfile = dynamic(() => import("@old_pages/userProfile/userProfile"));
 

@@ -3,7 +3,7 @@ import { combos } from "@prisma/client";
 import { trpc } from "@utils/trpc";
 import { useRouter } from "next/router";
 import { ExampleClipDisplay } from "pages/tricks/[trick_id]";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { IoIosWalk } from "react-icons/io";
 
 const ComboPage = () => {

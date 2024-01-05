@@ -37,7 +37,7 @@ export default async function handler(
         $last_login: user.updatedAt,
       });
       mixpanel.track("Updated User", { ...user });
-      const updated = await prisma.users.update({
+      await prisma.users.update({
         where: { clerk_id: clerkUser.id },
         data: {
           first_name: clerkUser.firstName,

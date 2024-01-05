@@ -11,12 +11,12 @@ const OverallStatDisplay = ({ profileInfo }) => {
     summary.SessionData?.map((data) =>
       data.ClipLabel.comboArray
         .map((trick) => {
-          if (trick.type != "Transition") {
+          if (trick.type !== "Transition") {
             console.log(trick);
           }
-          if (trick.type != ("Transition" || "Stance")) return trick.name;
+          if (trick.type !== ("Transition" || "Stance")) return trick.name;
         })
-        .filter((combo) => combo != undefined)
+        .filter((combo) => combo !== undefined)
     )
   );
   //count tricks to find most used trick

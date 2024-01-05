@@ -1,5 +1,4 @@
 import ClipBreakdown from "@admin/components/clipBreakdown/ClipBreakdown";
-import { PrismaClient } from "@prisma/client";
 import React from "react";
 
 const ClipBreakdownPage = () => {

@@ -13,9 +13,9 @@ const LastSessionStats = ({ profileInfo }: { profileInfo: ProfileInfo }) => {
       Array.isArray(data.ClipLabel.comboArray) &&
       data.ClipLabel.comboArray
         ?.map((trick: stances | tricks | transitions) => {
-          if (trick.type != ("Transition" || "Stance")) return trick;
+          if (trick.type !== ("Transition" || "Stance")) return trick;
         })
-        .filter((combo) => combo != undefined)
+        .filter((combo) => combo !== undefined)
   ).flat(2);
 
   const favoriteTrick = lastSessionTricks?.reduce((acc, curr) => {

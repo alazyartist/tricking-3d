@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 import { useStore } from "../../../store/store";
-import { useDeleteTricklist, useDeleteCombo } from "../../../api/useTricklists";
+import { useDeleteTricklist } from "../../../api/useTricklists";
 import { useUserStore } from "../../../store/userStore";
 import Claimed from "./Claimed";
 import { trpc } from "@utils/trpc";

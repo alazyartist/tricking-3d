@@ -54,7 +54,7 @@ const UserCard: React.FC<Props> = (props) => {
         {userInfo.SessionReviewCredits > 1 ? (
           <p>Credits: {userInfo.SessionReviewCredits}</p>
         ) : (
-          <OutOfCredits />
+          <OutOfCredits closePopover={() => {}} />
         )}
       </div>
       {/* {editing && (

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import StanceCircle from "@data/AdvancedStancesSVG";
-import { useSpring, animated, config } from "@react-spring/web";
+// import { useSpring, config } from "@react-spring/web";
 import { stances } from "../../../data/trickDataModel/TrickObjects";
 // import { ReactComponent as StanceCircleSelector } from "../../../data/AdvancedStancesSelector.svg";
-import { useComboMakerStore } from "../../../store/comboMakerStore";
+// import { useComboMakerStore } from "../../../store/comboMakerStore";
 
 function StanceAnimationTest({ currentStance, isSmall, handleStanceAdd }) {
-  const setCurrentStance = useComboMakerStore((s) => s.setCurrentStance);
-  const setCurrentLeg = useComboMakerStore((s) => s.setCurrentLeg);
-  const currentLeg = useComboMakerStore((s) => s.currentLeg);
+  // const setCurrentStance = useComboMakerStore((s) => s.setCurrentStance);
+  // const setCurrentLeg = useComboMakerStore((s) => s.setCurrentLeg);
+  // const currentLeg = useComboMakerStore((s) => s.currentLeg);
   const [lastRotation, setLastRotation] = useState(0);
   let newRot = stances[currentStance]?.getRotation();
 
@@ -27,23 +27,23 @@ function StanceAnimationTest({ currentStance, isSmall, handleStanceAdd }) {
     // setLastRotation(newRot);
     console.log(newRot);
   }, [newRot]);
-  const rotateSpring = useSpring<{}>({
-    from: { rotate: lastRotation },
-    to: { rotate: newRot },
-    config: {
-      duration: 750,
-      config: config.wobbly,
-    },
-  });
-  const fadeSpring = useSpring<{}>({
-    reset: true,
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-    config: {
-      duration: 750,
-      config: config.wobbly,
-    },
-  });
+  // const rotateSpring = useSpring<{}>({
+  //   from: { rotate: lastRotation },
+  //   to: { rotate: newRot },
+  //   config: {
+  //     duration: 750,
+  //     config: config.wobbly,
+  //   },
+  // });
+  // const fadeSpring = useSpring<{}>({
+  //   reset: true,
+  //   from: { opacity: 0 },
+  //   to: { opacity: 1 },
+  //   config: {
+  //     duration: 750,
+  //     config: config.wobbly,
+  //   },
+  // });
   return (
     <div
       className={`h-fit ${isSmall ? `max-h-[40vw]` : `max-h-[50vw]`} w-full ${
