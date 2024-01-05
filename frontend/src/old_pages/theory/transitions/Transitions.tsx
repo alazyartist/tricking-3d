@@ -37,19 +37,19 @@ function Transitions() {
             <div>From</div>
             <div className="flex gap-3">
               <button
-                className={`${legs.from === "Left" ? "text-red-500" : ""}`}
+                className={`${legs.from === "Left" ? "text-indigo-500" : ""}`}
                 onClick={() => setLegs((l) => ({ ...l, from: "Left" }))}
               >
                 Left
               </button>
               <button
-                className={`${legs.from === "Right" ? "text-red-500" : ""}`}
+                className={`${legs.from === "Right" ? "text-indigo-500" : ""}`}
                 onClick={() => setLegs((l) => ({ ...l, from: "Right" }))}
               >
                 Right
               </button>
               <button
-                className={`${legs.from === "Both" ? "text-red-500" : ""}`}
+                className={`${legs.from === "Both" ? "text-indigo-500" : ""}`}
                 onClick={() => setLegs((l) => ({ ...l, from: "Both" }))}
               >
                 Both
@@ -60,19 +60,19 @@ function Transitions() {
             <div>To</div>
             <div className="flex gap-3">
               <button
-                className={`${legs.to === "Left" ? "text-red-500" : ""}`}
+                className={`${legs.to === "Left" ? "text-indigo-500" : ""}`}
                 onClick={() => setLegs((l) => ({ ...l, to: "Left" }))}
               >
                 Left
               </button>
               <button
-                className={`${legs.to === "Right" ? "text-red-500" : ""}`}
+                className={`${legs.to === "Right" ? "text-indigo-500" : ""}`}
                 onClick={() => setLegs((l) => ({ ...l, to: "Right" }))}
               >
                 Right
               </button>
               <button
-                className={`${legs.to === "Both" ? "text-red-500" : ""}`}
+                className={`${legs.to === "Both" ? "text-indigo-500" : ""}`}
                 onClick={() => setLegs((l) => ({ ...l, to: "Both" }))}
               >
                 Both
@@ -84,7 +84,7 @@ function Transitions() {
           {["All", "Singular", "Sequential", "Unified"].map((type) => {
             return (
               <button
-                className={`${typeFilter === type ? "text-red-500" : ""}`}
+                className={`${typeFilter === type ? "text-indigo-500" : ""}`}
                 onClick={() => setTypeFilter(type)}
               >
                 {type}

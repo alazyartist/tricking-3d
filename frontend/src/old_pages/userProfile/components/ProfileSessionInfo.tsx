@@ -98,12 +98,11 @@ const DataDetails = ({
   showTrickLongForm,
 }) => {
   // console.log(d);
-  const currentTime = useSessionSummariesStore((s) => s.currentTime);
   const setShorthand = useSessionSummariesStore((s) => s.setShorthand);
   const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
-  const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
   const setClipComboRaw = useSessionSummariesStore((s) => s.setClipComboRaw);
+  const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
   const [shorthandOpen, setShorthandOpen] = useState(false);
   const [loopMe, setLoopMe] = useState(false);
   const [combodexopen, setCombodexopen] = useState(false);
@@ -111,18 +110,9 @@ const DataDetails = ({
   const [combodetailsopen, setCombodetailsopen] = useState(false);
   const { data: totalScoreRes, mutateAsync: updateTotalScore } =
     trpc.sessionsummaries.updateTotalScore.useMutation();
-  useEffect(() => {
-    if (Math.floor(currentTime) === Math.floor(d.clipEnd) && loopMe) {
-      setSeekTime(0);
-      setSeekTime(Math.floor(d.clipStart));
-    }
-  }, [currentTime]);
-  useEffect(() => {
-    if (Math.floor(d.clipStart) === Math.floor(currentTime)) {
-      setClipComboRaw(d.ClipLabel.comboArray);
-      setShorthand(d.ClipLabel.shorthand);
-    }
-  }, [currentTime, d]);
+
+  //TODO:move below into its own childComponent
+
   const handleClick = () => {
     setFullScreenLower(false);
     clearClipCombo();
@@ -141,14 +131,13 @@ const DataDetails = ({
             }
             className="no-scrollbar col-span-6 w-full overflow-x-scroll whitespace-nowrap p-1 text-[12px] text-zinc-300 md:w-1/3"
           >
-            {showTrickLongForm ? (
-              <ComboNameDisplay
-                setCombodexopen={setCombodexopen}
-                combo={d.ClipLabel}
-              />
-            ) : (
-              d?.ClipLabel?.shorthand ?? d.ClipLabel?.name
-            )}
+            <ComboNameDisplay
+              loopMe={loopMe}
+              d={d}
+              setCombodexopen={setCombodexopen}
+              combo={d.ClipLabel}
+              showLongform={showTrickLongForm}
+            />
           </div>
           <div
             onClick={() => {
@@ -239,8 +228,31 @@ const DataDetails = ({
   );
 };
 
-const ComboNameDisplay = ({ combo, setCombodexopen }) => {
-  return (
+const ComboNameDisplay = ({
+  combo,
+  setCombodexopen,
+  d,
+  loopMe,
+  showLongform,
+}) => {
+  const currentTime = useSessionSummariesStore((s) => s.currentTime);
+  const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
+  const setClipComboRaw = useSessionSummariesStore((s) => s.setClipComboRaw);
+  const setShorthand = useSessionSummariesStore((s) => s.setShorthand);
+
+  useEffect(() => {
+    if (Math.floor(currentTime) === Math.floor(d.clipEnd) && loopMe) {
+      setSeekTime(0);
+      setSeekTime(Math.floor(d.clipStart));
+    }
+  }, [currentTime]);
+  useEffect(() => {
+    if (Math.floor(d.clipStart) === Math.floor(currentTime)) {
+      setClipComboRaw(d.ClipLabel.comboArray);
+      setShorthand(d.ClipLabel.shorthand);
+    }
+  }, [currentTime, d]);
+  return showLongform ? (
     <div className="flex w-full gap-0">
       {combo.comboArray?.map((t, i) => {
         return (
@@ -253,6 +265,8 @@ const ComboNameDisplay = ({ combo, setCombodexopen }) => {
         );
       })}
     </div>
+  ) : (
+    d?.ClipLabel?.shorthand ?? d.ClipLabel?.name
   );
 };
 

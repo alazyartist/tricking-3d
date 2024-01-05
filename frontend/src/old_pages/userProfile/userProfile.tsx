@@ -31,9 +31,7 @@ const UserProfile = () => {
   const [activeView, setActiveView] = useState("Stats");
   const isUsersPage = uuid === loggedInUUID;
   useEffect(() => {
-    console.log(profileInfo);
     if (sessionid && profileInfo?.SessionSummaries) {
-      console.log(profileInfo?.SessionSummaries);
       let tempSummary = profileInfo?.SessionSummaries.find(
         (summary: sessionsummaries | user_sessions) =>
           summary.sessionid === sessionid

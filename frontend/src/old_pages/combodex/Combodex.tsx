@@ -5,6 +5,7 @@ import { IoIosWalk } from "react-icons/io";
 import { trpc } from "utils/trpc";
 import ComboExecutionSlider from "./components/ComboExecutionSlider";
 import Link from "next/link";
+import TrickPieChart from "@components/d3/TrickPieChart";
 interface CombodexProps {
   combo: any;
   sessionData?: any;
@@ -48,12 +49,12 @@ const Combodex: React.FC<CombodexProps> = ({
       sessiondatascores?.length || 0;
   let executionScoreTotal =
     executionAverage * (sessionData?.powerScore + sessionData.varietyScore);
-  console.log(
-    executionAverage,
-    executionScoreTotal,
-    sessionData.executionAverage,
-    sessionData.powerScore
-  );
+  // console.log(
+  //   executionAverage,
+  //   executionScoreTotal,
+  //   sessionData.executionAverage,
+  //   sessionData.powerScore
+  // );
   const localTotalScore = (
     sessionData?.chainTotal +
     sessionData?.powerScore +
@@ -239,7 +240,13 @@ const Combodex: React.FC<CombodexProps> = ({
         </div>
       }
       <div className={"h-[30%] w-full"}>
-        {tricks && seeRadar && <RadarChart data={tricks} />}
+        {/* {tricks && seeRadar && <RadarChart data={tricks} />} */}
+        {tricks && seeRadar && (
+          <TrickPieChart
+            group_by={"base_id"}
+            data={tricks.filter((t) => t.type !== "Transition")}
+          />
+        )}
       </div>
     </div>
   );

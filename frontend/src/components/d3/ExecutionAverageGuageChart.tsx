@@ -39,9 +39,7 @@ const ExecutionAverageGaugeChart = ({ data }) => {
       //   const instructions = piGen(ea);
       const instructions = piGen([ea, 1 - ea]);
       let emptyInstructions = piGen([0, 1]);
-      console.log(instructions);
       if (Number.isNaN(instructions[0].data)) {
-        console.log("nodata", instructions);
         svg
           .selectAll("text3")
           .data([0])

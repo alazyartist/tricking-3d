@@ -22,8 +22,6 @@ const TransitionsBarChart = ({ data }) => {
 
       let tricksArray = Array.from(d3.group(data, (d: any) => d.name));
       let trickPercent = tricksArray?.map((t, i) => t[1]?.length / data.length);
-      console.log("%", trickPercent);
-      console.log("%", tricksArray);
       const x = d3
         .scaleBand()
         .domain(tricksArray.map((d) => d[0]))

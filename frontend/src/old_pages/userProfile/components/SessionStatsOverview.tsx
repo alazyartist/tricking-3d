@@ -33,7 +33,6 @@ const SessionStatsOverview = ({ summary }) => {
     return 0;
   })?.[0]?.ClipLabel;
   let greatestCombo = sessionCombosArr?.sort((a, b) => {
-    // console.log(a.ClipLabel);
     if (a.ClipLabel.pointValue > b.ClipLabel.pointValue) return -1;
     if (a.ClipLabel.pointValue < b.ClipLabel.pointValue) return 1;
     return 0;
@@ -47,7 +46,6 @@ const SessionStatsOverview = ({ summary }) => {
     if (a.pointValue < b.pointValue) return 1;
     return 0;
   });
-  console.log(summary.SessionData);
   let totalPoints = summary?.SessionData?.reduce(
     (sum, b) => sum + b?.totalScore,
     0
@@ -224,7 +222,6 @@ export const OverviewCard = ({
   sessionCombosArr,
 }) => {
   const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
-  console.log(summary);
   return (
     <div className="col-span-2 flex w-full flex-col place-self-center rounded-md bg-zinc-900 p-2 text-2xl">
       <div className="flex w-full place-items-center ">
