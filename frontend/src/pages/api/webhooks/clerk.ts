@@ -25,10 +25,32 @@ export default async function handler(
     const user_id = req.body?.data?.id;
     const clerkUser = await clerkClient.users.getUser(user_id);
     const user = await prisma.users.findUnique({
-      where: { username: clerkUser.username },
+      where: { clerk_id: clerkUser.id },
     });
-    console.log(clerkUser);
-    console.log(user);
+    if (user) {
+      mixpanel.people.set(user.uuid, {
+        $email: user.email,
+        $first_name: user.first_name,
+        $last_name: user.last_name,
+        $username: user.username,
+        $created: user.createdAt,
+        $last_login: user.updatedAt,
+      });
+      mixpanel.track("Updated User", { ...user });
+      const updated = await prisma.users.update({
+        where: { clerk_id: clerkUser.id },
+        data: {
+          first_name: clerkUser.firstName,
+          last_name: clerkUser.lastName,
+          email: clerkUser.emailAddresses.find((e) => {
+            return e.id === clerkUser.primaryEmailAddressId;
+          }).emailAddress,
+          username: clerkUser.username,
+          updatedAt: new Date(),
+        },
+      });
+    }
+    return res.status(200).send("OK");
   }
 
   if (_event_type === "user.created") {
