@@ -3,7 +3,6 @@ import { authMiddleware } from "@clerk/nextjs";
 export default authMiddleware({
   publicRoutes: [
     "/",
-    "/api/webhooks/(.*)",
     "/home",
     "/test",
     "/login",
@@ -33,6 +32,11 @@ export default authMiddleware({
     "/api/trpc/combos(.*)",
     "/api/trpc/userDB.findAll(.*)",
     "/api/trpc/userDB.findByClerkId(.*)",
+  ],
+  ignoredRoutes: [
+    "/api/trpc/ably(.*)",
+    "/api/ablyAuth(.*)",
+    "/api/webhooks/(.*)",
   ],
 });
 // Stop Middleware running on static files

@@ -9,7 +9,9 @@ const useIsAdmin = () => {
   useEffect(() => {
     // console.log(userInfo.isAdmin, "userInfo");
     // console.log(user.user?.publicMetadata, "userClerk");
-    if (userInfo?.isAdmin || user?.user?.publicMetadata?.isAdmin) {
+    if (userInfo?.isAdmin) {
+      setIsAdmin(true);
+    } else if (user?.user?.publicMetadata?.isAdmin) {
       setIsAdmin(true);
     } else {
       setIsAdmin(false);

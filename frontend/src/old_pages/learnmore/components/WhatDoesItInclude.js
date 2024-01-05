@@ -10,7 +10,7 @@ export const MyH3 = ({ title, id, setId }) => {
         className={`cursor-pointer rounded-md
            ${
              id === title
-               ? "bg-orange-500 text-zinc-200"
+               ? "bg-indigo-500 text-zinc-200"
                : "bg-zinc-600 text-zinc-400"
            } p-2 text-center text-sm font-semibold
 `}

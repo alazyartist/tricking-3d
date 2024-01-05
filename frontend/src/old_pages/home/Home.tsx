@@ -157,7 +157,7 @@ function Home({ userInfo: stringy }) {
             </div>
             <Link
               href="/learnMore"
-              className="m-2 rounded-3xl bg-orange-600 px-8 py-2 font-inter font-semibold text-zinc-800"
+              className="m-2 rounded-3xl bg-indigo-600 px-8 py-2 font-inter font-semibold text-zinc-200"
             >
               Learn More
             </Link>

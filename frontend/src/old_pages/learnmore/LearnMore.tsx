@@ -53,7 +53,7 @@ function LearnMore() {
               src={"/TrickGrid2.webp"}
               width={650}
               height={300}
-              objectFit={"contain"}
+              style={{ objectFit: "contain" }}
             />
             <MachineLearning />
 
@@ -62,7 +62,7 @@ function LearnMore() {
               src={"/CaptureTricks.webp"}
               width={650}
               height={300}
-              objectFit={"contain"}
+              style={{ objectFit: "contain" }}
             />
             <WhyBuildThis />
             <ContributeLink />
@@ -79,7 +79,7 @@ export default LearnMore;
 const ContributeLink = () => (
   <Link
     href={"/contribute"}
-    className="rounded-md bg-orange-600 p-4 text-xl font-semibold text-zinc-100"
+    className="rounded-md bg-indigo-600 p-4 text-xl font-semibold text-zinc-100"
   >
     Become a Contributer
   </Link>

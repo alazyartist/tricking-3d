@@ -5,7 +5,7 @@ const ProfileNav = ({ activeView, setActiveView }) => {
     <div className={"flex gap-4"}>
       <div
         className={`${
-          activeView === "Stats" ? "text-teal-400" : ""
+          activeView === "Stats" ? "text-indigo-400" : ""
         } mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4`}
         onClick={() => {
           setActiveView("Stats");
@@ -15,7 +15,7 @@ const ProfileNav = ({ activeView, setActiveView }) => {
       </div>
       <div
         className={`${
-          activeView === "Sessions" ? "text-teal-400" : ""
+          activeView === "Sessions" ? "text-indigo-400" : ""
         } mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4`}
         onClick={() => {
           setActiveView("Sessions");

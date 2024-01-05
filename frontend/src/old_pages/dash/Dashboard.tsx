@@ -63,8 +63,8 @@ function Dashboard({ uuid, profilePic }) {
               onClick={() => setSection("sessions")}
               className={`${
                 activeSection === "sessions"
-                  ? "text-emerald-500"
-                  : "text-zinc-300"
+                  ? "text-indigo-400"
+                  : "text-zinc-500"
               } rounded-t-md bg-zinc-900 bg-opacity-70  p-2`}
             >
               Sessions
@@ -72,9 +72,7 @@ function Dashboard({ uuid, profilePic }) {
             <p
               onClick={() => setSection("tricks")}
               className={`${
-                activeSection === "tricks"
-                  ? "text-emerald-500"
-                  : "text-zinc-300"
+                activeSection === "tricks" ? "text-indigo-400" : "text-zinc-500"
               } rounded-t-md bg-zinc-900 bg-opacity-70  p-2`}
             >
               Tricks
@@ -83,8 +81,8 @@ function Dashboard({ uuid, profilePic }) {
               onClick={() => setSection("captures")}
               className={`${
                 activeSection === "captures"
-                  ? "text-emerald-500"
-                  : "text-zinc-300"
+                  ? "text-indigo-400"
+                  : "text-zinc-500"
               } rounded-t-md bg-zinc-900 bg-opacity-70  p-2`}
             >
               Captures
@@ -93,8 +91,8 @@ function Dashboard({ uuid, profilePic }) {
               onClick={() => setSection("tricklists")}
               className={`${
                 activeSection === "tricklists"
-                  ? "text-emerald-500"
-                  : "text-zinc-300"
+                  ? "text-indigo-400"
+                  : "text-zinc-500"
               } rounded-t-md bg-zinc-900 bg-opacity-70  p-2`}
             >
               TrickLists

@@ -11,11 +11,11 @@ const SessionSummariesOverview = () => {
     trpc.sessionsummaries.getAllSessionSummaries.useQuery();
 
   return (
-    <div className="flex w-[90vw] flex-col place-items-center text-xs">
+    <div className="flex w-[90vw] flex-col place-items-center space-y-2 text-xs">
       <h1 className=" w-full rounded-md bg-zinc-900 p-2 font-titan text-lg font-thin text-zinc-300">
         Sessions in Queue
       </h1>
-      <div className=" no-scrollbar mt-2 flex h-[35vh] w-full flex-col overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70">
+      <div className=" no-scrollbar  flex h-[34vh] w-full flex-col overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70">
         {Array.isArray(sessions) &&
         sessions?.filter((s) => s.status !== "Reviewed").length ? (
           sessions
@@ -28,10 +28,10 @@ const SessionSummariesOverview = () => {
           </div>
         )}
       </div>
-      <h1 className="mt-[2.5vh] w-full rounded-md bg-zinc-900 bg-opacity-70 p-2 font-titan text-lg font-thin text-zinc-300">
+      <h1 className=" w-full rounded-md bg-zinc-900 bg-opacity-70 p-2 font-titan text-lg font-thin text-zinc-300">
         Reviewed
       </h1>
-      <div className="no-scrollbar mt-2 flex h-[35vh] w-full flex-col overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70">
+      <div className="no-scrollbar  flex h-[34vh] w-full flex-col overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70">
         {Array.isArray(sessions) &&
           sessions
             ?.filter((s) => s.status === "Reviewed")

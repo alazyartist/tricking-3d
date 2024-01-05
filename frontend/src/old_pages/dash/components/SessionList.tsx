@@ -21,9 +21,9 @@ const SessionList = ({ uuid }) => {
           return (
             <div
               key={s.sessionid}
-              className={`flex justify-between border-b-[1px] lg:grid lg:grid-cols-[2fr_.5fr_.25fr] ${
+              className={` grid grid-cols-[1fr_.5fr_.5fr] justify-between border-b-[1px] lg:grid-cols-[2fr_.5fr_.25fr] ${
                 s.status === "Reviewed"
-                  ? "border-emerald-300"
+                  ? "border-indigo-300"
                   : "border-zinc-300"
               } p-2`}
             >

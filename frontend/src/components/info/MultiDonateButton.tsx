@@ -5,7 +5,7 @@ function MultiDonateButton() {
   return (
     <div
       id="donate-button-conatiner"
-      className="flex h-12 w-fit place-content-center rounded-xl bg-gradient-to-br from-orange-500 to-orange-600"
+      className="flex h-12 w-fit place-content-center rounded-xl bg-gradient-to-br from-indigo-300 to-indigo-400 text-zinc-800"
     >
       <PaypalDonate />
       <KoFiDonate />
