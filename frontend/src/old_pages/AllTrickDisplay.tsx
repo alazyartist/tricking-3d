@@ -5,15 +5,18 @@ import { IoIosWalk } from "react-icons/io";
 import { useRouter } from "next/router";
 import TrickCategories from "./theory/TrickCategories";
 import { trpc } from "@utils/trpc";
+import TrickPieChart from "@components/d3/TrickPieChart";
 function AllTrickDisplay() {
   // const { data: TrickListArr } = useGetTricks();
   const { data: TrickListArr } = trpc.trick.findAll.useQuery();
   const [filteredTricks, setFilteredTricks] = useState(TrickListArr);
+
   const nav = useRouter();
   useEffect(() => {
     setFilteredTricks(TrickListArr);
     console.log(TrickListArr);
   }, [TrickListArr]);
+  useEffect(() => {});
   const handleFilter = (event) => {
     const searchTerm = event.target.value || "";
     const newFilter = TrickListArr.filter((value) => {
@@ -40,6 +43,7 @@ function AllTrickDisplay() {
       config: config.stiff,
     },
   });
+  const [group_by, setGroupBy] = useState("base_id");
 
   return (
     <>
@@ -49,8 +53,29 @@ function AllTrickDisplay() {
         id={"TrickListContainer"}
         className="  flex max-h-full max-w-full flex-col place-content-center place-items-center gap-4 p-2 font-inter font-bold "
       >
-        <div>
+        <div className="text-zinc-300">
           {filteredTricks?.length}/{TrickListArr?.length} Tricks
+        </div>
+        <div className="h-32 w-full">
+          <TrickPieChart group_by={group_by} data={filteredTricks} />
+        </div>
+
+        <div className="flex w-[90vw] justify-around gap-2 p-2 text-zinc-200">
+          {["base_id", "takeoffStance", "landingStance", "trickType"].map(
+            (key) => (
+              <button
+                className={`text-8px rounded-md bg-zinc-800 p-2 ${
+                  key === group_by ? "text-indigo-400" : "text-zinc-400"
+                }`}
+                onClick={() => setGroupBy(key)}
+              >
+                {key === "base_id" && "Family"}
+                {key === "landingStance" && "Landing"}
+                {key === "takeoffStance" && "Takeoff"}
+                {key === "trickType" && "Type"}
+              </button>
+            )
+          )}
         </div>
         <input
           className="sticky top-0 w-full rounded-xl p-2"
@@ -59,7 +84,7 @@ function AllTrickDisplay() {
           onChange={handleFilter}
         />
         {/* Maps over data returned from filter and displays it. */}
-        <div className="minimalistScroll flex h-[full] max-h-[80vh] w-[95%] flex-col gap-2 overflow-y-scroll">
+        <div className="minimalistScroll flex h-[full] max-h-[80vh] w-[95%] flex-col gap-2 overflow-y-scroll pb-24 ">
           {animatedFilter(({ opacity }, e) => (
             <animated.div
               style={{ opacity: opacity }}
@@ -104,6 +129,14 @@ function AllTrickDisplay() {
               {/* </div> */}
             </animated.div>
           ))}
+          {filteredTricks?.length === 0 && (
+            <div className="flex w-full flex-col place-items-center text-zinc-300">
+              <div className="">No Tricks Found</div>
+              <button className=" rounded-md bg-zinc-800 p-2 px-4">
+                Add Trick
+              </button>
+            </div>
+          )}
         </div>
       </div>
       {/* <TrickCategories tricks={TrickListArr} /> */}

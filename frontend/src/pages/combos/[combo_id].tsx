@@ -23,7 +23,7 @@ const ComboPage = () => {
       <div className="absolute left-4 top-4">
         <AnimatedSearch />
       </div>
-      <div className="flex place-items-center gap-2 pt-14">
+      <div className="mt-14 flex place-items-center gap-2">
         <h1 className="text-bold flex w-full flex-wrap text-2xl">
           {Array.isArray(comboArray) &&
             comboArray?.map((c: combos, i) => (

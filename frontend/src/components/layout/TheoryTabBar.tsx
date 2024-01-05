@@ -35,8 +35,10 @@ function TheoryTabBar() {
           <TheoryCap />
         </Link>
         <Link onClick={() => setOpenHamburger(false)} href="/theory/stances">
-          <div className="w-full">
-            <StanceCircleColor />
+          <div className="flex w-full flex-col gap-2">
+            <div className="h-6 w-8 place-self-center pt-1">
+              <StanceCircleColor />
+            </div>
             <div className="text-xs">Stances</div>
           </div>
         </Link>
@@ -45,12 +47,12 @@ function TheoryTabBar() {
           href="/theory/transitions"
         >
           <div className="flex w-full flex-col place-items-center">
-            <TransitionsIcon className=" flex h-12 place-content-center" />
+            <TransitionsIcon className=" flex h-8 place-content-center pt-1" />
             <div className="text-xs">Transitions</div>
           </div>
         </Link>
         <Link onClick={() => setOpenHamburger(false)} href="/theory/tricks">
-          <TricksIcon className="flex h-12 place-content-center" />
+          <TricksIcon className="flex h-8 place-content-center" />
           <div className="text-xs">Tricks</div>
         </Link>
 
