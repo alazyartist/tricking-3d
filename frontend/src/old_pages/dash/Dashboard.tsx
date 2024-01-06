@@ -35,9 +35,9 @@ function Dashboard({ uuid, profilePic }) {
       case "captures":
         return <Captures dash />;
         break;
-      case "tricklists":
-        return <TricklistPage profileuuid={uuid} displayOnly={false} />;
-        break;
+      // case "tricklists":
+      //   return <TricklistPage profileuuid={uuid} displayOnly={false} />;
+      //   break;
     }
   };
 
@@ -68,7 +68,7 @@ function Dashboard({ uuid, profilePic }) {
               { title: "Sessions", key: "sessions" },
               { title: "Tricks", key: "tricks" },
               { title: "Captures", key: "captures" },
-              { title: "Tricklists", key: "tricklists" },
+              // { title: "Tricklists", key: "tricklists" },
             ].map((item) => (
               <button
                 onClick={() => setSection(item.key)}

@@ -7,9 +7,10 @@ import * as d3 from "d3";
 import useClickOutside from "@hooks/useClickOutside";
 
 const DashboardStats = ({ uuid }) => {
-  const { data: sessions } = trpc.sessionsummaries.getSessionsById.useQuery({
-    uuid: uuid,
-  });
+  const { data: sessions, isLoading } =
+    trpc.sessionsummaries.getSessionsById.useQuery({
+      uuid: uuid,
+    });
   const [showUniqueTricks, setShowUniqueTricks] = useState(false);
   const tricks = sessions
     ?.map((session) =>
@@ -37,6 +38,7 @@ const DashboardStats = ({ uuid }) => {
     .map(([key, value]) => ({ name: key, count: value.length }))
     .sort((a, b) => b.count - a.count);
   console.log(tricks.length, uniqueTricks.length, uniqueTricksGroup);
+  if (isLoading) return <div>Gathering Your Stats, just a sec...</div>;
   return (
     <div className="h-full max-h-[60vh] w-full overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70">
       <h1 className="p-2 text-zinc-200">DashboardStats</h1>
