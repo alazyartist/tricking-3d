@@ -12,6 +12,7 @@ const DashboardStats = ({ uuid }) => {
       uuid: uuid,
     });
   const [showUniqueTricks, setShowUniqueTricks] = useState(false);
+  if (isLoading) return <div>Gathering Your Stats, just a sec...</div>;
   const tricks = sessions
     ?.map((session) =>
       session.SessionData.map((data) => {
@@ -24,7 +25,7 @@ const DashboardStats = ({ uuid }) => {
     )
     .flat(2);
   const transitions = sessions
-    .map((session) => {
+    ?.map((session) => {
       return session.SessionData.map((data) => {
         const ca = data.ClipLabel.comboArray as (tricks | transitions)[];
         return ca
@@ -33,12 +34,11 @@ const DashboardStats = ({ uuid }) => {
       });
     })
     .flat(2);
-  const uniqueTricks = [...new Set(tricks.map((trick) => trick.name))];
+  const uniqueTricks = [...new Set(tricks?.map((trick) => trick.name))];
   const uniqueTricksGroup = Array.from(d3.group(tricks, (d) => d.name))
     .map(([key, value]) => ({ name: key, count: value.length }))
     .sort((a, b) => b.count - a.count);
   console.log(tricks.length, uniqueTricks.length, uniqueTricksGroup);
-  if (isLoading) return <div>Gathering Your Stats, just a sec...</div>;
   return (
     <div className="h-full max-h-[60vh] w-full overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70">
       <h1 className="p-2 text-zinc-200">DashboardStats</h1>

@@ -12,6 +12,7 @@ export default DashboardPage;
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const auth = getAuth(req);
+  // console.log(auth);
   const data = await prisma.users.findUnique({
     where: { clerk_id: auth.userId },
     select: {
