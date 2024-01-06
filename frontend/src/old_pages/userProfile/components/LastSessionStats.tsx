@@ -32,7 +32,7 @@ const LastSessionStats = ({ profileInfo }: { profileInfo: ProfileInfo }) => {
     })
     .sort((a, b) => b[1] - a[1]);
 
-  console.log(lastSessionTricks, favoriteTrickName);
+  // console.log(lastSessionTricks, favoriteTrickName);
   return (
     <div>
       <Link href={`${profileInfo.uuid}?sessionid=${lastSession.sessionid}`}>
@@ -42,7 +42,10 @@ const LastSessionStats = ({ profileInfo }: { profileInfo: ProfileInfo }) => {
         {favoriteTrickName?.map(
           (ft, i) =>
             i < 5 && (
-              <p className="whitespace-nowrap rounded-md bg-zinc-800 p-1">
+              <p
+                key={ft[0]}
+                className="whitespace-nowrap rounded-md bg-zinc-800 p-1"
+              >
                 {ft[0]} {ft[1]}
               </p>
             )
