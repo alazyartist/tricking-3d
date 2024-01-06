@@ -27,7 +27,6 @@ jobs:
           path: |
             ~/.pnpm-store
             ~/.pnpm-cache
-            ${{github.workspace}}/frontend/.next
           key: |
             ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}-v2-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
              ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-v2-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
