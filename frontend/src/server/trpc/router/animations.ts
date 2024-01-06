@@ -18,7 +18,10 @@ export const animationRouter = router({
             let trickInfo: tricks | transitions = null!;
             const trick = await ctx.prisma.tricks.findFirst({
               where: { name: animation },
-              include: { variations: { include: { variation: true } } },
+              include: {
+                variations: { include: { variation: true } },
+                base: true,
+              },
             });
             if (trick) {
               trickInfo = trick;
@@ -44,7 +47,7 @@ export const animationRouter = router({
       } else {
         const trickInfo = await ctx.prisma.tricks.findFirst({
           where: { name: input.animation },
-          include: { variations: { include: { variation: true } } },
+          include: { variations: { include: { variation: true } }, base: true },
         });
         if (trickInfo) {
           return [{ isCombo: false, ...trickInfo }];

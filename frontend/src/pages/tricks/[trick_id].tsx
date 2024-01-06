@@ -32,7 +32,7 @@ const TricksPage = () => {
 };
 
 export default TricksPage;
-const TrickInfoGrid = ({ trickInfo }) => {
+export const TrickInfoGrid = ({ trickInfo }) => {
   return (
     <div className="mt-14 flex w-full flex-col place-items-center gap-2 md:max-w-[800px]">
       <div className="flex place-items-center gap-2 ">
