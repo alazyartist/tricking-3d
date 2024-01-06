@@ -120,6 +120,7 @@ function AdvancedStanceCircle() {
         currentStance={currentStance}
         setCurrentStance={setCurrentStance}
       />
+      <div className="h-14" />
     </div>
   );
 }

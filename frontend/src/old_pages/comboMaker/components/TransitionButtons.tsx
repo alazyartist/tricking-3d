@@ -27,7 +27,7 @@ const TransitionButtons: React.FC<TransitionButtonProps> = ({
   }
 
   return (
-    <div onClick={() => f()} className="flex flex-col place-items-center ">
+    <div onClick={() => f && f()} className="flex flex-col place-items-center ">
       {currentLeg && whichLeg(currentLeg)}
       {!noText && currentLeg}
     </div>

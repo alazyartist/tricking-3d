@@ -85,9 +85,9 @@ function StanceList({ setCurrentStance, currentStance }) {
                         ))} */}
           <TransitionButtons
             f={() => {
-              setCurrentLeg("Right");
+              setCurrentLeg("Left");
             }}
-            currentLeg={"Right"}
+            currentLeg={"Left"}
           />
           <TransitionButtons
             f={() => setCurrentLeg("Both")}
@@ -95,9 +95,9 @@ function StanceList({ setCurrentStance, currentStance }) {
           />
           <TransitionButtons
             f={() => {
-              setCurrentLeg("Left");
+              setCurrentLeg("Right");
             }}
-            currentLeg={"Left"}
+            currentLeg={"Right"}
           />
         </div>
       </div>

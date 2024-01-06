@@ -3,6 +3,7 @@ import { stances } from "@data/trickDataModel/TrickObjects";
 // import { useComboMakerStore } from "@store/comboMakerStore";
 // import { useStore } from "@store/store";
 import TransitionButtons from "@old_pages/comboMaker/components/TransitionButtons";
+import { useComboMakerStore } from "@store/comboMakerStore";
 export const color = {
   Backside: `bg-[#07b9e9]`,
   Inside: `bg-[#06d8b7]`,
@@ -18,7 +19,7 @@ export const color = {
   BacksideHyper: `bg-[#6bcee9]`,
 };
 function StanceInfo(props) {
-  // const currentLeg = useComboMakerStore((s) => s.currentLeg);
+  const currentLeg = useComboMakerStore((s) => s.currentLeg);
   // const stanceColor = useStore((s) => s.stanceColor);
 
   let currentColor = color[props.stance];
@@ -39,7 +40,7 @@ function StanceInfo(props) {
       <div className="flex flex-row place-content-center place-items-center gap-2 p-2">
         <div className="text-light w-30 flex flex-col rounded-xl bg-sky-400 bg-opacity-40 p-2">
           <div className="whitespace-nowrap text-xs">Plant Foot</div>
-          <TransitionButtons currentLeg={stances[props.stance].leg} />
+          <TransitionButtons currentLeg={currentLeg} />
         </div>
         <div className="text-light w-30 rounded-xl bg-emerald-400 bg-opacity-40 p-2 ">
           <div className="whitespace-nowrap text-xs">Direction</div>

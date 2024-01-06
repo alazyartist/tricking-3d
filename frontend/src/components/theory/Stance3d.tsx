@@ -24,7 +24,7 @@ const Stances3d = () => {
   const selectAnim = useStore((state) => state.selectAnim);
   return (
     <>
-      <Canvas className={"h-full w-full bg-zinc-500"}>
+      <Canvas className={"h-full w-full rounded-md bg-zinc-800"}>
         {/* @ts-ignore */}
         <PerspectiveCamera position={[0, -1, 0]}>
           <ambientLight intensity={0.3} />
@@ -45,9 +45,16 @@ const Stances3d = () => {
           <OrbitControls ref={orbitRef} />
         </PerspectiveCamera>
       </Canvas>
-      <div className="flex flex-col gap-2 text-zinc-300">
+      <div className="flex h-[27vh] flex-col gap-2 overflow-y-scroll py-2 text-zinc-300">
         {animationsArray.map((anim, i) => {
-          return <button onClick={() => selectAnim(anim)}>{anim}</button>;
+          return (
+            <button
+              className="rounded-md bg-zinc-700 p-2"
+              onClick={() => selectAnim(anim)}
+            >
+              {anim}
+            </button>
+          );
         })}
       </div>
     </>
