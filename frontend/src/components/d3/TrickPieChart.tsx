@@ -71,40 +71,67 @@ const TrickPieChart = ({ data, group_by }) => {
         .join("text")
         .text(function (d, i) {
           // console.log(d, i, tricksArray[i][0]);
-          if (d.data > dataThreshold) {
-            return tricksArray[i][0];
-          }
+          // if (d.data > dataThreshold) {
+          return tricksArray[i][0];
+          // }
         })
-        .attr("text-anchor", "middle")
-        .attr("fill", "white")
-        .style("transform", function (d) {
-          let c = arcGen.centroid(d as unknown as d3.DefaultArcObject);
-          let half = dimensions.width / 2;
-          return `translate(${
-            half + c[0] > half ? half + c[0] + 70 : half + c[0] - 70
-          }px,${dimensions.height / 2 + c[1]}px)`;
+        .attr("fill", (d, i) => colors(i))
+        .style("transform", function (d, i) {
+          if (i < instructions.length / 2)
+            return `translate(${margin.left}px,${
+              5 + margin.top * (i / 2 + 1)
+            }px)`;
+          else if (i >= instructions.length / 2)
+            return `translate(${width - margin.right * 2 - 25}px,${
+              5 +
+              margin.top * (i / 2 + 1) -
+              ((instructions.length / 2) * margin.top) / 2
+            }px)`;
         })
-        .style("font-size", 10);
-
-      //draw line from text to arc center
-      const polyline = svg
-        .selectAll("polyline")
-        .data(instructions)
-        .join("polyline")
-        .attr("stroke", "white")
-        .style("fill", "none")
-        .style("stroke-width", "1px")
-        .attr("points", function (d) {
-          let c = arcGen.centroid(d as unknown as d3.DefaultArcObject);
-          let half = dimensions.width / 2;
-          let x = half + c[0] > half ? half + c[0] + 70 : half + c[0] - 70;
-          let y = dimensions.height / 2 + c[1];
-          if (d.data > dataThreshold) {
-            return `${x},${dimensions.height / 2 + c[1]} ${half + c[0]},${
-              dimensions.height / 2 + c[1]
-            } ${half + c[0] * 0.8},${y - 4}`;
-          }
+        .attr("text-anchor", (d, i) => {
+          if (i < instructions.length / 2) return "right";
+          else if (i >= instructions.length / 2) return "left";
         });
+      // const text = svg
+      //   .selectAll("text")
+      //   .data(instructions)
+      //   .join("text")
+      //   .text(function (d, i) {
+      //     // console.log(d, i, tricksArray[i][0]);
+      //     if (d.data > dataThreshold) {
+      //       return tricksArray[i][0];
+      //     }
+      //   })
+      //   .attr("text-anchor", "middle")
+      //   .attr("fill", "white")
+      //   .style("transform", function (d) {
+      //     let c = arcGen.centroid(d as unknown as d3.DefaultArcObject);
+      //     let half = dimensions.width / 2;
+      //     return `translate(${
+      //       half + c[0] > half ? half + c[0] + 70 : half + c[0] - 70
+      //     }px,${dimensions.height / 2 + c[1]}px)`;
+      //   })
+      //   .style("font-size", 10);
+
+      // //draw line from text to arc center
+      // const polyline = svg
+      //   .selectAll("polyline")
+      //   .data(instructions)
+      //   .join("polyline")
+      //   .attr("stroke", "white")
+      //   .style("fill", "none")
+      //   .style("stroke-width", "1px")
+      //   .attr("points", function (d) {
+      //     let c = arcGen.centroid(d as unknown as d3.DefaultArcObject);
+      //     let half = dimensions.width / 2;
+      //     let x = half + c[0] > half ? half + c[0] + 70 : half + c[0] - 70;
+      //     let y = dimensions.height / 2 + c[1];
+      //     if (d.data > dataThreshold) {
+      //       return `${x},${dimensions.height / 2 + c[1]} ${half + c[0]},${
+      //         dimensions.height / 2 + c[1]
+      //       } ${half + c[0] * 0.8},${y - 4}`;
+      //     }
+      //   });
     }
 
     return () => {
