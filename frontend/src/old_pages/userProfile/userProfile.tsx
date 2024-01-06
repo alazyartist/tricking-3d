@@ -98,7 +98,13 @@ const UserProfile = () => {
   }, [activeView]);
 
   if (!profileInfo)
-    return <div className="text-center text-white">Loading the infos...</div>;
+    return (
+      <div className="flex h-[100vh] w-[100vw] place-content-center place-items-center">
+        <div className="text-center text-3xl text-white">
+          Loading the infos...
+        </div>
+      </div>
+    );
 
   return (
     <div className="flex w-full flex-col place-items-center p-2 font-inter text-zinc-300">

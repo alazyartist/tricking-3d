@@ -72,6 +72,17 @@ jobs:
             git pull
             pnpm i
             npx prisma db push
-            pm2 restart all
+            pm2 restart nextjs
+            pm2 status
+            echo "Deployed Successfully"
+      - name: SSH to Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: "trickedex.app"
+          username: "root"
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            pm2 restart nextjs
             pm2 status
             echo "Deployed Successfully"

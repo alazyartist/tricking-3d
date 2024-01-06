@@ -53,83 +53,154 @@ function Home({ userInfo: stringy }) {
   }, [walkthroughSeen]);
   return (
     <div className=" stick h-full w-full overflow-hidden ">
-      {helpVisible && (
-        <GetStartedPopup
-          setHelpVisible={setHelpVisible}
-          steps={[
-            {
-              title: "Welcome",
-              content:
-                "This walkthrough will show you around the site, you can close it at any time by pressing skip",
-              id: "add-session-button",
-            },
-            {
-              title: "QuickMenu",
-              content:
-                "This will open a quickmenu with access to your profile,dashboard, and settings",
-              id: "user-icon",
-            },
-            {
-              title: "Dashboard",
-              content: "You're Dashboard also can be foundhere",
-              id: "dashboard-target-tabBar",
-            },
-            {
-              title: "SandBox",
-              content: "Click here to go to the sandbox",
-              id: "sandbox-target-home",
-            },
-            {
-              title: "SandBox..",
-              content: "You can also access the sandbox from here",
-              id: "sandbox-target-tabBar",
-            },
-            {
-              title: "Add Session",
-              content: "Click here to add a session",
-              id: "add-session-button",
-            },
-            {
-              title: "Socials",
-              content: "Click here to go to the socials",
-              id: "social-target-home",
-            },
+      <SignedIn>
+        {helpVisible && (
+          <GetStartedPopup
+            setHelpVisible={setHelpVisible}
+            steps={[
+              {
+                title: "Welcome",
+                content:
+                  "This walkthrough will show you around the site, you can close it at any time by pressing skip",
+                id: "add-session-button",
+              },
+              {
+                title: "QuickMenu",
+                content:
+                  "This will open a quickmenu with access to your profile,dashboard, and settings",
+                id: "user-icon",
+              },
+              {
+                title: "Dashboard",
+                content: "You're Dashboard also can be foundhere",
+                id: "dashboard-target-tabBar",
+              },
+              {
+                title: "SandBox",
+                content: "Click here to go to the sandbox",
+                id: "sandbox-target-home",
+              },
+              {
+                title: "SandBox..",
+                content: "You can also access the sandbox from here",
+                id: "sandbox-target-tabBar",
+              },
+              {
+                title: "Add Session",
+                content: "Click here to add a session",
+                id: "add-session-button",
+              },
+              {
+                title: "Socials",
+                content: "Click here to go to the socials",
+                id: "social-target-home",
+              },
 
-            {
-              title: "TempFeed",
-              content:
-                "This is the temp feed, it will be replaced with a real feed soon",
-              id: "temp-feed",
-            },
+              {
+                title: "TempFeed",
+                content:
+                  "This is the temp feed, it will be replaced with a real feed soon",
+                id: "temp-feed",
+              },
 
-            {
-              title: "Theory",
-              content: "Access The Trickedex Theory Section",
-              id: "theory-target",
-            },
-            {
-              title: "Search",
-              content: "Search for tricks, combos, users, and more",
-              id: "search-bar",
-            },
-            {
-              title: "Enjoy!",
-              content: (
-                <div>
-                  You Can find this walkthrough again
-                  <br /> in the help menu under the{" "}
-                  <FaQuestionCircle
-                    className="inline"
-                    color={"#cccccc"}
-                    size={22}
-                  />
-                </div>
-              ),
-              id: "help-button",
-            },
-          ]}
-        />
-      )}
+              {
+                title: "Theory",
+                content: "Access The Trickedex Theory Section",
+                id: "theory-target",
+              },
+              {
+                title: "Search",
+                content: "Search for tricks, combos, users, and more",
+                id: "search-bar",
+              },
+              {
+                title: "Enjoy!",
+                content: (
+                  <div>
+                    You Can find this walkthrough again
+                    <br /> in the help menu under the{" "}
+                    <FaQuestionCircle
+                      className="inline"
+                      color={"#cccccc"}
+                      size={22}
+                    />
+                  </div>
+                ),
+                id: "help-button",
+              },
+            ]}
+          />
+        )}
+      </SignedIn>
+      <SignedOut>
+        {helpVisible && (
+          <GetStartedPopup
+            setHelpVisible={setHelpVisible}
+            steps={[
+              {
+                title: "Welcome",
+                content:
+                  "This walkthrough will show you around the site, you can close it at any time by pressing skip",
+                id: "add-session-button",
+              },
+
+              {
+                title: "SandBox",
+                content: "Click here to go to the sandbox",
+                id: "sandbox-target-home",
+              },
+              {
+                title: "SandBox..",
+                content: "You can also access the sandbox from here",
+                id: "sandbox-target-tabBar",
+              },
+              {
+                title: "Add Session",
+                content: "Click here to add a session",
+                id: "add-session-button",
+              },
+              {
+                title: "Socials",
+                content: "Click here to go to the socials",
+                id: "social-target-home",
+              },
+
+              {
+                title: "TempFeed",
+                content:
+                  "This is the temp feed, it will be replaced with a real feed soon",
+                id: "temp-feed",
+              },
+
+              {
+                title: "Theory",
+                content: "Access The Trickedex Theory Section",
+                id: "theory-target",
+              },
+              {
+                title: "Search",
+                content: "Search for tricks, combos, users, and more",
+                id: "search-bar",
+              },
+              {
+                title: "Enjoy!",
+                content: (
+                  <div>
+                    You Can find this walkthrough again
+                    <br /> in the help menu under the{" "}
+                    <FaQuestionCircle
+                      className="inline"
+                      color={"#cccccc"}
+                      size={22}
+                    />
+                  </div>
+                ),
+                id: "help-button",
+              },
+            ]}
+          />
+        )}
+      </SignedOut>
       <div
         id="AppBackground-flex"
         className="flex h-full w-full flex-col place-items-center"
@@ -178,11 +249,11 @@ function Home({ userInfo: stringy }) {
               <Button
                 id={"add-session-button"}
                 href="addSession"
-                label={<span>Add Session</span>}
+                label={"Add Session"}
               />
             </SignedIn>
             <SignedOut>
-              <div className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-titan text-xl text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] ">
+              <div className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-inter text-xl font-semibold text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] ">
                 <div className="flex place-content-center place-items-center gap-2">
                   <SignInButton mode="modal" afterSignInUrl="/addSession">
                     Add Session
@@ -196,9 +267,11 @@ function Home({ userInfo: stringy }) {
               href={"/social"}
               label={"Social"}
             />
-            <div className="py-3">
-              <MultiDonateButton />
-            </div>
+            <SignedIn>
+              <div className="py-3">
+                <MultiDonateButton />
+              </div>
+            </SignedIn>
           </div>
 
           <SignedOut>
@@ -206,11 +279,9 @@ function Home({ userInfo: stringy }) {
               <PublicHomePage />
             </div>
           </SignedOut>
-          <SignedIn>
-            <div className="flex h-fit w-[90vw] max-w-[600px] flex-col place-content-center">
-              <TempFeed />
-            </div>
-          </SignedIn>
+          <div className="flex h-fit w-[90vw] max-w-[600px] flex-col place-content-center">
+            <TempFeed />
+          </div>
         </div>
       </div>
     </div>

@@ -15,7 +15,7 @@ const SessionStatsContainer = ({ setActiveSummary, activeSummary, uuid }) => {
     <div className="no-scrollbar aspect-[5/4] w-full overflow-hidden overflow-y-scroll rounded-md p-3 md:relative">
       <div
         className={
-          "absolute top-[2px] left-[1px] flex place-content-center place-items-center p-1"
+          "absolute left-[1px] top-[2px] flex place-content-center place-items-center p-1"
         }
       >
         <IoIosArrowBack onClick={() => handleBack()} />
@@ -26,6 +26,7 @@ const SessionStatsContainer = ({ setActiveSummary, activeSummary, uuid }) => {
           {activeSummary?.SessionSources?.map((source) => {
             return (
               <PublicSessionReview
+                key={source.srcid}
                 source={source}
                 activeSummary={activeSummary}
                 mirrored={false}

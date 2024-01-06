@@ -4,6 +4,7 @@ import ContributeCard from "./components/ContributeCard";
 import ContributeNavBar from "./components/ContributeNavBar";
 import Design from "./components/Design";
 import DonateText from "./components/DonateText";
+import FeedbackCard from "./components/Feedback";
 import HelpWith3d from "./components/HelpWith3d";
 import Marketing from "./components/Marketing";
 import Theory from "./components/Theory";
@@ -23,6 +24,9 @@ function Contribute() {
         className=" flex flex-col place-content-center gap-4 text-zinc-300 "
       >
         <div className={"flex flex-col gap-2 "}>
+          <ContributeCard>
+            <FeedbackCard />
+          </ContributeCard>
           <ContributeCard>
             <Design />
           </ContributeCard>
