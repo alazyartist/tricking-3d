@@ -64,9 +64,15 @@ function Home({ userInfo: stringy }) {
               id: "add-session-button",
             },
             {
-              title: "UserIcon",
-              content: "Click here to go to your profile",
+              title: "QuickMenu",
+              content:
+                "This will open a quickmenu with access to your profile,dashboard, and settings",
               id: "user-icon",
+            },
+            {
+              title: "Dashboard",
+              content: "You're Dashboard also can be foundhere",
+              id: "dashboard-target-tabBar",
             },
             {
               title: "SandBox",
@@ -88,11 +94,6 @@ function Home({ userInfo: stringy }) {
               content: "Click here to go to the socials",
               id: "social-target-home",
             },
-            {
-              title: "Socials..",
-              content: "you can also access the socials from here",
-              id: "social-target-tabBar",
-            },
 
             {
               title: "TempFeed",
@@ -103,7 +104,7 @@ function Home({ userInfo: stringy }) {
 
             {
               title: "Theory",
-              content: "Click here to add a session",
+              content: "Access The Trickedex Theory Section",
               id: "theory-target",
             },
             {

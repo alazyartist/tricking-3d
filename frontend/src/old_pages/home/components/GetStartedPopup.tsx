@@ -119,16 +119,16 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
         >
           <div className="p-8">
             <h3 className="">{item.title}</h3>
-            <p className=" text-sm font-extralight">{item.content}</p>
+            <div className=" text-sm font-extralight">{item.content}</div>
           </div>
           <div className="flex w-full justify-around gap-2 pb-4">
             <button
               onClick={() => closePopover()}
               className="rounded-lg bg-red-500 p-2 py-1 text-sm"
             >
-              skip
+              {activeStep === steps.length - 1 ? "done" : "skip"}
             </button>
-            {activeStep != steps.length - 1 && (
+            {activeStep !== steps.length - 1 && (
               <button
                 onClick={() => nextStep()}
                 className="rounded-lg bg-zinc-700 p-2 py-1 text-sm"
