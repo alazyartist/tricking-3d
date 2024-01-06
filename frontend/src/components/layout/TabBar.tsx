@@ -14,6 +14,7 @@ import useIsAdmin from "hooks/useIsAdmin";
 import { IoIosPeople, IoIosPerson } from "react-icons/io";
 import { useSessionSummariesStore } from "@admin/components/sessionreview/SessionSummaryStore";
 import useClickOutside from "@hooks/useClickOutside";
+import DiscordLink from "@components/info/DiscordLink";
 
 function TabBar() {
   const [openHamburger, setOpenHamburger] = useState<Boolean>();
@@ -25,6 +26,7 @@ function TabBar() {
   const clipDetailsVisible = useSessionSummariesStore(
     (s) => s.clipDetailsVisible
   );
+  const trickMakerOpen = useSessionSummariesStore((s) => s.trickMakerOpen);
   // const nav = useNavigate();
   // const location = useLocation();
 
@@ -49,7 +51,7 @@ function TabBar() {
   const height = useSpring<{}>({
     from: { height: window.innerWidth < 768 ? "0vh" : "10rem" },
     to: { height: window.innerWidth < 768 ? "35vh" : "10rem" },
-    reverse: !clipDetailsVisible,
+    reverse: trickMakerOpen || !clipDetailsVisible,
     config: {
       config: { tension: 40, friction: 12 },
     },

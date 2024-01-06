@@ -45,7 +45,7 @@ const TrickInfoGrid = ({ trickInfo }) => {
           "outlineButton flex w-full border-[1px] border-zinc-300 p-1 text-xs"
         }
       >
-        {trickInfo.base.name}
+        {trickInfo.base?.name}
       </p>
       <div className="flex w-full gap-2">
         <p
@@ -65,11 +65,11 @@ const TrickInfoGrid = ({ trickInfo }) => {
       </div>
       {trickInfo?.variations?.map((v) => (
         <div
-          key={`${v.variation.name} + ${Math.random()}`}
+          key={`${v.variation?.name} + ${Math.random()}`}
           className="outlineButton flex h-fit w-full justify-between gap-2 border-[1px] border-indigo-400 p-1 text-xs"
         >
-          <div>{v.variation.name}</div>
-          <div>{v.variation.pointValue}</div>
+          <div>{v.variation?.name}</div>
+          <div>{v.variation?.pointValue}</div>
         </div>
       ))}
     </div>

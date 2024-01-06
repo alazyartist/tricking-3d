@@ -12,6 +12,9 @@ const CommandBarControls = () => {
   const setSessionData = useSessionSummariesStore((s) => s.setSessionData);
   const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
+  const setTrickMakerOpen = useSessionSummariesStore(
+    (s) => s.setTrickMakerOpen
+  );
   const setSaveSuccessful = useSessionSummariesStore(
     (s) => s.setSaveSuccessful
   );
@@ -108,6 +111,10 @@ const CommandBarControls = () => {
     {
       title: "clear",
       command: () => setClipData({ startTime: 0, endTime: 0 }),
+    },
+    {
+      title: "trick",
+      command: () => setTrickMakerOpen(true),
     },
 
     ,

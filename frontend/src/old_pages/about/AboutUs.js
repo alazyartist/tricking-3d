@@ -1,3 +1,5 @@
+import DiscordLink from "@components/info/DiscordLink";
+import Link from "next/link";
 import React from "react";
 import DeveloperCard from "./components/DeveloperCard";
 
@@ -23,6 +25,8 @@ function AboutUs() {
             title="Contributing Developer"
             src="https://github.com/Tohzt.png"
           />
+
+          <DiscordLink />
           {/* <DeveloperCard
 						name='Tim Vo'
 						title='Senior Developer'

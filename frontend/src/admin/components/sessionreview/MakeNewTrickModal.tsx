@@ -72,7 +72,7 @@ const MakeNewTrickModal = () => {
     <>
       <div className="fixed left-[2.5vw] top-[3vh] z-[4000] h-[80vh] w-[95vw] overflow-hidden rounded-xl bg-zinc-800 font-inter md:left-[15vw] md:w-[70vw]">
         <MdClose
-          className={`absolute right-2 top-2 text-2xl text-zinc-300 md:text-5xl`}
+          className={`absolute left-2 top-2 text-2xl text-zinc-300 md:text-5xl`}
           onClick={() => setTrickMakerOpen(false)}
         />
         <MdSave

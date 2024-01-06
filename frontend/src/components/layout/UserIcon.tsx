@@ -1,10 +1,12 @@
 "use client";
+import DiscordLink from "@components/info/DiscordLink";
 import HomeIcon from "@data/icons/HomeIcon";
 import useClickOutside from "@hooks/useClickOutside";
 import { trpc } from "@utils/trpc";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
+import { FaDiscord } from "react-icons/fa";
 import { IoIosDesktop, IoIosPerson, IoIosSettings } from "react-icons/io";
 import { useUserStore } from "../../store/userStore";
 
@@ -62,6 +64,11 @@ const QuickMenu = ({ setQuickMenuOpen, quickMenuOpen, uuid }) => {
     { icon: <IoIosPerson />, title: "Profile", href: `/userProfile/${uuid}` },
     { icon: <IoIosDesktop />, title: "Dash", href: "/dash" },
     { icon: <IoIosSettings />, title: "Settings", href: "/userSettings" },
+    {
+      icon: <FaDiscord />,
+      title: "Discord",
+      href: "https://discord.gg/egkkxNnDuh",
+    },
   ];
   return (
     !!quickMenuOpen && (
