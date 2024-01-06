@@ -4,9 +4,7 @@
 		"dev": "cd frontend && pnpm run dev",
 		"start": "cd frontend && pnpm run start",
 		"build": "cd frontend && pnpm run build",
-		"ppush": "cd frontend && npx prisma db push",
-		"server": "cd backend && pnpm run dev",
-		"spinup": "concurrently \"pnpm run start\" \"pnpm run server\""
+		"ppush": "cd frontend && npx prisma db push"
 	},
 	"dependencies": {
 		"@prisma/client": "^4.8.1",

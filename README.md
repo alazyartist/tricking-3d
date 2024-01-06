@@ -73,25 +73,13 @@ the scope of this project is continuously chaninging to include everything necce
 
 Ask for '.env' file (for ably and others)
 
-`pnpm run start` or `pnpm run server` or `pnpm run spinup`
+`pnpm run dev`
 
-start = cd frontend && pnpm run start<br>server= cd backend && pnpm nodemon node.js<br>spinup= concurrently pnpm run start && pnpm run server
+start = cd frontend && pnpm run start
 
 ## Development Guide
 
-Some [component-name].js files have an accompanying [component-name].md to explain how to handle some the logic in the component.
-
 If you would like to contribute to the project please do so by making separte branches:
-
-```bash
-    git checkout -b [new-branch-name]
-```
-
-after you've made your changes run:
-
-```bash
-    git push origin [new-branch-name]
-```
 
 You can then create a pull request for your changes using DEV as base
 
