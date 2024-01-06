@@ -36,6 +36,8 @@ jobs:
         run: |
           echo -e "${{secrets.env_file}}" > .env
           echo "Setup env file successfully"
+      - name: Remove old build
+        run: rm -rf ./frontend/.next
       - name: List directory structure
         run: ls -R
       - name: Build
