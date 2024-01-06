@@ -14,16 +14,45 @@ const Captures = ({ dash }) => {
     setCaptured(userInfo.captures);
     setCapturedMe(userInfo.captured_me);
   }, [userInfo]);
-
+  const [activeView, setActiveView] = useState(
+    "My Captures" as "My Captures" | "Captured Me"
+  );
   return (
     <div
       id="captureContainer"
       className={`${dash ? "pb-8  lg:pb-2" : ""} w-full`}
     >
       {/* My Captures */}
-      <RenderCaptures captureContent={captured} title="My Captures" />
+      <CaptureNav setActiveView={setActiveView} activeView={activeView} />
+      {activeView === "My Captures" && (
+        <RenderCaptures captureContent={captured} title="My Captures" />
+      )}
       {/* Captured Me */}
-      <RenderCaptures captureContent={capturedMe} title="Captured Me" />
+      {activeView === "Captured Me" && (
+        <RenderCaptures captureContent={capturedMe} title="Captured Me" />
+      )}
+    </div>
+  );
+};
+const CaptureNav = ({ setActiveView, activeView }) => {
+  return (
+    <div className="flex w-full justify-between gap-2 pt-2">
+      <button
+        className={`${
+          activeView === "My Captures" ? "text-indigo-400" : "text-zinc-500"
+        } w-full rounded-md bg-zinc-800 p-2`}
+        onClick={(e) => setActiveView("My Captures")}
+      >
+        My Captures
+      </button>
+      <button
+        className={`${
+          activeView === "Captured Me" ? "text-indigo-400" : "text-zinc-500"
+        } w-full rounded-md bg-zinc-800 p-2`}
+        onClick={(e) => setActiveView("Captured Me")}
+      >
+        Captured Me
+      </button>
     </div>
   );
 };
@@ -53,11 +82,12 @@ const RenderCaptures = ({ captureContent, title }) => {
         </div>
 
         {/* Container Content */}
+        {/* ${captureGrid ? " flex flex-row" : " grid grid-cols-3"}  */}
         <div
           className={`
-            ${captureGrid ? " flex flex-row" : " grid grid-cols-3"} 
-            minimalistScroll
+          minimalistScroll flex
             max-h-[50vh]
+            flex-col
             gap-2
             overflow-auto
             p-2

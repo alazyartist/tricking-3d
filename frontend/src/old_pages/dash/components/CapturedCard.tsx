@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as d3 from "d3";
+import Image from "next/image";
 /* Tricker Profile Icons - rendered in Catpures Page */
 const CapturedCard = ({ name, src, username, userid }) => {
   const [displayName, setDisplayName] = useState(false);
@@ -7,7 +8,7 @@ const CapturedCard = ({ name, src, username, userid }) => {
   return (
     <div
       className="
-			flex w-[120px] flex-col 
+			flex w-full 
 			place-items-center
 			gap-2 rounded-lg
 			bg-zinc-900 bg-opacity-60 p-2
@@ -22,8 +23,10 @@ const CapturedCard = ({ name, src, username, userid }) => {
         }}
         className={`relative h-12 w-12 rounded-full lg:h-20 lg:w-20`}
       >
-        <img
-          src={src}
+        <Image
+          width={100}
+          height={100}
+          src={`/${src}`}
           alt={"profilePic"}
           className={`aspect-square h-12 w-12 rounded-full lg:h-20 lg:w-20 ${
             src.includes("noimg.jpeg") ? " mix-blend-multiply contrast-150" : ""
