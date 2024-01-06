@@ -12,6 +12,7 @@ import ClaimTricks from "@old_pages/claimtricks/ClaimTricks";
 import Link from "next/link";
 import { trpc } from "@utils/trpc";
 import TricklistPage from "@old_pages/tricklist/TricklistPage";
+import DashboardStats from "./components/DashboardStats";
 
 function Dashboard({ uuid, profilePic }) {
   const logout = useLogout();
@@ -22,6 +23,9 @@ function Dashboard({ uuid, profilePic }) {
 
   const getActiveSection = (section) => {
     switch (section) {
+      case "stats":
+        return <DashboardStats uuid={uuid} />;
+        break;
       case "sessions":
         return <SessionList uuid={uuid} />;
         break;
@@ -59,44 +63,24 @@ function Dashboard({ uuid, profilePic }) {
         "
         >
           <div className="gap flex flex-row">
-            <p
-              onClick={() => setSection("sessions")}
-              className={`${
-                activeSection === "sessions"
-                  ? "text-indigo-400"
-                  : "text-zinc-500"
-              } rounded-t-md bg-zinc-900 bg-opacity-70  p-2`}
-            >
-              Sessions
-            </p>
-            <p
-              onClick={() => setSection("tricks")}
-              className={`${
-                activeSection === "tricks" ? "text-indigo-400" : "text-zinc-500"
-              } rounded-t-md bg-zinc-900 bg-opacity-70  p-2`}
-            >
-              Tricks
-            </p>
-            <p
-              onClick={() => setSection("captures")}
-              className={`${
-                activeSection === "captures"
-                  ? "text-indigo-400"
-                  : "text-zinc-500"
-              } rounded-t-md bg-zinc-900 bg-opacity-70  p-2`}
-            >
-              Captures
-            </p>
-            <p
-              onClick={() => setSection("tricklists")}
-              className={`${
-                activeSection === "tricklists"
-                  ? "text-indigo-400"
-                  : "text-zinc-500"
-              } rounded-t-md bg-zinc-900 bg-opacity-70  p-2`}
-            >
-              TrickLists
-            </p>
+            {[
+              { title: "Stats", key: "stats" },
+              { title: "Sessions", key: "sessions" },
+              { title: "Tricks", key: "tricks" },
+              { title: "Captures", key: "captures" },
+              { title: "Tricklists", key: "tricklists" },
+            ].map((item) => (
+              <button
+                onClick={() => setSection(item.key)}
+                className={`${
+                  activeSection === item.key
+                    ? "text-indigo-400"
+                    : "text-zinc-500"
+                } rounded-t-md bg-zinc-900 bg-opacity-70  p-2`}
+              >
+                {item.title}
+              </button>
+            ))}
           </div>
           {getActiveSection(activeSection)}
         </div>

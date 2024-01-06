@@ -25,7 +25,7 @@ const TransitionsBarChart = ({ data }) => {
       const x = d3
         .scaleBand()
         .domain(tricksArray.map((d) => d[0]))
-        .range([0, width])
+        .range([margin.left / 4, width])
         .padding(0.1);
       const y = d3
         .scaleLinear()
@@ -44,7 +44,9 @@ const TransitionsBarChart = ({ data }) => {
         .attr("x", (d) => x(d[0]))
         .attr("width", x.bandwidth())
         .attr("y", (d, i) => y(trickPercent[i]))
-        .attr("height", (d, i) => height + margin.top - y(trickPercent[i]))
+        .attr("height", (d, i) =>
+          d3.max([height + margin.top - y(trickPercent[i]), 0])
+        )
         .attr("fill", (d, i) => colors(i));
       // const arc = svg
       //   .selectAll("path")
@@ -89,7 +91,7 @@ const TransitionsBarChart = ({ data }) => {
       const colorLegendScale = d3
         .scaleBand()
         .domain(tricksArray.map((t) => t[0]))
-        .range([0, dimensions.width])
+        .range([margin.left, width])
         .padding(0);
 
       svg

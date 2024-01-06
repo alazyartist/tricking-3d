@@ -34,9 +34,7 @@ const TrickPieChart = ({ data, group_by }) => {
         .endAngle(2 * Math.PI)
         .sort(null);
       let tricksArray = Array.from(
-        d3.group(data, (d: tricks) =>
-          d.type === "Trick" ? d?.[group_by] : d.type
-        )
+        d3.group(data, (d: tricks) => d?.[group_by])
       );
       let trickPercent = tricksArray?.map((t, i) => t[1]?.length / data.length);
       const instructions = piGen(trickPercent);
@@ -72,7 +70,7 @@ const TrickPieChart = ({ data, group_by }) => {
         .data(instructions)
         .join("text")
         .text(function (d, i) {
-          console.log(d, i, tricksArray[i][0]);
+          // console.log(d, i, tricksArray[i][0]);
           if (d.data > dataThreshold) {
             return tricksArray[i][0];
           }
