@@ -24,9 +24,11 @@ const TricksPage = () => {
       <div className="absolute left-4 top-4">
         <AnimatedSearch />
       </div>
-      <TrickInfoGrid trickInfo={trickInfo} />
-      <div id={"video-portal"} />
-      <CombosWithTrickDisplay combos={combos} trick={trickInfo.name} />
+      <div className="mt-14 h-[80vh] w-full overflow-y-scroll rounded-md bg-zinc-900  bg-opacity-70 p-2">
+        <TrickInfoGrid trickInfo={trickInfo} />
+        <div className="sticky top-2" id={"video-portal"} />
+        <CombosWithTrickDisplay combos={combos} trick={trickInfo.name} />
+      </div>
     </div>
   );
 };
@@ -34,7 +36,7 @@ const TricksPage = () => {
 export default TricksPage;
 export const TrickInfoGrid = ({ trickInfo }) => {
   return (
-    <div className="mt-14 flex w-full flex-col place-items-center gap-2 md:max-w-[800px]">
+    <div className="flex w-full flex-col place-items-center gap-2 md:max-w-[800px]">
       <div className="flex place-items-center gap-2 ">
         <h1 className="text-bold text-2xl ">{trickInfo.name}</h1>
         <p>{trickInfo.pointValue}</p>
@@ -79,7 +81,7 @@ export const TrickInfoGrid = ({ trickInfo }) => {
 const CombosWithTrickDisplay = ({ combos, trick }) => {
   const [seeExample, setSeeExample] = useState();
   return (
-    <div className="minimalistScroll flex w-full flex-col place-content-start gap-2 overflow-y-scroll p-2 pt-0">
+    <div className="minimalistScroll flex h-full w-full flex-col place-content-start gap-2 p-2 pt-0">
       <h1 className="sticky top-0 bg-zinc-900 p-2 text-xl">
         Combos containing {trick}
       </h1>

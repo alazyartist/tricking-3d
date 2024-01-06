@@ -15,6 +15,7 @@ import { IoIosPeople, IoIosPerson } from "react-icons/io";
 import { useSessionSummariesStore } from "@admin/components/sessionreview/SessionSummaryStore";
 import useClickOutside from "@hooks/useClickOutside";
 import DiscordLink from "@components/info/DiscordLink";
+import { FaDesktop } from "react-icons/fa";
 
 function TabBar() {
   const [openHamburger, setOpenHamburger] = useState<Boolean>();
@@ -87,12 +88,15 @@ function TabBar() {
             <Link href="/home">
               <HomeIcon />
             </Link>
+            <Link id={"dashboard-target-tabBar"} href="/dash">
+              <FaDesktop />
+            </Link>
             {/* <Link href="/comboMaker">
               <ComboMakerBlueprintsvg className="h-10 w-10" fill="#ffffff" />
             </Link> */}
-            <Link id={"social-target-tabBar"} href="/social">
+            {/* <Link id={"social-target-tabBar"} href="/social">
               <IoIosPeople size={30} color={"#d4d4d8"} />
-            </Link>
+            </Link> */}
             <Link id={"sandbox-target-tabBar"} href="/sandbox">
               <BiCube />
             </Link>

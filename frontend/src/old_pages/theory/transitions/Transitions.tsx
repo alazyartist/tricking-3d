@@ -92,11 +92,13 @@ function Transitions() {
             );
           })}
         </div>
-        <div className="minimalistScroll flex h-[55vh] w-full flex-col gap-2 overflow-y-auto rounded-md">
-          <div>Transitions Array</div>
+        <div className="minimalistScroll flex h-[55vh] w-full flex-col gap-2 overflow-y-auto rounded-md p-2">
           {filteredTransitions?.map((tr) => {
             return (
-              <div className=" flex flex-row place-content-center place-items-center justify-around gap-2 rounded-xl bg-black bg-opacity-40 p-1">
+              <div
+                key={tr.id}
+                className=" flex flex-row place-content-center place-items-center justify-around gap-2 rounded-xl bg-black bg-opacity-40 p-1"
+              >
                 <div className="w-[150px] text-xl font-bold">{tr.name}</div>
                 <div className="fill-zinc-500 text-sm">
                   {tr.fromLeg && whichLeg(tr.fromLeg)}

@@ -18,7 +18,7 @@ function Dashboard({ uuid, profilePic }) {
   const logout = useLogout();
   const user = useUserStore((s) => s.user);
   // const { profilePic, uuid } = useUserStore((s) => s.userInfo);
-  const [activeSection, setSection] = useState("sessions");
+  const [activeSection, setSection] = useState("stats");
   const { data } = trpc.tricklists.findTricklistById.useQuery({ uuid: uuid });
 
   const getActiveSection = (section) => {
