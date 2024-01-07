@@ -71,9 +71,21 @@ const TrickPieChart = ({ data, group_by }) => {
         .join("text")
         .text(function (d, i) {
           // console.log(d, i, tricksArray[i][0]);
-          // if (d.data > dataThreshold) {
+          // if (i < instructions.length / 2) {
+          //   return (
+          //     tricksArray[i][0] + " " + (Number(d.data) * 100).toFixed(2) + "%"
+          //   );
+          // } else if (i >= instructions.length / 2) {
+          //   return (
+          //     (Number(d.data) * 100).toFixed(2) + "%" + " " + tricksArray[i][0]
+          //   );
+          // }
           return tricksArray[i][0];
           // }
+        })
+        .attr("text-anchor", (d, i) => {
+          if (i < instructions.length / 2) return "start";
+          else if (i >= instructions.length / 2) return "end";
         })
         .attr("fill", (d, i) => colors(i))
         .style("transform", function (d, i) {
@@ -82,15 +94,11 @@ const TrickPieChart = ({ data, group_by }) => {
               5 + margin.top * (i / 2 + 1)
             }px)`;
           else if (i >= instructions.length / 2)
-            return `translate(${width - margin.right * 2 - 25}px,${
+            return `translate(${width + margin.left}px,${
               5 +
               margin.top * (i / 2 + 1) -
               ((instructions.length / 2) * margin.top) / 2
             }px)`;
-        })
-        .attr("text-anchor", (d, i) => {
-          if (i < instructions.length / 2) return "right";
-          else if (i >= instructions.length / 2) return "left";
         });
       // const text = svg
       //   .selectAll("text")

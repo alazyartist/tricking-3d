@@ -10,6 +10,7 @@ import React from "react";
 import * as d3 from "d3";
 import TrickPieChart from "@components/d3/TrickPieChart";
 import BIFOPieChart from "@components/d3/BIFOPieChart";
+import TransitionsBarChart from "@components/d3/TransitionsBarChart";
 
 const OverallStatDisplay = ({ profileInfo }) => {
   if (!profileInfo) return null;
@@ -23,6 +24,15 @@ const OverallStatDisplay = ({ profileInfo }) => {
         | transitions
       )[];
       return ca.filter((trick) => trick.type !== "Transition");
+    })
+  ).flat(2);
+  const totalTransitionsRaw = SessionSummaries?.map((summary) =>
+    summary.SessionData?.map((data) => {
+      const ca = data.ClipLabel.comboArray as unknown as (
+        | tricks
+        | transitions
+      )[];
+      return ca.filter((trick) => trick.type === "Transition");
     })
   ).flat(2);
   let totalTricks = SessionSummaries?.map((summary) =>
@@ -87,7 +97,7 @@ const OverallStatDisplay = ({ profileInfo }) => {
     .sort((a, b) => b[1] - a[1]);
   // console.log(favoriteTrickName, favoriteTrick);
   return (
-    <div className="relative space-y-2 text-[12px] text-zinc-400">
+    <div className="relative w-full space-y-2 text-[12px] text-zinc-400">
       <div>
         Sesions Submitted:{" "}
         <span className="text-zinc-300">
@@ -99,6 +109,11 @@ const OverallStatDisplay = ({ profileInfo }) => {
       <div>Total Combos: {totalCombos}</div>
       <TrickPieChart data={totalTricksRaw} group_by={"base_id"} />
       <BIFOPieChart data={totalTricksRaw} />
+      <div className="h-fit w-[90vw] overflow-x-scroll">
+        <div className="h-32 w-[150%] ">
+          <TransitionsBarChart data={totalTransitionsRaw} />
+        </div>
+      </div>
       <div className="flex w-full flex-col place-items-center gap-2 whitespace-nowrap">
         <div className="flex w-full flex-wrap gap-2">
           {favoriteComboCount?.map(

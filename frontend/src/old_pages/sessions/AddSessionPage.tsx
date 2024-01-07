@@ -207,12 +207,15 @@ export const OutOfCredits = ({ closePopover }) => {
     queryClient.invalidateQueries(["userInfo"]);
   }, [showForm]);
   const ref = useClickOutside(() => closePopover());
+  const [selectedPack, setSelectedPack] = useState<
+    "Starter" | "Trainer" | "Elite"
+  >("Starter");
   return (
     <div
       ref={ref}
       className="absolute top-[10vh] z-[200] space-y-2 rounded-md bg-zinc-700 p-8"
     >
-      <div className="flex place-content-center place-items-center gap-4 text-center font-inter text-4xl">
+      {/* <div className="flex place-content-center place-items-center gap-4 text-center font-inter text-4xl">
         <div
           className="flex h-10 w-10 place-content-center place-items-center rounded-full bg-zinc-200 bg-opacity-10"
           onClick={() => setcreditAmount((ca) => ca - 1)}
@@ -226,11 +229,32 @@ export const OutOfCredits = ({ closePopover }) => {
         >
           +
         </div>
-      </div>
+      </div> */}
+      <CreditPack
+        selectedPack={selectedPack}
+        setSelectedPack={setSelectedPack}
+        creditAmount={2}
+        price={5}
+        title={"Starter"}
+      />
+      <CreditPack
+        selectedPack={selectedPack}
+        setSelectedPack={setSelectedPack}
+        creditAmount={5}
+        price={10}
+        title={"Trainer"}
+      />
+      <CreditPack
+        selectedPack={selectedPack}
+        setSelectedPack={setSelectedPack}
+        creditAmount={"22 + 3"}
+        price={22}
+        title={"Elite"}
+      />
       <button
         type="button"
         onClick={() => setShowForm(true)}
-        className="w-[200px] rounded-md bg-gradient-to-br from-emerald-500 to-emerald-600 py-2 text-2xl font-bold text-zinc-200"
+        className="w-[200px] rounded-md bg-gradient-to-br from-emerald-500 to-emerald-600 py-2 text-2xl font-semibold text-zinc-200"
         id="submit"
       >
         Add Credits
@@ -240,6 +264,31 @@ export const OutOfCredits = ({ closePopover }) => {
           <PaymentEmbed creditAmount={creditAmount} setShowForm={setShowForm} />
         </div>
       )}
+    </div>
+  );
+};
+
+const CreditPack = ({
+  creditAmount,
+  price,
+  title,
+  selectedPack,
+  setSelectedPack,
+}) => {
+  return (
+    <div
+      onClick={() => setSelectedPack(title)}
+      className={`flex w-full flex-col gap-1 rounded-md bg-zinc-900 p-2 ${
+        selectedPack === title
+          ? " ring-2 ring-emerald-500 ring-offset-2 ring-offset-zinc-700"
+          : ""
+      }`}
+    >
+      <h1 className="text-center">{title}</h1>
+      <div className="flex place-content-center place-items-center justify-around gap-2">
+        <h2 className="">{price}$</h2>
+        <h3 className="">{creditAmount} Credit</h3>
+      </div>
     </div>
   );
 };
