@@ -29,7 +29,11 @@ const TheoryWrapper = ({ children }) => {
           {nav.pathname === "/theory" && (
             <AnatomySketch className="h-fit w-[80vw] max-w-[540px] text-zinc-300" />
           )}
-          <AnatomyNav className=" h-fit w-[80vw] max-w-[540px] text-zinc-300" />
+          {!nav.pathname.includes("/transitions") &&
+            !nav.pathname.includes("/tricks") &&
+            !nav.pathname.includes("/stances") && (
+              <AnatomyNav className=" h-fit w-[80vw] max-w-[540px] text-zinc-300" />
+            )}
           <div className={"h-fit"}>{children}</div>
         </div>
       </div>

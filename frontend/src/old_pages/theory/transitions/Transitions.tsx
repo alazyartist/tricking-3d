@@ -40,18 +40,21 @@ function Transitions() {
                 className={`${legs.from === "Left" ? "text-indigo-500" : ""}`}
                 onClick={() => setLegs((l) => ({ ...l, from: "Left" }))}
               >
+                {whichLeg("Left")}
                 Left
               </button>
               <button
                 className={`${legs.from === "Right" ? "text-indigo-500" : ""}`}
                 onClick={() => setLegs((l) => ({ ...l, from: "Right" }))}
               >
+                {whichLeg("Right")}
                 Right
               </button>
               <button
                 className={`${legs.from === "Both" ? "text-indigo-500" : ""}`}
                 onClick={() => setLegs((l) => ({ ...l, from: "Both" }))}
               >
+                {whichLeg("Both")}
                 Both
               </button>
             </div>
@@ -63,18 +66,21 @@ function Transitions() {
                 className={`${legs.to === "Left" ? "text-indigo-500" : ""}`}
                 onClick={() => setLegs((l) => ({ ...l, to: "Left" }))}
               >
+                {whichLeg("Left")}
                 Left
               </button>
               <button
                 className={`${legs.to === "Right" ? "text-indigo-500" : ""}`}
                 onClick={() => setLegs((l) => ({ ...l, to: "Right" }))}
               >
+                {whichLeg("Right")}
                 Right
               </button>
               <button
                 className={`${legs.to === "Both" ? "text-indigo-500" : ""}`}
                 onClick={() => setLegs((l) => ({ ...l, to: "Both" }))}
               >
+                {whichLeg("Both")}
                 Both
               </button>
             </div>

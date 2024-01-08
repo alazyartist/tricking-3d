@@ -5,6 +5,7 @@ import React, {
   MutableRefObject,
   ChangeEvent,
   ForwardedRef,
+  Suspense,
 } from "react";
 import AxesSketch from "./components/AxesSketch";
 import * as THREE from "three";
@@ -23,6 +24,7 @@ import { useGLTF, useAnimations } from "@react-three/drei";
 import { useFrankFollowCam } from "@hooks/useFollowCam";
 import useMediaController from "@hooks/useMediaController";
 import { MyGLTF } from "types/mythree";
+import Loader from "@components/loaders/Loader";
 
 const Axes = () => {
   const [rotX, setRotX] = useState<number>(0);
@@ -34,9 +36,11 @@ const Axes = () => {
       <div className="h-80 w-full">
         <Canvas>
           {/* @ts-ignore */}
-          <PerspectiveCamera position={[0, -1, 0]}>
-            <Scene rotX={rotX} rotY={rotY} rotZ={rotZ} />
-          </PerspectiveCamera>
+          <Suspense fallback={<Loader />}>
+            <PerspectiveCamera position={[0, -1, 0]}>
+              <Scene rotX={rotX} rotY={rotY} rotZ={rotZ} />
+            </PerspectiveCamera>
+          </Suspense>
         </Canvas>
       </div>
       {/* <div className="flex w-full gap-2">
