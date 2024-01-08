@@ -10,6 +10,9 @@ import { trpc } from "@utils/trpc";
 interface Props {
   src: string;
   edit: Boolean;
+  first_name: string;
+  last_name: string;
+  username: string;
 }
 
 const UserCard: React.FC<Props> = (props) => {
@@ -48,9 +51,9 @@ const UserCard: React.FC<Props> = (props) => {
           </div>
           <div className="flex flex-col">
             <p className="text-xl font-semibold">
-              {userInfo.first_name + " " + userInfo.last_name}
+              {props.first_name + " " + props.last_name}
             </p>
-            <p className="text-xs">{userInfo.username}</p>
+            <p className="text-xs">{props.username}</p>
           </div>
         </div>
       </Link>
@@ -68,7 +71,7 @@ const UserCard: React.FC<Props> = (props) => {
               refetch();
             }}
           >
-            Credits: {userInfo.SessionReviewCredits}
+            Credits: {SessionReviewCredits}
           </button>
         )}
       </div>

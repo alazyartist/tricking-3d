@@ -14,7 +14,7 @@ import { trpc } from "@utils/trpc";
 import TricklistPage from "@old_pages/tricklist/TricklistPage";
 import DashboardStats from "./components/DashboardStats";
 
-function Dashboard({ uuid, profilePic }) {
+function Dashboard({ uuid, profilePic, first_name, last_name, username }) {
   const logout = useLogout();
   const user = useUserStore((s) => s.user);
   // const { profilePic, uuid } = useUserStore((s) => s.userInfo);
@@ -49,6 +49,9 @@ function Dashboard({ uuid, profilePic }) {
       <>
         <UserCard
           edit
+          first_name={first_name}
+          last_name={last_name}
+          username={username}
           src={profilePic !== null ? profilePic : "./images/noimg.jpeg"}
         />
         <div

@@ -16,6 +16,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const data = await prisma.users.findUnique({
     where: { clerk_id: auth.userId },
     select: {
+      first_name: true,
+      last_name: true,
       uuid: true,
       profilePic: true,
       username: true,
@@ -25,6 +27,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     props: {
       profilePic: data.profilePic,
       uuid: data.uuid,
+      first_name: data.first_name,
+      last_name: data.last_name,
+      username: data.username,
     },
   };
 };
