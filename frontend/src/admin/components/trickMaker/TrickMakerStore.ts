@@ -35,8 +35,8 @@ interface TrickMakerStore {
 export const useTrickMakerStore = create<TrickMakerStore>((set, get) => ({
   trickType: "Invert",
   name: null,
-  takeoffStance: "",
-  landingStance: "",
+  takeoffStance: null,
+  landingStance: null,
   landingStancePoints: 0,
   variationsArr: [],
   basePoints: 0,

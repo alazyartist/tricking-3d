@@ -139,6 +139,7 @@ const MakeNewTrickModal = () => {
                     className="border-2 border-purple-400 p-1 px-4 first:rounded-t-md first:border-b-[1px] last:rounded-b-md last:border-t-[1px]"
                   >
                     {v?.name}
+                    <p className="text-center text-xs">{v.pos}</p>
                   </div>
                 ))}
               </div>
