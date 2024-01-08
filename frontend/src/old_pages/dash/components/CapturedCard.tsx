@@ -11,7 +11,7 @@ const CapturedCard = ({ name, src, username, userid }) => {
 			flex w-full 
 			place-items-center
 			gap-2 rounded-lg
-			bg-zinc-900 bg-opacity-60 p-2
+			bg-zinc-800 bg-opacity-40 p-2
 			pt-3
 			font-inter 
 		"
@@ -26,7 +26,7 @@ const CapturedCard = ({ name, src, username, userid }) => {
         <Image
           width={100}
           height={100}
-          src={`/${src}`}
+          src={src}
           alt={"profilePic"}
           className={`aspect-square h-12 w-12 rounded-full lg:h-20 lg:w-20 ${
             src.includes("noimg.jpeg") ? " mix-blend-multiply contrast-150" : ""

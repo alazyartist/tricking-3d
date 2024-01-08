@@ -49,11 +49,7 @@ function Dashboard({ uuid, profilePic }) {
       <>
         <UserCard
           edit
-          src={
-            profilePic !== null
-              ? `./images/${uuid}/${profilePic}`
-              : "./images/noimg.jpeg"
-          }
+          src={profilePic !== null ? profilePic : "./images/noimg.jpeg"}
         />
         <div
           className="

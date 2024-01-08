@@ -207,10 +207,12 @@ export const OutOfCredits = ({ closePopover }) => {
   const [selectedPack, setSelectedPack] = useState<
     "Starter" | "Trainer" | "Elite"
   >("Starter");
+
+  const handleCreditPack = () => {};
   return (
     <div
       ref={ref}
-      className="absolute top-[10vh] z-[200] space-y-2 rounded-md bg-zinc-700 p-8"
+      className="absolute top-[10vh] z-[200] flex h-[80vh] w-[90vw] flex-col space-y-2 rounded-md bg-zinc-800 p-8 pt-4"
     >
       {/* <div className="flex place-content-center place-items-center gap-4 text-center font-inter text-4xl">
         <div
@@ -227,6 +229,9 @@ export const OutOfCredits = ({ closePopover }) => {
           +
         </div>
       </div> */}
+      <h1 className="w-full p-2 pt-0 text-center text-xl text-zinc-200">
+        Select a Credit Pack
+      </h1>
       <CreditPack
         selectedPack={selectedPack}
         setSelectedPack={setSelectedPack}
@@ -251,7 +256,7 @@ export const OutOfCredits = ({ closePopover }) => {
       <button
         type="button"
         onClick={() => setShowForm(true)}
-        className="w-[200px] rounded-md bg-gradient-to-br from-emerald-500 to-emerald-600 py-2 text-2xl font-semibold text-zinc-200"
+        className="absolute bottom-8 w-[200px] place-self-center rounded-md bg-gradient-to-br from-emerald-500 to-emerald-600 py-2 text-2xl font-semibold text-zinc-200"
         id="submit"
       >
         Add Credits

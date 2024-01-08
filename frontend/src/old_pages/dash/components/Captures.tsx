@@ -106,8 +106,8 @@ const RenderCaptures = ({ captureContent, title }) => {
                     name={c.first_name + " " + c.last_name}
                     src={
                       c.profilePic
-                        ? `./images/${c.uuid}/${c.profilePic}`
-                        : `./images/noimg.jpeg`
+                        ? c.profilePic
+                        : `https://trickedex.app/images/noimg.jpeg`
                     }
                     username={`${c.username}`}
                   />

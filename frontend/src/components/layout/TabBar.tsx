@@ -150,6 +150,9 @@ function TabBar() {
                     <Link href="/experiments" replace={true}>
                       Experiments
                     </Link>
+                    <Link href="/terms" replace={true}>
+                      Glossary
+                    </Link>
                     <button
                       className="absolute bottom-2 left-3"
                       onClick={() => {

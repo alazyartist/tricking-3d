@@ -26,7 +26,7 @@ export default defineNextConfig({
     ];
   },
   images: {
-    domains: ["img.youtube.com"],
+    domains: ["img.youtube.com", "trickedex.app"],
   },
   swcMinify: true,
   /** Next.js i18n docs:

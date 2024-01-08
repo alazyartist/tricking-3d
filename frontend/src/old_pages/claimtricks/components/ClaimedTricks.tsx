@@ -44,7 +44,7 @@ const ClaimedTricks = ({
     !!isProven && (
       <div
         key={trick.trick_id}
-        className=" grid h-full w-full grid-cols-5 place-content-center justify-between rounded-xl p-2 odd:bg-zinc-700"
+        className={` grid h-full w-full grid-cols-5 place-content-center justify-between rounded-xl border-b-[1px] border-emerald-500 p-2`}
       >
         <div className="col-span-3 flex place-items-center">{trick?.name}</div>
         <div className="col-span-1 flex place-items-center">{trick?.type}</div>
@@ -74,7 +74,9 @@ const ClaimedTricks = ({
   ) : (
     <div
       key={trick.trick_id}
-      className=" grid h-full w-full grid-cols-5 place-content-center justify-between rounded-xl p-2 odd:bg-zinc-700"
+      className={` ${
+        isProven ? "border-green-500" : "border-yellow-500"
+      } grid h-full w-full grid-cols-5 place-content-center justify-between rounded-md border-b-[1px] p-2`}
     >
       <div className="col-span-3 flex place-items-center justify-between">
         <p>{trick?.name}</p>
