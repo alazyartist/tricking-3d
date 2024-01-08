@@ -46,6 +46,7 @@ export default async function handler(
             return e.id === clerkUser.primaryEmailAddressId;
           }).emailAddress,
           username: clerkUser.username,
+          profilePic: (clerkUser.hasImage && clerkUser.imageUrl) ?? null,
           updatedAt: new Date(),
         },
       });
@@ -76,7 +77,10 @@ export default async function handler(
         if (user) {
           const updatedUser = await prisma.users.update({
             where: { username: clerkUser.username },
-            data: { clerk_id: clerkUser.id },
+            data: {
+              clerk_id: clerkUser.id,
+              profilePic: (clerkUser.hasImage && clerkUser.imageUrl) ?? null,
+            },
           });
           console.log("updatedUser");
           console.log(updatedUser);
@@ -87,6 +91,7 @@ export default async function handler(
               first_name: clerkUser.firstName,
               last_name: clerkUser.lastName,
               email: email.emailAddress,
+              profilePic: (clerkUser.hasImage && clerkUser.imageUrl) ?? null,
               clerk_id: clerkUser.id,
               SessionReviewCredits: 2,
             },
@@ -108,6 +113,7 @@ export default async function handler(
       console.log("Failed to Create User");
       return res.status(401).json(err);
     }
+    return res.status(200).send("OK");
   }
   if (_event_type === "session.created") {
     const user_id = req.body?.data?.user_id;
@@ -132,4 +138,5 @@ export default async function handler(
 
     return res.status(200).send("OK");
   }
+  return res.status(200).send("OK");
 }

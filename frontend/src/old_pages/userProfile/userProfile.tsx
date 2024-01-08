@@ -54,8 +54,8 @@ const UserProfile = () => {
   // console.log(isSideways);
 
   const hideStyles = useSpring({
-    to: { height: hidden ? "0vh" : "27vh", opacity: hidden ? 0 : 1 },
-    from: { height: "27vh", opacity: 1 },
+    to: { height: hidden ? "0vh" : "23vh", opacity: hidden ? 0 : 1 },
+    from: { height: "23vh", opacity: 1 },
     config: { durration: 100, tension: 260, friction: 50 },
     exitBeforeEnter: true,
   });
@@ -67,7 +67,7 @@ const UserProfile = () => {
           : fullScreenLower
           ? "5vh"
           : "43vh"
-        : "27vh",
+        : "33vh",
     },
     from: { height: "27vh" },
     config: { durration: 100, tension: 260, friction: 50 },
@@ -138,12 +138,12 @@ const UserProfile = () => {
                 className="relative flex flex-col place-items-center gap-2"
               >
                 <ProfileInfoCard userInfo={profileInfo} />
-                {isUsersPage && (
+                {/* {isUsersPage && (
                   <>
                     {editing}
                     <div onClick={() => setEditing(!editing)}>Edit Info</div>
                   </>
-                )}
+                )} */}
               </animated.div>
             )
           )}

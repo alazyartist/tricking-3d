@@ -1,29 +1,36 @@
 import React from "react";
+import { ProfileInfo } from "types/trpc";
 import ProgressBadge from "./ProgressBadge";
 
-const ProfileInfoCard = ({ userInfo }) => {
+const ProfileInfoCard = ({ userInfo }: { userInfo: ProfileInfo }) => {
+  let totalScore = Number(
+    userInfo?.SessionSummaries?.map((summary) =>
+      summary.SessionData?.map((data) => data.totalScore)
+    )
+      .flat(2)
+      .reduce((sum, b) => sum + b, 0)
+      .toFixed(2)
+  );
   return (
     <div className="flex h-full w-[92vw] max-w-[800px] flex-col place-items-start">
       <div className="relative mt-6 flex w-full flex-row justify-between gap-2 rounded-xl bg-zinc-800 bg-opacity-40 p-2 pt-2 text-sm backdrop-blur-lg ">
         <img
           alt="user profile"
           src={
-            userInfo?.profilePic
-              ? `/images/${userInfo?.uuid}/${userInfo?.profilePic}`
-              : `/images/noimg.jpeg`
+            userInfo?.profilePic ? userInfo?.profilePic : `/images/noimg.jpeg`
           }
-          className="absolute top-[-1.5rem] left-2 h-12 w-12 rounded-full"
+          className="absolute left-2 top-[-1.5rem] h-12 w-12 rounded-full"
         />
         <div className="flex flex-col gap-2 place-self-start">
           <div className="w-fit pt-[1.5rem] font-bold">
             <div className="w-[100%] text-left">{userInfo?.username}</div>
             <div className="text-left text-xs font-normal">
-              <div>
+              {/* <div>
                 {(userInfo?.Profile?.country &&
                   `${userInfo?.Profile?.country} ${userInfo?.Profile?.state}`) ||
                   "Location Unkown"}
-              </div>
-              <div>{userInfo?.Profile?.city}</div>
+              </div> */}
+              {/* <div>{userInfo?.Profile?.city}</div> */}
             </div>
           </div>
           {/* <div className='flex w-full justify-between'>
@@ -33,10 +40,10 @@ const ProfileInfoCard = ({ userInfo }) => {
 						</div>
 						<div className=''>{userInfo?.Profile?.age}</div>
 					</div> */}
-          <div className="flex place-content-center items-center justify-between">
-            <div>Level</div>
+          <div className="flex flex-col gap-1">
+            <div>Points</div>
             <div className="w-fit flex-grow-0 rounded-md border-[1px] border-zinc-300 p-[1px] px-[6px]">
-              TBD
+              {totalScore.toLocaleString()}
             </div>
           </div>
           {/* BIFW */}

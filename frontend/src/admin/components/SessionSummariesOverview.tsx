@@ -79,11 +79,7 @@ const SessionDisplay = ({ s }: { s: GetAllSessionSummaries[0] }) => {
               className={`relative h-5 w-5 rounded-full`}
             >
               <img
-                src={
-                  !u?.profilePic
-                    ? `/images/noimg.jpeg`
-                    : `/images/${u?.uuid}/${u?.profilePic}`
-                }
+                src={!u?.profilePic ? `/images/noimg.jpeg` : u?.profilePic}
                 alt={"profilePic"}
                 className={`h-5 w-5 rounded-full ${
                   !u?.profilePic ? " mix-blend-multiply contrast-150" : ""

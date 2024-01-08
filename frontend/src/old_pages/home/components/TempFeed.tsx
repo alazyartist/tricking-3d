@@ -27,7 +27,7 @@ const TempFeed = () => {
                       className="h-5 w-5 rounded-full"
                       src={
                         user?.profilePic !== null
-                          ? `/images/${user.uuid}/${user.profilePic}`
+                          ? user.profilePic
                           : `/images/noimg.jpeg`
                       }
                     />

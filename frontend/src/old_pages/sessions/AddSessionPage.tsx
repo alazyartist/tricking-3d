@@ -76,10 +76,7 @@ const AddSessionPage = () => {
   //TODO: get rid of step 2 and make it a date picker
   // const [addTrickersOpen, setAddTrickersOpen] = useState(false);
   let stepEnabled =
-    (currentStep === 0 && enabledOne) ||
-    (currentStep === 1 && enabledTwo) ||
-    currentStep === 2 ||
-    enabledThree;
+    (currentStep === 0 && enabledOne) || (currentStep === 1 && enabledThree);
 
   return (
     <div className="mt-[10vh] flex h-[80vh] flex-col place-content-center place-items-center font-inter text-zinc-300">

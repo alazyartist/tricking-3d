@@ -5,9 +5,12 @@ import React from "react";
 import { ProfileInfo } from "types/trpc";
 
 const LastSessionStats = ({ profileInfo }: { profileInfo: ProfileInfo }) => {
-  const lastSession = profileInfo?.SessionSummaries.filter(
+  const reviewedSessions = profileInfo?.SessionSummaries.filter(
     (s) => s.status === "Reviewed"
-  )?.[0];
+  );
+  const lastSession = reviewedSessions?.sort(
+    (a, b) => b.updatedAt.getTime() - a.updatedAt.getTime()
+  )[0];
   const lastSessionTricks = lastSession?.SessionData?.map(
     (data) =>
       Array.isArray(data.ClipLabel.comboArray) &&
@@ -26,13 +29,17 @@ const LastSessionStats = ({ profileInfo }: { profileInfo: ProfileInfo }) => {
     }
     return acc;
   }, {});
-  const favoriteTrickName = Object.keys(favoriteTrick)
-    .map((key) => {
-      return [key, favoriteTrick[key]];
-    })
-    .sort((a, b) => b[1] - a[1]);
-
-  // console.log(lastSessionTricks, favoriteTrickName);
+  let favoriteTrickName;
+  if (favoriteTrick) {
+    favoriteTrickName = Object.keys(favoriteTrick)
+      ?.map((key) => {
+        return [key, favoriteTrick[key]];
+      })
+      .sort((a, b) => b[1] - a[1]);
+  }
+  console.log(profileInfo);
+  if (!profileInfo) return <div>Calcuating Stats</div>;
+  if (reviewedSessions.length === 0) return <div>No Sessions Reviewed</div>;
   return (
     <div>
       <Link href={`${profileInfo.uuid}?sessionid=${lastSession.sessionid}`}>

@@ -81,6 +81,7 @@ export const StepOne = ({ setFormData, count, formData, setCount }) => {
           onChange={(e) => setFormData((s) => ({ ...s, name: e.target.value }))}
           id="name"
           type="text"
+          value={formData.name}
           className="rounded-md bg-zinc-900 bg-opacity-80 p-1 text-zinc-300"
           placeholder={`${formData.type} Name`}
         />
