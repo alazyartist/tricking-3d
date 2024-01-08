@@ -5,6 +5,7 @@ import UpdateUserInfoForm from "../../../components/info/UpdateUserInfoForm";
 import UpdateProfilePic from "../../../components/info/UpdateProfilePic";
 import { OutOfCredits } from "@old_pages/sessions/AddSessionPage";
 import Link from "next/link";
+import { trpc } from "@utils/trpc";
 
 interface Props {
   src: string;
@@ -14,6 +15,8 @@ interface Props {
 const UserCard: React.FC<Props> = (props) => {
   const userInfo = useUserStore((s) => s.userInfo);
   const [editingPhoto, setEditingPhoto] = useState(false);
+  const { data: SessionReviewCredits, refetch } =
+    trpc.userDB.getCurrentCredits.useQuery();
   const [editing, setEditing] = useState(false);
   const editMenu = useTransition(editing, {
     from: { opacity: 0, top: "-40vw" },
@@ -24,6 +27,7 @@ const UserCard: React.FC<Props> = (props) => {
     config: { durration: 1200, tension: 280, friction: 40 },
     // onRest: () => setediting(!editing),
   });
+  const [showCreditPacks, setShowCreditPacks] = useState(false);
 
   return (
     <>
@@ -51,10 +55,21 @@ const UserCard: React.FC<Props> = (props) => {
         </div>
       </Link>
       <div className="flex w-full flex-col place-items-center gap-2">
-        {userInfo.SessionReviewCredits > 1 ? (
-          <p>Credits: {userInfo.SessionReviewCredits}</p>
+        {SessionReviewCredits < 1 || showCreditPacks ? (
+          <OutOfCredits
+            setShowCreditPacks={setShowCreditPacks}
+            closePopover={() => setShowCreditPacks(false)}
+          />
         ) : (
-          <OutOfCredits closePopover={() => {}} />
+          <button
+            className="rounded-xl bg-gradient-to-b from-teal-400 to-emerald-500 p-2 text-zinc-900 drop-shadow-md"
+            onClick={() => {
+              setShowCreditPacks((prev) => !prev);
+              refetch();
+            }}
+          >
+            Credits: {userInfo.SessionReviewCredits}
+          </button>
         )}
       </div>
       {/* {editing && (
