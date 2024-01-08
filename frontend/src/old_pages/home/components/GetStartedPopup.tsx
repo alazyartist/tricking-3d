@@ -85,7 +85,7 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
               ? activeElement?.top + bounds.height > window.innerHeight
                 ? window.innerHeight - bounds.height - 129
                 : activeElement.top - bounds.height
-              : 45,
+              : activeElement.bottom + 5,
         }
       : { opacity: 1 },
     leave: activeElement
@@ -111,7 +111,7 @@ const GetStartedPopup: React.FC<GetStartedPopupprops> = ({
         <animated.div
           key={item.title + i}
           onClick={() => nextStep()}
-          className={`absolute left-[50%] z-[100] m-2 flex h-fit w-fit max-w-[80vw] ${
+          className={`absolute left-[50%] z-[100] m-2 flex h-fit w-[70vw] max-w-[80vw] ${
             activeStep === 0 && "translate-x-[-50%]"
           } flex-col place-content-center place-items-center rounded-md bg-zinc-800 text-xl text-zinc-200`}
           style={{ opacity, left: left, top: top }}
@@ -154,7 +154,8 @@ const Arrow = ({ from, to }) => {
     const fromCenterX = from.left + from.width / 2;
     const fromCenterY = from.top + from.height / 2;
     const toCenterX = to.left + 5;
-    const toCenterY = to.top + to.height - 5;
+    const toCenterY =
+      to.top < window.innerHeight / 2 ? to.top + to.height - 5 : to.top + 5;
 
     // Calculate distance and angle between elements
     const deltaX = toCenterX - fromCenterX;
