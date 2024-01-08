@@ -4,7 +4,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-const CheckoutForm = ({ setShowForm }) => {
+const CheckoutForm = ({ setShowForm, setShowCreditPacks }) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -29,6 +29,7 @@ const CheckoutForm = ({ setShowForm }) => {
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
       setMessage("Payment Status:" + paymentIntent.status);
       setShowForm(false);
+      setShowCreditPacks(false);
     }
     setIsProcessing(false);
   };

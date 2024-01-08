@@ -76,9 +76,10 @@ export default async function handler(
           data: {
             SessionReviewCredits:
               payingUser.SessionReviewCredits +
-              parseInt(paymentIntent.metadata.amount),
+              parseInt(paymentIntent.metadata.credits),
           },
         });
+        return res.status(200).json({ received: true });
 
         break;
       // ... handle other event types

@@ -26,9 +26,9 @@ const AddSessionPage = () => {
 
   const { uuid: user_id } = useUserStore((s) => s.userInfo);
 
-  const { data: SessionReviewCredits } =
+  const { data: SessionReviewCredits, refetch } =
     trpc.userDB.getCurrentCredits.useQuery();
-  const [showOutOfCredits, setShowOutOfCredits] = useState(false);
+  const [showCreditPacks, setShowCreditPacks] = useState(false);
   const [submitSuccess, setSubmitSucces] = useState(false);
   const [formData, setFormData] = useState({
     sessionDate: whatsToday(),
@@ -55,7 +55,7 @@ const AddSessionPage = () => {
   }, [response]);
   useEffect(() => {
     if (response?.message === "Out of Credits" || SessionReviewCredits === 0) {
-      setShowOutOfCredits(true);
+      setShowCreditPacks(true);
     }
   }, [response]);
   const [count, setCount] = useState(1);
@@ -90,7 +90,10 @@ const AddSessionPage = () => {
           <button
             type="button"
             id="addCreditbutton"
-            onClick={() => setShowOutOfCredits((prev) => !prev)}
+            onClick={() => {
+              setShowCreditPacks((prev) => !prev);
+              refetch();
+            }}
             className="absolute left-4 top-4 rounded-md bg-gradient-to-b from-teal-400 to-emerald-500 p-2 font-bold text-zinc-900 drop-shadow-md"
           >
             Credit{`${SessionReviewCredits > 1 ? "s" : ""}`}:{" "}
@@ -164,8 +167,11 @@ const AddSessionPage = () => {
           </form>
           <div className="flex flex-col place-items-center gap-2">
             <div>{response?.message}</div>
-            {showOutOfCredits && (
-              <OutOfCredits closePopover={() => setShowOutOfCredits(false)} />
+            {showCreditPacks && (
+              <OutOfCredits
+                setShowCreditPacks={setShowCreditPacks}
+                closePopover={() => setShowCreditPacks(false)}
+              />
             )}
           </div>
         </>
@@ -195,10 +201,14 @@ const SessionSubmitted = ({ SessionReviewCredits, formData }) => {
   );
 };
 
-export const OutOfCredits = ({ closePopover }) => {
+export const OutOfCredits = ({ closePopover, setShowCreditPacks }) => {
   const queryClient = useQueryClient();
   const [showForm, setShowForm] = useState(false);
-  const [creditAmount, setcreditAmount] = useState(1);
+  const [packInfo, setPackInfo] = useState({
+    amount: 5,
+    credits: 2,
+    pack: "Starter",
+  });
   // useUserInfo();
   useEffect(() => {
     queryClient.invalidateQueries(["userInfo"]);
@@ -208,7 +218,6 @@ export const OutOfCredits = ({ closePopover }) => {
     "Starter" | "Trainer" | "Elite"
   >("Starter");
 
-  const handleCreditPack = () => {};
   return (
     <div
       ref={ref}
@@ -233,6 +242,7 @@ export const OutOfCredits = ({ closePopover }) => {
         Select a Credit Pack
       </h1>
       <CreditPack
+        setPackInfo={setPackInfo}
         selectedPack={selectedPack}
         setSelectedPack={setSelectedPack}
         creditAmount={2}
@@ -240,6 +250,7 @@ export const OutOfCredits = ({ closePopover }) => {
         title={"Starter"}
       />
       <CreditPack
+        setPackInfo={setPackInfo}
         selectedPack={selectedPack}
         setSelectedPack={setSelectedPack}
         creditAmount={5}
@@ -247,9 +258,10 @@ export const OutOfCredits = ({ closePopover }) => {
         title={"Trainer"}
       />
       <CreditPack
+        setPackInfo={setPackInfo}
         selectedPack={selectedPack}
         setSelectedPack={setSelectedPack}
-        creditAmount={"22 + 3"}
+        creditAmount={25}
         price={22}
         title={"Elite"}
       />
@@ -262,8 +274,12 @@ export const OutOfCredits = ({ closePopover }) => {
         Add Credits
       </button>
       {showForm && (
-        <div className="absolute left-[0vw] top-[0vh] z-[1290] h-[100vh] w-[100vw] rounded-md bg-zinc-900 bg-opacity-40 p-8 backdrop-blur-md">
-          <PaymentEmbed creditAmount={creditAmount} setShowForm={setShowForm} />
+        <div className="absolute left-[0vw] top-[0vh] z-[1290] h-full w-full rounded-md bg-zinc-900 bg-opacity-40 p-8 backdrop-blur-md">
+          <PaymentEmbed
+            packInfo={packInfo}
+            setShowForm={setShowForm}
+            setShowCreditPacks={setShowCreditPacks}
+          />
         </div>
       )}
     </div>
@@ -276,10 +292,15 @@ const CreditPack = ({
   title,
   selectedPack,
   setSelectedPack,
+  setPackInfo,
 }) => {
+  const handlePackSelection = () => {
+    setSelectedPack(title);
+    setPackInfo({ amount: price, credits: creditAmount, pack: title });
+  };
   return (
     <div
-      onClick={() => setSelectedPack(title)}
+      onClick={() => handlePackSelection()}
       className={`flex w-full flex-col gap-1 rounded-md bg-zinc-900 p-2 ${
         selectedPack === title
           ? " ring-2 ring-emerald-500 ring-offset-2 ring-offset-zinc-700"

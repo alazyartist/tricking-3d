@@ -4,7 +4,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import { useUserStore } from "../../../store/userStore";
 import { trpc } from "@utils/trpc";
-const PaymentEmbed = ({ setShowForm, creditAmount }) => {
+const PaymentEmbed = ({ setShowForm, packInfo, setShowCreditPacks }) => {
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState(null);
   const { uuid } = useUserStore((s) => s.userInfo);
@@ -17,19 +17,21 @@ const PaymentEmbed = ({ setShowForm, creditAmount }) => {
   }, [stripeKey]);
 
   const { data: response } = trpc.payments.createPaymentIntent.useQuery({
-    amount: creditAmount,
+    amount: packInfo.amount,
+    pack: packInfo.pack,
+    credits: packInfo.credits,
     user_id: uuid,
   });
   useEffect(() => {
     setClientSecret(response?.client_secret);
-  }, [creditAmount]);
+  }, [packInfo, response]);
   const appearance = { theme: "night" };
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-col place-content-center place-items-center gap-4 text-center font-inter text-4xl">
-        {(creditAmount > 0 ? creditAmount : 1) * 5}$
-        <div className="text-xl leading-3">{`${creditAmount} credit${
-          creditAmount > 1 ? "s" : ""
+        {packInfo.amount}$
+        <div className="text-xl leading-3">{`${packInfo.credits} credit${
+          packInfo.credits > 1 ? "s" : ""
         }`}</div>
       </div>
       <div className="">
@@ -39,7 +41,10 @@ const PaymentEmbed = ({ setShowForm, creditAmount }) => {
             //@ts-ignore
             options={{ clientSecret, appearance }}
           >
-            <CheckoutForm setShowForm={setShowForm} />
+            <CheckoutForm
+              setShowCreditPacks={setShowCreditPacks}
+              setShowForm={setShowForm}
+            />
           </Elements>
         )}
       </div>

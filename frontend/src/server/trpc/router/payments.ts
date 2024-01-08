@@ -11,13 +11,25 @@ export const paymentsRouter = router({
     return secretKey;
   }),
   createPaymentIntent: protectedProcedure
-    .input(z.object({ amount: z.number(), user_id: z.string() }))
+    .input(
+      z.object({
+        amount: z.number(),
+        credits: z.number(),
+        pack: z.string(),
+        user_id: z.string(),
+      })
+    )
     .query(async ({ ctx, input }) => {
       try {
         const paymentIntent = await stripe.paymentIntents.create({
           currency: "usd",
-          amount: input.amount * 500,
-          metadata: { user_id: input.user_id, amount: input.amount },
+          amount: input.amount * 100,
+          metadata: {
+            user_id: input.user_id,
+            amount: input.amount,
+            credits: input.credits,
+            pack: input.pack,
+          },
           automatic_payment_methods: {
             enabled: true,
           },
