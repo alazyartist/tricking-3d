@@ -30,6 +30,8 @@ const MakeNewTrickModal = () => {
   const setBasePoints = useTrickMakerStore((s) => s.setBasePoints);
   const setPowerScore = useTrickMakerStore((s) => s.setPowerScore);
 
+  const setTakeoffStance = useTrickMakerStore((s) => s.setTakeoffStance);
+  const setLandingStance = useTrickMakerStore((s) => s.setLandingStance);
   const addVariation = useTrickMakerStore((s) => s.addVariation);
   const removeVariation = useTrickMakerStore((s) => s.removeVariation);
   const trickMakerOpen = useSessionSummariesStore((s) => s.trickMakerOpen);
@@ -41,6 +43,7 @@ const MakeNewTrickModal = () => {
     stances: [],
     variations: [],
   });
+  const [variationFilter, setVariationFilter] = useState("All");
   let trickInfo = getTrickInfo();
   let powerScore =
     (variationsArr.length &&
@@ -68,17 +71,30 @@ const MakeNewTrickModal = () => {
       setTrickMakerOpen(false);
     }
   }, [response, trickParts]);
+  const saveDisabled =
+    trickInfo.name === "" ||
+    trickInfo.name === null ||
+    trickInfo.base_id === null ||
+    trickInfo.takeoffStance === null ||
+    trickInfo.landingStance === null ||
+    trickInfo.trickType === null;
   return trickMakerOpen ? (
     <>
-      <div className="fixed left-[2.5vw] top-[3vh] z-[4000] h-[80vh] w-[95vw] overflow-hidden rounded-xl bg-zinc-800 font-inter md:left-[15vw] md:w-[70vw]">
+      <div className="fixed left-[2.5vw] top-10 z-[4000] h-[84vh] w-[95vw] overflow-hidden rounded-xl bg-zinc-800 font-inter md:left-[15vw] md:w-[70vw]">
         <MdClose
           className={`absolute left-2 top-2 text-2xl text-zinc-300 md:text-5xl`}
           onClick={() => setTrickMakerOpen(false)}
         />
-        <MdSave
+
+        <button
+          disabled={saveDisabled}
           onClick={() => saveTrick(trickInfo)}
-          className={`absolute right-2 top-12 text-2xl text-zinc-300 md:top-[10vh] md:text-5xl`}
-        />
+          className={`${
+            saveDisabled ? "text-zinc-600" : "text-zinc-300"
+          } absolute right-2 top-12 text-2xl  md:top-[10vh] md:text-5xl`}
+        >
+          <MdSave />
+        </button>
         <div className="flex w-full place-content-center ">
           <input
             spellCheck="false"
@@ -86,7 +102,7 @@ const MakeNewTrickModal = () => {
             onChange={(e) => setName(e.target.value)}
             type={"text"}
             value={name}
-            className=" w-full bg-transparent text-center font-titan text-3xl text-zinc-300"
+            className=" w-full bg-transparent text-center font-inter text-3xl font-semibold text-zinc-300"
           />
         </div>
         <div
@@ -99,15 +115,21 @@ const MakeNewTrickModal = () => {
         >
           {trickType}
         </div>
-        <div className="relative left-[10%] top-[12vh] text-zinc-300">
+        <div className="absolute left-[10%] top-12 text-zinc-300">
           {powerScore}
         </div>
         <div className="text-md m-2 flex flex-col items-center gap-4 text-zinc-300 md:text-3xl">
           <div className="flex min-h-[15vh]  items-center gap-2 rounded-md border-2 border-zinc-700">
-            <StanceRemap trickMaker={true} stance={takeoffStance} />
+            <div onClick={() => setTakeoffStance(null)}>
+              <StanceRemap trickMaker={true} stance={takeoffStance} />
+            </div>
             <div className="flex flex-col gap-2">
-              <div className="rounded-md border-[1px] border-zinc-400 p-1 px-4 text-center">
-                {(base_id !== name && base_id) || `Base Trick`}
+              <div
+                onClick={() => setBase_id(null)}
+                className="rounded-md border-[1px] border-zinc-400 p-1 px-4 text-center"
+              >
+                {(base_id !== name && base_id) ||
+                  (base_id === null ? "Select Base" : `Base Trick`)}
               </div>
               <div className="flex flex-col">
                 {variationsArr?.map((v) => (
@@ -121,60 +143,91 @@ const MakeNewTrickModal = () => {
                 ))}
               </div>
             </div>
-            <StanceRemap trickMaker={true} stance={landingStance} />
+            <div onClick={() => setLandingStance(null)}>
+              <StanceRemap trickMaker={true} stance={landingStance} />
+            </div>
           </div>
-          <div className="no-scrollbar grid h-[52vh] max-w-[90vw] grid-cols-2 flex-col gap-2 overflow-hidden overflow-y-scroll rounded-md pb-12 text-base text-zinc-800  md:flex-row md:overflow-visible lg:flex">
-            <div className="h-fit rounded-md bg-zinc-300 p-1">
-              {allTricks.bases?.map((base) => (
-                <p
-                  onClick={() => {
-                    setBase_id(base.name);
-                    setBasePoints(base.pointValue);
-                  }}
-                  className="mt-2 rounded-md bg-zinc-800 bg-opacity-20 p-1 first:mt-0"
-                >
-                  {base.name}
-                </p>
-              ))}
-            </div>
-            <div className="rounded-md  bg-emerald-300 p-1">
-              {allTricks.stances?.map((stance) => (
-                <ChooseStance stance={stance} />
-              ))}
-            </div>
-            <div className="col-span-2 h-full  rounded-md bg-purple-300 p-1 md:columns-3">
-              {allTricks.variations
-                ?.sort((a, b) => {
-                  if (a.variationType < b.variationType) return -1;
-                  if (a.variationType > b.variationType) return 1;
-                  if (a.name < b.name) return -1;
-                  if (a.name > b.name) return 1;
-                  return 0;
-                })
-                ?.map((variation) => (
-                  <div
-                    onClick={() => addVariation(variation)}
-                    className="mt-2 flex place-items-center justify-between gap-2 rounded-md bg-zinc-800 bg-opacity-20 p-1 first:mt-0"
+          <div className="no-scrollbar flex h-[52vh] w-full max-w-[90vw] flex-col gap-2 overflow-hidden overflow-y-scroll rounded-md pb-12 text-base text-zinc-800  md:flex-row md:overflow-visible lg:flex">
+            {!base_id && (
+              <div className="h-fit rounded-md bg-zinc-300 p-1">
+                {allTricks.bases?.map((base) => (
+                  <p
+                    onClick={() => {
+                      setBase_id(base.name);
+                      setBasePoints(base.pointValue);
+                    }}
+                    className="mt-2 rounded-md bg-zinc-800 bg-opacity-20 p-1 first:mt-0"
                   >
-                    <p className="w-1/3">{variation.name}</p>
-                    <div className="flex w-1/3 place-items-center gap-2">
-                      <p>{variation.variationType}</p>
-                      {variation.variationType === "Kick" && (
-                        <p
-                          className={`${
-                            variation.value[0] === "R"
-                              ? "bg-zinc-400"
-                              : "bg-zinc-600"
-                          } place-self-end rounded-md bg-opacity-40 px-2 text-[8pt]`}
-                        >
-                          {variation.value[0]}
-                        </p>
-                      )}
-                    </div>
-                    <p className="w-1/6 text-xs">{variation.pos}</p>
-                  </div>
+                    {base.name}
+                  </p>
                 ))}
-            </div>
+              </div>
+            )}
+            {(trickInfo.takeoffStance === null ||
+              trickInfo.landingStance === null) &&
+              trickInfo.base_id !== null && (
+                <div className="rounded-md  bg-emerald-300 p-1">
+                  {allTricks.stances?.map((stance) => (
+                    <ChooseStance stance={stance} />
+                  ))}
+                </div>
+              )}
+            {trickInfo.base_id !== null &&
+              trickInfo.takeoffStance !== null &&
+              trickInfo.landingStance !== null && (
+                <div className="h-fit space-y-2 rounded-md bg-purple-300 p-1 md:columns-3">
+                  <VariationFilterNav
+                    variationFilter={variationFilter}
+                    setVariationFilter={setVariationFilter}
+                  />
+                  {allTricks.variations
+                    ?.sort((a, b) => {
+                      if (a.variationType < b.variationType) return -1;
+                      if (a.variationType > b.variationType) return 1;
+                      if (a.name < b.name) return -1;
+                      if (a.name > b.name) return 1;
+                      return 0;
+                    })
+                    .filter((variation) => {
+                      if (variationFilter === "All") {
+                        return variation;
+                      }
+                      if (variationFilter === variation.variationType)
+                        return variation;
+                      if (variationFilter === "Other") {
+                        return (
+                          variation.variationType !== "Kick" &&
+                          variation.variationType !== "Rotation" &&
+                          variation.variationType !== "Touchdown" &&
+                          variation.variationType !== "Shape"
+                        );
+                      }
+                    })
+                    ?.map((variation) => (
+                      <div
+                        onClick={() => addVariation(variation)}
+                        className=" flex place-items-center justify-between gap-2 rounded-md bg-zinc-800 bg-opacity-20 p-1"
+                      >
+                        <p className="w-1/3">{variation.name}</p>
+                        <div className="flex w-1/3 place-items-center gap-2">
+                          <p>{variation.variationType}</p>
+                          {variation.variationType === "Kick" && (
+                            <p
+                              className={`${
+                                variation.value[0] === "R"
+                                  ? "bg-zinc-400"
+                                  : "bg-zinc-600"
+                              } place-self-end rounded-md bg-opacity-40 px-2 text-[8pt]`}
+                            >
+                              {variation.value[0]}
+                            </p>
+                          )}
+                        </div>
+                        <p className="w-1/6 text-xs">{variation.pos}</p>
+                      </div>
+                    ))}
+                </div>
+              )}
           </div>
         </div>
       </div>
@@ -184,6 +237,72 @@ const MakeNewTrickModal = () => {
 };
 
 export default MakeNewTrickModal;
+const VariationFilterNav = ({ setVariationFilter, variationFilter }) => {
+  return (
+    <div className="flex w-full place-items-center justify-between gap-2 overflow-x-scroll rounded-md bg-zinc-800 bg-opacity-40 text-zinc-200">
+      <p
+        onClick={(e) => setVariationFilter("All")}
+        className={`rounded-md bg-zinc-800  p-1 ${
+          variationFilter === "All"
+            ? " bg-opacity-70 text-zinc-200 "
+            : "bg-opacity-30 text-zinc-400"
+        }`}
+      >
+        All
+      </p>
+      <p
+        onClick={(e) => setVariationFilter("Kick")}
+        className={`rounded-md bg-zinc-800  p-1 ${
+          variationFilter === "Kick"
+            ? " bg-opacity-70 text-zinc-200 "
+            : "bg-opacity-30 text-zinc-400"
+        }`}
+      >
+        Kicks
+      </p>
+      <p
+        onClick={(e) => setVariationFilter("Rotation")}
+        className={`rounded-md bg-zinc-800  p-1 ${
+          variationFilter === "Rotation"
+            ? " bg-opacity-70 text-zinc-200 "
+            : "bg-opacity-30 text-zinc-400"
+        }`}
+      >
+        Rotations
+      </p>
+      <p
+        onClick={(e) => setVariationFilter("Shape")}
+        className={`rounded-md bg-zinc-800  p-1 ${
+          variationFilter === "Shape"
+            ? " bg-opacity-70 text-zinc-200 "
+            : "bg-opacity-30 text-zinc-400"
+        }`}
+      >
+        Shapes
+      </p>
+      <p
+        onClick={(e) => setVariationFilter("Touchdown")}
+        className={`rounded-md bg-zinc-800  p-1 ${
+          variationFilter === "Touchdown"
+            ? " bg-opacity-70 text-zinc-200 "
+            : "bg-opacity-30 text-zinc-400"
+        }`}
+      >
+        Touchdowns
+      </p>
+      <p
+        onClick={(e) => setVariationFilter("Other")}
+        className={`rounded-md bg-zinc-800  p-1 ${
+          variationFilter === "Other"
+            ? "bg-opacity-70 text-zinc-200"
+            : "bg-opacity-30 text-zinc-400"
+        }`}
+      >
+        Other
+      </p>
+    </div>
+  );
+};
 
 const ChooseStance = ({ stance }) => {
   const [choosingStance, setChoosingStance] = useState(false);

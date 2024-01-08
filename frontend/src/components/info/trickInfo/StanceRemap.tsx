@@ -22,7 +22,13 @@ const StanceRemap: React.FC<StanceRemapProps> = ({ stance, trickMaker }) => {
 
   return trickMaker ? (
     <div>
-      <div className={`${textcolor[stance]} p-2 text-center`}>{stance}</div>
+      <div className={`${textcolor[stance]} p-2 text-center`}>
+        <div>
+          {stance
+            ? stance.match(/[A-Z][a-z]*/g).map((s) => <p>{s}</p>)
+            : "Select Stance"}
+        </div>
+      </div>
     </div>
   ) : (
     <div>
