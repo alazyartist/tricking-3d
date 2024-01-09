@@ -44,7 +44,7 @@ const calculateTrickTotals = async (tricks, curData, ctx) => {
       where: { sessiondataid: curData.id },
     });
     const fullTricks = await getFullTricks(tricks, ctx);
-    let powerScore = fullTricks.reduce((sum, b) => sum + b.pointValue, 0);
+    let powerScore = fullTricks.reduce((sum, b) => sum + b?.pointValue, 0);
     if (sessionDataScores) {
       // console.log("sessionDataScores", sessionDataScores);
       executionAverage =
@@ -295,7 +295,12 @@ const calculateTrickTotals = async (tricks, curData, ctx) => {
       if (isNotVanilla && !perfectMatch) {
         variety.multiplier += varietyMultiplier;
         vsubtotal = variety.multiplier * (1.25 * trick.pointValue);
-        varietyMap.push([i, variety.multiplier, vsubtotal]);
+        varietyMap.push([
+          i,
+          variety.multiplier,
+          vsubtotal,
+          trick.pointValue * 1.25,
+        ]);
         console.log(
           "Variated",
           i,
@@ -410,6 +415,7 @@ const calculateTrickTotals = async (tricks, curData, ctx) => {
       chainMap,
       trickCount,
       powerScore,
+      uvScore,
     };
   }
 };

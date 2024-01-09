@@ -3,15 +3,15 @@ import React, { useState } from "react";
 const CompareTricks = ({ newCombo }) => {
   const [comboCompare, setComboCompare] = useState([]);
   return (
-    <div className="no-scrollbar relative mb-10 h-[60vw] min-h-[80px] w-[85vw] overflow-y-scroll rounded-md bg-zinc-300 bg-opacity-[13%] p-2 text-zinc-300 backdrop-blur-xl">
+    <div className="no-scrollbar relative h-[25vw] min-h-[80px] w-[85vw] flex-shrink-0 overflow-y-scroll rounded-md bg-zinc-300 bg-opacity-[13%] p-2 text-zinc-300 backdrop-blur-xl">
       <div
-        className="absolute top-[6vh]  right-2 h-fit font-titan text-4xl"
+        className="absolute right-2  top-[6vh] h-fit font-titan text-4xl"
         onClick={() => setComboCompare((s) => s.slice(0, s.length - 1))}
       >
         -
       </div>
       <div
-        className="absolute top-[0vh] right-2 h-fit font-titan text-4xl"
+        className="absolute right-2 top-[0vh] h-fit font-titan text-4xl"
         onClick={() => setComboCompare((s) => [...s, [...newCombo]])}
       >
         +
