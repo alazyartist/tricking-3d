@@ -17,6 +17,7 @@ import DashboardStats from "./components/DashboardStats";
 function Dashboard({ uuid, profilePic, first_name, last_name, username }) {
   const logout = useLogout();
   const user = useUserStore((s) => s.user);
+  const setUserInfo = useUserStore((s) => s.setUserInfo);
   // const { profilePic, uuid } = useUserStore((s) => s.userInfo);
   const [activeSection, setSection] = useState("stats");
   const { data } = trpc.tricklists.findTricklistById.useQuery({ uuid: uuid });

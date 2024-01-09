@@ -45,10 +45,23 @@ const ComboMakerV3 = () => {
     return leg;
   };
   const lastItem = currentItem[currentItem?.length - 1];
-  const currentFilter =
-    lastItem?.type === "Transition"
-      ? lastItem?.toLeg
-      : findStanceLeg(lastItem?.landingStance);
+  const [currentFilter, setCurrentFilter] = useState(
+    currentItem.length > 0
+      ? lastItem?.type === "Transition"
+        ? lastItem?.toLeg
+        : findStanceLeg(lastItem?.landingStance)
+      : null!
+  );
+
+  useEffect(() => {
+    if (currentItem.length > 0) {
+      if (lastItem?.type === "Transition") {
+        setCurrentFilter(lastItem?.toLeg);
+      } else {
+        setCurrentFilter(findStanceLeg(lastItem?.landingStance));
+      }
+    }
+  }, [lastItem]);
 
   console.log(combos);
   return (
@@ -94,6 +107,7 @@ const ComboMakerV3 = () => {
           />
           {/* <CompareTricks newCombo={currentItem} /> */}
           <SelectTrickPopup
+            setCurrentFilter={setCurrentFilter}
             findStanceLeg={findStanceLeg}
             currentFilter={currentFilter}
             lastItem={currentItem[currentItem?.length - 1]}

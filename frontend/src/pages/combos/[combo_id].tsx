@@ -1,3 +1,5 @@
+import useClickOutside from "@hooks/useClickOutside";
+import TotalScoreBreakdown from "@old_pages/comboMaker/components/TotalScoreBreakdown";
 import AnimatedSearch from "@old_pages/home/components/AnimatedSearch";
 import { combos } from "@prisma/client";
 import { trpc } from "@utils/trpc";
@@ -12,10 +14,15 @@ const ComboPage = () => {
   const { data: comboInfo, isSuccess } = trpc.combos.findById.useQuery({
     combo_id: combo_id as string,
   });
+  const { data: totalScore } = trpc.combos.getComboScore.useQuery({
+    combo: (comboInfo?.comboArray as unknown as combos[]) ?? [],
+  });
   const [seeExample, setSeeExample] = useState("");
+  const [scoreTotalVisible, setScoreTotalVisible] = useState(false);
+  const scoreTotalRef = useClickOutside(() => setScoreTotalVisible(false));
   if (!isSuccess) return <div>Loading..</div>;
+  const comboArray = comboInfo.comboArray as unknown as combos[];
   //@ts-ignore
-  const comboArray = comboInfo.comboArray as combos[];
   return (
     <div
       className={`backrop-blur-xl no-scrollbar no-scrollbar flex h-[100vh] w-full flex-col place-items-center gap-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-70 p-4 font-inter text-zinc-300`}
@@ -33,7 +40,12 @@ const ComboPage = () => {
               </span>
             ))}
         </h1>
-        <p>{comboInfo.pointValue}</p>
+        <p onClick={() => setScoreTotalVisible(true)}>
+          {totalScore && totalScore.totalScore.toFixed(2)}
+        </p>
+        {scoreTotalVisible && (
+          <TotalScoreBreakdown totalScore={totalScore} ref={scoreTotalRef} />
+        )}
       </div>
       <p>{comboInfo.type}</p>
       <p>{comboInfo.shorthand}</p>

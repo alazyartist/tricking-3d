@@ -7,7 +7,7 @@ const ComboStructure = () => {
     <>
       <div
         onClick={() => setInfo(!info)}
-        className="absolute right-2 top-[3.5rem] z-20 h-10 w-10 text-2xl"
+        className="absolute right-2 top-[4rem] z-20 h-10 w-10 text-2xl"
       >
         <MdInfo />
       </div>
