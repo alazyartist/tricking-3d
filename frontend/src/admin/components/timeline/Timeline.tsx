@@ -79,7 +79,7 @@ const Timeline = ({ vidRef, source }) => {
     (((clipData?.startTime as number) - adjustedValue) / dur) * 100
   }%`;
   return (
-    <div className="relative w-[70vw] ">
+    <div className="relative w-[80vw] ">
       {/* <div className="absolute -left-[4rem] h-20 w-[3rem]">
         <p
           className="m-1 w-full rounded-md bg-zinc-600 text-center"
@@ -204,7 +204,7 @@ const CurrentTimeDiplay = ({ adjustedValue, dur, vidRef }) => {
       min={Math.max(0, 0 + adjustedValue)}
       //@ts-ignore
       max={dur + adjustedValue}
-      className={`noTouch w-[70vw] touch-none bg-transparent`}
+      className={`noTouch w-[80vw] touch-none bg-transparent`}
     />
   );
 };

@@ -79,7 +79,7 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
       </animated.div> */}
 
       {vidsrc === source?.vidsrc ? (
-        <div className="absolute left-[15vw] top-[-35vh] w-[70vw] md:top-[-15vh]">
+        <div className="absolute left-[7vw] top-[-35vh] w-[80vw] md:top-[-15vh]">
           <div className="relative flex max-h-[80vh] flex-col gap-2">
             <div
               className="flex place-items-center gap-2"
@@ -90,7 +90,11 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
             </div>
             <ReactPlayer
               ref={vidRef}
-              style={{ transform: mirrored ? "rotateY(180deg)" : "" }}
+              style={{
+                transform: mirrored ? "rotateY(180deg)" : "",
+                borderRadius: "12px",
+                overflow: "hidden",
+              }}
               config={{
                 facebook: { appId: "508164441188790" },
                 youtube: { playerVars: { listType: "user_uploads" } },
@@ -99,8 +103,8 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
               // controls={false}
               playing={vidIsPlaying}
               muted
-              width={"70vw"}
-              height={"40vw"}
+              width={"80vw"}
+              height={"45vw"}
               onReady={() => {
                 setSrcid(source?.srcid);
                 setReady(true);
