@@ -262,8 +262,9 @@ export const OverviewCard = ({
 };
 
 const YoutubeThumnail = ({ src }) => {
-  const vidsrcRegex =
-    /(^(\w+)\:\/\/(\w+).be\/)|(^(\w+).*\/shorts\/)|(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)|&t=\d*\w/g;
+  const vidsrcRegex = new RegExp(
+    /^(\w+)\:\/\/(\w+)\.be\/|(^(\w+).*\/shorts\/)|(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)|&t=\d*\w/g
+  );
   const srcid = src?.replace(vidsrcRegex, "");
   console.log(srcid);
   return (
