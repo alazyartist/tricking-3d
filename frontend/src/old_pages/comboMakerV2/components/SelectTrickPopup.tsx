@@ -17,7 +17,7 @@ const SelectTrickPopup = ({
   findStanceLeg,
 }) => {
   const [activeDropdown, setActiveDropdown] = useState("");
-  const comboPopoverStyle = `no-scrollbar  bottom-[10vh] left-[5vw] z-[20] flex h-full w-[90vw] justify-around flex-wrap place-items-center place-content-start gap-2 overflow-y-scroll rounded-xl bg-zinc-900 bg-opacity-80 p-4 backdrop-blur-md`;
+  const comboPopoverStyle = `no-scrollbar  bottom-[10vh] left-[5vw] z-[20] flex h-full w-full max-w-[90vw] lg:max-w-[40vw] justify-around flex-wrap place-items-center place-content-start gap-2 overflow-y-scroll rounded-xl bg-zinc-900 bg-opacity-80 p-4 backdrop-blur-md`;
   return (
     <>
       {/* {activeDropdown !== "" && (
