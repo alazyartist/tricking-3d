@@ -18,6 +18,7 @@ export default authMiddleware({
     "/social",
     "/comboMaker",
     "/tricks(.*)",
+    "/combos(.*)",
     "/pppoints(.*)",
     "/battlerooms(.*)",
     "/api/trpc/battleroom(.*)",

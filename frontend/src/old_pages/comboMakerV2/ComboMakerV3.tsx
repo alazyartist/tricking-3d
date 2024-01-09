@@ -6,16 +6,17 @@ import ComboStructure from "./components/ComboStructure";
 import CompareTricks from "./components/CompareTricks";
 import SaveCombo from "./components/SaveCombo";
 import Tricks from "./components/Tricks";
-import TrickShapes from "./components/TrickShapes";
+import SelectTrickPopup from "./components/SelectTrickPopup";
 import useComboMakerV2 from "./useComboMakerV2";
 import useSaveCombo from "./useSaveCombo";
 import { stances } from "@prisma/client";
 import { trpc } from "@utils/trpc";
+import Link from "next/link";
 export const getServerSideProps = () => {
   return { props: {} };
 };
 const ComboMakerV3 = () => {
-  const [v2, setV2] = useState(true);
+  const [debugOpen, setDebugOpen] = useState(false);
   const accessToken = useUserStore((s) => s.accessToken);
   const { currentItem, setDeleteLast, setCurrentItem, filteredTricks, tricks } =
     useComboMakerV2();
@@ -55,13 +56,13 @@ const ComboMakerV3 = () => {
       {/* {v2 ? ( */}
       <div className="flex h-[100vh] w-[98%] flex-col  font-inter text-zinc-300">
         <div
-          onClick={() => setV2(!v2)}
+          onClick={() => setDebugOpen(!debugOpen)}
           id="pageTitle"
           className="select-none p-2 text-2xl font-bold text-zinc-400"
         >
           ComboMakerV3
         </div>
-        {v2 && (
+        {debugOpen && (
           <div
             onClick={() =>
               console.log(currentItem[currentItem.length - 1], stances)
@@ -76,6 +77,9 @@ const ComboMakerV3 = () => {
           id="app-content"
           className="no-scrollbar flex h-[85vh] w-full flex-col place-content-start place-items-center overflow-y-auto overflow-x-hidden rounded-lg p-2 text-zinc-300 "
         >
+          {comboExists && (
+            <Link href={`/combos/${comboExists.combo_id}`}>See Combo Page</Link>
+          )}
           {accessToken && (
             <SaveCombo
               save={save}
@@ -89,7 +93,7 @@ const ComboMakerV3 = () => {
             newCombo={currentItem}
           />
           {/* <CompareTricks newCombo={currentItem} /> */}
-          <TrickShapes
+          <SelectTrickPopup
             findStanceLeg={findStanceLeg}
             currentFilter={currentFilter}
             lastItem={currentItem[currentItem?.length - 1]}

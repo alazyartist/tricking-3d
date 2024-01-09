@@ -3,7 +3,7 @@ import { trpc } from "@utils/trpc";
 import React, { forwardRef, useEffect, useRef, useState } from "react";
 import { TotalScore } from "types/trpc";
 import { MdOutlineBackspace } from "../../../data/icons/MdIcons";
-import { TrickShapeDisplay } from "../../comboMakerV2/components/TrickShapes";
+import { TrickShapeDisplay } from "../../comboMakerV2/components/SelectTrickPopup";
 interface ComboDisplayProps {
   newCombo: any[];
   setDeleteLast?: any;
@@ -40,7 +40,7 @@ const NewComboDisplay: React.FC<ComboDisplayProps> = ({
       <div className="m-2 flex h-[20vh] w-fit ">
         <div
           id="comboStateArr"
-          className="minimalistScroll flex h-full w-[85vw] max-w-[560px]  flex-row place-content-start gap-1 overflow-x-auto rounded-lg bg-zinc-200 bg-opacity-[13%] p-2 backdrop-blur-xl"
+          className="minimalistScroll flex h-full w-[90vw] max-w-[560px]  flex-row place-content-start gap-1 overflow-x-auto rounded-lg bg-zinc-200 bg-opacity-[13%] p-2 backdrop-blur-xl"
         >
           {newCombo?.map((e, i) => (
             <div

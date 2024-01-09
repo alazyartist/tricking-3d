@@ -7,7 +7,7 @@ import {
   StanceShape,
 } from "./SVGTrickShapes";
 
-const TrickShapes = ({
+const SelectTrickPopup = ({
   newCombo,
   allTricks,
   lastItem,
@@ -19,14 +19,14 @@ const TrickShapes = ({
   const comboPopoverStyle = `no-scrollbar flex-shrink-0  bottom-[10vh] left-[5vw] z-[20] flex h-[50vh] w-[90vw] flex-col place-items-center gap-2 overflow-y-scroll rounded-xl bg-zinc-900 bg-opacity-80 p-4 backdrop-blur-md`;
   return (
     <>
-      {activeDropdown !== "" && (
+      {/* {activeDropdown !== "" && (
         <div
           className="absolute right-[15vw] top-[23vh] text-4xl"
           onClick={() => setActiveDropdown("")}
         >
           <MdClose />
         </div>
-      )}
+      )} */}
       <div className=" flex h-fit w-[98vw]  flex-wrap place-content-center place-items-end gap-2 text-zinc-300"></div>
       {/* <div className=" flex h-fit w-[98vw]  flex-wrap place-content-center place-items-end gap-2 text-zinc-300">
         {newCombo?.length <= 0 && (
@@ -95,29 +95,11 @@ const TrickShapes = ({
             )}
         </div>
       )}
-      {activeDropdown === "Stance" && (
-        <div className={comboPopoverStyle}>
-          {allTricks?.map((trick) =>
-            trick.type === "Stance" ? (
-              <div
-                className="w-full rounded-md bg-zinc-600 bg-opacity-10 p-2 text-center"
-                onClick={() => {
-                  setCurrentItem((s) => [...s, trick]);
-                  setActiveDropdown("");
-                }}
-                key={trick.trick_id}
-              >
-                {trick.name}
-              </div>
-            ) : null
-          )}
-        </div>
-      )}
     </>
   );
 };
 
-export default TrickShapes;
+export default SelectTrickPopup;
 
 export const TrickShapeDisplay = ({ trick, i }) => {
   return (
