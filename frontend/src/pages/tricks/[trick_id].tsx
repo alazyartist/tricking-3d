@@ -82,9 +82,7 @@ const CombosWithTrickDisplay = ({ combos, trick }) => {
   const [seeExample, setSeeExample] = useState();
   return (
     <div className="minimalistScroll flex h-full w-full flex-col place-content-start gap-2 p-2 pt-0">
-      <h1 className="sticky top-0 bg-zinc-900 p-2 text-xl">
-        Combos containing {trick}
-      </h1>
+      <h1 className=" bg-zinc-900 p-2 text-xl">Combos containing {trick}</h1>
       {combos.map((combo) => (
         <div key={combo.combo_id}>
           <div className="no-scrollbar flex justify-between overflow-hidden overflow-x-scroll rounded-md bg-zinc-800 p-2 text-xs">
