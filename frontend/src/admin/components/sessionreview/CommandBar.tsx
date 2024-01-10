@@ -19,9 +19,9 @@ import { MdClose } from "@data/icons/MdIcons";
 import CommandBarControls from "./CommandBarControls";
 import SelectTrickPopupCommandBar from "./SelectTrickPopupCommandBar";
 const CommandBar = ({ tricks, combos }) => {
-  const clipDetailsVisible = useSessionSummariesStore(
-    (s) => s.clipDetailsVisible
-  );
+  // const clipDetailsVisible = useSessionSummariesStore(
+  //   (s) => s.clipDetailsVisible
+  // );
   const [root, setRoot] = useState(null);
   useEffect(() => {
     let element2 = document.getElementById("commandBar-root");
@@ -29,11 +29,12 @@ const CommandBar = ({ tricks, combos }) => {
       setRoot(element2);
     }
   }, []);
-  if (!tricks) return null;
-  if (!combos) return null;
   const trickPopupVisible = useSessionSummariesStore(
     (s) => s.trickPopupVisible
   );
+  if (!tricks) return null;
+  if (!combos) return null;
+
   return (
     root &&
     createPortal(
