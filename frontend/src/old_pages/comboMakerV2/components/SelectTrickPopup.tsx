@@ -46,6 +46,7 @@ const SelectTrickPopup = ({
           </button>
         )}
       </div> */}
+
       {newCombo?.length > 0 && lastItem?.type !== "Trick" && (
         <div className={comboPopoverStyle}>
           {allTricks
@@ -106,32 +107,34 @@ const SelectTrickPopup = ({
               </p>
             </div>
           )}
-          {allTricks
-            ?.filter((trick) =>
-              currentFilter ? trick.fromLeg === currentFilter : trick
-            )
-            .map((trick) =>
-              trick.type === "Transition" ? (
-                <div
-                  className="flex w-fit max-w-[50vw] flex-grow flex-col justify-between rounded-md bg-zinc-600 bg-opacity-10 p-2 text-center"
-                  onClick={() => {
-                    setCurrentItem((s) => [...s, trick]);
-                    setActiveDropdown("");
-                  }}
-                  key={trick.id + "transition"}
-                >
-                  <div>{trick.name}</div>
-                  <div className="flex w-full  justify-between gap-2 pt-2 text-xs">
-                    <div className="w-[37px] rounded-md bg-zinc-700 p-1">
-                      {trick.fromLeg}
-                    </div>
-                    <div className="w-[37px] rounded-md bg-zinc-700 p-1">
-                      {trick.toLeg}
+          {!currentFilter && "Select a leg"}
+          {currentFilter &&
+            allTricks
+              ?.filter((trick) =>
+                currentFilter ? trick.fromLeg === currentFilter : trick
+              )
+              .map((trick) =>
+                trick.type === "Transition" ? (
+                  <div
+                    className="flex w-fit max-w-[50vw] flex-grow flex-col justify-between rounded-md bg-zinc-600 bg-opacity-10 p-2 text-center"
+                    onClick={() => {
+                      setCurrentItem((s) => [...s, trick]);
+                      setActiveDropdown("");
+                    }}
+                    key={trick.id + "transition"}
+                  >
+                    <div>{trick.name}</div>
+                    <div className="flex w-full  justify-between gap-2 pt-2 text-xs">
+                      <div className="w-[37px] rounded-md bg-zinc-700 p-1">
+                        {trick.fromLeg}
+                      </div>
+                      <div className="w-[37px] rounded-md bg-zinc-700 p-1">
+                        {trick.toLeg}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ) : null
-            )}
+                ) : null
+              )}
         </div>
       )}
     </>
