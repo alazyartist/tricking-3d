@@ -23,7 +23,7 @@ export default function Document() {
           href="/favicon-16x16.png"
         />
 
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preload" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"

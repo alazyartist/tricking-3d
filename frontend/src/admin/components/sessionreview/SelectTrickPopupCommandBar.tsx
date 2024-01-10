@@ -16,6 +16,9 @@ const SelectTrickPopupCommandBar = ({ allTricks }) => {
   const setClipData = useSessionSummariesStore((s) => s.setClipData);
   const setSessionData = useSessionSummariesStore((s) => s.setSessionData);
   const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
+  const setTrickMakerOpen = useSessionSummariesStore(
+    (s) => s.setTrickMakerOpen
+  );
   const removeClipFromCombo = useSessionSummariesStore(
     (s) => s.removeClipfromCombo
   );
@@ -50,6 +53,7 @@ const SelectTrickPopupCommandBar = ({ allTricks }) => {
       bail: 0,
     });
     clearClipCombo();
+    setTrickPopupVisible();
   };
   return (
     <>
@@ -122,6 +126,9 @@ const SelectTrickPopupCommandBar = ({ allTricks }) => {
                 </div>
               ) : null
             )}
+          <div className="w-fit rounded-md bg-zinc-600 bg-opacity-60 p-2 text-center text-zinc-200 hover:bg-zinc-700">
+            <button onClick={() => setTrickMakerOpen(true)}>Make Trick</button>
+          </div>
         </div>
       )}
       {lastItem?.type !== "Transition" && (

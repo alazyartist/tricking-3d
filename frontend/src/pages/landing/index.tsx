@@ -7,6 +7,7 @@ import { FaHamburger } from "react-icons/fa";
 import { useRouter } from "next/router";
 import mixpanel from "@utils/mixpanel";
 import { SignInButton, SignUpButton } from "@clerk/nextjs";
+import DiscordLink from "@components/info/DiscordLink";
 const LandingCanvas = dynamic(
   () => import("@old_pages/landing/components/LandingCanvas"),
   { suspense: true }
@@ -25,6 +26,7 @@ const MovingBackground = dynamic(
 
 const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
   const [loadScene, setLoadScene] = useState(false);
+  const [devNote, setDevNote] = useState(false);
   // mixpanel.track("Landing Page View");
   return (
     <div className="no-scrollbar fixed top-0 flex h-[100vh] w-[100vw] flex-col place-items-center justify-between gap-2 overflow-y-scroll bg-zinc-100 text-zinc-800">
@@ -95,7 +97,17 @@ const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
         >
           <MovingBackground />
         </Suspense>
-        <PEtheMess />
+        {devNote && <PEtheMess setDevNote={setDevNote} />}
+        {!devNote && (
+          <div className="p-8">
+            <p
+              className="rounded-md border-[1px] border-zinc-800 px-2"
+              onClick={() => setDevNote(true)}
+            >
+              See Dev Note
+            </p>
+          </div>
+        )}
         {/* <div className="absolute top-[50vh] -z-20 h-[60vw] w-[60vw] rounded-full bg-teal-300 blur-3xl" /> */}
         {/* <div className='flex w-[100vw] flex-shrink-0  gap-2 overflow-hidden'>
 					<div className='h-[200px] w-[300px] flex-shrink-0 rounded-md bg-zinc-900'></div>
@@ -227,17 +239,29 @@ const TagLine: React.FC<{ a: boolean }> = ({ a }) => {
     );
 };
 
-const PEtheMess = () => {
+const PEtheMess = ({ setDevNote }) => {
   return (
-    <div className=" h-[60vw] w-[90vw] py-4 font-inter font-semibold text-zinc-800">
-      <div className="text-center text-xl leading-relaxed md:text-3xl">
-        <span className="font-black ">Please </span>Excuse the Mess.
+    <div className=" h-fit w-[90vw] rounded-xl bg-zinc-800 p-4 py-4 font-inter font-semibold text-zinc-300">
+      <div className="text-center text-lg leading-relaxed md:text-3xl">
+        While this project is{" "}
+        <span className="font-black text-red-300">NOT </span> complete.
       </div>
-      <div className="text-center text-sm">
-        We are hard at work on some
-        <br /> backend things at the moment.
-        <br /> big update on the horizion.
-        <div>Stay tuned</div>
+      <div className=" p-2 text-center text-lg">
+        It <span className="font-black text-emerald-300">IS </span>ready for
+        use.
+      </div>
+
+      <div className="p-2 text-center  text-xs">
+        Please report any bugs or issues to the discord server.
+      </div>
+      <DiscordLink />
+      <div className="flex w-full place-content-center place-items-center">
+        <button
+          onClick={() => setDevNote(false)}
+          className="rounded-md border-2 border-zinc-300 px-2 text-sm"
+        >
+          close
+        </button>
       </div>
     </div>
   );

@@ -57,17 +57,19 @@ const CommandBar = ({ tricks, combos }) => {
           >
             &lt;
           </div> */}
-        <div>
-          <Autocomplete
-            classNames={{ panel: "custom-Panel" }}
-            tricks={tricks}
-            combos={combos}
-            defaultActiveItemId="0"
-            placeholder="/ to open cmdBar"
-            openOnFocus={true}
-            autoFocus={false}
-          />
-        </div>
+        {!trickPopupVisible && (
+          <div>
+            <Autocomplete
+              classNames={{ panel: "custom-Panel" }}
+              tricks={tricks}
+              combos={combos}
+              defaultActiveItemId="0"
+              placeholder="/ to open cmdBar"
+              openOnFocus={true}
+              autoFocus={false}
+            />
+          </div>
+        )}
       </div>,
       root
     )
