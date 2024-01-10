@@ -15,6 +15,9 @@ const CommandBarControls = () => {
   const setTrickMakerOpen = useSessionSummariesStore(
     (s) => s.setTrickMakerOpen
   );
+  const setTrickPopupVisible = useSessionSummariesStore(
+    (s) => s.setTrickPopupVisible
+  );
   const setSaveSuccessful = useSessionSummariesStore(
     (s) => s.setSaveSuccessful
   );
@@ -113,8 +116,8 @@ const CommandBarControls = () => {
       command: () => setClipData({ startTime: 0, endTime: 0 }),
     },
     {
-      title: "trick",
-      command: () => setTrickMakerOpen(true),
+      title: "combo",
+      command: () => setTrickPopupVisible(),
     },
 
     ,

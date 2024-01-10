@@ -17,6 +17,7 @@ import { trpc } from "../../../utils/trpc";
 import { createPortal } from "react-dom";
 import { MdClose } from "@data/icons/MdIcons";
 import CommandBarControls from "./CommandBarControls";
+import SelectTrickPopupCommandBar from "./SelectTrickPopupCommandBar";
 const CommandBar = ({ tricks, combos }) => {
   const clipDetailsVisible = useSessionSummariesStore(
     (s) => s.clipDetailsVisible
@@ -30,13 +31,20 @@ const CommandBar = ({ tricks, combos }) => {
   }, []);
   if (!tricks) return null;
   if (!combos) return null;
+  const trickPopupVisible = useSessionSummariesStore(
+    (s) => s.trickPopupVisible
+  );
   return (
     root &&
     createPortal(
       <div
-        className={` relative left-[10vw]  top-[0]  z-[10] flex h-[35vh] w-[80vw] flex-col place-items-center justify-around rounded-md rounded-b-none bg-zinc-900 p-2 font-titan text-zinc-400 md:bottom-12 md:left-[20vw] md:h-[10rem] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]`}
+        className={` relative left-[10vw]  top-[0]  z-[10] flex h-[35vh] w-[80vw] flex-col place-items-center justify-around rounded-md rounded-b-none bg-zinc-900 p-2 font-inter text-zinc-400 md:bottom-12 md:left-[20vw] md:h-[10rem] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]`}
       >
-        <CommandBarControls />
+        {trickPopupVisible ? (
+          <SelectTrickPopupCommandBar allTricks={tricks} />
+        ) : (
+          <CommandBarControls />
+        )}
         {/* <div className="jusfity-around flex place-items-center gap-2">
           <div
             onClick={() => {
@@ -173,20 +181,20 @@ const Autocomplete = (props: any) => {
       e.preventDefault();
       setCount((count) => count + 1);
     }
-    if (e.key === "k") {
-      e.preventDefault();
-      setVidIsPlaying();
-    }
-    if (e.key === "j") {
-      e.preventDefault();
-      // setSeekTime(parseInt(currentTime) - 5);
-      syncTime(useSessionSummariesStore.getState().currentTime - 5);
-    }
-    if (e.key === "l") {
-      e.preventDefault();
-      // setSeekTime(parseInt(currentTime) + 5);
-      syncTime(useSessionSummariesStore.getState().currentTime + 5);
-    }
+    // if (e.key === "k") {
+    //   e.preventDefault();
+    //   setVidIsPlaying();
+    // }
+    // if (e.key === "j") {
+    //   e.preventDefault();
+    //   // setSeekTime(parseInt(currentTime) - 5);
+    //   syncTime(useSessionSummariesStore.getState().currentTime - 5);
+    // }
+    // if (e.key === "l") {
+    //   e.preventDefault();
+    //   // setSeekTime(parseInt(currentTime) + 5);
+    //   syncTime(useSessionSummariesStore.getState().currentTime + 5);
+    // }
     if (e.key === ",") {
       e.preventDefault();
       // setSeekTime(parseInt(currentTime) - 5);

@@ -40,7 +40,7 @@ const ActiveClipDisplay = () => {
         // right: showDetails.right,
         width: showDetails.width,
       }}
-      className="absolute right-2 top-14 z-[100] flex h-[92.5vh] w-[220px] flex-col gap-2 rounded-md rounded-r-none bg-zinc-900 bg-opacity-60 p-1 pl-6 font-inter text-xs text-zinc-300 backdrop-blur-xl"
+      className="absolute right-2 top-14 z-[100] flex h-[84.5vh] w-[220px] flex-col gap-2 rounded-md rounded-r-none bg-zinc-900 bg-opacity-60 p-1 pl-6 font-inter text-xs text-zinc-300 backdrop-blur-xl"
     >
       <animated.div
         className="flex h-full flex-col gap-2"
