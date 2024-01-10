@@ -11,6 +11,7 @@ interface ClaimTrickProps {
   sortType: string;
   profileInfo: ProfileInfo;
   uniqueTricks: string[];
+  uniqueTricksRaw: {};
 }
 const ClaimedTricks = ({
   displayOnly,
@@ -20,6 +21,7 @@ const ClaimedTricks = ({
   profileInfo,
   uniqueTricks,
   sortType,
+  uniqueTricksRaw,
 }: ClaimTrickProps) => {
   const [claimed, setClaimed] = useState(false);
   const { mutate: claim } = trpc.trick.claimTrick.useMutation();
@@ -27,9 +29,7 @@ const ClaimedTricks = ({
   const isClaimed = profileInfo?.TricksClaimed?.some(
     (combo) => combo.trick_id === trick_id
   );
-  // const isProven = allSessionTricks?.some(
-  //   (combo) => combo.trick_id === trick_id
-  // );
+
   const isProven = uniqueTricks.includes(trick.name);
 
   // const { data:combos } = trpc.trick.findCombosWithTrick.useQuery({
@@ -40,30 +40,32 @@ const ClaimedTricks = ({
       ? claim({ action: "Unclaim", user_id, trick_id })
       : claim({ action: "Claim", user_id, trick_id });
   };
-  return sortType === "Claimed" ? (
-    !!isProven && (
+  const isVisible = sortType === "Claimed" ? !!isProven : true;
+  return (
+    isVisible && (
       <div
         key={trick.trick_id}
-        className={` grid h-full w-full grid-cols-5 place-content-center justify-between rounded-xl border-b-[1px] border-emerald-500 p-2`}
+        className={` ${
+          isProven ? "border-green-500" : "border-yellow-500"
+        } grid h-full w-full grid-cols-4 place-content-center justify-between rounded-md border-l-4 bg-zinc-800 bg-opacity-40 p-2`}
       >
-        <div className="col-span-3 flex place-items-center">{trick?.name}</div>
-        <div className="col-span-1 flex place-items-center">{trick?.type}</div>
+        <div className="col-span-3 flex place-items-center justify-between">
+          <p>{trick?.name}</p>
+        </div>
         <div className="relative col-span-1 flex h-full place-content-end place-items-center gap-2">
+          <p className="pr-4">{uniqueTricksRaw?.[trick?.name]}</p>
           <div
             onClick={() => {
-              // console.log(
-              // "Claim",
-              // listItem?.Combo.combo_id,
-              // listItem.Combo.name)}
-              // setClaimed(!claimed);
-              if (!isProven) {
-                !displayOnly && handleClaim();
-              }
+              if (isProven) return;
+              setClaimed(!claimed);
+              !displayOnly && handleClaim();
             }}
-            className="h-full w-8 text-3xl text-emerald-500"
+            className="h-full w-8 text-3xl text-green-800"
           >
-            {isProven ? (
-              <MdCheckCircle />
+            {isClaimed || isProven ? (
+              <MdCheckCircle
+                className={`${isProven ? "fill-green-500" : ""}`}
+              />
             ) : (
               <MdCircle className="text-yellow-500" />
             )}
@@ -71,39 +73,6 @@ const ClaimedTricks = ({
         </div>
       </div>
     )
-  ) : (
-    <div
-      key={trick.trick_id}
-      className={` ${
-        isProven ? "border-green-500" : "border-yellow-500"
-      } grid h-full w-full grid-cols-5 place-content-center justify-between rounded-md border-b-[1px] p-2`}
-    >
-      <div className="col-span-3 flex place-items-center justify-between">
-        <p>{trick?.name}</p>
-        {/* <p className="pr-4">{trick?.pointValue}</p> */}
-      </div>
-      <div className="col-span-1 flex place-items-center">{trick?.type}</div>
-      <div className="relative col-span-1 flex h-full place-content-end place-items-center gap-2">
-        <div
-          onClick={() => {
-            // console.log(
-            // "Claim",
-            // listItem?.Combo.combo_id,
-            // listItem.Combo.name)}
-            if (isProven) return;
-            setClaimed(!claimed);
-            !displayOnly && handleClaim();
-          }}
-          className="h-full w-8 text-3xl text-green-800"
-        >
-          {isClaimed || isProven ? (
-            <MdCheckCircle className={`${isProven ? "fill-green-500" : ""}`} />
-          ) : (
-            <MdCircle className="text-yellow-500" />
-          )}
-        </div>
-      </div>
-    </div>
   );
 };
 

@@ -31,6 +31,7 @@ const ClaimTricks = ({ user_id }) => {
     )
   ).flat(2);
   let uniqueTricks = [];
+  let uniqueTricksRaw = {};
 
   if (allSessionTricks) {
     uniqueTricks = Object.keys(
@@ -43,6 +44,14 @@ const ClaimTricks = ({ user_id }) => {
         return acc;
       }, {})
     );
+    uniqueTricksRaw = allSessionTricks?.reduce((acc, curr) => {
+      if (acc[curr.name]) {
+        acc[curr.name]++;
+      } else {
+        acc[curr.name] = 1;
+      }
+      return acc;
+    }, {});
   }
   const totalTricksClaimed =
     profileInfo?.TricksClaimed?.length + uniqueTricks?.length;
@@ -54,21 +63,23 @@ const ClaimTricks = ({ user_id }) => {
   const handleFilter = (event) => {
     const searchTerm = event.target.value;
     const newFilter = tricks.filter((trick) => {
-      return trick.name.toLowerCase().includes(searchTerm.toLowerCase());
+      return trick?.name?.toLowerCase().includes(searchTerm?.toLowerCase());
     });
     setSearchTerm(searchTerm);
     setSearchedItems(newFilter);
   };
-  console.log(searchedItems);
+  useEffect(() => {
+    console.log(uniqueTricksRaw);
+  }, [uniqueTricksRaw]);
   return (
     <div className="no-scrollbar flex h-[60vh] w-full flex-col place-items-start overflow-y-scroll bg-zinc-900 bg-opacity-70 font-inter ">
-      <div className="flex place-content-center place-items-center justify-between text-center text-3xl font-bold">
-        <h1 className="p-2">ClaimTricks:</h1>
+      <div className="flex h-fit place-content-center place-items-center justify-between text-center font-bold">
+        <h1 className="p-2 text-2xl">ClaimTricks:</h1>
         <p className="w-full p-2 text-sm">
           {totalTricksClaimed}/{tricks?.length}
         </p>
       </div>
-      <div className="sticky top-0 z-[4] my-2 w-full p-2 backdrop-blur-md">
+      <div className="sticky top-0 z-[4] w-full p-2 backdrop-blur-md">
         <input
           id="searchBar"
           type={"text"}
@@ -79,22 +90,28 @@ const ClaimTricks = ({ user_id }) => {
           value={searchTerm}
           onChange={handleFilter}
         />
-        <div className="flex gap-2 p-2">
+        <div className="flex gap-2 whitespace-nowrap p-2">
           <p className="place-self-center">Sort By</p>
           <p
             className={`${
-              sortType === "Claimed" ? " text-emerald-500" : ""
-            } rounded-md border-2 border-zinc-300 p-1 px-2`}
-            onClick={() =>
-              setSortType((s) => (s === "Claimed" ? "All" : "Claimed"))
-            }
+              sortType === "All" ? " text-emerald-500" : ""
+            } rounded-md border-[1px] border-zinc-300 p-1 px-2`}
+            onClick={() => setSortType("All")}
           >
-            {sortType === "Claimed" ? "Proven" : "All"}
+            All
+          </p>
+          <p
+            className={`${
+              sortType === "Claimed" ? " text-emerald-500" : ""
+            } rounded-md border-[1px] border-zinc-300 p-1 px-2`}
+            onClick={() => setSortType("Claimed")}
+          >
+            Claimed
           </p>
           <p
             className={`${
               sortType === "ABC" ? " text-emerald-500" : ""
-            } rounded-md border-2 border-zinc-300 p-1 px-2`}
+            } rounded-md border-[1px] border-zinc-300 p-1 px-2`}
             onClick={() => setSortType("ABC")}
           >
             ABC
@@ -102,14 +119,14 @@ const ClaimTricks = ({ user_id }) => {
           <p
             className={`${
               sortType === "Family" ? " text-emerald-500" : ""
-            } rounded-md border-2 border-zinc-300 p-1 px-2`}
+            } rounded-md border-[1px] border-zinc-300 p-1 px-2`}
             onClick={() => setSortType("Family")}
           >
             Family
           </p>
         </div>
       </div>
-      <div className="flex w-[88vw] max-w-[540px] flex-col place-items-center p-2  lg:max-w-full">
+      <div className="flex w-[88vw] max-w-[540px] flex-col place-items-center gap-4 p-2 lg:max-w-full">
         {searchedItems
           ?.sort((a, b) => {
             if (sortType === "Family") {
@@ -130,6 +147,7 @@ const ClaimTricks = ({ user_id }) => {
                   key={"claim" + trick.trick_id}
                   trick_id={trick.trick_id}
                   user_id={user_id}
+                  uniqueTricksRaw={uniqueTricksRaw}
                 />
               )
           )}
