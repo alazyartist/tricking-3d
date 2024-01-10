@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import TrickCategories from "./theory/TrickCategories";
 import { trpc } from "@utils/trpc";
 import TrickPieChart from "@components/d3/TrickPieChart";
+import Link from "next/link";
 function AllTrickDisplay() {
   // const { data: TrickListArr } = useGetTricks();
   const { data: TrickListArr } = trpc.trick.findAll.useQuery();
@@ -56,7 +57,7 @@ function AllTrickDisplay() {
         <div className="text-zinc-300">
           {filteredTricks?.length}/{TrickListArr?.length} Tricks
         </div>
-        <div className="h-32 w-full">
+        <div className="flex h-44 w-full place-items-center">
           <TrickPieChart group_by={group_by} data={filteredTricks} />
         </div>
 
@@ -91,7 +92,7 @@ function AllTrickDisplay() {
               key={e.trick_id}
               className="rounded-md bg-zinc-900 bg-opacity-40 backdrop-blur-md"
             >
-              <div
+              {/* <div
                 onClick={() => handleGoToAnim(e)}
                 className="flex place-items-center justify-between text-xs text-zinc-400"
               >
@@ -101,7 +102,18 @@ function AllTrickDisplay() {
                     <IoIosWalk color={"rgb(52 211 153)"} />
                   )}
                 </div>
-              </div>
+              </div> */}
+              <Link
+                href={`/tricks/${e?.trick_id}`}
+                className="flex place-items-center justify-between text-xs text-zinc-400"
+              >
+                <div className="p-2">{e?.name?.toUpperCase()}</div>
+                <div className="p-2">
+                  {e.defaultAnimation && (
+                    <IoIosWalk color={"rgb(52 211 153)"} />
+                  )}
+                </div>
+              </Link>
               {/* <div className='m-4 flex w-[60vw] flex-col rounded-lg p-2  text-left md:flex-row'> */}
               {/* <div className='flex w-full place-content-center place-items-center md:w-[50%]'>
 								<Canvas className='rounded-2xl bg-zinc-800'>
