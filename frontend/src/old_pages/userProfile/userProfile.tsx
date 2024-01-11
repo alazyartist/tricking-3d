@@ -56,22 +56,38 @@ const UserProfile = () => {
   // console.log(isSideways);
 
   const hideStyles = useSpring({
-    to: { height: hidden ? "0vh" : "23vh", opacity: hidden ? 0 : 1 },
+    to: {
+      height: hidden ? "0vh" : orientation === "landscape" ? "35vh" : "23vh",
+      opacity: hidden ? 0 : 1,
+    },
     from: { height: "23vh", opacity: 1 },
     config: { durration: 100, tension: 260, friction: 50 },
     exitBeforeEnter: true,
   });
+  const getUpperHeight = () => {
+    if (hidden) {
+      if (!activeSummary) {
+        if (orientation === "landscape") {
+          return "90vh";
+        }
+        return "73vh";
+      } else if (fullScreenLower) {
+        return "90vh";
+      } else if (orientation === "portrait") {
+        return "45vh";
+      } else {
+        return "90vh";
+      }
+    } else {
+      if (orientation === "landscape") {
+        return "55vh";
+      }
+      return "33vh";
+    }
+  };
   const resizeUpper = useSpring({
     to: {
-      height: hidden
-        ? !activeSummary
-          ? "73vh"
-          : fullScreenLower
-          ? "5vh"
-          : orientation === "portrait"
-          ? "40vh"
-          : "90vh"
-        : "33vh",
+      height: getUpperHeight(),
     },
     from: { height: "27vh" },
     config: { durration: 100, tension: 260, friction: 50 },
@@ -80,6 +96,9 @@ const UserProfile = () => {
   const getLowerHeight = () => {
     if (hidden) {
       if (!activeSummary) {
+        if (orientation === "landscape") {
+          return "90vh";
+        }
         return "13vh";
       } else if (fullScreenLower) {
         return "90vh";
@@ -89,6 +108,9 @@ const UserProfile = () => {
         return "90vh";
       }
     } else {
+      if (orientation === "landscape") {
+        return "55vh";
+      }
       return "27vh";
     }
   };
@@ -120,7 +142,7 @@ const UserProfile = () => {
     );
 
   return (
-    <div className="flex w-full flex-col place-items-center p-2 font-inter text-zinc-300">
+    <div className="flex h-[100vh] w-full flex-col place-items-center p-2 font-inter text-zinc-300">
       <animated.div style={hideStyles} className={"relative"}>
         <div className="flex flex-col">
           {editView((styles, editing) =>
@@ -206,13 +228,17 @@ const UserProfile = () => {
         <animated.div
           style={resizeLower}
           className={`z-[-2] h-[27vh] rounded-lg bg-zinc-800 ${
-            orientation === "portrait" ? "w-full" : "w-[30vw]"
+            orientation === "portrait"
+              ? "w-full"
+              : hidden
+              ? "w-[30vw]"
+              : "w-[50vw]"
           }
                bg-opacity-40 p-2 backdrop-blur-xl`}
         >
           {activeView === "Stats" ? (
             <div
-              className={` mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4`}
+              className={` overflow-scroll-y mb-2 h-full w-fit overflow-hidden rounded-md bg-zinc-900 p-1 px-4`}
               // onClick={() => setActiveView("Sessions")}
             >
               <LastSessionStats profileInfo={profileInfo} />
