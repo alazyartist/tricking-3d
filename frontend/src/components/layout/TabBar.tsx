@@ -16,6 +16,7 @@ import { useSessionSummariesStore } from "@admin/components/sessionreview/Sessio
 import useClickOutside from "@hooks/useClickOutside";
 import DiscordLink from "@components/info/DiscordLink";
 import { FaDesktop } from "react-icons/fa";
+import useScreenOrientation from "@hooks/UseScreenOrientaion";
 
 function TabBar() {
   const [openHamburger, setOpenHamburger] = useState<Boolean>();
@@ -30,7 +31,7 @@ function TabBar() {
   const trickMakerOpen = useSessionSummariesStore((s) => s.trickMakerOpen);
   // const nav = useNavigate();
   // const location = useLocation();
-
+  const orientation = useScreenOrientation();
   const hamburger = useTransition<Boolean, {}>(openHamburger, {
     from: { opacity: 0, right: "-40vw" },
     enter: { opacity: 1, right: "0vw" },
@@ -43,7 +44,7 @@ function TabBar() {
 
   const navToggle = useSpring<{}>({
     from: { bottom: "-62px" },
-    to: { bottom: "0px" },
+    to: { bottom: orientation === "landscape" ? "-62px" : "0px" },
     reverse: openNav,
     config: {
       config: { tension: 40, friction: 12 },
@@ -51,7 +52,10 @@ function TabBar() {
   });
   const height = useSpring<{}>({
     from: { height: window.innerWidth < 768 ? "0vh" : "10rem" },
-    to: { height: window.innerWidth < 768 ? "35vh" : "10rem" },
+    to: {
+      height: window.innerWidth < 768 ? "35vh" : "10rem",
+      bottom: orientation === "landscape" ? "-62px" : "0px",
+    },
     reverse: trickMakerOpen || !clipDetailsVisible,
     config: {
       config: { tension: 40, friction: 12 },
@@ -60,58 +64,71 @@ function TabBar() {
   const ref = useClickOutside(() => setOpenHamburger(false));
   return (
     <>
-      <animated.div
-        id={"tabBar"}
-        className={`fixed bottom-0 ${
-          openNav ? "z-[1] select-none " : "z-[1014]"
-        } w-[100%] `}
-      >
-        {nav?.pathname?.includes("sessionReview") && (
-          <animated.div
-            id="commandBar-root"
-            style={height}
-            className={` z-[1] h-[35vh] w-[80vw] touch-none md:h-[10rem]`}
-          ></animated.div>
-        )}
-        <animated.div style={navToggle} className="relative">
-          <div
-            style={navToggle}
-            className={`relative left-0 flex ${
-              openNav ? "h-12" : "h-12"
-            } z-[10] w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-opacity-40 bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300 backdrop-blur-md`}
-          >
-            {isAdmin && (
-              <Link href="/admin">
-                <AdminLockIcon />
+      {nav?.pathname?.includes("sessionReview") && (
+        <animated.div
+          id="landscape-commandBar-root"
+          className={`${
+            orientation === "landscape" ? "absolute" : "hidden"
+          }  right-0 top-0 h-[94vh] w-[19vw] overflow-hidden 
+                
+            `}
+        ></animated.div>
+      )}
+      {orientation === "portrait" && (
+        <animated.div
+          id={"tabBar"}
+          className={`fixed bottom-0  ${
+            openNav ? "z-[1] select-none " : "z-[1014]"
+          } w-[100%] `}
+        >
+          {nav?.pathname?.includes("sessionReview") && (
+            <animated.div
+              id="commandBar-root"
+              style={height}
+              className={`${
+                orientation === "portrait" ? "block" : "hidden"
+              }  z-[1] h-[35vh] w-[80vw] touch-none  md:h-[10rem]`}
+            ></animated.div>
+          )}
+          <animated.div style={navToggle} className="relative">
+            <div
+              style={navToggle}
+              className={`relative left-0 flex ${
+                openNav ? "h-12" : "h-12"
+              } z-[10] w-full place-content-center place-items-center gap-8 rounded-t-2xl bg-opacity-40 bg-gradient-to-b from-zinc-900 to-zinc-800 text-2xl text-zinc-300 backdrop-blur-md`}
+            >
+              {isAdmin && (
+                <Link href="/admin">
+                  <AdminLockIcon />
+                </Link>
+              )}
+              <Link href="/home">
+                <HomeIcon />
               </Link>
-            )}
-            <Link href="/home">
-              <HomeIcon />
-            </Link>
-            <Link id={"dashboard-target-tabBar"} href="/dash">
-              <FaDesktop />
-            </Link>
-            {/* <Link href="/comboMaker">
+              <Link id={"dashboard-target-tabBar"} href="/dash">
+                <FaDesktop />
+              </Link>
+              {/* <Link href="/comboMaker">
               <ComboMakerBlueprintsvg className="h-10 w-10" fill="#ffffff" />
             </Link> */}
-            {/* <Link id={"social-target-tabBar"} href="/social">
+              {/* <Link id={"social-target-tabBar"} href="/social">
               <IoIosPeople size={30} color={"#d4d4d8"} />
             </Link> */}
-            <Link id={"sandbox-target-tabBar"} href="/sandbox">
-              <BiCube />
-            </Link>
-            <Link id={"theory-target"} href="/theory">
-              <TheoryCap />
-            </Link>
-            <button
-              onClick={() => setOpenHamburger(!openHamburger)}
-              type="button"
-            >
-              <HamburgerMenu />
-            </button>
-          </div>
-        </animated.div>
-        {/* <button
+              <Link id={"sandbox-target-tabBar"} href="/sandbox">
+                <BiCube />
+              </Link>
+              <Link id={"theory-target"} href="/theory">
+                <TheoryCap />
+              </Link>
+              <button
+                onClick={() => setOpenHamburger(!openHamburger)}
+                type="button"
+              >
+                <HamburgerMenu />
+              </button>
+            </div>
+          </animated.div>
+          {/* <button
           type="button"
           className={` ${
             openNav ? "" : " rotate-180"
@@ -122,7 +139,8 @@ function TabBar() {
         >
           ^^
         </button> */}
-      </animated.div>
+        </animated.div>
+      )}
 
       {/* Open Hamburger Menu Display */}
       {hamburger(

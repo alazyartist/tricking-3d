@@ -9,6 +9,7 @@ import { useSessionSummariesStore } from "./sessionreview/SessionSummaryStore";
 import { trpc } from "@utils/trpc";
 
 import SessionSourceDisplay from "./sessionreview/SessionSourceDisplay";
+import useScreenOrientation from "@hooks/UseScreenOrientaion";
 
 const AdminSessionReview = ({
   sessionid,
@@ -32,7 +33,8 @@ const AdminSessionReview = ({
   const setSessionSources = useSessionSummariesStore(
     (s) => s.setSessionSources
   );
-
+  const orientation = useScreenOrientation();
+  console.log(orientation);
   useEffect(() => {
     setSessionid(sessionid as string);
     if (sessionData.length < 0 || sessionid !== sessionData?.[0]?.sessionid) {
@@ -78,6 +80,7 @@ const AdminSessionReview = ({
           <div className="absolute left-2  top-[40vh] w-[135px] md:top-[20vh]">
             {sessionDetails?.SessionSources?.map((source) => (
               <SessionSourceDisplay
+                orientation={orientation}
                 mirrored={mirrored}
                 key={source.srcid}
                 source={source}

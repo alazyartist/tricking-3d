@@ -18,28 +18,37 @@ import { createPortal } from "react-dom";
 import { MdClose } from "@data/icons/MdIcons";
 import CommandBarControls from "./CommandBarControls";
 import SelectTrickPopupCommandBar from "./SelectTrickPopupCommandBar";
+import useScreenOrientation from "@hooks/UseScreenOrientaion";
 const CommandBar = ({ tricks, combos }) => {
   // const clipDetailsVisible = useSessionSummariesStore(
   //   (s) => s.clipDetailsVisible
   // );
   const [root, setRoot] = useState(null);
+  const orientation = useScreenOrientation();
   useEffect(() => {
-    let element2 = document.getElementById("commandBar-root");
-    if (element2) {
-      setRoot(element2);
+    let elementP = document.getElementById("commandBar-root");
+    let elementL = document.getElementById("landscape-commandBar-root");
+    if (elementP && orientation === "portrait") {
+      setRoot(elementP);
     }
-  }, []);
+    if (elementL && orientation === "landscape") {
+      setRoot(elementL);
+    }
+  }, [orientation]);
   const trickPopupVisible = useSessionSummariesStore(
     (s) => s.trickPopupVisible
   );
   if (!tricks) return null;
   if (!combos) return null;
-
   return (
     root &&
     createPortal(
       <div
-        className={` relative left-[10vw]  top-[0]  z-[10] flex h-[35vh] w-[80vw] flex-col place-items-center justify-around rounded-md rounded-b-none bg-zinc-900 p-2 font-inter text-zinc-400 md:bottom-12 md:left-[20vw] md:h-[10rem] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]`}
+        className={`${
+          orientation === "landscape"
+            ? "absolute left-0 top-0 h-full w-full"
+            : "relative left-[10vw] h-[35vh] md:bottom-12  md:left-[20vw] md:h-[10rem] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]"
+        }    z-[10] flex  w-[80vw] flex-col place-items-center justify-around rounded-md rounded-b-none bg-zinc-900 p-2 font-inter text-zinc-400 `}
       >
         {trickPopupVisible ? (
           <SelectTrickPopupCommandBar allTricks={tricks} />
@@ -57,7 +66,7 @@ const CommandBar = ({ tricks, combos }) => {
           >
             &lt;
           </div> */}
-        {!trickPopupVisible && (
+        {!trickPopupVisible && orientation === "portrait" && (
           <div>
             <Autocomplete
               classNames={{ panel: "custom-Panel" }}

@@ -3,6 +3,7 @@ import { useUserStore } from "@store/userStore";
 import React, { useState } from "react";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
 import { v4 as uuidv4 } from "uuid";
+import useScreenOrientation from "@hooks/UseScreenOrientaion";
 const SelectTrickPopupCommandBar = ({ allTricks }) => {
   const [activeDropdown, setActiveDropdown] = useState("");
   const [currentFilter, setCurrentFilter] = useState("");
@@ -22,6 +23,7 @@ const SelectTrickPopupCommandBar = ({ allTricks }) => {
   const removeClipFromCombo = useSessionSummariesStore(
     (s) => s.removeClipfromCombo
   );
+  const orientation = useScreenOrientation();
   const lastItem = newCombo[newCombo.length - 1];
   const stances = allTricks?.filter((trick) => trick.type === "Stance");
   const findStanceLeg = (curStance) => {
@@ -83,7 +85,13 @@ const SelectTrickPopupCommandBar = ({ allTricks }) => {
           </button>
         )}
       </div> */}
-      <div className=" grid h-fit max-h-[9vh] w-full grid-cols-3 place-content-center place-items-center justify-around gap-2">
+      <div
+        className={` ${
+          orientation === "landscape"
+            ? "flex flex-col place-content-start"
+            : "grid max-h-[9vh] grid-cols-3 place-content-center justify-around"
+        } h-fit  w-full  place-items-center  gap-2`}
+      >
         <button
           onClick={() => setTrickPopupVisible()}
           className="h-fit w-full  rounded-md border-[1px] border-b-2 border-zinc-100 border-opacity-30 p-1 text-center"
@@ -134,7 +142,11 @@ const SelectTrickPopupCommandBar = ({ allTricks }) => {
       {lastItem?.type !== "Transition" && (
         <div className={comboPopoverStyle}>
           {!lastItem && (
-            <div className="flex w-full justify-between gap-2">
+            <div
+              className={`flex w-full justify-between gap-2 ${
+                orientation === "landscape" ? "flex-col" : ""
+              }`}
+            >
               <p
                 onClick={() => setCurrentFilter("Left")}
                 className={`flex-grow rounded-md bg-zinc-200 bg-opacity-20 p-2 text-center ${
@@ -167,7 +179,7 @@ const SelectTrickPopupCommandBar = ({ allTricks }) => {
               </p>
             </div>
           )}
-          {!currentFilter && "Select a leg"}
+          {!currentFilter && <p className="whitespace-nowrap">Select a Leg</p>}
           {currentFilter &&
             allTricks
               ?.filter((trick) =>

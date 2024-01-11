@@ -2,6 +2,7 @@
 import DiscordLink from "@components/info/DiscordLink";
 import HomeIcon from "@data/icons/HomeIcon";
 import useClickOutside from "@hooks/useClickOutside";
+import useScreenOrientation from "@hooks/UseScreenOrientaion";
 import { trpc } from "@utils/trpc";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -27,27 +28,30 @@ const UserIcon = () => {
       setHref("/home");
     }
   }, [uuid, profilePic, pathname]);
+  const orientation = useScreenOrientation();
   return (
-    <>
-      <button
-        onClick={() => {
-          setQuickMenuOpen((q) => !q);
-        }}
-        // href={href}
-        className="fixed right-5 top-2.5 z-[1002] h-[50px] w-[50px] rounded-full border-2 border-zinc-300 border-opacity-20"
-      >
-        <img
-          id="user-icon"
-          src={image}
-          className="h-full w-full rounded-full"
+    orientation === "portrait" && (
+      <>
+        <button
+          onClick={() => {
+            setQuickMenuOpen((q) => !q);
+          }}
+          // href={href}
+          className="fixed right-5 top-2.5 z-[1002] h-[50px] w-[50px] rounded-full border-2 border-zinc-300 border-opacity-20"
+        >
+          <img
+            id="user-icon"
+            src={image}
+            className="h-full w-full rounded-full"
+          />
+        </button>
+        <QuickMenu
+          uuid={uuid}
+          setQuickMenuOpen={setQuickMenuOpen}
+          quickMenuOpen={quickMenuOpen}
         />
-      </button>
-      <QuickMenu
-        uuid={uuid}
-        setQuickMenuOpen={setQuickMenuOpen}
-        quickMenuOpen={quickMenuOpen}
-      />
-    </>
+      </>
+    )
   );
 };
 

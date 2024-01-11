@@ -5,6 +5,7 @@ import { animated, useSpring } from "@react-spring/web";
 import useMeasure from "react-use-measure";
 import { createPortal } from "react-dom";
 import adjustFinalPosition from "./AdjustFinalPostion";
+import useScreenOrientation from "@hooks/UseScreenOrientaion";
 
 const useZoom = (vidRef) => {
   const [zoomLevel, setZoomLevel] = useState(1);
@@ -69,6 +70,7 @@ const Timeline = ({ vidRef, source }) => {
   } = useZoom(vidRef);
 
   const adjustedValue = (timelineOffset / bounds.width) * odur;
+  const orientation = useScreenOrientation();
   let activeWidth = `${(
     ((parseFloat((clipData?.endTime as number).toString()) -
       parseFloat((clipData?.startTime as number).toString())) /
@@ -104,7 +106,7 @@ const Timeline = ({ vidRef, source }) => {
           dur={dur}
           vidRef={vidRef}
         />
-        <div className="noTouch z-[-1] h-4 w-full touch-none" />
+        {/* <div className="noTouch z-[-1] h-4 w-full touch-none" /> */}
         <VideoTicks
           bounds={bounds}
           odur={odur}
@@ -112,15 +114,32 @@ const Timeline = ({ vidRef, source }) => {
           timelineOffset={timelineOffset}
           zoomLevel={zoomLevel}
         />
-        <ZoomController
-          timelineOffset={timelineOffset}
-          setTimelineOffset={setTimelineOffset}
-          dur={dur}
-          odur={odur}
-          bounds={bounds}
-          zoomLevel={zoomLevel}
-          setZoomLevel={setZoomLevel}
-        />
+        {orientation === "landscape" ? (
+          createPortal(
+            <div className="absolute bottom-0 right-0 z-[100] w-[19vw]">
+              <ZoomController
+                timelineOffset={timelineOffset}
+                setTimelineOffset={setTimelineOffset}
+                dur={dur}
+                odur={odur}
+                bounds={bounds}
+                zoomLevel={zoomLevel}
+                setZoomLevel={setZoomLevel}
+              />
+            </div>,
+            document.getElementById("portal-root")
+          )
+        ) : (
+          <ZoomController
+            timelineOffset={timelineOffset}
+            setTimelineOffset={setTimelineOffset}
+            dur={dur}
+            odur={odur}
+            bounds={bounds}
+            zoomLevel={zoomLevel}
+            setZoomLevel={setZoomLevel}
+          />
+        )}
         <div
           ref={timelineRef}
           id="sessionTimelineDisplay"
@@ -168,13 +187,13 @@ const VideoTicks = ({ odur, tickAmt, bounds, zoomLevel, timelineOffset }) => {
   const tickWidth = (bounds.width / ticks) * zoomLevel;
 
   return (
-    <div className="noTouch absolute top-[.25rem] flex h-[3.5rem] w-fit touch-none gap-2">
+    <div className="noTouch absolute top-[.25rem] flex h-[3rem] w-fit touch-none gap-2">
       {Array.from({ length: ticks - 1 }).map((_, i) => (
         <div
           key={`tick${i}`}
           style={{
             left: `${(i + 1) * tickWidth - timelineOffset * zoomLevel}px`,
-            height: `${i % 5 == 0 ? "3.5rem" : ".5rem"}`,
+            height: `${i % 5 == 0 ? "2.5rem" : ".5rem"}`,
           }}
           className="noTouch videoTicks touch-none"
         />
@@ -430,7 +449,7 @@ const TimelineElement = ({
         //   setSeekTime(e.startTime);
         // }}
 
-        className={`absolute top-[.25rem] h-[3.5rem] cursor-grab touch-none rounded-sm border-[1px] border-zinc-900 ${
+        className={`absolute top-[.25rem] h-[2.5rem] cursor-grab touch-none rounded-sm border-[1px] border-zinc-900 ${
           isLocked ? "bg-indigo-600" : "bg-indigo-300"
         } `}
         style={{

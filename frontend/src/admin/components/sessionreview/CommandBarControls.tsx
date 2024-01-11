@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useUserStore } from "@store/userStore";
 import { trpc } from "@utils/trpc";
 import { useEffect } from "react";
+import useScreenOrientation from "@hooks/UseScreenOrientaion";
 
 const CommandBarControls = () => {
   const setClipData = useSessionSummariesStore((s) => s.setClipData);
@@ -23,6 +24,7 @@ const CommandBarControls = () => {
   );
   const { mutate: saveSessionDetails, data: saveResponse } =
     trpc.sessionsummaries.saveSessionDetails.useMutation();
+  const orientation = useScreenOrientation();
   useEffect(() => {
     if (saveResponse === "Saved") {
       setSaveSuccessful(true);
@@ -123,12 +125,20 @@ const CommandBarControls = () => {
     ,
   ];
   return (
-    <div className=" grid h-full max-h-[9vh] w-full grid-cols-3 place-content-center place-items-center justify-around gap-2">
+    <div
+      className={`${
+        orientation === "portrait"
+          ? "grid  max-h-[9vh] w-full grid-cols-3"
+          : "flex flex-row flex-wrap"
+      } h-full place-content-center place-items-center justify-around gap-2`}
+    >
       {controls.map((n) => (
         <button
           key={n.title}
           onClick={n.command}
-          className="h-fit w-full  rounded-md border-[1px] border-b-2 border-zinc-100 border-opacity-30 p-1 text-center"
+          className={`h-fit  ${
+            orientation === "landscape" ? "w-fit" : "w-full"
+          } rounded-md border-[1px] border-b-2 border-zinc-100 border-opacity-30 p-1 text-center`}
         >
           {n.title}
         </button>

@@ -5,7 +5,7 @@ import { useSessionSummariesStore } from "./SessionSummaryStore";
 import Timeline from "../timeline/Timeline";
 import * as d3 from "d3";
 import { createPortal } from "react-dom";
-const SessionSourceDisplay = ({ source, mirrored }) => {
+const SessionSourceDisplay = ({ source, mirrored, orientation }) => {
   const vidsrcRegex = /(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)/g;
   const vidRef = useRef<ReactPlayer>(null!);
   const seekTime = useSessionSummariesStore((s) => s.seekTime);
@@ -79,15 +79,17 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
       </animated.div> */}
 
       {vidsrc === source?.vidsrc ? (
-        <div className="absolute left-[7vw] top-[-35vh] w-[80vw] md:top-[-15vh]">
-          <div className="relative flex max-h-[80vh] flex-col gap-2">
-            <div
-              className="flex place-items-center gap-2"
-              // onClick={() => setVidsrc(null)}
-            >
-              {/* {vidsrc === source?.vidsrc && <MdClose />}{" "} */}
-              {/* {source?.vidsrc.replace(vidsrcRegex, "")} */}
-            </div>
+        <div
+          className={`absolute ${
+            orientation === "landscape"
+              ? "left-[0vw] top-[-35vh]"
+              : "left-[7vw] top-[-35vh]"
+          }  w-[80vw] md:top-[-15vh]`}
+        >
+          <div
+            className={`relative ${orientation === "landscape" ? "top-0" : ""}
+ flex aspect-video max-h-[80vh] flex-shrink-0 flex-col gap-2`}
+          >
             <ReactPlayer
               ref={vidRef}
               style={{
@@ -115,16 +117,42 @@ const SessionSourceDisplay = ({ source, mirrored }) => {
               playsInline
               url={source?.vidsrc}
             />
-            {ready && (
-              <>
+            {ready && orientation === "landscape" ? (
+              createPortal(
+                <div
+                  className={`             ${
+                    orientation === "landscape"
+                      ? "absolute bottom-[0vh] z-[100]"
+                      : ""
+                  }`}
+                >
+                  <Timeline source={source} vidRef={vidRef} />
+
+                  <div>
+                    <ProgressBar percent={percent} />
+                  </div>
+                </div>,
+                document.getElementById("portal-root")
+              )
+            ) : (
+              <div
+                className={`             ${
+                  orientation === "landscape" ? "absolute bottom-[0vh]" : ""
+                }`}
+              >
                 <Timeline source={source} vidRef={vidRef} />
 
                 <div>
                   <ProgressBar percent={percent} />
                 </div>
-              </>
+              </div>
             )}
-            <div className="neumorphicIn no-scrollbar flex w-full gap-2 overflow-x-scroll rounded-md p-2 text-zinc-300">
+            <div
+              className={`neumorphicIn no-scrollbar flex w-full gap-2 overflow-x-scroll rounded-md p-2 text-zinc-300 ${
+                orientation === "landscape" ? "absolute top-0" : ""
+              }`}
+            >
+              {" "}
               {clipCombo.map((item, index) => (
                 <span
                   key={`${item.name} ${Math.random() * 1000}`}
