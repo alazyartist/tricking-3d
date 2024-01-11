@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 
 const useScreenOrientation = () => {
-  if (typeof window === "undefined") return "portrait";
-  const [orientation, setOrientation] = useState(
-    window.innerWidth > window.innerHeight ? "landscape" : "portrait"
-  );
+  const [orientation, setOrientation] = useState("portrait");
 
   useEffect(() => {
+    if (typeof window === "undefined") setOrientation("portrait");
     const handleResize = () => {
       setOrientation(
         window.innerWidth > window.innerHeight ? "landscape" : "portrait"
