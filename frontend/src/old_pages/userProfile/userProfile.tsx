@@ -15,6 +15,7 @@ import OverallStatDisplay from "./components/OverallStatDisplay";
 import { trpc } from "utils/trpc";
 import { sessionsummaries, user_sessions } from "@prisma/client";
 import LastSessionStats from "./components/LastSessionStats";
+import useScreenOrientation from "@hooks/UseScreenOrientaion";
 
 const UserProfile = () => {
   const [hidden, setHidden] = useState<boolean>(false);
@@ -30,6 +31,7 @@ const UserProfile = () => {
   >();
   const [activeView, setActiveView] = useState("Stats");
   const isUsersPage = uuid === loggedInUUID;
+  const orientation = useScreenOrientation();
   useEffect(() => {
     if (sessionid && profileInfo?.SessionSummaries) {
       let tempSummary = profileInfo?.SessionSummaries.find(
@@ -66,22 +68,33 @@ const UserProfile = () => {
           ? "73vh"
           : fullScreenLower
           ? "5vh"
-          : "43vh"
+          : orientation === "portrait"
+          ? "40vh"
+          : "90vh"
         : "33vh",
     },
     from: { height: "27vh" },
     config: { durration: 100, tension: 260, friction: 50 },
     exitBeforeEnter: true,
   });
+  const getLowerHeight = () => {
+    if (hidden) {
+      if (!activeSummary) {
+        return "13vh";
+      } else if (fullScreenLower) {
+        return "90vh";
+      } else if (orientation === "portrait") {
+        return "45vh";
+      } else {
+        return "90vh";
+      }
+    } else {
+      return "27vh";
+    }
+  };
   const resizeLower = useSpring({
     to: {
-      height: hidden
-        ? !activeSummary
-          ? "13vh"
-          : fullScreenLower
-          ? "90vh"
-          : "45vh"
-        : "27vh",
+      height: getLowerHeight(),
     },
     from: { height: "27vh" },
     config: { durration: 100, tension: 260, friction: 50 },
@@ -150,10 +163,14 @@ const UserProfile = () => {
         </div>
       </animated.div>
 
-      <div className="relative top-0 z-[2] flex max-h-[95vh] w-full flex-col place-items-center gap-2 rounded-lg p-2">
+      <div
+        className={`relative top-0 z-[2] flex max-h-[95vh] w-full ${
+          orientation === "landscape" ? "" : "flex-col"
+        } place-items-center gap-2 rounded-lg p-2`}
+      >
         <animated.div
           style={resizeUpper}
-          className="relative h-[40vh] w-full overflow-y-scroll rounded-lg bg-zinc-800 bg-opacity-40 p-2 backdrop-blur-xl"
+          className={`relative h-[40vh] w-full overflow-y-scroll rounded-lg bg-zinc-800 bg-opacity-40 p-2 backdrop-blur-xl`}
         >
           {activeView === "Stats" ? (
             <div>
@@ -188,11 +205,14 @@ const UserProfile = () => {
         <div></div>
         <animated.div
           style={resizeLower}
-          className={`z-[-2] h-[27vh] w-full rounded-lg bg-zinc-800 bg-opacity-40 p-2 backdrop-blur-xl`}
+          className={`z-[-2] h-[27vh] rounded-lg bg-zinc-800 ${
+            orientation === "portrait" ? "w-full" : "w-[30vw]"
+          }
+               bg-opacity-40 p-2 backdrop-blur-xl`}
         >
           {activeView === "Stats" ? (
             <div
-              className="mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4"
+              className={` mb-2 w-fit rounded-md bg-zinc-900 p-1 px-4`}
               // onClick={() => setActiveView("Sessions")}
             >
               <LastSessionStats profileInfo={profileInfo} />

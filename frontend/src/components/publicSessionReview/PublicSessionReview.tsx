@@ -12,6 +12,7 @@ import {
   transitions,
   tricks,
 } from "@prisma/client";
+import useScreenOrientation from "@hooks/UseScreenOrientaion";
 interface PSRProps {
   source: sessionsources;
   activeSummary: sessionsummaries & {
@@ -38,7 +39,7 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }: PSRProps) => {
   const removeClipfromCombo = useSessionSummariesStore(
     (s) => s.removeClipfromCombo
   );
-
+  const orientation = useScreenOrientation();
   const clearSessionData = useSessionSummariesStore((s) => s.clearSessionData);
   const setSessionData = useSessionSummariesStore((s) => s.setSessionData);
   const sessionData = useSessionSummariesStore((s) => s.sessionData);
@@ -148,13 +149,28 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }: PSRProps) => {
       {
         vidsrc === source?.vidsrc ? (
           <div className=" md:top-[0vh]">
-            <div className="absolute left-0 top-0 z-[1025] flex aspect-video h-[100%] w-[100%] flex-col gap-2 rounded-md bg-zinc-900 p-2">
+            <div className="absolute left-0 top-0 z-[1025] flex aspect-video h-[100%] w-[100%] max-w-[100vw] flex-col gap-2 rounded-md bg-zinc-900 p-2">
               <div
-                className="flex place-items-center gap-2"
+                className="absolute left-2 top-2 flex place-items-center gap-2"
                 onClick={() => setVidsrc(null)}
               >
                 {vidsrc === source?.vidsrc && <MdClose />}{" "}
                 {/* {source?.vidsrc.replace(vidsrcRegex, "")} */}
+              </div>
+              <div
+                className={`neumorphicIn no-scrollbar absolute  ${
+                  orientation === "landscape"
+                    ? "left-[8%] top-0 w-[92%]"
+                    : "bottom-8 left-0 h-fit w-[98%]"
+                } flex flex-grow-0 gap-2 overflow-hidden overflow-x-scroll whitespace-nowrap rounded-md p-2 text-[12px] text-zinc-300`}
+              >
+                {shorthand
+                  ? shorthand
+                  : clipCombo.map((item, index) => (
+                      <div key={`${item.name} ${Math.random() * 1000}`}>
+                        {item.name}
+                      </div>
+                    ))}
               </div>
               <ReactPlayer
                 ref={vidRef}
@@ -218,15 +234,6 @@ const PublicSessionReview = ({ source, activeSummary, mirrored }: PSRProps) => {
                     className={`absolute top-[4px] h-3 rounded-md bg-teal-300  `}
                   ></div> */}
                 </div>
-              </div>
-              <div className="neumorphicIn no-scrollbar flex w-[100%] gap-2 overflow-hidden overflow-x-scroll whitespace-nowrap rounded-md p-2 text-[12px] text-zinc-300">
-                {shorthand
-                  ? shorthand
-                  : clipCombo.map((item, index) => (
-                      <div key={`${item.name} ${Math.random() * 1000}`}>
-                        {item.name}
-                      </div>
-                    ))}
               </div>
             </div>
           </div>

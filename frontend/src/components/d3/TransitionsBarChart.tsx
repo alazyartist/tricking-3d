@@ -112,7 +112,7 @@ const TransitionsBarChart = ({ data }) => {
     };
   }, [data, dimensions]);
   return (
-    <div ref={piRef} className="h-full w-full">
+    <div ref={piRef} className="h-full max-h-[90vh] w-full">
       <svg key={"transitionsChartKey"} className="h-full w-full" ref={svgRef} />
     </div>
   );
