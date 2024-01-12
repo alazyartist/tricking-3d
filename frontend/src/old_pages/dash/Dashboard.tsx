@@ -34,7 +34,7 @@ function Dashboard({ uuid, profilePic, first_name, last_name, username }) {
         return <ClaimTricks user_id={uuid} />;
         break;
       case "captures":
-        return <Captures dash />;
+        return <CapturesPage dash={true} />;
         break;
       // case "tricklists":
       //   return <TricklistPage profileuuid={uuid} displayOnly={false} />;

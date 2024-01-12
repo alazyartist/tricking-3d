@@ -10,7 +10,7 @@ import Captures from "./Captures";
 import QRGenerator from "./QRGenerator";
 import QRReader from "./QRReader";
 
-const CapturesPage: React.FC<any> = () => {
+const CapturesPage: React.FC<any> = ({ dash }) => {
   const [activeView, setActiveView] = useState("Capture");
   // useEffect(() => {
   //   console.log(activeView);
@@ -50,19 +50,21 @@ const CapturesPage: React.FC<any> = () => {
 
   return (
     <>
-      <div className="max-w-[50vw]">
-        <TrickedexLogo className={`-m-2px flex fill-zinc-400`} />
-      </div>
+      {!dash && (
+        <div className="max-w-[50vw]">
+          <TrickedexLogo className={`-m-2px flex fill-zinc-400`} />
+        </div>
+      )}
 
       {/* Set the general style for the page*/}
       <div
-        className="
+        className={`
           m-auto max-h-[83vh]
-          w-[95vw] max-w-[600px] rounded-xl
+        ${dash ? "w-full" : "w-[95vw]"} max-w-[600px] rounded-xl
         bg-zinc-800
           bg-opacity-40 
           p-2 backdrop-blur-xl
-        "
+        `}
       >
         {/* Display Content Tabs */}
         <div
