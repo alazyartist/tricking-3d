@@ -47,7 +47,7 @@ const CommandBar = ({ tricks, combos }) => {
         className={`${
           orientation === "landscape"
             ? "absolute left-0 top-0 h-full w-full"
-            : "relative left-[10vw] h-[35vh] md:bottom-12  md:left-[20vw] md:h-[10rem] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]"
+            : "relative left-[10vw] h-[35vh] md:bottom-12  md:left-[20vw] md:h-[24vh] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]"
         }    z-[10] flex  w-[80vw] flex-col place-items-center justify-around rounded-md rounded-b-none bg-zinc-900 p-2 font-inter text-zinc-400 `}
       >
         {trickPopupVisible ? (

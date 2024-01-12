@@ -29,7 +29,7 @@ const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
   const [devNote, setDevNote] = useState(false);
   // mixpanel.track("Landing Page View");
   return (
-    <div className="no-scrollbar fixed top-0 flex h-[100vh] w-[100vw] flex-col place-items-center justify-between gap-2 overflow-y-scroll bg-zinc-100 text-zinc-800">
+    <div className="no-scrollbar fixed top-0 flex h-[100vh] w-[100vw] flex-col place-items-center justify-between gap-2 overflow-y-scroll bg-zinc-800 text-zinc-200">
       <div
         id="abovethefold"
         className="flex h-[100vh] flex-shrink-0 flex-col items-center gap-2 "
@@ -126,9 +126,7 @@ const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
         >
           <Suspense>
             <AnatomySketch
-              className={
-                "h-full w-full rounded-md bg-gradient-to-b from-teal-500 to-cyan-600 "
-              }
+              className={"h-full w-full rounded-md bg-zinc-900 fill-zinc-200 "}
             />
           </Suspense>
         </DetailCard>
@@ -241,7 +239,7 @@ const TagLine: React.FC<{ a: boolean }> = ({ a }) => {
 
 const PEtheMess = ({ setDevNote }) => {
   return (
-    <div className=" h-fit w-[90vw] rounded-xl bg-zinc-800 p-4 py-4 font-inter font-semibold text-zinc-300">
+    <div className=" h-fit w-[90vw] rounded-xl bg-zinc-800 p-4 py-4 font-inter font-semibold text-zinc-300 lg:w-[40vw]">
       <div className="text-center text-lg leading-relaxed md:text-3xl">
         While this project is{" "}
         <span className="font-black text-red-300">NOT </span> complete.

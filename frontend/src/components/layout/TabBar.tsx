@@ -74,7 +74,7 @@ function TabBar() {
             `}
         ></animated.div>
       )}
-      {orientation === "portrait" && (
+      {
         <animated.div
           id={"tabBar"}
           className={`fixed bottom-0  ${
@@ -140,7 +140,7 @@ function TabBar() {
           ^^
         </button> */}
         </animated.div>
-      )}
+      }
 
       {/* Open Hamburger Menu Display */}
       {hamburger(
