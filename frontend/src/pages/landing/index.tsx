@@ -35,7 +35,7 @@ const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
         className="flex h-[100vh] flex-shrink-0 flex-col items-center gap-2 "
       >
         <div className=" flex w-full place-items-center justify-between p-2">
-          <TrickedexLogo className="w-[45%] flex-shrink-0 fill-zinc-800 md:w-[20%]" />
+          <TrickedexLogo className="w-[45%] flex-shrink-0 fill-zinc-300 md:w-[20%]" />
           {/* <div className="rounded-md border-[1px] border-zinc-800 p-2">
             <FaHamburger className="text-2xl text-zinc-800" />
           </div> */}
@@ -90,18 +90,18 @@ const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
             />
           </button>
         </div>
-        <Suspense
+        {/* <Suspense
           fallback={
             <div className="absolute top-[50vh] -z-20 h-[60vw] w-[60vw] rounded-full bg-teal-300 blur-3xl" />
           }
         >
           <MovingBackground />
-        </Suspense>
+        </Suspense> */}
         {devNote && <PEtheMess setDevNote={setDevNote} />}
         {!devNote && (
           <div className="p-8">
             <p
-              className="rounded-md border-[1px] border-zinc-800 px-2"
+              className="rounded-md border-[1px] border-zinc-300 px-2"
               onClick={() => setDevNote(true)}
             >
               See Dev Note
@@ -224,7 +224,7 @@ const TagLine: React.FC<{ a: boolean }> = ({ a }) => {
             });
             // router.push("/register");
           }}
-          className="rounded-md border-[1px] border-zinc-900 px-1 font-black md:px-2"
+          className="rounded-md border-[1px] border-zinc-300 px-2 pb-1 text-xl font-black md:px-2"
         >
           <SignUpButton
             mode="modal"
