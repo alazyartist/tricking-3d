@@ -60,7 +60,7 @@ const CapturesPage: React.FC<any> = ({ dash }) => {
       <div
         className={`
           m-auto max-h-[83vh]
-        ${dash ? "w-full" : "w-[95vw]"} max-w-[600px] rounded-xl
+        ${dash ? "w-full" : "w-[95vw] max-w-[600px]"}  rounded-xl
         bg-zinc-800
           bg-opacity-40 
           p-2 backdrop-blur-xl

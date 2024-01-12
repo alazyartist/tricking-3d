@@ -79,7 +79,7 @@ function AllTrickDisplay() {
           )}
         </div>
         <input
-          className="sticky top-0 w-full rounded-xl p-2"
+          className="sticky top-0 w-full rounded-xl bg-zinc-800 p-2 text-zinc-200"
           type={"search"}
           placeholder="Search for Tricks..."
           onChange={handleFilter}

@@ -44,7 +44,7 @@ function TabBar() {
 
   const navToggle = useSpring<{}>({
     from: { bottom: "-62px" },
-    to: { bottom: orientation === "landscape" ? "-62px" : "0px" },
+    to: { bottom: false ? "-62px" : "0px" },
     reverse: openNav,
     config: {
       config: { tension: 40, friction: 12 },
@@ -54,7 +54,7 @@ function TabBar() {
     from: { height: window.innerWidth < 768 ? "0vh" : "10rem" },
     to: {
       height: window.innerWidth < 768 ? "35vh" : "10rem",
-      bottom: orientation === "landscape" ? "-62px" : "0px",
+      bottom: orientation === "landscape" ? "0px" : "0px",
     },
     reverse: trickMakerOpen || !clipDetailsVisible,
     config: {

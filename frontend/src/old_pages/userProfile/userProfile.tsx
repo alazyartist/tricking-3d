@@ -192,7 +192,7 @@ const UserProfile = () => {
       >
         <animated.div
           style={resizeUpper}
-          className={`relative h-[40vh] w-full overflow-y-scroll rounded-lg bg-zinc-800 bg-opacity-40 p-2 backdrop-blur-xl`}
+          className={`no-scrollbar relative h-[40vh] w-full overflow-y-scroll rounded-lg bg-zinc-800 bg-opacity-40 p-2 backdrop-blur-xl`}
         >
           {activeView === "Stats" ? (
             <div>
