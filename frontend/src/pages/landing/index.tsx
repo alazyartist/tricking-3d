@@ -56,7 +56,7 @@ const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
               })
             }
             href="/sandbox"
-            className="rounded-md bg-sky-500 p-2 font-bold text-zinc-100"
+            className="rounded-md bg-indigo-500 p-2 font-bold text-zinc-100"
           >
             Sandbox
           </Link>
@@ -68,7 +68,7 @@ const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
               })
             }
             href="/home"
-            className="rounded-md bg-sky-500 p-2 font-bold text-zinc-100"
+            className="rounded-md bg-indigo-500 p-2 font-bold text-zinc-100"
           >
             Home
           </Link>
@@ -80,7 +80,7 @@ const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
                 destination: "login",
               })
             }
-            className="rounded-md bg-sky-500 p-2 font-bold text-zinc-100"
+            className="rounded-md bg-indigo-500 p-2 font-bold text-zinc-100"
           >
             <SignInButton
               mode="modal"

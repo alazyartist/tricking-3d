@@ -31,13 +31,13 @@ const DetailCard: React.FC<DetailCardProps> = ({
       <div className="flex h-24 w-full flex-col place-content-center place-items-center">
         {link && link !== "/register" ? (
           <Link
-            className="rounded-lg bg-sky-500 px-4 py-2 font-inter text-zinc-300"
+            className="rounded-lg bg-indigo-500 px-4 py-2 font-inter text-zinc-300"
             href={link}
           >
             {cta}
           </Link>
         ) : (
-          <div className="rounded-lg bg-sky-500 px-4 py-2 font-inter text-zinc-300">
+          <div className="rounded-lg bg-indigo-500 px-4 py-2 font-inter text-zinc-300">
             <SignUpButton mode="modal">{cta}</SignUpButton>
           </div>
         )}
