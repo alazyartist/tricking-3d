@@ -3,7 +3,6 @@ import Link from "next/link";
 import { TrickedexLogo } from "@data/icons/TrickedexLogo";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
-import { FaHamburger } from "react-icons/fa";
 import { useRouter } from "next/router";
 import mixpanel from "@utils/mixpanel";
 import { SignInButton, SignUpButton } from "@clerk/nextjs";
@@ -19,10 +18,10 @@ const DetailCard = dynamic(
   () => import("@old_pages/landing/components/DetailCard")
 );
 
-const MovingBackground = dynamic(
-  () => import("@old_pages/landing/components/MovingBackground"),
-  { suspense: false }
-);
+// const MovingBackground = dynamic(
+//   () => import("@old_pages/landing/components/MovingBackground"),
+//   { suspense: false }
+// );
 
 const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
   const [loadScene, setLoadScene] = useState(false);
