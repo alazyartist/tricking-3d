@@ -221,7 +221,7 @@ export const OutOfCredits = ({ closePopover, setShowCreditPacks }) => {
   return (
     <div
       ref={ref}
-      className="absolute top-[10vh] z-[200] flex h-[80vh] w-[90vw] flex-col space-y-2 rounded-md bg-zinc-800 p-8 pt-4"
+      className="absolute top-[10vh] z-[200] flex h-[80vh] w-[90vw] flex-col space-y-2 rounded-md bg-zinc-800 p-8 pt-4 lg:w-[60vw]"
     >
       {/* <div className="flex place-content-center place-items-center gap-4 text-center font-inter text-4xl">
         <div
@@ -265,14 +265,30 @@ export const OutOfCredits = ({ closePopover, setShowCreditPacks }) => {
         price={22}
         title={"Elite"}
       />
-      <button
-        type="button"
-        onClick={() => setShowForm(true)}
-        className="absolute bottom-8 w-[200px] place-self-center rounded-md bg-gradient-to-br from-emerald-500 to-emerald-600 py-2 text-2xl font-semibold text-zinc-200"
-        id="submit"
-      >
-        Add Credits
-      </button>
+      <div className="p-1">
+        <h1 className="text-lg font-semibold">What is a Credit?</h1>
+        <p className="text-xs">
+          credits allow you to submit sessions, samplers, and battles for
+          review, this gives you access to all of your stats
+        </p>
+      </div>
+      <div className="absolute bottom-8 flex w-full flex-col place-content-center place-items-center gap-3   ">
+        <button
+          type="button"
+          onClick={() => setShowForm(true)}
+          id="submit"
+          className="
+        place-self-cener w-[200px] rounded-md bg-gradient-to-br from-emerald-500 to-emerald-600 py-2 text-2xl font-semibold text-zinc-200"
+        >
+          Add Credits
+        </button>
+        <button
+          onClick={() => closePopover()}
+          className="flex place-content-center place-items-center justify-around gap-2 text-xs text-red-500 underline"
+        >
+          close
+        </button>
+      </div>
       {showForm && (
         <div className="absolute left-[0vw] top-[0vh] z-[1290] h-full w-full rounded-md bg-zinc-900 bg-opacity-40 p-8 backdrop-blur-md">
           <PaymentEmbed
@@ -301,7 +317,7 @@ const CreditPack = ({
   return (
     <div
       onClick={() => handlePackSelection()}
-      className={`flex w-full flex-col gap-1 rounded-md bg-zinc-900 p-2 ${
+      className={`flex w-full flex-col gap-1 rounded-md bg-zinc-900 p-2 lg:w-[80%] lg:place-self-center lg:text-2xl ${
         selectedPack === title
           ? " ring-2 ring-emerald-500 ring-offset-2 ring-offset-zinc-700"
           : ""
