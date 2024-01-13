@@ -91,6 +91,9 @@ const RenderCaptures = ({ captureContent, title }) => {
             gap-2
             overflow-auto
             p-2
+            lg:grid
+            lg:w-full
+            lg:grid-cols-3
           `}
         >
           {!!captureContent &&

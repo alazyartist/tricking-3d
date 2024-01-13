@@ -11,7 +11,7 @@ const TheoryWrapper = ({ children }) => {
   return (
     <>
       {/* <div className='sticky top-0 h-14 bg-zinc-900'></div> */}
-      <div className="no-scrollbar  flex h-[100vh] flex-col place-content-start place-items-center overflow-y-scroll bg-zinc-900 bg-opacity-90 font-inter font-bold text-zinc-800">
+      <div className="no-scrollbar  flex h-[100vh] flex-col place-content-start place-items-center overflow-y-scroll  font-inter font-bold text-zinc-800">
         {/* <Link
                   to='/3d/theory'
                   className='font-inter px-4 text-center text-3xl font-bold text-zinc-300'>

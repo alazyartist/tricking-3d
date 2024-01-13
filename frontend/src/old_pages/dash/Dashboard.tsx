@@ -57,8 +57,8 @@ function Dashboard({ uuid, profilePic, first_name, last_name, username }) {
         />
         <div
           className="
-          m-auto max-h-[83vh] w-[98vw] max-w-[600px]
-          rounded-xl bg-zinc-900 bg-opacity-30 p-4
+          m-auto max-h-[83vh] w-[98vw] max-w-[600px] rounded-xl
+          bg-zinc-900 bg-opacity-30 p-4 lg:w-[60vw]
          lg:max-w-[90vw] 
         "
         >

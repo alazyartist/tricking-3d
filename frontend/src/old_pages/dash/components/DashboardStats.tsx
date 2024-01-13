@@ -40,7 +40,7 @@ const DashboardStats = ({ uuid }) => {
     .sort((a, b) => b.count - a.count);
   console.log(tricks.length, uniqueTricks.length, uniqueTricksGroup);
   return (
-    <div className="minimalistScroll h-full max-h-[60vh] w-full overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70 lg:max-h-[65vh]">
+    <div className="minimalistScroll lg:no-scrollbar h-full max-h-[60vh] w-full overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70 lg:max-h-[65vh]">
       <h1 className="p-2 text-zinc-200">DashboardStats</h1>
       <div className="flex w-full flex-col place-items-center gap-2 p-2">
         <StatCard title={"Tricks"} data={tricks && tricks.length} />
