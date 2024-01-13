@@ -11,32 +11,42 @@ const SessionList = ({ uuid }) => {
   return (
     <div
       className={
-        "no-scrollbar h-full max-h-[60vh] w-full overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70"
+        "no-scrollbar  h-[60vh] w-full overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70"
       }
     >
       <div className={"p-2"}>My Sessions</div>
       {sessions && <SessionLineChart data={sessions} />}
-      {sessions &&
-        sessions.map((s) => {
-          return (
-            <div
-              key={s.sessionid}
-              className={` grid grid-cols-[1fr_.5fr_.5fr] justify-between border-b-[1px] lg:grid-cols-[2fr_.5fr_.25fr] ${
-                s.status === "Reviewed"
-                  ? "border-indigo-300"
-                  : "border-zinc-300"
-              } p-2`}
-            >
-              <p>{s.name}</p>
-              <Link href={`userProfile/${s.user_id}?sessionid=${s.sessionid}`}>
-                <p>{s.status}</p>
-              </Link>
-              <p>{s.SessionData.length} Clips</p>
-            </div>
-          );
-        })}
+      <div className="flex h-full flex-col place-content-start gap-4 p-2 pt-[1rem] ">
+        {sessions &&
+          sessions.map((s) => {
+            return (
+              <div
+                key={s.sessionid}
+                className={` grid grid-cols-[1.25fr_.5fr_.5fr] justify-between gap-1 border-l-4 lg:grid-cols-[2fr_.5fr_.25fr] ${
+                  s.status === "Reviewed"
+                    ? "border-emerald-500"
+                    : "border-zinc-300"
+                } rounded-md bg-zinc-800 bg-opacity-40 p-2`}
+              >
+                <p
+                  className={`  ${
+                    s.status === "Reviewed" ? "text-zinc-300" : "text-zinc-500"
+                  }`}
+                >
+                  {s.name}
+                </p>
+                <Link
+                  href={`userProfile/${s.user_id}?sessionid=${s.sessionid}`}
+                >
+                  <p>{s.status}</p>
+                </Link>
+                <p className="text-right">{s.SessionData.length} Clips</p>
+              </div>
+            );
+          })}
 
-      <p>no more sessions to show</p>
+        <p>no more sessions to show</p>
+      </div>
     </div>
   );
 };

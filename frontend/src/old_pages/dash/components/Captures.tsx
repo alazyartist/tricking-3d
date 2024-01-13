@@ -88,10 +88,12 @@ const RenderCaptures = ({ captureContent, title }) => {
           minimalistScroll flex
             max-h-[50vh]
             flex-col
+            place-content-start
             gap-2
             overflow-auto
             p-2
             lg:grid
+            lg:h-full
             lg:w-full
             lg:grid-cols-3
           `}

@@ -90,7 +90,7 @@ const ClaimTricks = ({ user_id }) => {
           value={searchTerm}
           onChange={handleFilter}
         />
-        <div className="flex gap-2 whitespace-nowrap p-2">
+        <div className="flex w-full gap-2 whitespace-nowrap p-2 text-sm lg:text-xl">
           <p className="place-self-center">Sort By</p>
           <p
             className={`${

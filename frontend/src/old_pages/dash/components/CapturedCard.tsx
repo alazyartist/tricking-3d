@@ -13,8 +13,9 @@ const CapturedCard = ({ name, src, username, userid }) => {
 			gap-2 rounded-lg
 			bg-zinc-800 bg-opacity-40 p-2
 			pt-3
-      font-inter lg:min-w-[250px]  lg:place-content-center
+      font-inter lg:min-w-[250px]  lg:place-content-start
 			lg:gap-4 
+      lg:pl-4
 		"
     >
       {/* Profile Icon */}

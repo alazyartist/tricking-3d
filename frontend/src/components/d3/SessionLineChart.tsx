@@ -141,7 +141,7 @@ const SessionLineChart: React.FC<LineChartProps> = ({
   }, [data, dimensions]);
 
   return (
-    <div ref={lRef} className="h-28 w-full">
+    <div ref={lRef} className="h-28 w-full rounded-md p-2">
       <svg key={"sessionLineChart1"} className="h-full w-full" ref={svgRef} />
     </div>
   );
