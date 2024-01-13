@@ -19,10 +19,10 @@ function Transitions() {
     });
   return (
     <>
-      <div className="mt-4 flex flex-col place-content-center place-items-center font-inter font-bold text-zinc-300">
+      <div className="flex w-[95vw] flex-col place-content-center place-items-center rounded-lg bg-zinc-900 bg-opacity-70 font-inter font-bold text-zinc-300 lg:w-[60vw]">
         <div
           onClick={() => setTypeFilter("All")}
-          className="text-xl font-black text-white"
+          className="p-4 text-xl font-black text-white"
         >
           Transitions
         </div>
@@ -32,26 +32,32 @@ function Transitions() {
           <Link href="sequential">Sequential</Link>
           <Link href="unified">Unified</Link>
         </div> */}
-        <div className="flex items-center gap-5">
-          <div className="flex flex-col items-center gap-3 rounded-md bg-zinc-800 p-2">
+        <div className="flex w-full items-center justify-around p-2 text-sm lg:w-[60vw] lg:text-2xl ">
+          <div className="flex flex-col items-center gap-2 rounded-md bg-zinc-800 p-2 ">
             <div>From</div>
-            <div className="flex gap-3">
+            <div className="flex gap-2 lg:gap-6 lg:p-4">
               <button
-                className={`${legs.from === "Left" ? "text-indigo-500" : ""}`}
+                className={`${
+                  legs.from === "Left" ? "text-indigo-500" : ""
+                } flex flex-col place-content-center place-items-center`}
                 onClick={() => setLegs((l) => ({ ...l, from: "Left" }))}
               >
                 {whichLeg("Left")}
                 Left
               </button>
               <button
-                className={`${legs.from === "Right" ? "text-indigo-500" : ""}`}
+                className={`${
+                  legs.from === "Right" ? "text-indigo-500" : ""
+                } flex flex-col place-content-center place-items-center`}
                 onClick={() => setLegs((l) => ({ ...l, from: "Right" }))}
               >
                 {whichLeg("Right")}
                 Right
               </button>
               <button
-                className={`${legs.from === "Both" ? "text-indigo-500" : ""}`}
+                className={`${
+                  legs.from === "Both" ? "text-indigo-500" : ""
+                } flex flex-col place-content-center place-items-center`}
                 onClick={() => setLegs((l) => ({ ...l, from: "Both" }))}
               >
                 {whichLeg("Both")}
@@ -59,25 +65,31 @@ function Transitions() {
               </button>
             </div>
           </div>
-          <div className="flex flex-col items-center gap-3 rounded-md bg-zinc-800 p-2">
+          <div className="flex flex-col items-center gap-2 rounded-md bg-zinc-800 p-2">
             <div>To</div>
-            <div className="flex gap-3">
+            <div className="flex place-content-center gap-2 lg:gap-6 lg:p-4">
               <button
-                className={`${legs.to === "Left" ? "text-indigo-500" : ""}`}
+                className={`${
+                  legs.to === "Left" ? "text-indigo-500" : ""
+                } flex flex-col place-content-center place-items-center `}
                 onClick={() => setLegs((l) => ({ ...l, to: "Left" }))}
               >
                 {whichLeg("Left")}
                 Left
               </button>
               <button
-                className={`${legs.to === "Right" ? "text-indigo-500" : ""}`}
+                className={`${
+                  legs.to === "Right" ? "text-indigo-500" : ""
+                } flex flex-col place-content-center place-items-center`}
                 onClick={() => setLegs((l) => ({ ...l, to: "Right" }))}
               >
                 {whichLeg("Right")}
                 Right
               </button>
               <button
-                className={`${legs.to === "Both" ? "text-indigo-500" : ""}`}
+                className={`${
+                  legs.to === "Both" ? "text-indigo-500" : ""
+                } flex flex-col place-content-center place-items-center`}
                 onClick={() => setLegs((l) => ({ ...l, to: "Both" }))}
               >
                 {whichLeg("Both")}
@@ -86,7 +98,7 @@ function Transitions() {
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 p-2 lg:p-4 lg:text-2xl">
           {["All", "Singular", "Sequential", "Unified"].map((type) => {
             return (
               <button
@@ -98,12 +110,12 @@ function Transitions() {
             );
           })}
         </div>
-        <div className="minimalistScroll flex h-[55vh] w-full flex-col gap-2 overflow-y-auto rounded-md p-2">
+        <div className="no-scrollbar flex h-[55vh] w-full max-w-[80vw] flex-col gap-2 overflow-y-auto rounded-md">
           {filteredTransitions?.map((tr) => {
             return (
               <div
                 key={tr.id}
-                className=" flex flex-row place-content-center place-items-center justify-around gap-2 rounded-xl bg-black bg-opacity-40 p-1"
+                className="flex  flex-row place-content-center place-items-center justify-around gap-2 rounded-xl bg-zinc-900 bg-opacity-40 p-1"
               >
                 <div className="w-[150px] text-xl font-bold">{tr.name}</div>
                 <div className="fill-zinc-500 text-sm">

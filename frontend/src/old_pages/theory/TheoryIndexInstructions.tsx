@@ -42,6 +42,12 @@ const TheoryIndexInstructions = () => {
         >
           Stances
         </li>
+        <li
+          onClick={() => nav.push("/terms")}
+          className="rounded-xl border-2 border-zinc-500 p-2"
+        >
+          Glossary
+        </li>
       </ul>
     </div>
   );

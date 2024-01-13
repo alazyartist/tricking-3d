@@ -52,7 +52,7 @@ function AllTrickDisplay() {
       {/* <AOAT className='rounded-2xl bg-zinc-300' /> */}
       <div
         id={"TrickListContainer"}
-        className="  flex max-h-full max-w-full flex-col place-content-center place-items-center gap-4 p-2 font-inter font-bold "
+        className="  flex max-h-full max-w-full flex-col place-content-center place-items-center gap-4 bg-zinc-900 bg-opacity-70 p-2 font-inter font-bold lg:w-[60vw] "
       >
         <div className="text-zinc-300">
           {filteredTricks?.length}/{TrickListArr?.length} Tricks
@@ -61,7 +61,7 @@ function AllTrickDisplay() {
           <TrickPieChart group_by={group_by} data={filteredTricks} />
         </div>
 
-        <div className="flex w-[90vw] justify-around gap-2 p-2 text-zinc-200">
+        <div className="flex w-[90vw] justify-around gap-2 p-2 text-zinc-200 lg:w-full">
           {["base_id", "takeoffStance", "landingStance", "trickType"].map(
             (key) => (
               <button
@@ -78,6 +78,18 @@ function AllTrickDisplay() {
             )
           )}
         </div>
+        <div>
+          <div>
+            <p className="text-sm font-normal text-zinc-200">
+              Below you will find links to breakdowns for these specific tricks.
+              For a more general understanding of what makes up a trick please
+              see{" "}
+              <Link className="inline underline" href={"/theory/anatomy"}>
+                Anatomy of a trick
+              </Link>
+            </p>
+          </div>
+        </div>
         <input
           className="sticky top-0 w-full rounded-xl bg-zinc-800 p-2 text-zinc-200"
           type={"search"}
@@ -90,7 +102,7 @@ function AllTrickDisplay() {
             <animated.div
               style={{ opacity: opacity }}
               key={e.trick_id}
-              className="rounded-md bg-zinc-900 bg-opacity-40 backdrop-blur-md"
+              className="rounded-md bg-zinc-800 bg-opacity-40 backdrop-blur-md"
             >
               {/* <div
                 onClick={() => handleGoToAnim(e)}
