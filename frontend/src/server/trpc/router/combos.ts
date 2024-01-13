@@ -1,8 +1,42 @@
 import { router, publicProcedure, protectedProcedure } from "../trpc";
 import { z } from "zod";
 import calculateTrickTotals from "@utils/CalculateTrickTotals";
-
+import { v4 as uuidv4 } from "uuid";
 export const comboRouter = router({
+  saveCombo: protectedProcedure
+    .input(
+      z.object({
+        creator: z.string(),
+        comboName: z.string(),
+        comboArray: z.array(z.any()),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      //check if combo exists first
+      const comboExists = await ctx.prisma.combos.findFirst({
+        where: {
+          name: input.comboName,
+        },
+      });
+      if (comboExists) {
+        return "Combo Already Exists";
+      }
+      if (input.comboArray.length === 0) return "Combo is empty";
+
+      if (!comboExists) {
+        const combo = await ctx.prisma.combos.create({
+          data: {
+            combo_id: uuidv4(),
+            name: input.comboName,
+            comboArray: input.comboArray,
+            creator: input.creator,
+            updatedAt: new Date(),
+            createdAt: new Date(),
+          },
+        });
+        return combo;
+      }
+    }),
   getAll: publicProcedure
     .input(z.object({}).optional())
     .query(async ({ ctx }) => {

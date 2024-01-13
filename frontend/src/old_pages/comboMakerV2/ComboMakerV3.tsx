@@ -12,6 +12,7 @@ import useSaveCombo from "./useSaveCombo";
 import { stances } from "@prisma/client";
 import { trpc } from "@utils/trpc";
 import Link from "next/link";
+import { SignedIn } from "@clerk/nextjs";
 export const getServerSideProps = () => {
   return { props: {} };
 };
@@ -91,16 +92,26 @@ const ComboMakerV3 = () => {
           className="no-scrollbar flex h-[85vh] w-full flex-col place-content-start place-items-center overflow-y-auto overflow-x-hidden rounded-lg p-2 text-zinc-300 "
         >
           {comboExists && (
-            <Link href={`/combos/${comboExists.combo_id}`}>See Combo Page</Link>
+            <Link
+              className={
+                "flex min-h-[40px] place-content-center place-items-center rounded-xl p-2 text-left "
+              }
+              href={`/combos/${comboExists.combo_id}`}
+            >
+              <p>See Combo Page</p>
+            </Link>
           )}
-          {accessToken && (
-            <SaveCombo
-              save={save}
-              setSave={setSave}
-              setComboName={setComboName}
-              comboName={comboName}
-            />
-          )}
+          <SignedIn>
+            {!comboExists && (
+              <SaveCombo
+                save={save}
+                setSave={setSave}
+                setComboName={setComboName}
+                comboName={comboName}
+              />
+            )}
+          </SignedIn>
+
           <NewComboDisplay
             setDeleteLast={setDeleteLast}
             newCombo={currentItem}

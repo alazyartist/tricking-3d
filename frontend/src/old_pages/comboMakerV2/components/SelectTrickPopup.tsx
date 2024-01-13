@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaArrowRight } from "react-icons/fa";
 import { MdClose } from "../../../data/icons/MdIcons";
 import {
   SetupShape,
@@ -50,11 +51,12 @@ const SelectTrickPopup = ({
       {newCombo?.length > 0 && lastItem?.type !== "Trick" && (
         <div className={comboPopoverStyle}>
           {allTricks
-            ?.filter((trick) =>
-              newCombo.length > 0
+            ?.filter((trick) => {
+              console.log(findStanceLeg(trick.takeoffStance), currentFilter);
+              return newCombo.length > 0
                 ? findStanceLeg(trick.takeoffStance) === currentFilter
-                : trick
-            )
+                : trick;
+            })
             ?.map((trick) =>
               trick.type === "Trick" ? (
                 <div
@@ -127,6 +129,9 @@ const SelectTrickPopup = ({
                     <div className="flex w-full  justify-between gap-2 pt-2 text-xs">
                       <div className="w-[37px] rounded-md bg-zinc-700 p-1">
                         {trick.fromLeg}
+                      </div>
+                      <div className="flex place-content-center place-items-center ">
+                        <FaArrowRight className="fill-zinc-600" />
                       </div>
                       <div className="w-[37px] rounded-md bg-zinc-700 p-1">
                         {trick.toLeg}

@@ -9,7 +9,7 @@ const SaveCombo = ({ setComboName, comboName, setSave, save }) => {
     >
       <input
         onChange={(e) => setComboName(e.target.value)}
-        className={"w-[75%] rounded-xl bg-transparent p-2"}
+        className={"min-h-[40px]  w-[75%] rounded-xl bg-transparent p-2"}
         type={"text"}
         value={comboName}
       />
