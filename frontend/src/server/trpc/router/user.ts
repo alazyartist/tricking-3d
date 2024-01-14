@@ -143,6 +143,7 @@ export const userRouter = router({
   findUserImageById: publicProcedure
     .input(z.object({ uuid: z.string() }))
     .query(async ({ ctx, input }) => {
+      if (!input.uuid) return "https://www.trickedex.app/images/noimg.jpeg";
       const user = await ctx.prisma.users.findUnique({
         where: { uuid: input.uuid },
         select: {
