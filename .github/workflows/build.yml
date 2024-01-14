@@ -30,8 +30,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Remove old build
-        run: rm -rf ./frontend/
       - name: setup Env file from github secret
         shell: bash
         working-directory: ./frontend
