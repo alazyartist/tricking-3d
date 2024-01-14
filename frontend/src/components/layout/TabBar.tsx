@@ -3,7 +3,7 @@ import Link from "next/link";
 import ComboMakerBlueprintsvg from "../../data/ComboMakerBlueprintsvg";
 import { animated, useSpring, useTransition } from "@react-spring/web";
 import useLogout from "../../hooks/useLogout";
-import { useUser } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs";
 import TheoryCap from "../../data/icons/TheoryCap";
 import HamburgerMenu from "../../data/icons/HamburgerMenu";
 import HomeIcon from "../../data/icons/HomeIcon";
@@ -105,9 +105,18 @@ function TabBar() {
               <Link href="/home">
                 <HomeIcon />
               </Link>
-              <Link id={"dashboard-target-tabBar"} href="/dash">
-                <FaDesktop />
-              </Link>
+              <SignedIn>
+                <Link id={"dashboard-target-tabBar"} href="/dash">
+                  <FaDesktop />
+                </Link>
+              </SignedIn>
+              <SignedOut>
+                <div className="flex place-content-center place-items-center gap-2">
+                  <SignInButton mode="modal" afterSignInUrl="/addSession">
+                    <FaDesktop />
+                  </SignInButton>
+                </div>
+              </SignedOut>
               {/* <Link href="/comboMaker">
               <ComboMakerBlueprintsvg className="h-10 w-10" fill="#ffffff" />
             </Link> */}

@@ -258,7 +258,7 @@ function Home({ userInfo: stringy }) {
               label={"Combo Maker"}
             />
             <SignedOut>
-              <div className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-inter text-xl font-semibold text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] ">
+              <div className=" mb-2 mt-1 w-[70vw] max-w-[600px] rounded-xl bg-zinc-800 bg-opacity-80 p-2 text-center font-inter text-xl font-semibold text-zinc-300 shadow-[0_0_8px_1px_rgba(0,0,0,0.3)] lg:max-w-[420px] ">
                 <div className="flex place-content-center place-items-center gap-2">
                   <SignInButton mode="modal" afterSignInUrl="/addSession">
                     Add Session
