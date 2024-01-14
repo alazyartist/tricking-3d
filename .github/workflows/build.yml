@@ -30,16 +30,15 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Remove old build
+        run: rm -rf ./frontend/
       - name: setup Env file from github secret
         shell: bash
         working-directory: ./frontend
         run: |
           echo -e "${{secrets.env_file}}" > .env
           echo "Setup env file successfully"
-      - name: Remove old build
-        run: rm -rf ./frontend/.next
-      - name: List directory structure
-        run: ls -R
+
       - name: Build
         run: pnpm run build
 
