@@ -4,7 +4,7 @@ import AnatomyTrickSVG from "../components/AnatomyTrickSVG";
 
 function AOATText() {
   return (
-    <div className="w-full p-4 text-zinc-400">
+    <div className="w-full p-4 font-normal text-zinc-400">
       <h1 className=" pb-0 font-virgil text-xl text-zinc-300">Orientation</h1>
       All tricks have a directionality to them meaning they exist within an
       oriented framework where up and down and forward and backward have been

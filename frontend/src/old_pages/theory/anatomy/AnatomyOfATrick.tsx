@@ -5,11 +5,9 @@ import AnatomyIntro from "./components/AnatomyIntro";
 import AnatomyBreakdown from "./components/AnatomyBreakdown";
 function AnatomyOfATrick() {
   return (
-    <div className="flex w-full flex-col place-items-center">
-      <div className="sticky top-0 h-14"></div>
-      <div className="mt-4 flex flex-col place-content-center place-items-center font-inter font-bold text-white">
-        AnatomyOfATrick
-      </div>
+    <div className="flex w-full flex-col place-items-center lg:w-[60vw]">
+      <div className="sticky top-0 h-8"></div>
+
       <div className=" flex w-[90%] flex-col place-items-center rounded-md bg-zinc-900 bg-opacity-90">
         <AnatomyIntro />
         <AnatomyBreakdown />

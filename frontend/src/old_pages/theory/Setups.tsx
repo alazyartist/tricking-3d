@@ -3,7 +3,7 @@ import { pureSetups } from "../../data/trickDataModel/TrickObjects";
 function Setups() {
   return (
     <div className=" flex flex-col place-content-center place-items-center font-inter text-zinc-400">
-      <div className="flex w-[80vw] flex-col gap-4 font-normal md:grid md:grid-cols-2">
+      <div className="flex w-[80vw] flex-col gap-4 rounded-md bg-zinc-800 bg-opacity-70 p-2 font-normal lg:w-[40vw]">
         <div>
           <h1 className="w-full pb-0 text-left font-virgil text-xl text-zinc-300">
             Setups

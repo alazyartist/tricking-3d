@@ -5,13 +5,13 @@ const AnatomyBreakdown = () => {
   return (
     <div>
       <h1 className="p-4 pb-0 font-virgil text-xl text-zinc-300">Base</h1>
-      <div className="w-full p-4 text-zinc-400">
+      <div className="w-full p-4 font-normal text-zinc-400">
         The Anatomy of a Trick, as seen above, has at it's heart a base. This is
         a set of movements that meets a particular criteria. For this system we
         have chosen to use the flips as the base to build everything off of.
       </div>
       <BasesOverview />
-      <div className="w-full p-4 text-zinc-400">
+      <div className="w-full p-4 font-normal text-zinc-400">
         The base has an <span className="text-zinc-300">Entrance</span>,{" "}
         <span className="text-zinc-300">Beginning</span>,{" "}
         <span className="text-zinc-300">Middle</span>,{" "}
@@ -22,7 +22,7 @@ const AnatomyBreakdown = () => {
       </div>
 
       <h1 className="p-4 pb-0 font-virgil text-xl text-zinc-300">Entrance</h1>
-      <div className="w-full p-4 text-zinc-400">
+      <div className="w-full p-4 font-normal text-zinc-400">
         The <span className="text-zinc-300">Entrance</span> gives us information
         about the Takeoff Stance, and the Takeoff Style. The{" "}
         <span className="text-zinc-300">Entrance</span> to the Trick is at the
@@ -36,7 +36,7 @@ const AnatomyBreakdown = () => {
         <h1 className="p-4 pb-0 font-virgil text-xl text-zinc-300">Middle</h1>
         <h1 className="p-4 pb-0 font-virgil text-xl text-zinc-300">End</h1>
       </div>
-      <div className="w-full p-4 text-zinc-400">
+      <div className="w-full p-4 font-normal text-zinc-400">
         The <span className="text-zinc-300">Beginning</span>,{" "}
         <span className="text-zinc-300">Middle</span>, and{" "}
         <span className="text-zinc-300">End</span>, are the sections in which
@@ -46,7 +46,7 @@ const AnatomyBreakdown = () => {
         different out of it.
       </div>
       <h1 className="p-4 pb-0 font-virgil text-xl text-zinc-300">Exit</h1>
-      <div className="w-full p-4 text-zinc-400">
+      <div className="w-full p-4 font-normal text-zinc-400">
         The <span className="text-zinc-300">Exit</span> of the Trick is after
         all essential movements for the Trick have been completed and the only
         thing left is to Land in a particular Landing Stance, and Landing Style
