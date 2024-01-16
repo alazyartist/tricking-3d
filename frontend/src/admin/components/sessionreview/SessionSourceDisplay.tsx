@@ -128,9 +128,9 @@ const SessionSourceDisplay = ({ source, mirrored, orientation }) => {
                 >
                   <Timeline source={source} vidRef={vidRef} />
 
-                  <div>
+                  {/* <div>
                     <ProgressBar percent={percent} />
-                  </div>
+                  </div> */}
                 </div>,
                 document.getElementById("portal-root")
               )
@@ -142,9 +142,9 @@ const SessionSourceDisplay = ({ source, mirrored, orientation }) => {
               >
                 <Timeline source={source} vidRef={vidRef} />
 
-                <div>
+                {/* <div>
                   <ProgressBar percent={percent} />
-                </div>
+                </div> */}
               </div>
             )}
             <div

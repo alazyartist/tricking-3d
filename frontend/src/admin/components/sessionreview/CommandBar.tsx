@@ -19,6 +19,7 @@ import { MdClose } from "@data/icons/MdIcons";
 import CommandBarControls from "./CommandBarControls";
 import SelectTrickPopupCommandBar from "./SelectTrickPopupCommandBar";
 import useScreenOrientation from "@hooks/UseScreenOrientaion";
+import ActiveClipDisplay from "./ActiveClipDisplay";
 const CommandBar = ({ tricks, combos }) => {
   // const clipDetailsVisible = useSessionSummariesStore(
   //   (s) => s.clipDetailsVisible
@@ -59,6 +60,7 @@ const CommandBar = ({ tricks, combos }) => {
         ) : (
           <CommandBarControls />
         )}
+        <ActiveClipDisplay />
         {/* <div className="jusfity-around flex place-items-center gap-2">
           <div
             onClick={() => {

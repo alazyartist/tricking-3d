@@ -61,7 +61,7 @@ function TabBar() {
       height: window.innerWidth < 768 ? "35vh" : "10rem",
       bottom: orientation === "landscape" ? "0px" : "0px",
     },
-    reverse: trickMakerOpen || !clipDetailsVisible,
+    reverse: trickMakerOpen,
     config: {
       config: { tension: 40, friction: 12 },
     },
@@ -73,8 +73,8 @@ function TabBar() {
         <animated.div
           id="landscape-commandBar-root"
           className={`${
-            orientation === "landscape" ? "absolute" : "hidden"
-          }  right-0 top-0 h-[88vh] w-[19vw] overflow-hidden 
+            orientation === "landscape" ? "absolute" : "invisible"
+          }  right-0 top-0  h-[88vh] w-[19vw] overflow-hidden
                 
             `}
         ></animated.div>

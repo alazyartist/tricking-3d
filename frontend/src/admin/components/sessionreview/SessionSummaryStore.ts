@@ -38,6 +38,7 @@ interface SummaryStore {
   setTrickPopupVisible: () => void;
   clipDetailsVisible: boolean;
   setClipDetailsVisible: () => void;
+  closeClipDetailsVisible: () => void;
   vidIsPlaying: boolean;
   setVidIsPlaying: (value?: boolean) => void;
   seekTime: number;
@@ -86,6 +87,7 @@ export const useSessionSummariesStore = create<SummaryStore>(
       clipDetailsVisible: false,
       setClipDetailsVisible: () =>
         set((s) => ({ clipDetailsVisible: !s.clipDetailsVisible })),
+      closeClipDetailsVisible: () => set((s) => ({ clipDetailsVisible: true })),
       trickPopupVisible: false,
       setTrickPopupVisible: () =>
         set((s) => ({ trickPopupVisible: !s.trickPopupVisible })),

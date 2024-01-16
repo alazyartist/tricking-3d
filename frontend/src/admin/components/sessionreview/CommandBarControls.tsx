@@ -13,6 +13,9 @@ const CommandBarControls = () => {
   const setSessionData = useSessionSummariesStore((s) => s.setSessionData);
   const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
+  const setSeeDetails = useSessionSummariesStore(
+    (s) => s.setClipDetailsVisible
+  );
   const setTrickMakerOpen = useSessionSummariesStore(
     (s) => s.setTrickMakerOpen
   );
@@ -121,6 +124,10 @@ const CommandBarControls = () => {
       title: "combo",
       command: () => setTrickPopupVisible(),
     },
+    {
+      title: "details",
+      command: () => setSeeDetails(),
+    },
 
     ,
   ];
@@ -129,7 +136,7 @@ const CommandBarControls = () => {
       id={"commandBarController"}
       className={`${
         orientation === "portrait"
-          ? "grid  max-h-[9vh] w-full grid-cols-3"
+          ? "grid  max-h-[35vh] w-full grid-cols-3"
           : "flex flex-row flex-wrap"
       } h-full place-content-center place-items-center justify-around gap-2`}
     >

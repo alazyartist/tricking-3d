@@ -98,7 +98,7 @@ const AdminSessionReview = ({
       )}
       {/* <div id={"portal-root"}></div> */}
       <MakeNewTrickModal />
-      <ActiveClipDisplay />
+      {/* <ActiveClipDisplay /> */}
       {tricks !== undefined && combos !== undefined && (
         <CommandBar tricks={tricks} combos={combos} />
       )}

@@ -29,6 +29,13 @@ const UserIcon = () => {
     }
   }, [uuid, profilePic, pathname]);
   const orientation = useScreenOrientation();
+  if (
+    orientation === "landscape" &&
+    window.innerWidth < 768 &&
+    pathname.includes("/sessionReview")
+  ) {
+    return null;
+  }
   return (
     <>
       <button
