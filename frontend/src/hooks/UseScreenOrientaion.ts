@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 
 const useScreenOrientation = () => {
-  const [orientation, setOrientation] = useState("portrait");
+  const [orientation, setOrientation] = useState(
+    window?.innerWidth > window?.innerHeight
+      ? "landscape"
+      : "portrait" ?? "portrait"
+  );
 
   useEffect(() => {
     if (typeof window === "undefined") setOrientation("portrait");
@@ -10,9 +14,13 @@ const useScreenOrientation = () => {
         window.innerWidth > window.innerHeight ? "landscape" : "portrait"
       );
     };
+    window.addEventListener("orientationchange", handleResize);
 
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
+    };
   }, []);
 
   return orientation;

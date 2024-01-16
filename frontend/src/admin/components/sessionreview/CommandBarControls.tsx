@@ -126,6 +126,7 @@ const CommandBarControls = () => {
   ];
   return (
     <div
+      id={"commandBarController"}
       className={`${
         orientation === "portrait"
           ? "grid  max-h-[9vh] w-full grid-cols-3"
@@ -137,7 +138,7 @@ const CommandBarControls = () => {
           key={n.title}
           onClick={n.command}
           className={`h-fit  ${
-            orientation === "landscape" ? "w-fit" : "w-full"
+            orientation === "landscape" ? "w-fit min-w-[35px]" : "w-full"
           } rounded-md border-[1px] border-b-2 border-zinc-100 border-opacity-30 p-1 text-center`}
         >
           {n.title}

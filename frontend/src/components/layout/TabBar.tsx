@@ -44,7 +44,12 @@ function TabBar() {
 
   const navToggle = useSpring<{}>({
     from: { bottom: "-62px" },
-    to: { bottom: false ? "-62px" : "0px" },
+    to: {
+      bottom:
+        nav.pathname.includes("/sessionReview") && orientation === "landscape"
+          ? "-62px"
+          : "0px",
+    },
     reverse: openNav,
     config: {
       config: { tension: 40, friction: 12 },
@@ -69,7 +74,7 @@ function TabBar() {
           id="landscape-commandBar-root"
           className={`${
             orientation === "landscape" ? "absolute" : "hidden"
-          }  right-0 top-0 h-[94vh] w-[19vw] overflow-hidden 
+          }  right-0 top-0 h-[88vh] w-[19vw] overflow-hidden 
                 
             `}
         ></animated.div>
@@ -78,7 +83,7 @@ function TabBar() {
         <animated.div
           id={"tabBar"}
           className={`fixed bottom-0  ${
-            openNav ? "z-[1] select-none " : "z-[1014]"
+            orientation === "landscape" ? "z-[1] select-none " : "z-[1014]"
           } w-[100%] `}
         >
           {nav?.pathname?.includes("sessionReview") && (

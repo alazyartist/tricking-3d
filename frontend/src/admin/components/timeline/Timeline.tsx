@@ -80,6 +80,7 @@ const Timeline = ({ vidRef, source }) => {
   let activeLeft = `${
     (((clipData?.startTime as number) - adjustedValue) / dur) * 100
   }%`;
+  console.log("timeline", orientation);
   return (
     <div className="relative w-[80vw] ">
       {/* <div className="absolute -left-[4rem] h-20 w-[3rem]">
@@ -116,7 +117,7 @@ const Timeline = ({ vidRef, source }) => {
         />
         {orientation === "landscape" ? (
           createPortal(
-            <div className="absolute bottom-0 right-0 z-[100] w-[19vw]">
+            <div className="absolute bottom-2 right-0 z-[100] w-[19vw]">
               <ZoomController
                 timelineOffset={timelineOffset}
                 setTimelineOffset={setTimelineOffset}

@@ -38,6 +38,10 @@ const CommandBar = ({ tricks, combos }) => {
   const trickPopupVisible = useSessionSummariesStore(
     (s) => s.trickPopupVisible
   );
+  const showSearchBar =
+    (orientation === "landscape" && window.innerWidth > 768) ||
+    (orientation === "landscape" && window.innerWidth < 450) ||
+    orientation === "portrait";
   if (!tricks) return null;
   if (!combos) return null;
   return (
@@ -46,7 +50,7 @@ const CommandBar = ({ tricks, combos }) => {
       <div
         className={`${
           orientation === "landscape"
-            ? "absolute left-0 top-0 h-full w-full"
+            ? "absolute left-0 top-0 h-full w-full pt-14"
             : "relative left-[10vw] h-[35vh] md:bottom-12  md:left-[20vw] md:h-[24vh] md:w-[60vw] lg:left-[35vw] lg:w-[30vw]"
         }    z-[10] flex  w-[80vw] flex-col place-items-center justify-around rounded-md rounded-b-none bg-zinc-900 p-2 font-inter text-zinc-400 `}
       >
@@ -66,7 +70,7 @@ const CommandBar = ({ tricks, combos }) => {
           >
             &lt;
           </div> */}
-        {!trickPopupVisible && orientation === "portrait" && (
+        {!trickPopupVisible && showSearchBar && (
           <div>
             <Autocomplete
               classNames={{ panel: "custom-Panel" }}

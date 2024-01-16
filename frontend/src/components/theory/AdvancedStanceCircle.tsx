@@ -75,7 +75,7 @@ function AdvancedStanceCircle() {
       <animated.div style={rotateSpring} className={`w-[75vw] max-w-[540px]`}>
         <div className="">
           <StanceCircleSelector
-            className="absolute w-[80vw] max-w-[540px] opacity-0"
+            className="absolute w-[80vw] max-w-[540px] opacity-0 lg:max-w-[300px]"
             onClick={(e) => {
               // e.target.id !== "Layer_1" && nav(e.target.id);
 
