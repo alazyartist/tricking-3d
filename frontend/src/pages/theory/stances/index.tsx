@@ -1,13 +1,20 @@
 import AdvancedStanceCircle from "@components/theory/AdvancedStanceCircle";
 import Stances3d from "@components/theory/Stance3d";
+import StancesV0 from "@components/theory/stances/StancesV0";
 import TheoryWrapper from "@components/theory/TheoryWrapper";
 import React from "react";
 
 const StancePage = () => {
-  const [version, setVersion] = React.useState("v1");
+  const [version, setVersion] = React.useState("v0");
   return (
     <TheoryWrapper>
       <div className="flex items-center justify-center gap-2">
+        <button
+          className="rounded-md bg-zinc-700 p-2"
+          onClick={() => setVersion("v0")}
+        >
+          v0
+        </button>
         <button
           className="rounded-md bg-zinc-700 p-2"
           onClick={() => setVersion("v1")}
@@ -21,9 +28,10 @@ const StancePage = () => {
           v2
         </button>
       </div>
+      {version === "v0" && <StancesV0 />}
       {version === "v1" && <AdvancedStanceCircle />}
       {version === "v2" && (
-        <div className={"h-[80vw] md:h-[60vh]"}>
+        <div className={"h-[80vw] w-[90vw] md:h-[60vh]"}>
           <Stances3d />
         </div>
       )}

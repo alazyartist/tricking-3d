@@ -45,7 +45,7 @@ const Stances3d = () => {
           <OrbitControls ref={orbitRef} />
         </PerspectiveCamera>
       </Canvas>
-      <div className="flex h-[27vh] flex-col gap-2 overflow-y-scroll py-2 text-zinc-300">
+      <div className="minimalistScroll flex h-[27vh] flex-col gap-2 overflow-y-scroll py-2 text-zinc-300">
         {animationsArray.map((anim, i) => {
           return (
             <button
