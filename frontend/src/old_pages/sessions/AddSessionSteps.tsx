@@ -261,7 +261,7 @@ export const StepThree = ({ formData, setFormData }) => {
                 className={`h-8 w-8 rounded-full`}
                 src={`${
                   battler.profilePic
-                    ? `./images/${battler?.uuid}/${battler?.profilePic}`
+                    ? battler?.profilePic
                     : `./images/noimg.jpeg`
                 }`}
                 alt={"image"}
@@ -311,7 +311,7 @@ export const StepThree = ({ formData, setFormData }) => {
                       }`}
                       src={`${
                         user.profilePic
-                          ? `./images/${user?.uuid}/${user?.profilePic}`
+                          ? user?.profilePic
                           : `./images/noimg.jpeg`
                       }`}
                       alt={"image"}
@@ -344,9 +344,7 @@ export const StepReview = ({ formData }) => {
             <img
               className={`h-8 w-8 rounded-full`}
               src={`${
-                tricker.profilePic
-                  ? `./images/${tricker?.uuid}/${tricker?.profilePic}`
-                  : `./images/noimg.jpeg`
+                tricker.profilePic ? tricker.profilePic : `./images/noimg.jpeg`
               }`}
               alt={"image"}
             />
@@ -363,14 +361,14 @@ export const StepReview = ({ formData }) => {
               )} 
             </p>
               */}
-          <div className={`overflow-hidden rounded-xl`}>
+          <div className={`overflow-hidden rounded-xl lg:h-[30vw] lg:w-[50vw]`}>
             <ReactPlayer
               config={{ facebook: { appId: "508164441188790" } }}
               id={"video"}
               controls={true}
               muted
-              width={"70vw"}
-              height={"40vw"}
+              width={"100%"}
+              height={"100%"}
               loop
               playsInline
               url={formData.url}

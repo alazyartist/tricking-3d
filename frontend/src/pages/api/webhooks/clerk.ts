@@ -110,6 +110,7 @@ export default async function handler(
         }
       }
     } catch (err) {
+      console.log(err);
       console.log("Failed to Create User");
       return res.status(401).json(err);
     }

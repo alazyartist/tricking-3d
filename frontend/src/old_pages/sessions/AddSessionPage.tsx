@@ -132,7 +132,7 @@ const AddSessionPage = () => {
                 />
               ))}
             </div>
-            {currentStep !== 3 && (
+            {currentStep !== 2 && (
               <button
                 disabled={!stepEnabled}
                 className={`m-4 rounded-lg p-2 font-inter text-2xl  ${
@@ -149,10 +149,9 @@ const AddSessionPage = () => {
                   formData.trickers.length >= 1 &&
                   "That's All"}
                 {/* {currentStep === 1 && "Finished"} */}
-                {currentStep === 2 && "Submit"}
               </button>
             )}
-            {currentStep === 3 && (
+            {currentStep === 2 && (
               <button
                 type="submit"
                 value="Submit"
