@@ -27,7 +27,7 @@ const DataList = () => {
         // onClick={() => refetch()}
         className="sticky top-0 h-full w-full bg-zinc-800 p-2 text-center text-xl font-bold"
       >
-        TRICKS, STANCES, &#38; TRANSITIONS
+        TRICKS
       </h1>
       <div className="w-[90vw] text-sm">
         {tricks
@@ -174,10 +174,13 @@ const DLTrickDisplay = ({ trick, handleAnimPopup }) => {
       className=" grid  w-full grid-cols-7 place-items-center justify-between p-2 odd:bg-zinc-700 odd:bg-opacity-70 even:bg-zinc-900 even:bg-opacity-70"
     >
       <div className="col-span-3 max-w-[1/3] place-self-start">
-        {trick?.name}
+        <div>
+          <p>{trick?.displayName}</p>
+          <p className="text-xs text-zinc-500">{trick?.name}</p>
+        </div>
       </div>
-      <div className="col-span-1 flex place-items-center text-sm">
-        {trick?.type?.slice(0, 6)}
+      <div className="col-span-1 flex place-items-center text-xs text-zinc-500">
+        {trick?.trickType}
       </div>
       <div className="col-span-1">
         {trick.pointValue}
