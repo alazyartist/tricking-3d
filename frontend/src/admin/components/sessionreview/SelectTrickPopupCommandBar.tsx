@@ -257,7 +257,7 @@ const PopupCommands = ({ orientation }) => {
       className={` ${
         orientation === "landscape"
           ? "flex flex-col place-content-start"
-          : "grid max-h-[9vh] grid-cols-3 place-content-center justify-around"
+          : "grid h-fit grid-cols-3 place-content-center justify-around"
       } h-fit  w-full  place-items-center  gap-2`}
     >
       <button
@@ -279,6 +279,56 @@ const PopupCommands = ({ orientation }) => {
       >
         Add
       </button>
+      <PlayControls orientation={orientation} />
+    </div>
+  );
+};
+
+const PlayControls = ({ orientation }) => {
+  const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
+  const vidIsPlaying = useSessionSummariesStore((s) => s.vidIsPlaying);
+  const setVidIsPlaying = useSessionSummariesStore((s) => s.setVidIsPlaying);
+  const frameRate = 0.083;
+
+  const controls = [
+    {
+      title: "<",
+      command: () => {
+        setSeekTime(
+          useSessionSummariesStore.getState().currentTime - frameRate
+        );
+      },
+    },
+    {
+      title: vidIsPlaying ? "pause" : "play",
+      command: () => setVidIsPlaying(),
+    },
+
+    {
+      title: ">",
+      command: () => {
+        setSeekTime(
+          useSessionSummariesStore.getState().currentTime + frameRate
+        );
+      },
+    },
+  ];
+
+  return (
+    <div
+      className={`flex h-fit w-full gap-2 ${
+        orientation === "landscape" ? "" : "col-span-3"
+      }`}
+    >
+      {controls.map((n) => (
+        <button
+          key={n.title}
+          onClick={n.command}
+          className={`h-fit w-full rounded-md border-[1px] border-b-2 border-zinc-100 border-opacity-30 p-1 text-center`}
+        >
+          {n.title}
+        </button>
+      ))}
     </div>
   );
 };
