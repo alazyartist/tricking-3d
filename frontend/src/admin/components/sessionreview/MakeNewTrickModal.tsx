@@ -4,6 +4,7 @@ import { MdClose, MdSave } from "../../../data/icons/MdIcons";
 import { useTrickMakerStore } from "../trickMaker/TrickMakerStore";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
 import { trpc } from "@utils/trpc";
+import { IoMdQuote } from "react-icons/io";
 const details = {
   base_id: "Backflip",
   Variations: [{ name: "Fulltwist" }, { name: "hyper" }],
@@ -17,12 +18,14 @@ const MakeNewTrickModal = () => {
   const getTrickInfo = useTrickMakerStore((s) => s.getTrickInfo);
   const clearTrickInfo = useTrickMakerStore((s) => s.clearTrickInfo);
   const name = useTrickMakerStore((s) => s.name);
+  const displayName = useTrickMakerStore((s) => s.displayName);
   const takeoffStance = useTrickMakerStore((s) => s.takeoffStance);
   const landingStance = useTrickMakerStore((s) => s.landingStance);
   const base_id = useTrickMakerStore((s) => s.base_id);
   const variationsArr = useTrickMakerStore((s) => s.variationsArr);
   const setTrickType = useTrickMakerStore((s) => s.setTrickType);
   const setName = useTrickMakerStore((s) => s.setName);
+  const setDisplayName = useTrickMakerStore((s) => s.setDisplayName);
 
   const basePoints = useTrickMakerStore((s) => s.basePoints);
   const landingStancePoints = useTrickMakerStore((s) => s.landingStancePoints);
@@ -86,39 +89,58 @@ const MakeNewTrickModal = () => {
           onClick={() => setTrickMakerOpen(false)}
         />
 
-        <button
-          disabled={saveDisabled}
-          onClick={() => saveTrick(trickInfo)}
-          className={`${
-            saveDisabled ? "text-zinc-600" : "text-zinc-300"
-          } absolute right-2 top-12 text-2xl  md:top-[10vh] md:text-5xl`}
-        >
-          <MdSave />
-        </button>
-        <div className="flex w-full place-content-center ">
+        <div className="flex w-full flex-col place-content-center ">
           <input
             spellCheck="false"
-            placeholder="set trick name"
+            placeholder="set technical name"
             onChange={(e) => setName(e.target.value)}
             type={"text"}
             value={name}
-            className=" w-full bg-transparent text-center font-inter text-3xl font-semibold text-zinc-300"
-          />
-        </div>
-        <div
-          onClick={() =>
-            trickType === "Invert"
-              ? setTrickType("Kick")
-              : setTrickType("Invert")
-          }
-          className={`relative left-[40%] w-fit rounded-md bg-zinc-700 p-1 text-xl text-zinc-300 md:absolute md:left-2 md:top-[10vh] md:text-3xl`}
-        >
-          {trickType}
-        </div>
-        <div className="absolute left-[10%] top-12 text-zinc-300">
-          {powerScore}
+            className="w-full bg-transparent p-2 text-center font-inter text-xl font-semibold text-zinc-300 outline-none md:text-3xl"
+          />{" "}
+          <input
+            spellCheck="false"
+            placeholder="set dislay name"
+            onChange={(e) => setDisplayName(e.target.value)}
+            type={"text"}
+            value={displayName}
+            className="w-full bg-transparent p-2 text-center font-inter text-xl font-semibold text-zinc-300 outline-none md:text-3xl"
+          />{" "}
         </div>
         <div className="text-md m-2 flex flex-col items-center gap-4 text-zinc-300 md:text-3xl">
+          <div className="flex w-full justify-around gap-2 p-2">
+            <button
+              className="h-fit w-fit place-self-center rounded-md border-[1px] border-zinc-300 px-2 py-1 text-xl text-zinc-300 md:text-3xl"
+              onClick={() => setDisplayName(name)}
+            >
+              <IoMdQuote />
+            </button>{" "}
+            <div className="flex flex-col items-center gap-0 ">
+              <div
+                onClick={() =>
+                  trickType === "Invert"
+                    ? setTrickType("Kick")
+                    : setTrickType("Invert")
+                }
+                className={`w-fit rounded-md bg-zinc-700 p-1 text-xl text-zinc-300 md:text-3xl`}
+              >
+                {trickType}
+              </div>
+              <div className=" text-center text-zinc-300">{powerScore}</div>
+            </div>
+            <button
+              disabled={saveDisabled}
+              onClick={() => saveTrick(trickInfo)}
+              className={`${
+                saveDisabled
+                  ? "border-zinc-600 text-zinc-600"
+                  : "border-zinc-300 text-zinc-300"
+              } h-fit  w-fit place-self-center rounded-md border-[1px] px-2 py-1 text-xl md:text-3xl`}
+            >
+              <MdSave />
+            </button>
+          </div>
+
           <div className="flex min-h-[15vh]  items-center gap-2 rounded-md border-2 border-zinc-700">
             <div onClick={() => setTakeoffStance(null)}>
               <StanceRemap trickMaker={true} stance={takeoffStance} />
@@ -148,9 +170,9 @@ const MakeNewTrickModal = () => {
               <StanceRemap trickMaker={true} stance={landingStance} />
             </div>
           </div>
-          <div className="no-scrollbar flex h-[52vh] w-full max-w-[90vw] flex-col gap-2 overflow-hidden overflow-y-scroll rounded-md pb-12 text-base text-zinc-800  md:flex-row md:overflow-visible lg:flex">
+          <div className="no-scrollbar flex h-[52vh] w-full max-w-[90vw]  flex-col gap-2  overflow-y-scroll rounded-md pb-16 text-base text-zinc-800  ">
             {!base_id && (
-              <div className="h-fit rounded-md bg-zinc-300 p-1">
+              <div className="h-fit  rounded-md bg-zinc-300 p-1 pb-12">
                 {allTricks.bases?.map((base) => (
                   <p
                     onClick={() => {
@@ -167,7 +189,7 @@ const MakeNewTrickModal = () => {
             {(trickInfo.takeoffStance === null ||
               trickInfo.landingStance === null) &&
               trickInfo.base_id !== null && (
-                <div className="no-scrollbar h-full overflow-y-scroll rounded-md bg-emerald-300 p-1 ">
+                <div className="no-scrollbar h-fit overflow-y-scroll rounded-md bg-emerald-300 p-1 pb-12 ">
                   {allTricks.stances?.map((stance) => (
                     <ChooseStance stance={stance} />
                   ))}
@@ -176,57 +198,59 @@ const MakeNewTrickModal = () => {
             {trickInfo.base_id !== null &&
               trickInfo.takeoffStance !== null &&
               trickInfo.landingStance !== null && (
-                <div className="minimalistScroll h-full w-[60vw] space-y-2 overflow-y-scroll rounded-md bg-purple-300 p-1">
+                <div className="  h-fit w-full place-content-start space-y-2 place-self-start rounded-md bg-purple-300 p-1  ">
                   <VariationFilterNav
                     variationFilter={variationFilter}
                     setVariationFilter={setVariationFilter}
                   />
-                  {allTricks.variations
-                    ?.sort((a, b) => {
-                      if (a.variationType < b.variationType) return -1;
-                      if (a.variationType > b.variationType) return 1;
-                      if (a.name < b.name) return -1;
-                      if (a.name > b.name) return 1;
-                      return 0;
-                    })
-                    .filter((variation) => {
-                      if (variationFilter === "All") {
-                        return variation;
-                      }
-                      if (variationFilter === variation.variationType)
-                        return variation;
-                      if (variationFilter === "Other") {
-                        return (
-                          variation.variationType !== "Kick" &&
-                          variation.variationType !== "Rotation" &&
-                          variation.variationType !== "Touchdown" &&
-                          variation.variationType !== "Shape"
-                        );
-                      }
-                    })
-                    ?.map((variation) => (
-                      <div
-                        onClick={() => addVariation(variation)}
-                        className=" flex place-items-center justify-between gap-2 rounded-md bg-zinc-800 bg-opacity-20 p-1"
-                      >
-                        <p className="w-1/3">{variation.name}</p>
-                        <div className="flex w-1/3 place-items-center gap-2">
-                          <p>{variation.variationType}</p>
-                          {variation.variationType === "Kick" && (
-                            <p
-                              className={`${
-                                variation.value[0] === "R"
-                                  ? "bg-zinc-400"
-                                  : "bg-zinc-600"
-                              } place-self-end rounded-md bg-opacity-40 px-2 text-[8pt]`}
-                            >
-                              {variation.value[0]}
-                            </p>
-                          )}
+                  <div className=" flex  w-full flex-col place-content-start justify-around gap-2 pb-12  md:flex-row md:flex-wrap">
+                    {allTricks.variations
+                      ?.sort((a, b) => {
+                        if (a.variationType < b.variationType) return -1;
+                        if (a.variationType > b.variationType) return 1;
+                        if (a.name < b.name) return -1;
+                        if (a.name > b.name) return 1;
+                        return 0;
+                      })
+                      .filter((variation) => {
+                        if (variationFilter === "All") {
+                          return variation;
+                        }
+                        if (variationFilter === variation.variationType)
+                          return variation;
+                        if (variationFilter === "Other") {
+                          return (
+                            variation.variationType !== "Kick" &&
+                            variation.variationType !== "Rotation" &&
+                            variation.variationType !== "Touchdown" &&
+                            variation.variationType !== "Shape"
+                          );
+                        }
+                      })
+                      ?.map((variation) => (
+                        <div
+                          onClick={() => addVariation(variation)}
+                          className=" flex h-fit place-items-center justify-between gap-2 rounded-md bg-zinc-800 bg-opacity-20 p-1 md:w-[30%]"
+                        >
+                          <p className="w-1/3">{variation.name}</p>
+                          <div className="flex w-1/3 place-items-center gap-2">
+                            <p>{variation.variationType}</p>
+                            {variation.variationType === "Kick" && (
+                              <p
+                                className={`${
+                                  variation.value[0] === "R"
+                                    ? "bg-zinc-400"
+                                    : "bg-zinc-600"
+                                } place-self-end rounded-md bg-opacity-40 px-2 text-[8pt]`}
+                              >
+                                {variation.value[0]}
+                              </p>
+                            )}
+                          </div>
+                          <p className="w-1/6 text-xs">{variation.pos}</p>
                         </div>
-                        <p className="w-1/6 text-xs">{variation.pos}</p>
-                      </div>
-                    ))}
+                      ))}
+                  </div>
                 </div>
               )}
           </div>
@@ -240,7 +264,7 @@ const MakeNewTrickModal = () => {
 export default MakeNewTrickModal;
 const VariationFilterNav = ({ setVariationFilter, variationFilter }) => {
   return (
-    <div className="no-scrollbar flex w-full place-items-center justify-between gap-2 overflow-x-scroll rounded-md bg-zinc-800 bg-opacity-40 text-zinc-200">
+    <div className="no-scrollbar sticky top-1 flex w-full place-items-center justify-between gap-2 overflow-x-scroll rounded-md bg-zinc-800 bg-opacity-40 text-zinc-200">
       <p
         onClick={(e) => setVariationFilter("All")}
         className={`rounded-md bg-zinc-800  p-1 ${

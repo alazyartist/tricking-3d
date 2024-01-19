@@ -3,6 +3,7 @@ import create from "zustand";
 interface TrickMakerStore {
   trickType: string;
   name: null | string;
+  displayName: null | string;
   takeoffStance: any;
   landingStance: any;
   landingStancePoints: number;
@@ -22,6 +23,7 @@ interface TrickMakerStore {
   clearTrickInfo: () => void;
   setTrickType: (value: string) => void;
   setName: (value: string) => void;
+  setDisplayName: (value: string) => void;
   setTakeoffStance: (value: any) => void;
   setLandingStance: (value: any) => void;
   setLandingStancePoints: (value: number) => void;
@@ -35,6 +37,7 @@ interface TrickMakerStore {
 export const useTrickMakerStore = create<TrickMakerStore>((set, get) => ({
   trickType: "Invert",
   name: null,
+  displayName: null,
   takeoffStance: null,
   landingStance: null,
   landingStancePoints: 0,
@@ -63,6 +66,7 @@ export const useTrickMakerStore = create<TrickMakerStore>((set, get) => ({
     })),
   setTrickType: (value) => set(() => ({ trickType: value })),
   setName: (value) => set(() => ({ name: value })),
+  setDisplayName: (value) => set(() => ({ displayName: value })),
   setTakeoffStance: (value) => set(() => ({ takeoffStance: value })),
   setLandingStance: (value) => set(() => ({ landingStance: value })),
   setLandingStancePoints: (value) =>
