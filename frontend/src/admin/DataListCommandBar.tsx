@@ -45,6 +45,8 @@ const Autocomplete = (props: any) => {
   const setVariationsArr = useTrickMakerStore((s) => s.setVariationsArr);
   const setTakeoffStance = useTrickMakerStore((s) => s.setTakeoffStance);
   const setLandingStance = useTrickMakerStore((s) => s.setLandingStance);
+  const setDisplayName = useTrickMakerStore((s) => s.setDisplayName);
+  const setTrickType = useTrickMakerStore((s) => s.setTrickType);
   const commandBarRef = useRef(null);
   const panelRootRef = useRef(null);
   const rootRef = useRef(null);
@@ -212,7 +214,9 @@ const Autocomplete = (props: any) => {
                 const { item, setQuery } = params;
                 setTrickMakerOpen(true);
                 setName(item.name);
+                setDisplayName(item.displayName);
                 setBase_id(item.base_id);
+                setTrickType(item.trickType);
                 let Varray = item.variations.map((v) => v.variation);
 
                 setVariationsArr(Varray);
