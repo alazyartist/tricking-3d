@@ -343,6 +343,18 @@ model tricklists {
   Owner        users?   @relation(fields: [owner], references: [uuid])
   WatchedBy    user_tricklists[]
 }
+//alias for trick names - gnns
+model trick_nicknames {
+  id        Int      @id @default(autoincrement())
+  trick_id  String?  @db.Char(36)
+  nickname  String?  @db.VarChar(255)
+  createdBy String?  @db.Char(36)
+  createdAt DateTime @default(now()) @db.DateTime(0)
+  updatedAt DateTime @db.DateTime(0) @updatedAt
+  trick     tricks? @relation(fields: [trick_id], references: [trick_id])
+  creator   users? @relation(fields: [createdBy], references: [uuid])
+
+}
 
 model tricks {
   trick_id         String             @id @db.Char(36)
@@ -350,6 +362,7 @@ model tricks {
   trickType        String?            @db.VarChar(255)
   type             String?            @default("Trick") @db.VarChar(255)
   name             String?            @db.VarChar(255)
+  displayName      String?            @db.VarChar(255)
   stance_id        String?            @db.VarChar(255)
   takeoffStance    String?            @db.VarChar(255)
   landingStance    String?            @db.VarChar(255)
@@ -359,6 +372,7 @@ model tricks {
   animation        animations? @relation(fields: [defaultAnimation],references: [animation_id],onDelete: Restrict,onUpdate: Restrict,map: "default_animation")
   variations       trick_variations[]
   base             bases?             @relation(fields: [base_id], references: [base_id], onDelete: Restrict, onUpdate: Restrict, map: "tricks_ibfk_1")
+  nicknames        trick_nicknames[]
 
   @@index([base_id], map: "base_id")
 }
@@ -437,6 +451,8 @@ model users {
   BattleRooms          battlerooms[]
   UserScores           userscores[]
   JudgeScores          judgescores[]
+  createdNicknames     trick_nicknames[]
+  
 
   @@index([uuid])
   @@index([clerk_id])
