@@ -348,8 +348,14 @@ export const sessionsummariesRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       try {
-        const updatedData = await Promise.all(
-          input.data.map(async (curData) => {
+        await ctx.prisma.$transaction(async (prisma) => {
+          //Step 1: Delete all session data for this session
+          await prisma.sessiondata.deleteMany({
+            where: { sessionid: input.sessionid },
+          });
+          //Step 2: Process and Save all session data
+
+          const updatedData = input.data.map(async (curData) => {
             // if (curData.name === "") return "No Name";
             //find combo
             let foundCombo = await ctx.prisma.combos.findFirst({
@@ -412,9 +418,9 @@ export const sessionsummariesRouter = router({
               });
             }
             // if no combo, create combo
-            return "Saved";
-          })
-        );
+          });
+          return updatedData;
+        });
         return "Saved";
       } catch (err) {
         console.log(err);
