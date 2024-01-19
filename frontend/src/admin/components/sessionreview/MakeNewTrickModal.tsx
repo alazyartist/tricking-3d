@@ -80,7 +80,7 @@ const MakeNewTrickModal = () => {
     trickInfo.trickType === null;
   return trickMakerOpen ? (
     <>
-      <div className="fixed left-[2.5vw] top-10 z-[4000] h-[84vh] w-[95vw] overflow-hidden rounded-xl bg-zinc-800 font-inter md:left-[15vw] md:w-[70vw]">
+      <div className="fixed left-[2.5vw] top-10 z-[4000] h-[84vh] w-[95vw] overflow-hidden rounded-xl bg-zinc-800 font-inter md:left-[7.5vw] md:w-[70vw]">
         <MdClose
           className={`absolute left-2 top-2 text-2xl text-zinc-300 md:text-5xl`}
           onClick={() => setTrickMakerOpen(false)}
@@ -167,7 +167,7 @@ const MakeNewTrickModal = () => {
             {(trickInfo.takeoffStance === null ||
               trickInfo.landingStance === null) &&
               trickInfo.base_id !== null && (
-                <div className="rounded-md  bg-emerald-300 p-1">
+                <div className="no-scrollbar h-full overflow-y-scroll rounded-md bg-emerald-300 p-1 ">
                   {allTricks.stances?.map((stance) => (
                     <ChooseStance stance={stance} />
                   ))}
@@ -176,7 +176,7 @@ const MakeNewTrickModal = () => {
             {trickInfo.base_id !== null &&
               trickInfo.takeoffStance !== null &&
               trickInfo.landingStance !== null && (
-                <div className="h-fit space-y-2 rounded-md bg-purple-300 p-1 md:columns-3">
+                <div className="minimalistScroll h-full w-[60vw] space-y-2 overflow-y-scroll rounded-md bg-purple-300 p-1">
                   <VariationFilterNav
                     variationFilter={variationFilter}
                     setVariationFilter={setVariationFilter}
@@ -240,7 +240,7 @@ const MakeNewTrickModal = () => {
 export default MakeNewTrickModal;
 const VariationFilterNav = ({ setVariationFilter, variationFilter }) => {
   return (
-    <div className="flex w-full place-items-center justify-between gap-2 overflow-x-scroll rounded-md bg-zinc-800 bg-opacity-40 text-zinc-200">
+    <div className="no-scrollbar flex w-full place-items-center justify-between gap-2 overflow-x-scroll rounded-md bg-zinc-800 bg-opacity-40 text-zinc-200">
       <p
         onClick={(e) => setVariationFilter("All")}
         className={`rounded-md bg-zinc-800  p-1 ${

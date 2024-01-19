@@ -80,7 +80,6 @@ const Timeline = ({ vidRef, source }) => {
   let activeLeft = `${
     (((clipData?.startTime as number) - adjustedValue) / dur) * 100
   }%`;
-  console.log("timeline", orientation);
   return (
     <div className="relative w-[80vw] ">
       {/* <div className="absolute -left-[4rem] h-20 w-[3rem]">
@@ -216,7 +215,6 @@ const CurrentTimeDiplay = ({ adjustedValue, dur, vidRef }) => {
       type="range"
       step={0.001}
       onChange={(e) => {
-        // console.log(e.target.value);
         setCurrentTime(parseFloat(e.target.value));
         vidRef.current.seekTo(parseFloat(e.target.value));
       }}

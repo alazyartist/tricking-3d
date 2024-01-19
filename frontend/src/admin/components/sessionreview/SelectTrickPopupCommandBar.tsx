@@ -1,6 +1,6 @@
-import { stances } from "@prisma/client";
+import { stances, transitions, tricks } from "@prisma/client";
 import { useUserStore } from "@store/userStore";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
 import { v4 as uuidv4 } from "uuid";
 import useScreenOrientation from "@hooks/UseScreenOrientaion";
@@ -31,6 +31,18 @@ const SelectTrickPopupCommandBar = ({ allTricks }) => {
     const leg = fullStance?.leg;
     return leg;
   };
+  console.log(currentFilter, lastItem, newCombo);
+  useEffect(() => {
+    if (newCombo.length > 0) {
+      if (lastItem?.type === "Transition") {
+        let leg = (lastItem as transitions)?.toLeg;
+        setCurrentFilter(leg);
+      } else if (lastItem?.type === "Trick") {
+        let leg = findStanceLeg((lastItem as tricks)?.landingStance);
+        setCurrentFilter(leg);
+      }
+    }
+  }, [lastItem]);
   //   console.log(newCombo);
   const handleAdd = () => {
     let combo = useSessionSummariesStore.getState().clipCombo;
@@ -120,12 +132,15 @@ const SelectTrickPopupCommandBar = ({ allTricks }) => {
                 ? findStanceLeg(trick.takeoffStance) === currentFilter
                 : trick
             )
+            .sort((a, b) => a.name.localeCompare(b.name))
             ?.map((trick) =>
               trick.type === "Trick" ? (
                 <div
                   className="w-fit rounded-md bg-zinc-600 bg-opacity-10 p-2 text-center hover:bg-zinc-700"
                   onClick={() => {
                     setCurrentItem(trick);
+                    let stance = findStanceLeg(trick.landingStance);
+                    setCurrentFilter(stance);
                     setActiveDropdown("");
                   }}
                   key={trick.trick_id + "trick"}
@@ -191,15 +206,16 @@ const SelectTrickPopupCommandBar = ({ allTricks }) => {
                     className="flex w-fit max-w-[50vw] flex-grow flex-col justify-between rounded-md bg-zinc-600 bg-opacity-10 p-2 text-center"
                     onClick={() => {
                       setCurrentItem(trick);
+                      setCurrentFilter(trick.toLeg);
                       setActiveDropdown("");
                     }}
                     key={trick.id + "transition"}
                   >
                     <div>{trick.name}</div>
-                    <div className="flex w-full  justify-between gap-2 pt-2 text-xs">
-                      <div className="w-[37px] rounded-md bg-zinc-700 p-1">
+                    <div className="flex w-full  justify-around gap-2 pt-2 text-xs">
+                      {/* <div className="w-[37px] rounded-md bg-zinc-700 p-1">
                         {trick.fromLeg}
-                      </div>
+                      </div> */}
                       <div className="w-[37px] rounded-md bg-zinc-700 p-1">
                         {trick.toLeg}
                       </div>
