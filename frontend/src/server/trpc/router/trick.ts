@@ -205,6 +205,7 @@ export const tricksRouter = router({
               data: {
                 base_id: input.base_id,
                 trickType: input.trickType,
+                stance_id: input.takeoffStance,
                 takeoffStance: input.takeoffStance,
                 landingStance: input.landingStance,
                 pointValue: input.pointValue,
@@ -234,6 +235,7 @@ export const tricksRouter = router({
                 name: input.name,
                 base_id: input.base_id,
                 trickType: input.trickType,
+                stance_id: input.takeoffStance,
                 takeoffStance: input.takeoffStance,
                 landingStance: input.landingStance,
                 pointValue: input.pointValue,
@@ -306,5 +308,15 @@ export const tricksRouter = router({
       }
 
       return;
+    }),
+  setDefaultAnimation: protectedProcedure
+    .input(z.object({ trick_id: z.string(), animation_id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const trick = await ctx.prisma.tricks.update({
+        where: { trick_id: input.trick_id },
+        data: { defaultAnimation: input.animation_id },
+      });
+
+      return trick;
     }),
 });

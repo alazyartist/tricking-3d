@@ -121,8 +121,16 @@ const DataList = () => {
 export default DataList;
 
 const AnimPopup = ({ toggle, animations, currentTrick }) => {
+  const { mutate: setAnim } = trpc.trick.setDefaultAnimation.useMutation();
+  const handleSetAnim = (anim) => {
+    setAnim({
+      trick_id: currentTrick.trick_id,
+      animation_id: anim.animation_id,
+    });
+    toggle(false);
+  };
   return (
-    <div className="absolute left-10 top-10 z-[110] h-[80vh] w-[80vw] overflow-y-scroll bg-zinc-800 p-2 text-zinc-300">
+    <div className="absolute left-[5vw] top-10 z-[110] h-[80vh] w-[90vw] space-y-2 overflow-y-scroll bg-zinc-800 p-2 text-zinc-300">
       <div
         className="sticky top-0 z-[2] bg-zinc-800 font-black text-red-500 "
         onClick={() => toggle(false)}
@@ -132,13 +140,20 @@ const AnimPopup = ({ toggle, animations, currentTrick }) => {
       <h1 className={"sticky top-2 bg-zinc-800 p-2 text-2xl text-emerald-200"}>
         {currentTrick.name}
       </h1>
-      <div className={"h-full "}>
+      <div className={"h-full space-y-2 "}>
         {animations &&
           animations
             .sort((a, b) => {
               return a.animationName > b.animationName ? 1 : -1;
             })
-            .map((a) => <div>{a.animationName}</div>)}
+            .map((a) => (
+              <div
+                onClick={() => handleSetAnim(a)}
+                className={"rounded-md bg-zinc-900 p-1"}
+              >
+                {a.animationName}
+              </div>
+            ))}
       </div>
     </div>
   );
