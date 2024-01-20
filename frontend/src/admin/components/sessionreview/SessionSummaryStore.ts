@@ -20,6 +20,8 @@ interface SummaryStore {
   setTrickMakerOpen: (value: boolean) => void;
   clipData: ClipData;
   sessionid: string;
+  loopClip: boolean;
+  setLoopClip: (value: boolean) => void;
   setSessionid: (value: string) => void;
   setClipData: (value: ClipData) => void;
   sessionSources: any[];
@@ -65,6 +67,8 @@ export const useSessionSummariesStore = create<SummaryStore>(
     // persist(
     (set) => ({
       trickMakerOpen: false,
+      loopClip: false,
+      setLoopClip: (value) => set(() => ({ loopClip: value })),
       setTrickMakerOpen: (value) => set(() => ({ trickMakerOpen: value })),
       clipData: { name: "", startTime: 10, endTime: 20, bail: 0 },
       sessionid: "",

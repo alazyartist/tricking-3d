@@ -16,6 +16,7 @@ const CommandBarControls = () => {
   const setSeeDetails = useSessionSummariesStore(
     (s) => s.setClipDetailsVisible
   );
+  const clipData = useSessionSummariesStore((s) => s.clipData);
   const setTrickMakerOpen = useSessionSummariesStore(
     (s) => s.setTrickMakerOpen
   );
@@ -71,6 +72,15 @@ const CommandBarControls = () => {
     },
 
     {
+      title: "out",
+      command: () =>
+        setClipData({
+          endTime: parseFloat(
+            useSessionSummariesStore.getState().currentTime.toFixed(2)
+          ),
+        }),
+    },
+    {
       title: "add",
       command: () => {
         let combo = useSessionSummariesStore.getState().clipCombo;
@@ -98,15 +108,6 @@ const CommandBarControls = () => {
       },
     },
     {
-      title: "out",
-      command: () =>
-        setClipData({
-          endTime: parseFloat(
-            useSessionSummariesStore.getState().currentTime.toFixed(2)
-          ),
-        }),
-    },
-    {
       title: "save",
       command: () => {
         setSaveSuccessful(false);
@@ -128,8 +129,19 @@ const CommandBarControls = () => {
       title: "details",
       command: () => setSeeDetails(),
     },
-
-    ,
+    {
+      title: "start",
+      command: () => {
+        console.log(clipData.startTime);
+        setSeekTime(clipData.startTime);
+      },
+    },
+    {
+      title: "end",
+      command: () => {
+        setSeekTime(clipData.endTime);
+      },
+    },
   ];
   return (
     <div
@@ -143,6 +155,7 @@ const CommandBarControls = () => {
       {controls.map((n) => (
         <button
           key={n.title}
+          type="button"
           onClick={n.command}
           className={`h-fit  ${
             orientation === "landscape" ? "w-fit min-w-[35px]" : "w-full"
