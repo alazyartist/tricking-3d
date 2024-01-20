@@ -169,6 +169,7 @@ export const tricksRouter = router({
     .input(
       z.object({
         name: z.string(),
+        displayName: z.string(),
         base_id: z.string(),
         trickType: z.string(),
         takeoffStance: z.string(),
@@ -203,6 +204,7 @@ export const tricksRouter = router({
             await ctx.prisma.tricks.update({
               where: { trick_id: newTrick.trick_id },
               data: {
+                displayName: input.displayName,
                 base_id: input.base_id,
                 trickType: input.trickType,
                 stance_id: input.takeoffStance,
@@ -233,6 +235,7 @@ export const tricksRouter = router({
               data: {
                 trick_id: uuid(),
                 name: input.name,
+                displayName: input.displayName,
                 base_id: input.base_id,
                 trickType: input.trickType,
                 stance_id: input.takeoffStance,

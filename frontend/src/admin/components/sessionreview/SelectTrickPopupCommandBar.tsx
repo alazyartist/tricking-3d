@@ -173,7 +173,7 @@ const TrickButtons = ({
         newCombo.length > 0 &&
         findStanceLeg(trick.takeoffStance) === currentFilter
     )
-    .sort((a, b) => a.displayName.localeCompare(b.displayName));
+    .sort((a, b) => a?.displayName?.localeCompare(b?.displayName));
   const handleSetItem = (trick) => {
     setCurrentItem(trick);
     let stance = findStanceLeg(trick.landingStance);

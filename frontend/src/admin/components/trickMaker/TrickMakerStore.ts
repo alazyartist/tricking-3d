@@ -14,6 +14,7 @@ interface TrickMakerStore {
   getTrickInfo: () => {
     trickType: string;
     name: string;
+    displayName: string;
     takeoffStance: string;
     landingStance: string;
     variationsArr: variations[];
@@ -49,6 +50,7 @@ export const useTrickMakerStore = create<TrickMakerStore>((set, get) => ({
   getTrickInfo: () => ({
     trickType: get().trickType,
     name: get().name,
+    displayName: get().displayName,
     takeoffStance: get().takeoffStance,
     landingStance: get().landingStance,
     variationsArr: get().variationsArr,
@@ -59,6 +61,7 @@ export const useTrickMakerStore = create<TrickMakerStore>((set, get) => ({
     set((s) => ({
       trickType: s.trickType,
       name: s.name,
+      displayName: s.displayName,
       takeoffStance: s.takeoffStance,
       landingStance: s.landingStance,
       variationsArr: s.variationsArr,
