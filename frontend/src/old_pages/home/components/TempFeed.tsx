@@ -1,5 +1,8 @@
+import PowerAverageComboLineChart from "@components/d3/PowerAverageComboLineChart";
+import { YoutubeThumnail } from "@old_pages/userProfile/components/SessionStatsOverview";
 import Link from "next/link";
 import React from "react";
+import { IoPlayCircle } from "react-icons/io5";
 import { trpc } from "utils/trpc";
 
 const TempFeed = () => {
@@ -38,6 +41,15 @@ const TempFeed = () => {
                 </div>
                 <div className="text-xs text-zinc-400">
                   {summary?.updatedAt?.toDateString()}
+                </div>
+                <div className="relative h-full w-full">
+                  <IoPlayCircle className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] fill-zinc-200 text-3xl" />
+                  <YoutubeThumnail src={summary.SessionSources?.[0]?.vidsrc} />
+                  <div className="absolute bottom-0 h-16 w-full bg-opacity-90 bg-gradient-to-t from-zinc-900">
+                    <div className="absolute bottom-0 h-8 w-full">
+                      <PowerAverageComboLineChart data={summary.SessionData} />
+                    </div>
+                  </div>
                 </div>
               </Link>
             );

@@ -256,6 +256,7 @@ export const sessionsummariesRouter = router({
         include: {
           user: { select: { username: true, profilePic: true, uuid: true } },
           SessionData: { include: { ClipLabel: true } },
+          SessionSources: true,
         },
       });
       return sessionSummaries;

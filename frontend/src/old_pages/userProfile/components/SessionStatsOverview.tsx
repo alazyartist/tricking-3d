@@ -261,7 +261,7 @@ export const OverviewCard = ({
   );
 };
 
-const YoutubeThumnail = ({ src }) => {
+export const YoutubeThumnail = ({ src }) => {
   const vidsrcRegex = new RegExp(
     /^(\w+)\:\/\/(\w+)\.be\/|(^(\w+).*\/shorts\/)|(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)|&t=\d*\w/g
   );
