@@ -28,8 +28,8 @@ const TotalScoreBreakdown = forwardRef<
     >
       <div className={`rounded-md bg-zinc-800 p-2`}>
         <h1 className="text-center text-xl">Chain Score</h1>
-        {totalScore.chainMap.map((e) => (
-          <div className="flex justify-between gap-2">
+        {totalScore.chainMap.map((e, i) => (
+          <div key={`cm${i}`} className="flex justify-between gap-2">
             <div className="text-xs">{e[3]}</div>
             <div className="text-xs">{e[1].toFixed(2)}</div>
           </div>
@@ -48,8 +48,8 @@ const TotalScoreBreakdown = forwardRef<
           <div className="text-xs">{totalScore.uvScore}</div>
           <div className="text-xs">{totalScore.uvScore}</div>
         </div>
-        {totalScore.varietyMap.map((e) => (
-          <div className="flex justify-between gap-2">
+        {totalScore.varietyMap.map((e, i) => (
+          <div key={`vm${i}`} className="flex justify-between gap-2">
             <div className="flex justify-between gap-2">
               <div className="text-xs">{e[1]}</div>
               <div className="text-xs">x</div>
