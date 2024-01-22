@@ -65,6 +65,7 @@ function AllTrickDisplay() {
           {["base_id", "takeoffStance", "landingStance", "trickType"].map(
             (key) => (
               <button
+                key={key}
                 className={`text-8px rounded-md bg-zinc-800 p-2 ${
                   key === group_by ? "text-indigo-400" : "text-zinc-400"
                 }`}
