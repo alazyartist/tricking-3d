@@ -26,6 +26,16 @@ const TricksPage = () => {
       </div>
       <div className="minimalistScroll mt-14 h-[80vh] w-full overflow-y-scroll rounded-md bg-zinc-900  bg-opacity-70 p-2">
         <TrickInfoGrid trickInfo={trickInfo} />
+        <div className="flex place-content-center place-items-center p-2">
+          {trickInfo.defaultAnimation && (
+            <Link
+              className=" flex w-fit rounded-md bg-zinc-800 p-2 text-xl"
+              href={`/sandbox/${trickInfo?.animation?.model}/${trickInfo?.animation?.animationName}`}
+            >
+              See it in 3d!
+            </Link>
+          )}
+        </div>
         <div className="sticky top-2" id={"video-portal"} />
         <CombosWithTrickDisplay combos={combos} trick={trickInfo.name} />
       </div>
