@@ -35,7 +35,7 @@ const BIFOPieChart = ({ data }) => {
         .sort(null);
       let tricksArray = Array.from(
         d3.group(data, (d: tricks) =>
-          d?.stance_id.replace(/Complete|Hyper|Mega|Semi/g, "")
+          d?.stance_id?.replace(/Complete|Hyper|Mega|Semi/g, "")
         )
       );
       console.log(tricksArray);

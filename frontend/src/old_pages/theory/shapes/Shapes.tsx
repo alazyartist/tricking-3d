@@ -5,7 +5,7 @@ function Shapes() {
     <div className="text-zinc-300">
       <div className="py-2 text-2xl text-zinc-300">Shapes</div>
 
-      <ShapesChart className="h-fit w-[480px]" />
+      <ShapesChart className="h-fit w-[320px] md:w-[480px]" />
       {/* {Object.keys(shapes).map((e, i) => (
 				<div className='flex'>
 					<div className='pr-4'>{`${e}:`}</div>

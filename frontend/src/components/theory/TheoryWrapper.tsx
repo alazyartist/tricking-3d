@@ -34,7 +34,7 @@ const TheoryWrapper = ({ children }) => {
             !nav.pathname.includes("/stances") && (
               <AnatomyNav className=" h-fit w-[80vw] max-w-[540px] text-zinc-300" />
             )}
-          <div className={"h-fit"}>{children}</div>
+          <div className={"h-fit w-full"}>{children}</div>
         </div>
       </div>
     </>

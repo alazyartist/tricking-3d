@@ -24,7 +24,7 @@ function TheoryPage() {
         >
           <FaGraduationCap />
         </div>
-        <div className="flex flex-col place-items-center gap-4 rounded-xl bg-zinc-800 bg-opacity-70 p-4 lg:w-[60vw]">
+        <div className="flex flex-col place-items-center gap-4 rounded-xl bg-zinc-900 bg-opacity-70 p-4 lg:w-[60vw]">
           {/* <AnatomySVG className=' h-full w-[80vw] text-zinc-300' /> */}
           {nav.pathname === "/theory" && (
             <AnatomySketch className="h-full w-[80vw] max-w-[540px]  p-4 text-zinc-300" />
