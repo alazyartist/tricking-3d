@@ -1,4 +1,5 @@
 import UserProfilePicById from "@components/info/UserProfilePicById";
+import BiCube from "@data/icons/BiCube";
 import AnimatedSearch from "@old_pages/home/components/AnimatedSearch";
 import { trpc } from "@utils/trpc";
 import Link from "next/link";
@@ -26,13 +27,16 @@ const TricksPage = () => {
       </div>
       <div className="minimalistScroll mt-14 h-[80vh] w-full overflow-y-scroll rounded-md bg-zinc-900  bg-opacity-70 p-2">
         <TrickInfoGrid trickInfo={trickInfo} />
-        <div className="flex place-content-center place-items-center p-2">
+        <div className="flex place-content-center place-items-center pb-2 pt-6">
           {trickInfo.defaultAnimation && (
             <Link
-              className=" flex w-fit rounded-md bg-zinc-800 p-2 text-xl"
+              className=" flex w-fit gap-2 rounded-md bg-zinc-800 p-2 px-4 text-xl"
               href={`/sandbox/${trickInfo?.animation?.model}/${trickInfo?.animation?.animationName}`}
             >
-              See it in 3d!
+              <p>See it in 3d!</p>
+              <div className="flex place-content-center place-items-center">
+                <BiCube />
+              </div>
             </Link>
           )}
         </div>
