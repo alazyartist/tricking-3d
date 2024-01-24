@@ -10,6 +10,7 @@ import {
 import { trpc } from "@utils/trpc";
 import { ProfileInfo } from "types/trpc";
 import { FaPlay, FaPlayCircle } from "react-icons/fa";
+import { useDashStore } from "@store/dashStore";
 interface ClaimTrickProps {
   displayOnly?: boolean;
   user_id: string;
@@ -39,7 +40,14 @@ const ClaimedTricks = ({
   const isClaimed = profileInfo?.TricksClaimed?.some(
     (combo) => combo.trick_id === trick_id
   );
-
+  const setVidsrc = useDashStore((s) => s.setVidSrc);
+  const setClipStart = useDashStore((s) => s.setClipStart);
+  const setClipEnd = useDashStore((s) => s.setClipEnd);
+  const handlePlay = (clip) => {
+    setVidsrc(clip.SessionSource.vidsrc);
+    setClipStart(clip.clipStart);
+    setClipEnd(clip.clipEnd);
+  };
   const foundClips = clips.filter((clip) => {
     const comboArray = clip?.ClipLabel?.comboArray as unknown as tricks[];
     if (!comboArray) return false;
@@ -95,16 +103,7 @@ const ClaimedTricks = ({
               foundClips?.map((clip) => {
                 return (
                   <div className="flex w-full" key={clip.id}>
-                    <button
-                      onClick={() =>
-                        console.log(
-                          clip.SessionSource.vidsrc,
-                          clip.clipStart,
-                          clip.clipEnd
-                        )
-                      }
-                      className="pr-2"
-                    >
+                    <button onClick={() => handlePlay(clip)} className="pr-2">
                       <FaPlayCircle />
                     </button>
                     <p className="no-scrollbar w-full overflow-hidden overflow-x-scroll whitespace-nowrap rounded-md bg-zinc-600 bg-opacity-40 p-2 text-xs">

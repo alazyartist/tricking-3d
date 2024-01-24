@@ -1,7 +1,7 @@
 import RadarChart from "@components/d3/RadarChartAI";
 import CapturesPage from "./components/CapturesPage";
 import { FaQrcode } from "react-icons/fa";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import UserCard from "./components/UserCard";
 import useLogout from "../../hooks/useLogout";
 import { useUserStore } from "@store/userStore";
@@ -13,6 +13,9 @@ import Link from "next/link";
 import { trpc } from "@utils/trpc";
 import TricklistPage from "@old_pages/tricklist/TricklistPage";
 import DashboardStats from "./components/DashboardStats";
+import ReactPlayer from "react-player";
+import { useDashStore } from "@store/dashStore";
+import useClickOutside from "@hooks/useClickOutside";
 
 function Dashboard({ uuid, profilePic, first_name, last_name, username }) {
   const logout = useLogout();
@@ -20,8 +23,13 @@ function Dashboard({ uuid, profilePic, first_name, last_name, username }) {
   const setUserInfo = useUserStore((s) => s.setUserInfo);
   // const { profilePic, uuid } = useUserStore((s) => s.userInfo);
   const [activeSection, setSection] = useState("stats");
+  const vidref = useRef<ReactPlayer>(null);
   const { data } = trpc.tricklists.findTricklistById.useQuery({ uuid: uuid });
-
+  const vidsrc = useDashStore((s) => s.vidsrc);
+  const clipStart = useDashStore((s) => s.clipStart);
+  const clipEnd = useDashStore((s) => s.clipEnd);
+  const setVidSrc = useDashStore((s) => s.setVidSrc);
+  const playerRef = useClickOutside(() => setVidSrc(null));
   const getActiveSection = (section) => {
     switch (section) {
       case "stats":
@@ -42,11 +50,38 @@ function Dashboard({ uuid, profilePic, first_name, last_name, username }) {
     }
   };
 
+  useEffect(() => {
+    if (vidsrc !== null) {
+      vidref.current?.seekTo(clipStart);
+    }
+  }, [vidsrc, clipStart]);
   return (
     <div className="my-4 flex flex-col place-content-center place-items-center gap-2 text-zinc-400">
       {/* <div className="p-4">
         Welcome <span className="font-semibold text-zinc-300">{user}</span>
       </div> */}
+      {vidsrc !== null && (
+        <div
+          ref={playerRef}
+          className="absolute left-[2.5vw] top-[2.5vw] z-[4000] aspect-video h-[30vh] w-[95vw] overflow-hidden rounded-xl"
+        >
+          <ReactPlayer
+            ref={vidref}
+            url={vidsrc}
+            playing
+            controls
+            onProgress={() => {
+              if (vidref.current?.getCurrentTime() > clipEnd) {
+                vidref.current.seekTo(clipStart);
+              }
+            }}
+            loop
+            muted
+            width="100%"
+            height="100%"
+          />
+        </div>
+      )}
       <>
         <UserCard
           edit
