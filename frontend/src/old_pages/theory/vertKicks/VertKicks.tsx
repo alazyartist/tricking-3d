@@ -14,12 +14,21 @@ const VertKicks = () => {
     ?.filter(
       (k) => k.stance_id.replace(/Complete|Hyper|Mega|Semi/, "") === "Backside"
     )
-    ?.sort((a, b) => a.name?.localeCompare(b.name, "en", { numeric: true }));
+    ?.sort((a, b) => {
+      if (a.name === "Hook") return -1;
+      if (b.name === "Hook") return 1;
+      return a.name?.localeCompare(b.name, "en", { numeric: true });
+    });
   const frontsideKicks = kicks
     ?.filter(
       (k) => k.stance_id.replace(/Complete|Hyper|Mega|Semi/, "") === "Frontside"
     )
-    ?.sort((a, b) => a.name?.localeCompare(b.name, "en", { numeric: true }));
+    ?.sort((a, b) => {
+      if (a.name === "Round") return -1;
+      if (b.name === "Round") return 1;
+
+      return a.name?.localeCompare(b.name, "en", { numeric: true });
+    });
   const kickMap = {
     Backside: backsideKicks,
     Frontside: frontsideKicks,
