@@ -24,6 +24,13 @@ const TheoryIndexInstructions = () => {
         >
           Setups
         </li>
+
+        <li
+          onClick={() => nav.push("/theory/vertKicks")}
+          className="rounded-xl border-2 border-zinc-500 p-2"
+        >
+          Kicks
+        </li>
         <li
           onClick={() => nav.push("/theory/tricks")}
           className="rounded-xl border-2 border-zinc-500 p-2"

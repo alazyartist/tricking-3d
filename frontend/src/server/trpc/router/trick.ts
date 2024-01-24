@@ -34,6 +34,19 @@ export const tricksRouter = router({
       const stances = await ctx.prisma.stances.findMany({});
       return [...tricks, ...transitions, ...stances];
     }),
+  getKicks: publicProcedure
+    .input(z.object({}).optional())
+    .query(async ({ input, ctx }) => {
+      const kicks = await ctx.prisma.tricks.findMany({
+        where: { trickType: "Kick" },
+        include: {
+          base: true,
+          variations: { include: { variation: true } },
+          animation: true,
+        },
+      });
+      return kicks;
+    }),
   findAllwithComboClips: publicProcedure.query(async ({ input, ctx }) => {
     const tricks = await ctx.prisma.tricks.findMany({
       include: {
