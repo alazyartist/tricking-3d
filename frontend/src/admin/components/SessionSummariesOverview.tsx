@@ -15,7 +15,7 @@ const SessionSummariesOverview = () => {
       <h1 className=" w-full rounded-md bg-zinc-900 p-2 font-titan text-lg font-thin text-zinc-300">
         Sessions in Queue
       </h1>
-      <div className=" no-scrollbar  flex h-[34vh] w-full flex-col overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70">
+      <div className=" no-scrollbar  flex h-[31vh] w-full flex-col overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70">
         {Array.isArray(sessions) &&
         sessions?.filter((s) => s.status !== "Reviewed").length ? (
           sessions
@@ -31,7 +31,7 @@ const SessionSummariesOverview = () => {
       <h1 className=" w-full rounded-md bg-zinc-900 bg-opacity-70 p-2 font-titan text-lg font-thin text-zinc-300">
         Reviewed
       </h1>
-      <div className="no-scrollbar  flex h-[34vh] w-full flex-col overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70">
+      <div className="no-scrollbar  flex h-[31vh] w-full flex-col overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70">
         {Array.isArray(sessions) &&
           sessions
             ?.filter((s) => s.status === "Reviewed")
@@ -180,7 +180,7 @@ export const OptionDropdown = ({
   return (
     <div
       ref={ref}
-      className="absolute right-7 top-[12] max-h-[200px] max-w-[85vw] overflow-hidden overflow-y-scroll rounded-md rounded-tr-none bg-zinc-200 p-2 text-xs text-zinc-800"
+      className="absolute right-7 top-[12] z-[4000] max-h-[200px] max-w-[85vw] overflow-hidden overflow-y-scroll rounded-md rounded-tr-none bg-zinc-200 p-2 text-xs text-zinc-800"
     >
       {changeStatusOpen && (
         <div className="grid grid-cols-3 gap-6 p-2">
