@@ -14,15 +14,10 @@ interface CombodexProps {
   totalScoreRes?: any;
   updateTotalScore?: any;
 }
-const Combodex: React.FC<CombodexProps> = ({
-  comboArray,
-  combo,
-  sessionData,
-  setCombodexopen,
-  totalScoreRes,
-  updateTotalScore,
-}) => {
-  const [executionOpen, setExecutionOpen] = useState(false);
+
+export const useExecutionSlider = (sessionData) => {
+  const { data: totalScoreRes, mutateAsync: updateTotalScore } =
+    trpc.sessionsummaries.updateTotalScore.useMutation();
   const { data: sessiondatascores } =
     trpc.sessionsummaries.getSessionDataScores.useQuery(
       {
@@ -30,16 +25,6 @@ const Combodex: React.FC<CombodexProps> = ({
       },
       { enabled: true }
     );
-  const { data: tricks, mutateAsync: getTricks } =
-    trpc.trick.findMultipleById.useMutation();
-  const utils = trpc.useContext();
-  const numOfTransitions = combo.comboArray?.filter(
-    (t) => t.type === "Transition" && t
-  ).length;
-  const numOfTricks = combo.comboArray?.filter(
-    (t) => t.type === "Trick" && t
-  ).length;
-
   const [executionScore, setExecutionScore] = useState(
     sessionData?.executionAverage ?? 0.1
   );
@@ -49,12 +34,6 @@ const Combodex: React.FC<CombodexProps> = ({
       sessiondatascores?.length || 0;
   let executionScoreTotal =
     executionAverage * (sessionData?.powerScore + sessionData.varietyScore);
-  // console.log(
-  //   executionAverage,
-  //   executionScoreTotal,
-  //   sessionData.executionAverage,
-  //   sessionData.powerScore
-  // );
   const localTotalScore = (
     sessionData?.chainTotal +
     sessionData?.powerScore +
@@ -62,6 +41,63 @@ const Combodex: React.FC<CombodexProps> = ({
     sessionData?.bonusScore +
     executionScoreTotal
   )?.toFixed(2);
+
+  useEffect(() => {
+    if (localTotalScore !== "NaN") {
+      updateTotalScore({
+        sessiondataid: sessionData.id,
+        totalScore: parseFloat(localTotalScore),
+        executionAverage: parseFloat(executionAverage.toFixed(3)),
+      });
+    }
+  }, [localTotalScore]);
+
+  useEffect(() => {
+    if (executionAverage) {
+      setExecutionScore(executionAverage);
+    }
+  }, [executionAverage]);
+
+  return {
+    executionScore,
+    setExecutionScore,
+    executionAverage,
+    executionScoreTotal,
+    localTotalScore,
+  };
+};
+const Combodex: React.FC<CombodexProps> = ({
+  comboArray,
+  combo,
+  sessionData,
+  setCombodexopen,
+  totalScoreRes,
+  updateTotalScore,
+}) => {
+  const [executionOpen, setExecutionOpen] = useState(false);
+
+  const { data: tricks, mutateAsync: getTricks } =
+    trpc.trick.findMultipleById.useMutation();
+  const numOfTransitions = combo.comboArray?.filter(
+    (t) => t.type === "Transition" && t
+  ).length;
+  const numOfTricks = combo.comboArray?.filter(
+    (t) => t.type === "Trick" && t
+  ).length;
+
+  const {
+    executionScore,
+    setExecutionScore,
+    executionAverage,
+    executionScoreTotal,
+    localTotalScore,
+  } = useExecutionSlider(sessionData);
+  // console.log(
+  //   executionAverage,
+  //   executionScoreTotal,
+  //   sessionData.executionAverage,
+  //   sessionData.powerScore
+  // );
 
   const composition = tricks
     ?.filter((t) => t.type === "Trick")
@@ -74,23 +110,8 @@ const Combodex: React.FC<CombodexProps> = ({
     });
 
   useEffect(() => {
-    if (executionAverage) {
-      setExecutionScore(executionAverage);
-    }
-  }, [executionAverage]);
-  useEffect(() => {
     getTricks(combo.comboArray);
   }, []);
-
-  useEffect(() => {
-    if (localTotalScore !== "NaN") {
-      updateTotalScore({
-        sessiondataid: sessionData.id,
-        totalScore: parseFloat(localTotalScore),
-        executionAverage: parseFloat(executionAverage.toFixed(3)),
-      });
-    }
-  }, [localTotalScore]);
 
   let mostUsed = Object.keys(sessionData?.trickCount)
     ?.filter((key) => sessionData?.trickCount[key].count > 1)

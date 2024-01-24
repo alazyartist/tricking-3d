@@ -55,14 +55,14 @@ const ComboExecutionSlider = ({
     <div className="grid min-h-[120px] grid-cols-2 place-items-center">
       <animated.div
         className={
-          " z-[-1] flex h-fit w-fit place-content-center place-items-center overflow-visible"
+          "  flex h-fit w-fit place-content-center place-items-center overflow-visible"
         }
         style={{ scale: executionScore * 5 }}
       >
         &#128293;
       </animated.div>
       <div className="flex w-full flex-col place-items-center">
-        <div className="relative z-[-1] h-3 w-[140px] translate-y-[18px] rounded-md border-2 border-amber-700" />
+        <div className="relative  h-3 w-[140px] translate-y-[18px] rounded-md border-2 border-amber-700" />
         <animated.div {...bind()} style={{ x, y, touchAction: "none" }}>
           <div className="h-6 w-10 rounded-md bg-orange-200 bg-opacity-50 backdrop-blur-xl"></div>
         </animated.div>

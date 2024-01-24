@@ -2,7 +2,7 @@ import { useSessionSummariesStore } from "@admin/components/sessionreview/Sessio
 import PowerAverageLineChart from "@components/d3/PowerAverageLineChart";
 import UpdateComboShorthand from "@components/UpdateComboShorthand";
 import { MdInfoOutline } from "@data/icons/MdIcons";
-import Combodex from "@old_pages/combodex/Combodex";
+import Combodex, { useExecutionSlider } from "@old_pages/combodex/Combodex";
 import useIsAdmin from "hooks/useIsAdmin";
 import React, { useEffect, useState } from "react";
 import { AiOutlineFullscreen } from "react-icons/ai";
@@ -11,6 +11,7 @@ import { trpc } from "utils/trpc";
 import * as d3 from "d3";
 import useClickOutside from "@hooks/useClickOutside";
 import { IoArrowForward, IoRepeat } from "react-icons/io5";
+import ComboExecutionSlider from "@old_pages/combodex/components/ComboExecutionSlider";
 
 const ProfileSessionInfo = ({
   summary,
@@ -25,6 +26,8 @@ const ProfileSessionInfo = ({
     setVidsrc(null);
     setFullScreenLower((p) => !p);
   };
+  const [reviewClips, setReviewClips] = useState(false);
+
   return (
     <div className="no-scrollbar h-full overflow-hidden overflow-y-scroll">
       <div
@@ -54,6 +57,14 @@ const ProfileSessionInfo = ({
           {showTrickLongform ? "shorthand" : "fullname"}
         </div>
         <div
+          onClick={() => setReviewClips((prev) => !prev)}
+          className={`flex place-items-center p-1 text-center text-[8px] leading-none ${
+            reviewClips ? "text-orange-500" : "text-zinc-300"
+          }`}
+        >
+          Review Clips
+        </div>
+        <div
           onClick={() => handleResize()}
           className={`flex place-items-center p-1 text-center text-xl leading-none`}
         >
@@ -81,6 +92,7 @@ const ProfileSessionInfo = ({
             editShorthand={adminMode}
             key={d.id}
             d={d}
+            reviewClips={reviewClips}
           />
         ))}
       </div>
@@ -96,6 +108,7 @@ const DataDetails = ({
   d,
   summary,
   editShorthand,
+  reviewClips,
   showTrickLongForm,
 }) => {
   // console.log(d);
@@ -126,7 +139,13 @@ const DataDetails = ({
     setLoopMe(false);
     setCombodexopen(false);
   });
-
+  const {
+    executionScore,
+    setExecutionScore,
+    executionAverage,
+    executionScoreTotal,
+    localTotalScore,
+  } = useExecutionSlider(d);
   return (
     <>
       <div
@@ -199,14 +218,22 @@ const DataDetails = ({
           )} */}
         </div>
         <div
-          className="h-[35px] w-full"
+          className={`${reviewClips ? "h-[fit]" : "h-[35px]"} w-full`}
           onClick={() => setCombodexopen((prev) => !prev)}
         >
-          <PowerAverageLineChart
-            varietyMap={d.varietyMap}
-            chainMap={d.chainMap}
-            data={d.ClipLabel.comboArray}
-          />
+          {reviewClips ? (
+            <ComboExecutionSlider
+              executionScore={executionScore}
+              setExecutionScore={setExecutionScore}
+              sessionData={d}
+            />
+          ) : (
+            <PowerAverageLineChart
+              varietyMap={d.varietyMap}
+              chainMap={d.chainMap}
+              data={d.ClipLabel.comboArray}
+            />
+          )}
         </div>
         {combodexopen && (
           <>
@@ -269,7 +296,7 @@ const ComboNameDisplay = ({
     <div className="flex w-full gap-0">
       {combo.comboArray?.map((t, i) => {
         return (
-          <div className="flex place-items-center">
+          <div key={i} className="flex place-items-center">
             <span
               className={`p-1 ${t.type === "Transition" ? "text-[8px]" : ""} `}
             >{`${t.name} `}</span>
