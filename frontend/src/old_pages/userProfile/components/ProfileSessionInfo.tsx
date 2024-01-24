@@ -6,10 +6,11 @@ import Combodex from "@old_pages/combodex/Combodex";
 import useIsAdmin from "hooks/useIsAdmin";
 import React, { useEffect, useState } from "react";
 import { AiOutlineFullscreen } from "react-icons/ai";
-import { FaCheck } from "react-icons/fa";
 import { IoIosWalk } from "react-icons/io";
 import { trpc } from "utils/trpc";
 import * as d3 from "d3";
+import useClickOutside from "@hooks/useClickOutside";
+import { IoArrowForward, IoRepeat } from "react-icons/io5";
 
 const ProfileSessionInfo = ({
   summary,
@@ -121,9 +122,17 @@ const DataDetails = ({
     setSeekTime(parseInt(d.clipStart));
     setLoopMe(true);
   };
+  const ref = useClickOutside(() => {
+    setLoopMe(false);
+    setCombodexopen(false);
+  });
+
   return (
     <>
-      <div className="flex w-full flex-col place-items-center justify-between rounded-md bg-zinc-900 bg-opacity-90 p-1 text-sm text-zinc-300 md:text-inherit">
+      <div
+        ref={ref}
+        className="flex w-full flex-col place-items-center justify-between rounded-md bg-zinc-900 bg-opacity-90 p-1 text-sm text-zinc-300 md:text-inherit"
+      >
         <div className="grid w-full grid-cols-7 place-items-center justify-between p-1 text-sm text-zinc-300 md:text-inherit">
           <div
             onClick={() =>
@@ -147,9 +156,13 @@ const DataDetails = ({
             className="flex w-full place-content-center place-items-center justify-around gap-2 px-2"
           >
             {loopMe ? (
-              <div className="z-100 whitespace-nowrap">↶</div>
+              <div className="z-100 whitespace-nowrap">
+                <IoRepeat />
+              </div>
             ) : (
-              <div className="whitespace-nowrap">--&gt;</div>
+              <div className="whitespace-nowrap">
+                <IoArrowForward />
+              </div>
             )}
           </div>
         </div>

@@ -188,11 +188,19 @@ const Combodex: React.FC<CombodexProps> = ({
           setExecutionScore={setExecutionScore}
         />
       )}
-      <CombodexTrickDetails
+      <div className="flex h-fit w-full place-content-center p-2">
+        <Link
+          href={`/combos/${sessionData.clipLabel}`}
+          className="h-fit w-fit rounded-md bg-zinc-700 bg-opacity-70 p-2 text-center"
+        >
+          See combo page!
+        </Link>
+      </div>
+      {/* <CombodexTrickDetails
         chainMap={sessionData?.chainMap}
         varietyMap={sessionData?.varietyMap}
         tricks={tricks}
-      />
+      /> */}
       {
         mostUsed?.length > 0 ? (
           <div className="w-full p-2 text-center">
@@ -235,7 +243,7 @@ const Combodex: React.FC<CombodexProps> = ({
           onClick={() => setSeeRadar(!seeRadar)}
         >
           <div className={"outlineButton p-2"}>
-            {!seeRadar ? "See Radar" : "Hide Radar"}
+            {!seeRadar ? "See pie" : "Hide pie"}
           </div>
         </div>
       }
@@ -284,7 +292,7 @@ export const DensityDisplay = ({ trickDensity, transitionDensity }) => {
           </div>
           <div className="text-xl">=</div>
           <div className="rounded-md bg-zinc-800 p-2">
-            <span className="text-center text-xs">All:</span>
+            <span className="text-center text-xs">Total:</span>
             <div>{(trickDensity + transitionDensity)?.toFixed(3)}</div>
           </div>
         </div>
