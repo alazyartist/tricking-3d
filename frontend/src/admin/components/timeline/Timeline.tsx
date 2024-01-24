@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { forwardRef, Ref, useEffect, useRef, useState } from "react";
 import { DragBounds, useGesture } from "@use-gesture/react";
 import { useSessionSummariesStore } from "../../components/sessionreview/SessionSummaryStore";
 import { animated, useSpring } from "@react-spring/web";
@@ -68,8 +68,10 @@ const Timeline = ({ vidRef, source }) => {
     odur,
     dur,
   } = useZoom(vidRef);
+  const boundref = useRef(null!);
+  const boundwidth = boundref?.current?.getBoundingClientRect().width;
 
-  const adjustedValue = (timelineOffset / bounds.width) * odur;
+  const adjustedValue = (timelineOffset / boundwidth) * odur;
   const orientation = useScreenOrientation();
   let activeWidth = `${(
     ((parseFloat((clipData?.endTime as number).toString()) -
@@ -123,8 +125,10 @@ const Timeline = ({ vidRef, source }) => {
                 dur={dur}
                 odur={odur}
                 bounds={bounds}
+                boundwidth={boundwidth}
                 zoomLevel={zoomLevel}
                 setZoomLevel={setZoomLevel}
+                ref={boundref}
               />
             </div>,
             document.getElementById("portal-root")
@@ -136,8 +140,10 @@ const Timeline = ({ vidRef, source }) => {
             dur={dur}
             odur={odur}
             bounds={bounds}
+            boundwidth={boundwidth}
             zoomLevel={zoomLevel}
             setZoomLevel={setZoomLevel}
+            ref={boundref}
           />
         )}
         <div
@@ -226,65 +232,79 @@ const CurrentTimeDiplay = ({ adjustedValue, dur, vidRef }) => {
     />
   );
 };
-const ZoomController = ({
-  dur,
-  odur,
-  bounds,
-  setTimelineOffset,
-  timelineOffset,
-  zoomLevel,
-  setZoomLevel,
-}) => {
-  const boundref = useRef(null!);
-  const percent =
-    (dur / odur) * boundref?.current?.getBoundingClientRect().width;
-  const bind = useGesture(
-    {
-      onDrag: ({ offset: [ox, oy], last, first, _bounds }) => {
-        if (first) {
-        }
-        setTimelineOffset(ox);
-      },
-    },
-    {
-      drag: {
-        axis: "x",
-        preventDefault: true,
-        bounds: boundref as DragBounds, // Adjust the timeline width accordingly
-      },
-    }
-  );
-  return (
-    <div className="grid grid-cols-[1fr_8fr_1fr] gap-1">
-      <button
-        className="w-full rounded-md bg-zinc-600 p-1 text-center"
-        onClick={() => setZoomLevel((z) => (z - 1 > 1 ? z - 1 : 1))}
-      >
-        -
-      </button>
-      {/* <p className="w-full text-center">{zoomLevel}</p> */}
-      <div
-        ref={boundref}
-        className="noTouch grid-span-8 relative h-[2rem] w-full touch-none bg-transparent"
-      >
-        <div
-          {...bind()}
-          style={{
-            width: `${percent}px`,
-            left: `${Math.max(0, timelineOffset)}px`,
-          }}
-          className={`noTouch absolute -top-[.125rem] z-[100] h-[2.25rem] cursor-pointer touch-none rounded-sm bg-zinc-400 p-2`}
-        ></div>
-      </div>
-      <button
-        className="w-full rounded-md bg-zinc-600 p-1 text-center"
-        onClick={() => setZoomLevel((z) => z + 1)}
-      >
-        +
-      </button>
-    </div>
-  );
+type ZoomControllerProps = {
+  dur: number;
+  odur: number;
+  bounds: any;
+  boundwidth: number;
+  setTimelineOffset: React.Dispatch<React.SetStateAction<number>>;
+  timelineOffset: number;
+  zoomLevel: number;
+  setZoomLevel: React.Dispatch<React.SetStateAction<number>>;
 };
+const ZoomController = forwardRef<HTMLDivElement, ZoomControllerProps>(
+  (
+    {
+      dur,
+      odur,
+      bounds,
+      boundwidth,
+      setTimelineOffset,
+      timelineOffset,
+      zoomLevel,
+      setZoomLevel,
+    },
+    boundref
+  ) => {
+    const percent = (dur / odur) * boundwidth;
+    const bind = useGesture(
+      {
+        onDrag: ({ offset: [ox, oy], last, first, _bounds }) => {
+          if (first) {
+          }
+          setTimelineOffset(ox);
+        },
+      },
+      {
+        drag: {
+          axis: "x",
+          preventDefault: true,
+          bounds: boundref as DragBounds, // Adjust the timeline width accordingly
+        },
+      }
+    );
+    return (
+      <div className="grid grid-cols-[1fr_8fr_1fr] gap-1">
+        <button
+          className="w-full rounded-md bg-zinc-600 p-1 text-center"
+          onClick={() => setZoomLevel((z) => (z - 1 > 1 ? z - 1 : 1))}
+        >
+          -
+        </button>
+        {/* <p className="w-full text-center">{zoomLevel}</p> */}
+        <div
+          ref={boundref}
+          className="noTouch grid-span-8 relative h-[2rem] w-full touch-none bg-transparent"
+        >
+          <div
+            {...bind()}
+            style={{
+              width: `${percent}px`,
+              left: `${Math.max(0, timelineOffset)}px`,
+            }}
+            className={`noTouch absolute -top-[.125rem] z-[100] h-[2.25rem] w-full cursor-pointer touch-none rounded-sm bg-zinc-400 p-2`}
+          ></div>
+        </div>
+        <button
+          className="w-full rounded-md bg-zinc-600 p-1 text-center"
+          onClick={() => setZoomLevel((z) => z + 1)}
+        >
+          +
+        </button>
+      </div>
+    );
+  }
+);
 
 const TimelineElement = ({
   e,
@@ -317,6 +337,7 @@ const TimelineElement = ({
     setSrcid(source?.srcid);
   }, [source, vidsrc]);
   const offsetTime = (offset / timelineWidth) * duration;
+
   let w =
     ((parseFloat(e.endTime) - parseFloat(e.startTime)) / parseFloat(duration)) *
     100;
@@ -408,7 +429,7 @@ const TimelineElement = ({
       // },
       onContextMenu: ({ event }) => {
         event.preventDefault();
-        console.log(e);
+        // console.log(e);
         setSeeDetails((prev) => !prev);
       },
     },
