@@ -261,6 +261,21 @@ export const sessionsummariesRouter = router({
       });
       return sessionSummaries;
     }),
+  getFeedSummaries: publicProcedure
+    .input(z.object({}).optional())
+    .query(async ({ ctx }) => {
+      const sessionSummaries = await ctx.prisma.sessionsummaries.findMany({
+        // take: 5,
+        where: { status: "Reviewed" },
+        orderBy: { updatedAt: "desc" },
+        include: {
+          user: { select: { username: true, profilePic: true, uuid: true } },
+          SessionData: { include: { ClipLabel: true } },
+          SessionSources: true,
+        },
+      });
+      return sessionSummaries;
+    }),
   deleteSessionSummaryById: publicProcedure
     .input(z.object({ sessionid: z.string() }))
     .mutation(async ({ ctx, input }) => {

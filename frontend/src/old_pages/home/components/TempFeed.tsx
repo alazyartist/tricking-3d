@@ -6,8 +6,7 @@ import { IoPlayCircle } from "react-icons/io5";
 import { trpc } from "utils/trpc";
 
 const TempFeed = () => {
-  const { data: summaries } =
-    trpc.sessionsummaries.getAllSessionSummaries.useQuery();
+  const { data: summaries } = trpc.sessionsummaries.getFeedSummaries.useQuery();
   return (
     <div id="temp-feed" className={`flex flex-col gap-1 p-2 font-inter`}>
       <p className={"text-center  text-zinc-300"}>Recently Reviewed</p>
