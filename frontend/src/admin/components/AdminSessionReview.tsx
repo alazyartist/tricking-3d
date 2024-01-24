@@ -34,7 +34,6 @@ const AdminSessionReview = ({
     (s) => s.setSessionSources
   );
   const orientation = useScreenOrientation();
-  console.log(orientation);
   useEffect(() => {
     setSessionid(sessionid as string);
     if (sessionData.length < 0 || sessionid !== sessionData?.[0]?.sessionid) {

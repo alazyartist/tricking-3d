@@ -132,7 +132,7 @@ const CommandBarControls = () => {
     {
       title: "start",
       command: () => {
-        console.log(clipData.startTime);
+        // console.log(clipData.startTime);
         setSeekTime(clipData.startTime);
       },
     },

@@ -13,7 +13,6 @@ const useZoom = (vidRef, clipData) => {
   const [timelineOffset, setTimelineOffset] = useState(0);
   const odur = clipData?.clipEnd - clipData?.clipStart;
   const dur = odur / Math.max(zoomLevel, 1);
-  console.log(clipData, dur, odur);
   const zoomControllerWidth = (dur / odur) * bounds.width;
 
   useEffect(() => {
@@ -186,7 +185,6 @@ const VideoTicks = ({ odur, tickAmt, bounds, zoomLevel, timelineOffset }) => {
 const CurrentTimeDiplay = ({ adjustedValue, dur, vidRef, start }) => {
   const currentTime = useSessionSummariesStore((s) => s.currentTime);
   const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
-  console.log(start, start + adjustedValue, dur + adjustedValue);
   return (
     <input
       id={`${

@@ -31,7 +31,6 @@ const SelectTrickPopupCommandBar = ({ allTricks }) => {
       }
     }
   }, [lastItem]);
-  //   console.log(newCombo);
 
   return (
     <>
@@ -179,7 +178,7 @@ const TrickButtons = ({
     let stance = findStanceLeg(trick.landingStance);
     setCurrentFilter(stance);
   };
-  console.log(tricks, inverts, kicks, currentFilter, newCombo);
+  // console.log(tricks, inverts, kicks, currentFilter, newCombo);
   return (
     <>
       {inverts?.map((trick) => (
