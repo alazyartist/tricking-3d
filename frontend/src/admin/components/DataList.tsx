@@ -6,6 +6,8 @@ import MakeNewTrickModal from "./sessionreview/MakeNewTrickModal";
 import { useSessionSummariesStore } from "./sessionreview/SessionSummaryStore";
 import * as d3 from "d3";
 import { combos, tricks } from "@prisma/client";
+import { TrickInfoGrid } from "pages/tricks/[trick_id]";
+import useClickOutside from "@hooks/useClickOutside";
 const DataList = () => {
   const { data: tricks } = trpc.trick.findAllwithComboClips.useQuery();
   const { data: combos } = trpc.combos.getAll.useQuery();
@@ -105,6 +107,7 @@ const DataList = () => {
             </div>
           ))}
       </div>
+
       {animPopup && (
         <AnimPopup
           toggle={toggleAnimPopup}
@@ -167,14 +170,16 @@ const DLTrickDisplay = ({ trick, handleAnimPopup }) => {
   //   (sum, b) => sum + b.reduce((sum2, b2) => sum2 + b2.Clips.length, 0),
   //   0
   // );
-
+  const [seeTrickInfo, setTrickInfo] = useState(false);
+  const ref = useClickOutside(() => setTrickInfo(false));
   return (
     <div
+      ref={ref}
       key={Math.random()}
       className=" grid  w-full grid-cols-7 place-items-center justify-between p-2 odd:bg-zinc-700 odd:bg-opacity-70 even:bg-zinc-900 even:bg-opacity-70"
     >
       <div className="col-span-3 max-w-[1/3] place-self-start">
-        <div>
+        <div onClick={() => setTrickInfo((p) => !p)}>
           <p>{trick?.displayName}</p>
           <p className="text-xs text-zinc-500">{trick?.name}</p>
         </div>
@@ -203,6 +208,11 @@ const DLTrickDisplay = ({ trick, handleAnimPopup }) => {
       <p style={{ color: d3.interpolateRdYlGn(numOfClips / 10) }}>
         {numOfClips}
       </p>
+      {seeTrickInfo && (
+        <div className="col-span-7 w-full ">
+          <TrickInfoGrid trickInfo={trick} />
+        </div>
+      )}
     </div>
   );
 };
