@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { MdCircle, MdCheckCircle } from "../../../data/icons/MdIcons";
-import { tricks } from "@prisma/client";
+import {
+  combos,
+  sessiondata,
+  sessionsources,
+  transitions,
+  tricks,
+} from "@prisma/client";
 import { trpc } from "@utils/trpc";
 import { ProfileInfo } from "types/trpc";
+import { FaPlay, FaPlayCircle } from "react-icons/fa";
 interface ClaimTrickProps {
   displayOnly?: boolean;
   user_id: string;
@@ -12,6 +19,7 @@ interface ClaimTrickProps {
   profileInfo: ProfileInfo;
   uniqueTricks: string[];
   uniqueTricksRaw: {};
+  clips: (sessiondata & { ClipLabel: combos; SessionSource: sessionsources })[];
 }
 const ClaimedTricks = ({
   displayOnly,
@@ -22,14 +30,21 @@ const ClaimedTricks = ({
   uniqueTricks,
   sortType,
   uniqueTricksRaw,
+  clips,
 }: ClaimTrickProps) => {
   const [claimed, setClaimed] = useState(false);
+  const [seeClips, setSeeClips] = useState(false);
   const { mutate: claim } = trpc.trick.claimTrick.useMutation();
 
   const isClaimed = profileInfo?.TricksClaimed?.some(
     (combo) => combo.trick_id === trick_id
   );
 
+  const foundClips = clips.filter((clip) => {
+    const comboArray = clip?.ClipLabel?.comboArray as unknown as tricks[];
+    if (!comboArray) return false;
+    return comboArray.some((combo) => combo?.trick_id === trick_id);
+  });
   const isProven = uniqueTricks.includes(trick.name);
 
   // const { data:combos } = trpc.trick.findCombosWithTrick.useQuery({
@@ -49,7 +64,10 @@ const ClaimedTricks = ({
           isProven ? "border-green-500" : "border-yellow-500"
         } grid h-full w-full grid-cols-4 place-content-center justify-between rounded-md border-l-4 bg-zinc-800 bg-opacity-40 p-2`}
       >
-        <div className="col-span-3 flex place-items-center justify-between">
+        <div
+          onClick={() => setSeeClips((p) => !p)}
+          className="col-span-3 flex place-items-center justify-between"
+        >
           <p>{trick?.name}</p>
         </div>
         <div className="relative col-span-1 flex h-full place-content-end place-items-center gap-2">
@@ -71,6 +89,32 @@ const ClaimedTricks = ({
             )}
           </div>
         </div>
+        {seeClips && (
+          <div className="col-span-4 space-y-1">
+            {Array.isArray(foundClips) &&
+              foundClips?.map((clip) => {
+                return (
+                  <div className="flex w-full" key={clip.id}>
+                    <button
+                      onClick={() =>
+                        console.log(
+                          clip.SessionSource.vidsrc,
+                          clip.clipStart,
+                          clip.clipEnd
+                        )
+                      }
+                      className="pr-2"
+                    >
+                      <FaPlayCircle />
+                    </button>
+                    <p className="no-scrollbar w-full overflow-hidden overflow-x-scroll whitespace-nowrap rounded-md bg-zinc-600 bg-opacity-40 p-2 text-xs">
+                      {clip?.ClipLabel?.name}
+                    </p>
+                  </div>
+                );
+              })}
+          </div>
+        )}
       </div>
     )
   );

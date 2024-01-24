@@ -30,6 +30,9 @@ const ClaimTricks = ({ user_id }) => {
           .filter((combo) => combo !== undefined)
     )
   ).flat(2);
+  const clips = profileInfo?.SessionSummaries?.map((summary) =>
+    summary?.SessionData?.map((data) => data)
+  ).flat(2);
   let uniqueTricks = [];
   let uniqueTricksRaw = {};
 
@@ -70,6 +73,7 @@ const ClaimTricks = ({ user_id }) => {
   };
   useEffect(() => {
     console.log(uniqueTricksRaw);
+    console.log(clips);
   }, [uniqueTricksRaw]);
   return (
     <div className="no-scrollbar flex h-[60vh] w-full flex-col place-items-start overflow-y-scroll bg-zinc-900 bg-opacity-70 font-inter ">
@@ -140,6 +144,7 @@ const ClaimTricks = ({ user_id }) => {
             (trick) =>
               trick.type === "Trick" && (
                 <ClaimedTricks
+                  clips={clips}
                   profileInfo={profileInfo}
                   uniqueTricks={uniqueTricks}
                   trick={trick}
