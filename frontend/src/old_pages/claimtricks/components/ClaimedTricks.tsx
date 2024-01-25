@@ -48,7 +48,7 @@ const ClaimedTricks = ({
     setClipStart(clip.clipStart);
     setClipEnd(clip.clipEnd);
   };
-  const foundClips = clips.filter((clip) => {
+  const foundClips = clips?.filter((clip) => {
     const comboArray = clip?.ClipLabel?.comboArray as unknown as tricks[];
     if (!comboArray) return false;
     return comboArray.some((combo) => combo?.trick_id === trick_id);

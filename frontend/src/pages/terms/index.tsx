@@ -5,8 +5,8 @@ const TermsPage = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   return (
-    <div className="flex flex-col place-items-center gap-2 p-2 text-zinc-300">
-      <div className="sticky top-2 flex w-[60vw] gap-4 p-2">
+    <div className="no-scrollbar flex w-[100vw] flex-col place-items-center gap-2 p-2 text-zinc-300">
+      <div className="sticky top-2 flex w-full gap-4 p-2 md:w-[60vw]">
         <div className="pb-2 text-2xl">Glossary</div>
         <input
           className="rounded-md bg-zinc-800 bg-opacity-70 p-2"
@@ -27,12 +27,15 @@ const TermsPage = () => {
               }
             )
             .sort((a, b) => {
-              const regex = new RegExp(searchTerm, "gi");
+              if (searchTerm !== "") {
+                const regex = new RegExp(searchTerm, "gi");
 
-              if (a.term.toLowerCase() === searchTerm.toLowerCase()) return -1;
-              if (b.term.toLowerCase() === searchTerm.toLowerCase()) return 1;
-              if (a.term.match(regex)) return -1;
-              if (b.term.match(regex)) return 1;
+                if (a.term.toLowerCase() === searchTerm.toLowerCase())
+                  return -1;
+                if (b.term.toLowerCase() === searchTerm.toLowerCase()) return 1;
+                if (a.term.match(regex)) return -1;
+                if (b.term.match(regex)) return 1;
+              }
             })
             .map((term) => {
               return (
@@ -47,6 +50,9 @@ const TermsPage = () => {
                 </div>
               );
             })}
+        <div className="flex w-[60vw] flex-col gap-2 rounded-md bg-zinc-700 bg-opacity-70 text-center">
+          end of results
+        </div>
       </div>
     </div>
   );
