@@ -6,22 +6,15 @@ export const glossaryRouter = router({
     const glossary = await ctx.prisma.glossary.findMany();
     return glossary;
   }),
-  addInitialTerms: publicProcedure
-    .input(
-      z.object({
-        terms: z.array(z.object({ term: z.string(), definition: z.string() })),
-      })
-    )
-    .mutation(async ({ input, ctx }) => {
-      //   console.log(input.terms);
-      try {
-        console.log("adding terms");
-        const terms = await ctx.prisma.glossary.createMany({
-          data: input.terms,
-        });
-        return terms;
-      } catch (e) {
-        console.log(e);
-      }
+  addTerm: protectedProcedure
+    .input(z.object({ term: z.string(), definition: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const term = await ctx.prisma.glossary.create({
+        data: {
+          term: input.term,
+          definition: input.definition,
+        },
+      });
+      return term;
     }),
 });
