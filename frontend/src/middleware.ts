@@ -24,6 +24,7 @@ export default authMiddleware({
     "/api/trpc/battleroom(.*)",
     "/userProfile(.*)",
     "/api/trpc/trick(.*)",
+    "/api/trpc/glossary(.*)",
     "/api/trpc/transition.getTransitions(.*)",
     "/api/trpc/debates.getAll(.*)",
     "/api/trpc/sessionsummaries(.*)",
