@@ -1,11 +1,12 @@
 "use client";
+import { trpc } from "@utils/trpc";
 import React, { useState, lazy, Suspense } from "react";
 import { IoIosList, IoIosPeople } from "react-icons/io";
 const DataList = lazy(() => import("./DataList"));
 const SessionSummariesOverview = lazy(
   () => import("./SessionSummariesOverview")
 );
-
+import * as terms from "../../data/Glossary.json";
 const TrickPointEditor = lazy(() => import("./trickMaker/TrickPointEditor"));
 const UserList = lazy(() => import("./UserList"));
 const AdminDisplay = () => {
@@ -34,6 +35,11 @@ const AdminDisplay = () => {
           <Suspense fallback={<div>Loading...</div>}>
             <TrickPointEditor />
           </Suspense>
+        )}
+        {displayItem === "Terms" && (
+          <div>
+            <TermDisplay />
+          </div>
         )}
       </div>
     </>
@@ -83,6 +89,71 @@ const AdminNav = ({ displayItem, setDisplayItem }) => {
       >
         TP
       </div>
+      <div
+        onClick={() => setDisplayItem("Terms")}
+        className={`${
+          displayItem === "Terms" ? "text-emerald-500" : "text-zinc-300"
+        } text-center font-titan text-xl md:text-2xl`}
+      >
+        Term
+      </div>
+    </div>
+  );
+};
+
+const TermDisplay = () => {
+  const [seeTerms, setSeeTerms] = useState(false);
+  const { data } = trpc.glossary.getAll.useQuery();
+  const preparedTerms = Object.keys(terms).map((term) => {
+    return {
+      term,
+      definition: terms[term].toString(),
+    };
+  });
+  console.log(preparedTerms);
+  const { mutate: uploadTerms } = trpc.glossary.addInitialTerms.useMutation();
+
+  return (
+    <div className="flex flex-col place-items-center gap-2 ">
+      <h1 onClick={() => setSeeTerms((p) => !p)}>Static JSON Terms</h1>
+      {seeTerms &&
+        Object.keys(terms).map((term) => {
+          return (
+            <div
+              className="flex w-[60vw] flex-col gap-2 rounded-md bg-zinc-900 bg-opacity-70"
+              key={term}
+            >
+              <h2 className="text-xl">{term}</h2>
+              <p className="text-sm font-normal text-zinc-400">
+                {terms[term].toString()}
+              </p>
+            </div>
+          );
+        })}
+      <h1>Database Terms</h1>
+      {data &&
+        data.map((term) => {
+          return (
+            <div
+              className="flex w-[60vw] flex-col gap-2 rounded-md bg-zinc-900 bg-opacity-70"
+              key={term.term}
+            >
+              <h2 className="text-xl">{term.term}</h2>
+              <p className="text-sm font-normal text-zinc-400">
+                {term.definition}
+              </p>
+            </div>
+          );
+        })}
+      {!data ||
+        (data.length < 1 && (
+          <button
+            className="mb-14 rounded-xl bg-emerald-500 bg-opacity-70 p-4 py-2 text-xl"
+            onClick={() => uploadTerms({ terms: preparedTerms })}
+          >
+            CLICK ME MOTHERFUCKER
+          </button>
+        ))}
     </div>
   );
 };

@@ -36,7 +36,13 @@ model bases {
 
   @@index([stance_id], map: "stance_id")
 }
-
+model glossary {
+  id        Int      @id @default(autoincrement())
+  term      String?  @db.VarChar(255)
+  definition String? @db.Text
+  createdAt DateTime @default(now()) @db.DateTime(0)
+  updatedAt DateTime @db.DateTime(0) @updatedAt
+}
 model battlerooms {
   id        Int       @id @default(autoincrement())
   host      String?   @db.Char(36)

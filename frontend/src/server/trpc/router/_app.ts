@@ -11,6 +11,7 @@ import { tricklistRouter } from "./tricklist";
 import { paymentsRouter } from "./payments";
 import { ablyRouter } from "./ablyRouter";
 import battleroomRouter from "./battleroomRouter";
+import { glossaryRouter } from "./glossary";
 
 export const appRouter = router({
   userDB: userRouter,
@@ -24,6 +25,7 @@ export const appRouter = router({
   payments: paymentsRouter,
   ably: ablyRouter,
   battleroom: battleroomRouter,
+  glossary: glossaryRouter,
 });
 
 // export type definition of API
