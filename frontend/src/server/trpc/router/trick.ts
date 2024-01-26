@@ -13,10 +13,35 @@ export const tricksRouter = router({
           base: true,
           variations: { include: { variation: true } },
           animation: true,
+          nicknames: { include: { creator: true } },
         },
       });
       return trick;
     }),
+  addNickname: protectedProcedure
+    .input(z.object({ trick_id: z.string(), nickname: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const user = await ctx.prisma.users.findUnique({
+        where: { clerk_id: ctx.auth.userId },
+      });
+      const nickname = await ctx.prisma.trick_nicknames.create({
+        data: {
+          nickname: input.nickname,
+          trick_id: input.trick_id,
+          createdBy: user.uuid,
+        },
+      });
+      return nickname;
+    }),
+  removeNickname: protectedProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input, ctx }) => {
+      const nickname = await ctx.prisma.trick_nicknames.delete({
+        where: { id: input.id },
+      });
+      return nickname;
+    }),
+
   findAll: publicProcedure.query(async ({ input, ctx }) => {
     const tricks = await ctx.prisma.tricks.findMany({
       include: {

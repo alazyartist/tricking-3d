@@ -1,22 +1,31 @@
+import { SignedIn } from "@clerk/nextjs";
 import UserProfilePicById from "@components/info/UserProfilePicById";
 import BiCube from "@data/icons/BiCube";
+import useClickOutside from "@hooks/useClickOutside";
+import useScreenOrientation from "@hooks/UseScreenOrientaion";
 import AnimatedSearch from "@old_pages/home/components/AnimatedSearch";
+import { useUserStore } from "@store/userStore";
 import { trpc } from "@utils/trpc";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useForm } from "react-hook-form";
 import ReactPlayer from "react-player";
 
 const TricksPage = () => {
   const router = useRouter();
   const { trick_id } = router.query;
+  const [seeExample, setSeeExample] = useState(null);
+
   const { data: trickInfo, isSuccess } = trpc.trick.findById.useQuery({
     trick_id: trick_id as string,
   });
   const { data: combos } = trpc.trick.findCombosWithTrick.useQuery({
     trick_id: trick_id as string,
   });
+  const orientation = useScreenOrientation();
   if (!isSuccess) return <div>Loading..</div>;
   return (
     <div
@@ -25,8 +34,9 @@ const TricksPage = () => {
       <div className="absolute left-4 top-4">
         <AnimatedSearch />
       </div>
-      <div className="minimalistScroll mt-14 h-[80vh] w-full overflow-y-scroll rounded-md bg-zinc-900  bg-opacity-70 p-2">
+      <div className="minimalistScroll mt-14 flex h-[80vh] w-full flex-col items-center gap-2 overflow-y-scroll rounded-md bg-zinc-900  bg-opacity-70 p-2">
         <TrickInfoGrid trickInfo={trickInfo} />
+        <TrickNicknames trickInfo={trickInfo} />
         <div className="flex place-content-center place-items-center pb-2 pt-6">
           {trickInfo.defaultAnimation && (
             <Link
@@ -40,17 +50,107 @@ const TricksPage = () => {
             </Link>
           )}
         </div>
-        <div className="sticky top-2" id={"video-portal"} />
-        <CombosWithTrickDisplay combos={combos} trick={trickInfo.name} />
+        <div
+          className={`  top-2 aspect-video ${
+            orientation === "landscape"
+              ? "left-[5vw] h-[90vh] w-[90vw]"
+              : "left-[2.5vw] h-[30vh] w-[95vw]"
+          }  ${!seeExample ? " hidden" : "absolute"}`}
+          id={"video-portal"}
+        />
+        <CombosWithTrickDisplay
+          seeExample={seeExample}
+          setSeeExample={setSeeExample}
+          combos={combos}
+          trick={trickInfo.name}
+        />
       </div>
     </div>
   );
 };
 
 export default TricksPage;
+
+const TrickNicknames = ({ trickInfo }) => {
+  const uuid = useUserStore((s) => s.userInfo.uuid);
+  const [seeAddNicknames, setSeeAddNicknames] = useState(false);
+  const { mutate: removeNickname } = trpc.trick.removeNickname.useMutation();
+  return (
+    <div className="flex w-fit flex-col place-items-center  text-zinc-300">
+      {trickInfo.nicknames.length > 0 ? (
+        trickInfo.nicknames.map((nname) => {
+          return (
+            <div className="flex items-center gap-2" key={nname.id}>
+              <p>{nname.nickname}</p>
+              <p className="text-xs text-zinc-400">{nname.creator.username}</p>
+              {nname.createdBy === uuid && (
+                <button
+                  className="rounded-md bg-red-400 bg-opacity-40 px-1 text-xs text-red-600"
+                  onClick={() => removeNickname({ id: nname.id })}
+                >
+                  Delete
+                </button>
+              )}
+            </div>
+          );
+        })
+      ) : (
+        <>
+          <p>No nicknames</p>
+        </>
+      )}
+      <SignedIn>
+        {!seeAddNicknames ? (
+          <button
+            className="rounded-md bg-zinc-400 bg-opacity-40 p-2 py-2 text-xs text-zinc-400"
+            onClick={() => setSeeAddNicknames(!seeAddNicknames)}
+          >
+            Add Nickname
+          </button>
+        ) : (
+          <AddNickname
+            setSeeAddNicknames={setSeeAddNicknames}
+            trickInfo={trickInfo}
+          />
+        )}
+      </SignedIn>
+    </div>
+  );
+};
+
+const AddNickname = ({ trickInfo, setSeeAddNicknames }) => {
+  const { register, handleSubmit } = useForm();
+  const { mutate: addNickname } = trpc.trick.addNickname.useMutation();
+  const onSubmit = (data) => {
+    console.log({ nickname: data.nickname, trick_id: trickInfo.trick_id });
+    addNickname({ nickname: data.nickname, trick_id: trickInfo.trick_id });
+    setSeeAddNicknames(false);
+  };
+  return (
+    <form
+      className="
+flex w-[40vw] flex-col gap-4 rounded-md bg-zinc-900 bg-opacity-70 p-2 text-zinc-300
+"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <input
+        placeholder="Add a nickname"
+        className="rounded-md bg-zinc-800 px-2 py-1 text-zinc-300"
+        {...register("nickname")}
+      />
+      <button
+        className="rounded-md bg-zinc-600 px-2 py-1 text-zinc-300"
+        type={"submit"}
+      >
+        Add
+      </button>
+    </form>
+  );
+};
+
 export const TrickInfoGrid = ({ trickInfo }) => {
   return (
-    <div className="relative flex w-full flex-col place-content-center place-items-center gap-2 md:left-[25vw] md:max-w-[50vw]">
+    <div className=" flex w-full flex-col place-content-center place-items-center gap-2 md:left-[25vw] md:max-w-[50vw]">
       <div className="flex place-items-center gap-2 ">
         <div>
           <h1 className="text-2xl font-bold ">{trickInfo.displayName}</h1>
@@ -97,8 +197,12 @@ export const TrickInfoGrid = ({ trickInfo }) => {
   );
 };
 
-const CombosWithTrickDisplay = ({ combos, trick }) => {
-  const [seeExample, setSeeExample] = useState();
+const CombosWithTrickDisplay = ({
+  combos,
+  trick,
+  seeExample,
+  setSeeExample,
+}) => {
   return (
     <div className="minimalistScroll flex h-full w-full flex-col place-content-start gap-2 p-2 pt-0">
       <h1 className=" bg-zinc-900 p-2 text-xl">Combos containing {trick}</h1>
@@ -159,13 +263,16 @@ export const ExampleClipDisplay = ({ clip, i, seeExample, setSeeExample }) => {
   const { data: user_image } = trpc.userDB.findUserImageById.useQuery({
     uuid: clip.summary.user_id,
   });
-
+  const ref = useClickOutside(() => setSeeExample(null));
   return (
     <>
       {seeExample === clip.id && (
         <div>
           {createPortal(
-            <div className="no-scrollbar flex aspect-video w-full overflow-clip rounded-md">
+            <div
+              ref={ref}
+              className="no-scrollbar flex aspect-video h-full w-full overflow-clip rounded-md"
+            >
               <ReactPlayer
                 ref={vidRef}
                 config={{ facebook: { appId: "508164441188790" } }}
@@ -197,7 +304,10 @@ export const ExampleClipDisplay = ({ clip, i, seeExample, setSeeExample }) => {
         className={"flex justify-between gap-2 rounded-md bg-zinc-700 p-2"}
         onClick={() => handleClick(clip.id)}
       >
-        <img
+        <Image
+          alt={"user image"}
+          width={24}
+          height={24}
           src={user_image}
           className={"h-6 w-6 place-self-start rounded-full"}
         />

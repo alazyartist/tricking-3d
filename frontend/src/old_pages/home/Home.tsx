@@ -29,16 +29,18 @@ function Home({ userInfo: stringy }) {
   useEffect(() => {
     if (isSignedIn && stringy) {
       const userInfo = JSON.parse(stringy);
-      setUserInfo(userInfo);
-      mixpanel.identify(userInfo.uuid);
-      mixpanel.people.set({
-        $email: userInfo.email,
-        $username: userInfo.username,
-        $name: userInfo.username,
-        $created: userInfo.createdAt,
-        $last_login: userInfo.lastLoginAt,
-        $image: userInfo.profilePic,
-      });
+      if (userInfo) {
+        setUserInfo(userInfo);
+        mixpanel.identify(userInfo?.uuid);
+        mixpanel.people.set({
+          $email: userInfo.email,
+          $username: userInfo.username,
+          $name: userInfo.username,
+          $created: userInfo.createdAt,
+          $last_login: userInfo.lastLoginAt,
+          $image: userInfo.profilePic,
+        });
+      }
     }
   }, [stringy, isSignedIn]);
 
