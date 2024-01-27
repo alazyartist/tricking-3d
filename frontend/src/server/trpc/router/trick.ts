@@ -23,7 +23,7 @@ export const tricksRouter = router({
       where: { clerk_id: ctx.auth.userId },
     });
     const nicknames = await ctx.prisma.trick_nicknames.findMany({
-      where: { createdBy: user.uuid },
+      where: { creator_id: user.uuid },
       include: { trick: true },
     });
     return nicknames;
@@ -38,7 +38,21 @@ export const tricksRouter = router({
         data: {
           nickname: input.nickname,
           trick_id: input.trick_id,
-          createdBy: user.uuid,
+          creator_id: user.uuid,
+        },
+      });
+      return nickname;
+    }),
+  updateNickname: protectedProcedure
+    .input(z.object({ id: z.number(), nickname: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const user = await ctx.prisma.users.findUnique({
+        where: { clerk_id: ctx.auth.userId },
+      });
+      const nickname = await ctx.prisma.trick_nicknames.update({
+        where: { id: input.id },
+        data: {
+          nickname: input.nickname,
         },
       });
       return nickname;

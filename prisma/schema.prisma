@@ -354,12 +354,14 @@ model trick_nicknames {
   id        Int      @id @default(autoincrement())
   trick_id  String?  @db.Char(36)
   nickname  String?  @db.VarChar(255)
-  createdBy String?  @db.Char(36)
+  creator_id String?  @db.Char(36)
   createdAt DateTime @default(now()) @db.DateTime(0)
   updatedAt DateTime @db.DateTime(0) @updatedAt
   trick     tricks? @relation(fields: [trick_id], references: [trick_id])
-  creator   users? @relation(fields: [createdBy], references: [uuid])
+  creator   users? @relation(fields: [creator_id], references: [uuid])
 
+  @@unique([trick_id, nickname], map: "trick_id:nickname")
+  @@unique([trick_id, creator_id], map: "trick_id:creator_id")
 }
 
 model tricks {
