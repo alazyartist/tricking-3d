@@ -95,23 +95,23 @@ const TrickNicknames = ({ trickInfo }) => {
                 <p className="text-xs text-zinc-400">
                   {nname.creator.username}
                 </p>
-                {nname.createdBy === uuid ? (
-                  <button
-                    className="rounded-md bg-red-400 bg-opacity-40 px-1 text-xs text-red-600"
-                    onClick={() => removeNickname({ id: nname.id })}
-                  >
-                    Delete
-                  </button>
-                ) : (
-                  <SignedIn>
+                <SignedIn>
+                  {nname.createdBy === uuid ? (
+                    <button
+                      className="rounded-md bg-red-400 bg-opacity-40 px-1 text-xs text-red-600"
+                      onClick={() => removeNickname({ id: nname.id })}
+                    >
+                      Delete
+                    </button>
+                  ) : (
                     <button
                       className="rounded-md bg-zinc-400 bg-opacity-40 px-2 py-1 text-xs text-zinc-200"
                       onClick={() => setPreferredNickname({ id: nname.id })}
                     >
                       set as preffered
                     </button>
-                  </SignedIn>
-                )}
+                  )}
+                </SignedIn>
               </div>
             )
           );
@@ -145,7 +145,6 @@ const PreferredNames = ({ trickInfo }) => {
     trpc.trick.getPreferredNicknameByTrick.useQuery({
       trick_id: trickInfo.trick_id,
     });
-  console.log({ preferredNickname });
   return (
     preferredNickname && (
       <div className="flex w-full flex-col place-items-center  text-zinc-300">

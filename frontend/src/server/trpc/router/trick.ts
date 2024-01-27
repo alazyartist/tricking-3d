@@ -52,9 +52,10 @@ export const tricksRouter = router({
     });
     return nicknames;
   }),
-  getPreferredNicknameByTrick: protectedProcedure
+  getPreferredNicknameByTrick: publicProcedure
     .input(z.object({ trick_id: z.string() }))
     .query(async ({ input, ctx }) => {
+      if (!ctx.auth.userId) return null;
       const user = await ctx.prisma.users.findUnique({
         where: { clerk_id: ctx.auth.userId },
       });

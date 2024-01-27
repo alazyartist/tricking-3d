@@ -171,31 +171,31 @@ function TabBar() {
                 <Link href="/about">About</Link>
                 <Link href="/contribute">Contibute</Link>
                 <Link href="/learnMore">Learn More</Link>
-                {isSignedIn && (
-                  <>
-                    <Link href="/userSettings" replace={true}>
-                      User Settings
-                    </Link>
-                    {/* <Link href="/dash" replace={true}>
+                <SignedIn>
+                  <Link href="/userSettings" replace={true}>
+                    User Settings
+                  </Link>
+                  {/* <Link href="/dash" replace={true}>
                       Dashboard
                     </Link> */}
-                    <Link href="/experiments" replace={true}>
-                      Experiments
-                    </Link>
-                    <Link href="/terms" replace={true}>
-                      Glossary
-                    </Link>
-                    <button
-                      className="absolute bottom-2 left-3"
-                      onClick={() => {
-                        logout();
-                        nav.push("/home");
-                      }}
-                    >
-                      Logout
-                    </button>
-                  </>
-                )}
+                  <Link href="/experiments" replace={true}>
+                    Experiments
+                  </Link>
+                </SignedIn>
+                <Link href="/terms" replace={true}>
+                  Glossary
+                </Link>
+                <SignedIn>
+                  <button
+                    className="absolute bottom-2 left-3"
+                    onClick={() => {
+                      logout();
+                      nav.push("/home");
+                    }}
+                  >
+                    Logout
+                  </button>
+                </SignedIn>
               </animated.div>
             </animated.div>
           )
