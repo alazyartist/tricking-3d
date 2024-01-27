@@ -8,9 +8,11 @@ const NicknamesPanel = () => {
   const { data: tricks } = trpc.trick.getTricks.useQuery();
   const [input_id, setInput_id] = useState(null);
   const [deleteMode, setDeleteMode] = useState(false);
-  const { register, handleSubmit, getValues, reset } = useForm<{
+  const [seePreferred, setSeePreferred] = useState(false);
+  const { register, handleSubmit, reset } = useForm<{
     nickname: string;
   }>();
+  const { data: preferredNames } = trpc.trick.getPreferredNicknames.useQuery();
   const { mutate: addNickname } = trpc.trick.addNickname.useMutation();
   const { mutate: updateNickname } = trpc.trick.updateNickname.useMutation();
   const { mutate: deleteNickname } = trpc.trick.removeNickname.useMutation();
@@ -33,16 +35,32 @@ const NicknamesPanel = () => {
   return (
     <div className="lg:no-scrollbar h-full max-h-[60vh] min-h-[50vh] w-full overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70 lg:h-[60vh] lg:max-h-[65vh]">
       <div className="flex w-full flex-col place-items-center gap-2 p-2">
-        <div className="flex w-full gap-2">
-          <h1 className="place-self-start p-2 text-zinc-200">Nicknames</h1>
+        <div className="flex w-full items-center gap-2">
+          <h1
+            onClick={() => setSeePreferred(!seePreferred)}
+            className="place-self-start p-2 text-zinc-200"
+          >
+            {seePreferred ? "PrefferedNames" : "Nicknames"}
+          </h1>
           <button
             onClick={() => setDeleteMode(!deleteMode)}
-            className={`${deleteMode ? "text-red-500" : "text-zinc-400"} `}
+            className={`${
+              deleteMode ? "text-red-500" : "text-zinc-400"
+            } text-xs`}
           >
             Delete Mode
           </button>
         </div>
+        {Array.isArray(nicknames) && nicknames.length === 0 && (
+          <div className="flex w-full flex-col place-items-center gap-2 p-2">
+            <h1 className="text-zinc-200">No Nicknames Yet</h1>
+            <h2 className="text-zinc-300">
+              Add a nickname to a trick below to see it here
+            </h2>
+          </div>
+        )}
         {Array.isArray(nicknames) &&
+          !seePreferred &&
           nicknames
             ?.sort((a, b) => a?.nickname.localeCompare(b?.nickname))
             ?.map((nname) => (
@@ -88,7 +106,7 @@ const NicknamesPanel = () => {
                 {deleteMode ? (
                   <button
                     onClick={() => handleDelete(nname)}
-                    className="whitespace-nowrap rounded-md bg-red-200 p-2 text-xl text-red-700 "
+                    className="whitespace-nowrap rounded-md bg-red-200 px-2 py-1 text-xl text-red-700 "
                   >
                     Delete
                   </button>
@@ -97,6 +115,27 @@ const NicknamesPanel = () => {
                     {nname?.trick?.name}
                   </div>
                 )}
+                <div className="text-md whitespace-nowrap text-zinc-400">
+                  {nname.createdAt.toDateString()}
+                </div>
+              </div>
+            ))}
+        {Array.isArray(preferredNames) &&
+          seePreferred &&
+          preferredNames
+            ?.sort((a, b) => a?.nickname.localeCompare(b?.nickname))
+            ?.map((nname) => (
+              <div
+                key={nname.trick_id}
+                className="no-scrollbar flex h-fit w-full items-center justify-between gap-2 overflow-x-scroll rounded-md bg-zinc-800 p-2 "
+              >
+                <div
+                  onClick={() => setInput_id(nname.id)}
+                  className="whitespace-nowrap rounded-md p-2 text-xl text-zinc-200 hover:bg-zinc-700"
+                >
+                  {nname?.nickname}
+                </div>
+
                 <div className="text-md whitespace-nowrap text-zinc-400">
                   {nname.createdAt.toDateString()}
                 </div>

@@ -25,6 +25,7 @@ const TricksPage = () => {
   const { data: combos } = trpc.trick.findCombosWithTrick.useQuery({
     trick_id: trick_id as string,
   });
+
   const orientation = useScreenOrientation();
   if (!isSuccess) return <div>Loading..</div>;
   return (
@@ -36,7 +37,9 @@ const TricksPage = () => {
       </div>
       <div className="minimalistScroll mt-14 flex h-[80vh] w-full flex-col items-center gap-2 overflow-y-scroll rounded-md bg-zinc-900  bg-opacity-70 p-2">
         <TrickInfoGrid trickInfo={trickInfo} />
+        <PreferredNames trickInfo={trickInfo} />
         <TrickNicknames trickInfo={trickInfo} />
+
         <div className="flex place-content-center place-items-center pb-2 pt-6">
           {trickInfo.defaultAnimation && (
             <Link
@@ -73,25 +76,44 @@ export default TricksPage;
 
 const TrickNicknames = ({ trickInfo }) => {
   const uuid = useUserStore((s) => s.userInfo.uuid);
+  const { data: preferredNickname } =
+    trpc.trick.getPreferredNicknameByTrick.useQuery({
+      trick_id: trickInfo.trick_id,
+    });
   const [seeAddNicknames, setSeeAddNicknames] = useState(false);
+  const { mutate: setPreferredNickname } =
+    trpc.trick.setPreferredNickname.useMutation();
   const { mutate: removeNickname } = trpc.trick.removeNickname.useMutation();
   return (
     <div className="flex w-fit flex-col place-items-center  text-zinc-300">
       {trickInfo.nicknames.length > 0 ? (
         trickInfo.nicknames.map((nname) => {
           return (
-            <div className="flex items-center gap-2" key={nname.id}>
-              <p>{nname.nickname}</p>
-              <p className="text-xs text-zinc-400">{nname.creator.username}</p>
-              {nname.createdBy === uuid && (
-                <button
-                  className="rounded-md bg-red-400 bg-opacity-40 px-1 text-xs text-red-600"
-                  onClick={() => removeNickname({ id: nname.id })}
-                >
-                  Delete
-                </button>
-              )}
-            </div>
+            preferredNickname?.trick_nickname_id !== nname.id && (
+              <div className="flex items-center gap-2" key={nname.id}>
+                <p className="whitespace-nowrap">{nname.nickname}</p>
+                <p className="text-xs text-zinc-400">
+                  {nname.creator.username}
+                </p>
+                {nname.createdBy === uuid ? (
+                  <button
+                    className="rounded-md bg-red-400 bg-opacity-40 px-1 text-xs text-red-600"
+                    onClick={() => removeNickname({ id: nname.id })}
+                  >
+                    Delete
+                  </button>
+                ) : (
+                  <SignedIn>
+                    <button
+                      className="rounded-md bg-zinc-400 bg-opacity-40 px-2 py-1 text-xs text-zinc-200"
+                      onClick={() => setPreferredNickname({ id: nname.id })}
+                    >
+                      set as preffered
+                    </button>
+                  </SignedIn>
+                )}
+              </div>
+            )
           );
         })
       ) : (
@@ -102,7 +124,7 @@ const TrickNicknames = ({ trickInfo }) => {
       <SignedIn>
         {!seeAddNicknames ? (
           <button
-            className="rounded-md bg-zinc-400 bg-opacity-40 p-2 py-2 text-xs text-zinc-400"
+            className="m-2 rounded-md bg-zinc-400 bg-opacity-40 p-2 py-2 text-xs text-zinc-400"
             onClick={() => setSeeAddNicknames(!seeAddNicknames)}
           >
             Add Nickname
@@ -115,6 +137,24 @@ const TrickNicknames = ({ trickInfo }) => {
         )}
       </SignedIn>
     </div>
+  );
+};
+
+const PreferredNames = ({ trickInfo }) => {
+  const { data: preferredNickname } =
+    trpc.trick.getPreferredNicknameByTrick.useQuery({
+      trick_id: trickInfo.trick_id,
+    });
+  console.log({ preferredNickname });
+  return (
+    preferredNickname && (
+      <div className="flex w-full flex-col place-items-center  text-zinc-300">
+        <p className="text-xs text-zinc-400">Preferred Nickname</p>
+        <div className="flex items-center gap-2">
+          <p>{preferredNickname.nickname}</p>
+        </div>
+      </div>
+    )
   );
 };
 

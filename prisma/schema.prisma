@@ -359,11 +359,23 @@ model trick_nicknames {
   updatedAt DateTime @db.DateTime(0) @updatedAt
   trick     tricks? @relation(fields: [trick_id], references: [trick_id])
   creator   users? @relation(fields: [creator_id], references: [uuid])
-
+  preferred_by preferred_nicknames[]
   @@unique([trick_id, nickname], map: "trick_id:nickname")
   @@unique([trick_id, creator_id], map: "trick_id:creator_id")
 }
+model preferred_nicknames {
+  id        Int      @id @default(autoincrement())
+  user_id   String?  @db.Char(36)
+  trick_id  String?  @db.Char(36)
+  nickname  String?  @db.VarChar(255)
+  trick_nickname_id Int?
+  createdAt DateTime @default(now()) @db.DateTime(0)
+  updatedAt DateTime @db.DateTime(0) @updatedAt
+  trick_nickname trick_nicknames? @relation(fields: [trick_nickname_id], references: [id])
+  user      users? @relation(fields: [user_id], references: [uuid])
 
+  @@unique([user_id, trick_nickname_id], map: "user_id:t_n_id")
+}
 model tricks {
   trick_id         String             @id @db.Char(36)
   base_id          String?            @db.VarChar(255)
@@ -460,7 +472,7 @@ model users {
   UserScores           userscores[]
   JudgeScores          judgescores[]
   createdNicknames     trick_nicknames[]
-  
+  preferredNicknames   preferred_nicknames[]
 
   @@index([uuid])
   @@index([clerk_id])

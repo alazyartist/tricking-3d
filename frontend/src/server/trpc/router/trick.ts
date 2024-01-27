@@ -43,6 +43,60 @@ export const tricksRouter = router({
       });
       return nickname;
     }),
+  getPreferredNicknames: protectedProcedure.query(async ({ ctx }) => {
+    const user = await ctx.prisma.users.findUnique({
+      where: { clerk_id: ctx.auth.userId },
+    });
+    const nicknames = await ctx.prisma.preferred_nicknames.findMany({
+      where: { user_id: user.uuid },
+    });
+    return nicknames;
+  }),
+  getPreferredNicknameByTrick: protectedProcedure
+    .input(z.object({ trick_id: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const user = await ctx.prisma.users.findUnique({
+        where: { clerk_id: ctx.auth.userId },
+      });
+      const nickname = await ctx.prisma.preferred_nicknames.findFirst({
+        where: { trick_id: input.trick_id, user_id: user.uuid },
+      });
+      return nickname;
+    }),
+  setPreferredNickname: protectedProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input, ctx }) => {
+      const user = await ctx.prisma.users.findUnique({
+        where: { clerk_id: ctx.auth.userId },
+      });
+      const nickname = await ctx.prisma.trick_nicknames.findUnique({
+        where: { id: input.id },
+      });
+      if (!nickname) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "FAILED_TO_FIND_NICKNAME",
+        });
+      }
+      const existingPreferred = await ctx.prisma.preferred_nicknames.findMany({
+        where: { trick_id: nickname.trick_id, user_id: user.uuid },
+      });
+      if (existingPreferred.length > 0) {
+        const deleted = await ctx.prisma.preferred_nicknames.deleteMany({
+          where: { trick_id: nickname.trick_id, user_id: user.uuid },
+        });
+      }
+
+      const prefered = await ctx.prisma.preferred_nicknames.create({
+        data: {
+          trick_id: nickname.trick_id,
+          nickname: nickname.nickname,
+          trick_nickname_id: input.id,
+          user_id: user.uuid,
+        },
+      });
+      return prefered;
+    }),
   updateNickname: protectedProcedure
     .input(z.object({ id: z.number(), nickname: z.string() }))
     .mutation(async ({ input, ctx }) => {
