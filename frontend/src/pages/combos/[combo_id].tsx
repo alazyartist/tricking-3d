@@ -1,4 +1,5 @@
 import useClickOutside from "@hooks/useClickOutside";
+import useScreenOrientation from "@hooks/UseScreenOrientaion";
 import TotalScoreBreakdown from "@old_pages/comboMaker/components/TotalScoreBreakdown";
 import AnimatedSearch from "@old_pages/home/components/AnimatedSearch";
 import { combos } from "@prisma/client";
@@ -17,7 +18,8 @@ const ComboPage = () => {
   const { data: totalScore } = trpc.combos.getComboScore.useQuery({
     combo: (comboInfo?.comboArray as unknown as combos[]) ?? [],
   });
-  const [seeExample, setSeeExample] = useState("");
+  const [seeExample, setSeeExample] = useState(null);
+  const orientation = useScreenOrientation();
   const [scoreTotalVisible, setScoreTotalVisible] = useState(false);
   const scoreTotalRef = useClickOutside(() => setScoreTotalVisible(false));
   if (!isSuccess) return <div>Loading..</div>;
@@ -25,7 +27,7 @@ const ComboPage = () => {
   //@ts-ignore
   return (
     <div
-      className={`backrop-blur-xl no-scrollbar no-scrollbar flex h-[100vh] w-full flex-col place-items-center gap-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-70 p-4 font-inter text-zinc-300`}
+      className={`backrop-blur-xl no-scrollbar no-scrollbar flex h-[100vh] w-full flex-col place-items-center gap-2 overflow-hidden overflow-y-scroll bg-zinc-900 bg-opacity-70 p-4 pb-14 font-inter text-zinc-300`}
     >
       <div className="absolute left-4 top-4">
         <AnimatedSearch />
@@ -49,20 +51,29 @@ const ComboPage = () => {
       </div>
       <p>{comboInfo.type}</p>
       <p>{comboInfo.shorthand}</p>
-      {comboInfo.Clips?.length > 0 ? (
-        <ComboDetails
-          tricks={comboInfo.comboArray}
-          chainMap={comboInfo.Clips?.[0].chainMap}
-          varietyMap={comboInfo.Clips?.[0].varietyMap}
-        />
-      ) : (
-        <ComboDetails
-          tricks={comboInfo.comboArray}
-          chainMap={[]}
-          varietyMap={[]}
-        />
-      )}
-      <div id={"video-portal"} />
+      <div className="w-full">
+        {comboInfo.Clips?.length > 0 ? (
+          <ComboDetails
+            tricks={comboInfo.comboArray}
+            chainMap={comboInfo.Clips?.[0].chainMap}
+            varietyMap={comboInfo.Clips?.[0].varietyMap}
+          />
+        ) : (
+          <ComboDetails
+            tricks={comboInfo.comboArray}
+            chainMap={[]}
+            varietyMap={[]}
+          />
+        )}
+      </div>
+      <div
+        className={`  top-2 aspect-video ${
+          orientation === "landscape"
+            ? "left-[5vw] h-[90vh] w-[90vw]"
+            : "left-[2.5vw] h-[30vh] w-[95vw]"
+        }  ${!seeExample ? " hidden" : "absolute"}`}
+        id={"video-portal"}
+      />
       <div>{comboInfo.Clips.length > 0 ? "Clips" : "No Clips Yet"}</div>
       {comboInfo.Clips.map((clip, i) => (
         <div key={clip.id}>
@@ -84,7 +95,7 @@ const ComboDetails = ({ tricks, chainMap, varietyMap }) => {
   return (
     <div
       className={
-        "no-scrollbar flex h-fit w-full gap-1 overflow-x-scroll p-2 text-sm"
+        "no-scrollbar flex h-fit  w-full gap-1 overflow-x-scroll p-2 text-sm"
       }
     >
       {tricks &&
