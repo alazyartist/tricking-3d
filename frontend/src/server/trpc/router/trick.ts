@@ -18,6 +18,16 @@ export const tricksRouter = router({
       });
       return trick;
     }),
+  getDashNicknames: protectedProcedure.query(async ({ ctx }) => {
+    const user = await ctx.prisma.users.findUnique({
+      where: { clerk_id: ctx.auth.userId },
+    });
+    const nicknames = await ctx.prisma.trick_nicknames.findMany({
+      where: { createdBy: user.uuid },
+      include: { trick: true },
+    });
+    return nicknames;
+  }),
   addNickname: protectedProcedure
     .input(z.object({ trick_id: z.string(), nickname: z.string() }))
     .mutation(async ({ input, ctx }) => {
@@ -58,6 +68,12 @@ export const tricksRouter = router({
       const transitions = await ctx.prisma.transitions.findMany({});
       const stances = await ctx.prisma.stances.findMany({});
       return [...tricks, ...transitions, ...stances];
+    }),
+  getTricks: publicProcedure
+    .input(z.object({}).optional())
+    .query(async ({ input, ctx }) => {
+      const tricks = await ctx.prisma.tricks.findMany({});
+      return tricks;
     }),
   getKicks: publicProcedure
     .input(z.object({}).optional())
