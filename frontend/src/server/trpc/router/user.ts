@@ -67,9 +67,7 @@ export const userRouter = router({
                         select: {
                           id: true,
                           username: true,
-                          password: false,
                           deletedAt: false,
-                          refresh_token: false,
                           createdAt: false,
                         },
                       },
