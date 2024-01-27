@@ -16,6 +16,7 @@ import DashboardStats from "./components/DashboardStats";
 import ReactPlayer from "react-player";
 import { useDashStore } from "@store/dashStore";
 import useClickOutside from "@hooks/useClickOutside";
+import NicknamesPanel from "./components/NicknamesPanel";
 
 function Dashboard({ uuid, profilePic, first_name, last_name, username }) {
   const logout = useLogout();
@@ -34,16 +35,14 @@ function Dashboard({ uuid, profilePic, first_name, last_name, username }) {
     switch (section) {
       case "stats":
         return <DashboardStats uuid={uuid} />;
-        break;
       case "sessions":
         return <SessionList uuid={uuid} />;
-        break;
       case "tricks":
         return <ClaimTricks user_id={uuid} />;
-        break;
       case "captures":
         return <CapturesPage dash={true} />;
-        break;
+      case "nicknames":
+        return <NicknamesPanel />;
       // case "tricklists":
       //   return <TricklistPage profileuuid={uuid} displayOnly={false} />;
       //   break;
@@ -97,12 +96,13 @@ function Dashboard({ uuid, profilePic, first_name, last_name, username }) {
          lg:max-w-[90vw] 
         "
         >
-          <div className="gap flex flex-row">
+          <div className="gap no-scrollbar flex w-full flex-row overflow-x-scroll">
             {[
               { title: "Stats", key: "stats" },
               { title: "Sessions", key: "sessions" },
               { title: "Tricks", key: "tricks" },
               { title: "Captures", key: "captures" },
+              { title: "Nicknames", key: "nicknames" },
               // { title: "Tricklists", key: "tricklists" },
             ].map((item) => (
               <button
