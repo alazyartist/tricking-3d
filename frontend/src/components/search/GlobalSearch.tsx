@@ -8,6 +8,7 @@ import useGetTricks from "@api/useGetTricks";
 import { trpc } from "@utils/trpc";
 import { getQueryPattern } from "../../admin/DataListCommandBar";
 import { useRouter } from "next/router";
+import Image from "next/image";
 const GlobalSearch = ({
   searchOpen,
   tricks,
@@ -119,7 +120,9 @@ const Autocomplete = (props: any) => {
               item({ item }: any) {
                 return (
                   <span className="flex justify-between">
-                    <p>{item.name}</p>
+                    <p>{item.displayName}</p>
+                    {/* <p className="text-xs">{item.name}</p> */}
+
                     <span className="flex gap-2 p-4">
                       <p>{item.type}</p>
                     </span>
@@ -133,7 +136,12 @@ const Autocomplete = (props: any) => {
               if (!tricks) return [];
               if (query.length > 0) {
                 return tricks
-                  ?.filter((t) => pattern.test(t.name))
+                  ?.filter(
+                    (t) =>
+                      pattern.test(t.name) ||
+                      pattern.test(t.displayName) ||
+                      t.nicknames.some((n) => pattern.test(n.nickname))
+                  )
                   ?.sort((a, b) => {
                     if (a?.name?.length < b?.name?.length) return -1;
                     if (a?.name?.length > b?.name?.length) return 1;
@@ -335,11 +343,14 @@ const Autocomplete = (props: any) => {
                   <span className="flex justify-between">
                     <p>{item.username}</p>
                     <span className="flex gap-2">
-                      <img
+                      <Image
+                        width={28}
+                        height={28}
+                        alt={item.username}
                         className={"h-7 w-7 rounded-full"}
                         src={
                           item.profilePic !== null
-                            ? `/images/${item.uuid}/${item.profilePic}`
+                            ? item.profilePic
                             : `/images/noimg.jpeg`
                         }
                       />
@@ -396,11 +407,14 @@ const Autocomplete = (props: any) => {
                   <span className="flex justify-between">
                     <p>{item.name}</p>
                     <span className="flex gap-2">
-                      <img
+                      <Image
+                        width={28}
+                        height={28}
+                        alt={item.user.username}
                         className={"h-7 w-7 rounded-full"}
                         src={
                           item.user.profilePic !== null
-                            ? `/images/${item.user.uuid}/${item.user.profilePic}`
+                            ? item.user.profilePic
                             : `/images/noimg.jpeg`
                         }
                       />

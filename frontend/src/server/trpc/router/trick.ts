@@ -125,6 +125,7 @@ export const tricksRouter = router({
       include: {
         variations: { include: { variation: true } },
         animation: true,
+        nicknames: true,
       },
     });
     return tricks;
