@@ -117,9 +117,9 @@ const TrickNicknames = ({ trickInfo }) => {
           );
         })
       ) : (
-        <>
-          <p>No nicknames</p>
-        </>
+        <SignedIn>
+          <p className="p-2 text-xs text-zinc-500">No nicknames yet</p>
+        </SignedIn>
       )}
       <SignedIn>
         {!seeAddNicknames ? (
@@ -197,8 +197,10 @@ export const TrickInfoGrid = ({ trickInfo }) => {
             {trickInfo.name}
           </h1>
         </div>
-        <p>{trickInfo.pointValue}</p>
       </div>
+      <p className="rounded-lg px-2 py-1 ring-2 ring-zinc-200">
+        {trickInfo.pointValue}
+      </p>
       <p>{trickInfo.trickType}</p>
       <p
         className={

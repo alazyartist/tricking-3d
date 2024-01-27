@@ -154,7 +154,7 @@ export const userRouter = router({
           return clerkUser.imageUrl;
         }
       } else {
-        return "https://www.trickedex.app/images/noimg.jpeg";
+        return "https://trickedex.app/images/noimg.jpeg";
       }
     }),
   findByClerkId: publicProcedure

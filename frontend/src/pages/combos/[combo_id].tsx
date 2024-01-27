@@ -1,9 +1,11 @@
+import { MdInfoOutline } from "@data/icons/MdIcons";
 import useClickOutside from "@hooks/useClickOutside";
 import useScreenOrientation from "@hooks/UseScreenOrientaion";
 import TotalScoreBreakdown from "@old_pages/comboMaker/components/TotalScoreBreakdown";
 import AnimatedSearch from "@old_pages/home/components/AnimatedSearch";
 import { combos } from "@prisma/client";
 import { trpc } from "@utils/trpc";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { ExampleClipDisplay } from "pages/tricks/[trick_id]";
 import React, { useState } from "react";
@@ -42,12 +44,16 @@ const ComboPage = () => {
               </span>
             ))}
         </h1>
-        <p onClick={() => setScoreTotalVisible(true)}>
-          {totalScore && totalScore.totalScore.toFixed(2)}
-        </p>
         {scoreTotalVisible && (
           <TotalScoreBreakdown totalScore={totalScore} ref={scoreTotalRef} />
         )}
+      </div>
+      <div
+        className="flex cursor-pointer place-items-center gap-1 whitespace-nowrap rounded-lg p-2 ring-2 ring-zinc-200"
+        onClick={() => setScoreTotalVisible(true)}
+      >
+        <p>{totalScore && totalScore.totalScore.toFixed(2)}</p>
+        <MdInfoOutline className="inline" />
       </div>
       <p>{comboInfo.type}</p>
       <p>{comboInfo.shorthand}</p>
@@ -116,7 +122,17 @@ const ComboDetails = ({ tricks, chainMap, varietyMap }) => {
               }`}
             >
               <div className={"flex h-full flex-col gap-1 "} key={`${tr.name}`}>
-                <div className="text-center font-medium">{tr.name}</div>
+                {tr.type === "Trick" && (
+                  <Link
+                    href={`/tricks/${tr.trick_id}`}
+                    className="text-center font-medium"
+                  >
+                    {tr.name}
+                  </Link>
+                )}
+                {tr.type === "Transition" && (
+                  <p className="text-center font-medium">{tr.name}</p>
+                )}
                 {tr.type === "Transition" && (
                   <>
                     <div
