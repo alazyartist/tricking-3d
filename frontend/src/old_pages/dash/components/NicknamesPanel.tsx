@@ -51,14 +51,16 @@ const NicknamesPanel = () => {
             Delete Mode
           </button>
         </div>
-        {Array.isArray(nicknames) && nicknames.length === 0 && (
-          <div className="flex w-full flex-col place-items-center gap-2 p-2">
-            <h1 className="text-zinc-200">No Nicknames Yet</h1>
-            <h2 className="text-zinc-300">
-              Add a nickname to a trick below to see it here
-            </h2>
-          </div>
-        )}
+        {Array.isArray(nicknames) &&
+          nicknames.length === 0 &&
+          !seePreferred && (
+            <div className="flex w-full flex-col place-items-center gap-2 p-2">
+              <h1 className="text-zinc-200">No Nicknames Yet</h1>
+              <h2 className="text-zinc-300">
+                Add a nickname to a trick below to see it here
+              </h2>
+            </div>
+          )}
         {Array.isArray(nicknames) &&
           !seePreferred &&
           nicknames
@@ -147,7 +149,11 @@ const NicknamesPanel = () => {
             ?.sort((a, b) => a?.name.localeCompare(b?.name))
             ?.map(
               (trick) =>
-                !nicknames.some((n) => n.trick_id === trick.trick_id) && (
+                (!seePreferred
+                  ? !nicknames.some((n) => n.trick_id === trick.trick_id)
+                  : !preferredNames.some(
+                      (n) => n.trick_id === trick.trick_id
+                    )) && (
                   <div
                     key={trick.trick_id}
                     className="no-scrollbar flex w-full items-center justify-between gap-2 overflow-x-scroll rounded-md bg-zinc-800 p-2"
