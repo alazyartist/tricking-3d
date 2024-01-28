@@ -5,6 +5,7 @@ export default authMiddleware({
     "/",
     "/home",
     "/test",
+    "/trickgraph",
     "/login",
     "/sandbox(.*)",
     "/theory(.*)",
