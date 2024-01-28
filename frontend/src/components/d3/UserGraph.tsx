@@ -14,6 +14,7 @@ const UserGraph = () => {
         id: u.id,
         image: u.profilePic,
         username: u.username,
+        radius: u.captures.length > 0 ? 30 + u.captures.length : 20,
         x: ref.current.getBoundingClientRect().width / 2,
         y: ref.current.getBoundingClientRect().height / 2,
       });
@@ -56,7 +57,10 @@ const UserGraph = () => {
             .distance(50)
             .strength(0.22)
         )
-        .force("collide", d3.forceCollide(25));
+        .force(
+          "collide",
+          d3.forceCollide((d) => d.radius)
+        );
 
       simulation.nodes(data.nodes).on("tick", ticked);
       const drag = d3
@@ -65,13 +69,6 @@ const UserGraph = () => {
         .on("drag", dragged)
         .on("end", dragended);
 
-      svg
-        .append("clipPath")
-        .attr("id", "circle-clip")
-        .append("circle")
-        .attr("r", 20)
-        .attr("cx", 0)
-        .attr("cy", 0);
       const link = container
         .selectAll(".link")
         .data(data.links)
@@ -87,10 +84,18 @@ const UserGraph = () => {
         .classed("node", true);
 
       node
+        .append("clipPath")
+        .attr("id", (d) => `clip-circle-${d.id}`)
+        .append("circle")
+        .attr("r", (d) => d.radius)
+        .attr("cx", 0)
+        .attr("cy", 0);
+
+      node
         .append("circle")
         .style("height", 20)
         .style("width", 20)
-        .attr("r", 20) // radius of circle
+        .attr("r", (d) => d.radius) // radius of circle
         .style("fill", "#ffffff");
 
       node
@@ -99,11 +104,11 @@ const UserGraph = () => {
           "xlink:href",
           (d) => d.image ?? "http://trickedex.app/images/noimg.jpeg"
         )
-        .attr("x", -20)
-        .attr("y", -20)
-        .attr("width", 40)
-        .attr("height", 40)
-        .attr("clip-path", "url(#circle-clip)");
+        .attr("x", (d) => -d.radius)
+        .attr("y", (d) => -d.radius)
+        .attr("width", (d) => d.radius * 2)
+        .attr("height", (d) => d.radius * 2)
+        .attr("clip-path", (d) => `url(#clip-circle-${d.id})`);
 
       //tooltip popup with username on hover
 
