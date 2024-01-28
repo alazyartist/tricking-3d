@@ -4,7 +4,34 @@ import * as d3 from "d3";
 const TrickGraph = () => {
   const { data: tricks } = trpc.trick.findAll.useQuery();
   const ref = useRef(null);
-
+  const color = {
+    Backside: `#07b9e9`,
+    Backflip: `#07b9e9`,
+    VertB: `#07b9e9`,
+    Inside: `#06d8b7`,
+    InsideFlip: `#06d8b7`,
+    Outside: `#10b35d`,
+    OutsideFlip: `#10b35d`,
+    Frontside: `#003eb3`,
+    Frontflip: `#003eb3`,
+    VertF: `#003eb3`,
+    BacksideComplete: `#7EE0FB`,
+    Gainer: `#7EE0FB`,
+    Lotus: `#75FBB3`,
+    OutsideComplete: `#75FBB3`,
+    Raiz: `#2db36c`,
+    OutsideSemi: `#2db36c`,
+    FrontsideSemi: `#2b5ab3`,
+    WebsterR: `#2b5ab3`,
+    FrontsideMega: `#4171ca`,
+    Webster: `#4171ca`,
+    InsideMega: `#40baa6`,
+    Aerial: `#40baa6`,
+    GMS: `#5ed8c5`,
+    InsideHyper: `#5ed8c5`,
+    GainerR: `#6bcee9`,
+    BacksideHyper: `#6bcee9`,
+  };
   const transformData = (ud) => {
     const nodes = [];
     const links = [];
@@ -21,8 +48,8 @@ const TrickGraph = () => {
       const baseNode = {
         id: base_id,
         name: base_id,
-        color: "#73e4ff",
-        radius: 30 + baseIdToTricks[base_id].length,
+        color: color[base_id],
+        radius: 40 + baseIdToTricks[base_id].length * 2,
         x: ref.current.getBoundingClientRect().width / 2,
         y: ref.current.getBoundingClientRect().height / 2,
       };
@@ -32,8 +59,9 @@ const TrickGraph = () => {
         const trickNode = {
           id: trick.trick_id,
           name: trick.name,
-          color: "#EABDFF",
-          radius: 30,
+          trick: trick,
+          color: color[trick.takeoffStance],
+          radius: 50,
           x: ref.current.getBoundingClientRect().width / 2,
           y: ref.current.getBoundingClientRect().height / 2,
         };
@@ -118,7 +146,11 @@ const TrickGraph = () => {
         .style("height", 20)
         .style("width", 20)
         .attr("r", (d) => d.radius) // radius of circle
-        .style("fill", (d, i) => colors(i));
+        .style("fill", (d, i) => d.color)
+        .on("click", (event, d) => {
+          console.log(d);
+        });
+      // .style("fill", (d, i) => colors(i));
 
       node
         .append("text")
@@ -144,7 +176,6 @@ const TrickGraph = () => {
       }
       function dragstarted(event, d) {
         if (!event.active) simulation.alphaTarget(0.1).restart();
-        console.log(event, d);
         d.fx = event.x;
         d.fy = event.y;
       }
