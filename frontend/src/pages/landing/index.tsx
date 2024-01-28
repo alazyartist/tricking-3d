@@ -138,10 +138,16 @@ const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
           title={"See Tricks Come to Life with 3D"}
           description="Tricking has never been more exciting, thanks to the Trickedex's innovative 3D library of motion-captured tricks. Explore each move in detail, and see exactly how the pros do it. With our cutting-edge technology, you'll be able to gain a whole new perspective on tricking and take your own skills to new heights."
         >
-          {loadScene ? (
-            <Suspense>
-              <LandingCanvas />
-            </Suspense>
+          <Suspense
+            fallback={
+              <div className="h-full w-full text-center text-xl text-zinc-200">
+                Loading Scene..
+              </div>
+            }
+          >
+            <LandingCanvas />
+          </Suspense>
+          {/* {loadScene ? (<div></div>
           ) : (
             <div
               className="flex h-full place-content-center place-items-center rounded-md bg-zinc-900 text-zinc-300"
@@ -149,7 +155,7 @@ const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
             >
               <div>Click to Load</div>
             </div>
-          )}
+          )} */}
         </DetailCard>
         <DetailCard
           left
