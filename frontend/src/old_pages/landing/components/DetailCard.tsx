@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 interface DetailCardProps {
   title: string;
-  description: string;
+  description: string | React.ReactNode;
   children?: any;
   left?: boolean;
   cta?: string;
@@ -23,11 +23,11 @@ const DetailCard: React.FC<DetailCardProps> = ({
       className={` 
         min-h-[600px] w-full rounded-3xl bg-zinc-900 p-4  md:min-h-fit `}
     >
-      <div className="h-[200px] w-full overflow-clip rounded-xl  ">
+      <div className="h-[350px] w-full overflow-clip rounded-xl md:h-[500px]  ">
         {children}
       </div>
       <h1 className="mt-3 px-2 text-2xl font-black text-zinc-200">{title}</h1>
-      <p className="px-2 text-sm text-zinc-200">{description}</p>
+      <div className="px-2 text-sm text-zinc-200">{description}</div>
       <div className="flex h-24 w-full flex-col place-content-center place-items-center">
         {link && link !== "/register" ? (
           <Link

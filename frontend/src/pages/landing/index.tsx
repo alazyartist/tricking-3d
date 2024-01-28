@@ -8,6 +8,9 @@ import mixpanel from "@utils/mixpanel";
 import { SignInButton, SignUpButton } from "@clerk/nextjs";
 import DiscordLink from "@components/info/DiscordLink";
 import UserGraph from "@components/d3/UserGraph";
+import DashboardStats from "@old_pages/dash/components/DashboardStats";
+import TrackTricksLanding from "@old_pages/landing/components/TrackTricksLanding";
+import AnimatedSearch from "@old_pages/home/components/AnimatedSearch";
 
 const LandingCanvas = dynamic(
   () => import("@old_pages/landing/components/LandingCanvas"),
@@ -123,11 +126,30 @@ const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
           link={"/theory"}
           cta={"Explore Theory Now"}
           title={"Discover the Secrets of Tricking Theory"}
-          description="We believe that understanding the theory behind tricking is key to becoming a great tricker. That's why we've made it easy for you to access a wealth of information about the discipline, including comprehensive tutorials and in-depth explanations. With the Trickedex, you'll be able to take your tricking skills to the next level in no time!"
+          description={
+            <div>
+              <p>
+                We believe that understanding the theory behind tricking is key
+                to becoming a great tricker. That's why we've made it easy for
+                you to access a wealth of information about the discipline,
+                including comprehensive tutorials and in-depth explanations.
+                With the Trickedex, you'll be able to take your tricking skills
+                to the next level in no time!
+              </p>
+              <div className="relative flex gap-2">
+                <p className="relative left-[20%] max-w-[350px] p-4 font-bold lg:left-[40%]">
+                  Use the search bar to find the information you're looking for.
+                </p>
+                <div className="absolute top-2">
+                  <AnimatedSearch />
+                </div>
+              </div>
+            </div>
+          }
         >
           <Suspense>
             <AnatomySketch
-              className={"h-full w-full rounded-md bg-zinc-900 fill-zinc-200 "}
+              className={"h-[70%] w-full rounded-md bg-zinc-900 fill-zinc-200 "}
             />
           </Suspense>
         </DetailCard>
@@ -136,7 +158,11 @@ const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
           link={"/sandbox"}
           cta={"Go to Sandbox"}
           title={"See Tricks Come to Life with 3D"}
-          description="Tricking has never been more exciting, thanks to the Trickedex's innovative 3D library of motion-captured tricks. Explore each move in detail, and see exactly how the pros do it. With our cutting-edge technology, you'll be able to gain a whole new perspective on tricking and take your own skills to new heights."
+          description="Tricking has never been more exciting, thanks to the Trickedex's
+              innovative 3D library of motion-captured tricks. Explore each move
+              in detail, and see exactly how the pros do it. With our
+              cutting-edge technology, you'll be able to gain a whole new
+              perspective on tricking and take your own skills to new heights."
         >
           <Suspense
             fallback={
@@ -163,7 +189,9 @@ const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
           cta={"Start Tracking"}
           title={"Track Your Tricking Progress with Ease"}
           description="At the Trickedex, we're committed to helping trickers of all levels reach their full potential. That's why we've created a comprehensive set of tools for tracking your progress, including detailed user profile pages and easy-to-use performance metrics. Whether you're just starting out or are a seasoned tricker, the Trickedex is the perfect way to stay motivated and reach new heights in your tricking journey."
-        ></DetailCard>
+        >
+          <TrackTricksLanding />
+        </DetailCard>
         <DetailCard
           link={"/register"}
           cta={"Join Now"}

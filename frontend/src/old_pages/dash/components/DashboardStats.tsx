@@ -11,6 +11,7 @@ const DashboardStats = ({ uuid }) => {
     trpc.sessionsummaries.getSessionsById.useQuery({
       uuid: uuid,
     });
+  console.log(sessions);
   const [showUniqueTricks, setShowUniqueTricks] = useState(false);
   if (isLoading) return <div>Gathering Your Stats, just a sec...</div>;
   const tricks = sessions
