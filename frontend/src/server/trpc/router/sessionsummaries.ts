@@ -215,10 +215,14 @@ export const sessionsummariesRouter = router({
   getSessionDataScores: publicProcedure
     .input(z.object({ sessiondataid: z.string() }))
     .query(async ({ input, ctx }) => {
-      const sessionDataScores = await ctx.prisma.sessiondatascores.findMany({
-        where: { sessiondataid: input.sessiondataid },
-      });
-      return sessionDataScores;
+      try {
+        const sessionDataScores = await ctx.prisma.sessiondatascores.findMany({
+          where: { sessiondataid: input.sessiondataid },
+        });
+        return sessionDataScores;
+      } catch (err) {
+        console.log(err);
+      }
     }),
   getSessionsById: publicProcedure
     .input(z.object({ uuid: z.string() }))

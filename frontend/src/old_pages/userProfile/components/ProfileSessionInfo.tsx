@@ -12,6 +12,8 @@ import * as d3 from "d3";
 import useClickOutside from "@hooks/useClickOutside";
 import { IoArrowForward, IoRepeat } from "react-icons/io5";
 import ComboExecutionSlider from "@old_pages/combodex/components/ComboExecutionSlider";
+import { useUserStore } from "@store/userStore";
+import { SignedIn } from "@clerk/nextjs";
 
 const ProfileSessionInfo = ({
   summary,
@@ -21,6 +23,7 @@ const ProfileSessionInfo = ({
   const isAdmin = useIsAdmin();
   const [adminMode, setAdminMode] = useState(false);
   const [showTrickLongform, setShowTrickLongform] = useState(false);
+  const uuid = useUserStore((s) => s.userInfo.uuid);
   const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
   const handleResize = () => {
     setVidsrc(null);
@@ -56,14 +59,16 @@ const ProfileSessionInfo = ({
           show <br />
           {showTrickLongform ? "shorthand" : "fullname"}
         </div>
-        <div
-          onClick={() => setReviewClips((prev) => !prev)}
-          className={`flex place-items-center p-1 text-center text-[8px] leading-none ${
-            reviewClips ? "text-orange-500" : "text-zinc-300"
-          }`}
-        >
-          Review Clips
-        </div>
+        <SignedIn>
+          <button
+            onClick={() => setReviewClips((prev) => !prev)}
+            className={`flex place-items-center p-1 text-center text-[8px] leading-none ${
+              reviewClips ? "text-orange-500" : "text-zinc-300"
+            }`}
+          >
+            Review Clips
+          </button>
+        </SignedIn>
         <div
           onClick={() => handleResize()}
           className={`flex place-items-center p-1 text-center text-xl leading-none`}
@@ -250,6 +255,11 @@ const DataDetails = ({
               Full Breakdown{" "}
             </button> */}
             <Combodex
+              executionAverage={executionAverage}
+              executionScoreTotal={executionScoreTotal}
+              localTotalScore={localTotalScore}
+              setExecutionScore={setExecutionScore}
+              executionScore={executionScore}
               combo={d.ClipLabel}
               sessionData={d}
               setCombodexopen={setCombodexopen}

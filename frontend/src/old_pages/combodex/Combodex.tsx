@@ -13,6 +13,11 @@ interface CombodexProps {
   setCombodexopen?: any;
   totalScoreRes?: any;
   updateTotalScore?: any;
+  localTotalScore: number;
+  executionAverage: number;
+  executionScore: number;
+  setExecutionScore: React.Dispatch<React.SetStateAction<number>>;
+  executionScoreTotal: number;
 }
 
 export const useExecutionSlider = (sessionData) => {
@@ -43,7 +48,10 @@ export const useExecutionSlider = (sessionData) => {
   )?.toFixed(2);
 
   useEffect(() => {
-    if (localTotalScore !== "NaN") {
+    if (
+      localTotalScore !== "NaN" &&
+      localTotalScore !== sessionData?.totalScore
+    ) {
       updateTotalScore({
         sessiondataid: sessionData.id,
         totalScore: parseFloat(localTotalScore),
@@ -71,6 +79,11 @@ const Combodex: React.FC<CombodexProps> = ({
   combo,
   sessionData,
   setCombodexopen,
+  executionAverage,
+  executionScore,
+  executionScoreTotal,
+  setExecutionScore,
+  localTotalScore,
   totalScoreRes,
   updateTotalScore,
 }) => {
@@ -85,13 +98,13 @@ const Combodex: React.FC<CombodexProps> = ({
     (t) => t.type === "Trick" && t
   ).length;
 
-  const {
-    executionScore,
-    setExecutionScore,
-    executionAverage,
-    executionScoreTotal,
-    localTotalScore,
-  } = useExecutionSlider(sessionData);
+  // const {
+  //   executionScore,
+  //   setExecutionScore,
+  //   executionAverage,
+  //   executionScoreTotal,
+  //   localTotalScore,
+  // } = useExecutionSlider(sessionData);
   // console.log(
   //   executionAverage,
   //   executionScoreTotal,
@@ -133,6 +146,7 @@ const Combodex: React.FC<CombodexProps> = ({
   const [seeRadar, setSeeRadar] = useState(false);
   return (
     <div
+      key={`combodex ${combo.id}}`}
       className={
         "no-scrollbar relative left-0 top-0 h-full w-full place-items-center gap-2 overflow-hidden bg-zinc-900 bg-opacity-[90%] font-inter backdrop-blur-md"
       }
@@ -408,6 +422,7 @@ export const CombodexTrickDetails = ({ tricks, chainMap, varietyMap }) => {
                     cm[0] - 2 === i ? (
                       <>
                         <div
+                          key={cm}
                           className={`absolute bottom-[10px] left-[90%] z-[-1] h-4 w-[110px] rounded-md bg-zinc-300 bg-opacity-20`}
                         />
                       </>

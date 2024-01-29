@@ -6,13 +6,14 @@ import { animated, useSpring } from "@react-spring/web";
 import { trpc } from "@utils/trpc";
 
 const AnimatedSearch = () => {
-  const { data: tricks } = trpc.trick.findAll.useQuery();
-  const { data: transitions } = trpc.trick.findAllTransitions.useQuery();
-  const { data: stances } = trpc.trick.findAllStances.useQuery();
-  const { data: combos } = trpc.combos.getAll.useQuery();
-  const { data: users } = trpc.userDB.findAll.useQuery();
-  const { data: sessionsummaries } =
-    trpc.sessionsummaries.getAllSessionSummaries.useQuery();
+  // const { data: tricks } = trpc.trick.findAll.useQuery();
+  // const { data: transitions } = trpc.trick.findAllTransitions.useQuery();
+  // const { data: stances } = trpc.trick.findAllStances.useQuery();
+  // const { data: combos } = trpc.combos.getAll.useQuery();
+  // const { data: users } = trpc.userDB.findAll.useQuery();
+  // const { data: sessionsummaries } =
+  //   trpc.sessionsummaries.getAllSessionSummaries.useQuery();
+  const { data } = trpc.userDB.getSearchData.useQuery();
 
   const [searchOpen, setSearchOpen] = useState(false);
   const searchTransition = useSpring({
@@ -40,6 +41,7 @@ const AnimatedSearch = () => {
   const ref = useClickOutside(() => {
     setSearchOpen(false);
   });
+  if (!data) return null;
   return (
     <animated.div
       id={"search-bar"}
@@ -66,12 +68,12 @@ const AnimatedSearch = () => {
         }}
       >
         <GlobalSearch
-          sessionsummaries={sessionsummaries}
-          transitions={transitions}
-          stances={stances}
-          tricks={tricks}
-          combos={combos}
-          users={users}
+          sessionsummaries={data?.sessionsummaries}
+          transitions={data?.transitions}
+          stances={data?.stances}
+          tricks={data?.tricks}
+          combos={data?.combos}
+          users={data?.users}
           searchOpen={searchOpen}
         />
         {/* <input

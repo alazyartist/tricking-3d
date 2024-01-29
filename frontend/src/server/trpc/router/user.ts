@@ -251,4 +251,52 @@ export const userRouter = router({
     });
     return user.SessionReviewCredits;
   }),
+  getSearchData: publicProcedure.query(async ({ ctx }) => {
+    const tricks = await ctx.prisma.tricks.findMany({
+      include: {
+        variations: { include: { variation: true } },
+        animation: true,
+        nicknames: true,
+      },
+    });
+    const transitions = await ctx.prisma.transitions.findMany({});
+    const stances = await ctx.prisma.stances.findMany({});
+    const combos = await ctx.prisma.combos.findMany({
+      include: {
+        Clips: true,
+      },
+    });
+    const users = await ctx.prisma.users.findMany({
+      select: {
+        uuid: true,
+        username: true,
+        profilePic: true,
+        clerk_id: true,
+      },
+    });
+    const sessionsummaries = await ctx.prisma.sessionsummaries.findMany({
+      orderBy: { updatedAt: "desc" },
+      include: {
+        user: { select: { username: true, profilePic: true, uuid: true } },
+        SessionData: { include: { ClipLabel: true } },
+        SessionSources: true,
+      },
+    });
+    const data = Promise.all([
+      tricks,
+      transitions,
+      stances,
+      combos,
+      users,
+      sessionsummaries,
+    ]);
+    return {
+      tricks,
+      transitions,
+      stances,
+      combos,
+      users,
+      sessionsummaries,
+    };
+  }),
 });
