@@ -105,7 +105,7 @@ const calculateTrickTotals = async (tricks, curData, ctx) => {
       }
     });
 
-    console.log(fullcomposition, "fullComposition");
+    // console.log(fullcomposition, "fullComposition");
 
     //CHAIN CALCULATIONS VVVV
     tricks.forEach((obj, i) => {
@@ -301,57 +301,58 @@ const calculateTrickTotals = async (tricks, curData, ctx) => {
           vsubtotal,
           trick.pointValue * 1.25,
         ]);
-        console.log(
-          "Variated",
-          i,
-          variety.multiplier,
-          trick.pointValue,
-          trick.name,
-          vsubtotal
-        );
+        // console.log(
+        //   "Variated",
+        //   i,
+        //   variety.multiplier,
+        //   trick.pointValue,
+        //   trick.name,
+        //   vsubtotal
+        // );
       }
       // console.log(fullTricks[i].trickType);
-      if (i > 2) {
-        console.log("hasFlatspin", hasFlatspin(i), hasFlatspin(i - 2));
-      }
+      // if (i > 2) {
+      //   console.log("hasFlatspin", hasFlatspin(i), hasFlatspin(i - 2));
+      // }
       if (fullTricks[i].trickType === "Invert" && i > 2) {
         if (fullTricks[i - 2].trickType === "Invert") {
           if (!hasFlatspin(i)) {
             if (hasFlatspin(i - 2)) {
-              console.log("flatspin to invert");
+              // console.log("flatspin to invert");
               bonusScore += fullTricks[i].pointValue;
-            } else console.log("invert to invert");
+            }
+            // else console.log("invert to invert");
           }
           if (hasFlatspin(i)) {
             if (hasFlatspin(i - 2)) {
-              console.log("flatspin to flatspin");
+              // console.log("flatspin to flatspin");
             } else {
               bonusScore += fullTricks[i].pointValue;
-              console.log("invert to flatspin");
+              // console.log("invert to flatspin");
             }
           }
         }
         if (fullTricks[i - 2].trickType === "Kick") {
-          console.log("kick to invert");
+          // console.log("kick to invert");
           bonusScore += 2 * fullTricks[i].pointValue;
         }
       }
       if (fullTricks[i].trickType === "Kick" && i > 2) {
         if (fullTricks[i - 2].trickType === "Kick") {
-          console.log("kick to kick");
+          // console.log("kick to kick");
         }
         if (fullTricks[i - 2].trickType === "Invert") {
           if (hasFlatspin(i - 2)) {
-            console.log("flatspin to kick");
+            // console.log("flatspin to kick");
             bonusScore += fullTricks[i].pointValue;
           } else {
             bonusScore += 2 * fullTricks[i].pointValue;
-            console.log("invert to kick");
+            // console.log("invert to kick");
           }
         }
       }
       if (fullTricks.length > 4 && i === fullTricks.length - 1 && isHyperHook) {
-        console.log("LastTrick", fullTricks[i].name, fullTricks[i]);
+        // console.log("LastTrick", fullTricks[i].name, fullTricks[i]);
         bonusScore += 20;
       }
       if (
@@ -359,20 +360,20 @@ const calculateTrickTotals = async (tricks, curData, ctx) => {
         i === fullTricks.length - 1 &&
         fullcomposition[i] >= 2
       ) {
-        console.log("LastTrick", fullTricks[i].name, fullcomposition[i]);
+        // console.log("LastTrick", fullTricks[i].name, fullcomposition[i]);
 
         bonusScore += 10 * fullcomposition[i];
       }
 
-      console.log(
-        "Vanilla",
-        i,
-        isNotVanilla,
-        !perfectMatch,
-        variety.multiplier,
-        trick.name,
-        vsubtotal
-      );
+      // console.log(
+      //   "Vanilla",
+      //   i,
+      //   isNotVanilla,
+      //   !perfectMatch,
+      //   variety.multiplier,
+      //   trick.name,
+      //   vsubtotal
+      // );
 
       // trick?.variations?.map((v) => console.log(i, v.variation));
     });
