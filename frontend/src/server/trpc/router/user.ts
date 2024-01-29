@@ -139,21 +139,25 @@ export const userRouter = router({
       } else return profileInfo;
     }),
   findUserImageById: publicProcedure
-    .input(z.object({ uuid: z.string() }))
+    .input(z.object({ uuid: z.string().nullish() }))
     .query(async ({ ctx, input }) => {
       if (!input.uuid) return "https://trickedex.app/images/noimg.jpeg";
-      const user = await ctx.prisma.users.findUnique({
-        where: { uuid: input.uuid },
-        select: {
-          clerk_id: true,
-        },
-      });
-      if (user?.clerk_id) {
-        const clerkUser = await clerkClient.users.getUser(user?.clerk_id!);
-        if (clerkUser?.imageUrl) {
-          return clerkUser.imageUrl;
+      try {
+        const user = await ctx.prisma.users.findUnique({
+          where: { uuid: input.uuid },
+          select: {
+            clerk_id: true,
+          },
+        });
+        if (user?.clerk_id) {
+          const clerkUser = await clerkClient.users.getUser(user?.clerk_id!);
+          if (clerkUser?.imageUrl) {
+            return clerkUser.imageUrl;
+          }
+        } else {
+          return "https://trickedex.app/images/noimg.jpeg";
         }
-      } else {
+      } catch (e) {
         return "https://trickedex.app/images/noimg.jpeg";
       }
     }),
@@ -258,6 +262,7 @@ export const userRouter = router({
         name: true,
         displayName: true,
         type: true,
+        nicknames: true,
       },
     });
     const transitions = await ctx.prisma.transitions.findMany({

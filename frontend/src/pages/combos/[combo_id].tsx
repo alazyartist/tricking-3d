@@ -29,7 +29,7 @@ const ComboPage = () => {
         combo: comboInfo?.comboArray as unknown as combos[],
       });
     }
-  }, [combo_id]);
+  }, [isSuccess]);
 
   if (!isSuccess) return <div>Loading..</div>;
   const comboArray = comboInfo.comboArray as unknown as combos[];
