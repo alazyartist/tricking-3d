@@ -86,7 +86,8 @@ const TrickGraph = () => {
   const filterTricks = (tricks, filter) => {
     if (filter === "") return tricks;
     return tricks.filter((trick) => {
-      return trick.name.toLowerCase().includes(filter.toLowerCase());
+      const regex = new RegExp(filter, "gi");
+      return trick.name.toLowerCase().match(regex);
     });
   };
 
