@@ -162,7 +162,7 @@ const DataDetails = ({
             onClick={() =>
               editShorthand ? setShorthandOpen(!shorthandOpen) : handleClick()
             }
-            className="no-scrollbar col-span-6 w-full overflow-x-scroll whitespace-nowrap p-1 text-[12px] text-zinc-300 md:w-1/3"
+            className="no-scrollbar col-span-6 w-full overflow-x-scroll whitespace-nowrap p-1 text-[12px] text-zinc-300"
           >
             <ComboNameDisplay
               loopMe={loopMe}

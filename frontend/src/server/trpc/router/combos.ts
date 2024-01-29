@@ -60,7 +60,7 @@ export const comboRouter = router({
     }),
   getComboScore: publicProcedure
     .input(z.object({ combo: z.array(z.any()) }))
-    .query(async ({ input, ctx }) => {
+    .mutation(async ({ input, ctx }) => {
       if (input.combo.length === 0)
         return {
           totalScore: 0,

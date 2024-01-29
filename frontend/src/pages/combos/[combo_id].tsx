@@ -8,7 +8,7 @@ import { trpc } from "@utils/trpc";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ExampleClipDisplay } from "pages/tricks/[trick_id]";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosWalk } from "react-icons/io";
 
 const ComboPage = () => {
@@ -17,13 +17,20 @@ const ComboPage = () => {
   const { data: comboInfo, isSuccess } = trpc.combos.findById.useQuery({
     combo_id: combo_id as string,
   });
-  const { data: totalScore } = trpc.combos.getComboScore.useQuery({
-    combo: (comboInfo?.comboArray as unknown as combos[]) ?? [],
-  });
+  const { data: totalScore, mutate: getScore } =
+    trpc.combos.getComboScore.useMutation();
   const [seeExample, setSeeExample] = useState(null);
   const orientation = useScreenOrientation();
   const [scoreTotalVisible, setScoreTotalVisible] = useState(false);
   const scoreTotalRef = useClickOutside(() => setScoreTotalVisible(false));
+  useEffect(() => {
+    if (comboInfo?.comboArray) {
+      getScore({
+        combo: comboInfo?.comboArray as unknown as combos[],
+      });
+    }
+  }, []);
+
   if (!isSuccess) return <div>Loading..</div>;
   const comboArray = comboInfo.comboArray as unknown as combos[];
   //@ts-ignore

@@ -13,9 +13,15 @@ const NewComboDisplay: React.FC<ComboDisplayProps> = ({
   newCombo,
   setDeleteLast,
 }) => {
-  const { data: totalScore } = trpc.combos.getComboScore.useQuery({
-    combo: newCombo,
-  });
+  const { data: totalScore, mutate: getScore } =
+    trpc.combos.getComboScore.useMutation();
+  useEffect(() => {
+    if (newCombo?.length > 0) {
+      getScore({
+        combo: newCombo,
+      });
+    }
+  }, [newCombo]);
   const [showScoreBreakdown, setShowScoreBreakdown] = useState(false);
   const ref = useRef<HTMLDivElement>();
   // const scrollToBottom = () => {
