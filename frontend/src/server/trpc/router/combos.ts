@@ -61,24 +61,30 @@ export const comboRouter = router({
   getComboScore: publicProcedure
     .input(z.object({ combo: z.array(z.any()) }))
     .mutation(async ({ input, ctx }) => {
-      if (input.combo.length === 0)
-        return {
-          totalScore: 0,
-          bonusScore: 0,
-          varietyMap: [],
-          chainTotal: 0,
-          varietyScore: 0,
-          executionAverage: 0,
-          powerScore: 0,
-          chainMap: [],
-          uvScore: 0,
-          trickCount: {},
-          chains: {},
-        };
-      if (input.combo[input.combo.length - 1].type === "Transition") {
-        input.combo.pop();
+      if (!input.combo) return;
+      try {
+        if (input.combo.length === 0)
+          return {
+            totalScore: 0,
+            bonusScore: 0,
+            varietyMap: [],
+            chainTotal: 0,
+            varietyScore: 0,
+            executionAverage: 0,
+            powerScore: 0,
+            chainMap: [],
+            uvScore: 0,
+            trickCount: {},
+            chains: {},
+          };
+        if (input.combo[input.combo.length - 1].type === "Transition") {
+          input.combo.pop();
+        }
+        const totalScore = calculateTrickTotals(input.combo, input.combo, ctx);
+
+        return totalScore;
+      } catch (err) {
+        console.log(err);
       }
-      const totalScore = calculateTrickTotals(input.combo, input.combo, ctx);
-      return totalScore;
     }),
 });
