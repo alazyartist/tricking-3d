@@ -253,17 +253,32 @@ export const userRouter = router({
   }),
   getSearchData: publicProcedure.query(async ({ ctx }) => {
     const tricks = await ctx.prisma.tricks.findMany({
-      include: {
-        variations: { include: { variation: true } },
-        animation: true,
-        nicknames: true,
+      select: {
+        trick_id: true,
+        name: true,
+        displayName: true,
+        type: true,
       },
     });
-    const transitions = await ctx.prisma.transitions.findMany({});
-    const stances = await ctx.prisma.stances.findMany({});
+    const transitions = await ctx.prisma.transitions.findMany({
+      select: {
+        id: true,
+        name: true,
+        type: true,
+      },
+    });
+    const stances = await ctx.prisma.stances.findMany({
+      select: {
+        stance_id: true,
+        name: true,
+        type: true,
+      },
+    });
     const combos = await ctx.prisma.combos.findMany({
-      include: {
-        Clips: true,
+      select: {
+        combo_id: true,
+        name: true,
+        type: true,
       },
     });
     const users = await ctx.prisma.users.findMany({
@@ -278,8 +293,6 @@ export const userRouter = router({
       orderBy: { updatedAt: "desc" },
       include: {
         user: { select: { username: true, profilePic: true, uuid: true } },
-        SessionData: { include: { ClipLabel: true } },
-        SessionSources: true,
       },
     });
     const data = Promise.all([
