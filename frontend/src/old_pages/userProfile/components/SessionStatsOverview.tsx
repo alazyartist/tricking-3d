@@ -266,7 +266,6 @@ export const YoutubeThumnail = ({ src }) => {
     /^(\w+)\:\/\/(\w+)\.be\/|(^(\w+).*\/shorts\/)|(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)|&t=\d*\w/g
   );
   const srcid = src?.replace(vidsrcRegex, "");
-  console.log(srcid);
   return (
     <div className="h-full w-full">
       <Image

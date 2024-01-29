@@ -1,6 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { trpc } from "@utils/trpc";
 import * as d3 from "d3";
+import { useForm } from "react-hook-form";
 const TrickGraph = () => {
   const { data: tricks } = trpc.trick.findAll.useQuery();
   const ref = useRef(null);
@@ -77,9 +78,21 @@ const TrickGraph = () => {
     return { nodes, links };
   };
 
+  const { register, handleSubmit, getValues } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+  const [filter, setFilter] = useState("");
+  const filterTricks = (tricks, filter) => {
+    if (filter === "") return tricks;
+    return tricks.filter((trick) => {
+      return trick.name.toLowerCase().includes(filter.toLowerCase());
+    });
+  };
+
   useEffect(() => {
     if (tricks && ref.current !== undefined) {
-      const data = transformData(tricks);
+      const data = transformData(filterTricks(tricks, filter));
       const svg = d3.select(ref.current);
       const width = svg.node().getBoundingClientRect().width;
       const height = svg.node().getBoundingClientRect().height;
@@ -204,8 +217,22 @@ const TrickGraph = () => {
       // cleanup
       d3.select(ref.current).selectAll("*").remove();
     };
-  }, [tricks]);
-  return <svg className="h-full w-full " ref={ref} id={"trick-graph"} />;
+  }, [tricks, filter]);
+
+  return (
+    <div className="h-full w-full">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input
+          type="text"
+          {...register("trick")}
+          onChange={(e) => setFilter(e.target.value)}
+          className="absolute left-2 top-2 h-10 w-[222px] rounded-md bg-zinc-800 p-2 text-xl text-zinc-300"
+          placeholder="Search for a trick"
+        />
+      </form>
+      <svg className="h-full w-full " ref={ref} id={"trick-graph"} />
+    </div>
+  );
 };
 
 export default TrickGraph;

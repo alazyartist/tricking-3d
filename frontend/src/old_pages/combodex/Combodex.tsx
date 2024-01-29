@@ -342,6 +342,7 @@ export const CombodexTrickDetails = ({ tricks, chainMap, varietyMap }) => {
           ).toFixed(2);
           return (
             <div
+              key={tr.trick_id}
               className={`relative flex h-full flex-col place-items-center justify-between gap-1 whitespace-nowrap rounded-md bg-opacity-20 p-1 ${
                 tr.type === "Transition" ? "bg-zinc-600" : "bg-zinc-300"
               }`}
@@ -370,9 +371,9 @@ export const CombodexTrickDetails = ({ tricks, chainMap, varietyMap }) => {
                       <div>{tr.base_id}</div>
                       <div>{tr?.base?.pointValue}</div>
                     </div>
-                    {tr?.variations?.map((v) => (
+                    {tr?.variations?.map((v, i) => (
                       <div
-                        key={`${v.variation.name} + ${Math.random()}`}
+                        key={`${v.variation.name} + ${i}`}
                         className="outlineButton flex h-fit w-full justify-between gap-2 border-[1px] border-indigo-400 p-1 text-xs"
                       >
                         <div>{v.variation.name}</div>
