@@ -109,22 +109,22 @@ const TrickGraph = () => {
         .domain([0, data.nodes.length - 1]);
       const simulation = d3
         .forceSimulation(data.nodes)
-        .force("x", d3.forceX().strength(0.025))
-        .force("y", d3.forceY().strength(0.025))
-        .force("center", d3.forceCenter(width / 2, height / 2).strength(0.1))
-        .force("charge", d3.forceManyBody().strength(-15))
+        .force("x", d3.forceX().strength(0.0195))
+        .force("y", d3.forceY().strength(0.0195))
+        // .force("center", d3.forceCenter(width / 2, height / 2).strength(0.01))
+        .force("charge", d3.forceManyBody().strength(-12))
         .force(
           "link",
           d3
             .forceLink(data.links)
             //@ts-ignore
             .id((d) => d.id)
-            .distance(50)
+            .distance(55)
             .strength(0.22)
         )
         .force(
           "collide",
-          d3.forceCollide((d) => d.radius)
+          d3.forceCollide((d) => d.radius + 5)
         );
       simulation.nodes(data.nodes).on("tick", ticked);
       const drag = d3
