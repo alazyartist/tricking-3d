@@ -38,11 +38,12 @@ const TrickGraph = () => {
   // Function to handle node click
   const handleNodeClick = (node) => {
     setExpandedNodes((prevExpandedNodes) => {
+      console.log("nodeclick", node);
       const newExpandedNodes = new Set(prevExpandedNodes);
-      if (newExpandedNodes.has(node.id)) {
-        newExpandedNodes.delete(node.id); // Contract node
+      if (newExpandedNodes.has(node.data.id)) {
+        newExpandedNodes.delete(node.data.id); // Contract node
       } else {
-        newExpandedNodes.add(node.id); // Expand node
+        newExpandedNodes.add(node.data.id); // Expand node
       }
       return newExpandedNodes;
     });
@@ -74,7 +75,6 @@ const TrickGraph = () => {
         y: height / 2,
       };
       nodes.push(baseNode);
-      console.log(ref.current.getBoundingClientRect().width / 2);
       baseIdToTricks[base_id].forEach((trick) => {
         const trickNode = {
           id: trick.trick_id,
@@ -101,24 +101,25 @@ const TrickGraph = () => {
         acc[trick.base_id].push({
           ...trick,
           color: color[trick.takeoffStance],
-          children: trick.variations.map((variation) => ({
-            ...variation.variation,
-            color: "#FC8F82",
-          })),
+          // children: trick.variations.map((variation) => ({
+          //   ...variation.variation,
+          //   color: "#FC8F82",
+          // })),
         });
         return acc;
       }, {});
 
       const adjustColor = (c) => {
         const color = d3.color(c);
-        color.opacity = 0.42;
+        color.opacity = 0.72;
         return color;
       };
       // Create hierarchical structure
       const root = {
         name: "Tricks",
-        color: "#ffffff",
+        color: "#27272e",
         children: Object.entries(groupedByBaseId).map(([baseId, tricks]) => ({
+          id: baseId,
           name: baseId,
           color: adjustColor(color[baseId]), // Replace with desired color for base_id nodes
           children: tricks,
@@ -147,7 +148,7 @@ const TrickGraph = () => {
       }>
     >[] = createPackLayout(ud);
 
-    console.log(expandedNodes, nodes, links);
+    console.log(expandedNodes);
     const filteredNodes = nodes.filter(
       (node) =>
         expandedNodes.has(node?.trick?.base_id) || node.id in baseIdToTricks
@@ -155,7 +156,7 @@ const TrickGraph = () => {
     const filteredLinks = links.filter((link) =>
       filteredNodes.some((node) => node.id === link.target)
     );
-    console.log(packNodes);
+    // console.log(packNodes);
 
     return { nodes: filteredNodes, links: filteredLinks, packNodes };
   };
@@ -187,50 +188,54 @@ const TrickGraph = () => {
 
       const container = svg.append("g").classed("container", true);
 
-      const packNode = container
-        .selectAll(".pack-node")
-        .data(data.packNodes)
-        .join("g")
-        .classed("pack-node", true)
-        .attr("transform", (d) => `translate(${d.x},${d.y})`);
-      packNode
-        .append("circle")
-        .attr("r", (d) => d.r)
-        .attr("fill", (d) => d.data.color);
-      packNode
-        .append("text")
-        .text((d) => d.data.name)
-        .attr("text-anchor", "middle")
-        .attr("alignment-baseline", "middle")
-        .attr("dy", "0.35em")
-        .attr("fill", "#000000")
-        .attr("font-size", "0.5em")
-        .attr("font-family", "sans-serif")
-        .attr("pointer-events", "none");
-      console.log(data);
+      // const packNode = container
+      //   .selectAll(".pack-node")
+      //   .data(data.packNodes)
+      //   .join("g")
+      //   .classed("pack-node", true)
+      //   .attr("transform", (d) => `translate(${d.x},${d.y})`);
+      // packNode
+      //   .append("circle")
+      //   .attr("r", (d) => d.r)
+      //   .attr("fill", (d) => d.data.color);
+      // packNode
+      //   .append("text")
+      //   .text((d) => d.data.name)
+      //   .attr("text-anchor", "middle")
+      //   .attr("alignment-baseline", "middle")
+      //   .attr("dy", "0.35em")
+      //   .attr("fill", "#000000")
+      //   .attr("font-size", "0.5em")
+      //   .attr("font-family", "sans-serif")
+      //   .attr("pointer-events", "none");
+      // const packNode = container
+      //   .selectAll(".bg-node")
+      //   .data(data.packNodes)
+      //   .join("g")
+      //   .classed("pack-node", true)
+      //   .attr("transform", (d) => `translate(${d.x},${d.y})`);
+      // packNode
+      //   .append("circle")
+      //   .attr("r", (d) => d.r)
+      //   .attr("fill", (d) => d.data.color);
+
       const simulation = d3
-        .forceSimulation(data.nodes)
-        .force(
-          "y",
-          d3.forceY((height - margin.top - margin.bottom) / 2).strength(0.0255)
-        )
-        .force(
-          "x",
-          d3.forceX((width - margin.left - margin.right) / 2).strength(0.0225)
-        )
+        .forceSimulation(data.packNodes.filter((d) => d.depth > 1))
+        .force("y", d3.forceY(data.packNodes[0].y).strength(0.0155))
+        .force("x", d3.forceX(data.packNodes[0].x).strength(0.0125))
         .force(
           "collide",
           d3.forceCollide((d) => d.r + 5)
         )
-        .force(
-          "link",
-          d3
-            .forceLink(data.links)
-            //@ts-ignore
-            .id((d) => d.id)
-            .distance(55)
-            .strength(0.22)
-        )
+        // .force(
+        //   "link",
+        //   d3
+        //     .forceLink(data.links)
+        //     //@ts-ignore
+        //     .id((d) => d.id)
+        //     .distance(55)
+        //     .strength(0.22)
+        // )
         .force(
           "charge",
           d3
@@ -238,7 +243,9 @@ const TrickGraph = () => {
             .strength(-15)
             .distanceMax(height / 2)
         );
-      simulation.nodes(data.nodes).on("tick", ticked);
+      simulation
+        .nodes(data.packNodes.filter((d) => d.depth > 1))
+        .on("tick", ticked);
       const drag = d3
         .drag()
         .on("start", dragstarted)
@@ -255,7 +262,7 @@ const TrickGraph = () => {
 
       const node = container
         .selectAll(".node")
-        .data(data.nodes)
+        .data(data.packNodes[0].descendants())
         .join("g")
         .classed("node", true);
 
@@ -272,7 +279,8 @@ const TrickGraph = () => {
         .style("height", 20)
         .style("width", 20)
         .attr("r", (d) => d.r) // radius of circle
-        .style("fill", (d, i) => d.color)
+        .style("fill", (d, i) => d.data.color)
+        // .style("fill", (d, i) => d.color)
         .on("click", (event, d) => {
           console.log(d);
         });
@@ -280,7 +288,7 @@ const TrickGraph = () => {
 
       node
         .append("text")
-        .text((d) => d.name)
+        .text((d) => d.data.name)
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "middle")
         .attr("dy", "0.35em")
@@ -325,7 +333,7 @@ const TrickGraph = () => {
 
       svg.call(zoom);
       node.call(drag);
-      console.log(data);
+      // console.log(data);
     }
 
     return () => {
