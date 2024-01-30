@@ -125,7 +125,7 @@ const TrickGraph = () => {
           children: tricks,
         })),
       };
-      const pack = d3.pack().size([width, height]).padding(5);
+      const pack = d3.pack().size([width, height]).padding(10);
 
       const hierarchy = d3
         .hierarchy(root)
@@ -358,14 +358,12 @@ const TrickGraph = () => {
 
       function forceContainment(nodes) {
         function force(alpha) {
-          // Loop through each node
           for (const node of nodes) {
             if (node.depth === 2) {
-              // Get parent node (assuming it's directly accessible)
               const parentNode = node.parent;
 
               // Define boundaries (e.g., within a certain radius of the parent)
-              const radius = parentNode.r + 20; // Example radius
+              const radius = parentNode.r - node.r - 5; // Example radius
               const dx = node.x - parentNode.x;
               const dy = node.y - parentNode.y;
               const distance = Math.sqrt(dx * dx + dy * dy);
