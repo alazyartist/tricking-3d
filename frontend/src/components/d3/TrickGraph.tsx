@@ -236,18 +236,16 @@ const TrickGraph = () => {
         //     .distance(55)
         //     .strength(0.22)
         // )
+        .force("charge", d3.forceManyBody().strength(-9))
         .force(
-          "charge",
-          d3
-            .forceManyBody()
-            .strength(-15)
-            .distanceMax(height / 2)
+          "containment",
+          forceContainment(data.packNodes.filter((d) => d.depth === 2))
         );
       simulation
         .nodes(data.packNodes.filter((d) => d.depth > 1))
         .on("tick", ticked);
       const simulation2 = d3
-        .forceSimulation(data.packNodes.filter((d) => d.depth == 1))
+        .forceSimulation(data.packNodes.filter((d) => d.depth === 1))
         .force("y", d3.forceY(data.packNodes[0].y).strength(0.0155))
         .force("x", d3.forceX(data.packNodes[0].x).strength(0.0125))
         .force(
@@ -270,6 +268,7 @@ const TrickGraph = () => {
             .strength(-15)
             .distanceMax(height / 2)
         );
+
       simulation2
         .nodes(data.packNodes.filter((d) => d.depth == 1))
         .on("tick", ticked);
@@ -355,6 +354,32 @@ const TrickGraph = () => {
         }
         d.fx = null;
         d.fy = null;
+      }
+
+      function forceContainment(nodes) {
+        function force(alpha) {
+          // Loop through each node
+          for (const node of nodes) {
+            if (node.depth === 2) {
+              // Get parent node (assuming it's directly accessible)
+              const parentNode = node.parent;
+
+              // Define boundaries (e.g., within a certain radius of the parent)
+              const radius = parentNode.r + 20; // Example radius
+              const dx = node.x - parentNode.x;
+              const dy = node.y - parentNode.y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+
+              // Adjust position if outside the boundary
+              if (distance > radius) {
+                node.x = parentNode.x + (dx / distance) * radius;
+                node.y = parentNode.y + (dy / distance) * radius;
+              }
+            }
+          }
+        }
+
+        return force;
       }
 
       const zoom = d3

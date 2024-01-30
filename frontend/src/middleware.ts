@@ -15,6 +15,7 @@ export default authMiddleware({
     "/compare(.*)",
     "/debate(.*)",
     "/learnMore",
+    "/policies/(.*)",
     "/terms",
     "/social",
     "/comboMaker",
