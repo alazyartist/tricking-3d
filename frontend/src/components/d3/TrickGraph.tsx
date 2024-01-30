@@ -33,10 +33,13 @@ const TrickGraph = () => {
     GainerR: `#6bcee9`,
     BacksideHyper: `#6bcee9`,
   };
+
   const transformData = (ud) => {
     const nodes = [];
     const links = [];
     const baseIdToTricks = {};
+    const width = ref.current.getBoundingClientRect().width;
+    const height = ref.current.getBoundingClientRect().height;
 
     ud.forEach((trick) => {
       if (!baseIdToTricks[trick.base_id]) {
@@ -51,11 +54,11 @@ const TrickGraph = () => {
         name: base_id,
         color: color[base_id],
         radius: 40 + baseIdToTricks[base_id].length * 2,
-        x: ref.current.getBoundingClientRect().width / 2,
-        y: ref.current.getBoundingClientRect().height / 2,
+        x: width / 2,
+        y: height / 2,
       };
       nodes.push(baseNode);
-
+      console.log(ref.current.getBoundingClientRect().width / 2);
       baseIdToTricks[base_id].forEach((trick) => {
         const trickNode = {
           id: trick.trick_id,
@@ -63,8 +66,8 @@ const TrickGraph = () => {
           trick: trick,
           color: color[trick.takeoffStance],
           radius: 50,
-          x: ref.current.getBoundingClientRect().width / 2,
-          y: ref.current.getBoundingClientRect().height / 2,
+          x: width / 2,
+          y: height / 2,
         };
         nodes.push(trickNode);
 
@@ -74,8 +77,36 @@ const TrickGraph = () => {
         });
       });
     });
+    const createPackLayout = (_data) => {
+      const root = {
+        name: "Tricks",
+        color: "#ffffff",
+        children: _data.map((trick) => ({
+          ...trick,
+          color: color[trick.takeoffStance],
+          children: trick.variations.map((variation) => ({
+            ...variation,
+            color: "#FC8F82",
+          })),
+        })),
+      };
+      const pack = d3.pack().size([width, height]).padding(5);
 
-    return { nodes, links };
+      const hierarchy = d3
+        .hierarchy(root)
+        .sum((d) => 1)
+        .sort((a, b) => b.value - a.value);
+
+      const nodes = pack(hierarchy).descendants();
+
+      return nodes;
+    };
+
+    const packNodes = createPackLayout(ud);
+
+    console.log(packNodes);
+
+    return { nodes, links, packNodes };
   };
 
   const { register, handleSubmit, getValues } = useForm();
@@ -109,10 +140,13 @@ const TrickGraph = () => {
         .domain([0, data.nodes.length - 1]);
       const simulation = d3
         .forceSimulation(data.nodes)
-        .force("x", d3.forceX().strength(0.0195))
-        .force("y", d3.forceY().strength(0.0195))
         // .force("center", d3.forceCenter(width / 2, height / 2).strength(0.01))
-        .force("charge", d3.forceManyBody().strength(-12))
+        .force("y", d3.forceY().strength(0.0255))
+        .force("x", d3.forceX().strength(0.0225))
+        .force(
+          "collide",
+          d3.forceCollide((d) => d.radius + 5)
+        )
         .force(
           "link",
           d3
@@ -122,10 +156,7 @@ const TrickGraph = () => {
             .distance(55)
             .strength(0.22)
         )
-        .force(
-          "collide",
-          d3.forceCollide((d) => d.radius + 5)
-        );
+        .force("charge", d3.forceManyBody().strength(-15));
       simulation.nodes(data.nodes).on("tick", ticked);
       const drag = d3
         .drag()
@@ -143,7 +174,7 @@ const TrickGraph = () => {
 
       const node = container
         .selectAll(".node")
-        .data(data.nodes)
+        .data(data.packNodes)
         .join("g")
         .classed("node", true);
 
@@ -151,7 +182,7 @@ const TrickGraph = () => {
         .append("clipPath")
         .attr("id", (d) => `clip-circle-${d.id}`)
         .append("circle")
-        .attr("r", (d) => d.radius)
+        .attr("r", (d) => d.r)
         .attr("cx", 0)
         .attr("cy", 0);
 
@@ -159,8 +190,8 @@ const TrickGraph = () => {
         .append("circle")
         .style("height", 20)
         .style("width", 20)
-        .attr("r", (d) => d.radius) // radius of circle
-        .style("fill", (d, i) => d.color)
+        .attr("r", (d) => d.r) // radius of circle
+        .style("fill", (d, i) => d.data.color)
         .on("click", (event, d) => {
           console.log(d);
         });
@@ -168,7 +199,7 @@ const TrickGraph = () => {
 
       node
         .append("text")
-        .text((d) => d.name)
+        .text((d) => d.data.name)
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "middle")
         .attr("dy", "0.35em")
