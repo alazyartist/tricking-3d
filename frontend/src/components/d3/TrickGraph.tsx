@@ -66,8 +66,10 @@ const TrickGraph = () => {
       const baseNode = {
         id: base_id,
         name: base_id,
-        color: color[base_id],
-        r: 40 + baseIdToTricks[base_id].length * 2,
+        color: expandedNodes.has(base_id) ? "#fff" : color[base_id],
+        r: expandedNodes.has(base_id)
+          ? 35
+          : 55 + baseIdToTricks[base_id].length,
         x: width / 2,
         y: height / 2,
       };
@@ -133,8 +135,17 @@ const TrickGraph = () => {
 
       return nodes;
     };
-
-    const packNodes = createPackLayout(ud);
+    const packNodes: d3.HierarchyCircularNode<
+      Partial<{
+        name: string;
+        color: string;
+        children: {
+          name: string;
+          color: d3.RGBColor | d3.HSLColor;
+          children: unknown;
+        }[];
+      }>
+    >[] = createPackLayout(ud);
 
     console.log(expandedNodes, nodes, links);
     const filteredNodes = nodes.filter(
@@ -175,11 +186,38 @@ const TrickGraph = () => {
         .attr("height", height - margin.top - margin.bottom);
 
       const container = svg.append("g").classed("container", true);
+
+      const packNode = container
+        .selectAll(".pack-node")
+        .data(data.packNodes)
+        .join("g")
+        .classed("pack-node", true)
+        .attr("transform", (d) => `translate(${d.x},${d.y})`);
+      packNode
+        .append("circle")
+        .attr("r", (d) => d.r)
+        .attr("fill", (d) => d.data.color);
+      packNode
+        .append("text")
+        .text((d) => d.data.name)
+        .attr("text-anchor", "middle")
+        .attr("alignment-baseline", "middle")
+        .attr("dy", "0.35em")
+        .attr("fill", "#000000")
+        .attr("font-size", "0.5em")
+        .attr("font-family", "sans-serif")
+        .attr("pointer-events", "none");
       console.log(data);
       const simulation = d3
         .forceSimulation(data.nodes)
-        .force("y", d3.forceY(height - margin.bottom / 2).strength(0.0255))
-        .force("x", d3.forceX(width / 2).strength(0.0225))
+        .force(
+          "y",
+          d3.forceY((height - margin.top - margin.bottom) / 2).strength(0.0255)
+        )
+        .force(
+          "x",
+          d3.forceX((width - margin.left - margin.right) / 2).strength(0.0225)
+        )
         .force(
           "collide",
           d3.forceCollide((d) => d.r + 5)
@@ -289,6 +327,7 @@ const TrickGraph = () => {
       node.call(drag);
       console.log(data);
     }
+
     return () => {
       // cleanup
       d3.select(ref.current).selectAll("*").remove();
