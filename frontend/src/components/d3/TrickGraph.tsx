@@ -33,6 +33,20 @@ const TrickGraph = () => {
     GainerR: `#6bcee9`,
     BacksideHyper: `#6bcee9`,
   };
+  const [expandedNodes, setExpandedNodes] = useState(new Set());
+
+  // Function to handle node click
+  const handleNodeClick = (node) => {
+    setExpandedNodes((prevExpandedNodes) => {
+      const newExpandedNodes = new Set(prevExpandedNodes);
+      if (newExpandedNodes.has(node.id)) {
+        newExpandedNodes.delete(node.id); // Contract node
+      } else {
+        newExpandedNodes.add(node.id); // Expand node
+      }
+      return newExpandedNodes;
+    });
+  };
 
   const transformData = (ud) => {
     const nodes = [];
@@ -53,7 +67,7 @@ const TrickGraph = () => {
         id: base_id,
         name: base_id,
         color: color[base_id],
-        radius: 40 + baseIdToTricks[base_id].length * 2,
+        r: 40 + baseIdToTricks[base_id].length * 2,
         x: width / 2,
         y: height / 2,
       };
@@ -65,7 +79,7 @@ const TrickGraph = () => {
           name: trick.name,
           trick: trick,
           color: color[trick.takeoffStance],
-          radius: 50,
+          r: 50,
           x: width / 2,
           y: height / 2,
         };
@@ -78,16 +92,34 @@ const TrickGraph = () => {
       });
     });
     const createPackLayout = (_data) => {
-      const root = {
-        name: "Tricks",
-        color: "#ffffff",
-        children: _data.map((trick) => ({
+      const groupedByBaseId = _data.reduce((acc, trick) => {
+        if (!acc[trick.base_id]) {
+          acc[trick.base_id] = [];
+        }
+        acc[trick.base_id].push({
           ...trick,
           color: color[trick.takeoffStance],
           children: trick.variations.map((variation) => ({
-            ...variation,
+            ...variation.variation,
             color: "#FC8F82",
           })),
+        });
+        return acc;
+      }, {});
+
+      const adjustColor = (c) => {
+        const color = d3.color(c);
+        color.opacity = 0.42;
+        return color;
+      };
+      // Create hierarchical structure
+      const root = {
+        name: "Tricks",
+        color: "#ffffff",
+        children: Object.entries(groupedByBaseId).map(([baseId, tricks]) => ({
+          name: baseId,
+          color: adjustColor(color[baseId]), // Replace with desired color for base_id nodes
+          children: tricks,
         })),
       };
       const pack = d3.pack().size([width, height]).padding(5);
@@ -104,9 +136,17 @@ const TrickGraph = () => {
 
     const packNodes = createPackLayout(ud);
 
+    console.log(expandedNodes, nodes, links);
+    const filteredNodes = nodes.filter(
+      (node) =>
+        expandedNodes.has(node?.trick?.base_id) || node.id in baseIdToTricks
+    );
+    const filteredLinks = links.filter((link) =>
+      filteredNodes.some((node) => node.id === link.target)
+    );
     console.log(packNodes);
 
-    return { nodes, links, packNodes };
+    return { nodes: filteredNodes, links: filteredLinks, packNodes };
   };
 
   const { register, handleSubmit, getValues } = useForm();
@@ -135,17 +175,14 @@ const TrickGraph = () => {
         .attr("height", height - margin.top - margin.bottom);
 
       const container = svg.append("g").classed("container", true);
-      const colors = d3
-        .scaleSequential(d3.interpolateRainbow)
-        .domain([0, data.nodes.length - 1]);
+      console.log(data);
       const simulation = d3
         .forceSimulation(data.nodes)
-        // .force("center", d3.forceCenter(width / 2, height / 2).strength(0.01))
-        .force("y", d3.forceY().strength(0.0255))
-        .force("x", d3.forceX().strength(0.0225))
+        .force("y", d3.forceY(height - margin.bottom / 2).strength(0.0255))
+        .force("x", d3.forceX(width / 2).strength(0.0225))
         .force(
           "collide",
-          d3.forceCollide((d) => d.radius + 5)
+          d3.forceCollide((d) => d.r + 5)
         )
         .force(
           "link",
@@ -156,7 +193,13 @@ const TrickGraph = () => {
             .distance(55)
             .strength(0.22)
         )
-        .force("charge", d3.forceManyBody().strength(-15));
+        .force(
+          "charge",
+          d3
+            .forceManyBody()
+            .strength(-15)
+            .distanceMax(height / 2)
+        );
       simulation.nodes(data.nodes).on("tick", ticked);
       const drag = d3
         .drag()
@@ -174,7 +217,7 @@ const TrickGraph = () => {
 
       const node = container
         .selectAll(".node")
-        .data(data.packNodes)
+        .data(data.nodes)
         .join("g")
         .classed("node", true);
 
@@ -191,7 +234,7 @@ const TrickGraph = () => {
         .style("height", 20)
         .style("width", 20)
         .attr("r", (d) => d.r) // radius of circle
-        .style("fill", (d, i) => d.data.color)
+        .style("fill", (d, i) => d.color)
         .on("click", (event, d) => {
           console.log(d);
         });
@@ -199,7 +242,7 @@ const TrickGraph = () => {
 
       node
         .append("text")
-        .text((d) => d.data.name)
+        .text((d) => d.name)
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "middle")
         .attr("dy", "0.35em")
@@ -208,8 +251,9 @@ const TrickGraph = () => {
         .attr("font-family", "sans-serif")
         .attr("pointer-events", "none");
 
-      //tooltip popup with username on hover
-
+      node.on("click", (event, d) => {
+        handleNodeClick(d);
+      });
       function ticked() {
         node.attr("transform", (d) => `translate(${d.x},${d.y})`);
 
@@ -236,12 +280,12 @@ const TrickGraph = () => {
 
       const zoom = d3
         .zoom()
-        .scaleExtent([0.1, 12])
+        .scaleExtent([0.2, 12])
         .on("zoom", (event) => {
           container.attr("transform", event.transform);
         });
 
-      svg.call(zoom, d3.zoomIdentity.scale(0.2));
+      svg.call(zoom);
       node.call(drag);
       console.log(data);
     }
@@ -249,7 +293,7 @@ const TrickGraph = () => {
       // cleanup
       d3.select(ref.current).selectAll("*").remove();
     };
-  }, [tricks, filter]);
+  }, [tricks, filter, expandedNodes]);
 
   return (
     <div className="h-full w-full">
