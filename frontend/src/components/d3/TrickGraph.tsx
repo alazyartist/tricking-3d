@@ -246,6 +246,33 @@ const TrickGraph = () => {
       simulation
         .nodes(data.packNodes.filter((d) => d.depth > 1))
         .on("tick", ticked);
+      const simulation2 = d3
+        .forceSimulation(data.packNodes.filter((d) => d.depth == 1))
+        .force("y", d3.forceY(data.packNodes[0].y).strength(0.0155))
+        .force("x", d3.forceX(data.packNodes[0].x).strength(0.0125))
+        .force(
+          "collide",
+          d3.forceCollide((d) => d.r + 5)
+        )
+        // .force(
+        //   "link",
+        //   d3
+        //     .forceLink(data.links)
+        //     //@ts-ignore
+        //     .id((d) => d.id)
+        //     .distance(55)
+        //     .strength(0.22)
+        // )
+        .force(
+          "charge",
+          d3
+            .forceManyBody()
+            .strength(-15)
+            .distanceMax(height / 2)
+        );
+      simulation2
+        .nodes(data.packNodes.filter((d) => d.depth == 1))
+        .on("tick", ticked);
       const drag = d3
         .drag()
         .on("start", dragstarted)
@@ -310,7 +337,10 @@ const TrickGraph = () => {
           .attr("y2", (d) => d.target.y);
       }
       function dragstarted(event, d) {
-        if (!event.active) simulation.alphaTarget(0.1).restart();
+        if (!event.active) {
+          simulation.alphaTarget(0.1).restart();
+          simulation2.alphaTarget(0.1).restart();
+        }
         d.fx = event.x;
         d.fy = event.y;
       }
@@ -319,7 +349,10 @@ const TrickGraph = () => {
         d.fy = event.y;
       }
       function dragended(event, d) {
-        if (!event.active) simulation.alphaTarget(0);
+        if (!event.active) {
+          simulation.alphaTarget(0);
+          simulation2.alphaTarget(0);
+        }
         d.fx = null;
         d.fy = null;
       }
@@ -332,6 +365,7 @@ const TrickGraph = () => {
         });
 
       svg.call(zoom);
+      //@ts-ignore
       node.call(drag);
       // console.log(data);
     }
