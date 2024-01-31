@@ -23,7 +23,7 @@ const DashUserGraph = ({ uuid }) => {
           links.push({ source: c.user_id, target: c.captured_id });
         });
         u.captured_me.forEach((c) => {
-          links.push({ source: c.captured_id, target: c.user_id });
+          links.push({ source: c.user_id, target: c.captured_id });
         });
       }
     });
@@ -80,7 +80,12 @@ const DashUserGraph = ({ uuid }) => {
         .data(data.links)
         .join("line")
         .classed("link", true)
-        .attr("stroke", "#FFF")
+        .attr("stroke-width", 3)
+        .attr("stroke", (d) =>
+          users.find((u) => u.uuid === uuid).username === d.target.username
+            ? "#006eff"
+            : "#d4d4d8"
+        )
         .attr("stroke-opacity", 0.6);
 
       const node = container

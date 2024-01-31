@@ -80,7 +80,7 @@ const QRReader = () => {
                   valid && (
                     <animated.div
                       className={
-                        "place-item-center absolute top-0 left-0 flex w-full rounded-md bg-emerald-600 text-zinc-100"
+                        "place-item-center absolute left-0 top-0 flex w-full rounded-md bg-emerald-600 text-zinc-100"
                       }
                       style={styles}
                     >
