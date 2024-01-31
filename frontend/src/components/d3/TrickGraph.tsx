@@ -125,7 +125,7 @@ const TrickGraph = () => {
           children: tricks,
         })),
       };
-      const pack = d3.pack().size([width, height]).padding(10);
+      const pack = d3.pack().size([1500, 1500]).padding(10);
 
       const hierarchy = d3
         .hierarchy(root)
@@ -380,6 +380,19 @@ const TrickGraph = () => {
         return force;
       }
 
+      const largestNode = data.packNodes.reduce(
+        (max, node) => (node.r > max.r ? node : max),
+        data.packNodes[0]
+      );
+      const zoomLevel = Math.min(width, height) / (2 * largestNode.r);
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const adjustedX = centerX - largestNode.x * zoomLevel;
+      const adjustedY = centerY - largestNode.y * zoomLevel;
+      const initialTransform = d3.zoomIdentity
+        .translate(adjustedX, adjustedY)
+        .scale(zoomLevel);
+
       const zoom = d3
         .zoom()
         .scaleExtent([0.2, 12])
@@ -387,7 +400,7 @@ const TrickGraph = () => {
           container.attr("transform", event.transform);
         });
 
-      svg.call(zoom);
+      svg.call(zoom).call(zoom.transform, initialTransform);
       //@ts-ignore
       node.call(drag);
       // console.log(data);
