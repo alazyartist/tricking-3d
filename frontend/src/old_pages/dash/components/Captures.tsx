@@ -1,5 +1,6 @@
 //import { UserCard } from "./UserCard";
 //import { useApiCreds } from "../../../hooks/useApiCreds";
+import DashUserGraph from "@components/d3/DashUserGraph";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useUserStore } from "../../../store/userStore";
@@ -15,12 +16,12 @@ const Captures = ({ dash }) => {
     setCapturedMe(userInfo.captured_me);
   }, [userInfo]);
   const [activeView, setActiveView] = useState(
-    "My Captures" as "My Captures" | "Captured Me"
+    "My Captures" as "My Captures" | "Captured Me" | "User Graph"
   );
   return (
     <div
       id="captureContainer"
-      className={`${dash ? "pb-8  lg:pb-2" : ""} w-full`}
+      className={`${dash ? "pb-8  lg:pb-2" : ""} h-full w-full`}
     >
       {/* My Captures */}
       <CaptureNav setActiveView={setActiveView} activeView={activeView} />
@@ -31,6 +32,7 @@ const Captures = ({ dash }) => {
       {activeView === "Captured Me" && (
         <RenderCaptures captureContent={capturedMe} title="Captured Me" />
       )}
+      {activeView === "User Graph" && <DashUserGraph uuid={userInfo.uuid} />}
     </div>
   );
 };
@@ -52,6 +54,14 @@ const CaptureNav = ({ setActiveView, activeView }) => {
         onClick={(e) => setActiveView("Captured Me")}
       >
         Captured Me
+      </button>
+      <button
+        className={`${
+          activeView === "User Graph" ? "text-indigo-400" : "text-zinc-500"
+        } w-full rounded-md bg-zinc-800 p-2`}
+        onClick={(e) => setActiveView("User Graph")}
+      >
+        User Graph
       </button>
     </div>
   );
