@@ -101,10 +101,10 @@ const TrickGraph = () => {
         acc[trick.base_id].push({
           ...trick,
           color: color[trick.takeoffStance],
-          // children: trick.variations.map((variation) => ({
-          //   ...variation.variation,
-          //   color: "#FC8F82",
-          // })),
+          children: trick.variations.map((variation) => ({
+            ...variation.variation,
+            color: "#FC8F82",
+          })),
         });
         return acc;
       }, {});
@@ -139,9 +139,11 @@ const TrickGraph = () => {
     const packNodes: d3.HierarchyCircularNode<
       Partial<{
         name: string;
+        displayName: string;
         color: string;
         children: {
           name: string;
+          displayName: string;
           color: d3.RGBColor | d3.HSLColor;
           children: unknown;
         }[];
@@ -188,44 +190,13 @@ const TrickGraph = () => {
 
       const container = svg.append("g").classed("container", true);
 
-      // const packNode = container
-      //   .selectAll(".pack-node")
-      //   .data(data.packNodes)
-      //   .join("g")
-      //   .classed("pack-node", true)
-      //   .attr("transform", (d) => `translate(${d.x},${d.y})`);
-      // packNode
-      //   .append("circle")
-      //   .attr("r", (d) => d.r)
-      //   .attr("fill", (d) => d.data.color);
-      // packNode
-      //   .append("text")
-      //   .text((d) => d.data.name)
-      //   .attr("text-anchor", "middle")
-      //   .attr("alignment-baseline", "middle")
-      //   .attr("dy", "0.35em")
-      //   .attr("fill", "#000000")
-      //   .attr("font-size", "0.5em")
-      //   .attr("font-family", "sans-serif")
-      //   .attr("pointer-events", "none");
-      // const packNode = container
-      //   .selectAll(".bg-node")
-      //   .data(data.packNodes)
-      //   .join("g")
-      //   .classed("pack-node", true)
-      //   .attr("transform", (d) => `translate(${d.x},${d.y})`);
-      // packNode
-      //   .append("circle")
-      //   .attr("r", (d) => d.r)
-      //   .attr("fill", (d) => d.data.color);
-
       const simulation = d3
-        .forceSimulation(data.packNodes.filter((d) => d.depth > 1))
+        .forceSimulation(data.packNodes.filter((d) => d.depth === 1))
         .force("y", d3.forceY(data.packNodes[0].y).strength(0.0155))
         .force("x", d3.forceX(data.packNodes[0].x).strength(0.0125))
         .force(
           "collide",
-          d3.forceCollide((d) => d.r + 5)
+          d3.forceCollide((d) => (d.depth < 3 ? d.r + 5 : 0))
         )
         // .force(
         //   "link",
@@ -239,7 +210,7 @@ const TrickGraph = () => {
         .force("charge", d3.forceManyBody().strength(-9))
         .force(
           "containment",
-          forceContainment(data.packNodes.filter((d) => d.depth === 2))
+          forceContainment(data.packNodes.filter((d) => d.depth >= 2))
         );
       simulation
         .nodes(data.packNodes.filter((d) => d.depth > 1))
@@ -252,15 +223,6 @@ const TrickGraph = () => {
           "collide",
           d3.forceCollide((d) => d.r + 5)
         )
-        // .force(
-        //   "link",
-        //   d3
-        //     .forceLink(data.links)
-        //     //@ts-ignore
-        //     .id((d) => d.id)
-        //     .distance(55)
-        //     .strength(0.22)
-        // )
         .force(
           "charge",
           d3
@@ -270,7 +232,7 @@ const TrickGraph = () => {
         );
 
       simulation2
-        .nodes(data.packNodes.filter((d) => d.depth == 1))
+        .nodes(data.packNodes.filter((d) => d.depth === 1))
         .on("tick", ticked);
       const drag = d3
         .drag()
@@ -304,17 +266,15 @@ const TrickGraph = () => {
         .append("circle")
         .style("height", 20)
         .style("width", 20)
-        .attr("r", (d) => d.r) // radius of circle
+        .attr("r", (d) => d.r)
         .style("fill", (d, i) => d.data.color)
-        // .style("fill", (d, i) => d.color)
         .on("click", (event, d) => {
           console.log(d);
         });
-      // .style("fill", (d, i) => colors(i));
 
       node
         .append("text")
-        .text((d) => d.data.name)
+        .text((d) => d.data.displayName || d.data.name)
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "middle")
         .attr("dy", "0.35em")
@@ -324,7 +284,8 @@ const TrickGraph = () => {
         .attr("pointer-events", "none");
 
       node.on("click", (event, d) => {
-        handleNodeClick(d);
+        // handleNodeClick(d);
+        zoomToNode(event, d);
       });
       function ticked() {
         node.attr("transform", (d) => `translate(${d.x},${d.y})`);
@@ -359,7 +320,7 @@ const TrickGraph = () => {
       function forceContainment(nodes) {
         function force(alpha) {
           for (const node of nodes) {
-            if (node.depth === 2) {
+            if (node.depth > 1) {
               const parentNode = node.parent;
 
               // Define boundaries (e.g., within a certain radius of the parent)
@@ -378,6 +339,18 @@ const TrickGraph = () => {
         }
 
         return force;
+      }
+
+      function zoomToNode(event, d) {
+        const zoomLevel = Math.min(width, height) / (2 * d.r);
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const adjustedX = centerX - d.x * zoomLevel;
+        const adjustedY = centerY - d.y * zoomLevel;
+        const zoomTo = d3.zoomIdentity
+          .translate(adjustedX, adjustedY)
+          .scale(zoomLevel);
+        svg.call(zoom).transition().duration(850).call(zoom.transform, zoomTo);
       }
 
       const largestNode = data.packNodes.reduce(
