@@ -85,13 +85,7 @@ const DashUserGraph = ({ uuid }) => {
 
       const node = container
         .selectAll(".node")
-        .data(
-          data.nodes.filter(
-            (d) =>
-              captures.some((c) => c.captured_id === d.id) ||
-              captured_me.some((c) => c.user_id === d.id)
-          )
-        )
+        .data(data.nodes)
         .join("g")
         .classed("node", true);
 
@@ -108,13 +102,15 @@ const DashUserGraph = ({ uuid }) => {
         .style("height", 20)
         .style("width", 20)
         .attr("r", (d) => d.radius) // radius of circle
-        .style("fill", "#ffffff");
+        .style("fill", "#27272e");
 
       node
         .append("image")
-        .attr(
-          "xlink:href",
-          (d) => d.image ?? "http://trickedex.app/images/noimg.jpeg"
+        .attr("xlink:href", (d) =>
+          captures.some((c) => c.captured_id === d.id) ||
+          captured_me.some((c) => c.user_id === d.id)
+            ? d.image ?? "http://trickedex.app/images/noimg.jpeg"
+            : null
         )
         .attr("x", (d) => -d.radius)
         .attr("y", (d) => -d.radius)
