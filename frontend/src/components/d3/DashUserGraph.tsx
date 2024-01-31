@@ -47,9 +47,7 @@ const DashUserGraph = ({ uuid }) => {
       const captured_me = users.find((u) => u.uuid === uuid).captured_me;
       const simulation = d3
         .forceSimulation(data.nodes)
-        .force("x", d3.forceX().strength(0.015))
-        .force("y", d3.forceY().strength(0.015))
-        .force("center", d3.forceCenter(width / 2, height / 2).strength(0.1))
+
         .force("charge", d3.forceManyBody().strength(-5))
         .force(
           "link",
@@ -57,12 +55,17 @@ const DashUserGraph = ({ uuid }) => {
             .forceLink(data.links)
             //@ts-ignore
             .id((d) => d.id)
-            .distance(50)
-            .strength(0.22)
+            .distance(5)
+            .strength(0.08)
+        )
+        .force("x", d3.forceX(width / 2).strength(0.015))
+        .force(
+          "y",
+          d3.forceY(-(height - margin.top - margin.bottom) / 2).strength(0.015)
         )
         .force(
           "collide",
-          d3.forceCollide((d) => d.radius)
+          d3.forceCollide((d) => d.radius + 5)
         );
 
       simulation.nodes(data.nodes).on("tick", ticked);
@@ -163,7 +166,7 @@ const DashUserGraph = ({ uuid }) => {
     };
   }, [users]);
   return (
-    <div className="h-[55vh] w-[55vw]">
+    <div className="h-[35vh] w-[80vw] md:h-[55vh] md:w-[55vw]">
       <svg className="h-full w-full " ref={ref} id={"user-graph"} />
     </div>
   );
