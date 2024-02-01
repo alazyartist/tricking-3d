@@ -19,29 +19,29 @@ const OverallStatDisplay = ({ profileInfo }) => {
   })[] = profileInfo.SessionSummaries;
   const totalTricksRaw = SessionSummaries?.map((summary) =>
     summary.SessionData?.map((data) => {
-      const ca = data.ClipLabel.comboArray as unknown as (
+      const ca = data.ClipLabel?.comboArray as unknown as (
         | tricks
         | transitions
       )[];
-      return ca.filter((trick) => trick.type !== "Transition");
+      return ca?.filter((trick) => trick.type !== "Transition");
     })
   ).flat(2);
   const totalTransitionsRaw = SessionSummaries?.map((summary) =>
     summary.SessionData?.map((data) => {
-      const ca = data.ClipLabel.comboArray as unknown as (
+      const ca = data.ClipLabel?.comboArray as unknown as (
         | tricks
         | transitions
       )[];
-      return ca.filter((trick) => trick.type === "Transition");
+      return ca?.filter((trick) => trick.type === "Transition");
     })
   ).flat(2);
   let totalTricks = SessionSummaries?.map((summary) =>
     summary.SessionData?.map((data) => {
-      const ca = data.ClipLabel.comboArray as unknown as (
+      const ca = data.ClipLabel?.comboArray as unknown as (
         | tricks
         | transitions
       )[];
-      return ca.length;
+      return ca?.length;
     })
   )
     ?.map((a) => {
@@ -59,20 +59,20 @@ const OverallStatDisplay = ({ profileInfo }) => {
   let totalCombosraw = SessionSummaries?.map((summary) =>
     summary.SessionData?.map((data) => data.ClipLabel)
   ).flat(2);
-  let favoriteComboCount = Array.from(d3.group(totalCombosraw, (d) => d.name))
+  let favoriteComboCount = Array.from(d3.group(totalCombosraw, (d) => d?.name))
     .map(([key, value]) => ({ name: key, count: value.length }))
     .sort((a, b) => b.count - a.count);
   console.log(favoriteComboCount);
   let totalCombos = totalCombosraw?.length;
   let allSessionTricks = SessionSummaries?.map((summary) =>
     summary.SessionData?.map((data) => {
-      const ca = data.ClipLabel.comboArray as unknown as (
+      const ca = data.ClipLabel?.comboArray as unknown as (
         | tricks
         | transitions
       )[];
 
       return ca
-        .map((trick) => {
+        ?.map((trick) => {
           if (trick.type !== "Transition") {
             // console.log(trick);
           }

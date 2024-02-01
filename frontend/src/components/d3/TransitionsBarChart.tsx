@@ -20,7 +20,7 @@ const TransitionsBarChart = ({ data }) => {
           `translate(${margin.left}px,${dimensions.height / 2 + margin.top})px`
         );
 
-      let tricksArray = Array.from(d3.group(data, (d: any) => d.name));
+      let tricksArray = Array.from(d3.group(data, (d: any) => d?.name));
       let trickPercent = tricksArray?.map((t, i) => t[1]?.length / data.length);
       const x = d3
         .scaleBand()
