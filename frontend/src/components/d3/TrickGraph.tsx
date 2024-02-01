@@ -101,10 +101,10 @@ const TrickGraph = () => {
         acc[trick.base_id].push({
           ...trick,
           color: color[trick.takeoffStance],
-          children: trick.variations.map((variation) => ({
-            ...variation.variation,
-            color: "#FC8F82",
-          })),
+          // children: trick.variations.map((variation) => ({
+          //   ...variation.variation,
+          //   color: "#FC8F82",
+          // })),
         });
         return acc;
       }, {});
