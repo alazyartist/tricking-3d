@@ -8,6 +8,34 @@ const PrivacyPolicy: React.FC = () => {
         This privacy policy applies to the use of our application and website
         (collectively referred to as the "Service").
       </p>
+      <h2 className="mb-2 text-2xl font-bold">
+        Cookies and Tracking Technologies
+      </h2>
+      <p className="mb-4">
+        We use cookies and similar tracking technologies to track activity on
+        our Service and hold certain information.
+      </p>
+
+      <h2 className="mb-2 text-2xl font-bold">Data Retention</h2>
+      <p className="mb-4">
+        We retain your personal information only for as long as is necessary for
+        the purposes set out in this policy.
+      </p>
+
+      <h2 className="mb-2 text-2xl font-bold">User Rights</h2>
+      <p className="mb-4">
+        You have the right to access, update, or delete the information we have
+        on you. Whenever made possible, you can update your Personal Data
+        directly within your account settings section.
+      </p>
+
+      <h2 className="mb-2 text-2xl font-bold">Children's Privacy</h2>
+      <p className="mb-4">
+        Our Service does not address anyone under the age of 13. We do not
+        knowingly collect personally identifiable information from anyone under
+        the age of 13.
+      </p>
+
       <h2 className="mb-2 text-2xl font-bold">Information We Collect</h2>
       <p className="mb-4">
         We may collect personal information such as your name, email address,
