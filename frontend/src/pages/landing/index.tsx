@@ -208,7 +208,7 @@ const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
             Privacy Policy
           </Link>
           <Link
-            href="/policies/terms"
+            href="/policies/termsofservice"
             className="rounded-md p-2 underline underline-offset-2"
           >
             Terms of Service
