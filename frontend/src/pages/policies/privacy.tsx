@@ -2,7 +2,7 @@ import React from "react";
 
 const PrivacyPolicy: React.FC = () => {
   return (
-    <div className="relative left-[5vw] top-[5vh] mb-[14vh] flex h-full w-[90vw] flex-col rounded-xl bg-zinc-800 bg-opacity-70 p-4 text-zinc-300 md:left-[20vw] md:mb-0 md:w-[60vw]">
+    <div className="minimalistScroll relative left-[5vw] top-[2.5vh] mb-[14vh] flex h-[90vh] w-[90vw] flex-col overflow-y-scroll rounded-xl bg-zinc-800 bg-opacity-70 p-4 text-zinc-300 md:left-[20vw] md:mb-0 md:w-[60vw]">
       <h1 className="mb-4 text-3xl font-bold">Privacy Policy</h1>
       <p className="mb-4">
         This privacy policy applies to the use of our application and website

@@ -1,8 +1,9 @@
+import Link from "next/link";
 import React from "react";
 
 const TermsOfService = () => {
   return (
-    <div className="relative left-[5vw] top-[5vh] mb-[14vh] flex h-full w-[90vw] flex-col rounded-xl bg-zinc-800 bg-opacity-70 p-4 text-zinc-300 md:left-[20vw] md:mb-0 md:w-[60vw]">
+    <div className="minimalistScroll relative left-[5vw] top-[2.5vh] mb-[14vh] flex h-[90vh] w-[90vw] flex-col overflow-y-scroll rounded-xl bg-zinc-800 bg-opacity-70 p-4 text-zinc-300 md:left-[20vw] md:mb-0 md:w-[60vw]">
       <h1 className="mb-4 text-3xl font-bold">Trickedex Terms of Service</h1>
 
       <h2 className="mb-2 text-xl font-bold">1. Introduction</h2>
@@ -14,11 +15,16 @@ const TermsOfService = () => {
       </p>
 
       <h2 className="mb-2 text-xl font-bold">2. Privacy Policy</h2>
-      <p className="mb-4">
-        Our Privacy Policy describes how we handle the information you provide
-        to us when you use our Services. You understand that through your use of
-        the Services, you consent to the collection and use of this information.
-      </p>
+      <div className="mb-4">
+        Our{" "}
+        <Link href={"/policies/privacy"} className={"font-semibold underline"}>
+          {" "}
+          Privacy Policy
+        </Link>{" "}
+        describes how we handle the information you provide to us when you use
+        our Services. You understand that through your use of the Services, you
+        consent to the collection and use of this information.
+      </div>
 
       <h2 className="mb-2 text-xl font-bold">3. Service Description</h2>
       <p className="mb-4">
@@ -103,8 +109,8 @@ const TermsOfService = () => {
 
       <h2 className="mb-2 text-xl font-bold">12. Contact Information</h2>
       <p className="mb-4">
-        For any questions about these Terms, please contact us at [contact
-        information].
+        For any questions about these Terms, please contact us at
+        torquetricking@gmail.com.
       </p>
     </div>
   );
