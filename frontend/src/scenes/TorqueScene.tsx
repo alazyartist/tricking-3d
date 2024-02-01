@@ -47,15 +47,15 @@ const TorqueScene: React.FC<any> = ({ gizmoHelper, model, trick }) => {
           //  @ts-ignore
           ref={light2}
           color={"whitesmoke"}
-          power={200}
-          position={[0, 2, 5]}
+          power={1000}
+          position={[0, 8, 8]}
         />
         <spotLight
           //  @ts-ignore
           ref={light}
           color={"whitesmoke"}
-          power={200}
-          position={[0, 2, -5]}
+          power={1000}
+          position={[0, 8, -8]}
         />
         <OrbitControls ref={orbitRef} />
         {gizmoHelper && (
