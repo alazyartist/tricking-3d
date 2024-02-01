@@ -325,21 +325,37 @@ const MessageInput = ({ channel, debateid, uuid }) => {
     <form onSubmit={handleSubmit} className="w-full p-4 pb-12">
       {(vote === "Yay" || vote === "Nay") && (
         <div>
-          <div className={`grid grid-cols-[4fr_1fr] gap-2`}>
+          <div
+            className={`grid grid-cols-[4fr_1fr] gap-2 rounded-md border-l-8 ${
+              vote === "Yay" ? "  border-emerald-400" : " border-red-500"
+            } `}
+          >
             <input
               value={message.message}
               onChange={(e) =>
                 setMessage((prev) => ({ ...prev, message: e.target.value }))
               }
-              className="w-full rounded-md bg-zinc-700 p-2 text-zinc-300"
+              className={`w-full rounded-md bg-zinc-700 p-2 text-zinc-300
+               `}
               placeholder="contribute to the debate"
             />
-            <button
-              className="w-full rounded-md  bg-sky-500 p-2 text-center text-xl text-sky-200"
-              type="submit"
-            >
-              send
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setVote(vote === "Yay" ? "Nay" : "Yay")}
+                className={`w-full rounded-md  ${
+                  vote === "Nay" ? "bg-emerald-400" : "bg-red-500"
+                } p-2 text-center text-xl text-sky-200`}
+                type="button"
+              >
+                Change to {vote === "Yay" ? "Nay" : "Yay"}
+              </button>
+              <button
+                className="w-full rounded-md  bg-sky-500 p-2 text-center text-xl text-sky-200"
+                type="submit"
+              >
+                send
+              </button>
+            </div>
           </div>
           {!message?.mediaType && (
             <div className="flex w-full place-items-center gap-2 py-2">
