@@ -200,6 +200,20 @@ const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
         >
           <UserGraph />
         </DetailCard>
+        <div className="flex w-full place-content-center gap-2">
+          <Link
+            href="/policies/privacy"
+            className="rounded-md p-2 underline underline-offset-2"
+          >
+            Privacy Policy
+          </Link>
+          <Link
+            href="/policies/terms"
+            className="rounded-md p-2 underline underline-offset-2"
+          >
+            Terms of Service
+          </Link>
+        </div>
         <div className="h-[40px]" />
       </div>
     </div>
