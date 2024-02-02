@@ -80,7 +80,10 @@ const Timeline = ({ vidRef, source }) => {
     ((clipData?.endTime - clipData?.startTime) / dur) *
     100
   ).toFixed(2)}%`;
-  let activeLeft = `${((clipData?.startTime - adjustedValue) / dur) * 100}%`;
+  let activeClipStart = `${
+    ((clipData?.startTime - adjustedValue) / dur) * 100
+  }%`;
+  let activeClipEnd = `${((clipData?.endTime - adjustedValue) / dur) * 100}%`;
   return (
     <div className="relative w-[80vw] ">
       {/* <div className="absolute -left-[4rem] h-20 w-[3rem]">
@@ -177,12 +180,36 @@ const Timeline = ({ vidRef, source }) => {
             style={{
               width: activeWidth,
 
-              left: activeLeft,
+              left: activeClipStart,
             }}
             id={`active_video_element'`}
             key={`activeSessionClip'`}
             className={`noTouch absolute top-[4px] h-3 rounded-md bg-teal-300  `}
-          ></div>
+          />
+          {clipData?.startTime && (
+            <div
+              style={{
+                width: "5px",
+
+                left: activeClipStart,
+              }}
+              id={`active_video_element_start'`}
+              key={`activeSessionClip_start'`}
+              className={`noTouch absolute top-[-8px] h-3 rounded-md bg-emerald-300  `}
+            />
+          )}
+          {clipData?.endTime && (
+            <div
+              style={{
+                width: "5px",
+
+                left: activeClipEnd,
+              }}
+              id={`active_video_element_end'`}
+              key={`activeSessionClip_end'`}
+              className={`noTouch absolute top-[-8px] h-3 rounded-md bg-red-300  `}
+            />
+          )}
         </div>
       </div>
     </div>
