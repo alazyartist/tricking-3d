@@ -1,11 +1,12 @@
 import React, { forwardRef, Ref, useEffect, useRef, useState } from "react";
 import { DragBounds, useGesture } from "@use-gesture/react";
 import { useSessionSummariesStore } from "../../components/sessionreview/SessionSummaryStore";
-import { animated, useSpring } from "@react-spring/web";
+import { animated, SpringValue, useSpring } from "@react-spring/web";
 import useMeasure from "react-use-measure";
 import { createPortal } from "react-dom";
 import adjustFinalPosition from "./AdjustFinalPostion";
 import useScreenOrientation from "@hooks/UseScreenOrientaion";
+import { type } from "os";
 
 const useZoom = (vidRef) => {
   const [zoomLevel, setZoomLevel] = useState(1);
@@ -334,7 +335,7 @@ const TimelineElement = ({
   zoomLevel,
 }) => {
   const [seeDetails, setSeeDetails] = useState(false);
-  const [isLocked, setIsLocked] = useState(false);
+  const [isLocked, setIsLocked] = useState(true);
   const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
   const setSrcid = useSessionSummariesStore((s) => s.setSrcid);
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
@@ -383,7 +384,7 @@ const TimelineElement = ({
           if (thisTap - lastTap < 600) {
             // setIsLocked((prev) => !prev);
             setSeeDetails((prev) => !prev);
-            api.set({ y: y });
+            api.set({ y: y - 155 });
           }
           lastTap = thisTap;
         }
@@ -444,7 +445,8 @@ const TimelineElement = ({
       // },
       onContextMenu: ({ event }) => {
         event.preventDefault();
-        // console.log(e);
+        console.log(event);
+        api.set({ y: event.clientY - 155 });
         setSeeDetails((prev) => !prev);
       },
     },
@@ -497,7 +499,26 @@ const TimelineElement = ({
   );
 };
 
-const ClipMenu = ({ e, setSeeDetails, setIsLocked, props, isLocked }) => {
+type ClipMenuProps = {
+  e: any;
+  props: {
+    w: SpringValue<number>;
+    l: SpringValue<number>;
+    y: SpringValue<number>;
+    x: SpringValue<number>;
+  };
+  isLocked: boolean;
+  setSeeDetails: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLocked: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const ClipMenu = ({
+  e,
+  setSeeDetails,
+  setIsLocked,
+  props,
+  isLocked,
+}: ClipMenuProps) => {
   const clearClipCombo = useSessionSummariesStore((s) => s.clearClipCombo);
   const removeSessionData = useSessionSummariesStore(
     (s) => s.removeSessionData
