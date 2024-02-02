@@ -72,16 +72,14 @@ const Timeline = ({ vidRef, source }) => {
   const boundwidth = boundref?.current?.getBoundingClientRect().width;
 
   const adjustedValue = (timelineOffset / boundwidth) * odur;
+  const offsetTime = (timelineOffset / bounds.width) * dur;
+
   const orientation = useScreenOrientation();
   let activeWidth = `${(
-    ((parseFloat((clipData?.endTime as number).toString()) -
-      parseFloat((clipData?.startTime as number).toString())) /
-      dur) *
+    ((clipData?.endTime - clipData?.startTime) / dur) *
     100
   ).toFixed(2)}%`;
-  let activeLeft = `${
-    (((clipData?.startTime as number) - adjustedValue) / dur) * 100
-  }%`;
+  let activeLeft = `${((clipData?.startTime - adjustedValue) / dur) * 100}%`;
   return (
     <div className="relative w-[80vw] ">
       {/* <div className="absolute -left-[4rem] h-20 w-[3rem]">
@@ -104,12 +102,15 @@ const Timeline = ({ vidRef, source }) => {
         className="noTouch relative w-full overflow-hidden"
       >
         <CurrentTimeDiplay
+          zoomLevel={zoomLevel}
+          offsetTime={offsetTime}
           adjustedValue={adjustedValue}
           dur={dur}
           vidRef={vidRef}
         />
         {/* <div className="noTouch z-[-1] h-4 w-full touch-none" /> */}
         <VideoTicks
+          adjustedValue={adjustedValue}
           bounds={bounds}
           odur={odur}
           tickAmt={tickAmt}
@@ -187,10 +188,18 @@ const Timeline = ({ vidRef, source }) => {
   );
 };
 
-const VideoTicks = ({ odur, tickAmt, bounds, zoomLevel, timelineOffset }) => {
+const VideoTicks = ({
+  odur,
+  tickAmt,
+  bounds,
+  zoomLevel,
+  timelineOffset,
+  adjustedValue,
+}) => {
   const ticks = Math.floor(odur / tickAmt);
 
   const tickWidth = (bounds.width / ticks) * zoomLevel;
+  const tickOffset = (adjustedValue / odur) * bounds.width * zoomLevel;
 
   return (
     <div className="noTouch absolute top-[.25rem] flex h-[3rem] w-fit touch-none gap-2">
@@ -198,7 +207,8 @@ const VideoTicks = ({ odur, tickAmt, bounds, zoomLevel, timelineOffset }) => {
         <div
           key={`tick${i}`}
           style={{
-            left: `${(i + 1) * tickWidth - timelineOffset * zoomLevel}px`,
+            transform: `translateX(${-tickOffset}px)`,
+            left: `${(i + 1) * tickWidth}px`,
             height: `${i % 5 == 0 ? "2.5rem" : ".5rem"}`,
           }}
           className="noTouch videoTicks touch-none"
@@ -207,10 +217,15 @@ const VideoTicks = ({ odur, tickAmt, bounds, zoomLevel, timelineOffset }) => {
     </div>
   );
 };
-const CurrentTimeDiplay = ({ adjustedValue, dur, vidRef }) => {
+const CurrentTimeDiplay = ({
+  adjustedValue,
+  dur,
+  vidRef,
+  offsetTime,
+  zoomLevel,
+}) => {
   const currentTime = useSessionSummariesStore((s) => s.currentTime);
   const setCurrentTime = useSessionSummariesStore((s) => s.setCurrentTime);
-
   return (
     <input
       id={`${
@@ -341,7 +356,7 @@ const TimelineElement = ({
   let w =
     ((parseFloat(e.endTime) - parseFloat(e.startTime)) / parseFloat(duration)) *
     100;
-  let l = ((e.startTime - offsetTime * zoomLevel) / parseFloat(duration)) * 100;
+  let l = ((e.startTime - adjustedValue) / parseFloat(duration)) * 100;
   const [props, api] = useSpring(() => ({
     from: {
       w: w,
