@@ -12,6 +12,7 @@ const DashUserGraph = ({ uuid }) => {
     ud.forEach((u) => {
       nodes.push({
         id: u.id,
+        uuid: u.uuid,
         image: u.profilePic,
         username: u.username,
         radius: u.captures.length > 0 ? 30 + u.captures.length : 20,
