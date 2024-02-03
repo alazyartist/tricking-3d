@@ -113,7 +113,8 @@ const DashUserGraph = ({ uuid }) => {
         .append("image")
         .attr("xlink:href", (d) =>
           captures.some((c) => c.captured_id === d.id) ||
-          captured_me.some((c) => c.user_id === d.id)
+          captured_me.some((c) => c.user_id === d.id) ||
+          uuid === d.uuid
             ? d.image ?? "http://trickedex.app/images/noimg.jpeg"
             : null
         )
