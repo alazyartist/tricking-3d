@@ -1,20 +1,20 @@
 export const getFullTricks = async (combo, ctx) => {
   try {
     let newData = combo.map(async (trick) => {
-      console.log(trick.type, trick.trick_id, trick.name);
       if (trick.type === "Trick") {
-        let td = await ctx.prisma.tricks.findUnique({
+        console.log(trick.type, trick.trick_id, trick.name);
+        let td = await ctx.prisma.tricks.findFirst({
           where: { trick_id: trick.trick_id },
           include: {
-            base: true,
             variations: { include: { variation: true } },
+            base: true,
           },
         });
         return td;
       }
       if (trick.type === "Transition") {
         console.log(trick.type, trick.id, trick.name);
-        let td = await ctx.prisma.transitions.findUnique({
+        let td = await ctx.prisma.transitions.findFirst({
           where: { id: trick.id },
         });
         return td;
