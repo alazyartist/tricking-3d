@@ -2,7 +2,7 @@ export const getFullTricks = async (combo, ctx) => {
   try {
     let newData = combo.map(async (trick) => {
       if (trick.type === "Trick") {
-        console.log(trick.type, trick.trick_id, trick.name);
+        //NOTE: was using findUnique but it was throwing panic errors, so we switched to findFirst
         let td = await ctx.prisma.tricks.findFirst({
           where: { trick_id: trick.trick_id },
           include: {
@@ -13,7 +13,7 @@ export const getFullTricks = async (combo, ctx) => {
         return td;
       }
       if (trick.type === "Transition") {
-        console.log(trick.type, trick.id, trick.name);
+        //NOTE: was using findUnique but it was throwing panic errors, so we switched to findFirst
         let td = await ctx.prisma.transitions.findFirst({
           where: { id: trick.id },
         });
@@ -21,7 +21,6 @@ export const getFullTricks = async (combo, ctx) => {
       }
     });
     await Promise.all(newData);
-    console.log(newData);
     return Promise.all(newData);
   } catch (e) {
     console.log(e);
