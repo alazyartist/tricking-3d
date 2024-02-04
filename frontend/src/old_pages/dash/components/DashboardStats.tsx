@@ -1,11 +1,12 @@
 import TransitionsBarChart from "@components/d3/TransitionsBarChart";
 import TrickPieChart from "@components/d3/TrickPieChart";
-import { transitions, tricks } from "@prisma/client";
+import { sessiondata, transitions, tricks } from "@prisma/client";
 import { trpc } from "@utils/trpc";
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import useClickOutside from "@hooks/useClickOutside";
 import { IoMdDownload } from "react-icons/io";
+import { devNull } from "os";
 
 const DashboardStats = ({ uuid }) => {
   const { data: sessions, isLoading } =
@@ -19,7 +20,7 @@ const DashboardStats = ({ uuid }) => {
   const tricks = sessions
     ?.map((session) =>
       session.SessionData.map((data) => {
-        const ca = data.ClipLabel.comboArray as (tricks | transitions)[];
+        const ca = data.ClipLabel?.comboArray as (tricks | transitions)[];
 
         return ca
           ?.map((trick) => trick)
@@ -30,15 +31,15 @@ const DashboardStats = ({ uuid }) => {
   const transitions = sessions
     ?.map((session) => {
       return session.SessionData.map((data) => {
-        const ca = data.ClipLabel.comboArray as (tricks | transitions)[];
+        const ca = data.ClipLabel?.comboArray as (tricks | transitions)[];
         return ca
           ?.map((trick) => trick)
           .filter((trick) => trick.type === "Transition");
       });
     })
     .flat(2);
-  const uniqueTricks = [...new Set(tricks?.map((trick) => trick.name))];
-  const uniqueTricksGroup = Array.from(d3.group(tricks, (d) => d.name))
+  const uniqueTricks = [...new Set(tricks?.map((trick) => trick?.name))];
+  const uniqueTricksGroup = Array.from(d3.group(tricks, (d) => d?.name))
     .map(([key, value]) => ({ name: key, count: value.length }))
     .sort((a, b) => b.count - a.count);
   console.log(tricks.length, uniqueTricks.length, uniqueTricksGroup);
@@ -56,7 +57,7 @@ const DashboardStats = ({ uuid }) => {
       {seeDownloadStats && (
         <DownloadStatsView
           close={() => setSeeDownloadStats(false)}
-          data={tricks}
+          data={sessions}
         />
       )}
       <div className="flex w-full flex-col place-items-center gap-2 p-2">
@@ -122,6 +123,7 @@ const DownloadStatsView = ({ data, close }) => {
   const svgRef = useRef(null!);
   const canvasRef = useRef(null!);
   const ref = useClickOutside(() => close());
+  const [sessionData, setSessionData] = useState(data?.[0].SessionData);
 
   const downloadSvgAsPng = () => {
     const svg = d3.select(svgRef.current).select("svg").node() as SVGSVGElement;
@@ -157,22 +159,92 @@ const DownloadStatsView = ({ data, close }) => {
 
   useEffect(() => {
     if (canvasRef.current !== undefined) {
+      const tricks = sessionData
+        ?.map((sd) =>
+          sd.ClipLabel?.comboArray
+            ?.map((trick) => trick)
+            .filter((trick) => trick.type !== "Transition")
+        )
+        .flat(2) as tricks[];
+      const transitions = sessionData
+        ?.map((sd) =>
+          sd.ClipLabel?.comboArray
+            ?.map((trick) => trick)
+            .filter((trick) => trick.type !== "Trick")
+        )
+        .flat(2) as transitions[];
+
+      const trickCount = Array.from(
+        d3.group(tricks, (d) =>
+          d?.takeoffStance.replace(/Complete|Hyper|Mega|Semi/g, "")
+        )
+      ).map(([key, value]) => ({
+        name: key,
+        percent: value.length / tricks.length,
+      }));
+      const piGen = d3
+        .pie()
+        .startAngle(0)
+        .endAngle(2 * Math.PI)
+        .sort(null);
+      const arcGen = d3.arc().innerRadius(50).outerRadius(250);
+      const colors = d3
+        .scaleSequential(d3.interpolateRgbBasis(["#50d9f0", "#ff4b9f"]))
+        .domain([0, trickCount.length + 1]);
+      const instructions = piGen(trickCount.map((d) => d.percent));
       const svg = d3.select(svgRef.current).select("svg");
       svg.attr("viewBox", `0 0 1000 1000`);
+      //draw pie slices
+      svg
+        .selectAll("path")
+        .data(instructions)
+        .attr("class", "slice")
+        .join("path")
+        .attr("stroke", "#18181b")
+        .style("fill", (d, i) => colors(i))
+        .style("transform", `translate(${500}px , ${500}px)`)
+        .on("click", function (e, d, i) {
+          console.log(e, trickCount[i]);
+        })
+        .transition()
+        .duration(500)
+        .attrTween("d", function (d) {
+          const i = d3.interpolate(d.startAngle + 0.1, d.endAngle);
+          return function (t) {
+            d.endAngle = i(t);
+            return arcGen(d as unknown as d3.DefaultArcObject);
+          };
+        });
 
+      //draw text for each slice
       svg
         .selectAll("text")
-        .data(data)
+        .data(trickCount)
         .join("text")
-        //@ts-ignore
+        .attr("text-anchor", "middle")
+        .attr("alignment-baseline", "middle")
         .text((d) => d.name)
-        .attr("x", (d, i) => `20px`)
-        .attr("y", (d, i) => `${i * 100}px`)
-        .style("color", "##ff0000")
-        .style("font-family", "Inter, sans-serif")
-        .style("font-size", "120px");
+        .attr("x", (d, i) => {
+          const c = arcGen.centroid(
+            instructions[i] as unknown as d3.DefaultArcObject
+          );
+          return c[0] + 500;
+        })
+        .attr("y", (d, i) => {
+          const c = arcGen.centroid(
+            instructions[i] as unknown as d3.DefaultArcObject
+          );
+          return c[1] + 500;
+        })
+        .attr("font-size", "1.5em")
+        .attr("font-family", "Inter, sans-serif")
+        .attr("fill", "white");
+
+      return () => {
+        svg.selectAll("*").remove();
+      };
     }
-  }, [data]);
+  }, [sessionData]);
   return (
     <div
       ref={ref}
@@ -198,6 +270,16 @@ const DownloadStatsView = ({ data, close }) => {
           Download
           <IoMdDownload />
         </button>
+      </div>
+      <div className="no-scrollbar absolute -left-[17.5vw] top-0 flex h-[60vw] w-[15vw] flex-col gap-2 overflow-y-scroll rounded-md bg-zinc-500 p-1">
+        {data.map((item) => (
+          <div
+            onClick={() => setSessionData(item.SessionData)}
+            className="flex w-full justify-around rounded-md bg-zinc-800 p-2"
+          >
+            <p className="w-full whitespace-nowrap">{item.name}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

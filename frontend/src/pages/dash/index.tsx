@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   });
   return {
     props: {
-      profilePic: data.profilePic ?? "http://trickedex.app/images/noimg.jpeg",
+      profilePic: data?.profilePic ?? "http://trickedex.app/images/noimg.jpeg",
       uuid: data.uuid,
       first_name: data.first_name,
       last_name: data.last_name,
