@@ -203,9 +203,6 @@ const DownloadStatsView = ({ data, close }) => {
         .attr("stroke", "#18181b")
         .style("fill", (d, i) => colors(i))
         .style("transform", `translate(${500}px , ${500}px)`)
-        .on("click", function (e, d, i) {
-          console.log(e, trickCount[i]);
-        })
         .transition()
         .duration(500)
         .attrTween("d", function (d) {

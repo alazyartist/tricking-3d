@@ -1,25 +1,29 @@
 export const getFullTricks = async (combo, ctx) => {
-  let newData = combo.map(async (trick) => {
-    if (trick.type === "Trick") {
-      let td = await ctx.prisma.tricks.findUnique({
-        where: { trick_id: trick.trick_id },
-        include: {
-          base: true,
-          variations: { include: { variation: true } },
-        },
-      });
-      return td;
-    }
-    if (trick.type === "Transition") {
-      let td = await ctx.prisma.transitions.findUnique({
-        where: { id: trick.id },
-      });
-      return td;
-    }
-  });
-  await Promise.all(newData);
-  // console.log(newData);
-  return Promise.all(newData);
+  try {
+    let newData = combo.map(async (trick) => {
+      if (trick.type === "Trick") {
+        let td = await ctx.prisma.tricks.findUnique({
+          where: { trick_id: trick.trick_id },
+          include: {
+            base: true,
+            variations: { include: { variation: true } },
+          },
+        });
+        return td;
+      }
+      if (trick.type === "Transition") {
+        let td = await ctx.prisma.transitions.findUnique({
+          where: { id: trick.id },
+        });
+        return td;
+      }
+    });
+    await Promise.all(newData);
+    // console.log(newData);
+    return Promise.all(newData);
+  } catch (e) {
+    console.log(e);
+  }
 };
 const calculateTrickTotals = async (tricks, curData, ctx) => {
   if (tricks) {
