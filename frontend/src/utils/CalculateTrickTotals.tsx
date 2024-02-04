@@ -1,5 +1,6 @@
 export const getFullTricks = async (combo, ctx) => {
   try {
+    console.log(combo);
     let newData = combo.map(async (trick) => {
       if (trick.type === "Trick") {
         let td = await ctx.prisma.tricks.findUnique({
@@ -19,7 +20,7 @@ export const getFullTricks = async (combo, ctx) => {
       }
     });
     await Promise.all(newData);
-    // console.log(newData);
+    console.log(newData);
     return Promise.all(newData);
   } catch (e) {
     console.log(e);
