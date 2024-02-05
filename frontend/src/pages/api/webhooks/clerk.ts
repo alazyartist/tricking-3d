@@ -8,8 +8,8 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const _event_type = req.body.type;
-  console.log(_event_type);
-  console.log("req.body", req.body);
+  // console.log(_event_type);
+  // console.log("req.body", req.body);
 
   if (_event_type === "user.deleted") {
     const user_id = req.body?.data?.id;
@@ -18,7 +18,7 @@ export default async function handler(
         where: { clerk_id: user_id },
       });
       mixpanel.track("Deleted User", { ...deletedUser });
-      console.log(deletedUser);
+      // console.log(deletedUser);
     } catch (err) {}
   }
   if (_event_type === "user.updated") {
@@ -56,8 +56,8 @@ export default async function handler(
 
   if (_event_type === "user.created") {
     const user_id = req.body?.data?.id;
-    console.log(req);
-    console.log(user_id);
+    // console.log(req);
+    // console.log(user_id);
 
     try {
       const clerkUser = await clerkClient.users.getUser(user_id);
@@ -82,8 +82,8 @@ export default async function handler(
               profilePic: clerkUser.hasImage ? clerkUser.imageUrl : null,
             },
           });
-          console.log("updatedUser");
-          console.log(updatedUser);
+          // console.log("updatedUser");
+          // console.log(updatedUser);
         } else {
           const newUser = await prisma.users.create({
             data: {
@@ -105,8 +105,8 @@ export default async function handler(
             $last_login: newUser.updatedAt,
           });
           mixpanel.track("Registered New User", { ...newUser });
-          console.log("newUser");
-          console.log(newUser);
+          // console.log("newUser");
+          // console.log(newUser);
         }
       }
     } catch (err) {

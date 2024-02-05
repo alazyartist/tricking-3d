@@ -397,7 +397,7 @@ export const tricksRouter = router({
           where: { trick_id: newTrick.trick_id },
           include: { variations: { include: { variation: true } } },
         });
-        console.log("finaltrick", updatedTrick);
+        // console.log("finaltrick", updatedTrick);
         return updatedTrick;
       } catch (err) {
         console.log(err);
