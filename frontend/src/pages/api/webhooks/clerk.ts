@@ -46,8 +46,7 @@ export default async function handler(
             return e.id === clerkUser.primaryEmailAddressId;
           }).emailAddress,
           username: clerkUser.username,
-          profilePic:
-            (clerkUser.hasImage === true && clerkUser.imageUrl) ?? null,
+          profilePic: clerkUser.hasImage ? clerkUser.imageUrl : null,
           updatedAt: new Date(),
         },
       });
@@ -80,7 +79,7 @@ export default async function handler(
             where: { username: clerkUser.username },
             data: {
               clerk_id: clerkUser.id,
-              profilePic: (clerkUser.hasImage && clerkUser.imageUrl) ?? null,
+              profilePic: clerkUser.hasImage ? clerkUser.imageUrl : null,
             },
           });
           console.log("updatedUser");
@@ -92,7 +91,7 @@ export default async function handler(
               first_name: clerkUser.firstName,
               last_name: clerkUser.lastName,
               email: email.emailAddress,
-              profilePic: (clerkUser.hasImage && clerkUser.imageUrl) ?? null,
+              profilePic: clerkUser.hasImage ? clerkUser.imageUrl : null,
               clerk_id: clerkUser.id,
               SessionReviewCredits: 2,
             },
