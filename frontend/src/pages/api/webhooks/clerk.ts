@@ -46,7 +46,8 @@ export default async function handler(
             return e.id === clerkUser.primaryEmailAddressId;
           }).emailAddress,
           username: clerkUser.username,
-          profilePic: (clerkUser.hasImage && clerkUser.imageUrl) ?? null,
+          profilePic:
+            (clerkUser.hasImage === true && clerkUser.imageUrl) ?? null,
           updatedAt: new Date(),
         },
       });
