@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { trpc } from "@utils/trpc";
 import * as d3 from "d3";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 const TrickGraph = () => {
   const { data: tricks } = trpc.trick.findAll.useQuery();
   const ref = useRef(null);
@@ -10,9 +11,9 @@ const TrickGraph = () => {
     Backflip: `#07b9e9`,
     VertB: `#07b9e9`,
     Inside: `#06d8b7`,
-    InsideFlip: `#06d8b7`,
+    Insideflip: `#06d8b7`,
     Outside: `#10b35d`,
-    OutsideFlip: `#10b35d`,
+    Outsideflip: `#10b35d`,
     Frontside: `#003eb3`,
     Frontflip: `#003eb3`,
     VertF: `#003eb3`,
@@ -287,6 +288,46 @@ const TrickGraph = () => {
         // handleNodeClick(d);
         zoomToNode(event, d);
       });
+
+      const legend = svg
+        .selectAll(".legend")
+        .data(data.packNodes.filter((d) => d.depth === 1))
+        .join("g")
+        .classed("legend", true);
+
+      legend
+        .append("rect")
+        .attr("rx", 25)
+        .style("fill", "#27272e")
+        .attr("width", 100)
+        .attr("height", 50)
+        .attr("x", 25)
+        .attr("y", (d, i) => 50 + (i + 1) * 55);
+      legend
+        .append("rect")
+        .attr("rx", 25)
+        .style("fill", (d, i) => d.data.color)
+        .attr("width", 100)
+        .attr("height", 50)
+        .attr("x", 25)
+        .attr("y", (d, i) => 50 + (i + 1) * 55)
+        .on("click", (event, d) => {
+          zoomToNode(event, d);
+        });
+
+      legend
+        .append("text")
+        .text((d) => d.data.name)
+        .attr("x", 75)
+        .attr("y", (d, i) => 75 + (i + 1) * 55)
+        .attr("text-anchor", "middle")
+        .attr("alignment-baseline", "middle")
+        .attr("dy", "0.35em")
+        .attr("fill", "#fff")
+        .attr("font-size", "0.5em")
+        .attr("font-family", "sans-serif")
+        .attr("pointer-events", "none");
+
       function ticked() {
         node.attr("transform", (d) => `translate(${d.x},${d.y})`);
 
