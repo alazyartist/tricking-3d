@@ -126,7 +126,7 @@ const TrickGraph = () => {
           children: tricks,
         })),
       };
-      const pack = d3.pack().size([1500, 1500]).padding(10);
+      const pack = d3.pack().size([2500, 2500]).padding(10);
 
       const hierarchy = d3
         .hierarchy(root)
@@ -193,8 +193,8 @@ const TrickGraph = () => {
 
       const simulation = d3
         .forceSimulation(data.packNodes.filter((d) => d.depth === 1))
-        .force("y", d3.forceY(data.packNodes[0].y).strength(0.0155))
-        .force("x", d3.forceX(data.packNodes[0].x).strength(0.0125))
+        .force("y", d3.forceY(data.packNodes[0].y).strength(0.00155))
+        .force("x", d3.forceX(data.packNodes[0].x).strength(0.00125))
         .force(
           "collide",
           d3.forceCollide((d) => (d.depth < 3 ? d.r + 5 : 0))
@@ -280,7 +280,7 @@ const TrickGraph = () => {
         .attr("alignment-baseline", "middle")
         .attr("dy", "0.35em")
         .attr("fill", "#000000")
-        .attr("font-size", "0.5em")
+        .attr("font-size", "0.45em")
         .attr("font-family", "sans-serif")
         .attr("pointer-events", "none");
 
