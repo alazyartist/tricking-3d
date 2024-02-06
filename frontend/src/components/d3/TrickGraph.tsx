@@ -84,7 +84,7 @@ const TrickGraph = () => {
           color: color[trick.takeoffStance],
           r: 50,
           x: width / 2,
-          y: height / 2,
+          y: height / 2 - 60,
         };
         nodes.push(trickNode);
 
@@ -288,45 +288,92 @@ const TrickGraph = () => {
         // handleNodeClick(d);
         zoomToNode(event, d);
       });
+      if (width > 600) {
+        const legend = svg
+          .selectAll(".legend")
+          .data(data.packNodes.filter((d) => d.depth === 1))
+          .join("g")
+          .classed("legend", true);
 
-      const legend = svg
-        .selectAll(".legend")
-        .data(data.packNodes.filter((d) => d.depth === 1))
-        .join("g")
-        .classed("legend", true);
+        legend
+          .append("rect")
+          .attr("rx", 25)
+          .style("fill", "#27272e")
+          .attr("width", 100)
+          .attr("height", 50)
+          .attr("x", 25)
+          .attr("y", (d, i) => 50 + (i + 1) * 55);
+        legend
+          .append("rect")
+          .attr("rx", 25)
+          .style("fill", (d, i) => d.data.color)
+          .attr("width", 100)
+          .attr("height", 50)
+          .attr("x", 25)
+          .attr("y", (d, i) => 50 + (i + 1) * 55)
+          .on("click", (event, d) => {
+            zoomToNode(event, d);
+          });
 
-      legend
-        .append("rect")
-        .attr("rx", 25)
-        .style("fill", "#27272e")
-        .attr("width", 100)
-        .attr("height", 50)
-        .attr("x", 25)
-        .attr("y", (d, i) => 50 + (i + 1) * 55);
-      legend
-        .append("rect")
-        .attr("rx", 25)
-        .style("fill", (d, i) => d.data.color)
-        .attr("width", 100)
-        .attr("height", 50)
-        .attr("x", 25)
-        .attr("y", (d, i) => 50 + (i + 1) * 55)
-        .on("click", (event, d) => {
-          zoomToNode(event, d);
-        });
+        legend
+          .append("text")
+          .text((d) => d.data.name)
+          .attr("x", 75)
+          .attr("y", (d, i) => 75 + (i + 1) * 55)
+          .attr("text-anchor", "middle")
+          .attr("alignment-baseline", "middle")
+          .attr("dy", "0.35em")
+          .attr("fill", "#fff")
+          .attr("font-size", "0.85em")
+          .attr("font-family", "sans-serif")
+          .attr("pointer-events", "none");
+      }
+      if (width < 600) {
+        const legend = svg
+          .selectAll(".legend")
+          .data(data.packNodes.filter((d) => d.depth === 1))
+          .join("g")
+          .classed("legend", true);
 
-      legend
-        .append("text")
-        .text((d) => d.data.name)
-        .attr("x", 75)
-        .attr("y", (d, i) => 75 + (i + 1) * 55)
-        .attr("text-anchor", "middle")
-        .attr("alignment-baseline", "middle")
-        .attr("dy", "0.35em")
-        .attr("fill", "#fff")
-        .attr("font-size", "0.5em")
-        .attr("font-family", "sans-serif")
-        .attr("pointer-events", "none");
+        legend
+          .append("rect")
+          .attr("rx", 25)
+          .style("fill", "#27272e")
+          .attr("width", 70)
+          .attr("height", 35)
+          .attr("y", (d, i) =>
+            i < 5 ? height - 175 : i < 10 ? height - 125 : height - 75
+          )
+          .attr("x", (d, i) => 5 + (i % 5) * 75);
+        legend
+          .append("rect")
+          .attr("rx", 25)
+          .style("fill", (d, i) => d.data.color)
+          .attr("width", 70)
+          .attr("height", 35)
+          .attr("y", (d, i) =>
+            i < 5 ? height - 175 : i < 10 ? height - 125 : height - 75
+          )
+          .attr("x", (d, i) => 5 + (i % 5) * 75)
+          .on("click", (event, d) => {
+            zoomToNode(event, d);
+          });
+
+        legend
+          .append("text")
+          .text((d) => d.data.name)
+          .attr("y", (d, i) =>
+            i < 5 ? height - 160 : i < 10 ? height - 110 : height - 60
+          )
+          .attr("x", (d, i) => 40 + (i % 5) * 75)
+          .attr("text-anchor", "middle")
+          .attr("alignment-baseline", "middle")
+          .attr("dy", "0.35em")
+          .attr("fill", "#fff")
+          .attr("font-size", "0.75em")
+          .attr("font-family", "sans-serif")
+          .attr("pointer-events", "none");
+      }
 
       function ticked() {
         node.attr("transform", (d) => `translate(${d.x},${d.y})`);
@@ -386,8 +433,10 @@ const TrickGraph = () => {
         const zoomLevel = Math.min(width, height) / (2 * d.r);
         const centerX = width / 2;
         const centerY = height / 2;
+        const mobileCenterY = height / 2 - 60;
         const adjustedX = centerX - d.x * zoomLevel;
-        const adjustedY = centerY - d.y * zoomLevel;
+        const adjustedY =
+          (width > 600 ? centerY : mobileCenterY) - d.y * zoomLevel;
         const zoomTo = d3.zoomIdentity
           .translate(adjustedX, adjustedY)
           .scale(zoomLevel);
