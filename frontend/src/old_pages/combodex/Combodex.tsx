@@ -112,8 +112,12 @@ const Combodex: React.FC<CombodexProps> = ({
   //   sessionData.powerScore
   // );
 
+  useEffect(() => {
+    getTricks(combo.comboArray);
+  }, []);
+
   const composition = tricks
-    ?.filter((t) => t.type === "Trick")
+    ?.filter((t) => t?.type === "Trick")
     .map((t) => {
       //@ts-ignore
       return t?.variations.filter(
@@ -121,11 +125,6 @@ const Combodex: React.FC<CombodexProps> = ({
           tr.variation.name === "FullTwist" || tr.variation.name === "Twist"
       ).length;
     });
-
-  useEffect(() => {
-    getTricks(combo.comboArray);
-  }, []);
-
   let mostUsed = Object.keys(sessionData?.trickCount)
     ?.filter((key) => sessionData?.trickCount[key].count > 1)
     .sort((a, b) =>
