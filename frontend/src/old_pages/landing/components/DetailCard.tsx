@@ -23,7 +23,7 @@ const DetailCard: React.FC<DetailCardProps> = ({
       className={` 
         min-h-[600px] w-full rounded-3xl bg-zinc-900 p-4  md:min-h-fit `}
     >
-      <div className="h-[375px] w-full overflow-clip rounded-xl md:h-[600px]  ">
+      <div className="h-[250px] w-full overflow-clip rounded-xl md:h-[600px]  ">
         {children}
       </div>
       <h1 className="mt-3 px-2 text-2xl font-black text-zinc-200">{title}</h1>
