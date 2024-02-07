@@ -30,7 +30,10 @@ const VariationGrid: React.FC<Props> = ({ data }) => {
 
       // Render the x-axis
       const xAxis = d3.axisBottom(xScaleD);
-      svg.attr("viewBox", `0 0 450 900`);
+      svg.attr(
+        "viewBox",
+        `0 0 ${svgRef.current.clientWidth} ${50 * (data.length + 1)}`
+      );
 
       // Function to calculate x position and width based on the data's pos attribute
       const calculatePositionAndWidth = (d) => {
@@ -91,8 +94,8 @@ const VariationGrid: React.FC<Props> = ({ data }) => {
     <svg
       className="pb-14 font-inter font-bold"
       ref={svgRef}
-      width="450"
-      height="900"
+      width="fit"
+      height={`${50 * (data?.length + 1)}`}
     />
   );
 };
