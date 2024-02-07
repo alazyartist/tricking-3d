@@ -244,6 +244,19 @@ export const tricksRouter = router({
     const data = [...allStances, ...allBases, ...allVariations];
     return data;
   }),
+  getVariations: publicProcedure
+    .input(z.object({ type: z.string().optional() }))
+    .query(async ({ ctx, input }) => {
+      if (input.type === undefined) {
+        const allVariations = await ctx.prisma.variations.findMany({});
+        return allVariations;
+      } else {
+        const allVariations = await ctx.prisma.variations.findMany({
+          where: { type: input.type },
+        });
+        return allVariations;
+      }
+    }),
   updateTrickPartPoints: publicProcedure
     .input(
       z.object({

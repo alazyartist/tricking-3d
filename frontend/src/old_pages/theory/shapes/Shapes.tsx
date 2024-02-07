@@ -1,6 +1,8 @@
+import { trpc } from "@utils/trpc";
 import React from "react";
 import { ShapesChart } from "./components/ShapesChart";
 function Shapes() {
+  const { data: shapes } = trpc.trick.getVariations.useQuery({ type: "shape" });
   return (
     <div className="text-zinc-300">
       <div className="py-2 text-2xl text-zinc-300">Shapes</div>
