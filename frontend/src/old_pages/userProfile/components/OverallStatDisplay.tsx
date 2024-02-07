@@ -109,7 +109,7 @@ const OverallStatDisplay = ({ profileInfo }) => {
       <div>Total Combos: {totalCombos}</div>
       <TrickPieChart data={totalTricksRaw} group_by={"base_id"} />
       <BIFOPieChart data={totalTricksRaw} />
-      <div className="h-fit w-[90vw] overflow-x-scroll">
+      <div className="no-scrollbar h-fit w-[90vw] overflow-x-scroll">
         <div className="h-32 w-[150%] ">
           <TransitionsBarChart data={totalTransitionsRaw} />
         </div>
@@ -121,7 +121,7 @@ const OverallStatDisplay = ({ profileInfo }) => {
               i < 2 && (
                 <p
                   key={fc.name}
-                  className="overflow-x-scroll whitespace-nowrap rounded-md bg-zinc-800 p-1"
+                  className="no-scrollbar overflow-x-scroll whitespace-nowrap rounded-md bg-zinc-800 p-1"
                 >
                   {fc.name} {fc.count}
                 </p>
