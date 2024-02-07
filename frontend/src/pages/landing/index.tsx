@@ -137,7 +137,7 @@ const LandingPage: NextPage<{ a: boolean }> = ({ a }) => {
                 to the next level in no time!
               </p>
               <div className="relative flex gap-2">
-                <p className="relative left-[20%] max-w-[350px] p-4 font-bold lg:left-[40%]">
+                <p className="relative left-[20%] max-w-[250px] p-4 font-bold lg:left-[40%]">
                   Use the search bar to find the information you're looking for.
                 </p>
                 <div className="absolute top-2">
