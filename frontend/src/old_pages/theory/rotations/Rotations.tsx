@@ -1,12 +1,17 @@
+import VariationGrid from "@components/d3/VariationsGrid";
+import { trpc } from "@utils/trpc";
 import React from "react";
 import { rotations } from "../../../data/trickDataModel/TrickObjects";
 import { RotationsChart } from "./components/RotationsChart";
 function Rotations() {
+  const { data: rotationVariations } = trpc.trick.getVariations.useQuery({
+    type: "rotation",
+  });
   return (
     <div className="pb-14 text-zinc-300">
       <div className="py-2 text-2xl text-zinc-300">Rotations</div>
-
-      <RotationsChart className="h-fit w-[320px] md:w-[480px]" />
+      <VariationGrid data={rotationVariations} />
+      {/* <RotationsChart className="h-fit w-[320px] md:w-[480px]" /> */}
       <div className=" w-full text-center text-xl font-bold">
         Unified Twisting
       </div>

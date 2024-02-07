@@ -252,7 +252,7 @@ export const tricksRouter = router({
         return allVariations;
       } else {
         const allVariations = await ctx.prisma.variations.findMany({
-          where: { type: input.type },
+          where: { variationType: input.type },
         });
         return allVariations;
       }
