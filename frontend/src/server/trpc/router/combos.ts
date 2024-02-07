@@ -87,4 +87,44 @@ export const comboRouter = router({
         console.log(err);
       }
     }),
+  syncComboArray: protectedProcedure.mutation(async ({ input, ctx }) => {
+    await ctx.prisma.$transaction(async (prisma) => {
+      const combos = await prisma.combos.findMany({});
+      for (let i = 0; i < combos.length; i++) {
+        const combo = combos[i];
+        const comboArray = combo.comboArray as unknown as any[];
+        const newComboArray = [];
+        for (let j = 0; j < comboArray.length; j++) {
+          if (comboArray[j].type === "Trick") {
+            const trick = comboArray[j];
+            const trickInfo = await prisma.tricks.findFirst({
+              where: { trick_id: trick.trick_id },
+            });
+            if (trickInfo) {
+              newComboArray.push(trickInfo);
+            }
+          }
+          if (comboArray[j].type === "Transition") {
+            const transition = comboArray[j];
+            const transitionInfo = await prisma.transitions.findFirst({
+              where: { id: transition.id },
+            });
+            if (transitionInfo) {
+              newComboArray.push(transitionInfo);
+            }
+          }
+        }
+
+        if (newComboArray.length === comboArray.length) {
+          await prisma.combos.update({
+            where: { combo_id: combo.combo_id },
+            data: {
+              comboArray: newComboArray,
+            },
+          });
+        }
+      }
+    });
+    return "Combos Synchronized";
+  }),
 });

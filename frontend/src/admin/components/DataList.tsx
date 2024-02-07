@@ -12,6 +12,7 @@ const DataList = () => {
   const { data: tricks } = trpc.trick.findAllwithComboClips.useQuery();
   const { data: combos } = trpc.combos.getAll.useQuery();
   // const { data: trickPoints, refetch } = useGetTrickPoints();
+  const { mutate: sync } = trpc.combos.syncComboArray.useMutation();
   let trickMakerOpen = useSessionSummariesStore((s) => s.trickMakerOpen);
   const [animPopup, toggleAnimPopup] = useState(false);
   const [currentTrick, setCurrentTrick] = useState<combos | tricks>(null!);
@@ -26,7 +27,7 @@ const DataList = () => {
   return (
     <div className="no-scrollbar flex max-h-[70vh] w-full flex-col place-items-center gap-2 overflow-y-scroll rounded-xl pb-14">
       <h1
-        // onClick={() => refetch()}
+        // onClick={() => sync()}
         className="sticky top-0 h-full w-full bg-zinc-800 p-2 text-center text-xl font-bold"
       >
         TRICKS
