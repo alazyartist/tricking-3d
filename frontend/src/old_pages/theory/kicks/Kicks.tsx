@@ -17,8 +17,8 @@ function Kicks() {
       ))}
          */}
       <VariationGrid data={kickVariations} />
-      <KicksChart className="h-fit w-[320px] md:w-[480px]" />
-      <div className="py-2 text-2xl text-zinc-300">Variatons</div>
+      {/* <KicksChart className="h-fit w-[320px] md:w-[480px]" /> */}
+      {/* <div className="py-2 text-2xl text-zinc-300">Variatons</div> */}
       {/* <div className="grid w-full grid-cols-2 place-content-center gap-2">
         {Object.keys(kicks).map((e, i) => (
           <>
