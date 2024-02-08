@@ -3,7 +3,6 @@ import { animated, useSpring } from "@react-spring/web";
 import ReactPlayer from "react-player";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
 import Timeline from "../timeline/Timeline";
-import * as d3 from "d3";
 import { createPortal } from "react-dom";
 const SessionSourceDisplay = ({ source, mirrored, orientation }) => {
   const vidsrcRegex = /(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)/g;
@@ -18,6 +17,8 @@ const SessionSourceDisplay = ({ source, mirrored, orientation }) => {
   const clipCombo = useSessionSummariesStore((s) => s.clipCombo);
   const vidsrc = useSessionSummariesStore((s) => s.vidsrc);
   const setVidsrc = useSessionSummariesStore((s) => s.setVidsrc);
+  const setVidDuration = useSessionSummariesStore((s) => s.setVidDuration);
+  const vidDuration = useSessionSummariesStore((s) => s.vidDuration);
   const setSrcid = useSessionSummariesStore((s) => s.setSrcid);
   const detailsVisible = useSessionSummariesStore((s) => s.detailsVisible);
   const setDetailsVisible = useSessionSummariesStore(
@@ -30,21 +31,11 @@ const SessionSourceDisplay = ({ source, mirrored, orientation }) => {
   useEffect(() => {
     setCurrentTime(seekTime);
     //@ts-ignore
+    if (vidDuration === null && vidRef.current) {
+      setVidDuration(vidRef?.current?.getDuration());
+    }
     vidRef?.current?.seekTo(seekTime);
   }, [seekTime]);
-
-  const [percent, setPercent] = useState(
-    (sessionData?.reduce((sum, b) => sum + (b.endTime - b.startTime), 0) /
-      vidRef?.current?.getDuration()) *
-      100
-  );
-  useEffect(() => {
-    setPercent(
-      (sessionData?.reduce((sum, b) => sum + (b.endTime - b.startTime), 0) /
-        vidRef?.current?.getDuration()) *
-        100
-    );
-  }, [sessionData]);
 
   const showDetails = useSpring<{}>({
     from: { spanOpacity: 1, opacity: 0, left: "-10vw" },
@@ -129,7 +120,7 @@ const SessionSourceDisplay = ({ source, mirrored, orientation }) => {
                   <Timeline source={source} vidRef={vidRef} />
 
                   {/* <div>
-                    <ProgressBar percent={percent} />
+                  <ProgressBar percent={percent} />
                   </div> */}
                 </div>,
                 document.getElementById("portal-root")
@@ -143,7 +134,7 @@ const SessionSourceDisplay = ({ source, mirrored, orientation }) => {
                 <Timeline source={source} vidRef={vidRef} />
 
                 {/* <div>
-                  <ProgressBar percent={percent} />
+                <ProgressBar percent={percent} />
                 </div> */}
               </div>
             )}
@@ -171,46 +162,4 @@ const SessionSourceDisplay = ({ source, mirrored, orientation }) => {
   );
 };
 
-const ProgressBar = ({ percent }) => {
-  const d3Container = useRef(null);
-
-  useEffect(() => {
-    if (percent && d3Container.current) {
-      const svg = d3.select(d3Container.current);
-      svg.selectAll("*").remove(); // Clear svg content before adding new elements
-      // Set dimensions
-      const width = 192;
-      const height = 20;
-
-      // Append a rectangle and fill it based on the percent value
-      svg
-        .append("rect")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("fill", "#eee");
-
-      svg
-        .append("rect")
-        .attr("width", (width * percent) / 100)
-        .attr("height", height)
-        .attr("fill", () => {
-          if (percent > 65.0) {
-            return "#0f4";
-          } else {
-            return "steelblue";
-          }
-        });
-    }
-  }, [percent]);
-
-  return createPortal(
-    <svg
-      className="d3-component rounded-md py-1"
-      width="100%"
-      height="20"
-      ref={d3Container}
-    />,
-    document.getElementById("progressBar")
-  );
-};
 export default SessionSourceDisplay;

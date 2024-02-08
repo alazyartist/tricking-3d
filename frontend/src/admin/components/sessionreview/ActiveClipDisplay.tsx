@@ -1,16 +1,16 @@
 import useClickOutside from "@hooks/useClickOutside";
 import useScreenOrientation from "@hooks/UseScreenOrientaion";
 import { animated, useSpring } from "@react-spring/web";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSessionSummariesStore } from "./SessionSummaryStore";
-
+import * as d3 from "d3";
 const ActiveClipDisplay = () => {
   const activeClipData = useSessionSummariesStore((s) => s.clipData);
   const currentTime = useSessionSummariesStore((s) => s.currentTime);
   const setSeekTime = useSessionSummariesStore((s) => s.setSeekTime);
   const sessionData = useSessionSummariesStore((s) => s.sessionData);
   const clipCombo = useSessionSummariesStore((s) => s.clipCombo);
-
+  const vidDuration = useSessionSummariesStore((s) => s.vidDuration);
   const clipDetailsVisible = useSessionSummariesStore(
     (s) => s.clipDetailsVisible
   );
@@ -37,6 +37,19 @@ const ActiveClipDisplay = () => {
     config: { tension: 280, friction: 40 },
     // onRest: () => setOpenHamburger(!openHamburger),
   });
+
+  const [percent, setPercent] = useState(
+    (sessionData?.reduce((sum, b) => sum + (b.endTime - b.startTime), 0) /
+      vidDuration) *
+      100
+  );
+  useEffect(() => {
+    setPercent(
+      (sessionData?.reduce((sum, b) => sum + (b.endTime - b.startTime), 0) /
+        vidDuration) *
+        100
+    );
+  }, [sessionData]);
 
   const frame = ((currentTime % 1) * 60).toFixed(0);
   const startframe = (((activeClipData?.startTime || 0) % 1) * 60).toFixed(0);
@@ -66,6 +79,7 @@ const ActiveClipDisplay = () => {
             className="h-fit min-h-[2rem] w-full"
           >
             <p className="w-full text-center">percentage reviewed</p>
+            <ProgressBar percent={percent} />
           </div>
           {/* <div className="w-full overflow-hidden rounded-md rounded-r-sm bg-zinc-200 bg-opacity-70 p-2 text-center font-inter text-2xl font-bold text-zinc-900"></div> */}
           {/* <div>{activeClipData?.name}</div> */}
@@ -89,7 +103,7 @@ const ActiveClipDisplay = () => {
             </div>
           </div>
 
-          <div className="minimalistScroll flex h-full flex-col overflow-y-scroll">
+          <div className="no-scrollbar flex h-full flex-col overflow-y-scroll">
             {sessionData?.map((e, i) => (
               <SessionDataDetailDislpay key={e.id + e.name} e={e} />
             ))}
@@ -154,5 +168,48 @@ const SessionDataDetailDislpay = ({ e }) => {
         </button>
       </div>
     </div>
+  );
+};
+
+const ProgressBar = ({ percent }) => {
+  const d3Container = useRef(null);
+
+  useEffect(() => {
+    if (percent && d3Container.current) {
+      const svg = d3.select(d3Container.current);
+      svg.selectAll("*").remove(); // Clear svg content before adding new elements
+      // Set dimensions
+      const width = 192;
+      const height = 20;
+
+      // Append a rectangle and fill it based on the percent value
+
+      svg
+        .append("rect")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("fill", "#eee");
+
+      svg
+        .append("rect")
+        .attr("width", (width * percent) / 100)
+        .attr("height", height)
+        .attr("fill", () => {
+          if (percent > 65.0) {
+            return "#0f4";
+          } else {
+            return "steelblue";
+          }
+        });
+    }
+  }, [percent]);
+
+  return (
+    <svg
+      className="d3-component w-full rounded-md py-1"
+      width="100%"
+      height="20"
+      ref={d3Container}
+    />
   );
 };
