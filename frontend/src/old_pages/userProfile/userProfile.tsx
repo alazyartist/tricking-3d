@@ -57,7 +57,7 @@ const UserProfile = () => {
 
   const hideStyles = useSpring({
     to: {
-      height: hidden ? "0vh" : orientation === "landscape" ? "35vh" : "23vh",
+      height: hidden ? "0vh" : orientation === "landscape" ? "15vh" : "23vh",
       opacity: hidden ? 0 : 1,
     },
     from: { height: "23vh", opacity: 1 },
@@ -80,7 +80,7 @@ const UserProfile = () => {
       }
     } else {
       if (orientation === "landscape") {
-        return "55vh";
+        return "75vh";
       }
       return "33vh";
     }
@@ -109,7 +109,7 @@ const UserProfile = () => {
       }
     } else {
       if (orientation === "landscape") {
-        return "55vh";
+        return "75vh";
       }
       return "27vh";
     }
@@ -172,7 +172,10 @@ const UserProfile = () => {
                 style={styles}
                 className="relative flex flex-col place-items-center gap-2"
               >
-                <ProfileInfoCard userInfo={profileInfo} />
+                <ProfileInfoCard
+                  orientation={orientation as "portrait" | "landscape"}
+                  userInfo={profileInfo}
+                />
                 {/* {isUsersPage && (
                   <>
                     {editing}
@@ -194,7 +197,7 @@ const UserProfile = () => {
           style={resizeUpper}
           className={`no-scrollbar relative h-[40vh] w-full overflow-y-scroll rounded-lg bg-zinc-800 bg-opacity-40 p-2 backdrop-blur-xl`}
         >
-          {activeView === "Stats" ? (
+          {activeView === "Stats" && (
             <div>
               <ProfileNav
                 setActiveView={setActiveView}
@@ -202,8 +205,8 @@ const UserProfile = () => {
               />
               <OverallStatDisplay profileInfo={profileInfo} />
             </div>
-          ) : null}
-          {activeView === "Sessions" ? (
+          )}
+          {activeView === "Sessions" && (
             <div className=" flex h-full w-full gap-2 ">
               {!activeSummary ? (
                 profileInfo && (
@@ -222,7 +225,7 @@ const UserProfile = () => {
                 />
               )}
             </div>
-          ) : null}
+          )}
         </animated.div>
         <div></div>
         <animated.div
@@ -236,14 +239,14 @@ const UserProfile = () => {
           }
                bg-opacity-40 p-2 backdrop-blur-xl`}
         >
-          {activeView === "Stats" ? (
+          {activeView === "Stats" && (
             <div
               className={` overflow-scroll-y mb-2 h-full w-fit overflow-hidden rounded-md bg-zinc-900 p-1 px-4`}
               // onClick={() => setActiveView("Sessions")}
             >
               <LastSessionStats profileInfo={profileInfo} />
             </div>
-          ) : null}
+          )}
           {activeView === "Sessions" ? (
             <div className="no-scrollbar relative  h-full w-full ">
               {activeSummary ? (

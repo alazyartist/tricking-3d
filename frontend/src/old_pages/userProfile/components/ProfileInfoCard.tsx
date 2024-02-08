@@ -2,7 +2,13 @@ import React from "react";
 import { ProfileInfo } from "types/trpc";
 import ProgressBadge from "./ProgressBadge";
 
-const ProfileInfoCard = ({ userInfo }: { userInfo: ProfileInfo }) => {
+const ProfileInfoCard = ({
+  userInfo,
+  orientation,
+}: {
+  userInfo: ProfileInfo;
+  orientation: "portrait" | "landscape";
+}) => {
   let totalScore = Number(
     userInfo?.SessionSummaries?.map((summary) =>
       summary.SessionData?.map((data) => data.totalScore)
