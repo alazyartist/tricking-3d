@@ -112,9 +112,11 @@
     border-radius: 4px;
   }
 
-  .minimalistScroll {
-    scrollbar-width: thin;
-    scrollbar-color: #888 #f1f1f1;
+  @supports not selector(::-webkit-scrollbar) {
+    .minimalistScroll {
+      scrollbar-width: thin;
+      scrollbar-color: #888 #f1f1f1;
+    }
   }
 
   .no-scrollbar::-webkit-scrollbar {
