@@ -53,17 +53,26 @@ const VertKicks = () => {
                 key={i}
                 className="flex w-full flex-col place-content-center place-items-center justify-around gap-2 rounded-xl border-2 border-zinc-500 p-2 "
               >
-                <p
-                  className="rounded-md bg-zinc-800 p-2 hover:bg-zinc-600"
-                  onClick={() =>
-                    setActiveDir((d) => {
-                      if (d === "Backside") return "Frontside";
-                      return "Backside";
-                    })
-                  }
-                >
-                  {dir}
-                </p>
+                <div className="flex w-full place-content-center gap-8">
+                  <button
+                    className={`rounded-md border-2 bg-zinc-800 p-2 hover:bg-zinc-600 ${
+                      dir === "Backside" ? "border-zinc-300" : "border-zinc-800"
+                    }`}
+                    onClick={() => setActiveDir("Backside")}
+                  >
+                    Backside
+                  </button>
+                  <button
+                    className={`boder-zinc-800 rounded-md border-2 bg-zinc-800 p-2 hover:bg-zinc-600 ${
+                      dir === "Frontside"
+                        ? "border-zinc-300"
+                        : "border-zinc-800"
+                    }`}
+                    onClick={() => setActiveDir("Frontside")}
+                  >
+                    Frontside
+                  </button>
+                </div>
                 <div className="flex w-full flex-row place-content-center place-items-center justify-around gap-2 rounded-xl border-2 border-zinc-500 p-2">
                   {legs.map((leg, i) => (
                     <div
@@ -112,8 +121,112 @@ const VertKicks = () => {
             )
         )}
       </div>
+      <WhyThisWay />
     </div>
   );
 };
 
 export default VertKicks;
+
+const WhyThisWay = () => {
+  const relevantTerms = [
+    {
+      term: "Backside",
+      definition: "Kicks taking off from the backside stance with boh legs",
+    },
+    {
+      term: "Vanish",
+      definition: "Kicks taking off from Backside off the right leg",
+    },
+    {
+      term: "Swing",
+      definition: "Kicks taking off from Backside off the left leg",
+    },
+    {
+      term: "Frontside",
+      definition: "Kicks taking off from the frontside stance with both legs",
+    },
+    {
+      term: "Step-Over",
+      definition: "Kicks taking off from the frontside stance off the left leg",
+    },
+    {
+      term: "Wrap",
+      definition:
+        "Kicks taking off from Frontside off the right(round kicking) leg",
+    },
+    {
+      term: "Round",
+      definition: "denotes which leg is used to kick the target",
+    },
+    {
+      term: "Hook",
+      definition: "denotes which leg is used to kick the target",
+    },
+    {
+      term: "Swipe",
+      definition:
+        "specifies a round kick that lands on the kicking leg. in the past the term hyper was used to describe this variation",
+    },
+    {
+      term: "Shuriken",
+      definition:
+        "specifies a hook kick that lands on the kicking leg. in the past the term hyper was used to describe this variation",
+    },
+    {
+      term: "Turbo",
+      definition:
+        "specifies any kick that lands with both legs simultaneously. in the past the term hyper-style was used to describe this variation",
+    },
+    {
+      term: "Double",
+      definition:
+        "this refers to tricks where the kicker performs two kicks with the same legin the same jump",
+    },
+    {
+      term: "Triple",
+      definition:
+        "this refers to tricks where the kicker performs three kicks with the same leg in the same jump",
+    },
+    {
+      term: "Knife",
+      definition:
+        "a swipe-hook variation where the swipe is combined with a hook kick, most comonly seen in the Jackknife. this is the equivalent of the boxcutter from invert tricks",
+    },
+    {
+      term: "Dleg",
+      definition:
+        'a variation where the kicker performs a double leg kick where both legs "strike the target".',
+    },
+    {
+      term: "Late-",
+      definition:
+        "refers to kicks that take place after the performer has already landed on the ground. this is the same oas the late- prefix from invert tricks",
+    },
+  ];
+  return (
+    <div className="mb-14 w-full rounded-md  p-4 text-zinc-300">
+      <h1 className="w-full pb-0 font-virgil text-xl">Why This Way?</h1>
+      <p className="font-inter font-normal text-zinc-400">
+        Our system is based around the idea that we should name a trick using
+        its actual rotation before the kick from the stance you took off from,
+        not some arbitrary number that doesn't tell you anything about the
+        trick. By doing this we can create a system that is both more intuitive
+        and more flexible.
+      </p>
+      <h1 className="w-full pb-0 font-virgil text-xl">Relevant Terms</h1>
+      <div className="flex flex-col gap-2">
+        {relevantTerms.map((term, i) => (
+          <div key={i} className="flex gap-2">
+            <div className="h-fit rounded-md bg-zinc-800 p-1 font-inter font-semibold text-zinc-400">
+              {term.term}:{" "}
+            </div>
+            <div className="p-1 font-inter font-normal text-zinc-400">
+              {term.definition}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
