@@ -24,7 +24,7 @@ const TheoryWrapper = ({ children }) => {
         >
           <FaGraduationCap />
         </div>
-        <div className="flex h-full flex-col place-items-center gap-4 p-4">
+        <div className="flex h-full flex-col place-content-start place-items-center gap-4 p-4">
           {/* <AnatomySVG className=' h-full w-[80vw] text-zinc-300' /> */}
           {nav.pathname === "/theory" && (
             <AnatomySketch className="h-fit w-[80vw] max-w-[540px] text-zinc-300" />
@@ -32,7 +32,7 @@ const TheoryWrapper = ({ children }) => {
           {!nav.pathname.includes("/transitions") &&
             !nav.pathname.includes("/tricks") &&
             !nav.pathname.includes("/stances") && (
-              <AnatomyNav className=" h-fit w-[80vw] max-w-[540px] text-zinc-300" />
+              <AnatomyNav className=" h-[15vh]` w-[80vw] max-w-[540px] text-zinc-300" />
             )}
           <div className={"h-fit w-full"}>{children}</div>
         </div>
