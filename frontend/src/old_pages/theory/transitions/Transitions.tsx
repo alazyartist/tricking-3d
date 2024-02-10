@@ -40,7 +40,12 @@ function Transitions() {
                 className={`${
                   legs.from === "Left" ? "text-indigo-500" : ""
                 } flex flex-col place-content-center place-items-center`}
-                onClick={() => setLegs((l) => ({ ...l, from: "Left" }))}
+                onClick={() => {
+                  setLegs((l) => ({ ...l, from: "Left" }));
+                  if (legs.to === "Left") setTypeFilter("Singular");
+                  if (legs.to === "Right") setTypeFilter("Sequential");
+                  if (legs.to === "Both") setTypeFilter("Unified");
+                }}
               >
                 {whichLeg("Left")}
                 Left
@@ -49,7 +54,12 @@ function Transitions() {
                 className={`${
                   legs.from === "Right" ? "text-indigo-500" : ""
                 } flex flex-col place-content-center place-items-center`}
-                onClick={() => setLegs((l) => ({ ...l, from: "Right" }))}
+                onClick={() => {
+                  setLegs((l) => ({ ...l, from: "Right" }));
+                  if (legs.to === "Right") setTypeFilter("Singular");
+                  if (legs.to === "Left") setTypeFilter("Sequential");
+                  if (legs.to === "Both") setTypeFilter("Unified");
+                }}
               >
                 {whichLeg("Right")}
                 Right
@@ -72,7 +82,12 @@ function Transitions() {
                 className={`${
                   legs.to === "Left" ? "text-indigo-500" : ""
                 } flex flex-col place-content-center place-items-center `}
-                onClick={() => setLegs((l) => ({ ...l, to: "Left" }))}
+                onClick={() => {
+                  setLegs((l) => ({ ...l, to: "Left" }));
+                  if (legs.from === "Left") setTypeFilter("Singular");
+                  if (legs.from === "Right") setTypeFilter("Sequential");
+                  if (legs.from === "Both") setTypeFilter("Unified");
+                }}
               >
                 {whichLeg("Left")}
                 Left
@@ -81,7 +96,12 @@ function Transitions() {
                 className={`${
                   legs.to === "Right" ? "text-indigo-500" : ""
                 } flex flex-col place-content-center place-items-center`}
-                onClick={() => setLegs((l) => ({ ...l, to: "Right" }))}
+                onClick={() => {
+                  setLegs((l) => ({ ...l, to: "Right" }));
+                  if (legs.from === "Right") setTypeFilter("Singular");
+                  if (legs.from === "Left") setTypeFilter("Sequential");
+                  if (legs.from === "Both") setTypeFilter("Unified");
+                }}
               >
                 {whichLeg("Right")}
                 Right
@@ -90,7 +110,10 @@ function Transitions() {
                 className={`${
                   legs.to === "Both" ? "text-indigo-500" : ""
                 } flex flex-col place-content-center place-items-center`}
-                onClick={() => setLegs((l) => ({ ...l, to: "Both" }))}
+                onClick={() => {
+                  setLegs((l) => ({ ...l, to: "Both" }));
+                  setTypeFilter("Unified");
+                }}
               >
                 {whichLeg("Both")}
                 Both
