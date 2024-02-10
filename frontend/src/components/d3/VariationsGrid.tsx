@@ -45,7 +45,6 @@ const VariationGrid: React.FC<Props> = ({ data }) => {
             labels.findIndex((l) => l === posLabels[posLabels.length - 1]) + 1
           ]
         );
-        console.log(posLabels, xPos, xMin, xMax);
         const width = xMax - xMin;
         return { x: xMin, width: width };
       };
