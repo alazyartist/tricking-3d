@@ -87,7 +87,12 @@ function AllTrickDisplay() {
               see{" "}
               <Link className="inline underline" href={"/theory/anatomy"}>
                 Anatomy of a trick
-              </Link>
+              </Link>{" "}
+              you can also see{" "}
+              <Link className="inline underline" href={"/theory/vertKicks"}>
+                Vert Kicks
+              </Link>{" "}
+              for a further breakdown on some kicking theory.
             </p>
           </div>
         </div>

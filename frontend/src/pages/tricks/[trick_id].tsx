@@ -228,13 +228,14 @@ export const TrickInfoGrid = ({ trickInfo }) => {
         </Link>
       </div>
       {trickInfo?.variations?.map((v) => (
-        <div
+        <Link
+          href={`/theory/${v.variation?.variationType.toLowerCase() + `s`}`}
           key={`${v.variation?.name} + ${Math.random()}`}
           className="outlineButton flex h-fit w-full justify-between gap-2 border-[1px] border-indigo-400 p-1 text-xs"
         >
           <div>{v.variation?.name}</div>
           <div>{v.variation?.pointValue}</div>
-        </div>
+        </Link>
       ))}
     </div>
   );

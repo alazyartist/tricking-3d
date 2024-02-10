@@ -19,7 +19,7 @@ function Transitions() {
     });
   return (
     <>
-      <div className="flex w-[95vw] flex-col place-content-center place-items-center rounded-lg bg-zinc-900 bg-opacity-70 font-inter font-bold text-zinc-300 lg:w-[60vw]">
+      <div className="flex w-[90vw] flex-col place-content-center place-items-center rounded-lg bg-zinc-900 bg-opacity-70 font-inter font-bold text-zinc-300 lg:w-[60vw]">
         <div
           onClick={() => setTypeFilter("All")}
           className="p-4 text-xl font-black text-white"

@@ -3,6 +3,7 @@ import DiscordLink from "@components/info/DiscordLink";
 import HomeIcon from "@data/icons/HomeIcon";
 import useClickOutside from "@hooks/useClickOutside";
 import useScreenOrientation from "@hooks/UseScreenOrientaion";
+import AnimatedSearch from "@old_pages/home/components/AnimatedSearch";
 import { trpc } from "@utils/trpc";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -100,6 +101,9 @@ const QuickMenu = ({ setQuickMenuOpen, quickMenuOpen, uuid }) => {
                 </div>
               </Link>
             ))}
+          </div>
+          <div className="fixed left-4 top-4 z-[1014]">
+            <AnimatedSearch />
           </div>
         </div>
         <div className="absolute left-0 top-0 z-[1000] h-[100vh] w-[100vw] bg-zinc-800 bg-opacity-30 backdrop-blur-md" />
