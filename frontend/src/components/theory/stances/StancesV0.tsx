@@ -102,13 +102,14 @@ const StanceSvg = ({ stances }) => {
         .data(instructions2)
         .attr("class", "slice")
         .join("path")
-        .on("click", function (e, d) {
+        .on("click", function (e: React.MouseEvent, d: any) {
           setPiOverlayData(d);
           e.preventDefault();
           const path = d3.select(this);
-          path.node().parentNode.appendChild(path.node());
+          const pathNode = path.node() as SVGPathElement;
+          pathNode.parentNode.appendChild(pathNode);
 
-          path.transition().attrTween("d", function (d) {
+          path.transition().attrTween("d", function (d: d3.DefaultArcObject) {
             console.log(d);
             let i, i2;
 
@@ -174,6 +175,20 @@ const StanceSvg = ({ stances }) => {
         .style("fill", (d, i) => "#27272e")
         .style("font-size", 20);
 
+      //draw item in center circle
+      // const center = svg
+      //   .selectAll("circle")
+      //   .data([1])
+      //   .join("circle")
+      //   .attr("r", 8)
+      //   .attr("cx", 0)
+      //   .attr("cy", 0)
+      //   .style("fill", "red")
+      //   .style(
+      //     "transform",
+      //     `translate(${dimensions.width / 2}px , ${dimensions.height / 2}px)`
+      //   );
+
       // draw line from text to arc center
       // const polyline = svg
       //   .selectAll("polyline")
@@ -201,10 +216,27 @@ const StanceSvg = ({ stances }) => {
       }
     };
   }, [dimensions, stances]);
-
+  const [leg, setLeg] = React.useState("Both");
   return (
-    <div className="h-[60vh] min-h-[24vh] w-full" ref={piRef}>
+    <div className="relative h-[60vh] min-h-[24vh] w-full" ref={piRef}>
       <svg key={"CHMSPieChart"} className={"h-full  w-full"} ref={svgRef} />
+      <div
+        onClick={() =>
+          setLeg((l) => {
+            if (l === "Both") return "Left";
+            if (l === "Left") return "Right";
+            if (l === "Right") return "Both";
+          })
+        }
+        className={`absolute left-0 top-0 flex h-[48px] w-[48px] place-content-center place-items-center fill-zinc-500`}
+        style={{
+          transform: `translate(${dimensions.width / 2 - 24}px, ${
+            dimensions.height / 2 - 24
+          }px)`,
+        }}
+      >
+        {whichLeg(leg)}
+      </div>
     </div>
   );
 };
