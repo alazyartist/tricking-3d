@@ -19,6 +19,7 @@ const PowerAverageComboLineChart: React.FC<LineChartProps> = ({
     const margin = { top: 0, left: 0, right: 0, bottom: 0 };
     const width = dimensions.width - margin.left - margin.right;
     const height = dimensions.height - margin.top - margin.bottom;
+    if (data.length === 0) return;
     if (svgRef.current !== undefined) {
       const svg = d3
         .select(svgRef.current)

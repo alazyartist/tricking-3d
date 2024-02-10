@@ -12,6 +12,7 @@ import { ClerkProvider, SignedIn } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { useEffect } from "react";
 import mixpanel from "@utils/mixpanel";
+import Head from "next/head";
 const AppBackground = dynamic(
   () => import("../components/layout/AppBackground")
 );
@@ -60,23 +61,28 @@ const MyApp: AppType<{ Session: null }> = ({
   const path = router.pathname;
 
   return (
-    <ClerkProvider appearance={{ baseTheme: dark }} {...pageProps}>
-      <QueryClientProvider client={queryClient}>
-        {/* <ReactQueryDevtools position={"top-right"} /> */}
-        <AppBackground />
-        <SignedIn>
-          {!path.includes("/landing") && path !== "/" && <UserIcon />}
-        </SignedIn>
-        <div id={"portal-root"}></div>
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+      <ClerkProvider appearance={{ baseTheme: dark }} {...pageProps}>
+        <QueryClientProvider client={queryClient}>
+          {/* <ReactQueryDevtools position={"top-right"} /> */}
+          <AppBackground />
+          <SignedIn>
+            {!path.includes("/landing") && path !== "/" && <UserIcon />}
+          </SignedIn>
+          <div id={"portal-root"}></div>
 
-        {path.includes("/theory") ? (
-          <TheoryTabBar />
-        ) : (
-          path !== "/" && <TabBar />
-        )}
-        <Component {...pageProps} />
-      </QueryClientProvider>
-    </ClerkProvider>
+          {path.includes("/theory") ? (
+            <TheoryTabBar />
+          ) : (
+            path !== "/" && <TabBar />
+          )}
+          <Component {...pageProps} />
+        </QueryClientProvider>
+      </ClerkProvider>
+    </>
   );
 };
 

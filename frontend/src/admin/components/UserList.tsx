@@ -11,9 +11,9 @@ const UserList = () => {
   );
   return (
     <>
-      <div className="no-scrollbar  w-full p-4">
-        <div className="p-2">UserList</div>
-        <div className="no-scrollbar flex h-[40vh] w-[100vw] flex-col gap-2 overflow-scroll rounded-md bg-zinc-900 bg-opacity-70 p-2">
+      <div className="no-scrollbar  w-full">
+        <div className="px-2">Users</div>
+        <div className="no-scrollbar flex h-[75vh] w-[90vw] flex-col gap-2 overflow-scroll rounded-md bg-zinc-900 bg-opacity-70 p-2">
           {Array.isArray(allUsers) &&
             allUsers?.map((user, i) => (
               <div
@@ -32,7 +32,7 @@ const UserList = () => {
                     src={
                       !user.profilePic
                         ? `/images/noimg.jpeg`
-                        : `/images/${user.uuid}/${user.profilePic}`
+                        : `${user.profilePic}`
                     }
                     alt={"profilePic"}
                     className={`h-5 w-5 rounded-full ${
@@ -42,19 +42,22 @@ const UserList = () => {
                     }`}
                   />
                 </div>
-                <div className="flex w-full place-content-start  place-items-center gap-2 ">
+                <div className="no-scrollbar flex w-full place-content-start place-items-center gap-2 overflow-x-scroll ">
                   {user.username}
                   {user.isAdmin && <p className="text-amber-500">&#42;</p>}
                 </div>
                 <div className="flex place-items-center">
                   {user.first_name} {user.last_name}
                 </div>
-                <div className="flex place-items-center">{user.email}</div>
+                <div className="no-scrollbar flex place-items-center overflow-x-scroll">
+                  {user.email}
+                </div>
               </div>
             ))}
         </div>
       </div>
       <MakeTrickedexUser userColor={newUserColor} />
+      <div className="pb-14" />
     </>
   );
 };
