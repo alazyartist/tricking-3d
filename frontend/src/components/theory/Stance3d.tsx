@@ -15,6 +15,7 @@ import { useStore } from "@store/store";
 import StanceShader from "shaders/StanceShader";
 import { stanceShaderType } from "shaders/StanceShader";
 import useCreateVersions from "apppp/sandbox/components/ui/modal/useCreateVersions";
+import MultiDonateButton from "@components/info/MultiDonateButton";
 extend({ THREE });
 const Stances3d = () => {
   const orbitRef = useRef<any>();
@@ -24,6 +25,17 @@ const Stances3d = () => {
   const selectAnim = useStore((state) => state.selectAnim);
   return (
     <>
+      <div className="flex w-full flex-col place-items-center gap-1">
+        <div className="flex w-full flex-col place-items-center">
+          <h1 className="font-semibold text-zinc-300">
+            this is a work in progress
+          </h1>
+          <p className="text-sm font-normal text-zinc-300">
+            donations encourage development!
+          </p>
+        </div>
+        <MultiDonateButton />
+      </div>
       <Canvas className={"h-full w-full rounded-md bg-zinc-800"}>
         {/* @ts-ignore */}
         <PerspectiveCamera position={[0, -1, 0]}>

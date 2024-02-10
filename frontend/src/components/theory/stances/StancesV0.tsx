@@ -51,7 +51,7 @@ const StanceSvg = ({
   const svgRef = useRef(null!);
   const [piRef, dimensions] = useMeasure();
   const [piOverlayData, setPiOverlayData] = React.useState(null);
-
+  const { data: bases } = trpc.trick.getBases.useQuery();
   const filteredStances = stances
     ?.filter((s) => s.leg === leg)
     ?.sort((a, b) => {
@@ -231,6 +231,7 @@ const StanceSvg = ({
           }px , ${dimensions.height / 2 + c[1]}px)`;
         })
         .style("fill", (d, i) => "#27272e")
+        .attr("pointer-events", "none")
         .style("font-family", "Inter")
         .style("font-size", ".6rem");
     }
@@ -241,10 +242,18 @@ const StanceSvg = ({
       }
     };
   }, [dimensions, stances, leg]);
+
+  const activeStance = filteredStances?.[piOverlayData?.index];
+  const h1style =
+    "flex place-items-center gap-2 rounded-xl bg-zinc-800 bg-opacity-40 p-4 text-sm lg:text-xl";
   return (
     <div className="h-full w-full">
       <div className="relative h-[50vh] min-h-[24vh] w-full" ref={piRef}>
-        <svg key={"CHMSPieChart"} className={"h-[50vh]  w-full"} ref={svgRef} />
+        <svg
+          key={"CHMSPieChart"}
+          className={"h-[50vh] w-full cursor-pointer"}
+          ref={svgRef}
+        />
         <div
           onClick={() =>
             setLeg((l) => {
@@ -253,7 +262,7 @@ const StanceSvg = ({
               if (l === "Right") return "Both";
             })
           }
-          className={`absolute left-0 top-0 flex h-[48px] w-[48px] place-content-center place-items-center fill-zinc-500`}
+          className={`absolute left-0 top-0 flex h-[48px] w-[48px] cursor-pointer place-content-center place-items-center fill-zinc-500`}
           style={{
             transform: `translate(${dimensions.width / 2 - 24}px, ${
               dimensions.height / 2 - 24
@@ -263,8 +272,53 @@ const StanceSvg = ({
           {whichLeg(leg)}
         </div>
       </div>
-      {piOverlayData && (
-        <Tricks stance={filteredStances[piOverlayData?.index]?.stance_id} />
+      {piOverlayData ? (
+        <>
+          <div className="flex flex-wrap place-content-center gap-4 bg-zinc-800 bg-opacity-40 p-4 text-xl">
+            <h1 className={`${h1style}`}>
+              <span className="text-zinc-600">Stance: </span>
+              <span>{activeStance.stance_id}</span>
+            </h1>
+            <h1 className={`${h1style}`}>
+              <span className="text-zinc-600">Base: </span>
+              <span>
+                {bases &&
+                  bases.find((b) => b.stance_id === activeStance.stance_id)
+                    ?.name}
+              </span>
+            </h1>
+            <h1 className={`${h1style}`}>
+              <div className="text-zinc-600">Leg: </div>
+              <div className="flex flex-col">
+                {whichLeg(activeStance.leg)}
+                <p className={`w-full text-center text-xs`}>
+                  {activeStance.leg}
+                </p>
+              </div>
+            </h1>
+            <h1 className={`${h1style}`}>
+              <span className="text-zinc-600">Direction: </span>
+              <span>{activeStance.direction}</span>
+            </h1>
+            <h1 className={`${h1style}`}>
+              <span className="text-zinc-600">rotation past complete: </span>
+              <span>
+                {activeStance.stanceRotation == 0
+                  ? "0/360"
+                  : activeStance.stanceRotation}
+              </span>
+            </h1>
+            {/* <h1 className="rounded-xl flex place-items-center gap-2 bg-zinc-800 bg-opacity-40 p-4 text-xl">
+              <span className="text-zinc-600">pointValue: </span>
+              <span>{activeStance.pointValue}</span>
+            </h1> */}
+          </div>
+          <Tricks stance={activeStance?.stance_id} />
+        </>
+      ) : (
+        <h1 className="w-full p-1 text-center">
+          Select a stance to see more info
+        </h1>
       )}
     </div>
   );
