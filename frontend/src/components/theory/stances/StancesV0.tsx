@@ -9,11 +9,15 @@ import { getStanceColor } from "@utils/styles";
 
 const StancesV0 = () => {
   const { data: stances } = trpc.trick.findAllStances.useQuery();
+  const [leg, setLeg] = React.useState("Both");
+
   return (
     <>
       <div className="h-full w-[80vw] grid-cols-3 place-content-center place-items-center gap-2 rounded-xl bg-zinc-800 bg-opacity-70 text-zinc-300">
-        <div>Stances</div>
-        <StanceSvg stances={stances} />
+        <h1 className="w-full p-1 text-center">
+          Stances using {leg === "Both" ? "Both Legs" : `${leg} leg`}
+        </h1>
+        <StanceSvg stances={stances} leg={leg} setLeg={setLeg} />
         {/* <div className="flex h-full w-full flex-col place-content-center place-items-center gap-2">
           {stances?.map((stance) => (
             <div
@@ -34,11 +38,18 @@ const StancesV0 = () => {
 
 export default StancesV0;
 
-const StanceSvg = ({ stances }: { stances: stances[] }) => {
+const StanceSvg = ({
+  stances,
+  leg,
+  setLeg,
+}: {
+  stances: stances[];
+  leg: string;
+  setLeg: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   const svgRef = useRef(null!);
   const [piRef, dimensions] = useMeasure();
   const [piOverlayData, setPiOverlayData] = React.useState(null);
-  const [leg, setLeg] = React.useState("Both");
 
   const filteredStances = stances
     ?.filter((s) => s.leg === leg)
