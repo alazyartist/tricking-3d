@@ -59,9 +59,11 @@ export const tricksRouter = router({
       const user = await ctx.prisma.users.findUnique({
         where: { clerk_id: ctx.auth.userId },
       });
+      if (!user?.uuid) return null;
       const nickname = await ctx.prisma.preferred_nicknames.findFirst({
         where: { trick_id: input.trick_id, user_id: user.uuid },
       });
+      if (!nickname) return null;
       return nickname;
     }),
   setPreferredNickname: protectedProcedure
