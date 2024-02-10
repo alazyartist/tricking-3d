@@ -5,6 +5,7 @@ import * as terms from "../../../data//Glossary.json";
 import * as d3 from "d3";
 import useMeasure from "react-use-measure";
 import { stances } from "@prisma/client";
+import { getStanceColor } from "@utils/styles";
 
 const StancesV0 = () => {
   const { data: stances } = trpc.trick.findAllStances.useQuery();
@@ -40,8 +41,8 @@ const StanceSvg = ({ stances }: { stances: stances[] }) => {
   const [leg, setLeg] = React.useState("Both");
 
   const filteredStances = stances
-    .filter((s) => s.leg === leg)
-    .sort((a, b) => {
+    ?.filter((s) => s.leg === leg)
+    ?.sort((a, b) => {
       //sort by [Backside, Inside,Frontside, Outside]
       return (
         ["Outside", "Frontside", "Inside", "Backside"].indexOf(
@@ -70,6 +71,41 @@ const StanceSvg = ({ stances }: { stances: stances[] }) => {
         );
 
       let radius = d3.min([height, width]);
+
+      svg
+        .append("defs")
+        .append("marker")
+        .attr("id", "arrowhead")
+        .attr("viewBox", "-0 -30 60 60")
+        .attr("refX", 5)
+        .attr("refY", 0)
+        .attr("orient", "auto")
+        .attr("markerWidth", 6)
+        .attr("markerHeight", 6)
+        .attr("xoverflow", "visible")
+        .append("svg:path")
+        .attr("d", "M 0,-30 L 60 ,0 L 0,30, close")
+        .attr("fill", "#d4d4d8")
+        .style("stroke", "#d4d4d8") // Add stroke color if needed
+        .style("stroke-width", 2) // Stroke width for the arrow border
+        .style("stroke-linejoin", "round"); // Round the corners
+      // Coordinates for the arrow line
+      const x1 = dimensions.width / 2;
+      const y1 = dimensions.height / 2;
+      const x2 = x1; // Adjust these to change the direction of the arrow
+      const y2 = y1 + 25 + radius / 2; // Adjust these to change the length of the arrow
+
+      // Add the arrow line
+      svg
+        .append("line")
+        .attr("x1", x1)
+        .attr("y1", y1 + 15)
+        .attr("x2", x2)
+        .attr("y2", y2)
+        .attr("stroke", "#d4d4d8")
+        .attr("stroke-width", 2)
+        .attr("marker-end", "url(#arrowhead)");
+
       const arcGen = d3
         .arc()
         .innerRadius(radius / 8)
@@ -88,7 +124,7 @@ const StanceSvg = ({ stances }: { stances: stances[] }) => {
               s.name === "Outside") &&
             s
         )
-        .filter((t) => t !== false)
+        .filter((t: false | stances) => t !== false)
         .sort((a, b) => {
           //sort by [Backside, Inside,Frontside, Outside]
           return (
@@ -96,14 +132,9 @@ const StanceSvg = ({ stances }: { stances: stances[] }) => {
             ["Outside", "Frontside", "Inside", "Backside"].indexOf(b.name)
           );
         });
-      let stancePercent = filteredStances?.map((t, i) => 45);
       let baseStancePercent = baseStances?.map((t, i) => 90);
-      const instructions = piGen(stancePercent);
       const instructions2 = piGen(baseStancePercent);
-      console.log(instructions2, filteredStances);
-      const colors = d3
-        .scaleSequential(d3.interpolateRgbBasis(["#50d9f0", "#ff4b9f"]))
-        .domain([0, stances.length + 1]);
+
       const arcGroup = svg.selectAll("g").data(instructions2).join("g");
 
       const arc = arcGroup
@@ -148,7 +179,7 @@ const StanceSvg = ({ stances }: { stances: stances[] }) => {
           });
         })
         .attr("stroke", "#18181b")
-        .style("fill", (d, i) => colors(i))
+        .style("fill", (d, i) => getStanceColor(filteredStances[i].name))
         .style(
           "transform",
           `translate(${dimensions.width / 2}px , ${dimensions.height / 2}px)`
@@ -182,6 +213,7 @@ const StanceSvg = ({ stances }: { stances: stances[] }) => {
           }px , ${dimensions.height / 2 + c[1]}px)`;
         })
         .style("fill", (d, i) => "#27272e")
+        .style("font-family", "Inter")
         .style("font-size", ".6rem");
 
       //draw item in center circle
