@@ -6,6 +6,7 @@ import * as d3 from "d3";
 import useMeasure from "react-use-measure";
 import { stances } from "@prisma/client";
 import { getStanceColor } from "@utils/styles";
+import Link from "next/link";
 
 const StancesV0 = () => {
   const { data: stances } = trpc.trick.findAllStances.useQuery();
@@ -226,40 +227,6 @@ const StanceSvg = ({
         .style("fill", (d, i) => "#27272e")
         .style("font-family", "Inter")
         .style("font-size", ".6rem");
-
-      //draw item in center circle
-      // const center = svg
-      //   .selectAll("circle")
-      //   .data([1])
-      //   .join("circle")
-      //   .attr("r", 8)
-      //   .attr("cx", 0)
-      //   .attr("cy", 0)
-      //   .style("fill", "red")
-      //   .style(
-      //     "transform",
-      //     `translate(${dimensions.width / 2}px , ${dimensions.height / 2}px)`
-      //   );
-
-      // draw line from text to arc center
-      // const polyline = svg
-      //   .selectAll("polyline")
-      //   .data(instructions2)
-      //   .join("polyline")
-      //   .attr("stroke", "white")
-      //   .style("fill", "none")
-      //   .style("stroke-width", "1px")
-      //   .attr("points", function (d) {
-      //     let c = arcGen.centroid(d as unknown as d3.DefaultArcObject);
-      //     let half = dimensions.width / 2;
-      //     let x = half + c[0] > half ? half + c[0] + 70 : half + c[0] - 70;
-      //     let y = dimensions.height / 2 + c[1];
-      //     if (d.data > dataThreshold) {
-      //       return `${x},${dimensions.height / 2 + c[1]} ${half + c[0]},${
-      //         dimensions.height / 2 + c[1]
-      //       } ${half + c[0] * 0.8},${y - 4}`;
-      //     }
-      //   });
     }
 
     return () => {
@@ -269,25 +236,71 @@ const StanceSvg = ({
     };
   }, [dimensions, stances, leg]);
   return (
-    <div className="relative h-[60vh] min-h-[24vh] w-full" ref={piRef}>
-      <svg key={"CHMSPieChart"} className={"h-full  w-full"} ref={svgRef} />
-      <div
-        onClick={() =>
-          setLeg((l) => {
-            if (l === "Both") return "Left";
-            if (l === "Left") return "Right";
-            if (l === "Right") return "Both";
-          })
-        }
-        className={`absolute left-0 top-0 flex h-[48px] w-[48px] place-content-center place-items-center fill-zinc-500`}
-        style={{
-          transform: `translate(${dimensions.width / 2 - 24}px, ${
-            dimensions.height / 2 - 24
-          }px)`,
-        }}
-      >
-        {whichLeg(leg)}
+    <div className="h-full w-full">
+      <div className="relative h-[50vh] min-h-[24vh] w-full" ref={piRef}>
+        <svg key={"CHMSPieChart"} className={"h-full  w-full"} ref={svgRef} />
+        <div
+          onClick={() =>
+            setLeg((l) => {
+              if (l === "Both") return "Left";
+              if (l === "Left") return "Right";
+              if (l === "Right") return "Both";
+            })
+          }
+          className={`absolute left-0 top-0 flex h-[48px] w-[48px] place-content-center place-items-center fill-zinc-500`}
+          style={{
+            transform: `translate(${dimensions.width / 2 - 24}px, ${
+              dimensions.height / 2 - 24
+            }px)`,
+          }}
+        >
+          {whichLeg(leg)}
+        </div>
       </div>
+      {piOverlayData && (
+        <Tricks stance={filteredStances[piOverlayData?.index]?.stance_id} />
+      )}
+    </div>
+  );
+};
+
+const Tricks = ({ stance }) => {
+  const { data } = trpc.trick.findAll.useQuery();
+  const sortTricks = (a, b) => {
+    const startsWithDigit = (name) => /^\d/.test(name);
+    const aStartsWithDigit = startsWithDigit(a.name);
+    const bStartsWithDigit = startsWithDigit(b.name);
+
+    if (aStartsWithDigit && bStartsWithDigit) {
+      // Extract leading numbers and compare numerically
+      const numA = parseInt(a.name.match(/^\d+/)[0], 10);
+      const numB = parseInt(b.name.match(/^\d+/)[0], 10);
+      return numA - numB;
+    } else if (!aStartsWithDigit && !bStartsWithDigit) {
+      // Alphabetic sort for non-digit names
+      return a.name.localeCompare(b.name);
+    } else {
+      // Prioritize non-digit names
+      return aStartsWithDigit ? 1 : -1;
+    }
+  };
+  return (
+    <div className="minimalistScroll flex h-[25vh] w-full flex-col place-content-start place-items-center gap-2 overflow-y-scroll pb-14">
+      <h1 className="w-full p-1 text-center">
+        Tricks taking off from {stance}
+      </h1>
+      {data &&
+        data
+          .filter((trick) => trick.stance_id === stance)
+          .sort(sortTricks)
+          ?.map((trick) => (
+            <Link
+              href={`/tricks/${trick.trick_id}`}
+              className="w-full rounded-md bg-zinc-800 bg-opacity-40 p-2 "
+            >
+              {trick.name}
+            </Link>
+          ))}
     </div>
   );
 };
