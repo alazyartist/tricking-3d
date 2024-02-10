@@ -7,6 +7,7 @@ import useMeasure from "react-use-measure";
 import { stances } from "@prisma/client";
 import { getStanceColor } from "@utils/styles";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const StancesV0 = () => {
   const { data: stances } = trpc.trick.findAllStances.useQuery();
@@ -50,7 +51,22 @@ const StanceSvg = ({
 }) => {
   const svgRef = useRef(null!);
   const [piRef, dimensions] = useMeasure();
+  const router = useRouter();
+  const { stance: queryStance } = router.query;
+  console.log("queryStance", queryStance);
   const [piOverlayData, setPiOverlayData] = React.useState(null);
+  const [activeStance, setActiveStance] = React.useState(null);
+
+  useEffect(() => {
+    if (queryStance) {
+      const stance = stances?.find((s) => s.stance_id === queryStance);
+      if (stance) {
+        setActiveStance(stance);
+        setLeg(stance.leg);
+      }
+    }
+  }, [queryStance, stances]);
+
   const { data: bases } = trpc.trick.getBases.useQuery();
   const filteredStances = stances
     ?.filter((s) => s.leg === leg)
@@ -70,7 +86,6 @@ const StanceSvg = ({
     const margin = { top: 30, left: 10, right: 10, bottom: 10 };
     const width = dimensions.width - margin.left - margin.right;
     const height = dimensions.height - margin.top - margin.bottom;
-    const dataThreshold = 0.009;
     if (svgRef.current !== undefined) {
       const svg = d3
         .select(svgRef.current)
@@ -162,6 +177,7 @@ const StanceSvg = ({
         .join("path")
         .on("click", function (e: React.MouseEvent, d: any) {
           setPiOverlayData(d);
+          setActiveStance(filteredStances?.[d.index]);
           e.preventDefault();
           const path = d3.select(this);
           const pathNode = path.node() as SVGPathElement;
@@ -241,9 +257,8 @@ const StanceSvg = ({
         d3.select(svgRef.current).selectAll("*").remove();
       }
     };
-  }, [dimensions, stances, leg]);
+  }, [dimensions, stances, leg, activeStance]);
 
-  const activeStance = filteredStances?.[piOverlayData?.index];
   const h1style =
     "flex place-items-center gap-2 rounded-xl bg-zinc-800 bg-opacity-40 p-4 text-sm lg:text-xl";
   return (
@@ -272,7 +287,7 @@ const StanceSvg = ({
           {whichLeg(leg)}
         </div>
       </div>
-      {piOverlayData ? (
+      {activeStance ? (
         <>
           <div className="flex flex-wrap place-content-center gap-4 bg-zinc-800 bg-opacity-40 p-4 text-xl">
             <h1 className={`${h1style}`}>
