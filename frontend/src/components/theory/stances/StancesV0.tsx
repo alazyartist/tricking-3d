@@ -75,6 +75,12 @@ const StanceSvg = ({
       const svg = d3
         .select(svgRef.current)
         .join("svg")
+        .attr(
+          "viewBox",
+          `0 0 ${width + margin.left + margin.right} ${
+            height + margin.top + margin.bottom
+          }`
+        )
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .style(
@@ -105,7 +111,7 @@ const StanceSvg = ({
       const x1 = dimensions.width / 2;
       const y1 = dimensions.height / 2;
       const x2 = x1; // Adjust these to change the direction of the arrow
-      const y2 = y1 + 25 + radius / 2; // Adjust these to change the length of the arrow
+      const y2 = y1 + margin.bottom / 2 + radius / 2; // Adjust these to change the length of the arrow
 
       // Add the arrow line
       svg
@@ -238,7 +244,7 @@ const StanceSvg = ({
   return (
     <div className="h-full w-full">
       <div className="relative h-[50vh] min-h-[24vh] w-full" ref={piRef}>
-        <svg key={"CHMSPieChart"} className={"h-full  w-full"} ref={svgRef} />
+        <svg key={"CHMSPieChart"} className={"h-[50vh]  w-full"} ref={svgRef} />
         <div
           onClick={() =>
             setLeg((l) => {
@@ -285,7 +291,7 @@ const Tricks = ({ stance }) => {
     }
   };
   return (
-    <div className="minimalistScroll flex h-[25vh] w-full flex-col place-content-start place-items-center gap-2 overflow-y-scroll pb-14">
+    <div className="minimalistScroll flex h-[25vh] w-full flex-wrap place-content-start place-items-center justify-around gap-2 overflow-y-scroll pb-14 md:h-[33vh]">
       <h1 className="w-full p-1 text-center">
         Tricks taking off from {stance}
       </h1>
@@ -296,7 +302,7 @@ const Tricks = ({ stance }) => {
           ?.map((trick) => (
             <Link
               href={`/tricks/${trick.trick_id}`}
-              className="w-full rounded-md bg-zinc-800 bg-opacity-40 p-2 "
+              className="whitespace-no-wrap w-fit rounded-md bg-zinc-800 bg-opacity-40 p-2 hover:bg-zinc-600"
             >
               {trick.name}
             </Link>
