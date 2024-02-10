@@ -210,20 +210,22 @@ export const TrickInfoGrid = ({ trickInfo }) => {
         {trickInfo.base?.name}
       </p>
       <div className="flex w-full gap-2">
-        <p
+        <Link
+          href={`/theory/stances?stance=${trickInfo.takeoffStance}`}
           className={
             "outlineButton flex w-full border-[1px] border-sky-300 p-1 text-xs"
           }
         >
           {trickInfo.takeoffStance}
-        </p>
-        <p
+        </Link>
+        <Link
+          href={`/theory/stances?stance=${trickInfo.landingStance}`}
           className={
             "outlineButton flex w-full border-[1px] border-teal-300 p-1 text-xs"
           }
         >
           {trickInfo.landingStance}
-        </p>
+        </Link>
       </div>
       {trickInfo?.variations?.map((v) => (
         <div

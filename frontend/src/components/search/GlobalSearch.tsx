@@ -328,7 +328,7 @@ const Autocomplete = (props: any) => {
             onSelect(params: any) {
               const { item, setQuery } = params;
               console.log(item);
-
+              router.push(`/theory/stances?stance=${item.stance_id}`);
               setQuery("");
             },
           },

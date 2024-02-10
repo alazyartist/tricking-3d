@@ -15,7 +15,7 @@ const StancesV0 = () => {
 
   return (
     <>
-      <div className="h-full w-[80vw] grid-cols-3 place-content-center place-items-center gap-2 rounded-xl bg-zinc-800 bg-opacity-70 text-zinc-300">
+      <div className="h-full w-[90vw] grid-cols-3 place-content-center place-items-center gap-2 rounded-xl bg-zinc-800 bg-opacity-70 text-zinc-300 lg:w-[80vw]">
         <h1 className="w-full p-1 text-center">
           Stances using {leg === "Both" ? "Both Legs" : `${leg} leg`}
         </h1>
@@ -56,16 +56,6 @@ const StanceSvg = ({
   console.log("queryStance", queryStance);
   const [piOverlayData, setPiOverlayData] = React.useState(null);
   const [activeStance, setActiveStance] = React.useState(null);
-
-  useEffect(() => {
-    if (queryStance) {
-      const stance = stances?.find((s) => s.stance_id === queryStance);
-      if (stance) {
-        setActiveStance(stance);
-        setLeg(stance.leg);
-      }
-    }
-  }, [queryStance, stances]);
 
   const { data: bases } = trpc.trick.getBases.useQuery();
   const filteredStances = stances
@@ -175,6 +165,7 @@ const StanceSvg = ({
         .data(instructions2)
         .attr("class", "slice")
         .join("path")
+        .attr("id", (d, i) => `${filteredStances[i].name}`)
         .on("click", function (e: React.MouseEvent, d: any) {
           setPiOverlayData(d);
           setActiveStance(filteredStances?.[d.index]);
@@ -184,7 +175,7 @@ const StanceSvg = ({
           pathNode.parentNode.appendChild(pathNode);
 
           path.transition().attrTween("d", function (d: d3.DefaultArcObject) {
-            console.log(d);
+            console.log(e);
             let i, i2;
 
             if (d.endAngle - d.startAngle < Math.PI) {
@@ -259,6 +250,16 @@ const StanceSvg = ({
     };
   }, [dimensions, stances, leg, activeStance]);
 
+  useEffect(() => {
+    if (queryStance) {
+      const stance = stances?.find((s) => s.stance_id === queryStance);
+      if (stance) {
+        setActiveStance(stance);
+        setLeg(stance.leg);
+        d3.select(`${stance.stance_id}`).dispatch("click");
+      }
+    }
+  }, [queryStance, stances]);
   const h1style =
     "flex place-items-center gap-2 rounded-xl bg-zinc-800 bg-opacity-40 p-4 text-sm lg:text-xl";
   return (
