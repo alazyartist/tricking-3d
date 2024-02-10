@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from "react";
 import * as terms from "../../../data//Glossary.json";
 import * as d3 from "d3";
 import useMeasure from "react-use-measure";
+import { stances } from "@prisma/client";
 
 const StancesV0 = () => {
   const { data: stances } = trpc.trick.findAllStances.useQuery();
@@ -32,10 +33,25 @@ const StancesV0 = () => {
 
 export default StancesV0;
 
-const StanceSvg = ({ stances }) => {
+const StanceSvg = ({ stances }: { stances: stances[] }) => {
   const svgRef = useRef(null!);
   const [piRef, dimensions] = useMeasure();
   const [piOverlayData, setPiOverlayData] = React.useState(null);
+  const [leg, setLeg] = React.useState("Both");
+
+  const filteredStances = stances
+    .filter((s) => s.leg === leg)
+    .sort((a, b) => {
+      //sort by [Backside, Inside,Frontside, Outside]
+      return (
+        ["Outside", "Frontside", "Inside", "Backside"].indexOf(
+          a.name.replace(/Complete|Hyper|Mega|Semi/g, "")
+        ) -
+        ["Outside", "Frontside", "Inside", "Backside"].indexOf(
+          b.name.replace(/Complete|Hyper|Mega|Semi/g, "")
+        )
+      );
+    });
   useEffect(() => {
     if (!stances) return;
     const margin = { top: 30, left: 10, right: 10, bottom: 10 };
@@ -63,13 +79,6 @@ const StanceSvg = ({ stances }) => {
         .startAngle(Math.PI / 4)
         .endAngle(2 * Math.PI + Math.PI / 4)
         .sort(null);
-      const filteredStances = stances.filter(
-        (s) =>
-          s.name !== "Backside" &&
-          s.name !== "Frontside" &&
-          s.name !== "Inside" &&
-          s.name !== "Outside"
-      );
       const baseStances = stances
         .map(
           (s) =>
@@ -91,7 +100,7 @@ const StanceSvg = ({ stances }) => {
       let baseStancePercent = baseStances?.map((t, i) => 90);
       const instructions = piGen(stancePercent);
       const instructions2 = piGen(baseStancePercent);
-      console.log(instructions2, piOverlayData);
+      console.log(instructions2, filteredStances);
       const colors = d3
         .scaleSequential(d3.interpolateRgbBasis(["#50d9f0", "#ff4b9f"]))
         .domain([0, stances.length + 1]);
@@ -160,7 +169,7 @@ const StanceSvg = ({ stances }) => {
         .join("text")
         .text(function (d, i) {
           // console.log(d, i, tricksArray[i][0]);
-          return baseStances[i].name;
+          return filteredStances[i].name;
         })
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "middle")
@@ -173,7 +182,7 @@ const StanceSvg = ({ stances }) => {
           }px , ${dimensions.height / 2 + c[1]}px)`;
         })
         .style("fill", (d, i) => "#27272e")
-        .style("font-size", 20);
+        .style("font-size", ".6rem");
 
       //draw item in center circle
       // const center = svg
@@ -215,8 +224,7 @@ const StanceSvg = ({ stances }) => {
         d3.select(svgRef.current).selectAll("*").remove();
       }
     };
-  }, [dimensions, stances]);
-  const [leg, setLeg] = React.useState("Both");
+  }, [dimensions, stances, leg]);
   return (
     <div className="relative h-[60vh] min-h-[24vh] w-full" ref={piRef}>
       <svg key={"CHMSPieChart"} className={"h-full  w-full"} ref={svgRef} />
