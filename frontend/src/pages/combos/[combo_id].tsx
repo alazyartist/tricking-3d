@@ -138,7 +138,12 @@ const ComboDetails = ({ tricks, chainMap, varietyMap }) => {
                   </Link>
                 )}
                 {tr.type === "Transition" && (
-                  <p className="text-center font-medium">{tr.name}</p>
+                  <Link
+                    href={`/theory/transitions?id=${tr.id}`}
+                    className="text-center font-medium"
+                  >
+                    {tr.name}
+                  </Link>
                 )}
                 {tr.type === "Transition" && (
                   <>

@@ -34,7 +34,10 @@ const TheoryWrapper = ({ children }) => {
             !nav.pathname.includes("/stances") && (
               <AnatomyNav className=" h-[15vh] w-[80vw] max-w-[540px] flex-shrink-0 text-zinc-300" />
             )}
-          <div className={"h-fit w-full"}>{children}</div>
+          <div className={"h-fit w-full"}>
+            {children}
+            <div id="tabBarPadding" className="h-14 w-full"></div>
+          </div>
         </div>
       </div>
     </>

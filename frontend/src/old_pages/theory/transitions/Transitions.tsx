@@ -3,6 +3,9 @@ import Link from "next/link";
 import { transArr } from "../../../data/TricklistClass";
 import { whichLeg } from "../../comboMaker/components/ArrayDisplay";
 import { trpc } from "@utils/trpc";
+import { MdInfoOutline } from "@data/icons/MdIcons";
+import { transitions, tricks } from "@prisma/client";
+import { useRouter } from "next/router";
 function Transitions() {
   const { data: transitions } = trpc.transition.getTransitions.useQuery();
   const [typeFilter, setTypeFilter] = React.useState("Singular");
@@ -17,6 +20,20 @@ function Transitions() {
         return tr;
       }
     });
+  const [activeTransition, setActiveTransition] = React.useState(null);
+  const router = useRouter();
+  const { id } = router.query;
+  useEffect(() => {
+    if (id) {
+      const transition = transitions?.find(
+        (t) => t.id === parseInt(id as string)
+      );
+      console.log(transitions, transition, id);
+      setActiveTransition(transition);
+      setTypeFilter(transition?.transitionType);
+      setLegs({ from: transition?.fromLeg, to: transition?.toLeg });
+    }
+  }, [id]);
   return (
     <>
       <div className="flex w-[90vw] flex-col place-content-center place-items-center rounded-lg bg-zinc-900 bg-opacity-70 font-inter font-bold text-zinc-300 lg:w-[60vw]">
@@ -133,14 +150,23 @@ function Transitions() {
             );
           })}
         </div>
-        <div className="no-scrollbar flex h-[55vh] w-full max-w-[80vw] flex-col gap-2 overflow-y-auto rounded-md">
+        <div className="no-scrollbar flex h-fit max-h-[55vh] w-full max-w-[80vw] flex-col gap-2 overflow-y-auto rounded-md">
           {filteredTransitions?.map((tr) => {
             return (
               <div
                 key={tr.id}
+                onClick={() => setActiveTransition(tr)}
                 className="flex  flex-row place-content-center place-items-center justify-around gap-2 rounded-xl bg-zinc-900 bg-opacity-40 p-1"
               >
-                <div className="w-[150px] text-xl font-bold">{tr.name}</div>
+                <div
+                  className={`w-[150px] text-xl font-bold ${
+                    tr?.id === activeTransition?.id
+                      ? "text-indigo-500"
+                      : "text-zinc-300"
+                  }`}
+                >
+                  {tr.name}
+                </div>
                 <div className="fill-zinc-500 text-sm">
                   {tr.fromLeg && whichLeg(tr.fromLeg)}
                 </div>
@@ -154,9 +180,63 @@ function Transitions() {
             <div className="text-xl font-bold">No transitions found</div>
           )}
         </div>
+        <TransitionCombos activeTransition={activeTransition} />
       </div>
     </>
   );
 }
 
 export default Transitions;
+
+const TransitionCombos = ({ activeTransition }) => {
+  const { data: combos } = trpc.transition.getCombosWithTransition.useQuery({
+    id: activeTransition?.id,
+  });
+
+  return (
+    <div className="flex w-full flex-col gap-2">
+      {combos &&
+        combos?.map((combo) => {
+          const comboArray = combo.comboArray as (tricks | transitions)[];
+          return (
+            <div
+              key={combo.combo_id}
+              className="flex flex-col place-content-center place-items-center justify-around gap-2 rounded-xl bg-zinc-900 bg-opacity-40 p-1"
+            >
+              <div className=" flex w-full overflow-x-scroll whitespace-normal break-keep p-2 text-sm font-bold">
+                {comboArray.map((trick, i) => {
+                  return (
+                    <>
+                      {trick.name}
+                      {i !== comboArray?.length - 1 && ">"}
+                      <wbr />
+                    </>
+                  );
+                })}
+              </div>
+
+              <div className="flex flex-row place-items-center gap-2">
+                <div className="fill-zinc-500 text-sm">
+                  {combo?.Clips?.length} clips
+                </div>
+                <Link
+                  href={`/combos/${combo.combo_id}`}
+                  className="flex place-items-center justify-around gap-2 rounded-md bg-zinc-700 p-2 text-xs"
+                >
+                  <p>See Combo Page</p>
+                  <div className="text-xs">
+                    <MdInfoOutline />
+                  </div>
+                </Link>
+              </div>
+            </div>
+          );
+        })}
+      {combos && combos.length === 0 && (
+        <div className="w-full p-2 text-center text-xl font-bold">
+          No combos found
+        </div>
+      )}
+    </div>
+  );
+};
