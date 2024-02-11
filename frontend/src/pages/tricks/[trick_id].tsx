@@ -270,8 +270,11 @@ const CombosWithTrickDisplay = ({
                 </div>
               ))}
             </div>
-            <Link href={`/combos/${combo.combo_id}`}>
-              <p className="text-xs">...</p>
+            <Link
+              className="rounded-md bg-zinc-600/70 px-2 py-1"
+              href={`/combos/${combo.combo_id}`}
+            >
+              <p className="whitespace-nowrap text-xs">see combo page</p>
             </Link>
           </div>
           <div className={"flex gap-2 pt-2 text-xs"}>
@@ -345,18 +348,50 @@ export const ExampleClipDisplay = ({ clip, i, seeExample, setSeeExample }) => {
       )}
       <button
         type={"button"}
-        className={"flex justify-between gap-2 rounded-md bg-zinc-700 p-2"}
+        className={
+          "flex flex-col place-items-center justify-between gap-2 rounded-md bg-zinc-700 p-2"
+        }
         onClick={() => handleClick(clip.id)}
       >
-        <Image
-          alt={"user image"}
-          width={24}
-          height={24}
-          src={user_image}
-          className={"h-6 w-6 place-self-start rounded-full"}
-        />
-        <p>{`Clip ${i + 1}`}</p>
+        <div className="flex w-full place-items-center justify-around gap-2">
+          <TrickerImage
+            uuid={
+              clip.tricker &&
+              clip.tricker.username !== clip.summary.user?.username
+                ? clip.tricker?.uuid
+                : clip.summary.user?.uuid
+            }
+          />
+          <p className="rounded-md bg-zinc-600/70 p-1">
+            {clip.totalScore.toFixed(2)}
+          </p>
+        </div>
+        {clip.tricker &&
+        clip.tricker.username !== clip.summary.user?.username ? (
+          <p className="rounded-md bg-zinc-600/70 p-1 text-zinc-400">
+            {clip.tricker?.username}
+          </p>
+        ) : (
+          <p className="rounded-md bg-zinc-600/70 p-1 text-zinc-400">
+            {clip.summary.user?.username}
+          </p>
+        )}
       </button>
     </>
+  );
+};
+
+const TrickerImage = ({ uuid }) => {
+  const { data: trickerImage } = trpc.userDB.findUserImageById.useQuery({
+    uuid: uuid,
+  });
+  return (
+    <Image
+      alt={"tricker image"}
+      width={24}
+      height={24}
+      src={trickerImage}
+      className={"h-6 w-6 place-self-start rounded-full"}
+    />
   );
 };

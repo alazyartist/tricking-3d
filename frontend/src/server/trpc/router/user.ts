@@ -147,8 +147,10 @@ export const userRouter = router({
           where: { uuid: input.uuid },
           select: {
             clerk_id: true,
+            profilePic: true,
           },
         });
+        if (user?.profilePic) return user.profilePic;
         if (user?.clerk_id) {
           const clerkUser = await clerkClient.users.getUser(user?.clerk_id!);
           if (clerkUser?.imageUrl) {

@@ -239,9 +239,18 @@ export const tricksRouter = router({
         where: {
           comboArray: { array_contains: { trick_id: input.trick_id } },
         },
+        orderBy: { pointValue: "asc" },
         include: {
           Clips: {
-            include: { summary: { include: { SessionSources: true } } },
+            include: {
+              tricker: true,
+              summary: {
+                include: {
+                  user: true,
+                  SessionSources: true,
+                },
+              },
+            },
           },
         },
       });
