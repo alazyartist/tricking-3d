@@ -172,60 +172,7 @@ const Autocomplete = (props: any) => {
               setQuery("");
             },
           },
-          {
-            sourceId: "Combos",
-            templates: {
-              header() {
-                return <p>Combos</p>;
-              },
-              item({ item }: any) {
-                return (
-                  <span className="flex justify-between">
-                    <p>{item?.name}</p>
-                    <span className="flex gap-2">
-                      <p>{item.type}</p>
-                    </span>
-                  </span>
-                );
-              },
-            },
-            getItems: async () => {
-              const pattern = getQueryPattern(query);
-              await combos;
-              if (!combos) return [];
-              if (query.length > 0) {
-                return combos
-                  ?.filter((t) => pattern.test(t.name))
-                  ?.sort((a, b) => {
-                    if (a?.name?.length < b?.name?.length) return -1;
-                    if (a?.name?.length > b?.name?.length) return 1;
-                    if (a?.name > b?.name) return 1;
-                    if (a?.name < b?.name) return -1;
-                    //check your filters
-                    //then check the length
 
-                    return 0;
-                  });
-              } else
-                return combos?.sort((a, b) => {
-                  if (a?.name > b?.name) return 1;
-                  if (a?.name < b?.name) return -1;
-                  if (a?.name?.length < b?.name?.length) return -1;
-                  if (a?.name?.length > b?.name?.length) return 1;
-                  //check your filters
-                  //then check the length
-
-                  return 0;
-                });
-            },
-            onSelect(params: any) {
-              const { item, setQuery } = params;
-              console.log(item);
-              router.push(`/combos/${item.combo_id}`);
-
-              setQuery("");
-            },
-          },
           {
             sourceId: "Transitions",
             templates: {
@@ -275,7 +222,7 @@ const Autocomplete = (props: any) => {
             onSelect(params: any) {
               const { item, setQuery } = params;
               console.log(item);
-
+              router.push(`/theory/transitions?id=${item.id}`);
               setQuery("");
             },
           },
@@ -329,6 +276,60 @@ const Autocomplete = (props: any) => {
               const { item, setQuery } = params;
               console.log(item);
               router.push(`/theory/stances?stance=${item.stance_id}`);
+              setQuery("");
+            },
+          },
+          {
+            sourceId: "Combos",
+            templates: {
+              header() {
+                return <p>Combos</p>;
+              },
+              item({ item }: any) {
+                return (
+                  <span className="flex justify-between">
+                    <p>{item?.name}</p>
+                    <span className="flex gap-2">
+                      <p>{item.type}</p>
+                    </span>
+                  </span>
+                );
+              },
+            },
+            getItems: async () => {
+              const pattern = getQueryPattern(query);
+              await combos;
+              if (!combos) return [];
+              if (query.length > 0) {
+                return combos
+                  ?.filter((t) => pattern.test(t.name))
+                  ?.sort((a, b) => {
+                    if (a?.name?.length < b?.name?.length) return -1;
+                    if (a?.name?.length > b?.name?.length) return 1;
+                    if (a?.name > b?.name) return 1;
+                    if (a?.name < b?.name) return -1;
+                    //check your filters
+                    //then check the length
+
+                    return 0;
+                  });
+              } else
+                return combos?.sort((a, b) => {
+                  if (a?.name > b?.name) return 1;
+                  if (a?.name < b?.name) return -1;
+                  if (a?.name?.length < b?.name?.length) return -1;
+                  if (a?.name?.length > b?.name?.length) return 1;
+                  //check your filters
+                  //then check the length
+
+                  return 0;
+                });
+            },
+            onSelect(params: any) {
+              const { item, setQuery } = params;
+              console.log(item);
+              router.push(`/combos/${item.combo_id}`);
+
               setQuery("");
             },
           },
