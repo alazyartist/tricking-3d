@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 function Transitions() {
   const { data: transitions } = trpc.transition.getTransitions.useQuery();
   const [typeFilter, setTypeFilter] = React.useState("Singular");
-  const [legs, setLegs] = React.useState({ from: "Left", to: "Right" });
+  const [legs, setLegs] = React.useState({ from: "Left", to: "Left" });
   const filteredTransitions = transitions
     ?.filter((tr) => tr.fromLeg === legs.from && tr.toLeg === legs.to)
     ?.filter((tr) => {
@@ -206,11 +206,11 @@ const TransitionCombos = ({ activeTransition }) => {
               <div className=" flex w-full overflow-x-scroll whitespace-normal break-keep p-2 text-sm font-bold">
                 {comboArray.map((trick, i) => {
                   return (
-                    <>
+                    <span key={i + combo.combo_id}>
                       {trick.name}
                       {i !== comboArray?.length - 1 && ">"}
                       <wbr />
-                    </>
+                    </span>
                   );
                 })}
               </div>

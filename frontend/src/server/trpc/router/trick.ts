@@ -147,6 +147,52 @@ export const tricksRouter = router({
       const tricks = await ctx.prisma.tricks.findMany({});
       return tricks;
     }),
+  getTricksByBase: publicProcedure
+    .input(z.object({ base: z.string() }).nullish())
+    .query(async ({ input, ctx }) => {
+      if (!input.base) return [];
+
+      const tricks = await ctx.prisma.tricks.findMany({
+        where: { base_id: input.base },
+        include: {
+          variations: { include: { variation: true } },
+        },
+        orderBy: { name: "asc" },
+      });
+      return tricks.sort((a, b) => {
+        const aVarR = a.variations.filter(
+          (v) => v.variation.variationType === "Rotation"
+        );
+        const bVarR = b.variations.filter(
+          (v) => v.variation.variationType === "Rotation"
+        );
+        const aVar = a.variations.filter(
+          (v) => v.variation.variationType !== "Rotation"
+        );
+        const bVar = b.variations.filter(
+          (v) => v.variation.variationType !== "Rotation"
+        );
+
+        if (aVarR.length !== bVarR.length) {
+          return aVarR.length - bVarR.length;
+        }
+        if (aVar.length !== bVar.length) {
+          return aVar.length - bVar.length;
+        }
+
+        if (
+          a.variations.some(
+            (v) => v.variation.variationType === "DoubleFlip"
+          ) &&
+          !b.variations.some((v) => v.variation.variationType === "DoubleFlip")
+        )
+          return -1;
+        if (a.name.toLowerCase() !== b.name.toLowerCase()) {
+          return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+        }
+        return b.name.length - a.name.length;
+      });
+    }),
   getKicks: publicProcedure
     .input(z.object({}).optional())
     .query(async ({ input, ctx }) => {
