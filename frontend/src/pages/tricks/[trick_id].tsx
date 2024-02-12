@@ -202,13 +202,14 @@ export const TrickInfoGrid = ({ trickInfo }) => {
         {trickInfo.pointValue}
       </p>
       <p>{trickInfo.trickType}</p>
-      <p
+      <Link
+        href={`/theory/bases?base=${trickInfo.base?.name}`}
         className={
           "outlineButton flex w-full border-[1px] border-zinc-300 p-1 text-xs"
         }
       >
         {trickInfo.base?.name}
-      </p>
+      </Link>
       <div className="flex w-full gap-2">
         <Link
           href={`/theory/stances?stance=${trickInfo.takeoffStance}`}
@@ -252,8 +253,8 @@ const CombosWithTrickDisplay = ({
       <h1 className=" bg-zinc-900 p-2 text-xl">Combos containing {trick}</h1>
       {combos.map((combo) => (
         <div key={combo.combo_id}>
-          <div className="no-scrollbar flex justify-between overflow-hidden overflow-x-scroll rounded-md bg-zinc-800 p-2 text-xs">
-            <div className="no-scrollbar flex gap-1 overflow-hidden overflow-x-scroll text-xs">
+          <div className="no-scrollbar flex flex-col justify-between gap-2 overflow-hidden overflow-x-scroll rounded-md bg-zinc-800 p-2 text-xs md:flex-row">
+            <div className="no-scrollbar flex gap-1 overflow-hidden overflow-x-scroll text-xs ">
               {combo.comboArray.map((trick, i) => (
                 <div
                   key={`${trick.name} ${i}`}
