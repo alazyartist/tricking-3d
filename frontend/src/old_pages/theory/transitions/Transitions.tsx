@@ -142,6 +142,7 @@ function Transitions() {
           {["All", "Singular", "Sequential", "Unified"].map((type) => {
             return (
               <button
+                key={type + "filter"}
                 className={`${typeFilter === type ? "text-indigo-500" : ""}`}
                 onClick={() => setTypeFilter(type)}
               >
