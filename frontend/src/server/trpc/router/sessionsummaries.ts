@@ -258,7 +258,9 @@ export const sessionsummariesRouter = router({
         // take: 5,
         orderBy: { updatedAt: "desc" },
         include: {
-          user: { select: { username: true, profilePic: true, uuid: true } },
+          user: {
+            select: { username: true, profilePic: true, uuid: true, id: true },
+          },
           SessionData: { include: { ClipLabel: true } },
           SessionSources: true,
         },

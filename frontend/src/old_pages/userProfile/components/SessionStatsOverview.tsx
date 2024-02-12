@@ -261,7 +261,13 @@ export const OverviewCard = ({
   );
 };
 
-export const YoutubeThumnail = ({ src }) => {
+export const YoutubeThumnail = ({
+  src,
+  priority,
+}: {
+  src: string;
+  priority?: boolean;
+}) => {
   const vidsrcRegex = new RegExp(
     /^(\w+)\:\/\/(\w+)\.be\/|(^(\w+).*\/shorts\/)|(^(\w+).*\.com\/watch\?v=)|(^(\w+.*)\/videos\/)|&t=\d*\w/g
   );
@@ -272,6 +278,7 @@ export const YoutubeThumnail = ({ src }) => {
         alt={"youtube thumnail preview"}
         width={480}
         height={360}
+        priority={priority}
         className="aspect-video h-full w-full rounded-md object-cover"
         src={`https://img.youtube.com/vi/${srcid}/hqdefault.jpg`}
       />

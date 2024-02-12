@@ -44,7 +44,6 @@ const SessionSummariesOverview = () => {
 export default SessionSummariesOverview;
 
 const SessionDisplay = ({ s }: { s: GetAllSessionSummaries[0] }) => {
-  const { data: u } = trpc.userDB.findByUUID.useQuery({ userid: s.user_id });
   const { data: users } = trpc.userDB.findAll.useQuery();
 
   const [caretOpen, setCaretOpen] = useState(false);
@@ -66,23 +65,27 @@ const SessionDisplay = ({ s }: { s: GetAllSessionSummaries[0] }) => {
             }
           /> */}
           <div
-            key={u?.uuid}
+            key={s.user?.uuid}
             className="flex flex-col place-items-center
             "
           >
             <div
               style={{
                 backgroundColor: d3.interpolateRainbow(
-                  (u?.id % 15) / users?.length
+                  (s.user?.id % 15) / users?.length
                 ),
               }}
               className={`relative h-5 w-5 rounded-full`}
             >
               <img
-                src={!u?.profilePic ? `/images/noimg.jpeg` : u?.profilePic}
+                src={
+                  !s.user?.profilePic
+                    ? `/images/noimg.jpeg`
+                    : s.user?.profilePic
+                }
                 alt={"profilePic"}
                 className={`h-5 w-5 rounded-full ${
-                  !u?.profilePic ? " mix-blend-multiply contrast-150" : ""
+                  !s.user?.profilePic ? " mix-blend-multiply contrast-150" : ""
                 }`}
               />
             </div>
@@ -90,7 +93,7 @@ const SessionDisplay = ({ s }: { s: GetAllSessionSummaries[0] }) => {
           <p>{s?.name}</p>
         </div>
         <div className="col-span-2">
-          <p className="text-[8px]">{u?.username.slice(0, 19)}</p>
+          <p className="text-[8px]">{s.user?.username.slice(0, 19)}</p>
           <p className="w-fit text-[8px] text-zinc-400">{s?.sessionDate}</p>
         </div>
         {/* <p className="w-fit">{s?.type}</p> */}

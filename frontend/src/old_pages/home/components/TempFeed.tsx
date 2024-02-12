@@ -1,5 +1,6 @@
 import PowerAverageComboLineChart from "@components/d3/PowerAverageComboLineChart";
 import { YoutubeThumnail } from "@old_pages/userProfile/components/SessionStatsOverview";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
 import { IoPlayCircle } from "react-icons/io5";
@@ -14,12 +15,11 @@ const TempFeed = () => {
       { limit: 3 },
       {
         getNextPageParam: (lastPage) => {
-          console.log(lastPage.cursor);
           return lastPage.cursor;
         },
       }
     );
-  console.log(data);
+  // console.log(data);
   const summaries = data?.pages?.flatMap((page) => page.sessionSummaries);
 
   const observer = useRef<IntersectionObserver>(null);
@@ -55,7 +55,7 @@ const TempFeed = () => {
       {summaries &&
         summaries
           //   ?.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1))
-          ?.map((summary) => {
+          ?.map((summary, i) => {
             const user = summary.user;
             // console.log(summary);
             return (
@@ -67,7 +67,10 @@ const TempFeed = () => {
                 <div className="flex place-content-center place-items-center justify-between  ">
                   <div className="font-medium ">{summary.name}</div>
                   <div className="flex place-content-center place-items-center gap-1">
-                    <img
+                    <Image
+                      width={20}
+                      height={20}
+                      alt={user?.username + " profile picture"}
                       className="h-5 w-5 rounded-full"
                       src={
                         user?.profilePic !== null
@@ -85,7 +88,10 @@ const TempFeed = () => {
                 </div>
                 <div className="relative h-full w-full">
                   <IoPlayCircle className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] fill-zinc-200 text-3xl" />
-                  <YoutubeThumnail src={summary.SessionSources?.[0]?.vidsrc} />
+                  <YoutubeThumnail
+                    priority={i < 1 ? true : false}
+                    src={summary.SessionSources?.[0]?.vidsrc}
+                  />
                   <div className="absolute bottom-0 h-16 w-full bg-opacity-90 bg-gradient-to-t from-zinc-900">
                     <div className="absolute bottom-0 h-8 w-full">
                       <PowerAverageComboLineChart data={summary.SessionData} />
@@ -99,6 +105,11 @@ const TempFeed = () => {
       {isFetchingNextPage && (
         <p className="w-full p-4 text-center text-xl text-zinc-300">
           loading...
+        </p>
+      )}
+      {data && !hasNextPage && (
+        <p className="w-full p-4 text-center text-xl text-zinc-300">
+          no more sessions
         </p>
       )}
     </div>
