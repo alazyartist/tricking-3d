@@ -27,7 +27,7 @@ const Bases = () => {
   const { base } = router.query;
   useEffect(() => {
     if (base) {
-      const baseToOpen = bases.find((b) => b.name === base);
+      const baseToOpen = bases?.find((b) => b.name === base);
       setActiveBase(baseToOpen);
     }
   }, [base]);

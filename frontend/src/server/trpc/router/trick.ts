@@ -153,7 +153,14 @@ export const tricksRouter = router({
       if (!input.base) return [];
 
       const tricks = await ctx.prisma.tricks.findMany({
-        where: { base_id: input.base },
+        where: {
+          AND: [
+            { base_id: input.base },
+            {
+              NOT: { trickType: "Setup" },
+            },
+          ],
+        },
         include: {
           variations: { include: { variation: true } },
         },
