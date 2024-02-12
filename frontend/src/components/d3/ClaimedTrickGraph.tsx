@@ -3,7 +3,8 @@ import { trpc } from "@utils/trpc";
 import * as d3 from "d3";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-const ClaimedTrickGraph = ({ claimedTricks }) => {
+import { MdClose } from "@data/icons/MdIcons";
+const ClaimedTrickGraph = ({ claimedTricks, close }) => {
   const { data: tricks } = trpc.trick.findAll.useQuery();
   const ref = useRef(null);
   const color = {
@@ -484,12 +485,19 @@ const ClaimedTrickGraph = ({ claimedTricks }) => {
 
   return (
     <div className="h-full w-full">
+      <button
+        onClick={() => close()}
+        className={"absolute left-2 top-4 text-xl"}
+        type="button"
+      >
+        <MdClose />
+      </button>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
           type="text"
           {...register("trick")}
           onChange={(e) => setFilter(e.target.value)}
-          className="absolute left-2 top-2 h-10 w-[222px] rounded-md bg-zinc-800 p-2 text-xl text-zinc-300"
+          className="absolute left-10 top-2 h-10 w-[222px] rounded-md bg-zinc-800 p-2 text-xl text-zinc-300"
           placeholder="Search for a trick"
         />
       </form>
