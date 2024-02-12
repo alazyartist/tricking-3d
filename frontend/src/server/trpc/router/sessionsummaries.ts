@@ -266,10 +266,16 @@ export const sessionsummariesRouter = router({
       return sessionSummaries;
     }),
   getFeedSummaries: publicProcedure
-    .input(z.object({}).optional())
-    .query(async ({ ctx }) => {
+    .input(
+      z.object({ limit: z.number().optional(), cursor: z.string().optional() })
+    )
+    .query(async ({ ctx, input }) => {
+      const limit = input.limit ?? 5; // default limit
+      const cursor = input.cursor;
       const sessionSummaries = await ctx.prisma.sessionsummaries.findMany({
-        // take: 5,
+        take: limit,
+        skip: cursor ? 1 : 0,
+        cursor: cursor ? { sessionid: cursor } : undefined,
         where: { status: "Reviewed" },
         orderBy: { updatedAt: "desc" },
         include: {
@@ -278,7 +284,10 @@ export const sessionsummariesRouter = router({
           SessionSources: true,
         },
       });
-      return sessionSummaries;
+      return {
+        sessionSummaries,
+        cursor: sessionSummaries[sessionSummaries.length - 1]?.sessionid,
+      };
     }),
   deleteSessionSummaryById: publicProcedure
     .input(z.object({ sessionid: z.string() }))

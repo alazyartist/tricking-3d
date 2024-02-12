@@ -1,15 +1,57 @@
 import PowerAverageComboLineChart from "@components/d3/PowerAverageComboLineChart";
 import { YoutubeThumnail } from "@old_pages/userProfile/components/SessionStatsOverview";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { IoPlayCircle } from "react-icons/io5";
 import { trpc } from "utils/trpc";
 
+const Watcher = React.forwardRef<HTMLDivElement, { props?: any }>(
+  (props, ref) => <div ref={ref} {...props} />
+);
 const TempFeed = () => {
-  const { data: summaries } = trpc.sessionsummaries.getFeedSummaries.useQuery();
+  const { data, fetchNextPage, isFetchingNextPage, hasNextPage } =
+    trpc.sessionsummaries.getFeedSummaries.useInfiniteQuery(
+      { limit: 3 },
+      {
+        getNextPageParam: (lastPage) => {
+          console.log(lastPage.cursor);
+          return lastPage.cursor;
+        },
+      }
+    );
+  console.log(data);
+  const summaries = data?.pages?.flatMap((page) => page.sessionSummaries);
+
+  const observer = useRef<IntersectionObserver>(null);
+  const watcherRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isFetchingNextPage) return;
+
+    if (observer.current) observer.current.disconnect();
+
+    observer.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && hasNextPage) {
+        fetchNextPage();
+      }
+    });
+
+    if (watcherRef.current) {
+      observer.current.observe(watcherRef.current);
+    }
+
+    return () => {
+      if (observer.current) observer.current.disconnect();
+    };
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
   return (
     <div id="temp-feed" className={`flex flex-col gap-1 p-2 font-inter`}>
-      <p className={"text-center  text-zinc-300"}>Recently Reviewed</p>
+      <p
+        onClick={() => fetchNextPage()}
+        className={"text-center  text-zinc-300"}
+      >
+        Recently Reviewed
+      </p>
       {summaries &&
         summaries
           //   ?.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1))
@@ -50,9 +92,15 @@ const TempFeed = () => {
                     </div>
                   </div>
                 </div>
+                <Watcher ref={watcherRef} />
               </Link>
             );
           })}
+      {isFetchingNextPage && (
+        <p className="w-full p-4 text-center text-xl text-zinc-300">
+          loading...
+        </p>
+      )}
     </div>
   );
 };

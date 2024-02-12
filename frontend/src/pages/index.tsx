@@ -13,7 +13,6 @@ const Index: NextPage<{ a: boolean }> = ({ a }) => {
 export default Index;
 
 export const getServerSideProps = async (props) => {
-  console.log(props);
   const auth = getAuth(props.req);
   const userId = auth?.userId;
 
@@ -22,6 +21,7 @@ export const getServerSideProps = async (props) => {
     return {
       redirect: {
         destination: "/home", // Redirect the user to the login page
+        ...buildClerkProps(props.req),
         permanent: false,
       },
     };
