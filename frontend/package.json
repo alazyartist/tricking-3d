@@ -50,6 +50,7 @@
     "react-qr-reader": "^3.0.0-beta-1",
     "react-qrcode-logo": "^2.9.0",
     "react-use-measure": "^2.1.1",
+    "sharp": "^0.33.2",
     "stripe": "^11.1.0",
     "superjson": "^1.13.3",
     "three": "^0.158.0",
