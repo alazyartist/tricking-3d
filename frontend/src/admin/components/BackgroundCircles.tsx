@@ -7,7 +7,7 @@ const BackgroundCircles = () => {
       alt="swirly background"
       width={1920}
       height={1080}
-      src={`/swirly.jpg`}
+      src={`https://trickedex.app/swirly.jpg`}
       className={
         "noTouch absolute z-[-1] h-screen w-screen touch-none mix-blend-multiply blur-md"
       }

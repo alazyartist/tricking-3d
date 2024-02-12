@@ -89,7 +89,7 @@ const TempFeed = () => {
                 <div className="relative h-full w-full">
                   <IoPlayCircle className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] fill-zinc-200 text-3xl" />
                   <YoutubeThumnail
-                    priority={i < 1 ? true : false}
+                    // priority={i < 1 ? true : false}
                     src={summary.SessionSources?.[0]?.vidsrc}
                   />
                   <div className="absolute bottom-0 h-16 w-full bg-opacity-90 bg-gradient-to-t from-zinc-900">
