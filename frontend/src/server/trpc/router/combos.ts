@@ -127,4 +127,49 @@ export const comboRouter = router({
     });
     return "Combos Synchronized";
   }),
+  fixCheatCombos: protectedProcedure.mutation(async ({ input, ctx }) => {
+    await ctx.prisma.$transaction(async (prisma) => {
+      const combos = await prisma.combos.findMany({
+        where: { name: { contains: "vanish>cheat>vanish" } },
+      });
+      console.log(combos);
+      for (let i = 0; i < combos.length; i++) {
+        const combo = combos[i];
+        const comboArray = combo.comboArray as unknown as any[];
+        const newComboArray = [];
+        for (let j = 0; j < comboArray.length; j++) {
+          if (
+            comboArray[j].type === "Trick" &&
+            comboArray[j].name.toLowerCase() === "cheat"
+          ) {
+            console.log(comboArray[j - 1], comboArray[j], comboArray[j + 1]);
+            //       const trick = comboArray[j];
+            //       const trickInfo = await prisma.tricks.findFirst({
+            //         where: { trick_id: trick.trick_id },
+          }
+        }
+      }
+      //       if (trickInfo) {
+      //         newComboArray.push(trickInfo);
+      //       }
+      //     }
+      //     if (comboArray[j].type === "Transition") {
+      //       const transition = comboArray[j];
+      //       const transitionInfo = await prisma.transitions.findFirst({
+      //         where: { id: transition.id },
+      //       });
+      //       if (transitionInfo) {
+      //         newComboArray.push(transitionInfo);
+      //       }
+      //     }
+      //   }
+
+      //   if (newComboArray.length !== comboArray.length) {
+      //     await prisma.combos.delete({
+      //       where: { combo_id: combo.combo_id },
+      //     });
+      //   }
+    });
+    return "Cheat Combos Detected";
+  }),
 });
