@@ -131,7 +131,7 @@ export const comboRouter = router({
   fixCheatCombos: protectedProcedure.mutation(async ({ input, ctx }) => {
     await ctx.prisma.$transaction(async (prisma) => {
       const combos = await prisma.combos.findMany({
-        where: { name: { contains: "vanish>cheat>vanish" } },
+        where: { name: { contains: "cheat>vanish" } },
       });
       // console.log(combos);
       const cheat = await prisma.transitions.findFirst({
@@ -143,12 +143,12 @@ export const comboRouter = router({
         const newComboArray = [];
         for (let j = 0; j < comboArray.length; j++) {
           if (
-            comboArray[j].type === "Trick" &&
-            comboArray[j].name.toLowerCase() === "cheat"
+            comboArray[j].name.toLowerCase() === "cheat" &&
+            comboArray[j + 1].name.toLowerCase() === "vanish"
           ) {
             // console.log(comboArray[j - 1], comboArray[j], comboArray[j + 1]);
             try {
-              comboArray.splice(j - 1, 3, cheat);
+              comboArray.splice(j, 2, cheat);
               const name = comboArray.map((c) => c.name).join(">");
               // console.log(comboArray, name);
 
