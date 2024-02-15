@@ -279,7 +279,10 @@ const TrickGraph = () => {
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "middle")
         .attr("dy", "0.35em")
-        .attr("fill", "#000000")
+        .attr(
+          "fill",
+          (d) => d3.color(d.data.color).brighter(4) as unknown as string
+        )
         .attr("font-size", "0.45em")
         .attr("font-family", "sans-serif")
         .attr("pointer-events", "none");

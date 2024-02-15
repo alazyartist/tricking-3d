@@ -90,7 +90,13 @@ const BIFOPieChart = ({ data }) => {
           //put legend in left top corner
           return `translate(${margin.left}px , ${5 + margin.top * (i + 1)}px)`;
         })
-        .style("fill", (d, i) => getStanceColor(tricksArray[d.index][0]))
+        .style(
+          "fill",
+          (d, i) =>
+            d3
+              .color(getStanceColor(tricksArray[d.index][0]))
+              .brighter(3) as unknown as string
+        )
         .style("font-size", 20);
 
       //draw line from text to arc center

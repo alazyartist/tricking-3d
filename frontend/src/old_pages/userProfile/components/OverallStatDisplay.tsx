@@ -109,7 +109,7 @@ const OverallStatDisplay = ({ profileInfo }) => {
       <div>Total Combos: {totalCombos}</div>
       <TrickPieChart data={totalTricksRaw} group_by={"base_id"} />
       <BIFOPieChart data={totalTricksRaw} />
-      <div className="no-scrollbar h-fit w-[90vw] overflow-x-scroll">
+      <div className="minimalistScroll h-fit w-full overflow-x-scroll">
         <div className="h-32 w-[150%] ">
           <TransitionsBarChart data={totalTransitionsRaw} />
         </div>
