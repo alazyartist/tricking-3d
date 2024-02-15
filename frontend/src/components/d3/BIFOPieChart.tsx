@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import useMeasure from "react-use-measure";
 import { tricks } from "@prisma/client";
+import { getStanceColor } from "@utils/styles";
 
 const BIFOPieChart = ({ data }) => {
   const svgRef = useRef(null!);
@@ -37,7 +38,12 @@ const BIFOPieChart = ({ data }) => {
         d3.group(data, (d: tricks) =>
           d?.stance_id?.replace(/Complete|Hyper|Mega|Semi/g, "")
         )
-      );
+      ).sort((a, b) => {
+        return (
+          ["B", "I", "F", "O"].indexOf(a[0][0]) -
+          ["B", "I", "F", "O"].indexOf(b[0][0])
+        );
+      });
       console.log(tricksArray);
       let trickPercent = tricksArray?.map((t, i) => t[1]?.length / data.length);
       const instructions = piGen(trickPercent);
@@ -54,7 +60,7 @@ const BIFOPieChart = ({ data }) => {
           console.log(e, d, tricksArray[d.index][0]);
         })
         .attr("stroke", "#18181b")
-        .style("fill", (d, i) => colors(i))
+        .style("fill", (d, i) => getStanceColor(tricksArray[d.index][0]))
         .style(
           "transform",
           `translate(${dimensions.width / 2}px , ${dimensions.height / 2}px)`
@@ -84,7 +90,7 @@ const BIFOPieChart = ({ data }) => {
           //put legend in left top corner
           return `translate(${margin.left}px , ${5 + margin.top * (i + 1)}px)`;
         })
-        .style("fill", (d, i) => colors(i))
+        .style("fill", (d, i) => getStanceColor(tricksArray[d.index][0]))
         .style("font-size", 20);
 
       //draw line from text to arc center
