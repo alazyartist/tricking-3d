@@ -12,8 +12,8 @@ const DataList = () => {
   const { data: tricks } = trpc.trick.findAllwithComboClips.useQuery();
   const { data: combos } = trpc.combos.getAll.useQuery();
   // const { data: trickPoints, refetch } = useGetTrickPoints();
-  const { mutate: sync } = trpc.combos.syncComboArray.useMutation();
-  const { mutate: fixCheat } = trpc.combos.fixCheatCombos.useMutation();
+  // const { mutate: sync } = trpc.combos.syncComboArray.useMutation();
+  // const { mutate: fixCheat } = trpc.combos.fixCheatCombos.useMutation();
   let trickMakerOpen = useSessionSummariesStore((s) => s.trickMakerOpen);
   const [animPopup, toggleAnimPopup] = useState(false);
   const [currentTrick, setCurrentTrick] = useState<combos | tricks>(null!);
@@ -60,9 +60,9 @@ const DataList = () => {
       <h1 className="sticky top-0 h-full w-full bg-zinc-800 p-2 text-center text-xl font-bold">
         Combos
       </h1>
-      <button type={"button"} onClick={() => fixCheat()}>
+      {/* <button type={"button"} onClick={() => fixCheat()}>
         Fix Cheats
-      </button>
+      </button> */}
       <div>
         {combos
           ?.sort((a, b) => {

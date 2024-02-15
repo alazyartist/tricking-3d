@@ -128,70 +128,70 @@ export const comboRouter = router({
     });
     return "Combos Synchronized";
   }),
-  fixCheatCombos: protectedProcedure.mutation(async ({ input, ctx }) => {
-    await ctx.prisma.$transaction(async (prisma) => {
-      const combos = await prisma.combos.findMany({
-        where: { name: { contains: "cheat>vanish" } },
-      });
-      // console.log(combos);
-      const cheat = await prisma.transitions.findFirst({
-        where: { name: "Cheat", fromLeg: "Left", toLeg: "Right" },
-      });
-      for (let i = 0; i < combos.length; i++) {
-        const combo = combos[i];
-        const comboArray = combo.comboArray as unknown as any[];
-        const newComboArray = [];
-        for (let j = 0; j < comboArray.length; j++) {
-          if (
-            comboArray[j].name.toLowerCase() === "cheat" &&
-            comboArray[j + 1].name.toLowerCase() === "vanish"
-          ) {
-            // console.log(comboArray[j - 1], comboArray[j], comboArray[j + 1]);
-            try {
-              comboArray.splice(j, 2, cheat);
-              const name = comboArray.map((c) => c.name).join(">");
-              // console.log(comboArray, name);
+  // fixCheatCombos: protectedProcedure.mutation(async ({ input, ctx }) => {
+  //   await ctx.prisma.$transaction(async (prisma) => {
+  //     const combos = await prisma.combos.findMany({
+  //       where: { name: { contains: "cheat>vanish" } },
+  //     });
+  //     // console.log(combos);
+  //     const cheat = await prisma.transitions.findFirst({
+  //       where: { name: "Cheat", fromLeg: "Left", toLeg: "Right" },
+  //     });
+  //     for (let i = 0; i < combos.length; i++) {
+  //       const combo = combos[i];
+  //       const comboArray = combo.comboArray as unknown as any[];
+  //       const newComboArray = [];
+  //       for (let j = 0; j < comboArray.length; j++) {
+  //         if (
+  //           comboArray[j].name.toLowerCase() === "cheat" &&
+  //           comboArray[j + 1].name.toLowerCase() === "vanish"
+  //         ) {
+  //           // console.log(comboArray[j - 1], comboArray[j], comboArray[j + 1]);
+  //           try {
+  //             comboArray.splice(j, 2, cheat);
+  //             const name = comboArray.map((c) => c.name).join(">");
+  //             // console.log(comboArray, name);
 
-              const updated = await prisma.combos.update({
-                where: { combo_id: combo.combo_id },
-                data: {
-                  name: name,
-                  comboArray: comboArray,
-                },
-              });
-            } catch (err) {
-              console.log(err);
-              throw new TRPCError({
-                code: "INTERNAL_SERVER_ERROR",
-                message: "Failed to update combo" + combo.name,
-              });
-            }
+  //             const updated = await prisma.combos.update({
+  //               where: { combo_id: combo.combo_id },
+  //               data: {
+  //                 name: name,
+  //                 comboArray: comboArray,
+  //               },
+  //             });
+  //           } catch (err) {
+  //             console.log(err);
+  //             throw new TRPCError({
+  //               code: "INTERNAL_SERVER_ERROR",
+  //               message: "Failed to update combo" + combo.name,
+  //             });
+  //           }
 
-            //       const trick = comboArray[j];
-          }
-        }
-      }
-      //       if (trickInfo) {
-      //         newComboArray.push(trickInfo);
-      //       }
-      //     }
-      //     if (comboArray[j].type === "Transition") {
-      //       const transition = comboArray[j];
-      //       const transitionInfo = await prisma.transitions.findFirst({
-      //         where: { id: transition.id },
-      //       });
-      //       if (transitionInfo) {
-      //         newComboArray.push(transitionInfo);
-      //       }
-      //     }
-      //   }
+  //           //       const trick = comboArray[j];
+  //         }
+  //       }
+  //     }
+  //       if (trickInfo) {
+  //         newComboArray.push(trickInfo);
+  //       }
+  //     }
+  //     if (comboArray[j].type === "Transition") {
+  //       const transition = comboArray[j];
+  //       const transitionInfo = await prisma.transitions.findFirst({
+  //         where: { id: transition.id },
+  //       });
+  //       if (transitionInfo) {
+  //         newComboArray.push(transitionInfo);
+  //       }
+  //     }
+  //   }
 
-      //   if (newComboArray.length !== comboArray.length) {
-      //     await prisma.combos.delete({
-      //       where: { combo_id: combo.combo_id },
-      //     });
-      //   }
-    });
-    return "Cheat Combos Detected";
-  }),
+  //   if (newComboArray.length !== comboArray.length) {
+  //     await prisma.combos.delete({
+  //       where: { combo_id: combo.combo_id },
+  //     });
+  //   }
+  //   });
+  //   return "Cheat Combos Detected";
+  // }),
 });
