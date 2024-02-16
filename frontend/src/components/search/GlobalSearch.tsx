@@ -56,7 +56,9 @@ const Autocomplete = (props: any) => {
   const panelRootRef = useRef(null);
   const rootRef = useRef(null);
   useEffect(() => {
-    document.addEventListener("keyup", (e) => handleSlash(e));
+    document.addEventListener("keyup", (e) => handleSlash(e), {
+      passive: true,
+    });
     return () => document.removeEventListener("keyup", (e) => handleSlash(e));
   }, []);
   useEffect(() => {
