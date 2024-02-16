@@ -80,7 +80,7 @@ const BIFOPieChart = ({ data }) => {
         .join("text")
         .text(function (d, i) {
           // console.log(d, i, tricksArray[i][0]);
-          if (d.data > dataThreshold) {
+          if ((d.data as number) > dataThreshold) {
             return tricksArray[i][0];
           }
         })
