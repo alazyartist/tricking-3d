@@ -4,9 +4,14 @@ import * as d3 from "d3";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { MdClose } from "@data/icons/MdIcons";
-const ClaimedTrickGraph = ({ claimedTricks, close }) => {
+const ClaimedTrickGraph = ({
+  claimedTricks: provenTricks,
+  close,
+  profileInfo,
+}) => {
   const { data: tricks } = trpc.trick.findAll.useQuery();
   const ref = useRef(null);
+  const [seeClaimedTricksOnly, setSeeClaimedTricksOnly] = useState(false);
   const color = {
     Backside: `#07b9e9`,
     Backflip: `#07b9e9`,
@@ -64,11 +69,7 @@ const ClaimedTrickGraph = ({ claimedTricks, close }) => {
       }
       baseIdToTricks[trick.base_id].push(trick);
     });
-    const darken = (c) => {
-      const color = d3.color(c);
-      color.brighter(0.5);
-      return color;
-    };
+
     Object.keys(baseIdToTricks).forEach((base_id) => {
       const baseNode = {
         id: base_id,
@@ -99,6 +100,20 @@ const ClaimedTrickGraph = ({ claimedTricks, close }) => {
         });
       });
     });
+    function getTrickNodeColor(trick, color) {
+      if (provenTricks?.some((t) => t === trick.name)) {
+        return color;
+      }
+      if (
+        profileInfo?.TricksClaimed?.some(
+          (combo) => combo.trick_id === trick?.trick_id
+        )
+      ) {
+        return d3.color(color).darker(1);
+      }
+      return d3.color(color).darker(4);
+    }
+
     const createPackLayout = (_data) => {
       const groupedByBaseId = _data.reduce((acc, trick) => {
         if (!acc[trick.base_id]) {
@@ -106,9 +121,7 @@ const ClaimedTrickGraph = ({ claimedTricks, close }) => {
         }
         acc[trick.base_id].push({
           ...trick,
-          color: claimedTricks?.some((t) => t === trick.name)
-            ? "#ff227b"
-            : color[trick.takeoffStance],
+          color: getTrickNodeColor(trick, color[trick.takeoffStance]),
           // children: trick.variations.map((variation) => ({
           //   ...variation.variation,
           //   color: "#FC8F82",
@@ -178,11 +191,18 @@ const ClaimedTrickGraph = ({ claimedTricks, close }) => {
   };
   const [filter, setFilter] = useState("");
   const filterTricks = (tricks, filter) => {
-    if (filter === "") return tricks;
-    return tricks.filter((trick) => {
+    let _filteredTricks = tricks;
+    if (seeClaimedTricksOnly) {
+      _filteredTricks = tricks.filter((trick) => {
+        return provenTricks.some((provenTrick) => provenTrick === trick.name);
+      });
+    }
+    if (filter === "") return _filteredTricks;
+    _filteredTricks = _filteredTricks.filter((trick) => {
       const regex = new RegExp(filter, "gi");
       return trick.name.toLowerCase().match(regex);
     });
+    return _filteredTricks;
   };
 
   useEffect(() => {
@@ -288,7 +308,7 @@ const ClaimedTrickGraph = ({ claimedTricks, close }) => {
         .attr("alignment-baseline", "middle")
         .attr("dy", "0.35em")
         .attr("fill", "#000000")
-        .attr("font-size", "0.45em")
+        .attr("font-size", (d) => (d.r > 100 ? "2.95em" : "0.45em"))
         .attr("font-family", "sans-serif")
         .attr("pointer-events", "none");
 
@@ -481,7 +501,7 @@ const ClaimedTrickGraph = ({ claimedTricks, close }) => {
       // cleanup
       d3.select(ref.current).selectAll("*").remove();
     };
-  }, [tricks, filter, expandedNodes]);
+  }, [tricks, filter, expandedNodes, seeClaimedTricksOnly]);
 
   return (
     <div className="h-full w-full">
@@ -501,6 +521,13 @@ const ClaimedTrickGraph = ({ claimedTricks, close }) => {
           placeholder="Search for a trick"
         />
       </form>
+      <button
+        className="absolute left-2 top-16 rounded-md bg-zinc-800 p-2"
+        type="button"
+        onClick={() => setSeeClaimedTricksOnly(!seeClaimedTricksOnly)}
+      >
+        See {seeClaimedTricksOnly ? "All" : "Claimed"} Tricks
+      </button>
       <svg className="h-full w-full " ref={ref} id={"trick-graph"} />
     </div>
   );

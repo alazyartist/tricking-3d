@@ -176,7 +176,11 @@ const ClaimTricks = ({ user_id }) => {
           ref={graphRef}
           className="absolute left-[5vw] top-[5vh] z-[1000] h-[90vh] w-[90vw] bg-zinc-900"
         >
-          <ClaimedTrickGraph close={()=>setSeeGraph(false)} claimedTricks={uniqueTricks} />
+          <ClaimedTrickGraph
+            close={() => setSeeGraph(false)}
+            profileInfo={profileInfo}
+            claimedTricks={uniqueTricks}
+          />
         </div>
       )}
     </>
