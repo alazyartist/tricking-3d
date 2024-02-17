@@ -60,7 +60,8 @@ const AddSessionPage = () => {
   }, [response]);
   const [count, setCount] = useState(1);
   let isEnabled =
-    (SessionReviewCredits > 0 &&
+    (typeof SessionReviewCredits === "number" &&
+      SessionReviewCredits > 0 &&
       formData.type &&
       formData.sessionDate &&
       formData.sessionid &&
@@ -96,8 +97,14 @@ const AddSessionPage = () => {
             }}
             className="absolute left-4 top-4 rounded-md bg-gradient-to-b from-teal-400 to-emerald-500 p-2 font-bold text-zinc-900 drop-shadow-md"
           >
-            Credit{`${SessionReviewCredits > 1 ? "s" : ""}`}:{" "}
-            {SessionReviewCredits}
+            Credit
+            {`${
+              typeof SessionReviewCredits === "number" &&
+              SessionReviewCredits > 1
+                ? "s"
+                : ""
+            }`}
+            : {SessionReviewCredits}
           </button>
           <form
             onSubmit={onSubmit}

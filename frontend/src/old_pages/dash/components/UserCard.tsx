@@ -58,7 +58,9 @@ const UserCard: React.FC<Props> = (props) => {
         </div>
       </Link>
       <div className="flex w-full flex-col place-items-center gap-2">
-        {SessionReviewCredits < 1 || showCreditPacks ? (
+        {(typeof SessionReviewCredits === "number" &&
+          SessionReviewCredits < 1) ||
+        showCreditPacks ? (
           <OutOfCredits
             setShowCreditPacks={setShowCreditPacks}
             closePopover={() => setShowCreditPacks(false)}

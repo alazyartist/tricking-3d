@@ -96,15 +96,12 @@ const calculateTrickTotals = async (tricks, curData, ctx) => {
         switch (t.transitionType) {
           case "Singular": {
             return 1;
-            break;
           }
           case "Sequential": {
             return 0.5;
-            break;
           }
           case "Unified": {
             return 0.25;
-            break;
           }
         }
       }
