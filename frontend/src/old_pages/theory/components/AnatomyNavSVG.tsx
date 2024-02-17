@@ -54,7 +54,7 @@ const AnatomyNav = (props) => {
         <KicksSVG onClick={() => handleNav("kicks")} />
         <GrabsSVG onClick={() => handleNav("grabs")} />
         <ShapesSVG onClick={() => handleNav("shapes")} />
-        <VariationsLinesSVG />
+        <VariationsLinesSVG onClick={() => handleNav("variations")} />
       </svg>
     </>
   );
