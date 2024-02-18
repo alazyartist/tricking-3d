@@ -64,6 +64,15 @@ const MyApp: AppType<{ Session: null }> = ({
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta property="og:title" content="Trickedex" />
+        <meta
+          property="og:image"
+          content="https://trickedex.app/Trickedex_og.jpg"
+        />
+        <meta
+          property="og:description"
+          content="Tricking Information at your fingertips"
+        />
       </Head>
       <ClerkProvider appearance={{ baseTheme: dark }} {...pageProps}>
         <QueryClientProvider client={queryClient}>
