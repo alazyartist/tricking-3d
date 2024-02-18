@@ -65,6 +65,13 @@ const MyApp: AppType<{ Session: null }> = ({
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:title" content="Trickedex" />
+        <meta property="og:url" content="https://trickedex.app/" />
+        <meta property="og:type" content="website" />
+        <meta property="fb:app_id" content={`508164441188790`} />
+        <meta
+          property="og:image"
+          content="https://trickedex.app/Trickedex_og_wide.jpg"
+        />
         <meta
           property="og:image"
           content="https://trickedex.app/Trickedex_og.jpg"
