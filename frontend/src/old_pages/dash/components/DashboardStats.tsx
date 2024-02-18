@@ -6,14 +6,15 @@ import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import useClickOutside from "@hooks/useClickOutside";
 import { IoMdDownload } from "react-icons/io";
-import { devNull } from "os";
+import Link from "next/link";
+import { TrickedexLogo } from "@data/icons/TrickedexLogo";
 
 const DashboardStats = ({ uuid }) => {
   const { data: sessions, isLoading } =
     trpc.sessionsummaries.getSessionsById.useQuery({
       uuid: uuid,
     });
-  console.log(sessions);
+  // console.log(sessions);
   const [seeDownloadStats, setSeeDownloadStats] = useState(false);
   const [showUniqueTricks, setShowUniqueTricks] = useState(false);
   if (isLoading) return <div>Gathering Your Stats, just a sec...</div>;
@@ -42,48 +43,80 @@ const DashboardStats = ({ uuid }) => {
   const uniqueTricksGroup = Array.from(d3.group(tricks, (d) => d?.name))
     .map(([key, value]) => ({ name: key, count: value.length }))
     .sort((a, b) => b.count - a.count);
-  console.log(tricks.length, uniqueTricks.length, uniqueTricksGroup);
+  // console.log(tricks.length, uniqueTricks.length, uniqueTricksGroup);
+
+  const infoNotAvailbale =
+    !isLoading &&
+    (tricks?.length < 1 || transitions?.length < 1 || uniqueTricks?.length < 1);
   return (
     <div className="minimalistScroll lg:no-scrollbar h-full max-h-[60vh] w-full overflow-y-scroll rounded-md bg-zinc-900 bg-opacity-70 lg:h-[60vh] lg:max-h-[65vh]">
-      <h1 className="p-2 text-zinc-200">DashboardStats</h1>
-      <button
-        type="button"
-        onClick={() => {
-          setSeeDownloadStats(true);
-        }}
-      >
-        Download Stat Breakdown
-      </button>
+      {sessions && sessions.length > 0 && (
+        <h1 className="w-full p-2 text-center text-zinc-200">
+          Showing Stats from {sessions.length} sessions
+        </h1>
+      )}
+      {!infoNotAvailbale && (
+        <button
+          type="button"
+          onClick={() => {
+            setSeeDownloadStats(true);
+          }}
+        >
+          Download Stat Breakdown
+        </button>
+      )}
       {seeDownloadStats && (
         <DownloadStatsView
           close={() => setSeeDownloadStats(false)}
           data={sessions}
         />
       )}
-      <div className="flex w-full flex-col place-items-center gap-2 p-2">
-        <StatCard title={"Tricks"} data={tricks && tricks.length} />
-        <StatCard
-          title={"Transitions"}
-          data={transitions && transitions.length}
-        />
-        <div
-          className="w-full"
-          onClick={() => setShowUniqueTricks(!showUniqueTricks)}
-        >
-          <StatCard title={"Unique Tricks"} data={uniqueTricks.length} />
+      {infoNotAvailbale && (
+        <div className="flex flex-col place-items-center gap-2 p-4 text-center text-xl">
+          <p>
+            <span className="text-2xl font-bold tracking-wide">
+              Welcome to the
+            </span>
+            <TrickedexLogo className="fill-zinc-100" /> it looks like you dont
+            have any sessions yet.
+          </p>
+          <div className="flex items-center gap-2">
+            <Link
+              href={"/addSession"}
+              className="rounded-md bg-zinc-700/70 px-2 py-1 text-zinc-300"
+            >
+              Add A Session
+            </Link>
+            <p> to get you stats!</p>
+          </div>
         </div>
-        <TrickPieChart data={tricks} group_by={"base_id"} />
-        <div className="flex h-32 w-full place-content-center p-2">
-          <TransitionsBarChart data={transitions} />
-        </div>
-        {showUniqueTricks && (
-          <ListDisplay
-            close={() => setShowUniqueTricks(false)}
-            data={uniqueTricksGroup}
+      )}
+      {!infoNotAvailbale && (
+        <div className="flex w-full flex-col place-items-center gap-2 p-2">
+          <StatCard title={"Tricks"} data={tricks && tricks.length} />
+          <StatCard
+            title={"Transitions"}
+            data={transitions && transitions.length}
           />
-        )}
-        {/* <TrickPieChart data={transitions} group_by={"name"} /> */}
-      </div>
+          <div
+            className="w-full"
+            onClick={() => setShowUniqueTricks(!showUniqueTricks)}
+          >
+            <StatCard title={"Unique Tricks"} data={uniqueTricks.length} />
+          </div>
+          <TrickPieChart data={tricks} group_by={"base_id"} />
+          <div className="flex h-32 w-full place-content-center p-2">
+            <TransitionsBarChart data={transitions} />
+          </div>
+          {showUniqueTricks && (
+            <ListDisplay
+              close={() => setShowUniqueTricks(false)}
+              data={uniqueTricksGroup}
+            />
+          )}
+          {/* <TrickPieChart data={transitions} group_by={"name"} /> */}
+        </div>
+      )}
     </div>
   );
 };
