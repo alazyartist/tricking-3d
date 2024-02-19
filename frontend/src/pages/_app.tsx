@@ -72,10 +72,10 @@ const MyApp: AppType<{ Session: null }> = ({
           property="og:image"
           content="https://trickedex.app/Trickedex_og_wide.jpg"
         />
-        <meta
+        {/* <meta
           property="og:image"
           content="https://trickedex.app/Trickedex_og.jpg"
-        />
+        /> */}
         <meta
           property="og:description"
           content="Tricking Information at your fingertips"
