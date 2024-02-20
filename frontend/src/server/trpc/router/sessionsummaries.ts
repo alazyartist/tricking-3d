@@ -379,6 +379,14 @@ export const sessionsummariesRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       try {
+        const session = await ctx.prisma.sessionsummaries.findUnique({
+          where: { sessionid: input.sessionid },
+        });
+        if (!session)
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "Session not found",
+          });
         await ctx.prisma.$transaction(async (prisma) => {
           //Step 1: Delete all session data for this session
           await prisma.sessiondata.deleteMany({
@@ -426,8 +434,9 @@ export const sessionsummariesRouter = router({
                   clipStart: curData.startTime,
                   clipEnd: curData.endTime,
                   bail: curData.bail,
+                  tricker_id: session?.user_id,
                   admin:
-                    curData.admin || "admin696-8c94-4ca7-b163-9alazyartist",
+                    curData?.admin ?? "admin696-8c94-4ca7-b163-9alazyartist",
                   ...totals,
                 },
                 create: {
@@ -438,8 +447,9 @@ export const sessionsummariesRouter = router({
                   clipStart: curData.startTime,
                   clipEnd: curData.endTime,
                   bail: curData.bail,
+                  tricker_id: session?.user_id,
                   admin:
-                    curData.admin || "admin696-8c94-4ca7-b163-9alazyartist",
+                    curData?.admin ?? "admin696-8c94-4ca7-b163-9alazyartist",
                   ...totals,
                 },
               });

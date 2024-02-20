@@ -112,7 +112,7 @@ const calculateTrickTotals = async (tricks, curData, ctx) => {
     //CHAIN CALCULATIONS VVVV
     tricks.forEach((obj, i) => {
       if (chainBreakers.includes(obj.name)) {
-        console.log("brokeChain");
+        // console.log("brokeChain");
         return chainNum++;
       }
       if (obj.type === "Trick") return;
