@@ -91,7 +91,7 @@ const UserList = () => {
           Oldest
         </p>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="minimalistScroll flex max-h-[80vh] flex-col gap-2 overflow-y-scroll">
         {users &&
           users.map((user, i) => (
             <LeaderboardCard
@@ -101,6 +101,17 @@ const UserList = () => {
             />
           ))}
         <Watcher ref={watcherRef} />
+        {isFetchingNextPage && (
+          <p className="w-full p-4 text-center text-xl text-zinc-300">
+            loading...
+          </p>
+        )}
+        {data && !hasNextPage && (
+          <p className="w-full p-4 text-center text-xl text-zinc-300">
+            no more users
+          </p>
+        )}
+        <div className="h-2 w-full" />
       </div>
     </div>
   );

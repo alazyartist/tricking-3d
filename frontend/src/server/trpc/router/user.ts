@@ -55,6 +55,7 @@ export const userRouter = router({
           TotalPoints: true,
           createdAt: true,
         },
+        orderBy: { Clips: { _count: "desc" } },
       });
       return { users, cursor: users[users.length - 1].uuid };
     }),
