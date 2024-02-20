@@ -1,4 +1,5 @@
 import PowerAverageComboLineChart from "@components/d3/PowerAverageComboLineChart";
+import { Watcher, usePagination } from "@hooks/usePagination";
 import { YoutubeThumnail } from "@old_pages/userProfile/components/SessionStatsOverview";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,9 +7,6 @@ import React, { useEffect, useRef } from "react";
 import { IoPlayCircle } from "react-icons/io5";
 import { trpc } from "utils/trpc";
 
-const Watcher = React.forwardRef<HTMLDivElement, { props?: any }>(
-  (props, ref) => <div ref={ref} {...props} />
-);
 const TempFeed = () => {
   const { data, fetchNextPage, isFetchingNextPage, hasNextPage } =
     trpc.sessionsummaries.getFeedSummaries.useInfiniteQuery(
@@ -22,28 +20,11 @@ const TempFeed = () => {
   // console.log(data);
   const summaries = data?.pages?.flatMap((page) => page.sessionSummaries);
 
-  const observer = useRef<IntersectionObserver>(null);
-  const watcherRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (isFetchingNextPage) return;
-
-    if (observer.current) observer.current.disconnect();
-
-    observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && hasNextPage) {
-        fetchNextPage();
-      }
-    });
-
-    if (watcherRef.current) {
-      observer.current.observe(watcherRef.current);
-    }
-
-    return () => {
-      if (observer.current) observer.current.disconnect();
-    };
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+  const { watcherRef } = usePagination(
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage
+  );
   return (
     <div id="temp-feed" className={`flex flex-col gap-1 p-2 font-inter`}>
       <p

@@ -26,6 +26,38 @@ export const userRouter = router({
     });
     return users;
   }),
+  findAllPaginated: publicProcedure
+    .input(
+      z.object({ limit: z.number().optional(), cursor: z.string().optional() })
+    )
+    .query(async ({ input, ctx }) => {
+      const limit = input.limit ?? 15; // default limit
+      const cursor = input.cursor;
+      const users = await ctx.prisma.users.findMany({
+        take: limit,
+        skip: cursor ? 1 : 0,
+        cursor: cursor ? { uuid: cursor } : undefined,
+        select: {
+          id: true,
+          clerk_id: true,
+          isAdmin: true,
+          profilePic: true,
+          uuid: true,
+          username: true,
+          first_name: true,
+          last_name: true,
+          email: true,
+          captures: true,
+          captured_me: true,
+          SessionSummaries: true,
+          sessionSummaries: true,
+          Clips: true,
+          TotalPoints: true,
+          createdAt: true,
+        },
+      });
+      return { users, cursor: users[users.length - 1].uuid };
+    }),
   findByUUID: publicProcedure
     .input(z.object({ userid: z.string() }))
     .query(async ({ ctx, input }) => {

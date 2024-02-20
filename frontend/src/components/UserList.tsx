@@ -1,11 +1,22 @@
-import useGetAllUsers from "api/useGetAllUsers";
 import Link from "next/link";
 import React, { useState } from "react";
 import { trpc } from "utils/trpc";
 import * as d3 from "d3";
+import { Watcher, usePagination } from "@hooks/usePagination";
+
 const UserList = () => {
-  // const { data: users } = useGetAllUsers();
-  const { data: users } = trpc.userDB.findAll.useQuery();
+  const { data, fetchNextPage, isFetchingNextPage, hasNextPage } =
+    trpc.userDB.findAllPaginated.useInfiniteQuery(
+      {
+        limit: 15,
+      },
+      {
+        getNextPageParam: (lastPage) => {
+          return lastPage.cursor;
+        },
+      }
+    );
+  const users = data?.pages?.flatMap((page) => page.users);
   const [currentFilter, setCurrentFilter] = useState("Points");
   const getFilter = (filter) => {
     switch (filter) {
@@ -45,8 +56,14 @@ const UserList = () => {
   };
   getFilter(currentFilter);
 
+  const { watcherRef } = usePagination(
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage
+  );
+
   return (
-    <div className="flex w-full flex-col gap-2 p-2 text-zinc-300">
+    <div className="flex w-full flex-col gap-2 place-self-center p-2 text-zinc-300 md:w-[60vw]">
       <div className="p-1 ">Users by {currentFilter}</div>
       <div className="flex justify-around gap-2">
         <p
@@ -77,46 +94,51 @@ const UserList = () => {
       <div className="flex flex-col gap-2">
         {users &&
           users.map((user, i) => (
-            <Link
-              key={user.uuid}
-              href={`/userProfile/${user.uuid}`}
-              className="flex justify-between rounded-md bg-zinc-900 p-1 text-zinc-300"
-            >
-              <div
-                style={{
-                  backgroundColor: d3.interpolateRainbow(
-                    user.id / users.length
-                  ),
-                }}
-                className={`relative h-6 w-6 rounded-full`}
-              >
-                <img
-                  src={
-                    !user.profilePic
-                      ? `/images/noimg.jpeg`
-                      : `/images/${user.uuid}/${user.profilePic}`
-                  }
-                  alt={"profilePic"}
-                  className={`h-6 w-6 rounded-full ${
-                    !user.profilePic ? " mix-blend-multiply contrast-150" : ""
-                  }`}
-                />
-                {/* <div
-                    style={{
-                      backgroundColor: d3.interpolateRainbow(i / users.length),
-                    }}
-                    className={`absolute top-0 h-full w-full rounded-full bg-blend-multiply`}
-                  /> */}
-              </div>
-              <div className="rounded-md  p-1">{user.username}</div>
-              <div className="rounded-md  p-1">
-                {getInfo(currentFilter, user)}
-              </div>
-            </Link>
+            <LeaderboardCard
+              user={user}
+              currentFilter={currentFilter}
+              getInfo={getInfo}
+            />
           ))}
+        <Watcher ref={watcherRef} />
       </div>
     </div>
   );
 };
 
 export default UserList;
+
+const LeaderboardCard = ({ user, currentFilter, getInfo }) => {
+  return (
+    <Link className="" href={`/userProfile/${user.uuid}`}>
+      <div
+        className="flex justify-between rounded-md bg-zinc-900 p-1 text-zinc-300"
+        key={user.uuid}
+      >
+        <div
+          style={{
+            backgroundColor: d3.interpolateRainbow(user.id / 100),
+          }}
+          className={`relative h-12 w-12 rounded-full`}
+        >
+          <img
+            src={!user.profilePic ? `/images/noimg.jpeg` : user.profilePic}
+            alt={"profilePic"}
+            className={`h-12 w-12 rounded-full ${
+              !user.profilePic ? " mix-blend-multiply contrast-150" : ""
+            }`}
+          />
+          {/* <div
+              style={{
+                backgroundColor: d3.interpolateRainbow(i / users.length),
+              }}
+              className={`absolute top-0 h-full w-full rounded-full bg-blend-multiply`}
+            /> */}
+        </div>
+
+        <div className="rounded-md  p-1">{user.username}</div>
+        <div className="rounded-md  p-1">{getInfo(currentFilter, user)}</div>
+      </div>
+    </Link>
+  );
+};
